@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Header, ResolverAddressComponent } from './components';
-import { Container } from 'react-bootstrap';
+import { Header, ResolverAddressComponent, DomainStateComponent } from './components';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -8,7 +8,12 @@ class App extends Component {
       <React.Fragment>
         <Header />
         <Container>
-          <ResolverAddressComponent />
+          <Row>
+            <Col><DomainStateComponent /></Col>
+          </Row>
+          <Row>
+            <Col><ResolverAddressComponent /></Col>
+          </Row>
         </Container>
       </React.Fragment>
     );
