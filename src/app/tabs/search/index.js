@@ -12,13 +12,11 @@ class Search extends Component {
   render () {
     const { search } = this.props;
     return (
-      <div>
-        <Container>
-          <Row>
-            <Col><DomainStateContainer domain={search.domain} /></Col>
-          </Row>
-        </Container>
-      </div>
+      <Container>
+        <Row>
+          <Col><DomainStateContainer domain={search.domain} /></Col>
+        </Row>
+      </Container>
     );
   }
 }

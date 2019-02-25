@@ -9,6 +9,7 @@ const Header = () => (
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/search">Search</Nav.Link>
+        <Nav.Link href="/admin">Admin</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Navbar>

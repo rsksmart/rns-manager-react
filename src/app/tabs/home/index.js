@@ -32,26 +32,24 @@ const external = (
 class Home extends Component {
   render () {
     return(
-      <div>
-        <Container>
-          <Row>
-            <Col><SearchDomainContainer /></Col>
-          </Row>
-          <Row>
-            <Col>
-              <h1>get your domain,<br />forget your address</h1>
-            </Col>
-            <Col>
-              img
-            </Col>
-          </Row>
-          <Row>
-            <Col>{admin}</Col>
-            <Col><ResolveAddressContainer /></Col>
-            <Col>{external}</Col>
-          </Row>
-        </Container>
-      </div>
+      <Container>
+        <Row>
+          <Col><SearchDomainContainer /></Col>
+        </Row>
+        <Row>
+          <Col>
+            <h1>get your domain,<br />forget your address</h1>
+          </Col>
+          <Col>
+            img
+          </Col>
+        </Row>
+        <Row>
+          <Col>{admin}</Col>
+          <Col><ResolveAddressContainer /></Col>
+          <Col>{external}</Col>
+        </Row>
+      </Container>
     );
   }
 }
