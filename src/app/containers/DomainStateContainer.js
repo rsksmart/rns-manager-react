@@ -4,12 +4,16 @@ import { getAuctionState } from '../operations';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 const mapStateToProps = state => ({
-  auctionState: state.auctionState,
-  auctionStateLoading: state.auctionStateLoading
+  auctionState: state.rns.auctionState,
+  auctionStateLoading: state.rns.auctionStateLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  onGetState: (domain) => dispatch(getAuctionState(domain))
 });
 
 const DomainStateContainer = ({
-  dispatch,
+  onGetState,
   auctionState,
   auctionStateLoading
 }) => {
@@ -18,7 +22,7 @@ const DomainStateContainer = ({
   return (
     <Form onSubmit={e => {
       e.preventDefault();
-      dispatch(getAuctionState(input.value));
+      onGetState(input.value);
     }}>
       <InputGroup className="mb-3">
         <FormControl
@@ -36,4 +40,7 @@ const DomainStateContainer = ({
   );
 }
 
-export default connect(mapStateToProps)(DomainStateContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DomainStateContainer);

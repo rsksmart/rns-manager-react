@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
-import { Header, ResolverAddressComponent, DomainStateComponent } from './components';
-import { Container, Row, Col } from 'react-bootstrap';
+import { ConnectedRouter } from 'connected-react-router'
+import routes from './routes';
 
 class App extends Component {
   render() {
+    const { history } = this.props;
     return (
-      <React.Fragment>
-        <Header />
-        <Container>
-          <Row>
-            <Col><DomainStateComponent /></Col>
-          </Row>
-          <Row>
-            <Col><ResolverAddressComponent /></Col>
-          </Row>
-        </Container>
-      </React.Fragment>
+      <ConnectedRouter history={history}>
+        {routes}
+      </ConnectedRouter>
     );
   }
 }

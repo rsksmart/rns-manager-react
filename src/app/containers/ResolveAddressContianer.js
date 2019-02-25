@@ -4,12 +4,16 @@ import { resolveAddress } from '../operations';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 const mapStateToProps = state => ({
-  address: state.address,
-  resolveAddressLoading: state.resolveAddressLoading
+  address: state.rns.address,
+  resolveAddressLoading: state.rns.resolveAddressLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  onResolve: (domain) => dispatch(resolveAddress(domain))
 });
 
 const ResolveAddressContainer = ({
-  dispatch,
+  onResolve,
   address,
   resolveAddressLoading
 }) => {
@@ -18,7 +22,7 @@ const ResolveAddressContainer = ({
   return (
     <Form onSubmit={e => {
       e.preventDefault();
-      dispatch(resolveAddress(input.value));
+      onResolve(input.value);
     }}>
       <InputGroup>
         <FormControl ref={node => (input = node)} />
@@ -31,4 +35,7 @@ const ResolveAddressContainer = ({
   );
 }
 
-export default connect(mapStateToProps)(ResolveAddressContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ResolveAddressContainer);

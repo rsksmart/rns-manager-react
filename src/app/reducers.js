@@ -1,6 +1,8 @@
 import {
   REQUEST_RESOLVE_ADDRESS, RECEIVE_RESOLVE_ADDRESS,
   REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE } from './types';
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 const initialState = {
   address: '',
@@ -9,7 +11,7 @@ const initialState = {
   auctionStateLoading: false
 };
 
-const rootReducer = (state = initialState, action) => {
+const rnsReducer = (state = initialState, action) => {
   switch(action.type) {
     case REQUEST_RESOLVE_ADDRESS: {
       return {
@@ -42,5 +44,10 @@ const rootReducer = (state = initialState, action) => {
     default: return state;
   }
 };
+
+const rootReducer = (history) => combineReducers({
+  rns: rnsReducer,
+  router: connectRouter(history)
+});
 
 export default rootReducer;
