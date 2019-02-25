@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { SearchDomainComponent } from './components';
-import {  ResolveAddressContainer } from './containers';
+import { SearchDomainContainer, ResolveAddressContainer } from './containers';
 import { Container, Row, Col } from 'react-bootstrap';
 
 class Home extends Component {
@@ -9,7 +8,7 @@ class Home extends Component {
       <div>
         <Container>
           <Row>
-            <Col><SearchDomainComponent /></Col>
+            <Col><SearchDomainContainer /></Col>
           </Row>
           <Row>
             <Col><ResolveAddressContainer /></Col>
