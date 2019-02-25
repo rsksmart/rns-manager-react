@@ -4,8 +4,8 @@ import { resolveAddress } from '../operations';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 const mapStateToProps = state => ({
-  address: state.rns.address,
-  resolveAddressLoading: state.rns.resolveAddressLoading
+  address: state.home.address,
+  resolveAddressLoading: state.home.resolveAddressLoading
 });
 
 const mapDispatchToProps = dispatch => ({

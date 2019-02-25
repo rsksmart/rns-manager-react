@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { Header } from './components';
 
-import { HomeTab } from './tabs';
+import { HomeTab, SearchTab } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>
 
@@ -11,6 +11,7 @@ const routes = (
     <Header />
     <Switch>
       <Route exact path="/" component={HomeTab} />
+      <Route path="/search" component={SearchTab} />
       <Route component={NoMatch} />
     </Switch>
   </div>

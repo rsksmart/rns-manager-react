@@ -1,2 +1,2 @@
-export { default as ResolverAddressComponent } from './ResolverAddressComponent';
-export { default as DomainStateComponent } from './DomainStateComponent';
+export { default as ResolveAddressComponent } from './ResolveAddressComponent';
+export { default as SearchDomainComponent } from './SearchDomainComponent';
