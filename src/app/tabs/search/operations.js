@@ -33,23 +33,11 @@ export const getAuctionState = domain => dispatch => {
     registrar.state(hash, (error, result) => {
       if(error) reject(error);
 
-      let state = parseState(result);
+      let state = result.toNumber();
 
       dispatch(receiveDomainState(state));
 
       resolve(state);
     });
   });
-}
-
-function parseState (state) {
-  let stateNumber = state.toNumber();
-
-  switch(stateNumber) {
-    case 0: return 'Open';
-    case 1: return 'Auction';
-    case 2: return 'Owned';
-    case 4: return 'Reveal';
-    default: return 'Invalid';
-  }
 }

@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, Button, FormControl } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+function getDisplayState (domain, auctionStateLoading, state) {
+  if (!domain) return 'Search for a domain.';
+  if (auctionStateLoading) return 'Loading...';
+
+  switch(state) {
+    case 0: return <p>Open.<br /><Link to="/register">Register the domain</Link></p>
+    case 1: return <p>Auction.<br /><Link to="/register">Bid in the domain auction</Link></p>
+    case 2: return <p>Owned.<br /><Link to="/register">Admin the domain</Link></p>
+    case 4: return <p>Reveal.<br /><Link to="/register">Reveal your bid</Link></p>
+    default: return null
+  }
+}
 
 class DomainStateComponent extends Component {
   componentDidMount() {
@@ -9,6 +23,8 @@ class DomainStateComponent extends Component {
 
   render () {
     const { domain, onSearch, getState, auctionState, auctionStateLoading } = this.props;
+
+    const displayState = getDisplayState(domain,auctionStateLoading, auctionState);
 
     let input;
 
@@ -24,7 +40,7 @@ class DomainStateComponent extends Component {
             <Button type="submit">Search</Button>
           </InputGroup.Append>
         </InputGroup>
-        <p>{auctionStateLoading ? 'Loading...' : auctionState}</p>
+        <p>{displayState}</p>
       </Form>
     );
   }
