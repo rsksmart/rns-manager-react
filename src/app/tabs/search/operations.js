@@ -4,6 +4,11 @@ import {
 import { keccak_256 as sha3 } from 'js-sha3';
 
 export const getAuctionState = domain => dispatch => {
+  if (!domain) {
+    dispatch(receiveDomainState(''));
+    return;
+  }
+
   dispatch(requestDomainState(domain));
 
   const registrar = window.web3.eth.contract([
