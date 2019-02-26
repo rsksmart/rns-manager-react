@@ -7,15 +7,20 @@ class DomainComponent extends Component {
     onDomainAdmin(domain);
   }
 
+  componentWillReceiveProps(newProps) {
+    const { onDomainAdmin } = this.props;
+    const { domain } = newProps;
+    onDomainAdmin(domain);
+  }
+
   render () {
-    const { domain, onDomainAdmin, onSearch } = this.props;
+    const { domain, onSearch } = this.props;
 
     let input;
 
     return (
       <Form onSubmit={e => {
         e.preventDefault();
-        onDomainAdmin(input.value);
         onSearch(input.value);
       }}>
         <InputGroup className="mb-3">

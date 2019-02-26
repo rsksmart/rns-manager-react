@@ -1,17 +1,11 @@
 import {
-  ADMIN_DOMAIN,
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
-  ADD_SUBDOMAIN,
-  RECEIVE_SUBDOMAIN_OWNER
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
 } from './types';
 
-export const adminDomain = domain => ({
-  type: ADMIN_DOMAIN,
-  domain
-});
-
+// owner
 export const requestDomainOwner = domain => ({
   type: REQUEST_DOMAIN_OWNER,
   domain
@@ -22,6 +16,22 @@ export const receiveDomainOwner = owner => ({
   owner
 });
 
+export const viewEditOwner = () => ({
+  type: VIEW_EDIT_OWNER
+});
+
+export const requestSetOwner = (domain, owner) => ({
+  type: REQUEST_SET_OWNER,
+  domain,
+  owner
+});
+
+export const receiveSetOwner = (owner) => ({
+  type: RECEIVE_SET_OWNER,
+  owner
+})
+
+// resolver
 export const requestDomainResolver = domain => ({
   type: REQUEST_DOMAIN_RESOLVER,
   domain
@@ -32,6 +42,7 @@ export const receiveDomainResolver = resolver => ({
   resolver
 });
 
+// ttl
 export const requestDomainTTL = domain => ({
   type: REQUEST_DOMAIN_TTL,
   domain
@@ -42,13 +53,14 @@ export const receiveDomainTTL = ttl => ({
   ttl
 });
 
+// subdomains
 export const addSubdomain = subdomain => ({
   type: ADD_SUBDOMAIN,
   subdomain
 });
 
- export const receiveSubdomainOwner = (label, owner) => ({
-   type: RECEIVE_SUBDOMAIN_OWNER,
-   label,
-   owner
- });
+export const receiveSubdomainOwner = (label, owner) => ({
+  type: RECEIVE_SUBDOMAIN_OWNER,
+  label,
+  owner
+});

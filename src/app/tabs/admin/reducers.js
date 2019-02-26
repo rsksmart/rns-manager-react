@@ -1,16 +1,17 @@
 import {
-  ADMIN_DOMAIN,
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
-  ADD_SUBDOMAIN,
-  RECEIVE_SUBDOMAIN_OWNER
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER
 } from './types';
 
 const initialState = {
-  domain: '',
-  owner: '',
-  ownerLoading: false,
+  owner: {
+    address: '',
+    loading: false,
+    viewEdit: false,
+    setLoading: false
+  },
   resolver: '',
   resolverLoading: false,
   ttl: null,
@@ -20,26 +21,56 @@ const initialState = {
 
 const adminReducer = (state = initialState, action) => {
   switch(action.type) {
-    case ADMIN_DOMAIN: {
-      return {
-        ...state,
-        domain: action.domain
-      }
-    }
+    // owner
     case REQUEST_DOMAIN_OWNER: {
       return {
         ...state,
-        owner: '',
-        ownerLoading: true
+        owner: {
+          address: '',
+          loading: true,
+          viewEdit: false
+        }
       }
     }
     case RECEIVE_DOMAIN_OWNER: {
       return {
         ...state,
-        owner: action.owner,
-        ownerLoading: false
+        owner: {
+          address: action.owner,
+          loading: false,
+          viewEdit: state.owner.viewEdit
+        }
       }
     }
+    case VIEW_EDIT_OWNER: {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          viewEdit: !state.owner.viewEdit
+        }
+      }
+    }
+    case REQUEST_SET_OWNER: {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          setLoading: true
+        }
+      }
+    }
+    case RECEIVE_SET_OWNER: {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          setLoading: false,
+          owner: action.owner
+        }
+      }
+    }
+    // resolver
     case REQUEST_DOMAIN_RESOLVER: {
       return {
         ...state,
@@ -54,6 +85,7 @@ const adminReducer = (state = initialState, action) => {
         resolverLoading: false
       }
     }
+    // ttl
     case REQUEST_DOMAIN_TTL: {
       return {
         ...state,
@@ -68,6 +100,7 @@ const adminReducer = (state = initialState, action) => {
         ttlLoading: false
       }
     }
+    // subdomains
     case ADD_SUBDOMAIN: {
       return {
         ...state,
