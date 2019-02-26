@@ -1,9 +1,12 @@
 import {
+  adminDomain as adminDomainAction,
   requestDomainOwner, receiveDomainOwner,
   requestDomainResolver, receiveDomainResolver,
-  requestDomainTTL, receiveDomainTTL
+  requestDomainTTL, receiveDomainTTL,
+  addSubdomain as addSubdomainAction
 } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
+import { push } from 'connected-react-router';
 
 const registry = window.web3.eth.contract([
   {
@@ -45,6 +48,11 @@ const registry = window.web3.eth.contract([
     "type": "function"
   },
 ]).at('0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5');
+
+export const adminDomain = domain => dispatch => {
+  push(`/admin?domain=${domain}`);
+  dispatch(adminDomainAction(domain));
+}
 
 export const getDomainOwner = domain => dispatch => {
   if (!domain) {
@@ -109,4 +117,8 @@ export const getDomainTTL = domain => dispatch => {
       resolve(ttl);
     });
   });
+}
+
+export const addSubdomain = subdomain => dispatch => {
+  dispatch(addSubdomainAction(subdomain));
 }

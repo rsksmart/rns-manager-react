@@ -4,7 +4,8 @@ import {
   DomainContainer,
   DomainOwnerContainer,
   DomainResolverContainer,
-  DomainTTLContainer
+  DomainTTLContainer,
+  SubdomainsListContainer
 } from './containers';
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
@@ -31,6 +32,9 @@ class Admin extends Component {
         </Row>
         <Row>
           <Col><DomainTTLContainer /></Col>
+        </Row>
+        <Row>
+          <SubdomainsListContainer searchDomain={search.domain} />
         </Row>
       </Container>
     );
