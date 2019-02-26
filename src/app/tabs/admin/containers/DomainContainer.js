@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { DomainComponent } from '../components';
-import { getDomainOwner } from '../operations';
+import { getDomainOwner, getDomainResolver } from '../operations';
 
 const mapDispatchToProps = dispatch => ({
-  onDomainAdmin: (domain) => dispatch(getDomainOwner(domain))
+  onDomainAdmin: (domain) => {
+    dispatch(getDomainOwner(domain));
+    dispatch(getDomainResolver(domain));
+  }
 })
 
 export default connect(

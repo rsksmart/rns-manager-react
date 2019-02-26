@@ -1,10 +1,13 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
+  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER
 } from './types';
 
 const initialState = {
   owner: '',
-  ownerLoading: false
+  ownerLoading: false,
+  resolver: '',
+  resolverLoading: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -21,6 +24,20 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: action.owner,
         ownerLoading: false
+      }
+    }
+    case REQUEST_DOMAIN_RESOLVER: {
+      return {
+        ...state,
+        resolver: '',
+        resolverLoading: true
+      }
+    }
+    case RECEIVE_DOMAIN_RESOLVER: {
+      return {
+        ...state,
+        resolver: action.resolver,
+        resolverLoading: false
       }
     }
     default: return state;
