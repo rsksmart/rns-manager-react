@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Container, Col, Row } from 'react-bootstrap';
-import { DomainContainer, DomainOwnerContainer, DomainResolverContainer } from './containers';
+import {
+  DomainContainer,
+  DomainOwnerContainer,
+  DomainResolverContainer,
+  DomainTTLContainer
+} from './containers';
 
 class Admin extends Component {
   render () {
@@ -15,6 +20,9 @@ class Admin extends Component {
         </Row>
         <Row>
           <Col><DomainResolverContainer /></Col>
+        </Row>
+        <Row>
+          <Col><DomainTTLContainer /></Col>
         </Row>
       </Container>
     );

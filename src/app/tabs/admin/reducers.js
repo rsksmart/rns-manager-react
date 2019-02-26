@@ -1,13 +1,16 @@
 import {
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
-  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER
+  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
+  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL
 } from './types';
 
 const initialState = {
   owner: '',
   ownerLoading: false,
   resolver: '',
-  resolverLoading: false
+  resolverLoading: false,
+  ttl: null,
+  ttlLoading: false
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -38,6 +41,20 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         resolver: action.resolver,
         resolverLoading: false
+      }
+    }
+    case REQUEST_DOMAIN_TTL: {
+      return {
+        ...state,
+        ttl: '',
+        ttlLoading: true
+      }
+    }
+    case RECEIVE_DOMAIN_TTL: {
+      return {
+        ...state,
+        ttl: action.ttl,
+        ttlLoading: false
       }
     }
     default: return state;
