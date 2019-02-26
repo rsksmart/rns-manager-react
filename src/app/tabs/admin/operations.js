@@ -3,7 +3,8 @@ import {
   requestDomainOwner, receiveDomainOwner,
   requestDomainResolver, receiveDomainResolver,
   requestDomainTTL, receiveDomainTTL,
-  addSubdomain as addSubdomainAction
+  addSubdomain as addSubdomainAction,
+  receiveSubdomainOwner
 } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
 import { push } from 'connected-react-router';
@@ -119,6 +120,20 @@ export const getDomainTTL = domain => dispatch => {
   });
 }
 
-export const addSubdomain = subdomain => dispatch => {
+export const addSubdomain = (domain, subdomain) => dispatch => {
+  if(!subdomain) return;
+
   dispatch(addSubdomainAction(subdomain));
+
+  const hash = namehash(`${subdomain}.${domain}`);
+
+  return new Promise((resolve, reject) => {
+    registry.owner(hash, (error, result) => {
+      if(error) reject(error);
+
+      dispatch(receiveSubdomainOwner(subdomain, result));
+
+      resolve(result);
+    })
+  })
 }

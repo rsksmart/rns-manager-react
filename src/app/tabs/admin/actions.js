@@ -3,7 +3,8 @@ import {
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
-  ADD_SUBDOMAIN
+  ADD_SUBDOMAIN,
+  RECEIVE_SUBDOMAIN_OWNER
 } from './types';
 
 export const adminDomain = domain => ({
@@ -45,3 +46,9 @@ export const addSubdomain = subdomain => ({
   type: ADD_SUBDOMAIN,
   subdomain
 });
+
+ export const receiveSubdomainOwner = (label, owner) => ({
+   type: RECEIVE_SUBDOMAIN_OWNER,
+   label,
+   owner
+ });

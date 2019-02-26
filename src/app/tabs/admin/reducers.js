@@ -3,7 +3,8 @@ import {
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
-  ADD_SUBDOMAIN
+  ADD_SUBDOMAIN,
+  RECEIVE_SUBDOMAIN_OWNER
 } from './types';
 
 const initialState = {
@@ -70,8 +71,19 @@ const adminReducer = (state = initialState, action) => {
     case ADD_SUBDOMAIN: {
       return {
         ...state,
-        subdomains: [...state.subdomains, action.subdomain]
+        subdomains: [...state.subdomains, {
+          label: action.subdomain,
+          owner: ''
+        }]
       }
+    }
+    case RECEIVE_SUBDOMAIN_OWNER: {
+      return {
+        ...state,
+        subdomains: state.subdomains.map(subdomain =>
+          subdomain.label === action.label ? { ...subdomain, owner: action.owner } : subdomain
+        )
+      };
     }
     default: return state;
   }

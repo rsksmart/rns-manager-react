@@ -14,7 +14,7 @@ class SubdomainsListComponent extends Component {
         <h3>Subdomains</h3>
         <Form onSubmit={e => {
           e.preventDefault();
-          onAddSubdomain(input.value);
+          onAddSubdomain(domain, input.value);
           input.value = '';
         }}>
           <InputGroup className="mb-3">
@@ -29,7 +29,7 @@ class SubdomainsListComponent extends Component {
         </Form>
         <ul>
           {subdomains.map(subdomain => (
-            <li key={subdomain}>{`${subdomain}.${domain}`}</li>
+            <li key={subdomain.label}>{`${subdomain.label}.${domain}`} - {subdomain.owner}</li>
           ))}
         </ul>
       </Container>

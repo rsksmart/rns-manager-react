@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddSubdomain: (subdomain) => dispatch(addSubdomain(subdomain))
+  onAddSubdomain: (domain, subdomain) => dispatch(addSubdomain(domain, subdomain))
 });
 
 export default connect(
