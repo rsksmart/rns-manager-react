@@ -6,14 +6,22 @@ import {
   DomainResolverContainer,
   DomainTTLContainer
 } from './containers';
+import { connect } from 'react-redux';
+import { parse } from 'query-string';
+
+const mapStateToProps = state => ({
+  search: parse(state.router.location.search)
+})
 
 class Admin extends Component {
   render () {
+    const { search } = this.props;
+
     return(
       <Container>
         <h2>Admin your domain</h2>
         <Row>
-          <Col><DomainContainer /></Col>
+          <Col><DomainContainer domain={search.domain} /></Col>
         </Row>
         <Row>
           <Col><DomainOwnerContainer /></Col>
@@ -29,4 +37,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default connect(mapStateToProps)(Admin);
