@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router'
+import { Header } from './components';
 import routes from './routes';
 
 class App extends Component {
@@ -7,7 +8,10 @@ class App extends Component {
     const { history } = this.props;
     return (
       <ConnectedRouter history={history}>
-        {routes}
+        <div>
+          <Header />
+          {routes}
+        </div>
       </ConnectedRouter>
     );
   }

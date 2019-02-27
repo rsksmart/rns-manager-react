@@ -7,7 +7,7 @@ function getDisplayState (domain, auctionStateLoading, state) {
   if (auctionStateLoading) return 'Loading...';
 
   switch(state) {
-    case 0: return <p>Open.<br /><Link to="#">Register the domain</Link></p>
+    case 0: return <p>Open.<br /><Link to={`/start?domain=${domain}`}>Register the domain</Link></p>
     case 1: return <p>Auction.<br /><Link to="#">Bid in the domain auction</Link></p>
     case 2: return <p>Owned.<br /><Link to={`/admin?domain=${domain}`}>Admin the domain</Link></p>
     case 4: return <p>Reveal.<br /><Link to="#">Reveal your bid</Link></p>

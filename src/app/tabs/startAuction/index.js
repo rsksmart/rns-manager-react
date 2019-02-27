@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { DomainStateContainer } from './containers';
+import { GetDomainStateContainer } from './containers';
 
-class Search extends Component {
+class Bid extends Component {
   render () {
     return (
       <Container>
         <Row>
-          <Col><DomainStateContainer /></Col>
+          <Col>
+            <GetDomainStateContainer />
+          </Col>
         </Row>
       </Container>
-    );
+    )
   }
 }
 
-export default Search;
+export default Bid;
