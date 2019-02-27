@@ -1,5 +1,5 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER
@@ -10,7 +10,8 @@ const initialState = {
     address: '',
     loading: false,
     viewEdit: false,
-    setLoading: false
+    setLoading: false,
+    error: null
   },
   resolver: '',
   resolverLoading: false,
@@ -28,7 +29,8 @@ const adminReducer = (state = initialState, action) => {
         owner: {
           address: '',
           loading: true,
-          viewEdit: false
+          viewEdit: false,
+          error: null
         }
       }
     }
@@ -38,7 +40,8 @@ const adminReducer = (state = initialState, action) => {
         owner: {
           address: action.owner,
           loading: false,
-          viewEdit: state.owner.viewEdit
+          viewEdit: state.owner.viewEdit,
+          error: null
         }
       }
     }
@@ -47,7 +50,8 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: {
           ...state.owner,
-          viewEdit: !state.owner.viewEdit
+          viewEdit: !state.owner.viewEdit,
+          error: null
         }
       }
     }
@@ -56,7 +60,8 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: {
           ...state.owner,
-          setLoading: true
+          setLoading: true,
+          error: null
         }
       }
     }
@@ -66,7 +71,18 @@ const adminReducer = (state = initialState, action) => {
         owner: {
           ...state.owner,
           setLoading: false,
-          owner: action.owner
+          owner: action.owner,
+          error: null
+        }
+      }
+    }
+    case ERROR_SET_OWNER: {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          setLoading: false,
+          error: action.error
         }
       }
     }

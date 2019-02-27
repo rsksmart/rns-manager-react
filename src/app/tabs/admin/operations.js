@@ -1,5 +1,5 @@
 import {
-  requestDomainOwner, receiveDomainOwner, viewEditOwner, requestSetOwner, receiveSetOwner,
+  requestDomainOwner, receiveDomainOwner, viewEditOwner, requestSetOwner, receiveSetOwner, errorSetOwner,
   requestDomainResolver, receiveDomainResolver,
   requestDomainTTL, receiveDomainTTL,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner
@@ -70,9 +70,13 @@ export const getDomainOwner = domain => dispatch => {
 
   const hash = namehash(domain);
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     registry.owner(hash, (error, result) => {
-      if(error) reject(error);
+      if(error) {
+        dispatch(receiveDomainOwner(''));
+        dispatch(errorSetOwner(error));
+        return resolve(null);
+      }
 
       dispatch(receiveDomainOwner(result));
 
@@ -88,9 +92,12 @@ export const setDomainOwner = (domain, owner) => dispatch => {
 
   const hash = namehash(domain);
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     registry.setOwner(hash, owner, (error, result) => {
-      if(error) return reject(error);
+      if(error) {
+        dispatch(errorSetOwner(error));
+        return resolve(null);
+      }
 
       dispatch(receiveSetOwner(owner))
       dispatch(receiveDomainOwner(owner))

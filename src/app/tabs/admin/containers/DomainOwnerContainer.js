@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   address: state.admin.owner.address,
   loading: state.admin.owner.loading,
-  viewEdit: state.admin.owner.viewEdit
+  viewEdit: state.admin.owner.viewEdit,
+  error: state.admin.owner.error
 });
 
 const mapDispatchToProps = dispatch => ({
