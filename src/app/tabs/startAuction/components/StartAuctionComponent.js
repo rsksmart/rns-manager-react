@@ -11,7 +11,7 @@ class StartAuctionComponent extends Component {
         <Button onClick={() => startAuction(domain)}>Start auction</Button>
         {response &&
           <Alert key='startAuction' variant={response.variant}>
-            {response.message.message}
+            {response.message}
           </Alert>
         }
       </React.Fragment>

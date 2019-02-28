@@ -25,17 +25,15 @@ export const startAuction = domain => dispatch => {
 
   dispatch(requestStartAuction());
 
-  let hash = `0x${sha3(domain)}`;
+  let hash = `0x${sha3(domain.split('.')[0])}`;
 
   return new Promise((resolve) => {
     registrar.startAuction(hash, (error, result) => {
       if(error) {
-        dispatch(errorStartAuction(error));
-        resolve(error);
-        return;
+        return resolve(dispatch(errorStartAuction(error.message)));
       }
 
-      return resolve(dispatch(receiveStartAuction(result.message)));
+      return resolve(dispatch(receiveStartAuction(result)));
     });
   });
 };
