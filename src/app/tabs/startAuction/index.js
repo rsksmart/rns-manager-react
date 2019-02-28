@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { GetDomainStateContainer } from './containers';
+import { GetDomainStateContainer, StartAuctionContainer } from './containers';
 
 class Bid extends Component {
   render () {
@@ -9,6 +9,11 @@ class Bid extends Component {
         <Row>
           <Col>
             <GetDomainStateContainer />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <StartAuctionContainer/>
           </Col>
         </Row>
       </Container>
