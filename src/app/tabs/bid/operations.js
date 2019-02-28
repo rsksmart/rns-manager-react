@@ -11,7 +11,7 @@ export const bid = (domain, value) => dispatch => {
   if (!domain) return dispatch(errorBid('Please search for a domain state first.'));
   if (!value || value < 1) return dispatch(errorBid('You must bid at least 1 RIF.'));
 
-  dispatch(requestBid(domain, value));
+  dispatch(requestBid());
 
   const registrar = window.web3.eth.contract([
     {

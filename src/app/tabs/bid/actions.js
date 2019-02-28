@@ -2,10 +2,8 @@ import {
   REQUEST_BID, RECEIVE_BID, ERROR_BID
 } from './types';
 
-export const requestBid = (domain, value) => ({
+export const requestBid = () => ({
   type: REQUEST_BID,
-  domain,
-  value
 });
 
 export const receiveBid = response => ({

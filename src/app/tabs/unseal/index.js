@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { GetDomainStateContainer } from '../../containers';
+import { UnsealContainer } from './containers';
 
 class Unseal extends Component {
   render () {
@@ -13,7 +14,7 @@ class Unseal extends Component {
         </Row>
         <Row>
           <Col>
-            <h2>Unseal bid</h2>
+            <UnsealContainer />
           </Col>
         </Row>
       </Container>

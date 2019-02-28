@@ -1,6 +1,7 @@
 import {
-  REQUEST_START_AUCTION, RECEIVE_START_AUCTION, ERROR_START_AUCTION, ResponseType
- } from './types';
+  REQUEST_START_AUCTION, RECEIVE_START_AUCTION, ERROR_START_AUCTION
+} from './types';
+import { MetamaskResponseType } from '../../types';
 
 const initialState = {
   loading: false,
@@ -16,14 +17,14 @@ const startAuctionReducer = (state = initialState, action) => {
     case RECEIVE_START_AUCTION: return {
       loading: false,
       response: {
-        type: ResponseType.SUCCESS,
+        type: MetamaskResponseType.SUCCESS,
         message: action.response
       }
     }
     case ERROR_START_AUCTION: return {
       loading: false,
       response: {
-        type: ResponseType.ERROR,
+        type: MetamaskResponseType.ERROR,
         message: action.error
       }
     }

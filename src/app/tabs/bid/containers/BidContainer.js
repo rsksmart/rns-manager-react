@@ -2,21 +2,13 @@ import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { BidComponent } from '../components';
 import { bid } from '../operations';
-import { ResponseType } from '../types';
-
-const parseResponseType = (type) => {
-  switch(type) {
-    case ResponseType.SUCCESS: return 'success'
-    case ResponseType.ERROR: return 'danger'
-    default: return 'secondary'
-  }
-};
+import { mapMetamaskResponseTypeToBootstrapVariant } from '../../../selectors';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   loading: state.bid.loading,
   response: state.bid.response ? {
-    variant: parseResponseType(state.bid.response.type),
+    variant: mapMetamaskResponseTypeToBootstrapVariant(state.bid.response.type),
     message: state.bid.response.message
   } : null
 });
