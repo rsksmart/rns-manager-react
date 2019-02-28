@@ -7,11 +7,11 @@ const initialState = {
   response: null
 };
 
-export const startAuctionReducer = (state = initialState, action) => {
+const startAuctionReducer = (state = initialState, action) => {
   switch(action.type) {
     case REQUEST_START_AUCTION: return {
       loading: true,
-      error: null
+      response: null
     }
     case RECEIVE_START_AUCTION: return {
       loading: false,
@@ -30,3 +30,5 @@ export const startAuctionReducer = (state = initialState, action) => {
     default: return state
   }
 }
+
+export default startAuctionReducer;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { GetDomainStateContainer } from '../../containers';
 import { Container, Row, Col } from 'react-bootstrap';
+import { BidContainer } from './containers';
 
 class Bid extends Component {
   render () {
@@ -13,7 +14,7 @@ class Bid extends Component {
         </Row>
         <Row>
           <Col>
-            <h2>Bid</h2>
+            <BidContainer />
           </Col>
         </Row>
       </Container>

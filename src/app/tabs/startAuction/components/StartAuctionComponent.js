@@ -13,7 +13,7 @@ class StartAuctionComponent extends Component {
         {response &&
           <Alert key='startAuction' variant={response.variant}>
             {response.message}<br />
-            <Link to={`/bid?domain=${domain}`}>Bid</Link>
+            {response.variant === 'success' && <Link to={`/bid?domain=${domain}`}>Bid</Link>}
           </Alert>
         }
       </React.Fragment>
