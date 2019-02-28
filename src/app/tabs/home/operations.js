@@ -2,6 +2,7 @@ import {
   requestResolveAddress, receiveResolveAddress,
 } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
+import { resolver as resolverAddress } from '../../../config/contracts';
 
 export const resolveAddress = domain => dispatch => {
   dispatch(requestResolveAddress(domain));
@@ -20,7 +21,7 @@ export const resolveAddress = domain => dispatch => {
       "stateMutability": "view",
       "type": "function"
     }
-  ]).at('0x4efd25e3d348f8f25a14fb7655fba6f72edfe93a');
+  ]).at(resolverAddress);
 
   const hash = namehash(domain);
 

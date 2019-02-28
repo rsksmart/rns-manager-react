@@ -2,6 +2,7 @@ import {
   requestDomainState, receiveDomainState
 } from './actions';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { registrar as registrarAddress } from '../../../config/contracts';
 
 export const getAuctionState = domain => dispatch => {
   if (!domain) {
@@ -25,7 +26,7 @@ export const getAuctionState = domain => dispatch => {
       "stateMutability": "view",
       "type": "function"
     }
-  ]).at('0x5269f5bc51cdd8aa62755c97229b7eeddd8e69a6');
+  ]).at(registrarAddress);
 
   const hash = '0x' + sha3(domain.split('.')[0]);
 

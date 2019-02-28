@@ -4,7 +4,9 @@ import {
   requestDomainTTL, receiveDomainTTL,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner
 } from './actions';
+import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
+console.log(registryAddress)
 
 const registry = window.web3.eth.contract([
   {
@@ -58,7 +60,7 @@ const registry = window.web3.eth.contract([
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]).at('0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5');
+]).at(registryAddress);
 
 export const getDomainOwner = domain => dispatch => {
   if (!domain) {
