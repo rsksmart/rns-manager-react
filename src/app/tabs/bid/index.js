@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { StartAuctionContainer } from './containers';
 import { GetDomainStateContainer } from '../../containers';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Bid extends Component {
   render () {
-    return (
+    return(
       <Container>
         <Row>
           <Col>
@@ -14,7 +13,7 @@ class Bid extends Component {
         </Row>
         <Row>
           <Col>
-            <StartAuctionContainer/>
+            <h2>Bid</h2>
           </Col>
         </Row>
       </Container>
