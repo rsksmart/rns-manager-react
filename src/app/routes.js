@@ -6,7 +6,8 @@ import {
   SearchTab,
   AdminTab,
   StartAuctionTab,
-  BidTab
+  BidTab,
+  UnsealTab
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>
@@ -18,6 +19,7 @@ const routes = (
     <Route path='/admin' component={AdminTab} />
     <Route path='/start' component={StartAuctionTab} />
     <Route path='/bid' component={BidTab} />
+    <Route path='/unseal' component={UnsealTab} />
     <Route component={NoMatch} />
   </Switch>
 );

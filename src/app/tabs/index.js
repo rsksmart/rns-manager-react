@@ -3,3 +3,4 @@ export { default as SearchTab } from './search';
 export { default as AdminTab } from './admin';
 export { default as StartAuctionTab } from './startAuction';
 export { default as BidTab } from './bid';
+export { default as UnsealTab } from './unseal';
