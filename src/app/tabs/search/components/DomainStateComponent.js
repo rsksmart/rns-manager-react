@@ -11,6 +11,7 @@ function getDisplayState (domain, auctionStateLoading, state) {
     case 1: return <p>Auction.<br /><Link to={`/bid?domain=${domain}`}>Bid in the domain auction</Link></p>
     case 2: return <p>Owned.<br /><Link to={`/admin?domain=${domain}`}>Admin the domain</Link></p>
     case 4: return <p>Reveal.<br /><Link to={`/unseal?domain=${domain}`}>Reveal your bid</Link></p>
+    case 5: return <p>Finalize.<br /><Link to={`/finalize?domain=${domain}`}>Finalize the auction</Link></p>
     default: return null
   }
 }
