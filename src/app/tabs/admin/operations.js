@@ -1,6 +1,6 @@
 import {
   requestDomainOwner, receiveDomainOwner, requestSetOwner, receiveSetOwner, errorSetOwner,
-  requestDomainResolver, receiveDomainResolver,
+  requestDomainResolver, receiveDomainResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   requestDomainTTL, receiveDomainTTL,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner
 } from './actions';
@@ -58,11 +58,23 @@ const registry = window.web3.eth.contract([
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      { "name": "node", "type": "bytes32" },
+      { "name": "resolverAddress", "type": "address" }
+    ],
+    "name": "setResolver",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ]).at(registryAddress);
 
 export const getDomainOwner = domain => dispatch => {
-  dispatch(requestDomainOwner(domain));
+  dispatch(requestDomainResolver(domain));
 
   const hash = namehash(domain);
 
@@ -75,7 +87,7 @@ export const getDomainOwner = domain => dispatch => {
 }
 
 export const setDomainOwner = (domain, owner) => dispatch => {
-  dispatch(requestSetOwner(domain, owner));
+  dispatch(requestSetResolver(domain, owner));
 
   const hash = namehash(domain);
 
@@ -88,24 +100,29 @@ export const setDomainOwner = (domain, owner) => dispatch => {
 }
 
 export const getDomainResolver = domain => dispatch => {
-  if (!domain) {
-    dispatch(receiveDomainResolver(''));
-    return;
-  }
-
-  dispatch(requestDomainResolver(domain));
+  dispatch(requestDomainOwner(domain));
 
   const hash = namehash(domain);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     registry.resolver(hash, (error, result) => {
-      if(error) reject(error);
-
-      dispatch(receiveDomainResolver(result));
-
-      resolve(result);
+      if(error) return resolve(dispatch(receiveDomainResolver(error.message)))
+      return resolve(dispatch(receiveDomainResolver(result)));
     });
   });
+}
+
+export const setDomainResolver = (domain, owner) => dispatch => {
+  dispatch(requestSetOwner(domain, owner));
+
+  const hash = namehash(domain);
+
+  return new Promise((resolve) => {
+    registry.setResolver(hash, owner, (error, result) => {
+      if(error) return resolve(dispatch(errorSetResolver(error)));
+      return resolve(dispatch(receiveSetResolver(result)));
+    })
+  })
 }
 
 export const getDomainTTL = domain => dispatch => {

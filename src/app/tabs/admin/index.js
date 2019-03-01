@@ -3,7 +3,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import {
   DomainContainer,
   OwnerContainer,
-  DomainResolverContainer,
+  ResolverContainer,
   DomainTTLContainer,
   SubdomainsListContainer
 } from './containers';
@@ -24,7 +24,9 @@ class Admin extends Component {
         </Row>
         <hr />
         <Row>
-          <Col><DomainResolverContainer /></Col>
+          <Col>
+            <ResolverContainer name='Resolver' />
+          </Col>
         </Row>
         <hr />
         <Row>
