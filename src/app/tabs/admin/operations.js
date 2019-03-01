@@ -1,12 +1,11 @@
 import {
-  requestDomainOwner, receiveDomainOwner, viewEditOwner, requestSetOwner, receiveSetOwner, errorSetOwner,
+  requestDomainOwner, receiveDomainOwner, requestSetOwner, receiveSetOwner, errorSetOwner,
   requestDomainResolver, receiveDomainResolver,
   requestDomainTTL, receiveDomainTTL,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner
 } from './actions';
 import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
-console.log(registryAddress)
 
 const registry = window.web3.eth.contract([
   {
@@ -63,49 +62,27 @@ const registry = window.web3.eth.contract([
 ]).at(registryAddress);
 
 export const getDomainOwner = domain => dispatch => {
-  if (!domain) {
-    dispatch(receiveDomainOwner(''));
-    return;
-  }
-
   dispatch(requestDomainOwner(domain));
 
   const hash = namehash(domain);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     registry.owner(hash, (error, result) => {
-      if(error) {
-        dispatch(receiveDomainOwner(''));
-        dispatch(errorSetOwner(error));
-        return resolve(null);
-      }
-
-      dispatch(receiveDomainOwner(result));
-
-      resolve(result);
+      if(error) return resolve(dispatch(receiveDomainOwner(error.message)))
+      return resolve(dispatch(receiveDomainOwner(result)));
     });
   });
 }
 
 export const setDomainOwner = (domain, owner) => dispatch => {
-  if(!domain || !owner) return;
-
   dispatch(requestSetOwner(domain, owner));
 
   const hash = namehash(domain);
 
   return new Promise((resolve) => {
     registry.setOwner(hash, owner, (error, result) => {
-      if(error) {
-        dispatch(errorSetOwner(error));
-        return resolve(null);
-      }
-
-      dispatch(receiveSetOwner(owner))
-      dispatch(receiveDomainOwner(owner))
-      dispatch(viewEditOwner())
-
-      resolve(result);
+      if(error) return resolve(dispatch(errorSetOwner(error)));
+      return resolve(dispatch(receiveSetOwner(result)));
     })
   })
 }

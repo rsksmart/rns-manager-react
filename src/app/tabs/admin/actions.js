@@ -1,5 +1,5 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
@@ -16,8 +16,8 @@ export const receiveDomainOwner = owner => ({
   owner
 });
 
-export const viewEditOwner = () => ({
-  type: VIEW_EDIT_OWNER
+export const changeEditOwner = () => ({
+  type: CHANGE_EDIT_OWNER
 });
 
 export const requestSetOwner = (domain, owner) => ({
@@ -26,12 +26,12 @@ export const requestSetOwner = (domain, owner) => ({
   owner
 });
 
-export const receiveSetOwner = (owner) => ({
+export const receiveSetOwner = response => ({
   type: RECEIVE_SET_OWNER,
-  owner
+  response
 });
 
-export const errorSetOwner = (error) => ({
+export const errorSetOwner = error => ({
   type: ERROR_SET_OWNER,
   error
 });

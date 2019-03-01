@@ -1,5 +1,5 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, VIEW_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER
@@ -7,11 +7,12 @@ import {
 
 const initialState = {
   owner: {
-    address: '',
-    loading: false,
-    viewEdit: false,
-    setLoading: false,
-    error: null
+    getting: false,
+    value: null,
+    editOpen: false,
+    editting: false,
+    response: null,
+    hasError: false
   },
   resolver: '',
   resolverLoading: false,
@@ -27,10 +28,12 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         owner: {
-          address: '',
-          loading: true,
-          viewEdit: false,
-          error: null
+          value: null,
+          getting: true,
+          editOpen: false,
+          editting: false,
+          response: null,
+          hasError: false
         }
       }
     }
@@ -38,20 +41,18 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         owner: {
-          address: action.owner,
-          loading: false,
-          viewEdit: state.owner.viewEdit,
-          error: null
+          ...state.owner,
+          value: action.owner,
+          getting: false,
         }
       }
     }
-    case VIEW_EDIT_OWNER: {
+    case CHANGE_EDIT_OWNER: {
       return {
         ...state,
         owner: {
           ...state.owner,
-          viewEdit: !state.owner.viewEdit,
-          error: null
+          editOpen: !state.owner.editOpen,
         }
       }
     }
@@ -60,8 +61,9 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: {
           ...state.owner,
-          setLoading: true,
-          error: null
+          editting: true,
+          response: null,
+          hasError: false
         }
       }
     }
@@ -70,9 +72,9 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: {
           ...state.owner,
-          setLoading: false,
-          owner: action.owner,
-          error: null
+          editting: false,
+          response: action.response,
+          hasError: false
         }
       }
     }
@@ -81,8 +83,9 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         owner: {
           ...state.owner,
-          setLoading: false,
-          error: action.error
+          editting: false,
+          response: action.error.message,
+          hasError: true
         }
       }
     }

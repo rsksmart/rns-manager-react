@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Col, Row } from 'react-bootstrap';
 import {
   DomainContainer,
-  DomainOwnerContainer,
+  OwnerContainer,
   DomainResolverContainer,
   DomainTTLContainer,
   SubdomainsListContainer
@@ -17,7 +17,11 @@ class Admin extends Component {
         <Row>
           <Col><DomainContainer /></Col>
         </Row>
-        <DomainOwnerContainer />
+        <Row>
+          <Col>
+            <OwnerContainer name='Owner' />
+          </Col>
+        </Row>
         <hr />
         <Row>
           <Col><DomainResolverContainer /></Col>
