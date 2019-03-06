@@ -62,7 +62,9 @@ export const getAuctionState = domain => dispatch => {
 
         return deed.expirationDate((errorDeed, resultDeed) => {
           if(errorDeed) reject(errorDeed.message);
-          return resolve(dispatch(receiveDomainState(resultDeed === 0 ? 2 : 5)));
+          const expirationDate = resultDeed.toNumber();
+          const status = expirationDate === 0 ? 2 : 5;
+          return resolve(dispatch(receiveDomainState(status)));
         });
       }
 
