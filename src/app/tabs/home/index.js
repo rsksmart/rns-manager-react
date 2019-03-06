@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SearchDomainContainer, ResolveAddressContainer } from './containers';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import rnsImage from './RNS.png';
 
 const admin = (
   <Card>
@@ -34,14 +35,14 @@ class Home extends Component {
     return(
       <Container>
         <Row>
-          <Col><SearchDomainContainer /></Col>
+          <Col style={{height: 100}}><SearchDomainContainer /></Col>
         </Row>
         <Row>
-          <Col>
+          <Col style={{height: 300}} md={4}>
             <h1>get your domain,<br />forget your address</h1>
           </Col>
-          <Col>
-            img
+          <Col style={{height: 300}} md={8}>
+            <Image src={rnsImage} fluid />
           </Col>
         </Row>
         <Row>
