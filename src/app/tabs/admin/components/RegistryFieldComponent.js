@@ -10,12 +10,6 @@ import {
 } from 'react-bootstrap';
 
 class RegistryFieldComponent extends Component {
-  componentDidMount () {
-    const { getValue, domain } = this.props;
-    console.log(getValue)
-    getValue(domain);
-  }
-
   render () {
     const { domain, name, getting, value, changeEdit, editOpen, editting, submit, response, hasError } = this.props;
 

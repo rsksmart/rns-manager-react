@@ -4,7 +4,7 @@ import {
   DomainContainer,
   OwnerContainer,
   ResolverContainer,
-  DomainTTLContainer,
+  TtlContainer,
   SubdomainsListContainer
 } from './containers';
 
@@ -15,7 +15,9 @@ class Admin extends Component {
       <Container>
         <h2>Admin your domain</h2>
         <Row>
-          <Col><DomainContainer /></Col>
+          <Col>
+            <DomainContainer />
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -30,7 +32,9 @@ class Admin extends Component {
         </Row>
         <hr />
         <Row>
-          <Col><DomainTTLContainer /></Col>
+          <Col>
+            <TtlContainer name='TTL' />
+          </Col>
         </Row>
         <hr />
         <Row>

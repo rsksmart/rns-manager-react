@@ -1,6 +1,6 @@
 {
-  "rns": "0x612322A5489929c55E2b9aacb84BeEf383132cdA",
-  "registrar": "0x95bFEfa36f4C0504560dA00C0d04FC30eF45d4c6",
-  "resolver": "0xDc3Dad67Cf3865A9B2C30381A8Ca8F204d8F989e",
-  "rif": "0x38632564F438967e8E3259BAC2f3877BB4B5104F"
+  "rns": "0x612322a5489929c55e2b9aacb84beef383132cda",
+  "registrar": "0x95bfefa36f4c0504560da00c0d04fc30ef45d4c6",
+  "resolver": "0xdc3dad67cf3865a9b2c30381a8ca8f204d8f989e",
+  "rif": "0x38632564f438967e8e3259bac2f3877bb4b5104f"
 }

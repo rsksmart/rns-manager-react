@@ -1,31 +1,66 @@
 import {
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER, ERROR_SET_RESOLVER,
-  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL,
+  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL, ERROR_SET_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER
 } from './types';
 
+const propInitialState = () => ({
+  getting: false,
+  value: null,
+  editOpen: false,
+  editting: false,
+  response: null,
+  hasError: false
+});
+
 const initialState = {
-  owner: {
-    getting: false,
-    value: null,
-    editOpen: false,
-    editting: false,
-    response: null,
-    hasError: false
-  },
-  resolver: {
-    getting: false,
-    value: null,
-    editOpen: false,
-    editting: false,
-    response: null,
-    hasError: false
-  },
-  ttl: null,
-  ttlLoading: false,
+  owner: propInitialState(),
+  resolver: propInitialState(),
+  ttl: propInitialState(),
   subdomains: []
 };
+
+const requestGetProp = () => ({
+  value: null,
+  getting: true,
+  editOpen: false,
+  editting: false,
+  response: null,
+  hasError: false
+});
+
+const receiveGetProp = (prop, value) => ({
+  ...prop,
+  value,
+  getting: false
+});
+
+const changeEditProp = (prop) => ({
+  ...prop,
+  editOpen: !prop.editOpen
+});
+
+const requestSetProp = (prop) => ({
+  ...prop,
+  editting: true,
+  response: null,
+  hasError: false
+});
+
+const receiveSetProp = (prop, value) => ({
+  ...prop,
+  editting: false,
+  response: value,
+  hasError: false
+});
+
+const errorSetProp = (prop, error) => ({
+  ...prop,
+  editting: false,
+  response: error.message,
+  hasError: true
+});
 
 const adminReducer = (state = initialState, action) => {
   switch(action.type) {
@@ -33,147 +68,111 @@ const adminReducer = (state = initialState, action) => {
     case REQUEST_DOMAIN_OWNER: {
       return {
         ...state,
-        owner: {
-          value: null,
-          getting: true,
-          editOpen: false,
-          editting: false,
-          response: null,
-          hasError: false
-        }
+        owner: requestGetProp()
       }
     }
     case RECEIVE_DOMAIN_OWNER: {
       return {
         ...state,
-        owner: {
-          ...state.owner,
-          value: action.owner,
-          getting: false,
-        }
+        owner: receiveGetProp(state.owner, action.owner)
       }
     }
     case CHANGE_EDIT_OWNER: {
       return {
         ...state,
-        owner: {
-          ...state.owner,
-          editOpen: !state.owner.editOpen,
-        }
+        owner: changeEditProp(state.owner)
       }
     }
     case REQUEST_SET_OWNER: {
       return {
         ...state,
-        owner: {
-          ...state.owner,
-          editting: true,
-          response: null,
-          hasError: false
-        }
+        owner: requestSetProp(state.owner)
       }
     }
     case RECEIVE_SET_OWNER: {
       return {
         ...state,
-        owner: {
-          ...state.owner,
-          editting: false,
-          response: action.response,
-          hasError: false
-        }
+        owner: receiveSetProp(state.owner, action.response)
       }
     }
     case ERROR_SET_OWNER: {
       return {
         ...state,
-        owner: {
-          ...state.owner,
-          editting: false,
-          response: action.error.message,
-          hasError: true
-        }
+        owner: errorSetProp(state.owner, action.error)
       }
     }
     // resolver
     case REQUEST_DOMAIN_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          value: null,
-          getting: true,
-          editOpen: false,
-          editting: false,
-          response: null,
-          hasError: false
-        }
+        resolver: requestGetProp()
       }
     }
     case RECEIVE_DOMAIN_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          ...state.resolver,
-          value: action.resolver,
-          getting: false,
-        }
+        resolver: receiveGetProp(state.resolver, action.resolver)
       }
     }
     case CHANGE_EDIT_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          ...state.resolver,
-          editOpen: !state.resolver.editOpen,
-        }
+        resolver: changeEditProp(state.resolver)
       }
     }
     case REQUEST_SET_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          ...state.resolver,
-          editting: true,
-          response: null,
-          hasError: false
-        }
+        resolver: requestSetProp(state.resolver)
       }
     }
     case RECEIVE_SET_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          ...state.resolver,
-          editting: false,
-          response: action.response,
-          hasError: false
-        }
+        resolver: receiveSetProp(state.resolver, action.response)
       }
     }
     case ERROR_SET_RESOLVER: {
       return {
         ...state,
-        resolver: {
-          ...state.resolver,
-          editting: false,
-          response: action.error.message,
-          hasError: true
-        }
+        resolver: errorSetProp(state.resolver, action.error)
       }
     }
     // ttl
     case REQUEST_DOMAIN_TTL: {
       return {
         ...state,
-        ttl: '',
-        ttlLoading: true
+        ttl: requestGetProp()
       }
     }
     case RECEIVE_DOMAIN_TTL: {
       return {
         ...state,
-        ttl: action.ttl,
-        ttlLoading: false
+        ttl: receiveGetProp(state.ttl, action.ttl)
+      }
+    }
+    case CHANGE_EDIT_TTL: {
+      return {
+        ...state,
+        ttl: changeEditProp(state.ttl)
+      }
+    }
+    case REQUEST_SET_TTL: {
+      return {
+        ...state,
+        ttl: requestSetProp(state.ttl)
+      }
+    }
+    case RECEIVE_SET_TTL: {
+      return {
+        ...state,
+        ttl: receiveSetProp(state.ttl, action.response)
+      }
+    }
+    case ERROR_SET_TTL: {
+      return {
+        ...state,
+        ttl: errorSetProp(state.ttl, action.error)
       }
     }
     // subdomains

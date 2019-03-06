@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { DomainComponent } from '../components';
-import { getDomainOwner, getDomainResolver, getDomainTTL } from '../operations';
+import { getDomainOwner, getDomainResolver, getDomainTtl } from '../operations';
 import { parse } from 'query-string';
 import { push } from 'connected-react-router';
 
@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
   onDomainAdmin: (domain) => {
     dispatch(getDomainOwner(domain));
     dispatch(getDomainResolver(domain));
-    dispatch(getDomainTTL(domain));
+    dispatch(getDomainTtl(domain));
   },
   onSearch: (domain) => dispatch(push(`/admin?domain=${domain}`))
 });

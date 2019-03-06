@@ -2,7 +2,7 @@ import { RegistryFieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { changeEditResolver } from '../actions';
-import { getDomainResolver, setDomainResolver } from '../operations';
+import { setDomainResolver } from '../operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getValue: (domain) => dispatch(getDomainResolver(domain)),
   changeEdit: () => dispatch(changeEditResolver()),
   submit: (domain, resolver) => dispatch(setDomainResolver(domain, resolver))
 });

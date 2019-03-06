@@ -17,6 +17,10 @@ export const ERROR_SET_RESOLVER = 'ERROR_SET_RESOLVER';
 // ttl
 export const REQUEST_DOMAIN_TTL = 'REQUEST_DOMAIN_TTL';
 export const RECEIVE_DOMAIN_TTL = 'RECEIVE_DOMAIN_TTL';
+export const CHANGE_EDIT_TTL = 'CHANGE_EDIT_TTL';
+export const REQUEST_SET_TTL = 'REQUST_SET_TTL';
+export const RECEIVE_SET_TTL = 'RECEIVE_SET_TTL';
+export const ERROR_SET_TTL = 'ERROR_SET_TTL';
 
 // subdomains
 export const ADD_SUBDOMAIN = 'ADD_SUBDOMAIN';
