@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchDomainContainer, ResolveAddressContainer } from './containers';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import rnsImage from './RNS.png';
 
@@ -11,7 +12,8 @@ const admin = (
         Set your resolution address<br />
         Create subdomains, admin them too.
       </Card.Text>
-      <Card.Link href="/admin">Admin</Card.Link>
+      <Link to='/admin' className='card-link'>Admin domain</Link>
+      <Link to='/publicResolver' className='card-link'>Manage resolution</Link>
     </Card.Body>
   </Card>
 );

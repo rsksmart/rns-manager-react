@@ -5,12 +5,12 @@ import {
   OwnerContainer,
   ResolverContainer,
   TtlContainer,
-  SubdomainsListContainer
+  SubdomainsListContainer,
+  LinkToResolverContainer
 } from './containers';
 
 class Admin extends Component {
   render () {
-
     return(
       <Container>
         <h2>Admin your domain</h2>
@@ -28,6 +28,11 @@ class Admin extends Component {
         <Row>
           <Col>
             <ResolverContainer name='Resolver' />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <LinkToResolverContainer />
           </Col>
         </Row>
         <hr />
