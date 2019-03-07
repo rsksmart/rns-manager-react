@@ -1,5 +1,24 @@
 import React, { Component } from 'react'
-import { Container, Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Container, Form, InputGroup, FormControl, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+const SubdomainComponent = (subdomain, owner) => {
+  return (
+    <Container>
+      <Row>
+        <Col md={3}>
+          {subdomain}
+        </Col>
+        <Col md={7}>
+          {`owner: ${owner}`}
+        </Col>
+        <Col md={2}>
+          <Link to={`/admin?domain=${subdomain}`}>admin</Link>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 class SubdomainsListComponent extends Component {
   render () {
@@ -28,9 +47,7 @@ class SubdomainsListComponent extends Component {
           </InputGroup>
         </Form>
         <ul>
-          {subdomains.map(subdomain => (
-            <li key={subdomain.label}>{`${subdomain.label}.${domain}`} - {subdomain.owner}</li>
-          ))}
+          {subdomains.map(subdomain => SubdomainComponent(`${subdomain.label}.${domain}`, subdomain.owner))}
         </ul>
       </Container>
     );
