@@ -7,6 +7,7 @@ import startAuctionReducer from './tabs/startAuction/reducers';
 import bidReducer from './tabs/bid/reducers';
 import unsealReducer from './tabs/unseal/reducers';
 import finalizeReducer from './tabs/finalize/reducers';
+import publicResolver from './tabs/publicResolver/reducers';
 
 const rootReducer = (history) => combineReducers({
   home: homeReducer,
@@ -16,6 +17,7 @@ const rootReducer = (history) => combineReducers({
   bid: bidReducer,
   unseal: unsealReducer,
   finalize: finalizeReducer,
+  publicResolver: publicResolver,
   router: connectRouter(history),
 });
 
