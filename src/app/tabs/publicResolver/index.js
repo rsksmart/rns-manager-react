@@ -16,6 +16,7 @@ class PublicResolver extends Component {
             <AddrContainer name='Address' />
           </Col>
         </Row>
+        <br />
         <Row>
           <Col>
             <ContentContainer name='Content' />

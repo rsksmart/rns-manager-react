@@ -1,6 +1,6 @@
 import {
-  requestGetAddr, receiveGetAddr, errorGetAddr,
-  requestGetContent, receiveGetContent, errorGetContent
+  requestGetAddr, receiveGetAddr, errorGetAddr, requestSetAddr, receiveSetAddr, errorSetAddr,
+  requestGetContent, receiveGetContent, errorGetContent, requestSetContent, receiveSetContent, errorSetContent,
 } from './actions';
 
 import { resolver as resolverAddress } from '../../../config/contracts';
@@ -72,6 +72,19 @@ export const getAddr = domain => dispatch => {
   });
 };
 
+export const setAddr = (domain, addr) => dispatch => {
+  dispatch(requestSetAddr());
+
+  const hash = namehash(domain);
+
+  return new Promise(resolve => {
+    resolver.setAddr(hash, addr, (error, result) => {
+      if (error) return resolve(dispatch(errorSetAddr(error)));
+      return resolve(dispatch(receiveSetAddr(result)));
+    });
+  });
+};
+
 export const getContent = domain => dispatch => {
   dispatch(requestGetContent());
 
@@ -81,6 +94,19 @@ export const getContent = domain => dispatch => {
     resolver.content(hash, (error, result) => {
       if (error) return resolve(dispatch(errorGetContent(error)));
       return resolve(dispatch(receiveGetContent(result)));
+    });
+  });
+};
+
+export const setContent = (domain, addr) => dispatch => {
+  dispatch(requestSetContent());
+
+  const hash = namehash(domain);
+
+  return new Promise(resolve => {
+    resolver.setContent(hash, addr, (error, result) => {
+      if (error) return resolve(dispatch(errorSetContent(error)));
+      return resolve(dispatch(receiveSetContent(result)));
     });
   });
 };
