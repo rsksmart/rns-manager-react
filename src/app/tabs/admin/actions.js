@@ -3,6 +3,7 @@ import {
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER, ERROR_SET_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL, ERROR_SET_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
+  VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, ERROR_SET_SUBDOMAIN_OWNER
 } from './types';
 
 // owner
@@ -108,4 +109,27 @@ export const receiveSubdomainOwner = (label, owner) => ({
   type: RECEIVE_SUBDOMAIN_OWNER,
   label,
   owner
+});
+
+// subdomain owners
+export const viewEditSubdomainOwner = label => ({
+  type: VIEW_EDIT_SUBDOMAIN_OWNER,
+  label
+});
+
+export const requestSetSubdomainOwner = label => ({
+  type: REQUEST_SET_SUBDOMAIN_OWNER,
+  label
+});
+
+export const receiveSetSubdomainOwner = (label, response) => ({
+  type: RECEIVE_SET_SUBDOMAIN_OWNER,
+  label,
+  response
+});
+
+export const errorSetSubdomainOwner = (label, error) => ({
+  type: ERROR_SET_SUBDOMAIN_OWNER,
+  label,
+  error
 });

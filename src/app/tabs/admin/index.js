@@ -43,7 +43,7 @@ class Admin extends Component {
         </Row>
         <hr />
         <Row>
-          <SubdomainsListContainer />
+            <SubdomainsListContainer />
         </Row>
       </Container>
     );

@@ -2,7 +2,8 @@ import {
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
   REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER, ERROR_SET_RESOLVER,
   REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL, ERROR_SET_TTL,
-  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
+  REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, ERROR_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER
 } from './types';
 
 const propInitialState = () => ({
@@ -181,7 +182,11 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         subdomains: [...state.subdomains, {
           label: action.subdomain,
-          owner: ''
+          owner: '',
+          viewEdit: false,
+          editting: false,
+          response: null,
+          hasError: false
         }]
       }
     }
@@ -189,9 +194,65 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         subdomains: state.subdomains.map(subdomain =>
-          subdomain.label === action.label ? { ...subdomain, owner: action.owner } : subdomain
+          subdomain.label === action.label ?
+          {
+            ...subdomain,
+            owner: action.owner
+          } : subdomain
         )
       };
+    }
+    // set subdomain owner
+    case VIEW_EDIT_SUBDOMAIN_OWNER: {
+      return {
+        ...state,
+        subdomains: state.subdomains.map(subdomain =>
+          subdomain.label === action.label ?
+          {
+            ...subdomain,
+            viewEdit: !subdomain.viewEdit
+          } : subdomain
+        )
+      }
+    }
+    case REQUEST_SET_SUBDOMAIN_OWNER: {
+      return {
+        ...state,
+        subdomains: state.subdomains.map(subdomain =>
+          subdomain.label === action.label ?
+          {
+            ...subdomain,
+            editting: true
+          } : subdomain
+        )
+      }
+    }
+    case RECEIVE_SET_SUBDOMAIN_OWNER: {
+      return {
+        ...state,
+        subdomains: state.subdomains.map(subdomain =>
+          subdomain.label === action.label ?
+          {
+            ...subdomain,
+            editting: false,
+            response: action.response,
+            hasError: false
+          } : subdomain
+        )
+      }
+    }
+    case ERROR_SET_SUBDOMAIN_OWNER: {
+      return {
+        ...state,
+        subdomains: state.subdomains.map(subdomain =>
+          subdomain.label === action.label ? {
+            ...subdomain,
+            editting: false,
+            response: action.error.message,
+            hasError: true
+          } : subdomain
+        )
+      }
     }
     default: return state;
   }
