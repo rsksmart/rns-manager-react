@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, InputGroup, Button, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 
 function getDisplayState (domain, auctionStateLoading, state) {
   if (!domain) return 'Search for a domain.';
@@ -22,27 +22,29 @@ class DomainStateComponent extends Component {
     getState(domain);
   }
 
+  componentWillReceiveProps(newProps) {
+    const { domain, getState } = newProps;
+    if(domain !== this.props.domain) {
+      getState(domain);
+    }
+  }
+
   render () {
-    const { domain, onSearch, getState, auctionState, auctionStateLoading } = this.props;
+    const { domain, auctionState, auctionStateLoading } = this.props;
 
-    const displayState = getDisplayState(domain,auctionStateLoading, auctionState);
-
-    let input;
+    const displayState = getDisplayState(domain, auctionStateLoading, auctionState);
 
     return (
-      <Form onSubmit={e => {
-        e.preventDefault();
-        onSearch(input.value);
-        getState(input.value);
-      }}>
-        <InputGroup className="mb-3">
-          <FormControl ref={node => (input = node)} defaultValue={domain} />
-          <InputGroup.Append>
-            <Button type="submit">Search</Button>
-          </InputGroup.Append>
-        </InputGroup>
-        {displayState}
-      </Form>
+      <Card>
+        <Card.Body>
+          <Card.Title>
+            <h2>{domain}</h2>
+          </Card.Title>
+          <Card.Text>
+            {displayState}
+          </Card.Text>
+        </Card.Body>
+      </Card>
     );
   }
 }
