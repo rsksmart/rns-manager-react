@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { default as Auth } from '../auth';
 
 const Header = () => (
   <Navbar bg="light" expand="lg">
@@ -12,6 +13,9 @@ const Header = () => (
         <Link to="/search" className='nav-link'>Search</Link>
         <Link to="/admin" className='nav-link'>Admin</Link>
       </Nav>
+      <Navbar.Text>
+        <Auth />
+      </Navbar.Text>
     </Navbar.Collapse>
   </Navbar>
 );

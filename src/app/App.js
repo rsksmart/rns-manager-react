@@ -3,7 +3,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Header } from './components';
 import routes from './routes';
 import { Container, Row, Col } from 'react-bootstrap';
-import { GetDomainStateContainer } from './containers';
+import { GetDomainStateContainer, AuthModalContainer } from './containers';
 
 class App extends Component {
   render() {
@@ -26,6 +26,7 @@ class App extends Component {
               </Col>
             </Row>
           </Container>
+          <AuthModalContainer />
         </React.Fragment>
       </ConnectedRouter>
     );
