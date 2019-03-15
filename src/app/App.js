@@ -3,7 +3,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Header } from './components';
 import routes from './routes';
 import { Container, Row, Col } from 'react-bootstrap';
-import { GetDomainStateContainer, AuthModalContainer } from './containers';
+import { GetDomainStateContainer, AuthModalContainer, ErrorStackContainer } from './containers';
 
 class App extends Component {
   render() {
@@ -23,6 +23,11 @@ class App extends Component {
             <Row>
               <Col>
                 {routes}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ErrorStackContainer />
               </Col>
             </Row>
           </Container>
