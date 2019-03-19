@@ -1,16 +1,10 @@
-import {
-  requestBid, receiveBid, errorBid
-} from './actions';
-import {
-  rif as rifAddress,
-  registrar as registrarAddress
-} from '../../../config/contracts.json'
+import { requestBid, receiveBid } from './actions';
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
+import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json'
 import { keccak_256 as sha3 } from 'js-sha3';
 
 export const bid = (domain, value) => dispatch => {
-  if (!domain) return dispatch(errorBid('Please search for a domain state first.'));
-  if (!value || value < 1) return dispatch(errorBid('You must bid at least 1 RIF.'));
-
   dispatch(requestBid());
 
   const registrar = window.web3.eth.contract([
@@ -57,12 +51,15 @@ export const bid = (domain, value) => dispatch => {
 
   return new Promise((resolve) => {
     registrar.shaBid(hash, owner, tokens, salt, (shaBidError, shaBidResult) => {
-      if (shaBidError) return resolve(dispatch(errorBid(shaBidError.message)));
+      if (shaBidError) {
+        dispatch(receiveBid());
+        return resolve(dispatch(addTxError(shaBidError.message)));
+      }
 
       rif.transferAndCall(registrarAddress, tokens, `0x1413151f${shaBidResult.slice(2)}`, (error, result) => {
-        if (error) return resolve(dispatch(errorBid(error.message)));
-
-        return resolve(dispatch(receiveBid(result)));
+        dispatch(receiveBid());
+        if (error) return resolve(dispatch(addTxError(error.message)));
+        return resolve(dispatch(confirmedTx(result)));
       });
     });
   });

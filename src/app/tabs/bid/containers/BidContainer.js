@@ -2,15 +2,10 @@ import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { BidComponent } from '../components';
 import { bid } from '../operations';
-import { mapMetamaskResponseTypeToBootstrapVariant } from '../../../selectors';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
-  loading: state.bid.loading,
-  response: state.bid.response ? {
-    variant: mapMetamaskResponseTypeToBootstrapVariant(state.bid.response.type),
-    message: state.bid.response.message
-  } : null
+  loading: state.bid.loading
 });
 
 const mapDispatchToProps = dispatch => ({

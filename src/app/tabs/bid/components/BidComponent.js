@@ -3,7 +3,7 @@ import { Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
 
 class Bid extends Component {
   render () {
-    const { domain, bid, loading, response } = this.props;
+    const { domain, bid, loading } = this.props;
 
     let input;
 
@@ -23,12 +23,6 @@ class Bid extends Component {
           <Button type='submit'>Bid</Button>
         </Form>
         {loading && '...'}
-        {response &&
-          <Alert key='startAuction' variant={response.variant}>
-            {response.message}<br />
-            {response.variant === 'success' && 'Wait until unseal period.'}
-          </Alert>
-        }
       </React.Fragment>
     )
   }
