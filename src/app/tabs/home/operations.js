@@ -1,11 +1,10 @@
-import {
-  requestResolveAddress, receiveResolveAddress,
-} from './actions';
+import { requestResolveAddress, receiveResolveAddress, } from './actions';
+import { addTxError } from '../../actions';
 import { hash as namehash } from 'eth-ens-namehash';
 import { resolver as resolverAddress } from '../../../config/contracts';
 
 export const resolveAddress = domain => dispatch => {
-  dispatch(requestResolveAddress(domain));
+  dispatch(requestResolveAddress());
 
   const resolver = window.web3.eth.contract([
     {
@@ -25,13 +24,10 @@ export const resolveAddress = domain => dispatch => {
 
   const hash = namehash(domain);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     resolver.addr(hash, (error, result) => {
-      if(error) reject(error);
-
-      dispatch(receiveResolveAddress(result));
-
-      resolve(result);
+      if(error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(receiveResolveAddress(result)));
     });
   });
 };

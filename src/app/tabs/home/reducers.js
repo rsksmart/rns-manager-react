@@ -1,6 +1,4 @@
-import {
-  REQUEST_RESOLVE_ADDRESS, RECEIVE_RESOLVE_ADDRESS,
-} from './types';
+import { REQUEST_RESOLVE_ADDRESS, RECEIVE_RESOLVE_ADDRESS, } from './types';
 
 const initialState = {
   address: '',
