@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Form, InputGroup, FormControl, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class SubdomainComponent extends Component {
   render () {
-    const { label, parent, owner, changeViewEdit, viewEdit, editting, submit, response, hasError } = this.props;
+    const { label, parent, owner, changeEdit, viewEdit, editting, set } = this.props;
     const subdomain = `${label}.${parent}`;
 
     let input;
@@ -22,7 +22,7 @@ class SubdomainComponent extends Component {
             <Link to={`/admin?domain=${subdomain}`}>admin</Link>
           </Col>
           <Col md={2}>
-            <Button variant='link' onClick={changeViewEdit}>{viewEdit ? 'cancel' : 'set owner'}</Button>
+            <Button variant='link' onClick={changeEdit}>{viewEdit ? 'cancel' : 'set owner'}</Button>
           </Col>
         </Row>
         {
@@ -31,7 +31,7 @@ class SubdomainComponent extends Component {
             <br />
             <Form onSubmit={e => {
               e.preventDefault();
-              submit(input.value);
+              set(input.value);
             }}>
               <InputGroup>
                 <FormControl ref={node => (input = node)} />
@@ -44,19 +44,6 @@ class SubdomainComponent extends Component {
         }
         {
           editting && '...'
-        }
-        {
-          response &&
-          <React.Fragment>
-            <br />
-            <Row>
-              <Col>
-                <Alert variant={hasError ? 'danger' : 'success'}>
-                  {response}
-                </Alert>
-              </Col>
-            </Row>
-          </React.Fragment>
         }
       </Container>
     )

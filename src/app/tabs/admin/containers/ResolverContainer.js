@@ -9,15 +9,13 @@ const mapStateToProps = state => ({
   getting: state.admin.resolver.getting,
   value: state.admin.resolver.value,
   editOpen: state.admin.resolver.editOpen,
-  editting: state.admin.resolver.editting,
-  response: state.admin.resolver.response,
-  hasError: state.admin.resolver.hasError
+  editting: state.admin.resolver.editting
 });
 
 const mapDispatchToProps = dispatch => ({
   get: domain => dispatch(getDomainResolver(domain)),
   changeEdit: () => dispatch(changeEditResolver()),
-  submit: (domain, resolver) => dispatch(setDomainResolver(domain, resolver))
+  set: (domain, resolver) => dispatch(setDomainResolver(domain, resolver))
 });
 
 export default connect(

@@ -15,8 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeViewEdit: () => dispatch(viewEditSubdomainOwner(ownProps.label)),
-  submit: owner => dispatch(setSubdomainOwner(ownProps.parent, ownProps.label, owner))
+  changeEdit: () => dispatch(viewEditSubdomainOwner(ownProps.label)),
+  set: owner => dispatch(setSubdomainOwner(ownProps.parent, ownProps.label, owner))
 });
 
 export default connect(

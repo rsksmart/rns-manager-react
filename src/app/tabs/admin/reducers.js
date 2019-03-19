@@ -1,18 +1,16 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
-  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER, ERROR_SET_RESOLVER,
-  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL, ERROR_SET_TTL,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
+  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
+  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
-  REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, ERROR_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER
+  REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER
 } from './types';
 
 const propInitialState = () => ({
   getting: false,
   value: null,
   editOpen: false,
-  editting: false,
-  response: null,
-  hasError: false
+  editting: false
 });
 
 const initialState = {
@@ -22,19 +20,16 @@ const initialState = {
   subdomains: []
 };
 
-const requestGetProp = () => ({
-  value: null,
+const requestGetProp = (prop) => ({
+  ...prop,
   getting: true,
-  editOpen: false,
-  editting: false,
-  response: null,
-  hasError: false
+  value: null
 });
 
 const receiveGetProp = (prop, value) => ({
   ...prop,
-  value,
-  getting: false
+  getting: false,
+  value
 });
 
 const changeEditProp = (prop) => ({
@@ -44,23 +39,12 @@ const changeEditProp = (prop) => ({
 
 const requestSetProp = (prop) => ({
   ...prop,
-  editting: true,
-  response: null,
-  hasError: false
+  editting: true
 });
 
-const receiveSetProp = (prop, value) => ({
+const receiveSetProp = (prop) => ({
   ...prop,
   editting: false,
-  response: value,
-  hasError: false
-});
-
-const errorSetProp = (prop, error) => ({
-  ...prop,
-  editting: false,
-  response: error.message,
-  hasError: true
 });
 
 const adminReducer = (state = initialState, action) => {
@@ -69,7 +53,7 @@ const adminReducer = (state = initialState, action) => {
     case REQUEST_DOMAIN_OWNER: {
       return {
         ...state,
-        owner: requestGetProp()
+        owner: requestGetProp(state.owner)
       }
     }
     case RECEIVE_DOMAIN_OWNER: {
@@ -93,20 +77,14 @@ const adminReducer = (state = initialState, action) => {
     case RECEIVE_SET_OWNER: {
       return {
         ...state,
-        owner: receiveSetProp(state.owner, action.response)
-      }
-    }
-    case ERROR_SET_OWNER: {
-      return {
-        ...state,
-        owner: errorSetProp(state.owner, action.error)
+        owner: receiveSetProp(state.owner)
       }
     }
     // resolver
     case REQUEST_DOMAIN_RESOLVER: {
       return {
         ...state,
-        resolver: requestGetProp()
+        resolver: requestGetProp(state.resolver)
       }
     }
     case RECEIVE_DOMAIN_RESOLVER: {
@@ -130,20 +108,14 @@ const adminReducer = (state = initialState, action) => {
     case RECEIVE_SET_RESOLVER: {
       return {
         ...state,
-        resolver: receiveSetProp(state.resolver, action.response)
-      }
-    }
-    case ERROR_SET_RESOLVER: {
-      return {
-        ...state,
-        resolver: errorSetProp(state.resolver, action.error)
+        resolver: receiveSetProp(state.resolver)
       }
     }
     // ttl
     case REQUEST_DOMAIN_TTL: {
       return {
         ...state,
-        ttl: requestGetProp()
+        ttl: requestGetProp(state.ttl)
       }
     }
     case RECEIVE_DOMAIN_TTL: {
@@ -167,13 +139,7 @@ const adminReducer = (state = initialState, action) => {
     case RECEIVE_SET_TTL: {
       return {
         ...state,
-        ttl: receiveSetProp(state.ttl, action.response)
-      }
-    }
-    case ERROR_SET_TTL: {
-      return {
-        ...state,
-        ttl: errorSetProp(state.ttl, action.error)
+        ttl: receiveSetProp(state.ttl)
       }
     }
     // subdomains
@@ -181,12 +147,10 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         subdomains: [...state.subdomains, {
-          label: action.subdomain,
-          owner: '',
+          label: action.label,
+          owner: '...',
           viewEdit: false,
-          editting: false,
-          response: null,
-          hasError: false
+          editting: false
         }]
       }
     }
@@ -235,21 +199,6 @@ const adminReducer = (state = initialState, action) => {
           {
             ...subdomain,
             editting: false,
-            response: action.response,
-            hasError: false
-          } : subdomain
-        )
-      }
-    }
-    case ERROR_SET_SUBDOMAIN_OWNER: {
-      return {
-        ...state,
-        subdomains: state.subdomains.map(subdomain =>
-          subdomain.label === action.label ? {
-            ...subdomain,
-            editting: false,
-            response: action.error.message,
-            hasError: true
           } : subdomain
         )
       }

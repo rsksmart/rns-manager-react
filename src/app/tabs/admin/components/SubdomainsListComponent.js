@@ -4,9 +4,7 @@ import { SubdomainContainer } from '../containers';
 
 class SubdomainsListComponent extends Component {
   render () {
-    const { onAddSubdomain, subdomains, searchDomain } = this.props;
-
-    const domain = this.props.domain || searchDomain
+    const { onAddSubdomain, subdomains, domain } = this.props;
 
     let input;
 

@@ -1,10 +1,12 @@
 import {
-  requestDomainOwner, receiveDomainOwner, requestSetOwner, receiveSetOwner, errorSetOwner,
-  requestDomainResolver, receiveDomainResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
-  requestDomainTtl, receiveDomainTtl, requestSetTtl, receiveSetTtl, errorSetTtl,
+  requestDomainOwner, receiveDomainOwner, requestSetOwner, receiveSetOwner,
+  requestDomainResolver, receiveDomainResolver, requestSetResolver, receiveSetResolver,
+  requestDomainTtl, receiveDomainTtl, requestSetTtl, receiveSetTtl,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner,
-  requestSetSubdomainOwner, receiveSetSubdomainOwner, errorSetSubdomainOwner
+  requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
 import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
@@ -107,7 +109,7 @@ export const getDomainOwner = domain => dispatch => {
 
   return new Promise(resolve => {
     registry.owner(hash, (error, result) => {
-      if(error) return resolve(dispatch(receiveDomainOwner(error.message)));
+      if (error) return resolve(dispatch(addTxError(error.message)));
       return resolve(dispatch(receiveDomainOwner(result)));
     });
   });
@@ -120,8 +122,9 @@ export const setDomainOwner = (domain, owner) => dispatch => {
 
   return new Promise((resolve) => {
     registry.setOwner(hash, owner, (error, result) => {
-      if(error) return resolve(dispatch(errorSetOwner(error)));
-      return resolve(dispatch(receiveSetOwner(result)));
+      dispatch(receiveSetOwner());
+      if(error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
@@ -133,7 +136,7 @@ export const getDomainResolver = domain => dispatch => {
 
   return new Promise(resolve => {
     registry.resolver(hash, (error, result) => {
-      if(error) return resolve(dispatch(receiveDomainResolver(error.message)));
+      if(error) return resolve((receiveDomainResolver(error.message)));
       return resolve(dispatch(receiveDomainResolver(result)));
     });
   });
@@ -146,8 +149,9 @@ export const setDomainResolver = (domain, resolver) => dispatch => {
 
   return new Promise((resolve) => {
     registry.setResolver(hash, resolver, (error, result) => {
-      if(error) return resolve(dispatch(errorSetResolver(error)));
-      return resolve(dispatch(receiveSetResolver(result)));
+      dispatch(receiveSetResolver());
+      if(error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
@@ -159,7 +163,7 @@ export const getDomainTtl = domain => dispatch => {
 
   return new Promise(resolve => {
     registry.ttl(hash, (error, result) => {
-      if(error) return resolve(dispatch(receiveDomainTtl(error.message)));
+      if(error) return resolve(dispatch(addTxError(error.message)));
       return resolve(dispatch(receiveDomainTtl(result.toNumber())));
     });
   });
@@ -172,8 +176,9 @@ export const setDomainTtl = (domain, owner) => dispatch => {
 
   return new Promise((resolve) => {
     registry.setTTL(hash, owner, (error, result) => {
-      if(error) return resolve(dispatch(errorSetTtl(error)));
-      return resolve(dispatch(receiveSetTtl(result)));
+      dispatch(receiveSetTtl());
+      if(error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
@@ -187,7 +192,7 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
 
   return new Promise((resolve, reject) => {
     registry.owner(hash, (error, result) => {
-      if(error) reject(error);
+      if(error) reject(dispatch(addTxError(error.message)));
 
       dispatch(receiveSubdomainOwner(subdomain, result));
 
@@ -204,8 +209,9 @@ export const setSubdomainOwner = (parent, child, owner) => dispatch => {
 
   return new Promise(resolve => {
     registry.setSubnodeOwner(node, label, owner, (error, result) => {
-      if (error) return resolve(dispatch(errorSetSubdomainOwner(child, error)));
-      return resolve(dispatch(receiveSetSubdomainOwner(child, result)));
+      dispatch(receiveSetSubdomainOwner(child));
+      if (error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };

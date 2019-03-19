@@ -1,15 +1,14 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER, ERROR_SET_OWNER,
-  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER, ERROR_SET_RESOLVER,
-  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL, ERROR_SET_TTL,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
+  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
+  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
-  VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, ERROR_SET_SUBDOMAIN_OWNER
+  VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER
 } from './types';
 
 // owner
-export const requestDomainOwner = domain => ({
-  type: REQUEST_DOMAIN_OWNER,
-  domain
+export const requestDomainOwner = () => ({
+  type: REQUEST_DOMAIN_OWNER
 });
 
 export const receiveDomainOwner = owner => ({
@@ -21,26 +20,17 @@ export const changeEditOwner = () => ({
   type: CHANGE_EDIT_OWNER
 });
 
-export const requestSetOwner = (domain, owner) => ({
-  type: REQUEST_SET_OWNER,
-  domain,
-  owner
+export const requestSetOwner = () => ({
+  type: REQUEST_SET_OWNER
 });
 
-export const receiveSetOwner = response => ({
-  type: RECEIVE_SET_OWNER,
-  response
-});
-
-export const errorSetOwner = error => ({
-  type: ERROR_SET_OWNER,
-  error
+export const receiveSetOwner = () => ({
+  type: RECEIVE_SET_OWNER
 });
 
 // resolver
-export const requestDomainResolver = domain => ({
-  type: REQUEST_DOMAIN_RESOLVER,
-  domain
+export const requestDomainResolver = () => ({
+  type: REQUEST_DOMAIN_RESOLVER
 });
 
 export const receiveDomainResolver = resolver => ({
@@ -52,26 +42,17 @@ export const changeEditResolver = () => ({
   type: CHANGE_EDIT_RESOLVER
 });
 
-export const requestSetResolver = (domain, resolver) => ({
-  type: REQUEST_SET_RESOLVER,
-  domain,
-  resolver
+export const requestSetResolver = () => ({
+  type: REQUEST_SET_RESOLVER
 });
 
-export const receiveSetResolver = response => ({
-  type: RECEIVE_SET_RESOLVER,
-  response
-});
-
-export const errorSetResolver = error => ({
-  type: ERROR_SET_RESOLVER,
-  error
+export const receiveSetResolver = () => ({
+  type: RECEIVE_SET_RESOLVER
 });
 
 // ttl
-export const requestDomainTtl = domain => ({
-  type: REQUEST_DOMAIN_TTL,
-  domain
+export const requestDomainTtl = () => ({
+  type: REQUEST_DOMAIN_TTL
 });
 
 export const receiveDomainTtl = ttl => ({
@@ -83,26 +64,18 @@ export const changeEditTtl = () => ({
   type: CHANGE_EDIT_TTL
 });
 
-export const requestSetTtl = (domain, ttl) => ({
+export const requestSetTtl = () => ({
   type: REQUEST_SET_TTL,
-  domain,
-  ttl
 });
 
-export const receiveSetTtl = response => ({
+export const receiveSetTtl = () => ({
   type: RECEIVE_SET_TTL,
-  response
-});
-
-export const errorSetTtl = error => ({
-  type: ERROR_SET_TTL,
-  error
 });
 
 // subdomains
-export const addSubdomain = subdomain => ({
+export const addSubdomain = label => ({
   type: ADD_SUBDOMAIN,
-  subdomain
+  label
 });
 
 export const receiveSubdomainOwner = (label, owner) => ({
@@ -122,14 +95,7 @@ export const requestSetSubdomainOwner = label => ({
   label
 });
 
-export const receiveSetSubdomainOwner = (label, response) => ({
+export const receiveSetSubdomainOwner = label => ({
   type: RECEIVE_SET_SUBDOMAIN_OWNER,
-  label,
-  response
-});
-
-export const errorSetSubdomainOwner = (label, error) => ({
-  type: ERROR_SET_SUBDOMAIN_OWNER,
-  label,
-  error
+  label
 });

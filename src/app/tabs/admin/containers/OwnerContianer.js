@@ -9,15 +9,13 @@ const mapStateToProps = state => ({
   getting: state.admin.owner.getting,
   value: state.admin.owner.value,
   editOpen: state.admin.owner.editOpen,
-  editting: state.admin.owner.editting,
-  response: state.admin.owner.response,
-  hasError: state.admin.owner.hasError
+  editting: state.admin.owner.editting
 });
 
 const mapDispatchToProps = dispatch => ({
   get: domain => dispatch(getDomainOwner(domain)),
   changeEdit: () => dispatch(changeEditOwner()),
-  submit: (domain, owner) => dispatch(setDomainOwner(domain, owner))
+  set: (domain, owner) => dispatch(setDomainOwner(domain, owner))
 });
 
 export default connect(

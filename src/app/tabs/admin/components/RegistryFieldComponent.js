@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  FormControl,
-  Button,
-  Alert
-} from 'react-bootstrap';
+import { Row, Col, Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class RegistryFieldComponent extends Component {
   componentDidMount () {
@@ -16,7 +8,7 @@ class RegistryFieldComponent extends Component {
   }
 
   render () {
-    const { domain, name, getting, value, changeEdit, editOpen, editting, submit, response, hasError } = this.props;
+    const { domain, name, getting, value, changeEdit, editOpen, editting, set } = this.props;
 
     let input;
 
@@ -37,7 +29,7 @@ class RegistryFieldComponent extends Component {
               <Col>
                 <Form onSubmit={e => {
                   e.preventDefault();
-                  submit(domain, input.value);
+                  set(domain, input.value);
                 }}>
                   <InputGroup>
                     <FormControl ref={node => (input = node)} />
@@ -52,19 +44,6 @@ class RegistryFieldComponent extends Component {
         }
         {
           editting && '...'
-        }
-        {
-          response &&
-          <React.Fragment>
-            <br />
-            <Row>
-              <Col>
-                <Alert variant={hasError ? 'danger' : 'success'}>
-                  {response}
-                </Alert>
-              </Col>
-            </Row>
-          </React.Fragment>
         }
       </React.Fragment>
     );
