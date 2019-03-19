@@ -1,5 +1,6 @@
 import React from 'react';
 import { ResolveAddressContainer } from './containers';
+import { TabWithSearchComponent } from '../../components';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import rnsImage from './RNS.png';
@@ -32,19 +33,21 @@ const external = (
 )
 
 export default () => (
-  <Container>
-    <Row>
-      <Col style={{height: 300}} md={4}>
-        <h1>get your domain,<br />forget your address</h1>
-      </Col>
-      <Col style={{height: 300}} md={8}>
-        <Image src={rnsImage} fluid />
-      </Col>
-    </Row>
-    <Row>
-      <Col>{admin}</Col>
-      <Col><ResolveAddressContainer /></Col>
-      <Col>{external}</Col>
-    </Row>
-  </Container>
+  <TabWithSearchComponent>
+    <Container>
+      <Row>
+        <Col style={{height: 300}} md={4}>
+          <h1>get your domain,<br />forget your address</h1>
+        </Col>
+        <Col style={{height: 300}} md={8}>
+          <Image src={rnsImage} fluid />
+        </Col>
+      </Row>
+      <Row>
+        <Col>{admin}</Col>
+        <Col><ResolveAddressContainer /></Col>
+        <Col>{external}</Col>
+      </Row>
+    </Container>
+  </TabWithSearchComponent>
 );

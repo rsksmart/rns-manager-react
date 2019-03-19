@@ -3,3 +3,4 @@ export { default as GetDomainStateComponent } from './GetDomainStateComponent';
 export { default as AuthModalComponent } from './AuthModalComponent';
 export { default as ErrorStackComponent } from './ErrorStackComponent';
 export { default as TxStackComponent } from './TxStackComponent';
+export { default as TabWithSearchComponent } from './TabWithSearchComponent';

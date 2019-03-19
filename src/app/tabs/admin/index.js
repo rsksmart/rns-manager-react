@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Col, Row } from 'react-bootstrap';
-import {
-  OwnerContainer,
-  ResolverContainer,
-  TtlContainer,
-  SubdomainsListContainer,
-  LinkToResolverContainer
-} from './containers';
+import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer, LinkToResolverContainer } from './containers';
 
 class Admin extends Component {
   render () {

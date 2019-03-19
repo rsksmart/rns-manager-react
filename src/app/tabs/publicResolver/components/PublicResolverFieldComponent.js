@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Form, InputGroup, FormControl, Alert } from 'react-bootstrap';
+import { Row, Col, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
 
 class PublicResolverFieldComponent extends Component {
   componentDidMount () {
     const { domain, get } = this.props;
     get(domain);
   }
+
+  componentWillReceiveProps (newProps) {
+    const { domain, get } = this.props;
+    if(domain !== newProps.domain) {
+      get(newProps.domain);
+    }
+  }
+
   render () {
     const { name, domain, getting, value, changeEdit, editOpen, editting, set } = this.props;
 

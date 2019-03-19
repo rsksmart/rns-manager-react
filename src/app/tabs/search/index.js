@@ -1,4 +1,9 @@
 import React from 'react';
+import { TabWithSearchComponent } from '../../components';
 import { DomainStateContainer } from './containers';
 
-export default () => <DomainStateContainer />;
+export default () => (
+  <TabWithSearchComponent>
+    <DomainStateContainer />
+  </TabWithSearchComponent>
+);

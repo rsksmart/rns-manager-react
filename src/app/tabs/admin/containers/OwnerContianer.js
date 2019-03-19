@@ -1,11 +1,10 @@
 import { RegistryFieldComponent } from '../components';
 import { connect } from 'react-redux';
-import { parse } from 'query-string';
 import { changeEditOwner } from '../actions';
 import { getDomainOwner, setDomainOwner } from '../operations';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
+  domain: state.auth.domain,
   getting: state.admin.owner.getting,
   value: state.admin.owner.value,
   editOpen: state.admin.owner.editOpen,

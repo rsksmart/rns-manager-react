@@ -1,11 +1,10 @@
 import { RegistryFieldComponent } from '../components';
 import { connect } from 'react-redux';
-import { parse } from 'query-string';
 import { changeEditTtl } from '../actions';
 import { getDomainTtl, setDomainTtl } from '../operations';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
+  domain: state.auth.domain,
   getting: state.admin.ttl.getting,
   value: state.admin.ttl.value,
   editOpen: state.admin.ttl.editOpen,

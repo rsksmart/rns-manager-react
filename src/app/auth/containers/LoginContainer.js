@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   enable: () => {
-    dispatch(requestEnable);
+    dispatch(requestEnable());
     window.web3.currentProvider.enable()
       .catch(error => dispatch(errorEnable(error)))
       .then(result => {

@@ -1,4 +1,9 @@
 import React from 'react';
+import { TabWithSearchComponent } from '../../components';
 import { StartAuctionContainer } from './containers';
 
-export default () => <StartAuctionContainer/>;
+export default () => (
+  <TabWithSearchComponent>
+    <StartAuctionContainer />
+  </TabWithSearchComponent>
+);

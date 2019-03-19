@@ -1,11 +1,10 @@
 import { PublicResolverFieldComponent } from '../components';
 import { connect } from 'react-redux';
-import { parse } from 'query-string';
 import { changeViewAddr } from '../actions';
 import { getAddr, setAddr } from '../operations';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
+  domain: state.auth.domain,
   getting: state.publicResolver.addr.getting,
   value: state.publicResolver.addr.value,
   editOpen: state.publicResolver.addr.editOpen,

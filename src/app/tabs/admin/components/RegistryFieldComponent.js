@@ -7,6 +7,13 @@ class RegistryFieldComponent extends Component {
     get(domain);
   }
 
+  componentWillReceiveProps (newProps) {
+    const { get, domain } = this.props;
+    if (newProps.domain !== domain) {
+      get(newProps.domain);
+    }
+  }
+
   render () {
     const { domain, name, getting, value, changeEdit, editOpen, editting, set } = this.props;
 

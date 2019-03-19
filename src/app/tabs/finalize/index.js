@@ -1,4 +1,9 @@
 import React from 'react';
+import { TabWithSearchComponent } from '../../components';
 import { FinalizeContainer } from './containers';
 
-export default () => <FinalizeContainer />;
+export default () => (
+  <TabWithSearchComponent>
+    <FinalizeContainer />
+  </TabWithSearchComponent>
+);
