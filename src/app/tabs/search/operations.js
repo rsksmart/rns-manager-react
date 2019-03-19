@@ -1,6 +1,5 @@
-import {
-  requestDomainState, receiveDomainState
-} from './actions';
+import { requestDomainState, receiveDomainState } from './actions';
+import { addTxError } from '../../actions';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { registrar as registrarAddress } from '../../../config/contracts';
 
@@ -10,7 +9,7 @@ export const getAuctionState = domain => dispatch => {
     return;
   }
 
-  dispatch(requestDomainState(domain));
+  dispatch(requestDomainState());
 
   const registrar = window.web3.eth.contract([
     {
@@ -34,9 +33,9 @@ export const getAuctionState = domain => dispatch => {
 
   const hash = '0x' + sha3(domain.split('.')[0]);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     registrar.entries(hash, (error, result) => {
-      if(error) reject(error);
+      if(error) return resolve(dispatch(addTxError(error.message)));
 
       let state = result[0].toNumber();
 
@@ -61,7 +60,7 @@ export const getAuctionState = domain => dispatch => {
         ]).at(deedAddress);
 
         return deed.expirationDate((errorDeed, resultDeed) => {
-          if(errorDeed) reject(errorDeed.message);
+          if(errorDeed) return resolve(dispatch(addTxError(errorDeed.message)));
           const expirationDate = resultDeed.toNumber();
           const status = expirationDate === 0 ? 2 : 5;
           return resolve(dispatch(receiveDomainState(status)));
@@ -71,4 +70,4 @@ export const getAuctionState = domain => dispatch => {
       return resolve(dispatch(receiveDomainState(state)));
     });
   });
-}
+};

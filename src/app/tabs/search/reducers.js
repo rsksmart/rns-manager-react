@@ -1,6 +1,4 @@
-import {
-  REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE
-} from './types';
+import { REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE } from './types';
 
 const initialState = {
   auctionState: null,
@@ -12,7 +10,7 @@ const searchReducer = (state = initialState, action) => {
     case REQUEST_DOMAIN_STATE: {
       return {
         ...state,
-        auctionState: '',
+        auctionState: null,
         auctionStateLoading: true
       };
     }
