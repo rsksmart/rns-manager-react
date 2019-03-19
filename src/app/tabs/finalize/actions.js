@@ -8,8 +8,3 @@ export const receiveFinalize = response => ({
   type: RECEIVE_FINALIZE,
   response
 });
-
-export const errorFinalize = error => ({
-  type: ERROR_FINALIZE,
-  error
-});

@@ -1,10 +1,10 @@
-import { requestFinalize, receiveFinalize, errorFinalize } from './actions';
+import { requestFinalize, receiveFinalize } from './actions';
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
 import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
 
 export const finalize = domain => dispatch => {
-  if (!domain) return dispatch(errorFinalize('Please search for a domain state first.'));
-
   dispatch(requestFinalize());
 
   const registrar = window.web3.eth.contract([
@@ -25,8 +25,9 @@ export const finalize = domain => dispatch => {
 
   return new Promise(resolve => {
     registrar.finalizeAuction(hash, (error, result) => {
-      if (error) return resolve(dispatch(errorFinalize(error.message)));
-      return resolve(dispatch(receiveFinalize(result)));
+      dispatch(receiveFinalize());
+      if (error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
