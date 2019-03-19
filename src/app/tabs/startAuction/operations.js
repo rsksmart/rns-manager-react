@@ -1,8 +1,6 @@
-import {
-  requestStartAuction,
-  receiveStartAuction,
-  errorStartAuction
-} from './actions';
+import { requestStartAuction, receiveStartAuction } from './actions';
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { registrar as registrarAddress } from '../../../config/contracts';
 
@@ -21,19 +19,15 @@ const registrar = window.web3.eth.contract([
 ]).at(registrarAddress);
 
 export const startAuction = domain => dispatch => {
-  if(!domain) return dispatch(errorStartAuction('Please search for a domain state first.'));
-
   dispatch(requestStartAuction());
 
   let hash = `0x${sha3(domain.split('.')[0])}`;
 
   return new Promise((resolve) => {
     registrar.startAuction(hash, (error, result) => {
-      if(error) {
-        return resolve(dispatch(errorStartAuction(error.message)));
-      }
-
-      return resolve(dispatch(receiveStartAuction(result)));
+      dispatch(receiveStartAuction());
+      if(error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };

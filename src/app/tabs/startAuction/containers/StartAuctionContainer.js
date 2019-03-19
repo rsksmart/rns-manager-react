@@ -2,14 +2,9 @@ import { StartAuctionComponent } from '../components';
 import { parse } from 'query-string';
 import { connect } from 'react-redux';
 import { startAuction } from '../operations';
-import { mapMetamaskResponseTypeToBootstrapVariant } from '../../../selectors';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
-  response: state.startAuction.response ? {
-    variant: mapMetamaskResponseTypeToBootstrapVariant(state.startAuction.response.type),
-    message: state.startAuction.response.message
-  } : null
+  domain: parse(state.router.location.search).domain
 });
 
 const mapDispatchToProps = dispatch => ({
