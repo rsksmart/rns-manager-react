@@ -1,12 +1,16 @@
-import { ADD_TRANSACTION_ERROR, REMOVE_TRANSACTION_ERROR, ADD_TRANSACTION_CONFIRMED } from '../types';
+import { ADD_TRANSACTION_ERROR, REMOVE_TRANSACTION_ERROR, ADD_TRANSACTION_CONFIRMED, TRANSACTION_MINED } from '../types';
 
-var txId = 0;
 var errorId = 0;
 
 const initialState = {
   transactions: [],
   errors: []
 };
+
+const newTx = txHash => ({
+  txHash: txHash,
+  mined: false
+});
 
 const responseReducer = (state = initialState, action) => {
   switch(action.type) {
@@ -36,11 +40,14 @@ const responseReducer = (state = initialState, action) => {
         ...state,
         transactions: [
           ...state.transactions,
-          {
-            id: txId++,
-            txHash: action.txHash
-          }
+          newTx(action.txHash)
         ]
+      }
+    }
+    case TRANSACTION_MINED: {
+      return {
+        ...state,
+        transactions: state.transactions.map(tx => tx.txHash === action.txHash ? { ...tx, mined: true } : tx)
       }
     }
     default: return state;

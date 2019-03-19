@@ -7,7 +7,8 @@ class TxStackComponent extends Component {
 
     return transactions.map(tx => (
       <Alert key={tx.id} variant='success'>
-        {tx.txHash}
+        {tx.txHash}<br />
+        {!tx.mined ? 'Pending...' : 'Confirmed'}
       </Alert>
       )
     )
