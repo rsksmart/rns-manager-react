@@ -1,6 +1,6 @@
 import {
-  REQUEST_GET_ADDR, RECEIVE_GET_ADDR, ERROR_GET_ADDR, VIEW_EDIT_ADDR, REQUEST_SET_ADDR, RECEIVE_SET_ADDR, ERROR_SET_ADDR,
-  REQUEST_GET_CONTENT, RECEIVE_GET_CONTENT, ERROR_GET_CONTENT, VIEW_EDIT_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT, ERROR_SET_CONTENT,
+  REQUEST_GET_ADDR, RECEIVE_GET_ADDR, CHANGE_EDIT_ADDR, REQUEST_SET_ADDR, RECEIVE_SET_ADDR,
+  REQUEST_GET_CONTENT, RECEIVE_GET_CONTENT, CHANGE_EDIT_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
 } from './types';
 
 // addr
@@ -13,27 +13,16 @@ export const receiveGetAddr = addr => ({
   addr
 });
 
-export const errorGetAddr = error => ({
-  type: ERROR_GET_ADDR,
-  error
-});
-
 export const changeViewAddr = () => ({
-  type: VIEW_EDIT_ADDR
+  type: CHANGE_EDIT_ADDR
 });
 
 export const requestSetAddr = () => ({
   type: REQUEST_SET_ADDR
 });
 
-export const receiveSetAddr = response => ({
-  type: RECEIVE_SET_ADDR,
-  response
-});
-
-export const errorSetAddr = error => ({
-  type: ERROR_SET_ADDR,
-  error
+export const receiveSetAddr = () => ({
+  type: RECEIVE_SET_ADDR
 });
 
 // content
@@ -46,25 +35,14 @@ export const receiveGetContent = content => ({
   content
 });
 
-export const errorGetContent = error => ({
-  type: ERROR_GET_CONTENT,
-  error
-});
-
 export const changeViewContent = () => ({
-  type: VIEW_EDIT_CONTENT
+  type: CHANGE_EDIT_CONTENT
 });
 
 export const requestSetContent = () => ({
   type: REQUEST_SET_CONTENT
 });
 
-export const receiveSetContent = response => ({
-  type: RECEIVE_SET_CONTENT,
-  response
-});
-
-export const errorSetContent = error => ({
-  type: ERROR_SET_CONTENT,
-  error
+export const receiveSetContent = () => ({
+  type: RECEIVE_SET_CONTENT
 });

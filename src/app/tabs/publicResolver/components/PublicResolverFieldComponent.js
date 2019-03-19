@@ -3,11 +3,11 @@ import { Row, Col, Button, Form, InputGroup, FormControl, Alert } from 'react-bo
 
 class PublicResolverFieldComponent extends Component {
   componentDidMount () {
-    const { domain, getValue } = this.props;
-    getValue(domain);
+    const { domain, get } = this.props;
+    get(domain);
   }
   render () {
-    const { name, domain, getting, value, errorGet, changeEdit, editOpen, editting, setValue, responseSet, setHasError } = this.props;
+    const { name, domain, getting, value, changeEdit, editOpen, editting, set } = this.props;
 
     let input;
 
@@ -15,7 +15,7 @@ class PublicResolverFieldComponent extends Component {
       <React.Fragment>
         <Row>
           <Col md={2}>{name}</Col>
-          <Col md={8}>{getting ? '...' : (value || errorGet)}</Col>
+          <Col md={8}>{getting ? '...' : value}</Col>
           <Col md={2}>
             <Button variant='link' onClick={changeEdit}>{editOpen ? 'cancel' : 'edit'}</Button>
           </Col>
@@ -28,7 +28,7 @@ class PublicResolverFieldComponent extends Component {
               <Col>
                 <Form onSubmit={e => {
                   e.preventDefault();
-                  setValue(domain, input.value);
+                  set(domain, input.value);
                 }}>
                   <InputGroup>
                     <FormControl ref={node => (input = node)} />
@@ -43,19 +43,6 @@ class PublicResolverFieldComponent extends Component {
         }
         {
           editting && '...'
-        }
-        {
-          responseSet &&
-          <React.Fragment>
-            <br />
-            <Row>
-              <Col>
-                <Alert variant={setHasError ? 'danger' : 'success'}>
-                  {responseSet}
-                </Alert>
-              </Col>
-            </Row>
-          </React.Fragment>
         }
       </React.Fragment>
     );

@@ -1,8 +1,9 @@
 import {
-  requestGetAddr, receiveGetAddr, errorGetAddr, requestSetAddr, receiveSetAddr, errorSetAddr,
-  requestGetContent, receiveGetContent, errorGetContent, requestSetContent, receiveSetContent, errorSetContent,
+  requestGetAddr, receiveGetAddr, requestSetAddr, receiveSetAddr,
+  requestGetContent, receiveGetContent, requestSetContent, receiveSetContent,
 } from './actions';
-
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
 import { resolver as resolverAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 
@@ -66,7 +67,7 @@ export const getAddr = domain => dispatch => {
 
   return new Promise(resolve => {
     resolver.addr(hash, (error, result) => {
-      if (error) return resolve(dispatch(errorGetAddr(error)));
+      if (error) return resolve(dispatch(addTxError(error.message)));
       return resolve(dispatch(receiveGetAddr(result)));
     });
   });
@@ -79,8 +80,9 @@ export const setAddr = (domain, addr) => dispatch => {
 
   return new Promise(resolve => {
     resolver.setAddr(hash, addr, (error, result) => {
-      if (error) return resolve(dispatch(errorSetAddr(error)));
-      return resolve(dispatch(receiveSetAddr(result)));
+      dispatch(receiveSetAddr());
+      if (error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
@@ -92,7 +94,7 @@ export const getContent = domain => dispatch => {
 
   return new Promise(resolve => {
     resolver.content(hash, (error, result) => {
-      if (error) return resolve(dispatch(errorGetContent(error)));
+      if (error) return resolve(dispatch(addTxError(error.message)));
       return resolve(dispatch(receiveGetContent(result)));
     });
   });
@@ -105,8 +107,9 @@ export const setContent = (domain, addr) => dispatch => {
 
   return new Promise(resolve => {
     resolver.setContent(hash, addr, (error, result) => {
-      if (error) return resolve(dispatch(errorSetContent(error)));
-      return resolve(dispatch(receiveSetContent(result)));
+      dispatch(receiveSetContent());
+      if (error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };

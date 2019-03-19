@@ -8,17 +8,14 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   getting: state.publicResolver.addr.getting,
   value: state.publicResolver.addr.value,
-  errorGet: state.publicResolver.addr.error,
   editOpen: state.publicResolver.addr.editOpen,
-  editting: state.publicResolver.addr.editting,
-  responseSet: state.publicResolver.addr.responseSet,
-  setHasError: state.publicResolver.addr.setHasError
+  editting: state.publicResolver.addr.editting
 });
 
 const mapDispatchToProps = dispatch => ({
-  getValue: domain => dispatch(getAddr(domain)),
+  get: domain => dispatch(getAddr(domain)),
   changeEdit: () => dispatch(changeViewAddr()),
-  setValue: (domain, value) => dispatch(setAddr(domain, value))
+  set: (domain, value) => dispatch(setAddr(domain, value))
 })
 
 export default connect(

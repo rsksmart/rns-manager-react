@@ -1,16 +1,13 @@
 import {
-  REQUEST_GET_ADDR, RECEIVE_GET_ADDR, ERROR_GET_ADDR, VIEW_EDIT_ADDR, REQUEST_SET_ADDR, RECEIVE_SET_ADDR, ERROR_SET_ADDR,
-  REQUEST_GET_CONTENT, RECEIVE_GET_CONTENT, ERROR_GET_CONTENT, VIEW_EDIT_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT, ERROR_SET_CONTENT,
+  REQUEST_GET_ADDR, RECEIVE_GET_ADDR, CHANGE_EDIT_ADDR, REQUEST_SET_ADDR, RECEIVE_SET_ADDR,
+  REQUEST_GET_CONTENT, RECEIVE_GET_CONTENT, CHANGE_EDIT_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
 } from './types';
 
 const propInitialState = () => ({
   getting: false,
   value: null,
-  errorGet: null,
   editOpen: false,
-  editting: false,
-  responseSet: null,
-  setHasError: false
+  editting: false
 });
 
 const initialState = {
@@ -22,21 +19,12 @@ const requestGetProp = (prop) => ({
   ...prop,
   getting: true,
   value: null,
-  errorGet: null,
 });
 
 const receiveGetProp = (prop, value) => ({
   ...prop,
   getting: false,
-  value,
-  errorGet: null,
-});
-
-const errorGetProp = (prop, error) => ({
-  ...prop,
-  getting: false,
-  value: null,
-  errorGet: error.message,
+  value
 });
 
 const changeEditProp = (prop) => ({
@@ -49,18 +37,9 @@ const requestSetProp = (prop) => ({
   editting: true
 });
 
-const receiveSetProp = (prop, response) => ({
+const receiveSetProp = (prop) => ({
   ...prop,
   editting: false,
-  responseSet: response,
-  errorSet: false
-});
-
-const errorSetProp = (prop, error) => ({
-  ...prop,
-  editting: false,
-  responseSet: error.message,
-  errorSet: true
 });
 
 const publicResolverReducer = (state = initialState, action) => {
@@ -74,11 +53,7 @@ const publicResolverReducer = (state = initialState, action) => {
       ...state,
       addr: receiveGetProp(state.addr, action.addr)
     }
-    case ERROR_GET_ADDR: return {
-      ...state,
-      addr: errorGetProp(state.addr, action.error)
-    }
-    case VIEW_EDIT_ADDR: return {
+    case CHANGE_EDIT_ADDR: return {
       ...state,
       addr: changeEditProp(state.addr)
     }
@@ -88,11 +63,7 @@ const publicResolverReducer = (state = initialState, action) => {
     }
     case RECEIVE_SET_ADDR: return {
       ...state,
-      addr: receiveSetProp(state.addr, action.response)
-    }
-    case ERROR_SET_ADDR: return {
-      ...state,
-      addr: errorSetProp(state.addr, action.error)
+      addr: receiveSetProp(state.addr)
     }
     // content
     case REQUEST_GET_CONTENT: return {
@@ -103,11 +74,7 @@ const publicResolverReducer = (state = initialState, action) => {
       ...state,
       content: receiveGetProp(state.content, action.content)
     }
-    case ERROR_GET_CONTENT: return {
-      ...state,
-      content: errorGetProp(state.content, action.error)
-    }
-    case VIEW_EDIT_CONTENT: return {
+    case CHANGE_EDIT_CONTENT: return {
       ...state,
       content: changeEditProp(state.content)
     }
@@ -117,11 +84,7 @@ const publicResolverReducer = (state = initialState, action) => {
     }
     case RECEIVE_SET_CONTENT: return {
       ...state,
-      content: receiveSetProp(state.content, action.response)
-    }
-    case ERROR_SET_CONTENT: return {
-      ...state,
-      content: errorSetProp(state.content, action.error)
+      content: receiveSetProp(state.content)
     }
     default: return state;
   }
