@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
+import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class UnsealComponent extends Component {
   render () {
-    const { domain, unseal, response, loading } = this.props;
+    const { domain, unseal, loading } = this.props;
 
     let input;
 
@@ -23,12 +23,6 @@ class UnsealComponent extends Component {
           <Button type='submit'>Unseal</Button>
         </Form>
         {loading && '...'}
-        {response &&
-          <Alert key='startAuction' variant={response.variant}>
-            {response.message}<br />
-            {response.variant === 'success' && 'Wait until auction finalizes.'}
-          </Alert>
-        }
       </React.Fragment>
     )
   }

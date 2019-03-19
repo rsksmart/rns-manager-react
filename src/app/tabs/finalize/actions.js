@@ -4,7 +4,6 @@ export const requestFinalize = () => ({
   type: REQUEST_FINALIZE
 });
 
-export const receiveFinalize = response => ({
-  type: RECEIVE_FINALIZE,
-  response
+export const receiveFinalize = () => ({
+  type: RECEIVE_FINALIZE
 });

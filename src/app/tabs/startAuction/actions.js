@@ -4,7 +4,6 @@ export const requestStartAuction = () => ({
   type: REQUEST_START_AUCTION,
 });
 
-export const receiveStartAuction = response => ({
-  type: RECEIVE_START_AUCTION,
-  response
+export const receiveStartAuction = () => ({
+  type: RECEIVE_START_AUCTION
 });

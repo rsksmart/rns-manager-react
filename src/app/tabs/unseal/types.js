@@ -1,3 +1,2 @@
 export const REQUEST_UNSEAL = 'REQUEST_UNSEAL';
 export const RECEIVE_UNSEAL = 'RECEVIE_UNSEAL';
-export const ERROR_UNSEAL = 'ERROR_UNSEAL';

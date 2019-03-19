@@ -1,8 +1,3 @@
-export const MetamaskResponseType = {
-  SUCCESS: 'SUCCESS',
-  ERROR: 'ERROR'
-};
-
 export const ADD_TRANSACTION_ERROR = 'ADD_TRANSACTION_ERROR';
 export const REMOVE_TRANSACTION_ERROR = 'REMOVE_TRANSACTION_ERROR';
 

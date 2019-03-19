@@ -1,30 +1,16 @@
-import { REQUEST_UNSEAL, RECEIVE_UNSEAL, ERROR_UNSEAL } from './types';
-import { MetamaskResponseType } from '../../types';
+import { REQUEST_UNSEAL, RECEIVE_UNSEAL } from './types';
 
 const initialState = {
-  loading: false,
-  response: null
+  loading: false
 }
 
 const unsealReducer = (state = initialState, action) => {
   switch(action.type) {
     case REQUEST_UNSEAL: return {
-      loading: true,
-      response: ''
+      loading: true
     }
     case RECEIVE_UNSEAL: return {
-      loading: true,
-      response: {
-        type: MetamaskResponseType.SUCCESS,
-        message: action.response
-      }
-    }
-    case ERROR_UNSEAL: return {
-      loading: false,
-      response: {
-        type: MetamaskResponseType.ERROR,
-        message: action.error
-      }
+      loading: false
     }
     default: return state;
   }

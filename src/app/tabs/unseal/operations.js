@@ -1,11 +1,10 @@
-import { requestUnseal, receiveUnseal, errorUnseal } from './actions';
+import { requestUnseal, receiveUnseal } from './actions';
+import { addTxError } from '../../actions';
+import { confirmedTx } from '../../operations';
 import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
 
 export const unseal = (domain, value) => dispatch => {
-  if (!domain) return dispatch(errorUnseal('Please search for a domain state first.'));
-  if (!value || value < 1) return dispatch(errorUnseal('You must bid at least 1 RIF.'));
-
   dispatch(requestUnseal());
 
   const registrar = window.web3.eth.contract([
@@ -29,8 +28,9 @@ export const unseal = (domain, value) => dispatch => {
 
   return new Promise(resolve => {
     registrar.unsealBid(hash, tokens, 0, (error, result) => {
-      if (error) return resolve(dispatch(errorUnseal(error.message)));
-      return resolve(dispatch(receiveUnseal(result)));
+      dispatch(receiveUnseal());
+      if (error) return resolve(dispatch(addTxError(error.message)));
+      return resolve(dispatch(confirmedTx(result)));
     });
   });
 };
