@@ -1,6 +1,4 @@
-import {
-  REQUEST_START_AUCTION, RECEIVE_START_AUCTION
-} from './types';
+import { REQUEST_START_AUCTION, RECEIVE_START_AUCTION } from './types';
 
 const initialState = {
   loading: false

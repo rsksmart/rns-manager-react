@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TabWithSearchComponent } from '../../../components';
 import { Button } from 'react-bootstrap';
 
 class StartAuctionComponent extends Component {
@@ -6,10 +7,10 @@ class StartAuctionComponent extends Component {
     const { domain, startAuction } = this.props;
 
     return(
-      <React.Fragment>
+      <TabWithSearchComponent>
         <h2>Register {domain}</h2>
         <Button onClick={() => startAuction(domain)}>Start auction</Button>
-      </React.Fragment>
+      </TabWithSearchComponent>
     );
   }
 }
