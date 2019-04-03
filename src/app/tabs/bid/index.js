@@ -1,9 +1,4 @@
-import React from 'react';
-import { TabWithSearchComponent } from '../../components';
-import { BidContainer } from './containers';
+import reducer from './reducer';
+export default reducer;
 
-export default () => (
-  <TabWithSearchComponent>
-    <BidContainer />
-  </TabWithSearchComponent>
-);
+export { BidContainer as BidTab } from './containers';

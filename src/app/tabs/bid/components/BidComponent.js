@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { TabWithSearchComponent } from '../../../components';
 
 class Bid extends Component {
   render () {
@@ -8,7 +9,7 @@ class Bid extends Component {
     let input;
 
     return(
-      <React.Fragment>
+      <TabWithSearchComponent>
         <h2>Bid for {domain}</h2>
         <Form onSubmit={e => {
           e.preventDefault();
@@ -23,7 +24,7 @@ class Bid extends Component {
           <Button type='submit'>Bid</Button>
         </Form>
         {loading && '...'}
-      </React.Fragment>
+      </TabWithSearchComponent>
     )
   }
 }

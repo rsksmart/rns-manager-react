@@ -1,7 +1,7 @@
 import { requestBid, receiveBid } from './actions';
 import { addTxError } from '../../actions';
 import { confirmedTx } from '../../operations';
-import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json'
+import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
 
 export const bid = (domain, value) => dispatch => {
