@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import authReducer from '../auth';
-import homeReducer from '../tabs/home/reducers';
+import homeReducer from '../tabs/home';
 import searchReducer from '../tabs/search/reducers';
 import adminReducer from '../tabs/admin/reducers';
 import startAuctionReducer from '../tabs/startAuction';
