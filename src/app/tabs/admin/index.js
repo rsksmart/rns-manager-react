@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Container, Col, Row } from 'react-bootstrap';
 import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer, LinkToResolverContainer } from './containers';
 
+import reducer from './reducer';
+export default reducer;
+
 class Admin extends Component {
   render () {
     return(
@@ -38,4 +41,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export const AdminTab = Admin;

@@ -1,6 +1,6 @@
 export { HomeTab } from './home';
 export { SearchTab } from './search';
-export { default as AdminTab } from './admin';
+export { AdminTab } from './admin';
 export { StartAuctionTab } from './startAuction';
 export { BidTab } from './bid';
 export { UnsealTab } from './unseal';
