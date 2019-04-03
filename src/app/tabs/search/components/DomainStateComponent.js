@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import { TabWithSearchComponent } from '../../../components';
 
 function getDisplayState (domain, auctionStateLoading, state) {
   if (!domain) return 'Search for a domain.';
@@ -35,16 +36,18 @@ class DomainStateComponent extends Component {
     const displayState = getDisplayState(domain, auctionStateLoading, auctionState);
 
     return (
-      <Card>
-        <Card.Body>
-          <Card.Title>
-            <h2>{domain}</h2>
-          </Card.Title>
-          <Card.Text>
-            {displayState}
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <TabWithSearchComponent>
+        <Card>
+          <Card.Body>
+            <Card.Title>
+              <h2>{domain}</h2>
+            </Card.Title>
+            <Card.Text>
+              {displayState}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </TabWithSearchComponent>
     );
   }
 }

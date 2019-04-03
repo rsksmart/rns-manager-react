@@ -1,9 +1,4 @@
-import React from 'react';
-import { TabWithSearchComponent } from '../../components';
-import { DomainStateContainer } from './containers';
+import reducer from './reducer';
+export default reducer;
 
-export default () => (
-  <TabWithSearchComponent>
-    <DomainStateContainer />
-  </TabWithSearchComponent>
-);
+export { DomainStateContainer as SearchTab } from './containers';
