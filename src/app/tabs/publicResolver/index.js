@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { AddrContainer, ContentContainer } from './containers';
 
+import reducer from './reducer';
+export default reducer;
+
 class PublicResolver extends Component {
   render () {
     return (
@@ -27,4 +30,4 @@ class PublicResolver extends Component {
   }
 }
 
-export default PublicResolver;
+export const PublicResolverTab = PublicResolver;

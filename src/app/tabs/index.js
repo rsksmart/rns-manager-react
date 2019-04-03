@@ -5,4 +5,4 @@ export { StartAuctionTab } from './startAuction';
 export { BidTab } from './bid';
 export { UnsealTab } from './unseal';
 export { FinalizeTab } from './finalize';
-export { default as PublicResolverTab } from './publicResolver';
+export { PublicResolverTab } from './publicResolver';

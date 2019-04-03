@@ -8,7 +8,7 @@ import startAuctionReducer from '../tabs/startAuction';
 import bidReducer from '../tabs/bid';
 import unsealReducer from '../tabs/unseal';
 import finalizeReducer from '../tabs/finalize';
-import publicResolver from '../tabs/publicResolver/reducers';
+import publicResolver from '../tabs/publicResolver';
 import responseReducer from './responseReducer';
 
 const rootReducer = (history) => combineReducers({
