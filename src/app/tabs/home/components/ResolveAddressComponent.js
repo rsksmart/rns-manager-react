@@ -17,7 +17,7 @@ class ResolverAddressComponent extends Component {
           <InputGroup>
             <FormControl ref={node => (input = node)} />
             <InputGroup.Append>
-              <Button type="submit">Resolve</Button>
+              <Button type="submit" size='sm'>Resolve</Button>
             </InputGroup.Append>
           </InputGroup>
           <p>{resolveAddressLoading ? 'Loading...' : address}</p>

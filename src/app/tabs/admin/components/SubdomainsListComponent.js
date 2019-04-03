@@ -22,7 +22,7 @@ class SubdomainsListComponent extends Component {
               <InputGroup.Text>{domain}</InputGroup.Text>
             </InputGroup.Append>
             <InputGroup.Append>
-              <Button type="submit">+</Button>
+              <Button type="submit" size='sm'>+</Button>
             </InputGroup.Append>
           </InputGroup>
         </Form>

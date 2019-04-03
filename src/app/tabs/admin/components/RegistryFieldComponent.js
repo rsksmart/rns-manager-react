@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 
 class RegistryFieldComponent extends Component {
   componentDidMount () {
@@ -39,9 +39,9 @@ class RegistryFieldComponent extends Component {
                   set(domain, input.value);
                 }}>
                   <InputGroup>
-                    <FormControl ref={node => (input = node)} />
+                    <Form.Control ref={node => (input = node)} />
                     <InputGroup.Append>
-                      <Button type="submit">edit</Button>
+                      <Button type="submit" size='sm'>edit</Button>
                     </InputGroup.Append>
                   </InputGroup>
                 </Form>

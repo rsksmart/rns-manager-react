@@ -36,7 +36,7 @@ class SubdomainComponent extends Component {
               <InputGroup>
                 <FormControl ref={node => (input = node)} />
                 <InputGroup.Append>
-                  <Button type="submit">set</Button>
+                  <Button type="submit" size='sm'>set</Button>
                 </InputGroup.Append>
               </InputGroup>
             </Form>

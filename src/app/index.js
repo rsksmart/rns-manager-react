@@ -12,10 +12,12 @@ class App extends Component {
     return (
       <ConnectedRouter history={history}>
         <React.Fragment>
-          <header>
-            <Header />
-          </header>
-          {routes}
+          <Header />
+          <div style={{marginTop: '20px'}}>
+            <Container>
+              {routes}
+            </Container>
+          </div>
           <Container>
             <Row>
               <Col>

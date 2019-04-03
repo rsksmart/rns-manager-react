@@ -13,9 +13,9 @@ class GetDomainStateComponent extends Component {
         getDomainState(input.value);
       }}>
         <InputGroup className="mb-3">
-          <FormControl ref={node => (input = node)} defaultValue={domain} />
+          <FormControl type='text' ref={node => (input = node)} defaultValue={domain} />
           <InputGroup.Append>
-            <Button type="submit">Search</Button>
+            <Button type="submit" size='sm'>Search</Button>
           </InputGroup.Append>
         </InputGroup>
       </Form>

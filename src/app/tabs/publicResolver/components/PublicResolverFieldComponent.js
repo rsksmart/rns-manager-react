@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 
 class PublicResolverFieldComponent extends Component {
   componentDidMount () {
@@ -39,9 +39,9 @@ class PublicResolverFieldComponent extends Component {
                   set(domain, input.value);
                 }}>
                   <InputGroup>
-                    <FormControl ref={node => (input = node)} />
+                    <Form.Control type='text' ref={node => (input = node)} />
                     <InputGroup.Append>
-                      <Button type="submit">edit</Button>
+                      <Button type="submit" size='sm'>edit</Button>
                     </InputGroup.Append>
                   </InputGroup>
                 </Form>
