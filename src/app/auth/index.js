@@ -1,4 +1,7 @@
-import React from 'react';
-import { LoginContainer } from './containers';
+import reducer from './reducer';
+export default reducer;
 
-export default () => <LoginContainer />;
+export {
+  AuthModalContainer as AuthModal,
+  StartButtonContainer as StartButton
+} from './containers';

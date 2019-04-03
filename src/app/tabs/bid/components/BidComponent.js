@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
+import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class Bid extends Component {
   render () {

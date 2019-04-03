@@ -1,37 +1,44 @@
-import {
-  REQUEST_ENABLE, RECEIVE_ENABLE, ERROR_ENABLE,
-  DISPLAY_AUTH_MODAL,
-  REQUEST_AUTH_DOMAIN, RECEIVE_AUTH_DOMAIN, ERROR_AUTH_DOMAIN
-} from './types';
+import { SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE } from './types';
+
+export const showModal = () => ({
+  type: SHOW_AUTH_MODAL,
+});
+
+export const closeModal = () => ({
+  type: CLOSE_AUTH_MODAL
+});
+
+export const receiveHasMetamask = value => ({
+  type: RECEIVE_HAS_METAMASK,
+  value
+});
 
 export const requestEnable = () => ({
   type: REQUEST_ENABLE
 });
 
-export const receiveEnable = response => ({
+export const receiveEnable = (address, network) => ({
   type: RECEIVE_ENABLE,
-  response
+  address,
+  network
 });
 
-export const errorEnable = error => ({
+export const errorEnable = message => ({
   type: ERROR_ENABLE,
-  error
+  message
 });
 
-export const displayAuthModal = () => ({
-  type: DISPLAY_AUTH_MODAL
+export const requestLogin = () => ({
+  type: REQUEST_LOGIN
 });
 
-export const requestAuthDomain = () => ({
-  type: REQUEST_AUTH_DOMAIN
+export const receiveLogin = (domain, isOwner) => ({
+  type: RECEIVE_LOGIN,
+  domain,
+  isOwner
 });
 
-export const receiveAuthDomain = response => ({
-  type: RECEIVE_AUTH_DOMAIN,
-  response
-});
-
-export const errorAuthDomain = error => ({
-  type: ERROR_AUTH_DOMAIN,
-  error
+export const errorLogin = message => ({
+  type: ERROR_LOGIN,
+  message
 });
