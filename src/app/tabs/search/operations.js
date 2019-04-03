@@ -39,8 +39,6 @@ export const getAuctionState = domain => dispatch => {
 
       let state = result[0].toNumber();
 
-      console.log(result[0])
-
       if (state === 2) {
         const deedAddress = result[1];
 

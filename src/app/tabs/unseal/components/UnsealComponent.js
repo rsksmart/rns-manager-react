@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { TabWithSearchComponent } from '../../../components';
 
 class UnsealComponent extends Component {
   render () {
@@ -8,7 +9,7 @@ class UnsealComponent extends Component {
     let input;
 
     return (
-      <React.Fragment>
+      <TabWithSearchComponent>
         <h2>Unseal bid for {domain}</h2>
         <Form onSubmit={e => {
           e.preventDefault();
@@ -23,7 +24,7 @@ class UnsealComponent extends Component {
           <Button type='submit'>Unseal</Button>
         </Form>
         {loading && '...'}
-      </React.Fragment>
+      </TabWithSearchComponent>
     )
   }
 }

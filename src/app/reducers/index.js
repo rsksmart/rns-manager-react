@@ -6,7 +6,7 @@ import searchReducer from '../tabs/search/reducers';
 import adminReducer from '../tabs/admin/reducers';
 import startAuctionReducer from '../tabs/startAuction';
 import bidReducer from '../tabs/bid';
-import unsealReducer from '../tabs/unseal/reducers';
+import unsealReducer from '../tabs/unseal';
 import finalizeReducer from '../tabs/finalize/reducers';
 import publicResolver from '../tabs/publicResolver/reducers';
 import responseReducer from './responseReducer';

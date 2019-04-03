@@ -1,9 +1,4 @@
-import React from 'react';
-import { TabWithSearchComponent } from '../../components';
-import { UnsealContainer } from './containers';
+import reducer from './reducer';
+export default reducer;
 
-export default () => (
-  <TabWithSearchComponent>
-    <UnsealContainer />
-  </TabWithSearchComponent>
-);
+export { UnsealContainer as UnsealTab } from './containers';
