@@ -4,5 +4,5 @@ export { default as AdminTab } from './admin';
 export { StartAuctionTab } from './startAuction';
 export { BidTab } from './bid';
 export { UnsealTab } from './unseal';
-export { default as FinalizeTab } from './finalize';
+export { FinalizeTab } from './finalize';
 export { default as PublicResolverTab } from './publicResolver';

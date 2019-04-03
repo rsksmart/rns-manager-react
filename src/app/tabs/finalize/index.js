@@ -1,9 +1,4 @@
-import React from 'react';
-import { TabWithSearchComponent } from '../../components';
-import { FinalizeContainer } from './containers';
+import reducer from './reducer';
+export default reducer;
 
-export default () => (
-  <TabWithSearchComponent>
-    <FinalizeContainer />
-  </TabWithSearchComponent>
-);
+export { FinalizeContainer as FinalizeTab } from './containers';
