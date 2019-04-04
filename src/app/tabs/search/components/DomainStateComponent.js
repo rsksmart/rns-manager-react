@@ -8,11 +8,11 @@ function getDisplayState (domain, auctionStateLoading, state) {
   if (auctionStateLoading) return 'Loading...';
 
   switch(state) {
-    case 0: return <p>Open.<br /><Link to={`/start?domain=${domain}`}>Register the domain</Link></p>
-    case 1: return <p>Auction.<br /><Link to={`/bid?domain=${domain}`}>Bid in the domain auction</Link></p>
-    case 2: return <p>Finalize.<br /><Link to={`/finalize?domain=${domain}`}>Finalize the auction</Link></p>
-    case 4: return <p>Reveal.<br /><Link to={`/unseal?domain=${domain}`}>Reveal your bid</Link></p>
-    case 5: return <p>Owned.<br /><Link to={`/admin?domain=${domain}`}>Admin the domain</Link></p>
+    case 0: return <Card.Text>Open.<br /><Link to={`/start?domain=${domain}`}>Register the domain</Link></Card.Text>
+    case 1: return <Card.Text>Auction.<br /><Link to={`/bid?domain=${domain}`}>Bid in the domain auction</Link></Card.Text>
+    case 2: return <Card.Text>Finalize.<br /><Link to={`/finalize?domain=${domain}`}>Finalize the auction</Link></Card.Text>
+    case 4: return <Card.Text>Reveal.<br /><Link to={`/unseal?domain=${domain}`}>Reveal your bid</Link></Card.Text>
+    case 5: return <Card.Text>Owned.<br /><Link to={`/admin?domain=${domain}`}>Admin the domain</Link></Card.Text>
     default: return null
   }
 }
@@ -42,9 +42,7 @@ class DomainStateComponent extends Component {
             <Card.Title>
               <h2>{domain}</h2>
             </Card.Title>
-            <Card.Text>
-              {displayState}
-            </Card.Text>
+            {displayState}
           </Card.Body>
         </Card>
       </TabWithSearchComponent>
