@@ -6,3 +6,4 @@ export { BidTab } from './bid';
 export { UnsealTab } from './unseal';
 export { FinalizeTab } from './finalize';
 export { PublicResolverTab } from './publicResolver';
+export { NotificationTab } from './notifications';

@@ -2,7 +2,7 @@ import { NotificationListComponent } from '../components';
 import { connect } from 'react-redux';
 import { viewNotification } from '../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notifications: state.notifications.filter(n => !n.viewed)
 });
 
