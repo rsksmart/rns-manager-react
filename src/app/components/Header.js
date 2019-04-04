@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { StartButton } from '../auth';
 import logo from '../../logo.svg';
+import { NotificationIcon } from '../notifications';
 
 const Header = () => (
   <div className="header bg-dark">
@@ -23,6 +24,11 @@ const Header = () => (
 						</li>
 						<li className="nav-item">
               <Link to="/admin" className='nav-link'>Admin</Link>
+						</li>
+						<li className='nav-item'>
+							<Link to='/notifications' className='nav-link'>
+								<NotificationIcon />
+							</Link>
 						</li>
 					</ul>
 					<StartButton />
