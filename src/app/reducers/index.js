@@ -10,6 +10,7 @@ import unsealReducer from '../tabs/unseal';
 import finalizeReducer from '../tabs/finalize';
 import publicResolver from '../tabs/publicResolver';
 import responseReducer from './responseReducer';
+import notificationReducer from '../notifications';
 
 const rootReducer = (history) => combineReducers({
   auth: authReducer,
@@ -22,7 +23,8 @@ const rootReducer = (history) => combineReducers({
   finalize: finalizeReducer,
   publicResolver: publicResolver,
   response: responseReducer,
-  router: connectRouter(history),
+  notifications: notificationReducer,
+  router: connectRouter(history)
 });
 
 export default rootReducer;

@@ -5,6 +5,7 @@ import routes from './routes';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ErrorStackContainer, TxStackContainer } from './containers';
 import { AuthModal } from './auth';
+import { Notifications } from './notifications';
 
 class App extends Component {
   render() {
@@ -17,6 +18,9 @@ class App extends Component {
             <Container>
               {routes}
             </Container>
+          </div>
+          <div style={{marginTop: '20px'}}>
+            <Notifications />
           </div>
           <Container>
             <Row>
