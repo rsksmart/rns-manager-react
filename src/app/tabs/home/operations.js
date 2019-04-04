@@ -1,7 +1,7 @@
 import { requestResolveAddress, receiveResolveAddress, } from './actions';
-import { addTxError } from '../../actions';
 import { hash as namehash } from 'eth-ens-namehash';
 import { resolver as resolverAddress } from '../../../config/contracts';
+import { notifyError } from '../../notifications';
 
 export const resolveAddress = domain => dispatch => {
   dispatch(requestResolveAddress());
@@ -26,7 +26,7 @@ export const resolveAddress = domain => dispatch => {
 
   return new Promise(resolve => {
     resolver.addr(hash, (error, result) => {
-      if(error) return resolve(dispatch(addTxError(error.message)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveResolveAddress(result)));
     });
   });

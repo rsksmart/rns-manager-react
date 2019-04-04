@@ -2,10 +2,9 @@ import {
   requestGetAddr, receiveGetAddr, requestSetAddr, receiveSetAddr,
   requestGetContent, receiveGetContent, requestSetContent, receiveSetContent,
 } from './actions';
-import { addTxError } from '../../actions';
-import { confirmedTx } from '../../operations';
 import { resolver as resolverAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
+import { notifyTx, notifyError } from '../../notifications';
 
 const resolver = window.web3.eth.contract([
   {
@@ -67,7 +66,7 @@ export const getAddr = domain => dispatch => {
 
   return new Promise(resolve => {
     resolver.addr(hash, (error, result) => {
-      if (error) return resolve(dispatch(addTxError(error.message)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveGetAddr(result)));
     });
   });
@@ -81,8 +80,8 @@ export const setAddr = (domain, addr) => dispatch => {
   return new Promise(resolve => {
     resolver.setAddr(hash, addr, (error, result) => {
       dispatch(receiveSetAddr());
-      if (error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };
@@ -94,7 +93,7 @@ export const getContent = domain => dispatch => {
 
   return new Promise(resolve => {
     resolver.content(hash, (error, result) => {
-      if (error) return resolve(dispatch(addTxError(error.message)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveGetContent(result)));
     });
   });
@@ -108,8 +107,8 @@ export const setContent = (domain, addr) => dispatch => {
   return new Promise(resolve => {
     resolver.setContent(hash, addr, (error, result) => {
       dispatch(receiveSetContent());
-      if (error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };

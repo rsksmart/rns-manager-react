@@ -1,8 +1,7 @@
 import { requestBid, receiveBid } from './actions';
-import { addTxError } from '../../actions';
-import { confirmedTx } from '../../operations';
 import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { notifyTx, notifyError } from '../../notifications';
 
 export const bid = (domain, value) => dispatch => {
   dispatch(requestBid());
@@ -53,13 +52,15 @@ export const bid = (domain, value) => dispatch => {
     registrar.shaBid(hash, owner, tokens, salt, (shaBidError, shaBidResult) => {
       if (shaBidError) {
         dispatch(receiveBid());
-        return resolve(dispatch(addTxError(shaBidError.message)));
+        return resolve(dispatch(notifyError(shaBidError.message)));
       }
 
       rif.transferAndCall(registrarAddress, tokens, `0x1413151f${shaBidResult.slice(2)}`, (error, result) => {
         dispatch(receiveBid());
-        if (error) return resolve(dispatch(addTxError(error.message)));
-        return resolve(dispatch(confirmedTx(result)));
+
+        if (error) return resolve(dispatch(notifyError(error.message)));
+
+        return resolve(dispatch(notifyTx(result)));
       });
     });
   });

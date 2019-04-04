@@ -1,8 +1,7 @@
 import { requestFinalize, receiveFinalize } from './actions';
-import { addTxError } from '../../actions';
-import { confirmedTx } from '../../operations';
 import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { notifyTx, notifyError } from '../../notifications';
 
 export const finalize = domain => dispatch => {
   dispatch(requestFinalize());
@@ -26,8 +25,10 @@ export const finalize = domain => dispatch => {
   return new Promise(resolve => {
     registrar.finalizeAuction(hash, (error, result) => {
       dispatch(receiveFinalize());
-      if (error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };

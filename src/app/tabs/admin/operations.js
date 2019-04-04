@@ -5,11 +5,10 @@ import {
   addSubdomain as addSubdomainAction, receiveSubdomainOwner,
   requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
-import { addTxError } from '../../actions';
-import { confirmedTx } from '../../operations';
 import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { notifyTx, notifyError } from '../../notifications';
 
 const registry = window.web3.eth.contract([
   {
@@ -109,7 +108,7 @@ export const getDomainOwner = domain => dispatch => {
 
   return new Promise(resolve => {
     registry.owner(hash, (error, result) => {
-      if (error) return resolve(dispatch(addTxError(error.message)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveDomainOwner(result)));
     });
   });
@@ -123,8 +122,8 @@ export const setDomainOwner = (domain, owner) => dispatch => {
   return new Promise((resolve) => {
     registry.setOwner(hash, owner, (error, result) => {
       dispatch(receiveSetOwner());
-      if(error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };
@@ -150,8 +149,8 @@ export const setDomainResolver = (domain, resolver) => dispatch => {
   return new Promise((resolve) => {
     registry.setResolver(hash, resolver, (error, result) => {
       dispatch(receiveSetResolver());
-      if(error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };
@@ -163,7 +162,7 @@ export const getDomainTtl = domain => dispatch => {
 
   return new Promise(resolve => {
     registry.ttl(hash, (error, result) => {
-      if(error) return resolve(dispatch(addTxError(error.message)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveDomainTtl(result.toNumber())));
     });
   });
@@ -177,8 +176,8 @@ export const setDomainTtl = (domain, owner) => dispatch => {
   return new Promise((resolve) => {
     registry.setTTL(hash, owner, (error, result) => {
       dispatch(receiveSetTtl());
-      if(error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };
@@ -192,7 +191,7 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
 
   return new Promise((resolve, reject) => {
     registry.owner(hash, (error, result) => {
-      if(error) reject(dispatch(addTxError(error.message)));
+      if(error) reject(dispatch(notifyError(error.message)));
 
       dispatch(receiveSubdomainOwner(subdomain, result));
 
@@ -210,8 +209,8 @@ export const setSubdomainOwner = (parent, child, owner) => dispatch => {
   return new Promise(resolve => {
     registry.setSubnodeOwner(node, label, owner, (error, result) => {
       dispatch(receiveSetSubdomainOwner(child));
-      if (error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };

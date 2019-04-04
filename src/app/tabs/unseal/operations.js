@@ -1,8 +1,7 @@
 import { requestUnseal, receiveUnseal } from './actions';
-import { addTxError } from '../../actions';
-import { confirmedTx } from '../../operations';
 import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { notifyTx, notifyError } from '../../notifications';
 
 export const unseal = (domain, value) => dispatch => {
   dispatch(requestUnseal());
@@ -29,8 +28,10 @@ export const unseal = (domain, value) => dispatch => {
   return new Promise(resolve => {
     registrar.unsealBid(hash, tokens, 0, (error, result) => {
       dispatch(receiveUnseal());
-      if (error) return resolve(dispatch(addTxError(error.message)));
-      return resolve(dispatch(confirmedTx(result)));
+
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      return resolve(dispatch(notifyTx(result)));
     });
   });
 };

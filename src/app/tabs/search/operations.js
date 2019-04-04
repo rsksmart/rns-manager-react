@@ -1,7 +1,7 @@
 import { requestDomainState, receiveDomainState } from './actions';
-import { addTxError } from '../../actions';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { registrar as registrarAddress } from '../../../config/contracts';
+import { notifyError } from '../../notifications';
 
 export const getAuctionState = domain => dispatch => {
   if (!domain) {
@@ -35,7 +35,7 @@ export const getAuctionState = domain => dispatch => {
 
   return new Promise(resolve => {
     registrar.entries(hash, (error, result) => {
-      if(error) return resolve(dispatch(addTxError(error.message)));
+      if(error) return resolve(dispatch(notifyError(error.message)));
 
       let state = result[0].toNumber();
 
@@ -60,9 +60,11 @@ export const getAuctionState = domain => dispatch => {
         ]).at(deedAddress);
 
         return deed.expirationDate((errorDeed, resultDeed) => {
-          if(errorDeed) return resolve(dispatch(addTxError(errorDeed.message)));
+          if (errorDeed) return resolve(dispatch(notifyError(errorDeed.message)));
+
           const expirationDate = resultDeed.toNumber();
           const status = expirationDate === 0 ? 2 : 5;
+
           return resolve(dispatch(receiveDomainState(status)));
         });
       }
