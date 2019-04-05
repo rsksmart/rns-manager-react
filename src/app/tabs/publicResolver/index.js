@@ -5,7 +5,7 @@ import { AddrContainer, ContentContainer } from './containers';
 import reducer from './reducer';
 export default reducer;
 
-class PublicResolver extends Component {
+class PublicResolverTab extends Component {
   render () {
     return (
       <Container>
@@ -30,4 +30,4 @@ class PublicResolver extends Component {
   }
 }
 
-export const PublicResolverTab = PublicResolver;
+export { PublicResolverTab }

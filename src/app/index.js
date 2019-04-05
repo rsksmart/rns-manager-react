@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router'
 import { Header } from './components';
 import routes from './routes';
-import { Container, Row, Col } from 'react-bootstrap';
-import { ErrorStackContainer, TxStackContainer } from './containers';
+import { Container } from 'react-bootstrap';
 import { AuthModal } from './auth';
 import { Notifications } from './notifications';
 
@@ -22,14 +21,6 @@ class App extends Component {
           <div style={{marginTop: '20px'}}>
             <Notifications />
           </div>
-          <Container>
-            <Row>
-              <Col>
-                <ErrorStackContainer />
-                <TxStackContainer />
-              </Col>
-            </Row>
-          </Container>
           <AuthModal />
         </React.Fragment>
       </ConnectedRouter>

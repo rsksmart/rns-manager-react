@@ -5,7 +5,7 @@ import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContaine
 import reducer from './reducer';
 export default reducer;
 
-class Admin extends Component {
+class AdminTab extends Component {
   render () {
     return(
       <Container>
@@ -41,4 +41,4 @@ class Admin extends Component {
   }
 }
 
-export const AdminTab = Admin;
+export { AdminTab };
