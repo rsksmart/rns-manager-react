@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case SHOW_AUTH_MODAL: return {
       ...state,
-       showModal: true
+      defaultDomain: action.domain,
+      showModal: true
     }
     case CLOSE_AUTH_MODAL: return {
       ...state, 

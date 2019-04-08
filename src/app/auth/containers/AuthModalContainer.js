@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
   network: state.auth.network,
   authError: state.auth.authError,
   domain: state.auth.domain,
-  isOwner: state.auth.isOwner
+  isOwner: state.auth.isOwner,
+  defaultDomain: state.auth.defaultDomain
 });
 
 const mapDispatchToProps = dispatch => ({
