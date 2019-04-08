@@ -1,3 +1,5 @@
+import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
+
 export const isValidName = name => {
   const labels = name.split('.');
 
@@ -10,3 +12,10 @@ export const isValidName = name => {
 
   return isValid;
 };
+
+export const validateAddress = (address, network) => {
+  console.log(address)
+  if (!isValidAddress(address)) return 'Invalid address';
+  if (!isValidChecksumAddress(address, network) && address !== address.toLowerCase()) return 'Invalid checksum';
+  return null;
+}

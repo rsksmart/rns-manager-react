@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
   getting: state.publicResolver.content.getting,
   value: state.publicResolver.content.value,
   editOpen: state.publicResolver.content.editOpen,
-  editting: state.publicResolver.content.editting
+  editting: state.publicResolver.content.editting,
+  validate: content => ((content.length === 66 && content.slice(0, 2) === '0x') ? null : 'Invalid 32 bytes')
 });
 
 const mapDispatchToProps = dispatch => ({

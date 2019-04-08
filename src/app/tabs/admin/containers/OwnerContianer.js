@@ -2,13 +2,15 @@ import { RegistryFieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { changeEditOwner } from '../actions';
 import { getDomainOwner, setDomainOwner } from '../operations';
+import { validateAddress } from '../../../selectors';
 
 const mapStateToProps = state => ({
   domain: state.auth.domain,
   getting: state.admin.owner.getting,
   value: state.admin.owner.value,
   editOpen: state.admin.owner.editOpen,
-  editting: state.admin.owner.editting
+  editting: state.admin.owner.editting,
+  validate: address => validateAddress(address, state.auth.network)
 });
 
 const mapDispatchToProps = dispatch => ({
