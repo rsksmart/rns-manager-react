@@ -1,33 +1,53 @@
 import { requestResolveAddress, receiveResolveAddress, } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
-import { resolver as resolverAddress } from '../../../config/contracts';
+import { rns as rnsAddress  } from '../../../config/contracts';
 import { notifyError } from '../../notifications';
 
 export const resolveAddress = domain => dispatch => {
   dispatch(requestResolveAddress());
 
-  const resolver = window.web3.eth.contract([
+  const rns = window.web3.eth.contract([
     {
-      "constant": true,
-      "inputs": [
-          { "name": "node", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': 'node', 'type': 'bytes32' }
       ],
-      "name": "addr",
-      "outputs": [
-          { "name": "", "type": "address" }
+      'name': 'resolver',
+      'outputs': [
+        { 'name': '', 'type': 'address' }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
     }
-  ]).at(resolverAddress);
+  ]).at(rnsAddress);
 
   const hash = namehash(domain);
 
-  return new Promise(resolve => {
-    resolver.addr(hash, (error, result) => {
-      if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(receiveResolveAddress(result)));
+  rns.resolver(hash, (error, result) => {
+    if (error) return dispatch(notifyError(error.message));
+
+    const resolver = window.web3.eth.contract([
+      {
+        "constant": true,
+        "inputs": [
+            { "name": "node", "type": "bytes32" }
+        ],
+        "name": "addr",
+        "outputs": [
+            { "name": "", "type": "address" }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ]).at(result);
+
+    return new Promise(resolve => {
+      resolver.addr(hash, (error, result) => {
+        if(error) return resolve(dispatch(notifyError(error.message)));
+        return resolve(dispatch(receiveResolveAddress(result)));
+      });
     });
   });
 };
