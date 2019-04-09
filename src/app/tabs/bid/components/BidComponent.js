@@ -22,6 +22,7 @@ class Bid extends Component {
     this.setState({ isValid });
     return isValid;
   }
+
   render () {
     const { domain, bid, loading } = this.props;
 

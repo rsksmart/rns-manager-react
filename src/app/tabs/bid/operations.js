@@ -1,7 +1,7 @@
 import { requestBid, receiveBid } from './actions';
-import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
+import { rif as rifAddress, registrar as registrarAddress, revealPeriod } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { notifyTx, notifyError } from '../../notifications';
+import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 export const bid = (domain, value) => dispatch => {
   dispatch(requestBid());
@@ -21,6 +21,23 @@ export const bid = (domain, value) => dispatch => {
       ],
       "payable": false,
       "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "_hash", "type": "bytes32" }
+      ],
+      "name": "entries",
+      "outputs": [
+        { "name": "", "type": "uint8" },
+        { "name": "", "type": "address" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     }
   ]).at(registrarAddress);
@@ -56,11 +73,18 @@ export const bid = (domain, value) => dispatch => {
       }
 
       rif.transferAndCall(registrarAddress, tokens, `0x1413151f${shaBidResult.slice(2)}`, (error, result) => {
-        dispatch(receiveBid());
+        if (error) {
+          dispatch(receiveBid());
+          return resolve(dispatch(notifyError(error.message)));
+        }
 
-        if (error) return resolve(dispatch(notifyError(error.message)));
+        registrar.entries(hash, (entriesError, entriesResult) => {
+          if (error) return resolve(dispatch(notifyError(entriesError.message)));
 
-        return resolve(dispatch(notifyTx(result)));
+          const registrationDate = entriesResult[2].toNumber();
+
+          return resolve(dispatch(notifyTx(result, '', { type: txTypes.BID_AUCTION, domain, registrationDate })));
+        });
       });
     });
   });

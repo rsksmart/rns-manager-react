@@ -10,6 +10,7 @@
     "js-sha3": "^0.8.0",
     "query-string": "^6.2.0",
     "react": "^16.8.3",
+    "react-add-to-calendar": "^0.1.5",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",
