@@ -49,6 +49,12 @@ export const txDisplay = params => {
         }
       </React.Fragment>
     )
+    case txTypes.FINALIZE_AUCTION: return (
+      <p>
+        Auction finalized. You are {params.domain} owner!<br />
+        <Link to={`/publicResolver?domain=${params.domain}`}>Set an addr resolution</Link> for your new domain.
+      </p>
+    )
     default: return null;
   }
 }
