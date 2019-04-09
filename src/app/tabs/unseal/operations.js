@@ -1,7 +1,7 @@
 import { requestUnseal, receiveUnseal } from './actions';
 import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { notifyTx, notifyError } from '../../notifications';
+import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 export const unseal = (domain, value) => dispatch => {
   dispatch(requestUnseal());
@@ -19,6 +19,23 @@ export const unseal = (domain, value) => dispatch => {
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "_hash", "type": "bytes32" }
+      ],
+      "name": "entries",
+      "outputs": [
+        { "name": "", "type": "uint8" },
+        { "name": "", "type": "address" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" },
+        { "name": "", "type": "uint256" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     }
   ]).at(registrarAddress);
 
@@ -27,11 +44,18 @@ export const unseal = (domain, value) => dispatch => {
 
   return new Promise(resolve => {
     registrar.unsealBid(hash, tokens, 0, (error, result) => {
-      dispatch(receiveUnseal());
+      if (error) {
+        dispatch(receiveUnseal());
+        return resolve(dispatch(notifyError(error.message)));
+      }
 
-      if (error) return resolve(dispatch(notifyError(error.message)));
+      registrar.entries(hash, (entriesError, entriesResult) => {
+        if (error) return resolve(dispatch(notifyError(entriesError.message)));
 
-      return resolve(dispatch(notifyTx(result)));
+        const registrationDate = entriesResult[2].toNumber();
+
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.UNSEAL_AUCTION, domain, registrationDate })));
+      });
     });
   });
 };

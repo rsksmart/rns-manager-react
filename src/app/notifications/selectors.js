@@ -9,8 +9,17 @@ const unsealEvent = (domain, registrationDate) => ({
   description: `Go to https://manager.rns.rsk.co/unseal?domain=${domain} to unseal your bid!`,
   location: '',
   startTime: new Date((registrationDate - revealPeriod) * 1000).toString(),
-  endTime: new Date((registrationDate) * 1000).toString()
+  endTime: new Date(registrationDate * 1000).toString()
 });
+
+const finalizeEvent = (domain, registrationDate) => ({
+  title: `Finalize auction for ${domain}`,
+  description: `Go to https://manager.rns.rsk.co/finalize?domain=${domain} to finalize the auciton!`,
+  location: '',
+  startTime: new Date(registrationDate * 1000).toString(),
+  endTime: new Date((registrationDate + 86400) * 1000).toString()
+});
+
 
 export const txDisplay = params => {
   if (!params) return null;
@@ -26,6 +35,17 @@ export const txDisplay = params => {
         </p>
         {
           params.registrationDate && <AddToCalendar event={unsealEvent(params.domain, params.registrationDate)} />
+        }
+      </React.Fragment>
+    )
+    case txTypes.UNSEAL_AUCTION: return (
+      <React.Fragment>
+        <p>
+          Unsealed bid for {params.domain}.<br />
+          Don't forget to finalize the auction!
+        </p>
+        {
+          params.registrationDate && <AddToCalendar event={finalizeEvent(params.domain, params.registrationDate)} />
         }
       </React.Fragment>
     )
