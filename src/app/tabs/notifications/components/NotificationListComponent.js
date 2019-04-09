@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { TxNotificationComponent } from '../../../notifications';
-import { Container, Alert } from 'react-bootstrap';
-import { notificationTypes } from '../../../notifications';
+import { Container } from 'react-bootstrap';
 
 class NotificationListComponent extends Component {
   render () {
     const { notifications } = this.props;
-
-    const variant = notificationType => {
-      if (notificationType === notificationTypes.ERROR) return 'danger';
-      if (notificationType === notificationTypes.TX) return 'secondary';
-    }
 
     return (
       <Container>

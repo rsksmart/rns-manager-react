@@ -10,21 +10,23 @@ class NotificationListComponent extends Component {
 
     return (
       <Container>
-        {notifications.map(n => {
-          if (n.type === notificationTypes.ERROR) {
-            return (
-              <Alert key={n.id} variant='danger' dismissible>
-                {n.message}
-              </Alert>
-            )
-          }
-          else if (n.type === notificationTypes.TX) {
-            return (
-              <TxNotificationComponent key={n.id} notification={n} dismissible={true} viewNotification={() => viewNotification(n.id)} />
-            )
-          }
-          }
-        )}
+        {
+          notifications.map(n => {
+            if (n.type === notificationTypes.ERROR) {
+              return (
+                <Alert key={n.id} variant='danger' dismissible>
+                  {n.message}
+                </Alert>
+              )
+            }
+            else if (n.type === notificationTypes.TX) {
+              return (
+                <TxNotificationComponent key={n.id} notification={n} dismissible={true} viewNotification={() => viewNotification(n.id)} />
+              )
+            }
+            else return null;
+          })
+        }
       </Container>
     )
   }

@@ -1,5 +1,5 @@
 import { requestBid, receiveBid } from './actions';
-import { rif as rifAddress, registrar as registrarAddress, revealPeriod } from '../../../config/contracts.json';
+import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 

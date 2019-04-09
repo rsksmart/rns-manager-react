@@ -29,5 +29,6 @@ export const txDisplay = params => {
         }
       </React.Fragment>
     )
+    default: return null;
   }
 }
