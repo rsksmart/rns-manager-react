@@ -10,7 +10,8 @@ import {
   UnsealTab,
   FinalizeTab,
   PublicResolverTab,
-  NotificationTab
+  NotificationTab,
+  ResolveTab
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>
@@ -26,6 +27,7 @@ const routes = (
     <Route path='/finalize' component={FinalizeTab} />
     <Route path='/publicResolver' component={PublicResolverTab} />
     <Route path='/notifications' component={NotificationTab} />
+    <Route path='/resolve' component={ResolveTab} />
     <Route component={NoMatch} />
   </Switch>
 );

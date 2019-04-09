@@ -6,6 +6,7 @@ import publicResolver from './publicResolver';
 import search from './search';
 import startAuction from './startAuction';
 import unseal from './unseal';
+import resolve from './resolve';
 
 export default {
   admin,
@@ -15,7 +16,8 @@ export default {
   publicResolver,
   search,
   startAuction,
-  unseal
+  unseal,
+  resolve
 };
 
 export { HomeTab } from './home';
@@ -27,3 +29,4 @@ export { UnsealTab } from './unseal';
 export { FinalizeTab } from './finalize';
 export { PublicResolverTab } from './publicResolver';
 export { NotificationTab } from './notifications';
+export { ResolveTab } from './resolve';

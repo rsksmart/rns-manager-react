@@ -25,6 +25,9 @@ const Header = () => (
 						<li className="nav-item">
               <Link to="/admin" className='nav-link'>Admin</Link>
 						</li>
+						<li className="nav-item">
+              <Link to="/resolve" className='nav-link'>Resolve</Link>
+						</li>
 						<li className='nav-item'>
 							<Link to='/notifications' className='nav-link'>
 								<NotificationIcon />
