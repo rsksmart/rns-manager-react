@@ -2,6 +2,7 @@ import { requestStartAuction, receiveStartAuction } from './actions';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { registrar as registrarAddress } from '../../../config/contracts';
 import { notifyTx, notifyError } from '../../notifications';
+import { txTypes } from '../../notifications';
 
 export const startAuction = domain => dispatch => {
   const registrar = window.web3.eth.contract([
@@ -28,7 +29,7 @@ export const startAuction = domain => dispatch => {
 
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return resolve(dispatch(notifyTx(result, 'Auction started!')));
+      return resolve(dispatch(notifyTx(result, 'Auction started!', { type: txTypes.START_AUCTION, domain })));
     });
   });
 };

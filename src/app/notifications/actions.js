@@ -1,11 +1,12 @@
 import { notificationTypes, ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED } from './types';
 
-export const addTxNotification = (tx, message) => ({
+export const addTxNotification = (tx, message, params) => ({
   type: ADD_NOTIFICATION,
   notification: {
     type: notificationTypes.TX,
     tx,
     message,
+    params,
     mined: false
   }
 });

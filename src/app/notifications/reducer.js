@@ -1,23 +1,18 @@
-import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED } from './types';
+import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, notificationTypes } from './types';
+import { NotificationListContainer } from './containers';
 
 const initialState = [];
 
 var notificationId = 0;
 
-/*
-error:
-- message
-tx:
-- message
-- mined
-- txHash
-*/
+const newNotification = notification => {
+  const newNotification = {
+    ...notification,
+    id: notificationId++,
+  };
 
-const newNotification = notification => ({
-  ...notification,
-  id: notificationId++,
-  viewed: false
-})
+  return NotificationListContainer.type === notificationTypes.TX ? { ...newNotification, params: notification.params, viewed: false } : newNotification;
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

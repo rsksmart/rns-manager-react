@@ -6,7 +6,6 @@ export const isValidName = name => {
   let isValid = true;
 
   labels.forEach(label => {
-    console.log(label)
     if (label.length === 0) isValid = false; 
   });
 

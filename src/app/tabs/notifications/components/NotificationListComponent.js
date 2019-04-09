@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NotificationComponent } from '../../../notifications';
+import { TxNotificationComponent } from '../../../notifications';
 import { Container, Alert } from 'react-bootstrap';
 import { notificationTypes } from '../../../notifications';
 
@@ -14,15 +14,7 @@ class NotificationListComponent extends Component {
 
     return (
       <Container>
-        {notifications.map(n => {
-          const n_variant = variant(n.type)
-          return (
-            <Alert key={n.id} variant={n_variant}>
-              <NotificationComponent type={n.type} message={n.message} tx={n.tx} mined={n.mined} />
-            </Alert>
-          )
-          }
-        )}
+        {notifications.map(n => <TxNotificationComponent key={n.id} notification={n} dismissible={false} />)}
       </Container>
     )
   }

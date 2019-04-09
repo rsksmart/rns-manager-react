@@ -1,8 +1,8 @@
 export { default } from './reducer';
-export { notificationTypes } from './types';
+export { notificationTypes, txTypes } from './types';
 export { notifyError } from './actions';
 export { notifyTx } from './operations';
-export { NotificationComponent } from './components';
+export { TxNotificationComponent } from './components';
 export {
   NotificationListContainer as Notifications,
   NotificationIconContainer as NotificationIcon
