@@ -13,6 +13,18 @@ class ResolveComponent extends Component {
     this.validate = this.validate.bind(this);
   }
 
+  componentDidMount() {
+    const { name, resolveAddress } = this.props;
+    resolveAddress(name);
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { name, resolveAddress } = newProps;
+    if(name !== this.props.name) {
+      resolveAddress(name);
+    }
+  }
+
   validate (name) {
     const isValid = isValidName(name);
     this.setState({ isValid });
@@ -20,7 +32,7 @@ class ResolveComponent extends Component {
   }
 
   render () {
-    const { loading, resolution, error, resolveAddress } = this.props;
+    const { name, loading, resolution, error, resolveAddress } = this.props;
 
     const displayResult = loading ? '...' : error ? error : resolution;
 
@@ -40,7 +52,7 @@ class ResolveComponent extends Component {
               resolveAddress(input.value);
             }}>
               <Form.Group>
-                <Form.Control ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} />
+                <Form.Control ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} defaultValue={name} />
                 <div className='invalid-feedback'>
                   Invalid name.
                 </div>

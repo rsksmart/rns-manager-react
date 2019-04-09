@@ -14,7 +14,6 @@ export const isValidName = name => {
 };
 
 export const validateAddress = (address, network) => {
-  console.log(address)
   if (!isValidAddress(address)) return 'Invalid address';
   if (!isValidChecksumAddress(address, network) && address !== address.toLowerCase()) return 'Invalid checksum';
   return null;

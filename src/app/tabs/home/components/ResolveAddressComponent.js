@@ -20,7 +20,7 @@ class ResolverAddressComponent extends Component {
   }
 
   render () {
-    const { onResolve, resolveAddressLoading, address } = this.props;
+    const { onResolve } = this.props;
 
     let input;
 
@@ -40,7 +40,6 @@ class ResolverAddressComponent extends Component {
               Invalid name.
             </div>
           </InputGroup>
-          <p>{resolveAddressLoading ? 'Loading...' : address}</p>
         </Form>
       </div>
     );
