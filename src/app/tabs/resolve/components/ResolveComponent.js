@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 import { isValidName } from '../../../selectors';
 
 class ResolveComponent extends Component {
@@ -50,6 +50,14 @@ class ResolveComponent extends Component {
             </Form>
           </Col>
         </Row>
+        {
+          resolution &&
+          <Row>
+            <Col>
+              <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${resolution}&choe=UTF-8`} alt='resolution qr' />
+            </Col>
+          </Row>
+        }
       </Container>
     );
   }
