@@ -3,6 +3,7 @@ import { txTypes } from './types';
 import { Link } from 'react-router-dom';
 import AddToCalendar from 'react-add-to-calendar';
 import { revealPeriod } from '../../config/contracts';
+import { Button } from 'react-bootstrap';
 
 const unsealEvent = (domain, registrationDate) => ({
   title: `Unseal bid for ${domain}`,
@@ -20,6 +21,18 @@ const finalizeEvent = (domain, registrationDate) => ({
   endTime: new Date((registrationDate + 86400) * 1000).toString()
 });
 
+const downloadBid = (domain, value, salt) => {
+  const text = `domain: ${domain}\nvalue: ${value}\nsalt: ${salt}`;
+	const element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', `bid - ${Date.now().toString()}.txt`);
+	element.style.display = 'none';
+
+	document.body.appendChild(element);
+	element.click();
+
+	document.body.removeChild(element);
+}
 
 export const txDisplay = params => {
   if (!params) return null;
@@ -32,6 +45,7 @@ export const txDisplay = params => {
         <p>
           Bid emitted for {params.domain}.<br />
           Don't forget to unseal the bid!
+          You will need your bid data, <Button variant='link' onClick={() => downloadBid(params.domain, params.value, params.salt)}>download it</Button>.
         </p>
         {
           params.registrationDate && <AddToCalendar event={unsealEvent(params.domain, params.registrationDate)} />
