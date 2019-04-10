@@ -8,7 +8,7 @@ import {
 import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { notifyTx, notifyError } from '../../notifications';
+import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 const registry = window.web3.eth.contract([
   {
@@ -123,7 +123,7 @@ export const setDomainOwner = (domain, owner) => dispatch => {
     registry.setOwner(hash, owner, (error, result) => {
       dispatch(receiveSetOwner());
       if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_OWNER, domain , owner })));
     });
   });
 };
@@ -150,7 +150,7 @@ export const setDomainResolver = (domain, resolver) => dispatch => {
     registry.setResolver(hash, resolver, (error, result) => {
       dispatch(receiveSetResolver());
       if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_RESOLVER, domain , resolver })));
     });
   });
 };
@@ -168,16 +168,16 @@ export const getDomainTtl = domain => dispatch => {
   });
 };
 
-export const setDomainTtl = (domain, owner) => dispatch => {
-  dispatch(requestSetTtl(domain, owner));
+export const setDomainTtl = (domain, ttl) => dispatch => {
+  dispatch(requestSetTtl(domain, ttl));
 
   const hash = namehash(domain);
 
   return new Promise((resolve) => {
-    registry.setTTL(hash, owner, (error, result) => {
+    registry.setTTL(hash, ttl, (error, result) => {
       dispatch(receiveSetTtl());
       if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_TTL, domain , ttl })));
     });
   });
 };
@@ -210,7 +210,7 @@ export const setSubdomainOwner = (parent, child, owner) => dispatch => {
     registry.setSubnodeOwner(node, label, owner, (error, result) => {
       dispatch(receiveSetSubdomainOwner(child));
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNOODE_OWNER, parent, child, owner })));
     });
   });
 };

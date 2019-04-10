@@ -55,6 +55,26 @@ export const txDisplay = params => {
         <Link to={`/publicResolver?domain=${params.domain}`}>Set an addr resolution</Link> for your new domain.
       </p>
     )
+    case txTypes.SET_OWNER: return (
+      <p>
+        New owner for {params.domain}: {params.owner}
+      </p>
+    )
+    case txTypes.SET_RESOLVER: return (
+      <p>
+        New resolver for {params.domain}: {params.resolver}
+      </p>
+    )
+    case txTypes.SET_TTL: return (
+      <p>
+        New TTL for {params.domain}: {params.ttl}
+      </p>
+    )
+    case txTypes.SET_SUBNOODE_OWNER: return (
+      <p>
+        New owner for {`${params.child}.${params.parent}`}: {params.owner}
+      </p>
+    )
     default: return null;
   }
 }
