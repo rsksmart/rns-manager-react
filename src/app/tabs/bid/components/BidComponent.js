@@ -26,24 +26,31 @@ class Bid extends Component {
   render () {
     const { domain, bid, loading } = this.props;
 
-    let input;
+    let valueInput, saltInput;
 
     return(
       <TabWithSearchComponent>
         <h2>Bid for {domain}</h2>
         <Form onSubmit={e => {
           e.preventDefault();
-          if (this.validate(input.value)) bid(domain, input.value);
+          if (this.validate(valueInput.value)) bid(domain, valueInput.value, saltInput.value);
         }}>
-          <InputGroup className="mb-3">
-            <FormControl ref={node => (input = node)} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
-            <InputGroup.Append>
-              <InputGroup.Text>RIF</InputGroup.Text>
-            </InputGroup.Append>
-            <div className='invalid-feedback'>
-              You must bid at least 1 RIF
-            </div>
-          </InputGroup>
+          <Form.Group>
+            <Form.Label>Amount to bid</Form.Label>
+            <InputGroup className="mb-3">
+              <FormControl ref={node => (valueInput = node)} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
+              <InputGroup.Append>
+                <InputGroup.Text>RIF</InputGroup.Text>
+              </InputGroup.Append>
+              <div className='invalid-feedback'>
+                You must bid at least 1 RIF
+              </div>
+            </InputGroup>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Salt</Form.Label>
+            <FormControl ref={node => (saltInput = node)} type='text' />
+          </Form.Group>
           <Button type='submit'>Bid</Button>
         </Form>
         {loading && '...'}

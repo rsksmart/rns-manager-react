@@ -3,7 +3,7 @@ import { rif as rifAddress, registrar as registrarAddress } from '../../../confi
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
-export const bid = (domain, value) => dispatch => {
+export const bid = (domain, value, salt) => dispatch => {
   dispatch(requestBid());
 
   const registrar = window.web3.eth.contract([
@@ -63,7 +63,6 @@ export const bid = (domain, value) => dispatch => {
   const hash = `0x${sha3(domain.split('.')[0])}`;
   const owner = window.web3.eth.accounts[0];
   const tokens = value * (10 ** 18);
-  const salt = 0;
 
   return new Promise((resolve) => {
     registrar.shaBid(hash, owner, tokens, salt, (shaBidError, shaBidResult) => {

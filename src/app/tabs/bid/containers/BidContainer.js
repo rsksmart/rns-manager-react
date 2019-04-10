@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  bid: (domain, value) => dispatch(bid(domain, value))
+  bid: (domain, value, salt) => dispatch(bid(domain, value, salt))
 })
 
 export default connect(

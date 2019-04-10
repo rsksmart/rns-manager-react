@@ -6,21 +6,26 @@ class UnsealComponent extends Component {
   render () {
     const { domain, unseal, loading } = this.props;
 
-    let input;
+    let valueInput, saltInput;
 
     return (
       <TabWithSearchComponent>
         <h2>Unseal bid for {domain}</h2>
         <Form onSubmit={e => {
           e.preventDefault();
-          unseal(domain, input.value);
+          unseal(domain, valueInput.value, saltInput.value);
         }}>
-          <InputGroup className="mb-3">
-            <FormControl ref={node => (input = node)} type='number' />
-            <InputGroup.Append>
-              <InputGroup.Text>RIF</InputGroup.Text>
-            </InputGroup.Append>
-          </InputGroup>
+          <Form.Group>
+            <InputGroup className="mb-3">
+              <FormControl ref={node => (valueInput = node)} type='number' />
+              <InputGroup.Append>
+                <InputGroup.Text>RIF</InputGroup.Text>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form.Group>
+          <Form.Group>
+            <FormControl ref={node => (saltInput = node)} type='text' />
+          </Form.Group>
           <Button type='submit'>Unseal</Button>
         </Form>
         {loading && '...'}

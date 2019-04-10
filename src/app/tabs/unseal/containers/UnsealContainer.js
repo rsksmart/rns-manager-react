@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  unseal: (domain, value) => dispatch(unseal(domain, value))
+  unseal: (domain, value, salt) => dispatch(unseal(domain, value, salt))
 });
 
 export default connect(

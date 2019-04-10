@@ -3,7 +3,7 @@ import { registrar as registrarAddress } from '../../../config/contracts.json';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
-export const unseal = (domain, value) => dispatch => {
+export const unseal = (domain, value, salt) => dispatch => {
   dispatch(requestUnseal());
 
   const registrar = window.web3.eth.contract([
@@ -43,7 +43,7 @@ export const unseal = (domain, value) => dispatch => {
   let tokens = value * (10 ** 18);
 
   return new Promise(resolve => {
-    registrar.unsealBid(hash, tokens, 0, (error, result) => {
+    registrar.unsealBid(hash, tokens, salt, (error, result) => {
       if (error) {
         dispatch(receiveUnseal());
         return resolve(dispatch(notifyError(error.message)));
