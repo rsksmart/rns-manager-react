@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   resolveAddress: name => {
-    dispatch(push(`resolve?name=${name}`));
+    if (name) dispatch(push(`resolve?name=${name}`));
     dispatch(resolveAddress(name));
   }
 });

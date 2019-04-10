@@ -20,7 +20,7 @@ class ResolveComponent extends Component {
 
   componentWillReceiveProps(newProps) {
     const { name, resolveAddress } = newProps;
-    if(name !== this.props.name) {
+    if (name !== this.props.name) {
       resolveAddress(name);
     }
   }
