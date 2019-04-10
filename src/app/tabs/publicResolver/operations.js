@@ -6,7 +6,7 @@ import { resolver as resolverAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
-const resolver = window.web3.eth.contract([
+const resolver = window.web3 && window.web3.eth.contract([
   {
     "constant": true,
     "inputs": [

@@ -10,7 +10,7 @@ import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
-const registry = window.web3.eth.contract([
+const registry = window.web3 && window.web3.eth.contract([
   {
     "constant": true,
     "inputs": [
