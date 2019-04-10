@@ -75,6 +75,16 @@ export const txDisplay = params => {
         New owner for {`${params.child}.${params.parent}`}: {params.owner}
       </p>
     )
+    case txTypes.SET_ADDR: return (
+      <p>
+        New addr for {params.domain}: {params.addr}
+      </p>
+    )
+    case txTypes.SET_CONTENT: return (
+      <p>
+        New content for {params.domain}: {params.content}
+      </p>
+    )
     default: return null;
   }
 }

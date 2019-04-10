@@ -4,7 +4,7 @@ import {
 } from './actions';
 import { resolver as resolverAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
-import { notifyTx, notifyError } from '../../notifications';
+import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 const resolver = window.web3.eth.contract([
   {
@@ -81,7 +81,7 @@ export const setAddr = (domain, addr) => dispatch => {
     resolver.setAddr(hash, addr, (error, result) => {
       dispatch(receiveSetAddr());
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_ADDR, domain, addr })));
     });
   });
 };
@@ -99,16 +99,16 @@ export const getContent = domain => dispatch => {
   });
 };
 
-export const setContent = (domain, addr) => dispatch => {
+export const setContent = (domain, content) => dispatch => {
   dispatch(requestSetContent());
 
   const hash = namehash(domain);
 
   return new Promise(resolve => {
-    resolver.setContent(hash, addr, (error, result) => {
+    resolver.setContent(hash, content, (error, result) => {
       dispatch(receiveSetContent());
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result)));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_CONTENT, domain, content })));
     });
   });
 };
