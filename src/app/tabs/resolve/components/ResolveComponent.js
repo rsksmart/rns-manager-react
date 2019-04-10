@@ -15,7 +15,7 @@ class ResolveComponent extends Component {
 
   componentDidMount() {
     const { name, resolveAddress } = this.props;
-    resolveAddress(name);
+    if (name) resolveAddress(name);
   }
 
   componentWillReceiveProps(newProps) {
