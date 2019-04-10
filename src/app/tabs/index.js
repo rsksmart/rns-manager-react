@@ -30,3 +30,4 @@ export { FinalizeTab } from './finalize';
 export { PublicResolverTab } from './publicResolver';
 export { NotificationTab } from './notifications';
 export { ResolveTab } from './resolve';
+export { SetUpTab } from './SetUpTab';
