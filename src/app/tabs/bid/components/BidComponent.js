@@ -11,10 +11,13 @@ class Bid extends Component {
     super(props);
 
     this.state = {
-      isValid: true
+      isValid: true,
+      salt: ''
     };
 
     this.validate = this.validate.bind(this);
+    this.random = this.random.bind(this);
+    this.changeSalt = this.changeSalt.bind(this);
   }
 
   validate (tokens) {
@@ -23,17 +26,26 @@ class Bid extends Component {
     return isValid;
   }
 
+  random () {
+    var randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
+    this.setState({ salt: '0x' + Array.from(randomBytes).map((byte) => byte.toString(16)).join('') });
+  }
+
+  changeSalt (event) {
+    this.setState({ salt: event.target.value });
+  }
+
   render () {
     const { domain, bid, loading } = this.props;
 
-    let valueInput, saltInput;
+    let valueInput;
 
     return(
       <TabWithSearchComponent>
         <h2>Bid for {domain}</h2>
         <Form onSubmit={e => {
           e.preventDefault();
-          if (this.validate(valueInput.value)) bid(domain, valueInput.value, saltInput.value);
+          if (this.validate(valueInput.value)) bid(domain, valueInput.value, this.state.salt);
         }}>
           <Form.Group>
             <Form.Label>Amount to bid</Form.Label>
@@ -42,14 +54,19 @@ class Bid extends Component {
               <InputGroup.Append>
                 <InputGroup.Text>RIF</InputGroup.Text>
               </InputGroup.Append>
-              <div className='invalid-feedback'>
-                You must bid at least 1 RIF
-              </div>
             </InputGroup>
+            <div className='invalid-feedback'>
+              You must bid at least 1 RIF
+            </div>
           </Form.Group>
           <Form.Group>
             <Form.Label>Salt</Form.Label>
-            <FormControl ref={node => (saltInput = node)} type='text' />
+            <InputGroup className="mb-3">
+              <FormControl value={this.state.salt} onChange={this.changeSalt} type='text' />
+              <InputGroup.Append>
+                <Button size='sm' onClick={this.random}>Random</Button>
+              </InputGroup.Append>
+            </InputGroup>
           </Form.Group>
           <Button type='submit'>Bid</Button>
         </Form>
