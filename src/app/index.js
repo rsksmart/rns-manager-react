@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router'
-import { Header } from './components';
+import { HeaderContainer } from './containers';
 import routes from './routes';
 import { Container } from 'react-bootstrap';
 import { AuthModal } from './auth';
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <ConnectedRouter history={history}>
         <React.Fragment>
-          <Header />
+          <HeaderContainer />
           <div style={{marginTop: '20px'}}>
             <Container>
               {routes}

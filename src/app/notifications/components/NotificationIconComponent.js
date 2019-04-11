@@ -7,7 +7,7 @@ class NotificationIconComponent extends Component {
 
     return (
       <React.Fragment>
-        Notifications {notifications > 0 && <Badge variant="warning">{notifications}</Badge>}
+        notifications {notifications > 0 && <Badge variant="warning">{notifications}</Badge>}
 				<span className="sr-only">unread notifications</span>
       </React.Fragment>
     )
