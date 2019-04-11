@@ -25,23 +25,20 @@ class ResolverAddressComponent extends Component {
     let input;
 
     return (
-      <div>
-        <h2>Resolve</h2>
-        <Form onSubmit={e => {
-          e.preventDefault();
-          if (this.validate(input.value)) onResolve(input.value);
-        }}>
-          <InputGroup>
-            <FormControl ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} />
-            <InputGroup.Append>
-              <Button type="submit" size='sm'>Resolve</Button>
-            </InputGroup.Append>
-            <div className='invalid-feedback'>
-              Invalid name.
-            </div>
-          </InputGroup>
-        </Form>
-      </div>
+      <Form onSubmit={e => {
+        e.preventDefault();
+        if (this.validate(input.value)) onResolve(input.value);
+      }}>
+        <InputGroup>
+          <FormControl ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} />
+          <InputGroup.Append>
+            <Button type="submit" size='sm'>Resolve</Button>
+          </InputGroup.Append>
+          <div className='invalid-feedback'>
+            Invalid name.
+          </div>
+        </InputGroup>
+      </Form>
     );
   }
 }

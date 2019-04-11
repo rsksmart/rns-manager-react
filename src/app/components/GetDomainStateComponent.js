@@ -29,15 +29,17 @@ class GetDomainStateComponent extends Component {
         e.preventDefault();
         if (this.validate(input.value)) getDomainState(input.value);
       }}>
-        <InputGroup className='mb-3'>
-          <FormControl type='text' ref={node => (input = node)} defaultValue={domain} className={!this.state.isValid ? 'is-invalid' : null} />
-          <InputGroup.Append>
-            <Button type="submit" size='sm'>Search</Button>
-          </InputGroup.Append>
-          <div className='invalid-feedback'>
-            Invalid name.
-          </div>
-        </InputGroup>
+        <Form.Group>
+          <InputGroup className='mb-3'>
+            <FormControl type='text' ref={node => (input = node)} defaultValue={domain} className={!this.state.isValid ? 'is-invalid' : null} />
+            <InputGroup.Append>
+              <Button type="submit" size='sm'>Search</Button>
+            </InputGroup.Append>
+            <div className='invalid-feedback'>
+              Invalid name.
+            </div>
+          </InputGroup>
+        </Form.Group>
       </Form>
     );
   }
