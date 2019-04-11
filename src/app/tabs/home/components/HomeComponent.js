@@ -35,7 +35,6 @@ export default () => (
                   RIF Name Service provides an architecture which enables the identification of
                   blockchain addresses by human-readable names.
                 </Card.Text>
-                <Card.Link href='https://docs.rns.rifos.org' target='_blank'>Read more</Card.Link>
               </Card.Body>
             </Card>
           </Col>
@@ -58,7 +57,7 @@ export default () => (
                   <li>admin domain reolution</li>
                   <li>create subdomains</li>
                 </ul>
-              <Link className='card-link' to='/admin' target='_blank'>Admin</Link>
+              <Link className='card-link' to='/admin' rel='noopener noreferrer'>Admin</Link>
               </Card.Body>
             </Card>
           </Col>
@@ -69,9 +68,9 @@ export default () => (
               <Card.Body>
                 <Card.Title>develop</Card.Title>
                 <ListGroup className="list-group-flush">
-                  <ListGroupItem><a href='https://docs.rns.rifos.org/Libs' target='_blank' alt='libs'>libs</a></ListGroupItem>
-                  <ListGroupItem><a href='https://docs.rns.rifos.org' target='_blank' alt ='docs'>docs</a></ListGroupItem>
-                  <ListGroupItem><a href='https://github.com/rnsdomains' target='_blank' alt='github'>github</a></ListGroupItem>
+                  <ListGroupItem><a href='https://docs.rns.rifos.org/Libs' target='_blank' alt='libs' rel='noopener noreferrer'>libs</a></ListGroupItem>
+                  <ListGroupItem><a href='https://docs.rns.rifos.org' target='_blank' alt ='docs' rel='noopener noreferrer'>docs</a></ListGroupItem>
+                  <ListGroupItem><a href='https://github.com/rnsdomains' target='_blank' alt='github' rel='noopener noreferrer'>github</a></ListGroupItem>
                 </ListGroup>
               </Card.Body>
             </Card>
@@ -81,8 +80,8 @@ export default () => (
               <Card.Body>
                 <Card.Title>learn</Card.Title>
                 <ListGroup className="list-group-flush">
-                  <ListGroupItem><a href='https://docs.rifos.org/rif-whitepaper-en.pdf' target='_blank' alt='rif_whitepaper'>rif white paper</a></ListGroupItem>
-                  <ListGroupItem><a href='https://docs.rifos.org/rif-directory-protocol-en.pdf' target='_blank' alt='rns_whitepapaer'>rns white paper</a></ListGroupItem>
+                  <ListGroupItem><a href='https://docs.rifos.org/rif-whitepaper-en.pdf' target='_blank' alt='rif_whitepaper' rel='noopener noreferrer'>rif white paper</a></ListGroupItem>
+                  <ListGroupItem><a href='https://docs.rifos.org/rif-directory-protocol-en.pdf' target='_blank' alt='rns_whitepapaer' rel='noopener noreferrer'>rns white paper</a></ListGroupItem>
                 </ListGroup>
               </Card.Body>
             </Card>
