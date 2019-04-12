@@ -43,7 +43,7 @@ export default () => (
           <Col md={6} xs={12}>
             <Card>
               <Card.Body>
-                <Card.Title>resolve a domin</Card.Title>
+                <Card.Title>resolve a domain</Card.Title>
                 <ResolveAddressContainer />
               </Card.Body>
             </Card>
