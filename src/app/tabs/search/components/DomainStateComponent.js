@@ -34,7 +34,7 @@ class DomainStateComponent extends Component {
     super(props);
 
     this.state = {
-      searchValue: props.domain || '',
+      searchValue: props.domain,
       isValid: true
     }
 
@@ -85,7 +85,7 @@ class DomainStateComponent extends Component {
           <Col>
             <Form onSubmit={this.onSearch}>
               <InputGroup className='mb-3'>
-                <FormControl type='text' value={this.state.searchValue} onChange={this.searchValueChange} />
+                <FormControl type='text' value={this.state.searchValue} onChange={this.searchValueChange} className={!this.state.isValid && 'is-invalid'} />
                 <InputGroup.Append>
                   <Button type='submit' size='sm'>Search</Button>
                 </InputGroup.Append>

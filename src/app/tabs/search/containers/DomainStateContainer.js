@@ -7,7 +7,7 @@ import { start } from '../../../auth/operations';
 import { push } from 'connected-react-router';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
+  domain: parse(state.router.location.search).domain || '',
   auctionStateLoading: state.search.auctionStateLoading,
   auctionState: state.search.auctionState,
   authDomain: state.auth.isOwner ? state.auth.domain : null
