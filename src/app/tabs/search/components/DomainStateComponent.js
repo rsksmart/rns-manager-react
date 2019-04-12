@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Collapse } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 
 function getDisplayState (domain, auctionStateLoading, state, authDomain, login) {
@@ -30,6 +30,20 @@ function getDisplayState (domain, auctionStateLoading, state, authDomain, login)
 }
 
 class DomainStateComponent extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      showProcess: false
+    }
+
+    this.changeShowProcess = this.changeShowProcess.bind(this);
+  }
+
+  changeShowProcess () {
+    this.setState({ showProcess: !this.state.showProcess });
+  }
+
   componentDidMount() {
     const { domain, getState } = this.props;
     getState(domain);
@@ -56,6 +70,33 @@ class DomainStateComponent extends Component {
             </Card.Title>
             {displayState}
           </Card.Body>
+          <Button variant='link' onClick={this.changeShowProcess}>
+            {!this.state.showProcess ? 'Learn about process' : 'Hide'}
+          </Button>
+          <Collapse in={this.state.showProcess}>
+            <Card.Body style={{ textAlign: 'center'}}>
+              <hr />
+              <p>
+                Any user can start an auction for any available domain name.
+                It is a public auction that respects the Vickrey auction principles.<br />
+                A Vickrey auction is a type of blind auction. 
+                Bidders submit written bids without knowing the bid of the other people in the auction.
+                The highest bidder wins but the price paid is the second-highest bid.<br /><br />
+                There are 4 steps to follow:
+              </p>
+              <ol>
+                <li>Start an auction for a domain</li>
+                <li>Bid in the auction</li>
+                <li>Unseal the bid</li>
+                <li>Finalize the auction</li>
+              </ol>
+              <p>
+                <Button variant='link' onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>
+                  Learn more
+                </Button>
+              </p>
+            </Card.Body>
+          </Collapse>
         </Card>
       </TabWithSearchComponent>
     );
