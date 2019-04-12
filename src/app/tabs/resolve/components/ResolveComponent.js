@@ -7,10 +7,13 @@ class ResolveComponent extends Component {
     super(props);
 
     this.state = {
+      value: props.name,
       isValid: true
     };
 
+    this.resolveValueChange = this.resolveValueChange.bind(this);
     this.validate = this.validate.bind(this);
+    this.onResolve = this.onResolve.bind(this);
   }
 
   componentDidMount() {
@@ -18,23 +21,30 @@ class ResolveComponent extends Component {
     if (name) resolveAddress(name);
   }
 
-  componentWillReceiveProps(newProps) {
-    const { name, resolveAddress } = newProps;
-    if (name !== this.props.name) {
-      resolveAddress(name);
+  resolveValueChange (event) {
+    this.setState({ value: event.target.value });
+  }
+
+  onResolve (event) {
+    event.preventDefault();
+    if (this.validate()) {
+      if (this.props.name === this.state.value) this.props.resolveAddress(this.state.value);
+      else this.props.search(this.state.value);
     }
   }
 
-  validate (name) {
-    const isValid = isValidName(name);
+  validate () {
+    const isValid = isValidName(this.state.value);
     this.setState({ isValid });
     return isValid;
   }
 
-  render () {
-    const { name, loading, resolution, error, resolveAddress } = this.props;
+  componentWillReceiveProps(newProps) {
+    if (this.props.name !== newProps.name) this.props.resolveAddress(newProps.name);
+  }
 
-    var input;
+  render () {
+    const { loading, resolution, error } = this.props;
 
     return (
       <Container>
@@ -45,12 +55,9 @@ class ResolveComponent extends Component {
         </Row>
         <Row>
           <Col>
-            <Form onSubmit={e => {
-              e.preventDefault();
-              resolveAddress(input.value);
-            }}>
+            <Form onSubmit={this.onResolve}>
               <Form.Group>
-                <Form.Control type='text' ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} defaultValue={name} />
+                <Form.Control type='text' value={this.state.value} onChange={this.resolveValueChange} className={!this.state.isValid && 'is-invalid'} />
                 <div className='invalid-feedback'>
                   Invalid name.
                 </div>

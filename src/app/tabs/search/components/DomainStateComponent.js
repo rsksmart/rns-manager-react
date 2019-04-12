@@ -40,6 +40,7 @@ class DomainStateComponent extends Component {
 
     this.searchValueChange = this.searchValueChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.validate = this.validate.bind(this);
     this.changeShowProcess = this.changeShowProcess.bind(this);
   }
 

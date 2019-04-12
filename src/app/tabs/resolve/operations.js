@@ -3,6 +3,11 @@ import { hash as namehash } from 'eth-ens-namehash';
 import { rns as rnsAddress  } from '../../../config/contracts';
 
 export const resolveAddress = domain => dispatch => {
+  if (!domain) {
+    dispatch(receiveResolve(''));
+    return;
+  }
+
   dispatch(requestResolve());
 
   const rns = window.web3.eth.contract([
