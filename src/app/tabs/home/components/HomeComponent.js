@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Image, Jumbotron, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import landingFront from '../RNS.png';
+import landingFront from '../../../../assets/landing.png';
 import { GetDomainStateContainer } from '../../../containers';
 import { ResolveAddressContainer } from '../containers';
 

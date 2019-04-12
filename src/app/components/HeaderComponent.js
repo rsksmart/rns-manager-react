@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../logo.svg';
+import logo from '../../assets/logo.svg';
 import { NotificationIcon } from '../notifications';
 import { StartButton } from '../auth';
 
