@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Image, Card } from 'react-bootstrap';
 import { isValidName } from '../../../selectors';
 
 class ResolveComponent extends Component {
@@ -34,8 +34,6 @@ class ResolveComponent extends Component {
   render () {
     const { name, loading, resolution, error, resolveAddress } = this.props;
 
-    const displayResult = loading ? '...' : error ? error : resolution;
-
     var input;
 
     return (
@@ -52,21 +50,28 @@ class ResolveComponent extends Component {
               resolveAddress(input.value);
             }}>
               <Form.Group>
-                <Form.Control ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} defaultValue={name} />
+                <Form.Control type='text' ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} defaultValue={name} />
                 <div className='invalid-feedback'>
                   Invalid name.
                 </div>
               </Form.Group>
               <Button type="submit" size='sm'>Resolve</Button>
-              <p>{displayResult}</p>
+              {!resolution && <p>{loading ? '...' : error}</p>}
             </Form>
           </Col>
         </Row>
         {
           resolution &&
           <Row>
-            <Col>
-              <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${resolution}&choe=UTF-8`} alt='resolution qr' />
+            <Col lg={{ span: 4, offset: 4 }} md={{ span: 6, offset: 3 }} sm={12}>
+              <br />
+              <Card>
+                <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${resolution}&choe=UTF-8`} alt='resolution qr' className='card-img-top' />
+              </Card>
+              <br />
+              <p>
+                <b>{resolution}</b>
+              </p>
             </Col>
           </Row>
         }
