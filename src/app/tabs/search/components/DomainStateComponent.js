@@ -74,7 +74,7 @@ class DomainStateComponent extends Component {
             {!this.state.showProcess ? 'Learn about process' : 'Hide'}
           </Button>
           <Collapse in={this.state.showProcess}>
-            <Card.Body style={{ textAlign: 'center'}}>
+            <Card.Body>
               <hr />
               <p>
                 Any user can start an auction for any available domain name.

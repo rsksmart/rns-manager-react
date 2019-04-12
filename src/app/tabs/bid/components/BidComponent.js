@@ -42,13 +42,13 @@ class Bid extends Component {
 
     return(
       <TabWithSearchComponent>
-        <h2>Bid for {domain}</h2>
+        <h2>bid for <b>{domain}</b></h2>
         <Form onSubmit={e => {
           e.preventDefault();
           if (this.validate(valueInput.value)) bid(domain, valueInput.value, this.state.salt);
         }}>
           <Form.Group>
-            <Form.Label>Amount to bid</Form.Label>
+            <Form.Label>how much do you value {domain}?</Form.Label>
             <InputGroup className="mb-3">
               <FormControl ref={node => (valueInput = node)} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
               <InputGroup.Append>
@@ -60,7 +60,7 @@ class Bid extends Component {
             </div>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Salt</Form.Label>
+            <Form.Label>secret phrase</Form.Label>
             <InputGroup className="mb-3">
               <FormControl value={this.state.salt} onChange={this.changeSalt} type='text' />
               <InputGroup.Append>
@@ -68,6 +68,7 @@ class Bid extends Component {
               </InputGroup.Append>
             </InputGroup>
           </Form.Group>
+          <Button variant='link' disabled>advenced options</Button><br />
           <Button type='submit'>Bid</Button>
         </Form>
         {loading && '...'}

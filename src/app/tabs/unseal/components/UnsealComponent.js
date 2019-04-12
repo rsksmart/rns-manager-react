@@ -10,12 +10,14 @@ class UnsealComponent extends Component {
 
     return (
       <TabWithSearchComponent>
-        <h2>Unseal bid for {domain}</h2>
+        <h2>unseal your bid for <b>{domain}</b></h2>
+        <Button variant='disabled' size='sm' disabled>upload bid</Button>
         <Form onSubmit={e => {
           e.preventDefault();
           unseal(domain, valueInput.value, saltInput.value);
         }}>
           <Form.Group>
+            <Form.Label>value</Form.Label>
             <InputGroup className="mb-3">
               <FormControl ref={node => (valueInput = node)} type='number' />
               <InputGroup.Append>
@@ -24,6 +26,7 @@ class UnsealComponent extends Component {
             </InputGroup>
           </Form.Group>
           <Form.Group>
+            <Form.Label>secret phrase</Form.Label>
             <FormControl ref={node => (saltInput = node)} type='text' />
           </Form.Group>
           <Button type='submit'>Unseal</Button>

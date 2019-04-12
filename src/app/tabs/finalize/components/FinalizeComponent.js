@@ -8,7 +8,7 @@ class FinalizeComponent extends Component {
 
     return (
       <TabWithSearchComponent>
-        <h2>Finalize auction for {domain}</h2>
+        <h2>finalize auction for <b>{domain}</b></h2>
         <Button onClick={() => finalize(domain)}>Finalize auction</Button>
         {loading && '...'}
       </TabWithSearchComponent>

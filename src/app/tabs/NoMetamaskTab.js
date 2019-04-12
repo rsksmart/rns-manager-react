@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import rskWallet from '../../assets/rsk_wallet.png';
 
 export const NoMetamaskTab = () => (
-  <Row style={{ textAlign: 'center' }}>
+  <Row>
     <Col>
       <Container>
         <Row>

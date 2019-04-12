@@ -13,7 +13,7 @@ class App extends Component {
       <ConnectedRouter history={history}>
         <React.Fragment>
           <HeaderContainer />
-          <div style={{marginTop: '20px'}}>
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
             <Container>
               {routes}
             </Container>

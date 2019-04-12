@@ -8,8 +8,8 @@ class StartAuctionComponent extends Component {
 
     return(
       <TabWithSearchComponent>
-        <h2>Register {domain}</h2>
-        <Button onClick={() => startAuction(domain)}>Start auction</Button>
+        <h2>start an auction for <b>{domain}</b></h2>
+        <Button onClick={() => startAuction(domain)}>start auction</Button>
       </TabWithSearchComponent>
     );
   }
