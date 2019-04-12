@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button, Collapse } from 'react-bootstrap';
-import { SearchDomainContainer } from '../containers';
+import { isValidName } from '../../../selectors';
 
 function getDisplayState (domain, auctionStateLoading, state, authDomain, login) {
   if (!domain) return 'Search for a domain.';
@@ -34,10 +34,36 @@ class DomainStateComponent extends Component {
     super(props);
 
     this.state = {
-      showProcess: false
+      searchValue: props.domain || '',
+      isValid: true
     }
 
+    this.searchValueChange = this.searchValueChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
     this.changeShowProcess = this.changeShowProcess.bind(this);
+  }
+
+  componentDidMount () {
+    const { domain, getState } = this.props;
+    if (domain) getState(domain);
+  }
+
+  searchValueChange (event) {
+    this.setState({ searchValue: event.target.value });
+  }
+
+  onSearch (event) {
+    event.preventDefault();
+    if (this.validate()) {
+      if (this.props.domain === this.state.searchValue) this.props.getState(this.state.searchValue);
+      else this.props.search(this.state.searchValue);
+    }
+  }
+
+  validate () {
+    const isValid = isValidName(this.state.searchValue);
+    this.setState({ isValid });
+    return isValid;
   }
 
   changeShowProcess () {
@@ -45,14 +71,7 @@ class DomainStateComponent extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.domain !== this.props.domain) {
-      this.props.getState(newProps.domain);
-    }
-  }
-
-  componentDidMount () {
-    const { domain, getState } = this.props;
-    if (domain) getState(domain);
+    if (this.props.domain !== newProps.domain) this.props.getState(newProps.domain);
   }
 
   render () {
@@ -64,7 +83,17 @@ class DomainStateComponent extends Component {
       <Container>
         <Row>
           <Col>
-            <SearchDomainContainer />
+            <Form onSubmit={this.onSearch}>
+              <InputGroup className='mb-3'>
+                <FormControl type='text' value={this.state.searchValue} onChange={this.searchValueChange} />
+                <InputGroup.Append>
+                  <Button type='submit' size='sm'>Search</Button>
+                </InputGroup.Append>
+                <div className='invalid-feedback'>
+                  Invalid name.
+                </div>
+              </InputGroup>
+            </Form>
           </Col>
         </Row>
         <Row>
@@ -107,7 +136,7 @@ class DomainStateComponent extends Component {
           </Col>
         </Row>
       </Container>
-    );
+    )
   }
 }
 

@@ -4,6 +4,7 @@ import { parse } from 'query-string';
 import { DomainStateComponent } from '../components';
 import { showModal } from '../../../auth/actions'
 import { start } from '../../../auth/operations';
+import { push } from 'connected-react-router';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getState: (domain) => dispatch(getAuctionState(domain)),
+  getState: domain => dispatch(getAuctionState(domain)),
+  search: domain => dispatch(push(`/search?domain=${domain}`)),
   login: domain => {
     dispatch(showModal(domain))
     dispatch(start())
