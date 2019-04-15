@@ -2,7 +2,7 @@ import { RegistryFieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { changeEditResolver } from '../actions';
 import { getDomainResolver, setDomainResolver } from '../operations';
-import { validateAddress } from '../../../selectors';
+import { validateAddress } from '../../../validations';
 
 const mapStateToProps = state => ({
   domain: state.auth.domain,

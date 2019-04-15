@@ -2,7 +2,7 @@ import { PublicResolverFieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { changeViewAddr } from '../actions';
 import { getAddr, setAddr } from '../operations';
-import { validateAddress } from '../../../selectors';
+import { validateAddress } from '../../../validations';
 
 const mapStateToProps = state => ({
   domain: state.auth.domain,

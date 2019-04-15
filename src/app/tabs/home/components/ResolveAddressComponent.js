@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { isValidName } from '../../../selectors';
+import { isValidName } from '../../../validations';
 
 class ResolverAddressComponent extends Component {
   constructor (props) {

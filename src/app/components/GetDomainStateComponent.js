@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, Button, FormControl } from 'react-bootstrap';
-import { isValidName } from '../selectors';
+import { isValidName } from '../validations';
 
 class GetDomainStateComponent extends Component {
   constructor (props) {

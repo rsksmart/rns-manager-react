@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { isValidName } from '../../../selectors';
+import { isValidName } from '../../../validations';
 
 function getDisplayState (domain, auctionStateLoading, state, authDomain, login) {
   if (!domain) return 'Search for a domain.';

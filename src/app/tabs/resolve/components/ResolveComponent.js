@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, Image, Card } from 'react-bootstrap';
-import { isValidName } from '../../../selectors';
+import { isValidName } from '../../../validations';
 
 class ResolveComponent extends Component {
   constructor (props) {
