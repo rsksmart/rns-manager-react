@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, Image, Card } from 'react-bootstrap';
 import { isValidName } from '../../../validations';
+import { CopyableComponent } from '../../../components';
 
 class ResolveComponent extends Component {
   constructor (props) {
@@ -70,15 +71,23 @@ class ResolveComponent extends Component {
         {
           resolution &&
           <Row>
-            <Col lg={{ span: 4, offset: 4 }} md={{ span: 6, offset: 3 }} sm={12}>
+            <Col>
+              <Row>
+                <Col lg={{ span: 4, offset: 4 }} md={{ span: 6, offset: 3 }} sm={12}>
+                  <br />
+                  <Card>
+                    <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${resolution}&choe=UTF-8`} alt='resolution qr' className='card-img-top' />
+                  </Card>
+                </Col>
+              </Row>
               <br />
-              <Card>
-                <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${resolution}&choe=UTF-8`} alt='resolution qr' className='card-img-top' />
-              </Card>
-              <br />
-              <p>
-                <b>{resolution}</b>
-              </p>
+              <Row>
+                <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={12}>
+                  <p>
+                    <CopyableComponent>{resolution}</CopyableComponent>
+                  </p>
+                </Col>
+              </Row>
             </Col>
           </Row>
         }
