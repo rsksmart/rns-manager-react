@@ -2,11 +2,13 @@ import { SubdomainComponent } from '../components';
 import { connect } from 'react-redux';
 import { viewEditSubdomainOwner } from '../actions';
 import { setSubdomainOwner } from '../operations';
+import { toChecksumAddress } from '../../../selectors';
 
 const mapStateToProps = (state, ownProps) => {
   const subdomain = state.admin.subdomains.find(subdomain => subdomain.label === ownProps.label);
 
   return {
+    owner: toChecksumAddress(state)(subdomain.owner),
     viewEdit: subdomain.viewEdit,
     editting: subdomain.editting,
     response: subdomain.response,

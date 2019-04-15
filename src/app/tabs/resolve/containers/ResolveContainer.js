@@ -3,11 +3,12 @@ import { ResolveComponent } from '../components';
 import { resolveAddress } from '../operations';
 import { parse } from 'query-string';
 import { push } from 'connected-react-router';
+import { toChecksumAddress } from '../../../selectors';
 
 const mapStateToProps = state => ({
   name: parse(state.router.location.search).name || '',
   loading: state.resolve.loading,
-  resolution: state.resolve.resolution,
+  resolution: toChecksumAddress(state)(state.resolve.resolution),
   error: state.resolve.error
 });
 

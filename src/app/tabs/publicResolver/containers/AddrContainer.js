@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { changeViewAddr } from '../actions';
 import { getAddr, setAddr } from '../operations';
 import { validateAddress } from '../../../validations';
+import { toChecksumAddress } from '../../../selectors';
 
 const mapStateToProps = state => ({
   domain: state.auth.domain,
   getting: state.publicResolver.addr.getting,
-  value: state.publicResolver.addr.value,
+  value: toChecksumAddress(state)(state.publicResolver.addr.value),
   editOpen: state.publicResolver.addr.editOpen,
   editting: state.publicResolver.addr.editting,
   validate: address => validateAddress(address, state.auth.network)
