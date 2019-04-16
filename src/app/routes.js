@@ -1,19 +1,18 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-
 import {
   HomeTab,
+  SetUpTab,
+  NoMetamaskTab,
+  ResolveTab,
   SearchTab,
-  AdminTab,
   StartAuctionTab,
   BidTab,
   UnsealTab,
   FinalizeTab,
+  AdminTab,
   PublicResolverTab,
-  NotificationTab,
-  ResolveTab,
-  SetUpTab,
-  NoMetamaskTab
+  NotificationTab
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;

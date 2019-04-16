@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import tabReducers from './tabs';
 import authReducer from './auth';
 import notificationReducer from './notifications';
-
-import tabReducers from './tabs';
 
 const rootReducer = (history) => combineReducers({
   ...tabReducers,

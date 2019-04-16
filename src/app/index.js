@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ConnectedRouter } from 'connected-react-router'
-import { HeaderContainer } from './containers';
+import { Container, Row, Col } from 'react-bootstrap';
+import { ConnectedRouter } from 'connected-react-router';
 import routes from './routes';
-import { Container } from 'react-bootstrap';
+import { HeaderContainer } from './containers';
 import { AuthModal } from './auth';
 import { Notifications } from './notifications';
 
@@ -13,15 +13,21 @@ class App extends Component {
       <ConnectedRouter history={history}>
         <React.Fragment>
           <HeaderContainer />
-          <div style={{ marginTop: '20px', textAlign: 'center' }}>
-            <Container>
-              {routes}
-            </Container>
-          </div>
-          <div style={{marginTop: '20px'}}>
-            <Notifications />
-          </div>
-          <AuthModal />
+          <Container style={{ marginTop: '20px' }}>
+            <Row>
+              <Col>
+                <Container style={{ textAlign: 'center' }}>
+                  {routes}
+                </Container>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Notifications />
+              </Col>
+            </Row>
+            <AuthModal />
+          </Container>
         </React.Fragment>
       </ConnectedRouter>
     );

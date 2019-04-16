@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './app';
-import './style.css';
-
-import * as serviceWorker from './serviceWorker';
 import configureStore, { history } from './configureStore';
+import App from './app';
+import * as serviceWorker from './serviceWorker';
+
+import './style.css';
 
 const store = configureStore();
 

@@ -3,10 +3,10 @@ import bid from './bid';
 import finalize from './finalize';
 import home from './home';
 import publicResolver from './publicResolver';
+import resolve from './resolve';
 import search from './search';
 import startAuction from './startAuction';
 import unseal from './unseal';
-import resolve from './resolve';
 
 export default {
   admin,
@@ -20,15 +20,15 @@ export default {
   resolve
 };
 
-export { HomeTab } from './home';
-export { SearchTab } from './search';
 export { AdminTab } from './admin';
-export { StartAuctionTab } from './startAuction';
 export { BidTab } from './bid';
-export { UnsealTab } from './unseal';
 export { FinalizeTab } from './finalize';
-export { PublicResolverTab } from './publicResolver';
+export { HomeTab } from './home';
 export { NotificationTab } from './notifications';
+export { PublicResolverTab } from './publicResolver';
 export { ResolveTab } from './resolve';
-export { SetUpTab } from './SetUpTab';
+export { SearchTab } from './search';
+export { StartAuctionTab } from './startAuction';
+export { UnsealTab } from './unseal';
 export { NoMetamaskTab } from './NoMetamaskTab';
+export { SetUpTab } from './SetUpTab';
