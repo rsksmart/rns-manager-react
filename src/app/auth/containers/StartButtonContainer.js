@@ -1,6 +1,6 @@
+import { connect } from 'react-redux';
 import { StartButtonComponent } from '../components';
 import { showModal } from '../actions';
-import { connect } from 'react-redux';
 import { start } from '../operations';
 
 const mapStateToProps = state => ({

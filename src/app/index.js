@@ -17,7 +17,11 @@ class App extends Component {
             <Row>
               <Col>
                 <Container style={{ textAlign: 'center' }}>
-                  {routes}
+                  <Row>
+                    <Col>
+                      {routes}
+                    </Col>
+                  </Row>
                 </Container>
               </Col>
             </Row>

@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       showModal: true
     }
     case CLOSE_AUTH_MODAL: return {
-      ...state, 
+      ...state,
       showModal: false
     }
     case RECEIVE_HAS_METAMASK: return {

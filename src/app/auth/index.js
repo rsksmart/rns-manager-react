@@ -1,5 +1,4 @@
-import reducer from './reducer';
-export default reducer;
+export { default } from './reducer';
 
 export {
   AuthModalContainer as AuthModal,
