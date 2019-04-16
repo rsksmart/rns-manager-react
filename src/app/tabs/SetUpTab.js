@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { StartButton } from '../auth';
 
 export const SetUpTab = () => (
   <Container>
@@ -36,6 +37,11 @@ export const SetUpTab = () => (
             </ol>
           </li>
         </ol>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <StartButton />
       </Col>
     </Row>
   </Container>
