@@ -2,6 +2,7 @@ import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
 import { connect } from 'react-redux';
+import { networkSelector } from '../selectors';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,
@@ -9,7 +10,7 @@ const mapStateToProps = state => ({
   enabling: state.auth.enabling,
   enableError: state.auth.enableError,
   address: state.auth.address,
-  network: state.auth.network,
+  network: networkSelector(state.auth.network),
   authError: state.auth.authError,
   domain: state.auth.domain,
   isOwner: state.auth.isOwner,
