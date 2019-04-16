@@ -1,8 +1,8 @@
 import { SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE } from './types';
 
-export const showModal = domain => ({
+export const showModal = name => ({
   type: SHOW_AUTH_MODAL,
-  domain
+  domain: name
 });
 
 export const closeModal = () => ({
@@ -33,9 +33,9 @@ export const requestLogin = () => ({
   type: REQUEST_LOGIN
 });
 
-export const receiveLogin = (domain, isOwner) => ({
+export const receiveLogin = (name, isOwner) => ({
   type: RECEIVE_LOGIN,
-  domain,
+  domain: name,
   isOwner
 });
 

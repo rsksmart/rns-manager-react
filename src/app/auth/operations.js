@@ -17,35 +17,35 @@ export const start = () => dispatch => {
   }
 }
 
-export const authenticate = (domain, address) => dispatch => {
+export const authenticate = (name, address) => dispatch => {
   dispatch(requestLogin());
 
   const registry = window.web3.eth.contract([
     {
-      "constant": true,
-      "inputs": [
-        { "name": "node", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': 'node', 'type': 'bytes32' }
       ],
-      "name": "owner",
-      "outputs": [
-        { "name": "", "type": "address" }
+      'name': 'owner',
+      'outputs': [
+        { 'name': '', 'type': 'address' }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
     }
   ]).at(registryAddress);
 
 
-  const hash = namehash(domain);
+  const hash = namehash(name);
 
   return new Promise(resolve => {
     registry.owner(hash, (error, result) => {
       if (error) return resolve(dispatch(errorLogin(error)));
 
-      if (address !== result) return resolve(dispatch(receiveLogin(domain, false)));
+      if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
 
-      return resolve(dispatch(receiveLogin(domain, true)));
+      return resolve(dispatch(receiveLogin(name, true)));
     });
   });
 };

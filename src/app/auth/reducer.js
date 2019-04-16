@@ -8,7 +8,7 @@ const initialState = {
   address: null,
   authenticating: false,
   authError: null,
-  domain: null,
+  name: null,
   isOwner: false
 }
 
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case SHOW_AUTH_MODAL: return {
       ...state,
-      defaultDomain: action.domain,
+      defaultName: action.name,
       showModal: true
     }
     case CLOSE_AUTH_MODAL: return {
@@ -52,13 +52,13 @@ export default (state = initialState, action) => {
       ...state,
       authenticating: true,
       authError: null,
-      domain: null
+      name: null
     }
     case RECEIVE_LOGIN: return {
       ...state,
       authenticating: false,
       authError: null,
-      domain: action.domain,
+      name: action.name,
       isOwner: action.isOwner,
       showModal: !action.isOwner
     }
@@ -66,7 +66,7 @@ export default (state = initialState, action) => {
       ...state,
       authenticating: false,
       authError: action.message,
-      domain: null
+      name: null
     }
     default: return state;
   }

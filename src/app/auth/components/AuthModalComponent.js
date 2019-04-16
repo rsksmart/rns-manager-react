@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 class AuthModalComponent extends Component {
   render () {
-    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, domain, isOwner, defaultDomain } = this.props;
+    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, isOwner, defaultName } = this.props;
 
-    let input;
+    let nameInput;
 
     return (
       <Modal show={show} onHide={close}>
@@ -25,7 +25,7 @@ class AuthModalComponent extends Component {
                 <React.Fragment>
                   <Form onSubmit={e => {
                     e.preventDefault();
-                    authenticate(input.value);
+                    authenticate(nameInput.value);
                   }}>
                     <Form.Group as={Row} controlId='address'>
                       <Form.Label column sm='2'>
@@ -45,10 +45,10 @@ class AuthModalComponent extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId='formPlaintextPassword'>
                       <Form.Label column sm='2'>
-                        Domain
+                        Name
                       </Form.Label>
                       <Col sm='10'>
-                        <Form.Control ref={node => (input = node)} defaultValue={defaultDomain} />
+                        <Form.Control ref={node => (nameInput = node)} defaultValue={defaultName} />
                       </Col>
                     </Form.Group>
                     {
@@ -60,10 +60,10 @@ class AuthModalComponent extends Component {
                       </Form.Group>
                     }
                     {
-                      (domain && !isOwner) &&
+                      (name && !isOwner) &&
                       <Form.Group as={Row}>
                         <Form.Label column sm='12'>
-                          You are not the domain's owner. <Link onClick={close} to={`/search?domain=${domain}`}>Get the domain!</Link>
+                          You are not the name's owner. <Link onClick={close} to={`/search?domain=${name}`}>Get the name!</Link>
                         </Form.Label>
                       </Form.Group>
                     }
