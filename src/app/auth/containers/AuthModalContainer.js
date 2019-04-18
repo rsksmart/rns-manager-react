@@ -31,7 +31,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...dispatchProps,
     authenticate: name => dispatchProps.authenticate(name, stateProps.address)
   }
-}
+};
 
 export default connect(
   mapStateToProps,

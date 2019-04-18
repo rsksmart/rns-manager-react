@@ -9,7 +9,7 @@ class AuthModalComponent extends Component {
     let nameInput;
 
     return (
-      <Modal show={show} onHide={close}>
+      <Modal show={show} onEntered={() => nameInput.focus()} onHide={close}>
         <Modal.Header closeButton>
           <Modal.Title>Sign in</Modal.Title>
         </Modal.Header>
