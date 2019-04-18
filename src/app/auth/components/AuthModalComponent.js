@@ -48,7 +48,7 @@ class AuthModalComponent extends Component {
                         Name
                       </Form.Label>
                       <Col sm='10'>
-                        <Form.Control ref={node => (nameInput = node)} defaultValue={defaultName} />
+                        <Form.Control type='text' ref={node => (nameInput = node)} defaultValue={defaultName} />
                       </Col>
                     </Form.Group>
                     {
