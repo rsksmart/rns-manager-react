@@ -20,7 +20,7 @@ export const isValidName = name => {
 /**
  * validate addresses according to rskip-60
  * https://github.com/rsksmart/RSKIPs/blob/master/IPs/RSKIP60.md
- * @param {address} address to validate
+ * @param {string} address to validate
  * @param {number} chainId defined in erip-155
  * @returns {string} null if it's valid and an error message if it is not
  */
@@ -29,3 +29,10 @@ export const validateAddress = (address, chainId) => {
   if (!isValidChecksumAddress(address, chainId) && address !== address.toLowerCase()) return 'Invalid checksum';
   return null;
 }
+
+/**
+ * validate if a number is positive
+ * @param {number} number to validate
+ * @returns {string} null if it's valid and an error message if it is not
+ */
+export const validatePositiveNumber = number => number >= 0 ? null : 'Invalid number';

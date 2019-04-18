@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 class SubdomainComponent extends Component {
   render () {
@@ -12,16 +11,13 @@ class SubdomainComponent extends Component {
     return (
       <Container>
         <Row>
-          <Col md={2}>
+          <Col md={3}>
             {subdomain}
           </Col>
           <Col md={6}>
             {`owner: ${owner}`}
           </Col>
-          <Col md={2}>
-            <Link to={`/admin?domain=${subdomain}`}>admin</Link>
-          </Col>
-          <Col md={2}>
+          <Col md={3}>
             <Button variant='link' onClick={changeEdit}>{viewEdit ? 'cancel' : 'set owner'}</Button>
           </Col>
         </Row>

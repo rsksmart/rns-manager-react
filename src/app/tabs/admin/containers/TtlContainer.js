@@ -1,24 +1,17 @@
-import { RegistryFieldComponent } from '../components';
-import { connect } from 'react-redux';
+import React from 'react';
+import { RegistryFieldContainer } from '.';
+import { valueTypes } from '../types';
 import { changeEditTtl } from '../actions';
 import { getDomainTtl, setDomainTtl } from '../operations';
 
-const mapStateToProps = state => ({
-  domain: state.auth.name,
-  getting: state.admin.ttl.getting,
-  value: state.admin.ttl.value,
-  editOpen: state.admin.ttl.editOpen,
-  editting: state.admin.ttl.editting,
-  validate: ttl => (ttl < 0 ? 'TTL must be at least 0' : null)
-});
+const registryFieldProps = {
+  fieldName: 'ttl',
+  type: 'number',
+  valueType: valueTypes.POSITIVE_NUMBER,
+  getField: state => state.admin.ttl,
+  get: getDomainTtl,
+  changeEdit: changeEditTtl,
+  set: setDomainTtl
+};
 
-const mapDispatchToProps = dispatch => ({
-  get: domain => dispatch(getDomainTtl(domain)),
-  changeEdit: () => dispatch(changeEditTtl()),
-  set: (domain, ttl) => dispatch(setDomainTtl(domain, ttl))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegistryFieldComponent);
+export default () => <RegistryFieldContainer {...registryFieldProps} />;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Col, Row } from 'react-bootstrap';
-import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer, LinkToResolverContainer } from './containers';
+import { Link } from 'react-router-dom';
+import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer } from './containers';
 import { AuthTabWrapper } from '../../auth'
 
 import reducer from './reducer';
@@ -11,32 +12,35 @@ class AdminTab extends Component {
     return (
       <AuthTabWrapper>
         <Container>
-          <h2>Admin your domain</h2>
+          <h2>admin your name</h2>
           <Row>
             <Col>
-              <OwnerContainer name='Owner' />
+              <OwnerContainer />
             </Col>
           </Row>
           <hr />
           <Row>
             <Col>
-              <ResolverContainer name='Resolver' />
+              <ResolverContainer />
             </Col>
           </Row>
           <Row>
             <Col>
-              <LinkToResolverContainer />
+              <Link to='/publicResolver'>Admin resolution</Link>
             </Col>
           </Row>
           <hr />
           <Row>
             <Col>
-              <TtlContainer name='TTL' />
+              <TtlContainer />
             </Col>
           </Row>
           <hr />
           <Row>
+            <Col>
+              <h3>subdomains</h3>
               <SubdomainsListContainer />
+            </Col>
           </Row>
         </Container>
       </AuthTabWrapper>

@@ -9,7 +9,8 @@ const initialState = {
   authenticating: false,
   authError: null,
   name: null,
-  isOwner: false
+  isOwner: false,
+  network: null
 }
 
 export default (state = initialState, action) => {

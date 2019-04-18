@@ -121,7 +121,7 @@ const adminReducer = (state = initialState, action) => {
     case RECEIVE_DOMAIN_TTL: {
       return {
         ...state,
-        ttl: receiveGetProp(state.ttl, action.ttl)
+        ttl: receiveGetProp(state.ttl, action.ttl.toNumber())
       }
     }
     case CHANGE_EDIT_TTL: {

@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => {
   const subdomain = state.admin.subdomains.find(subdomain => subdomain.label === ownProps.label);
 
   return {
-    owner: toChecksumAddress(state)(subdomain.owner),
+    parent: state.auth.name,
+    owner: subdomain.owner && toChecksumAddress(state)(subdomain.owner),
     viewEdit: subdomain.viewEdit,
     editting: subdomain.editting,
     response: subdomain.response,

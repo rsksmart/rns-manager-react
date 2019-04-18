@@ -1,7 +1,7 @@
 import {
-  requestDomainOwner, receiveDomainOwner, requestSetOwner, receiveSetOwner,
-  requestDomainResolver, receiveDomainResolver, requestSetResolver, receiveSetResolver,
-  requestDomainTtl, receiveDomainTtl, requestSetTtl, receiveSetTtl,
+  requestGetOwner, receiveGetOwner, requestSetOwner, receiveSetOwner,
+  requestGetResolver, receiveGetResolver, requestSetResolver, receiveSetResolver,
+  requestGetTtl, receiveGetTtl, requestSetTtl, receiveSetTtl,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner,
   requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
@@ -12,178 +12,132 @@ import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 const registry = window.web3 && window.web3.eth.contract([
   {
-    "constant": true,
-    "inputs": [
-      { "name": "node", "type": "bytes32" }
+    'constant': true,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' }
     ],
-    "name": "owner",
-    "outputs": [
-      { "name": "", "type": "address" }
+    'name': 'owner',
+    'outputs': [
+      { 'name': '', 'type': 'address' }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    'payable': false,
+    'stateMutability': 'view',
+    'type': 'function'
   },
   {
-    "constant": true,
-    "inputs": [
-      { "name": "node", "type": "bytes32" }
+    'constant': true,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' }
     ],
-    "name": "resolver",
-    "outputs": [
-      { "name": "", "type": "address" }
+    'name': 'resolver',
+    'outputs': [
+      { 'name': '', 'type': 'address' }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    'payable': false,
+    'stateMutability': 'view',
+    'type': 'function'
   },
   {
-    "constant": true,
-    "inputs": [
-      { "name": "node", "type": "bytes32" }
+    'constant': true,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' }
     ],
-    "name": "ttl",
-    "outputs": [
-      { "name": "", "type": "uint64" }
+    'name': 'ttl',
+    'outputs': [
+      { 'name': '', 'type': 'uint64' }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    'payable': false,
+    'stateMutability': 'view',
+    'type': 'function'
   },
   {
-    "constant": false,
-    "inputs": [
-      { "name": "node", "type": "bytes32" },
-      { "name": "ownerAddress", "type": "address" }
+    'constant': false,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' },
+      { 'name': 'ownerAddress', 'type': 'address' }
     ],
-    "name": "setOwner",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    'name': 'setOwner',
+    'outputs': [],
+    'payable': false,
+    'stateMutability': 'nonpayable',
+    'type': 'function'
   },
   {
-    "constant": false,
-    "inputs": [
-      { "name": "node", "type": "bytes32" },
-      { "name": "resolverAddress", "type": "address" }
+    'constant': false,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' },
+      { 'name': 'resolverAddress', 'type': 'address' }
     ],
-    "name": "setResolver",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    'name': 'setResolver',
+    'outputs': [],
+    'payable': false,
+    'stateMutability': 'nonpayable',
+    'type': 'function'
   },
   {
-    "constant": false,
-    "inputs": [
-      { "name": "node", "type": "bytes32" },
-      { "name": "ttl", "type": "uint64" }
+    'constant': false,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' },
+      { 'name': 'ttl', 'type': 'uint64' }
     ],
-    "name": "setTTL",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    'name': 'setTTL',
+    'outputs': [],
+    'payable': false,
+    'stateMutability': 'nonpayable',
+    'type': 'function'
   },
   {
-    "constant": false,
-    "inputs": [
-      { "name": "node", "type": "bytes32" },
-      { "name": "label", "type": "bytes32" },
-      { "name": "ownerAddress", "type": "address" }
+    'constant': false,
+    'inputs': [
+      { 'name': 'node', 'type': 'bytes32' },
+      { 'name': 'label', 'type': 'bytes32' },
+      { 'name': 'ownerAddress', 'type': 'address' }
     ],
-    "name": "setSubnodeOwner",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    'name': 'setSubnodeOwner',
+    'outputs': [],
+    'payable': false,
+    'stateMutability': 'nonpayable',
+    'type': 'function'
   },
 ]).at(registryAddress);
 
-export const getDomainOwner = domain => dispatch => {
-  dispatch(requestDomainOwner(domain));
+const get = (request, receive, action) => name => dispatch => {
+  dispatch(request(name));
 
-  const hash = namehash(domain);
+  const hash = namehash(name);
 
   return new Promise(resolve => {
-    registry.owner(hash, (error, result) => {
+    action(hash, (error, result) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(receiveDomainOwner(result)));
+      return resolve(dispatch(receive(result)));
     });
   });
 };
 
-export const setDomainOwner = (domain, owner) => dispatch => {
-  dispatch(requestSetOwner(domain, owner));
+const set = (request, receive, txType, action) => (name, value) => dispatch => {
+  dispatch(request(name, value));
 
-  const hash = namehash(domain);
+  const hash = namehash(name);
 
   return new Promise((resolve) => {
-    registry.setOwner(hash, owner, (error, result) => {
-      dispatch(receiveSetOwner());
-      if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_OWNER, domain , owner })));
+    action(hash, value, (error, result) => {
+      dispatch(receive());
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(notifyTx(result, '', { type: txType, name, value })));
     });
   });
 };
 
-export const getDomainResolver = domain => dispatch => {
-  dispatch(requestDomainResolver(domain));
+export const getDomainOwner = get(requestGetOwner, receiveGetOwner, registry.owner);
+export const getDomainResolver = get(requestGetResolver, receiveGetResolver, registry.resolver);
+export const getDomainTtl = get(requestGetTtl, receiveGetTtl, registry.ttl);
 
-  const hash = namehash(domain);
-
-  return new Promise(resolve => {
-    registry.resolver(hash, (error, result) => {
-      if(error) return resolve((receiveDomainResolver(error.message)));
-      return resolve(dispatch(receiveDomainResolver(result)));
-    });
-  });
-};
-
-export const setDomainResolver = (domain, resolver) => dispatch => {
-  dispatch(requestSetResolver(domain, resolver));
-
-  const hash = namehash(domain);
-
-  return new Promise((resolve) => {
-    registry.setResolver(hash, resolver, (error, result) => {
-      dispatch(receiveSetResolver());
-      if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_RESOLVER, domain , resolver })));
-    });
-  });
-};
-
-export const getDomainTtl = domain => dispatch => {
-  dispatch(requestDomainTtl(domain));
-
-  const hash = namehash(domain);
-
-  return new Promise(resolve => {
-    registry.ttl(hash, (error, result) => {
-      if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(receiveDomainTtl(result.toNumber())));
-    });
-  });
-};
-
-export const setDomainTtl = (domain, ttl) => dispatch => {
-  dispatch(requestSetTtl(domain, ttl));
-
-  const hash = namehash(domain);
-
-  return new Promise((resolve) => {
-    registry.setTTL(hash, ttl, (error, result) => {
-      dispatch(receiveSetTtl());
-      if(error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_TTL, domain , ttl })));
-    });
-  });
-};
+export const setDomainOwner = set(requestSetOwner, receiveSetOwner, txTypes.SET_OWNER, registry.setOwner);
+export const setDomainResolver = set(requestSetResolver, receiveSetResolver, txTypes.SET_RESOLVER, registry.setResolver);
+export const setDomainTtl = set(requestSetTtl, receiveSetTtl, txTypes.SET_TTL, registry.setTtl);
 
 export const addSubdomain = (domain, subdomain) => dispatch => {
-  if(!subdomain) return;
+  if (!subdomain) return;
 
   dispatch(addSubdomainAction(subdomain));
 
@@ -191,7 +145,7 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
 
   return new Promise((resolve, reject) => {
     registry.owner(hash, (error, result) => {
-      if(error) reject(dispatch(notifyError(error.message)));
+      if (error) reject(dispatch(notifyError(error.message)));
 
       dispatch(receiveSubdomainOwner(subdomain, result));
 

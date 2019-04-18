@@ -33,14 +33,14 @@ class RegistryFieldComponent extends Component {
   }
 
   render () {
-    const { domain, name, getting, value, changeEdit, editOpen, editting, set } = this.props;
+    const { fieldName, type, getting, value, changeEdit, editOpen, set, editting } = this.props;
 
     let input;
 
     return (
       <React.Fragment>
         <Row>
-          <Col md={2}>{name}</Col>
+          <Col md={2}>{fieldName}</Col>
           <Col md={8}>{getting ? '...' : value}</Col>
           <Col md={2}>
             <Button variant='link' onClick={changeEdit}>{editOpen ? 'cancel' : 'edit'}</Button>
@@ -54,17 +54,19 @@ class RegistryFieldComponent extends Component {
               <Col>
                 <Form onSubmit={e => {
                   e.preventDefault();
-                  if (this.validate(input.value)) set(domain, input.value);
+                  if (this.validate(input.value)) set(input.value);
                 }}>
-                  <InputGroup>
-                    <Form.Control ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null}/>
-                    <InputGroup.Append>
-                      <Button type="submit" size='sm'>edit</Button>
-                    </InputGroup.Append>
-                    <div className='invalid-feedback'>
-                      {this.state.validationError}
-                    </div>
-                  </InputGroup>
+                  <Form.Group>
+                    <InputGroup>
+                      <Form.Control type={type} ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null}/>
+                      <InputGroup.Append>
+                        <Button type='submit' size='sm'>edit</Button>
+                      </InputGroup.Append>
+                      <div className='invalid-feedback'>
+                        {this.state.validationError}
+                      </div>
+                    </InputGroup>
+                  </Form.Group>
                 </Form>
               </Col>
             </Row>

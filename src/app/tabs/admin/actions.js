@@ -7,11 +7,11 @@ import {
 } from './types';
 
 // owner
-export const requestDomainOwner = () => ({
+export const requestGetOwner = () => ({
   type: REQUEST_DOMAIN_OWNER
 });
 
-export const receiveDomainOwner = owner => ({
+export const receiveGetOwner = owner => ({
   type: RECEIVE_DOMAIN_OWNER,
   owner
 });
@@ -29,11 +29,11 @@ export const receiveSetOwner = () => ({
 });
 
 // resolver
-export const requestDomainResolver = () => ({
+export const requestGetResolver = () => ({
   type: REQUEST_DOMAIN_RESOLVER
 });
 
-export const receiveDomainResolver = resolver => ({
+export const receiveGetResolver = resolver => ({
   type: RECEIVE_DOMAIN_RESOLVER,
   resolver
 });
@@ -51,11 +51,11 @@ export const receiveSetResolver = () => ({
 });
 
 // ttl
-export const requestDomainTtl = () => ({
+export const requestGetTtl = () => ({
   type: REQUEST_DOMAIN_TTL
 });
 
-export const receiveDomainTtl = ttl => ({
+export const receiveGetTtl = ttl => ({
   type: RECEIVE_DOMAIN_TTL,
   ttl
 });
