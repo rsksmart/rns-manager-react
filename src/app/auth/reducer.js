@@ -13,7 +13,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SHOW_AUTH_MODAL: return {
       ...state,
       defaultName: action.name,

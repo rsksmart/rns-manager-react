@@ -6,8 +6,7 @@ export const addTxNotification = (tx, message, params) => ({
     type: notificationTypes.TX,
     tx,
     message,
-    params,
-    mined: false
+    params
   }
 });
 

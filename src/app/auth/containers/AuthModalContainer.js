@@ -14,14 +14,14 @@ const mapStateToProps = state => ({
   displayAddress: state.auth.address && toChecksumAddress(state)(state.auth.address),
   network: networkSelector(state.auth.network),
   authError: state.auth.authError,
-  domain: state.auth.domain,
+  name: state.auth.name,
   isOwner: state.auth.isOwner,
   defaultDomain: state.auth.defaultDomain
 });
 
 const mapDispatchToProps = dispatch => ({
   close: () => dispatch(closeModal()),
-  authenticate: (domain, address) => dispatch(authenticate(domain, address))
+  authenticate: (name, address) => dispatch(authenticate(name, address))
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
@@ -29,7 +29,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    authenticate: domain => dispatchProps.authenticate(domain, stateProps.address)
+    authenticate: name => dispatchProps.authenticate(name, stateProps.address)
   }
 }
 

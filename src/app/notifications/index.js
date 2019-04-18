@@ -1,4 +1,5 @@
 export { default } from './reducer';
+
 export { notificationTypes, txTypes } from './types';
 export { notifyError } from './actions';
 export { notifyTx } from './operations';

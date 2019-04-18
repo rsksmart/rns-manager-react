@@ -9,6 +9,7 @@ const newNotification = notification => {
   const newNotification = {
     ...notification,
     id: notificationId++,
+    mined: false
   };
 
   return NotificationListContainer.type === notificationTypes.TX ? { ...newNotification, params: notification.params, viewed: false } : newNotification;

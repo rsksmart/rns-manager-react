@@ -2,7 +2,7 @@ import { SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, RECEIVE_HAS_METAMASK, REQUEST_ENABLE
 
 export const showModal = name => ({
   type: SHOW_AUTH_MODAL,
-  domain: name
+  name
 });
 
 export const closeModal = () => ({
@@ -35,7 +35,7 @@ export const requestLogin = () => ({
 
 export const receiveLogin = (name, isOwner) => ({
   type: RECEIVE_LOGIN,
-  domain: name,
+  name,
   isOwner
 });
 

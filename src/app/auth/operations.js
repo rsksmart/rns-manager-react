@@ -12,8 +12,8 @@ export const start = () => dispatch => {
     dispatch(requestEnable());
 
     window.ethereum.enable()
-    .then(accounts => dispatch(receiveEnable(accounts[0], window.ethereum.networkVersion)))
-    .catch(e => dispatch(errorEnable(e.message)));
+      .then(accounts => dispatch(receiveEnable(accounts[0], window.ethereum.networkVersion)))
+      .catch(e => dispatch(errorEnable(e.message)));
   }
 }
 
