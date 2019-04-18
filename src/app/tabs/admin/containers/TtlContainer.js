@@ -4,7 +4,7 @@ import { changeEditTtl } from '../actions';
 import { getDomainTtl, setDomainTtl } from '../operations';
 
 const mapStateToProps = state => ({
-  domain: state.auth.domain,
+  domain: state.auth.name,
   getting: state.admin.ttl.getting,
   value: state.admin.ttl.value,
   editOpen: state.admin.ttl.editOpen,

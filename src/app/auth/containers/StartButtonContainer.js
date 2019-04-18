@@ -5,7 +5,7 @@ import { start } from '../operations';
 
 const mapStateToProps = state => ({
   isOwner: state.auth.isOwner,
-  domain: state.auth.domain
+  domain: state.auth.name
 });
 
 const mapDispatchToProps = dispatch => ({

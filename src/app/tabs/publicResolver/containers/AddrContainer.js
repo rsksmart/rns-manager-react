@@ -6,7 +6,7 @@ import { validateAddress } from '../../../validations';
 import { toChecksumAddress } from '../../../selectors';
 
 const mapStateToProps = state => ({
-  domain: state.auth.domain,
+  domain: state.auth.name,
   getting: state.publicResolver.addr.getting,
   value: toChecksumAddress(state)(state.publicResolver.addr.value),
   editOpen: state.publicResolver.addr.editOpen,

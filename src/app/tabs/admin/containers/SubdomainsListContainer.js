@@ -3,7 +3,7 @@ import { addSubdomain } from '../operations';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-  domain: state.auth.domain,
+  domain: state.auth.name,
   subdomains: state.admin.subdomains
 });
 

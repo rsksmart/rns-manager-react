@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || '',
   auctionStateLoading: state.search.auctionStateLoading,
   auctionState: state.search.auctionState,
-  authDomain: state.auth.isOwner ? state.auth.domain : null
+  authDomain: state.auth.isOwner ? state.auth.name : null
 });
 
 const mapDispatchToProps = dispatch => ({
