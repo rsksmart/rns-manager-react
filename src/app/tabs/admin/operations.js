@@ -134,7 +134,7 @@ export const getDomainTtl = get(requestGetTtl, receiveGetTtl, registry.ttl);
 
 export const setDomainOwner = set(requestSetOwner, receiveSetOwner, txTypes.SET_OWNER, registry.setOwner);
 export const setDomainResolver = set(requestSetResolver, receiveSetResolver, txTypes.SET_RESOLVER, registry.setResolver);
-export const setDomainTtl = set(requestSetTtl, receiveSetTtl, txTypes.SET_TTL, registry.setTtl);
+export const setDomainTtl = set(requestSetTtl, receiveSetTtl, txTypes.SET_TTL, registry.setTTL);
 
 export const addSubdomain = (domain, subdomain) => dispatch => {
   if (!subdomain) return;
