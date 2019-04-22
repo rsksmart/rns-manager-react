@@ -9,6 +9,7 @@ import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
+import { get, set } from '../../factories/operationFactory';
 
 const registry = window.web3 && window.web3.eth.contract([
   {
@@ -100,33 +101,6 @@ const registry = window.web3 && window.web3.eth.contract([
     'type': 'function'
   },
 ]).at(registryAddress);
-
-const get = (request, receive, action) => name => dispatch => {
-  dispatch(request(name));
-
-  const hash = namehash(name);
-
-  return new Promise(resolve => {
-    action(hash, (error, result) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(receive(result)));
-    });
-  });
-};
-
-const set = (request, receive, txType, action) => (name, value) => dispatch => {
-  dispatch(request(name, value));
-
-  const hash = namehash(name);
-
-  return new Promise((resolve) => {
-    action(hash, value, (error, result) => {
-      dispatch(receive());
-      if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txType, name, value })));
-    });
-  });
-};
 
 export const getDomainOwner = get(requestGetOwner, receiveGetOwner, registry.owner);
 export const getDomainResolver = get(requestGetResolver, receiveGetResolver, registry.resolver);

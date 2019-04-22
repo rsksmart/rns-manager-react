@@ -1,6 +1,6 @@
 import React from 'react';
-import { RegistryFieldContainer } from '.';
-import { valueTypes } from '../types';
+import { FieldContainer } from '../../../containers';
+import { valueTypes } from '../../../types';
 import { changeEditOwner } from '../actions';
 import { getDomainOwner, setDomainOwner } from '../operations';
 
@@ -14,4 +14,4 @@ const registryFieldProps = {
   set: setDomainOwner
 };
 
-export default () => <RegistryFieldContainer {...registryFieldProps} />;
+export default () => <FieldContainer {...registryFieldProps} />;

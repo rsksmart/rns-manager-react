@@ -1,26 +1,17 @@
-import { PublicResolverFieldComponent } from '../components';
-import { connect } from 'react-redux';
-import { changeViewAddr } from '../actions';
+import React from 'react';
+import { FieldContainer } from '../../../containers';
+import { valueTypes } from '../../../types';
+import { changeEditAddr } from '../actions';
 import { getAddr, setAddr } from '../operations';
-import { validateAddress } from '../../../validations';
-import { toChecksumAddress } from '../../../selectors';
 
-const mapStateToProps = state => ({
-  domain: state.auth.name,
-  getting: state.publicResolver.addr.getting,
-  value: toChecksumAddress(state)(state.publicResolver.addr.value),
-  editOpen: state.publicResolver.addr.editOpen,
-  editting: state.publicResolver.addr.editting,
-  validate: address => validateAddress(address, state.auth.network)
-});
+const registryFieldProps = {
+  fieldName: 'addr',
+  type: 'text',
+  valueType: valueTypes.ADDRESS,
+  getField: state => state.publicResolver.addr,
+  get: getAddr,
+  changeEdit: changeEditAddr,
+  set: setAddr
+};
 
-const mapDispatchToProps = dispatch => ({
-  get: domain => dispatch(getAddr(domain)),
-  changeEdit: () => dispatch(changeViewAddr()),
-  set: (domain, value) => dispatch(setAddr(domain, value))
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PublicResolverFieldComponent);
+export default () => <FieldContainer {...registryFieldProps} />;

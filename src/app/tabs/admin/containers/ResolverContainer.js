@@ -1,6 +1,6 @@
 import React from 'react';
-import { RegistryFieldContainer } from '.';
-import { valueTypes } from '../types';
+import { FieldContainer } from '../../../containers';
+import { valueTypes } from '../../../types';
 import { changeEditResolver } from '../actions';
 import { getDomainResolver, setDomainResolver } from '../operations';
 
@@ -14,4 +14,4 @@ const registryFieldProps = {
   set: setDomainResolver
 };
 
-export default () => <RegistryFieldContainer {...registryFieldProps} />;
+export default () => <FieldContainer {...registryFieldProps} />;

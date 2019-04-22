@@ -13,7 +13,7 @@ export const receiveGetAddr = addr => ({
   addr
 });
 
-export const changeViewAddr = () => ({
+export const changeEditAddr = () => ({
   type: CHANGE_EDIT_ADDR
 });
 
@@ -35,7 +35,7 @@ export const receiveGetContent = content => ({
   content
 });
 
-export const changeViewContent = () => ({
+export const changeEditContent = () => ({
   type: CHANGE_EDIT_CONTENT
 });
 

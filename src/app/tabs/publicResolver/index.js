@@ -18,13 +18,13 @@ class PublicResolverTab extends Component {
           </Row>
           <Row>
             <Col>
-              <AddrContainer name='Address' />
+              <AddrContainer />
             </Col>
           </Row>
           <br />
           <Row>
             <Col>
-              <ContentContainer name='Content' />
+              <ContentContainer />
             </Col>
           </Row>
         </Container>

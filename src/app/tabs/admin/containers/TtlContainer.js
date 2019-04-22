@@ -1,6 +1,6 @@
 import React from 'react';
-import { RegistryFieldContainer } from '.';
-import { valueTypes } from '../types';
+import { FieldContainer } from '../../../containers';
+import { valueTypes } from '../../../types';
 import { changeEditTtl } from '../actions';
 import { getDomainTtl, setDomainTtl } from '../operations';
 
@@ -14,4 +14,4 @@ const registryFieldProps = {
   set: setDomainTtl
 };
 
-export default () => <RegistryFieldContainer {...registryFieldProps} />;
+export default () => <FieldContainer {...registryFieldProps} />;

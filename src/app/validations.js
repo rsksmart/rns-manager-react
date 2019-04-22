@@ -36,3 +36,10 @@ export const validateAddress = (address, chainId) => {
  * @returns {string} null if it's valid and an error message if it is not
  */
 export const validatePositiveNumber = number => number >= 0 ? null : 'Invalid number';
+
+/**
+ * validate a bytes32
+ * @param {string} bytes to validate
+ * @returns {string} null if it's valid and an error message if it is not
+ */
+export const validateBytes32 = bytes => bytes.length === 66 && bytes.slice(0,2) === '0x' ? null : 'Invalid bytes';

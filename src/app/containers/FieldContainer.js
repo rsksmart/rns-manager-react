@@ -1,8 +1,8 @@
-import { RegistryFieldComponent } from '../components';
+import { FieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { valueTypes } from '../types';
-import { validateAddress, validatePositiveNumber } from '../../../validations';
-import { toChecksumAddress } from '../../../selectors';
+import { validateAddress, validatePositiveNumber, validateBytes32 } from '../validations';
+import { toChecksumAddress } from '../selectors';
 
 const mapStateToProps = (state, ownProps) => {
   const { getField, valueType } = ownProps;
@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 
   const validate =
     valueType === valueTypes.ADDRESS ? address => validateAddress(address, network) :
-      valueType === valueTypes.POSITIVE_NUMBER ? number => validatePositiveNumber(number) : null;
+      valueType === valueTypes.POSITIVE_NUMBER ? number => validatePositiveNumber(number) :
+        valueType === valueTypes.BYTES32 ? bytes => validateBytes32(bytes) : null;
 
   return {
     name,
@@ -49,4 +50,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(RegistryFieldComponent);
+)(FieldComponent);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 
-class RegistryFieldComponent extends Component {
+class FieldComponent extends Component {
   constructor (props) {
     super(props);
 
@@ -80,4 +80,4 @@ class RegistryFieldComponent extends Component {
   }
 }
 
-export default RegistryFieldComponent;
+export default FieldComponent;
