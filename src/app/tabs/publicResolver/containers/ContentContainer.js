@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldContainer } from '../../../containers';
 import { valueTypes } from '../../../types';
-import { changeEditContent } from '../actions';
+import { content } from '../actions';
 import { getContent, setContent } from '../operations';
 
 const registryFieldProps = {
@@ -10,7 +10,7 @@ const registryFieldProps = {
   valueType: valueTypes.BYTES32,
   getField: state => state.publicResolver.content,
   get: getContent,
-  changeEdit: changeEditContent,
+  changeEdit: content.changeEdit,
   set: setContent
 };
 

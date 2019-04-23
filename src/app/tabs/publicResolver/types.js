@@ -1,13 +1,4 @@
-// addr
-export const REQUEST_GET_ADDR = 'REQUEST_GET_RESOLUTION';
-export const RECEIVE_GET_ADDR = 'RECEIVE_GET_RESOLUTION';
-export const CHANGE_EDIT_ADDR = 'CHANGE_EDIT_ADDR';
-export const REQUEST_SET_ADDR = 'REQUEST_SET_ADDR';
-export const RECEIVE_SET_ADDR = 'RECEIVE_SET_ADDR';
+import { fieldTypes } from "../../factories/typeFactory";
 
-// content
-export const REQUEST_GET_CONTENT = 'REQUEST_GET_CONTENT';
-export const RECEIVE_GET_CONTENT = 'RECEIVE_GET_CONTENT';
-export const CHANGE_EDIT_CONTENT = 'CHANGE_EDIT_CONTENT';
-export const REQUEST_SET_CONTENT = 'REQUEST_SET_CONTENT';
-export const RECEIVE_SET_CONTENT = 'RECEIVE_SET_CONTENT';
+export const ADDR = fieldTypes('ADDR');
+export const CONTENT = fieldTypes('CONTENT');

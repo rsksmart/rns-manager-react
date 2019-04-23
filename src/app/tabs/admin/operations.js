@@ -129,10 +129,6 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
 export const setSubdomainOwner = (parent, child, owner) => dispatch => {
   dispatch(requestSetSubdomainOwner(child));
 
-  console.log(parent)
-  console.log(child)
-  console.log(owner)
-
   const label = `0x${sha3(child)}`;
   const node = namehash(parent);
 

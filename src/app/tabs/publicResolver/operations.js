@@ -1,7 +1,4 @@
-import {
-  requestGetAddr, receiveGetAddr, requestSetAddr, receiveSetAddr,
-  requestGetContent, receiveGetContent, requestSetContent, receiveSetContent,
-} from './actions';
+import { addr, content } from './actions';
 import { resolver as resolverAddress } from '../../../config/contracts';
 import { txTypes } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
@@ -59,8 +56,8 @@ const resolver = window.web3 && window.web3.eth.contract([
   }
 ]).at(resolverAddress);
 
-export const getAddr = get(requestGetAddr, receiveGetAddr, resolver.addr);
-export const getContent = get(requestGetContent, receiveGetContent, resolver.content);
+export const getAddr = get(addr.requestGet, addr.receiveGet, resolver.addr);
+export const getContent = get(content.requestGet, content.receiveGet, resolver.content);
 
-export const setAddr = set(requestSetAddr, receiveSetAddr, txTypes.SET_ADDR, resolver.setAddr);
-export const setContent = set(requestSetContent, receiveSetContent, txTypes.SET_CONTENT, resolver.setContent);
+export const setAddr = set(addr.requestSet, addr.receiveSet, txTypes.SET_ADDR, resolver.setAddr);
+export const setContent = set(content.requestSet, content.receiveSet, txTypes.SET_CONTENT, resolver.setContent);

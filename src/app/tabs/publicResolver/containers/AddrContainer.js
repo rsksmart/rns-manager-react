@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldContainer } from '../../../containers';
 import { valueTypes } from '../../../types';
-import { changeEditAddr } from '../actions';
+import { addr } from '../actions';
 import { getAddr, setAddr } from '../operations';
 
 const registryFieldProps = {
@@ -10,7 +10,7 @@ const registryFieldProps = {
   valueType: valueTypes.ADDRESS,
   getField: state => state.publicResolver.addr,
   get: getAddr,
-  changeEdit: changeEditAddr,
+  changeEdit: addr.changeEdit,
   set: setAddr
 };
 
