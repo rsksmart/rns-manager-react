@@ -1,7 +1,5 @@
 import {
-  requestGetOwner, receiveGetOwner, requestSetOwner, receiveSetOwner,
-  requestGetResolver, receiveGetResolver, requestSetResolver, receiveSetResolver,
-  requestGetTtl, receiveGetTtl, requestSetTtl, receiveSetTtl,
+  owner, resolver, ttl,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner,
   requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
@@ -102,13 +100,13 @@ const registry = window.web3 && window.web3.eth.contract([
   },
 ]).at(registryAddress);
 
-export const getDomainOwner = get(requestGetOwner, receiveGetOwner, registry.owner);
-export const getDomainResolver = get(requestGetResolver, receiveGetResolver, registry.resolver);
-export const getDomainTtl = get(requestGetTtl, receiveGetTtl, registry.ttl);
+export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry.owner);
+export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, registry.resolver);
+export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry.ttl);
 
-export const setDomainOwner = set(requestSetOwner, receiveSetOwner, txTypes.SET_OWNER, registry.setOwner);
-export const setDomainResolver = set(requestSetResolver, receiveSetResolver, txTypes.SET_RESOLVER, registry.setResolver);
-export const setDomainTtl = set(requestSetTtl, receiveSetTtl, txTypes.SET_TTL, registry.setTTL);
+export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry.setOwner);
+export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry.setResolver);
+export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry.setTTL);
 
 export const addSubdomain = (domain, subdomain) => dispatch => {
   if (!subdomain) return;
@@ -130,6 +128,10 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
 
 export const setSubdomainOwner = (parent, child, owner) => dispatch => {
   dispatch(requestSetSubdomainOwner(child));
+
+  console.log(parent)
+  console.log(child)
+  console.log(owner)
 
   const label = `0x${sha3(child)}`;
   const node = namehash(parent);

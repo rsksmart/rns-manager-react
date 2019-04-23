@@ -1,7 +1,5 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
-  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
-  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL,
+  OWNER, RESOLVER, TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER
 } from './types';
@@ -50,93 +48,93 @@ const receiveSetProp = (prop) => ({
 const adminReducer = (state = initialState, action) => {
   switch(action.type) {
     // owner
-    case REQUEST_DOMAIN_OWNER: {
+    case OWNER.REQUEST_GET: {
       return {
         ...state,
         owner: requestGetProp(state.owner)
       }
     }
-    case RECEIVE_DOMAIN_OWNER: {
+    case OWNER.RECEIVE_GET: {
       return {
         ...state,
-        owner: receiveGetProp(state.owner, action.owner)
+        owner: receiveGetProp(state.owner, action.value)
       }
     }
-    case CHANGE_EDIT_OWNER: {
+    case OWNER.CHANGE_EDIT: {
       return {
         ...state,
         owner: changeEditProp(state.owner)
       }
     }
-    case REQUEST_SET_OWNER: {
+    case OWNER.REQUEST_SET: {
       return {
         ...state,
         owner: requestSetProp(state.owner)
       }
     }
-    case RECEIVE_SET_OWNER: {
+    case OWNER.RECEIVE_SET: {
       return {
         ...state,
         owner: receiveSetProp(state.owner)
       }
     }
     // resolver
-    case REQUEST_DOMAIN_RESOLVER: {
+    case RESOLVER.REQUEST_GET: {
       return {
         ...state,
         resolver: requestGetProp(state.resolver)
       }
     }
-    case RECEIVE_DOMAIN_RESOLVER: {
+    case RESOLVER.RECEIVE_GET: {
       return {
         ...state,
-        resolver: receiveGetProp(state.resolver, action.resolver)
+        resolver: receiveGetProp(state.resolver, action.value)
       }
     }
-    case CHANGE_EDIT_RESOLVER: {
+    case RESOLVER.CHANGE_EDIT: {
       return {
         ...state,
         resolver: changeEditProp(state.resolver)
       }
     }
-    case REQUEST_SET_RESOLVER: {
+    case RESOLVER.REQUEST_SET: {
       return {
         ...state,
         resolver: requestSetProp(state.resolver)
       }
     }
-    case RECEIVE_SET_RESOLVER: {
+    case RESOLVER.RECEIVE_SET: {
       return {
         ...state,
         resolver: receiveSetProp(state.resolver)
       }
     }
     // ttl
-    case REQUEST_DOMAIN_TTL: {
+    case TTL.REQUEST_GET: {
       return {
         ...state,
         ttl: requestGetProp(state.ttl)
       }
     }
-    case RECEIVE_DOMAIN_TTL: {
+    case TTL.RECEIVE_GET: {
       return {
         ...state,
-        ttl: receiveGetProp(state.ttl, action.ttl.toNumber())
+        ttl: receiveGetProp(state.ttl, action.value.toNumber())
       }
     }
-    case CHANGE_EDIT_TTL: {
+    case TTL.CHANGE_EDIT: {
       return {
         ...state,
         ttl: changeEditProp(state.ttl)
       }
     }
-    case REQUEST_SET_TTL: {
+    case TTL.REQUEST_SET: {
       return {
         ...state,
         ttl: requestSetProp(state.ttl)
       }
     }
-    case RECEIVE_SET_TTL: {
+    case TTL.RECEIVE_SET: {
       return {
         ...state,
         ttl: receiveSetProp(state.ttl)

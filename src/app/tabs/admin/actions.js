@@ -1,76 +1,14 @@
 import {
-  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, CHANGE_EDIT_OWNER, REQUEST_SET_OWNER, RECEIVE_SET_OWNER,
-  REQUEST_DOMAIN_RESOLVER, RECEIVE_DOMAIN_RESOLVER, CHANGE_EDIT_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
-  REQUEST_DOMAIN_TTL, RECEIVE_DOMAIN_TTL, CHANGE_EDIT_TTL, REQUEST_SET_TTL, RECEIVE_SET_TTL,
+  OWNER, RESOLVER, TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER
 } from './types';
 
-// owner
-export const requestGetOwner = () => ({
-  type: REQUEST_DOMAIN_OWNER
-});
+import { filedActions } from '../../factories/actionFactory';
 
-export const receiveGetOwner = owner => ({
-  type: RECEIVE_DOMAIN_OWNER,
-  owner
-});
-
-export const changeEditOwner = () => ({
-  type: CHANGE_EDIT_OWNER
-});
-
-export const requestSetOwner = () => ({
-  type: REQUEST_SET_OWNER
-});
-
-export const receiveSetOwner = () => ({
-  type: RECEIVE_SET_OWNER
-});
-
-// resolver
-export const requestGetResolver = () => ({
-  type: REQUEST_DOMAIN_RESOLVER
-});
-
-export const receiveGetResolver = resolver => ({
-  type: RECEIVE_DOMAIN_RESOLVER,
-  resolver
-});
-
-export const changeEditResolver = () => ({
-  type: CHANGE_EDIT_RESOLVER
-});
-
-export const requestSetResolver = () => ({
-  type: REQUEST_SET_RESOLVER
-});
-
-export const receiveSetResolver = () => ({
-  type: RECEIVE_SET_RESOLVER
-});
-
-// ttl
-export const requestGetTtl = () => ({
-  type: REQUEST_DOMAIN_TTL
-});
-
-export const receiveGetTtl = ttl => ({
-  type: RECEIVE_DOMAIN_TTL,
-  ttl
-});
-
-export const changeEditTtl = () => ({
-  type: CHANGE_EDIT_TTL
-});
-
-export const requestSetTtl = () => ({
-  type: REQUEST_SET_TTL,
-});
-
-export const receiveSetTtl = () => ({
-  type: RECEIVE_SET_TTL,
-});
+export const owner = filedActions(OWNER);
+export const resolver = filedActions(RESOLVER);
+export const ttl = filedActions(TTL);
 
 // subdomains
 export const addSubdomain = label => ({

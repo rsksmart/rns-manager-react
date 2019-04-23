@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldContainer } from '../../../containers';
 import { valueTypes } from '../../../types';
-import { changeEditTtl } from '../actions';
+import { ttl } from '../actions';
 import { getDomainTtl, setDomainTtl } from '../operations';
 
 const registryFieldProps = {
@@ -10,7 +10,7 @@ const registryFieldProps = {
   valueType: valueTypes.POSITIVE_NUMBER,
   getField: state => state.admin.ttl,
   get: getDomainTtl,
-  changeEdit: changeEditTtl,
+  changeEdit: ttl.changeEdit,
   set: setDomainTtl
 };
 

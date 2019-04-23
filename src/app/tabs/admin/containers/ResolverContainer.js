@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldContainer } from '../../../containers';
 import { valueTypes } from '../../../types';
-import { changeEditResolver } from '../actions';
+import { resolver } from '../actions';
 import { getDomainResolver, setDomainResolver } from '../operations';
 
 const registryFieldProps = {
@@ -10,7 +10,7 @@ const registryFieldProps = {
   valueType: valueTypes.ADDRESS,
   getField: state => state.admin.resolver,
   get: getDomainResolver,
-  changeEdit: changeEditResolver,
+  changeEdit: resolver.changeEdit,
   set: setDomainResolver
 };
 

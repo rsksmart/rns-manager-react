@@ -7,6 +7,9 @@ import { toChecksumAddress } from '../../../selectors';
 const mapStateToProps = (state, ownProps) => {
   const subdomain = state.admin.subdomains.find(subdomain => subdomain.label === ownProps.label);
 
+  console.log(subdomain)
+  console.log(state.auth.name)
+
   return {
     parent: state.auth.name,
     owner: subdomain.owner && toChecksumAddress(state)(subdomain.owner),
@@ -19,10 +22,18 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   changeEdit: () => dispatch(viewEditSubdomainOwner(ownProps.label)),
-  set: owner => dispatch(setSubdomainOwner(ownProps.parent, ownProps.label, owner))
+  set: (node, owner) => dispatch(setSubdomainOwner(node, ownProps.label, owner))
 });
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  set: (owner) => dispatchProps.set(stateProps.parent, owner)
+})
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mergeProps
 )(SubdomainComponent);
