@@ -13,21 +13,21 @@ export const getAuctionState = domain => dispatch => {
 
   const registrar = window.web3.eth.contract([
     {
-      "constant": true,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' }
       ],
-      "name": "entries",
-      "outputs": [
-        { "name": "", "type": "uint8" },
-        { "name": "", "type": "address" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" }
+      'name': 'entries',
+      'outputs': [
+        { 'name': '', 'type': 'uint8' },
+        { 'name': '', 'type': 'address' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
     }
   ]).at(registrarAddress);
 
@@ -35,7 +35,7 @@ export const getAuctionState = domain => dispatch => {
 
   return new Promise(resolve => {
     registrar.entries(hash, (error, result) => {
-      if(error) return resolve(dispatch(notifyError(error.message)));
+      if (error) return resolve(dispatch(notifyError(error.message)));
 
       let state = result[0].toNumber();
 
@@ -44,18 +44,18 @@ export const getAuctionState = domain => dispatch => {
 
         const deed = window.web3.eth.contract([
           {
-            "constant": true,
-            "inputs": [],
-            "name": "expirationDate",
-            "outputs": [
+            'constant': true,
+            'inputs': [],
+            'name': 'expirationDate',
+            'outputs': [
               {
-                "name": "",
-                "type": "uint256"
+                'name': '',
+                'type': 'uint256'
               }
             ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
+            'payable': false,
+            'stateMutability': 'view',
+            'type': 'function'
           }
         ]).at(deedAddress);
 

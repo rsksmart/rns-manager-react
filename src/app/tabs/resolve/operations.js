@@ -1,6 +1,6 @@
 import { requestResolve, receiveResolve, errorResolve } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
-import { rns as rnsAddress  } from '../../../config/contracts';
+import { rns as rnsAddress } from '../../../config/contracts';
 
 export const resolveAddress = domain => dispatch => {
   if (!domain) {
@@ -33,30 +33,30 @@ export const resolveAddress = domain => dispatch => {
 
     const resolver = window.web3.eth.contract([
       {
-        "constant": true,
-        "inputs": [
-            { "name": "node", "type": "bytes32" }
+        'constant': true,
+        'inputs': [
+          { 'name': 'node', 'type': 'bytes32' }
         ],
-        "name": "addr",
-        "outputs": [
-            { "name": "", "type": "address" }
+        'name': 'addr',
+        'outputs': [
+          { 'name': '', 'type': 'address' }
         ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
       },
       {
-        "constant": true,
-        "inputs": [
-          { "name": "interfaceID", "type": "bytes4" }
+        'constant': true,
+        'inputs': [
+          { 'name': 'interfaceID', 'type': 'bytes4' }
         ],
-        "name": "supportsInterface",
-        "outputs": [
-          { "name": "", "type": "bool" }
+        'name': 'supportsInterface',
+        'outputs': [
+          { 'name': '', 'type': 'bool' }
         ],
-        "payable": false,
-        "stateMutability": "pure",
-        "type": "function"
+        'payable': false,
+        'stateMutability': 'pure',
+        'type': 'function'
       },
     ]).at(result);
 

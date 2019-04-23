@@ -8,15 +8,15 @@ export const finalize = domain => dispatch => {
 
   const registrar = window.web3.eth.contract([
     {
-      "constant": false,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+      'constant': false,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' }
       ],
-      "name": "finalizeAuction",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      'name': 'finalizeAuction',
+      'outputs': [],
+      'payable': false,
+      'stateMutability': 'nonpayable',
+      'type': 'function'
     }
   ]).at(registrarAddress);
 

@@ -8,55 +8,55 @@ export const bid = (domain, value, salt) => dispatch => {
 
   const registrar = window.web3.eth.contract([
     {
-      "constant": true,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" },
-        { "name": "_owner", "type": "address" },
-        { "name": "_value", "type": "uint256" },
-        { "name": "_salt", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' },
+        { 'name': '_owner', 'type': 'address' },
+        { 'name': '_value', 'type': 'uint256' },
+        { 'name': '_salt', 'type': 'bytes32' }
       ],
-      "name": "shaBid",
-      "outputs": [
-        { "name": "", "type": "bytes32" }
+      'name': 'shaBid',
+      'outputs': [
+        { 'name': '', 'type': 'bytes32' }
       ],
-      "payable": false,
-      "stateMutability": "pure",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'pure',
+      'type': 'function'
     },
     {
-      "constant": true,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' }
       ],
-      "name": "entries",
-      "outputs": [
-        { "name": "", "type": "uint8" },
-        { "name": "", "type": "address" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" }
+      'name': 'entries',
+      'outputs': [
+        { 'name': '', 'type': 'uint8' },
+        { 'name': '', 'type': 'address' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
     }
   ]).at(registrarAddress);
 
   const rif = window.web3.eth.contract([
     {
-      "constant": false,
-      "inputs": [
-          { "name": "_to", "type": "address" },
-          { "name": "_value", "type": "uint256" },
-          { "name": "data", "type": "bytes" }
+      'constant': false,
+      'inputs': [
+        { 'name': '_to', 'type': 'address' },
+        { 'name': '_value', 'type': 'uint256' },
+        { 'name': 'data', 'type': 'bytes' }
       ],
-      "name": "transferAndCall",
-      "outputs": [
-          { "name": "", "type": "bool" }
+      'name': 'transferAndCall',
+      'outputs': [
+        { 'name': '', 'type': 'bool' }
       ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'nonpayable',
+      'type': 'function'
     }
   ]).at(rifAddress);
 

@@ -8,34 +8,34 @@ export const unseal = (domain, value, salt) => dispatch => {
 
   const registrar = window.web3.eth.contract([
     {
-      "constant": false,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" },
-        { "name": "_value", "type": "uint256" },
-        { "name": "_salt", "type": "bytes32" }
+      'constant': false,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' },
+        { 'name': '_value', 'type': 'uint256' },
+        { 'name': '_salt', 'type': 'bytes32' }
       ],
-      "name": "unsealBid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      'name': 'unsealBid',
+      'outputs': [],
+      'payable': false,
+      'stateMutability': 'nonpayable',
+      'type': 'function'
     },
     {
-      "constant": true,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+      'constant': true,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' }
       ],
-      "name": "entries",
-      "outputs": [
-        { "name": "", "type": "uint8" },
-        { "name": "", "type": "address" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" }
+      'name': 'entries',
+      'outputs': [
+        { 'name': '', 'type': 'uint8' },
+        { 'name': '', 'type': 'address' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' },
+        { 'name': '', 'type': 'uint256' }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
     }
   ]).at(registrarAddress);
 

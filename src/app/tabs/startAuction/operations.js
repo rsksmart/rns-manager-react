@@ -6,15 +6,15 @@ import { notifyTx, notifyError, txTypes } from '../../notifications';
 export const startAuction = domain => dispatch => {
   const registrar = window.web3.eth.contract([
     {
-      "constant": false,
-      "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+      'constant': false,
+      'inputs': [
+        { 'name': '_hash', 'type': 'bytes32' }
       ],
-      "name": "startAuction",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      'name': 'startAuction',
+      'outputs': [],
+      'payable': false,
+      'stateMutability': 'nonpayable',
+      'type': 'function'
     }
   ]).at(registrarAddress);
 
