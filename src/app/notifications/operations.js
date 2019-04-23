@@ -8,7 +8,7 @@ export const notifyTx = (tx, message, params) => dispatch => {
       method: 'eth_getTransactionByHash',
       params: [ tx ],
     }, (err, response) => {
-      if (response.result) {
+      if (response.result.blockNumber) {
         clearInterval(checkInterval);
         dispatch(txMined(tx));
       }
