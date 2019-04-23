@@ -100,13 +100,13 @@ const registry = window.web3 && window.web3.eth.contract([
   },
 ]).at(registryAddress);
 
-export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry.owner);
-export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, registry.resolver);
-export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry.ttl);
+export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry && registry.owner);
+export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, registry && registry.resolver);
+export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry && registry.ttl);
 
-export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry.setOwner);
-export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry.setResolver);
-export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry.setTTL);
+export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry && registry.setOwner);
+export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver);
+export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL);
 
 export const addSubdomain = (domain, subdomain) => dispatch => {
   if (!subdomain) return;
