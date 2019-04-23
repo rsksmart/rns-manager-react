@@ -9,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   const { getting, value, editOpen, editting } = getField(state);
   const { name, network } = state.auth;
 
-  const displayValue = valueType === valueTypes.ADDRESS ? toChecksumAddress(state)(value) : value;
+  const displayValue = valueType === valueTypes.ADDRESS ? toChecksumAddress(state)(value) :
+    valueType === valueTypes.POSITIVE_NUMBER ? value && value.toNumber() : value;
 
   const validate =
     valueType === valueTypes.ADDRESS ? address => validateAddress(address, network) :
