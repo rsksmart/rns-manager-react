@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
-import { networkSelector } from '../selectors';
-import { toChecksumAddress } from '../../selectors';
+import { networkSelector, toChecksumAddress } from '../../selectors';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,

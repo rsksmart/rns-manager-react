@@ -12,7 +12,8 @@ import {
   FinalizeTab,
   AdminTab,
   PublicResolverTab,
-  NotificationTab
+  NotificationTab,
+  UserTab
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
@@ -24,6 +25,7 @@ const routes = (
     {
       !window.ethereum && <Route component={NoMetamaskTab} />
     }
+    <Route path='/user' component={UserTab} />
     <Route path='/search' component={SearchTab} />
     <Route path='/resolve' component={ResolveTab} />
     <Route path='/start' component={StartAuctionTab} />

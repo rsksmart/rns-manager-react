@@ -11,7 +11,7 @@ class AuthModalComponent extends Component {
     return (
       <Modal show={show} onEntered={() => nameInput && nameInput.focus()} onHide={close}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign in</Modal.Title>
+          <Modal.Title>log in</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {
@@ -29,7 +29,7 @@ class AuthModalComponent extends Component {
                   }}>
                     <Form.Group as={Row} controlId='address'>
                       <Form.Label column sm='2'>
-                        Address
+                        address
                       </Form.Label>
                       <Col sm='10'>
                         <Form.Control plaintext readOnly defaultValue={displayAddress} />
@@ -37,7 +37,7 @@ class AuthModalComponent extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId='network'>
                       <Form.Label column sm='2'>
-                        Network
+                        network
                       </Form.Label>
                       <Col sm='10'>
                         <Form.Control plaintext readOnly defaultValue={network} />
@@ -45,7 +45,7 @@ class AuthModalComponent extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId='formPlaintextPassword'>
                       <Form.Label column sm='2'>
-                        Name
+                        name
                       </Form.Label>
                       <Col sm='10'>
                         <Form.Control type='text' ref={node => (nameInput = node)} defaultValue={defaultName} />

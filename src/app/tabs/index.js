@@ -32,3 +32,4 @@ export { StartAuctionTab } from './startAuction';
 export { UnsealTab } from './unseal';
 export { NoMetamaskTab } from './NoMetamaskTab';
 export { SetUpTab } from './SetUpTab';
+export { UserTab } from './user';

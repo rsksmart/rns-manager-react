@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 
 class StartButtonComponent extends Component {
   render () {
-    const { open, isOwner, domain } = this.props;
+    const { open, user, isOwner, domain, address } = this.props;
 
     return (
-      domain && isOwner ? <button className='btn btn-outline-primary my-2 my-sm-0 ml-1' disabled>{domain}</button> : <button className='btn btn-outline-primary my-2 my-sm-0 ml-1' onClick={open}>Start</button>
+      !address ?
+      <button className='btn btn-outline-primary my-2 my-sm-0 ml-1' onClick={open}>start</button> :
+      domain && isOwner ? <button className='btn btn-outline-primary my-2 my-sm-0 ml-1' onClick={user}>{domain}</button> :
+      <button className='btn btn-outline-primary my-2 my-sm-0 ml-1' onClick={open}>log in</button>
     )
   }
 }
