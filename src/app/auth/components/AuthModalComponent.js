@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class AuthModalComponent extends Component {
   render () {
-    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, isOwner, defaultName } = this.props;
+    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, storageName, isOwner, defaultName } = this.props;
 
     let nameInput;
 
@@ -48,7 +48,7 @@ class AuthModalComponent extends Component {
                         name
                       </Form.Label>
                       <Col sm='10'>
-                        <Form.Control type='text' ref={node => (nameInput = node)} defaultValue={defaultName} />
+                        <Form.Control type='text' ref={node => (nameInput = node)} defaultValue={storageName} />
                       </Col>
                     </Form.Group>
                     {

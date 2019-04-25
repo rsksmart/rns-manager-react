@@ -46,6 +46,8 @@ export const authenticate = (name, address) => dispatch => {
 
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
 
+      localStorage.setItem('name', name);
+
       return resolve(dispatch(receiveLogin(name, true)));
     });
   });

@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
   network: networkSelector(state.auth.network),
   authError: state.auth.authError,
   name: state.auth.name,
+  storageName: state.auth.storageName,
   isOwner: state.auth.isOwner,
   defaultDomain: state.auth.defaultDomain
 });

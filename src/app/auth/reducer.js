@@ -9,6 +9,7 @@ const initialState = {
   authenticating: false,
   authError: null,
   name: null,
+  storageName: localStorage.getItem('name'),
   isOwner: false,
   network: null
 }
@@ -60,6 +61,7 @@ export default (state = initialState, action) => {
       authenticating: false,
       authError: null,
       name: action.name,
+      storageName: action.name,
       isOwner: action.isOwner,
       showModal: !action.isOwner
     }
