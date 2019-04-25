@@ -3,7 +3,7 @@ import { hash as namehash } from 'eth-ens-namehash';
 
 import { receiveHasMetamask, requestEnable, receiveEnable, requestLogin, receiveLogin, errorLogin, errorEnable } from './actions'
 
-export const start = () => dispatch => {
+export const start = callback => dispatch => {
   const hasMetamask = window.ethereum !== undefined;
 
   dispatch(receiveHasMetamask(hasMetamask));
@@ -13,6 +13,7 @@ export const start = () => dispatch => {
 
     window.ethereum.enable()
       .then(accounts => dispatch(receiveEnable(accounts[0], window.ethereum.networkVersion)))
+      .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
   }
 }

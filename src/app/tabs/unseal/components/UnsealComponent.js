@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
+import { MetamaskFormContainer } from '../../../containers';
 
 class UnsealComponent extends Component {
   render () {
@@ -12,10 +13,7 @@ class UnsealComponent extends Component {
       <TabWithSearchComponent>
         <h2>unseal your bid for <b>{domain}</b></h2>
         <Button variant='disabled' size='sm' disabled>upload bid</Button>
-        <Form onSubmit={e => {
-          e.preventDefault();
-          unseal(domain, valueInput.value, saltInput.value);
-        }}>
+        <MetamaskFormContainer onSubmit={() => unseal(domain, valueInput.value, saltInput.value)}>
           <Form.Group>
             <Form.Label>value</Form.Label>
             <InputGroup className="mb-3">
@@ -30,7 +28,7 @@ class UnsealComponent extends Component {
             <FormControl ref={node => (saltInput = node)} type='text' />
           </Form.Group>
           <Button type='submit'>Unseal</Button>
-        </Form>
+        </MetamaskFormContainer>
         {loading && '...'}
       </TabWithSearchComponent>
     )

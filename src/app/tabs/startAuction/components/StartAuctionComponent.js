@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TabWithSearchComponent } from '../../../components';
-import { Button } from 'react-bootstrap';
+import { MetamaskButtonContainer } from '../../../containers';
 
 class StartAuctionComponent extends Component {
   render () {
@@ -9,7 +9,7 @@ class StartAuctionComponent extends Component {
     return(
       <TabWithSearchComponent>
         <h2>start an auction for <b>{domain}</b></h2>
-        <Button onClick={() => startAuction(domain)}>start auction</Button>
+        <MetamaskButtonContainer onClick={() => startAuction(domain)}>start auction</MetamaskButtonContainer>
       </TabWithSearchComponent>
     );
   }

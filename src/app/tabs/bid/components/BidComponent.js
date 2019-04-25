@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
+import { MetamaskFormContainer } from '../../../containers';
 
 const isValidTokenAmount = token => {
   return token >= 1;
@@ -43,9 +44,9 @@ class Bid extends Component {
     return(
       <TabWithSearchComponent>
         <h2>bid for <b>{domain}</b></h2>
-        <Form onSubmit={e => {
-          e.preventDefault();
-          if (this.validate(valueInput.value)) bid(domain, valueInput.value, this.state.salt);
+        <MetamaskFormContainer onSubmit={() => {
+          const { value } = valueInput;
+          if (this.validate(value)) bid(domain, value, this.state.salt);
         }}>
           <Form.Group>
             <Form.Label>how much do you value {domain}?</Form.Label>
@@ -70,7 +71,7 @@ class Bid extends Component {
           </Form.Group>
           <Button variant='link' disabled>advenced options</Button><br />
           <Button type='submit'>Bid</Button>
-        </Form>
+        </MetamaskFormContainer>
         {loading && '...'}
       </TabWithSearchComponent>
     )

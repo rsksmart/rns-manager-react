@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
+import { MetamaskButtonContainer } from '../../../containers';
 
 class FinalizeComponent extends Component {
   render () {
@@ -9,7 +9,7 @@ class FinalizeComponent extends Component {
     return (
       <TabWithSearchComponent>
         <h2>finalize auction for <b>{domain}</b></h2>
-        <Button onClick={() => finalize(domain)}>Finalize auction</Button>
+        <MetamaskButtonContainer onClick={() => finalize(domain)}>Finalize auction</MetamaskButtonContainer>
         {loading && '...'}
       </TabWithSearchComponent>
     )
