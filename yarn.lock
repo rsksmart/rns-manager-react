@@ -7415,6 +7415,13 @@ react-scripts@2.1.5:
   optionalDependencies:
     fsevents "1.2.4"
 
+react-switch@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-5.0.0.tgz#ecbb666f8789cb8138b3ba1160bc3745390ab502"
+  integrity sha512-+zxY9xj9dMc8Y4gv/kkqQrirfEiIQ+SlQfJDW1Wi81L3xoh1fcbBYyJyh0TnhM/U/b6HxuBmkmU4Ooxgtuoavw==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-transition-group@^2.5.1:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.5.3.tgz#26de363cab19e5c88ae5dbae105c706cf953bb92"

@@ -7,6 +7,7 @@ import resolve from './resolve';
 import search from './search';
 import startAuction from './startAuction';
 import unseal from './unseal';
+import user from './user';
 
 export default {
   admin,
@@ -17,7 +18,8 @@ export default {
   search,
   startAuction,
   unseal,
-  resolve
+  resolve,
+  user
 };
 
 export { AdminTab } from './admin';
