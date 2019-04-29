@@ -150,7 +150,7 @@ class DomainStateComponent extends Component {
             </Card>
           </Col>
         </Row>
-        <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} label={this.state.searchValue} />
+        <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={this.state.searchValue} />
       </Container>
     )
   }
