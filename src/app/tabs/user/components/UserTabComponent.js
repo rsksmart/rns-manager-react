@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { AuthTabWrapper } from '../../../auth';
 import Switch from 'react-switch';
 
 class UserTabComponent extends Component {
-  constructor (props) {
-    super(props);
-  }
-
   render () {
     const { name, address, network, viewMyCrypto, changeMyCryptoMetamask } = this.props;
 
