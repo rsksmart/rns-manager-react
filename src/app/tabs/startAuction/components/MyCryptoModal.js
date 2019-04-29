@@ -9,7 +9,7 @@ export const MyCryptoModal = props => (
     </Modal.Header>
     <Modal.Body>
       <ol>
-        <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link'>browser</a> or native app.</li>
+        <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
         <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
         <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
         <li>Access!</li>
@@ -21,7 +21,7 @@ export const MyCryptoModal = props => (
             <code>0x{sha3(props.name.split('.')[0])}</code>
         </li>
         <li>Choose your checkout method.</li>
-        <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank'>RSK stats</a>.</li>
+        <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
         <li>Write!</li>
       </ol>
     </Modal.Body>

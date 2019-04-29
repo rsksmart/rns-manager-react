@@ -10,7 +10,7 @@ export const MyCryptoModal = props => (
     </Modal.Header>
     <Modal.Body>
       <ol>
-        <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link'>browser</a> or native app.</li>
+        <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
         <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
         <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
         <li>Access!</li>
