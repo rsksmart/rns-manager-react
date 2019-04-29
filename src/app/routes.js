@@ -15,15 +15,16 @@ import {
   NotificationTab,
   UserTab
 } from './tabs';
+import { connect } from 'react-redux';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
 
-const routes = (
+const Routes = props => (
   <Switch>
     <Route exact path='/' component={HomeTab} />
     <Route path ='/setup' component={SetUpTab} />
     {
-      !window.ethereum && <Route component={NoMetamaskTab} />
+      !window.ethereum && !props.viewMyCrypto && <Route component={NoMetamaskTab} />
     }
     <Route path='/user' component={UserTab} />
     <Route path='/search' component={SearchTab} />
@@ -39,4 +40,8 @@ const routes = (
   </Switch>
 );
 
-export default routes;
+const mapStateToProps = state => ({
+  viewMyCrypto: state.user.viewMyCrypto
+});
+
+export default connect(mapStateToProps)(Routes);

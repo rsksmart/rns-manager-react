@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class AuthModalComponent extends Component {
   render () {
-    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, storageName, isOwner, defaultName } = this.props;
+    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, storageName, isOwner } = this.props;
 
     let nameInput;
 

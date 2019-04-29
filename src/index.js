@@ -8,7 +8,6 @@ import * as serviceWorker from './serviceWorker';
 import './style.css';
 
 const store = configureStore();
-console.log(store.getState())
 
 render(
   <Provider store={store}>

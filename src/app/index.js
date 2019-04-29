@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ConnectedRouter } from 'connected-react-router';
-import routes from './routes';
+import Routes from './routes';
 import { HeaderContainer } from './containers';
 import { AuthModal } from './auth';
 import { Notifications } from './notifications';
@@ -19,7 +19,7 @@ class App extends Component {
                 <Container style={{ textAlign: 'center' }}>
                   <Row>
                     <Col>
-                      {routes}
+                      {<Routes />}
                     </Col>
                   </Row>
                 </Container>

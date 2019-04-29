@@ -11,7 +11,7 @@ export const getAuctionState = domain => dispatch => {
 
   dispatch(requestDomainState());
 
-  const registrar = window.web3.eth.contract([
+  const registrar = window.web3 && window.web3.eth.contract([
     {
       'constant': true,
       'inputs': [

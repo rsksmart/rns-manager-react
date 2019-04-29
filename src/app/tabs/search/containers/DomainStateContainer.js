@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || '',
   auctionStateLoading: state.search.auctionStateLoading,
   auctionState: state.search.auctionState,
-  authDomain: state.auth.isOwner ? state.auth.name : null
+  authDomain: state.auth.isOwner ? state.auth.name : null,
+  viewMyCrypto: state.user.viewMyCrypto
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,7 +23,15 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  getState: stateProps.viewMyCrypto ? null : dispatchProps.getState
+})
+
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mergeProps
 )(DomainStateComponent);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { isValidName } from '../../../validations';
+import { MyCryptoModal } from './MyCryptoModal';
 
 function getDisplayState (domain, auctionStateLoading, state, authDomain, login) {
   if (!domain) return 'Search for a domain.';
@@ -35,18 +36,20 @@ class DomainStateComponent extends Component {
 
     this.state = {
       searchValue: props.domain,
-      isValid: true
+      isValid: true,
+      showMyCrypto: false
     }
 
     this.searchValueChange = this.searchValueChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.validate = this.validate.bind(this);
     this.changeShowProcess = this.changeShowProcess.bind(this);
+    this.changeShowMyCrypto = this.changeShowMyCrypto.bind(this);
   }
 
   componentDidMount () {
     const { domain, getState } = this.props;
-    if (domain) getState(domain);
+    if (domain && getState) getState(domain);
   }
 
   searchValueChange (event) {
@@ -55,9 +58,11 @@ class DomainStateComponent extends Component {
 
   onSearch (event) {
     event.preventDefault();
+    const { domain, getState, search } = this.props;
+    const { searchValue } = this.state;
     if (this.validate()) {
-      if (this.props.domain === this.state.searchValue) this.props.getState(this.state.searchValue);
-      else this.props.search(this.state.searchValue);
+      if (domain === searchValue) this.getStateOrMyCrypto(getState)(searchValue);
+      else search(searchValue);
     }
   }
 
@@ -72,7 +77,16 @@ class DomainStateComponent extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (this.props.domain !== newProps.domain) this.props.getState(newProps.domain);
+    const { domain, getState } = newProps;
+    if (this.props.domain !== domain) this.getStateOrMyCrypto(getState)(domain);
+  }
+
+  getStateOrMyCrypto (getState) {
+    return getState || this.changeShowMyCrypto;
+  }
+
+  changeShowMyCrypto () {
+    this.setState({ showMyCrypto: !this.state.showMyCrypto });
   }
 
   render () {
@@ -115,7 +129,7 @@ class DomainStateComponent extends Component {
                   <p>
                     Any user can start an auction for any available domain name.
                     It is a public auction that respects the Vickrey auction principles.<br />
-                    A Vickrey auction is a type of blind auction. 
+                    A Vickrey auction is a type of blind auction.
                     Bidders submit written bids without knowing the bid of the other people in the auction.
                     The highest bidder wins but the price paid is the second-highest bid.<br /><br />
                     There are 4 steps to follow:
@@ -136,6 +150,7 @@ class DomainStateComponent extends Component {
             </Card>
           </Col>
         </Row>
+        <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} label={this.state.searchValue} />
       </Container>
     )
   }
