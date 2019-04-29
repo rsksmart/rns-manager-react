@@ -5,7 +5,8 @@ import { bid } from '../operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
-  loading: state.bid.loading
+  loading: state.bid.loading,
+  viewMyCrypto: state.user.viewMyCrypto
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskFormContainer } from '../../../containers';
+import { MyCryptoModal } from './MyCryptoModal';
 
 const isValidTokenAmount = token => {
   return token >= 1;
@@ -13,12 +14,16 @@ class Bid extends Component {
 
     this.state = {
       isValid: true,
-      salt: ''
+      salt: '',
+      value: 1,
+      showMyCrypto: false
     };
 
     this.validate = this.validate.bind(this);
     this.random = this.random.bind(this);
     this.changeSalt = this.changeSalt.bind(this);
+    this.changeValue = this.changeValue.bind(this);
+    this.changeShowMyCrypto = this.changeShowMyCrypto.bind(this);
   }
 
   validate (tokens) {
@@ -36,22 +41,28 @@ class Bid extends Component {
     this.setState({ salt: event.target.value });
   }
 
-  render () {
-    const { domain, bid, loading } = this.props;
+  changeValue (event) {
+    this.setState({ value: event.target.value });
+  }
 
-    let valueInput;
+  changeShowMyCrypto () {
+    this.setState({ showMyCrypto: !this.state.showMyCrypto });
+  }
+
+  render () {
+    const { domain, bid, loading, viewMyCrypto } = this.props;
+    const { showMyCrypto, value, salt } = this.state;
 
     return(
       <TabWithSearchComponent>
         <h2>bid for <b>{domain}</b></h2>
         <MetamaskFormContainer onSubmit={() => {
-          const { value } = valueInput;
-          if (this.validate(value)) bid(domain, value, this.state.salt);
+          if (this.validate(value)) bid(domain, value, salt);
         }}>
           <Form.Group>
             <Form.Label>how much do you value {domain}?</Form.Label>
             <InputGroup className="mb-3">
-              <FormControl ref={node => (valueInput = node)} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
+              <FormControl value={this.state.value} onChange={this.changeValue} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
               <InputGroup.Append>
                 <InputGroup.Text>RIF</InputGroup.Text>
               </InputGroup.Append>
@@ -70,9 +81,14 @@ class Bid extends Component {
             </InputGroup>
           </Form.Group>
           <Button variant='link' disabled>advenced options</Button><br />
-          <Button type='submit'>Bid</Button>
+          {
+            viewMyCrypto ?
+            <Button type='button' onClick={this.changeShowMyCrypto}>bid</Button> :
+            <Button type='submit'>bid</Button>
+          }
         </MetamaskFormContainer>
         {loading && '...'}
+        {viewMyCrypto && <MyCryptoModal showMyCrypto={showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} value={value} salt={salt} />}
       </TabWithSearchComponent>
     )
   }

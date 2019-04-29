@@ -26,7 +26,7 @@ export const MyCryptoModal = props => (
       <Table striped bordered>
         <thead>
           <tr>
-          <th>Number</th>
+          <th>Result</th>
           <th>State</th>
           <th>Next action</th>
           </tr>
@@ -40,7 +40,7 @@ export const MyCryptoModal = props => (
           <tr>
           <td><strong>1</strong></td>
           <td>Auction</td>
-          <td>Bid in the auction</td>
+          <td><Link to={`/bid?domain=${props.name}`}>Bid in the auction</Link></td>
           </tr>
           <tr>
           <td><strong>2</strong></td>
