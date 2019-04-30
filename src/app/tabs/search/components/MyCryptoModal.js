@@ -45,7 +45,7 @@ export const MyCryptoModal = props => (
           <tr>
           <td><strong>2</strong></td>
           <td>Owned</td>
-          <td>Finalize the auction</td>
+          <td><Link to={`/finalize?domain=${props.name}`}>Finalize the auciton</Link></td>
           </tr>
           <tr>
           <td><strong>4</strong></td>
