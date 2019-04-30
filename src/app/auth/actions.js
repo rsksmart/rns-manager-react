@@ -1,4 +1,4 @@
-import { SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE } from './types';
+import { SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE, LOG_OUT } from './types';
 
 export const showModal = name => ({
   type: SHOW_AUTH_MODAL,
@@ -42,4 +42,8 @@ export const receiveLogin = (name, isOwner) => ({
 export const errorLogin = message => ({
   type: ERROR_LOGIN,
   message
+});
+
+export const logOut = () => ({
+  type: LOG_OUT
 });

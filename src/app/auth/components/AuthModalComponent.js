@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class AuthModalComponent extends Component {
   render () {
-    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, storageName, isOwner } = this.props;
+    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, storageName, isOwner, openWallets } = this.props;
 
     let nameInput;
 
@@ -16,7 +16,7 @@ class AuthModalComponent extends Component {
         <Modal.Body>
           {
             !hasMetamask ?
-            'Get MetaMask' :
+            <Button type='link' onClick={openWallets}>get Metamask</Button> :
             (
               enabling ?
               'Enabling...' :

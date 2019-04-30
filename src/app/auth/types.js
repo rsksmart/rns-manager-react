@@ -10,3 +10,5 @@ export const ERROR_ENABLE = 'ERROR_ENABLE';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 export const ERROR_LOGIN = 'ERROR_LOGIN';
+
+export const LOG_OUT = 'LOG_OUT';

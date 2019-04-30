@@ -3,6 +3,7 @@ import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
 import { networkSelector, toChecksumAddress } from '../../selectors';
+import { push } from 'connected-react-router';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,
@@ -21,7 +22,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   close: () => dispatch(closeModal()),
-  authenticate: (name, address) => dispatch(authenticate(name, address))
+  authenticate: (name, address) => dispatch(authenticate(name, address)),
+  openWallets: () => {
+    dispatch(push('/walltes'));
+    dispatch(closeModal());
+  }
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {

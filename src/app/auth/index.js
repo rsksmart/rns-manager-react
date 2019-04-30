@@ -5,4 +5,5 @@ export {
   StartButtonContainer as StartButton,
   AuthTabContainer as AuthTabWrapper
 } from './containers';
+export { logOut } from './actions';
 export { start } from './operations';

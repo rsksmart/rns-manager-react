@@ -1,4 +1,4 @@
-import { RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE } from './types';
+import { RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE, LOG_OUT } from './types';
 
 const initialState = {
   showModal: false,
@@ -70,6 +70,11 @@ export default (state = initialState, action) => {
       authenticating: false,
       authError: action.message,
       name: null
+    }
+    case LOG_OUT: return {
+      name: null,
+      storageName: localStorage.getItem('name'),
+      isOwner: false,
     }
     default: return state;
   }
