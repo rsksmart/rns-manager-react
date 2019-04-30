@@ -35,3 +35,4 @@ export { UnsealTab } from './unseal';
 export { NoMetamaskTab } from './NoMetamaskTab';
 export { SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
+export { AdminMyCryptoTab } from './AdminMyCryptoTab';

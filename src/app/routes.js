@@ -13,7 +13,8 @@ import {
   AdminTab,
   PublicResolverTab,
   NotificationTab,
-  UserTab
+  UserTab,
+  AdminMyCryptoTab
 } from './tabs';
 import { connect } from 'react-redux';
 
@@ -36,8 +37,8 @@ const Routes = props => {
       <Route path='/bid' component={BidTab} />
       <Route path='/unseal' component={UnsealTab} />
       <Route path='/finalize' component={FinalizeTab} />
-      <Route path='/admin' component={AdminTab} />
-      <Route path='/publicResolver' component={PublicResolverTab} />
+      <Route path='/admin' component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
+      <Route path='/publicResolver' component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
       <Route path='/notifications' component={NotificationTab} />
       <Route path='/wallets' component={NoMetamaskTab} />
       <Route component={NoMatch} />
