@@ -78,14 +78,14 @@ export class MyCryptoModal extends Component {
                     on <i>_to address</i>
                   </div>
                   <code>0x2acc95758f8b5f583470ba265eb685a8f45fc9d5</code>
-              </li>
-              <li>
-                  <div>
-                    on <i>_value uint256</i> (or a higher value)
-                  </div>
-                  <code>{value * 10**18}</code>
-              </li>
-              <li>
+                </li>
+                <li>
+                    <div>
+                      on <i>_value uint256</i> (or a higher value)
+                    </div>
+                    <code>{value * 10**18}</code>
+                </li>
+                <li>
                   <div>
                     on <i>_data bytes</i>
                   </div>

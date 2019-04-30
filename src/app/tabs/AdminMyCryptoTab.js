@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, InputGroup, FormGroup } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, InputGroup, FormGroup, Modal } from 'react-bootstrap';
+import { keccak256 as sha3 } from 'js-sha3';
+import { hash as namehash } from 'eth-ens-namehash';
 
 export class AdminMyCryptoTab extends Component {
   constructor (props) {
@@ -9,24 +11,46 @@ export class AdminMyCryptoTab extends Component {
       name: '',
       viewAdminOwnership: false,
       adminField: null,
+      adminFieldValue: null,
+      showAdminGetModal: false,
+      showAdminSetModal: false,
+
       viewAdminSubdomain: false,
       label: '',
+      subdomainFieldValue: null,
+      showSubdomainModal: false,
+      showSubdomainGetModal: false,
+      showSubdomainSetModal: false,
+
       viewAdminResolver: false,
       resolverValue: '',
-      resolverField: ''
+      resolverField: '',
+      resolverFieldValue: null,
+      showResolverModal: false,
+      showResolverGetModal: false,
+      showResolverSetModal: false
     };
 
     this.changeName = this.changeName.bind(this);
 
     this.changeViewAdminOwnership = this.changeViewAdminOwnership.bind(this);
     this.changeAdminField = this.changeAdminField.bind(this);
+    this.changeAdminFieldValue = this.changeAdminFieldValue.bind(this);
+    this.changeShowAdminGetModal = this.changeShowAdminGetModal.bind(this);
+    this.changeShowAdminSetModal = this.changeShowAdminSetModal.bind(this);
 
     this.changeViewAdminSubdomain = this.changeViewAdminSubdomain.bind(this);
     this.changeLabel = this.changeLabel.bind(this);
+    this.changeSubdomainFieldValue = this.changeSubdomainFieldValue.bind(this);
+    this.changeShowSubdomainGetModal = this.changeShowSubdomainGetModal.bind(this);
+    this.changeShowSubdomainSetModal = this.changeShowSubdomainSetModal.bind(this);
 
     this.changeViewAdminResolver = this.changeViewAdminResolver.bind(this);
     this.changeResolverValue = this.changeResolverValue.bind(this);
     this.changeResolverField = this.changeResolverField.bind(this);
+    this.changeResolverFieldValue = this.changeResolverFieldValue.bind(this);
+    this.changeShowResolverGetModal = this.changeShowResolverGetModal.bind(this);
+    this.changeShowResolverSetModal = this.changeShowResolverSetModal.bind(this);
   }
 
   changeName (event) {
@@ -41,12 +65,36 @@ export class AdminMyCryptoTab extends Component {
     this.setState({ adminField: event.target.value });
   }
 
+  changeAdminFieldValue (event) {
+    this.setState({ adminFieldValue: event.target.value });
+  }
+
+  changeShowAdminGetModal () {
+    this.setState(state => ({ showAdminGetModal: !state.showAdminGetModal }));
+  }
+
+  changeShowAdminSetModal () {
+    this.setState(state => ({ showAdminSetModal: !state.showAdminSetModal }));
+  }
+
   changeViewAdminSubdomain () {
     this.setState(state => ({ viewAdminSubdomain: !state.viewAdminSubdomain }));
   }
 
   changeLabel (event) {
     this.setState({ label: event.target.value });
+  }
+
+  changeSubdomainFieldValue (event) {
+    this.setState({ subdomainFieldValue: event.target.value });
+  }
+
+  changeShowSubdomainGetModal () {
+    this.setState(state => ({ showSubdomainGetModal: !state.showSubdomainGetModal }));
+  }
+
+  changeShowSubdomainSetModal () {
+    this.setState(state => ({ showSubdomainSetModal: !state.showSubdomainSetModal }));
   }
 
   changeViewAdminResolver () {
@@ -61,14 +109,33 @@ export class AdminMyCryptoTab extends Component {
     this.setState({ resolverField: event.target.value });
   }
 
+  changeResolverFieldValue (event) {
+    this.setState({ resolverFieldValue: event.target.value });
+  }
+
+  changeShowResolverGetModal () {
+    this.setState(state => ({ showResolverGetModal: !state.showResolverGetModal }));
+  }
+
+  changeShowResolverSetModal () {
+    this.setState(state => ({ showResolverSetModal: !state.showResolverSetModal }));
+  }
+
   render () {
     const {
       state,
       changeName,
-      changeViewAdminOwnership, changeAdminField,
-      changeViewAdminSubdomain, changeLabel,
-      changeViewAdminResolver, changeResolverValue, changeResolverField } = this;
-    const { name, viewAdminOwnership, adminField, label, viewAdminSubdomain, resolverValue, resolverField, viewAdminResolver } = state;
+      changeViewAdminOwnership, changeAdminField, changeAdminFieldValue, changeShowAdminGetModal, changeShowAdminSetModal,
+      changeViewAdminSubdomain, changeLabel, changeSubdomainFieldValue, changeShowSubdomainGetModal, changeShowSubdomainSetModal,
+      changeViewAdminResolver, changeResolverValue, changeResolverField, changeResolverFieldValue, changeShowResolverGetModal, changeShowResolverSetModal
+    } = this;
+
+    const {
+      name,
+      viewAdminOwnership, adminField, adminFieldValue, showAdminGetModal, showAdminSetModal,
+      label, viewAdminSubdomain, subdomainFieldValue, showSubdomainGetModal, showSubdomainSetModal,
+      resolverValue, resolverField, viewAdminResolver, resolverFieldValue, showResolverGetModal, showResolverSetModal
+    } = state;
 
     return (
       <Container>
@@ -115,13 +182,13 @@ export class AdminMyCryptoTab extends Component {
                         adminField &&
                         <Row>
                           <Col>
-                            <Button size='sm'>get {adminField}</Button>
+                            <Button size='sm' onClick={changeShowAdminGetModal}>get {adminField}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
-                              <Form.Control type='text' />
+                              <Form.Control type='text' value={adminFieldValue} onChange={changeAdminFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm'>set {adminField}</Button>
+                                <Button size='sm' onClick={changeShowAdminSetModal}>set {adminField}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -162,13 +229,13 @@ export class AdminMyCryptoTab extends Component {
                         label &&
                         <Row>
                           <Col>
-                            <Button size='sm'>get owner</Button>
+                            <Button size='sm' onClick={changeShowSubdomainGetModal}>get owner</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
-                              <Form.Control type='text' />
+                              <Form.Control type='text' value={subdomainFieldValue} onChange={changeSubdomainFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm'>set owner</Button>
+                                <Button size='sm' onClick={changeShowSubdomainSetModal}>set owner</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -222,13 +289,13 @@ export class AdminMyCryptoTab extends Component {
                         resolverValue && resolverField &&
                         <Row>
                           <Col>
-                            <Button size='sm'>get</Button>
+                            <Button size='sm' onClick={changeShowResolverGetModal}>get {resolverField}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
-                              <Form.Control type='text' />
+                              <Form.Control type='text' value={resolverFieldValue} onChange={changeResolverFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm'>set</Button>
+                                <Button size='sm' onClick={changeShowResolverSetModal}>set {resolverField}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -241,6 +308,190 @@ export class AdminMyCryptoTab extends Component {
             </Row>
           </React.Fragment>
         }
+
+        <Modal show={showAdminGetModal} onHide={changeShowAdminGetModal} size='lg'>
+          <Modal.Header closeButton>
+            <h3>Get <code>{name}</code> {adminField} on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>{adminField}</b></li>
+              <li>
+                  <div>
+                    Copy and paste this hash on <i>node bytes32</i>
+                  </div>
+                  <code>{namehash(name)}</code>
+              </li>
+              <li>Read!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
+
+        <Modal size='lg' show={showAdminSetModal} onHide={changeShowAdminSetModal}>
+          <Modal.Header closeButton>
+            <h3>Set {adminField} for <code>{name}</code> on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>{adminField}</b></li>
+              <li>
+                Copy this values and paste them in MyCrypto fields:
+                <ul>
+                  <li>
+                      <div>
+                        on <i>node bytes32</i>
+                      </div>
+                      <code>{namehash(name)}</code>
+                  </li>
+                  <li>
+                      <div>
+                        on <i>{
+                          adminField === 'owner' ? 'ownerAddress address' :
+                          adminField === 'resolver' ? 'resolverAddress address' :
+                          adminField === 'ttl' ? 'ttlValue uint64' : ''
+                        }</i>
+                      </div>
+                      <code>{adminFieldValue}</code>
+                  </li>
+                </ul>
+              </li>
+              <li>Choose your checkout method.</li>
+              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>Write!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={showSubdomainGetModal} onHide={changeShowSubdomainGetModal} size='lg'>
+          <Modal.Header closeButton>
+            <h3>Get <code>{label}.{name}</code> {adminField} on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>owner</b></li>
+              <li>
+                  <div>
+                    Copy and paste this hash on <i>node bytes32</i>
+                  </div>
+                  <code>{namehash(`${label}.${name}`)}</code>
+              </li>
+              <li>Read!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
+
+        <Modal size='lg' show={showSubdomainSetModal} onHide={changeShowSubdomainSetModal}>
+          <Modal.Header closeButton>
+            <h3>Set owner for <code>{label}.{name}</code> on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>setSubnodeOwner</b></li>
+              <li>
+                Copy this values and paste them in MyCrypto fields:
+                <ul>
+                  <li>
+                      <div>
+                        on <i>node bytes32</i>
+                      </div>
+                      <code>{namehash(name)}</code>
+                  </li>
+                  <li>
+                      <div>
+                        on <i>label bytes32</i>
+                      </div>
+                      <code>0x{sha3(label)}</code>
+                  </li>
+                  <li>
+                      <div>
+                        on <i>node ownerAddress</i>
+                      </div>
+                      <code>{subdomainFieldValue}</code>
+                  </li>
+                </ul>
+              </li>
+              <li>Choose your checkout method.</li>
+              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>Write!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={showResolverGetModal} onHide={changeShowResolverGetModal} size='lg'>
+          <Modal.Header closeButton>
+            <h3>Get {name} {resolverField} on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>{resolverField}</b></li>
+              <li>
+                  <div>
+                    Copy and paste this hash on <i>node bytes32</i>
+                  </div>
+                  <code>{namehash(name)}</code>
+              </li>
+              <li>Read!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
+
+        <Modal size='lg' show={showResolverSetModal} onHide={changeShowResolverSetModal}>
+          <Modal.Header closeButton>
+            <h3>Set {resolverField} for <code>{name}</code> on MyCrypto</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <ol>
+              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
+              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+              <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
+              <li>Access!</li>
+              <li>On <i>Read / Write Contract</i> select <b>{resolverField}</b></li>
+              <li>
+                Copy this values and paste them in MyCrypto fields:
+                <ul>
+                  <li>
+                      <div>
+                        on <i>node bytes32</i>
+                      </div>
+                      <code>{namehash(name)}</code>
+                  </li>
+                  <li>
+                      <div>
+                        on <i>{
+                          resolverField === 'addr' ? 'addrValue address' :
+                          resolverField === 'content' ? 'contentValue bytes32' : ''
+                        }</i>
+                      </div>
+                      <code>{resolverFieldValue}</code>
+                  </li>
+                </ul>
+              </li>
+              <li>Choose your checkout method.</li>
+              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>Write!</li>
+            </ol>
+          </Modal.Body>
+        </Modal>
       </Container>
     );
   }
