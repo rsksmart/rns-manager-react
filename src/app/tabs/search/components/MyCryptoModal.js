@@ -50,7 +50,7 @@ export const MyCryptoModal = props => (
           <tr>
           <td><strong>4</strong></td>
           <td>Reveal</td>
-          <td>Unseal your bid</td>
+          <td><Link to={`/unseal?domain=${props.name}`}>Unseal your bid</Link></td>
           </tr>
         </tbody>
       </Table>

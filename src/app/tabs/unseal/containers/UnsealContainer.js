@@ -4,7 +4,8 @@ import { UnsealComponent } from '../components';
 import { unseal } from '../operations';
 
 const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain
+  domain: parse(state.router.location.search).domain,
+  viewMyCrypto: state.user.viewMyCrypto
 });
 
 const mapDispatchToProps = dispatch => ({
