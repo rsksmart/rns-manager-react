@@ -64,7 +64,7 @@ export class MyCryptoModal extends Component {
             <b>Remember you must save all this data to unseal the bid on reveal phase!</b>
             <li>
               Copy the response here:
-              <FormControl value={shaBid} onChange={this.changeShaBid} type='text' />
+              <FormControl value={shaBid} onChange={this.changeShaBid} type='text' placeholder='0x...' />
               <i id='invalid-shabid-mycrypto'>The hash is invalid. Copy and paste it again please.</i>
             </li>
             <li>On MyCrypto, select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
