@@ -3,25 +3,26 @@ import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, C
 import { Link } from 'react-router-dom';
 import { isValidName } from '../../../validations';
 import { MyCryptoModal } from './MyCryptoModal';
+import { multilanguage } from 'redux-multilanguage';
 
-function getDisplayState (domain, auctionStateLoading, state, authDomain, login) {
+function getDisplayState (domain, auctionStateLoading, state, authDomain, login, strings) {
   if (!domain) return 'Search for a domain.';
   if (auctionStateLoading) return 'Loading...';
 
   switch(state) {
-    case 0: return <Card.Text>Open.<br /><Link to={`/start?domain=${domain}`}>Register the domain</Link></Card.Text>
-    case 1: return <Card.Text>Auction.<br /><Link to={`/bid?domain=${domain}`}>Bid in the domain auction</Link></Card.Text>
-    case 2: return <Card.Text>Finalize.<br /><Link to={`/finalize?domain=${domain}`}>Finalize the auction</Link></Card.Text>
-    case 4: return <Card.Text>Reveal.<br /><Link to={`/unseal?domain=${domain}`}>Reveal your bid</Link></Card.Text>
+    case 0: return <Card.Text>{strings.open}<br /><Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link></Card.Text>
+    case 1: return <Card.Text>{strings.auction}<br /><Link to={`/bid?domain=${domain}`}>{strings.bid_in_auction}</Link></Card.Text>
+    case 2: return <Card.Text>{strings.finalize}<br /><Link to={`/finalize?domain=${domain}`}>{strings.finalize_the_auction}</Link></Card.Text>
+    case 4: return <Card.Text>{strings.reveal}<br /><Link to={`/unseal?domain=${domain}`}>{strings.reveal_your_bid}</Link></Card.Text>
     case 5: return (
       <Card.Text>
-        Owned.<br />
+        {strings.owned}<br />
         {
           (domain === authDomain) ?
-          <Link to={`/admin?domain=${domain}`}>Admin your domain</Link> :
+          <Link to={`/admin?domain=${domain}`}>{strings.admin_your_domain_title}</Link> :
           <React.Fragment>
-            <Button onClick={() => login(domain)}>Admin your domain</Button><br />
-            <Link to={`/search`}>Search for another domain</Link>
+            <Button onClick={() => login(domain)}>{strings.admin_your_domain_title}</Button><br />
+            <Link to={`/search`}>{strings.search_another_domain}</Link>
             </React.Fragment>
         }
       </Card.Text>
@@ -90,9 +91,9 @@ class DomainStateComponent extends Component {
   }
 
   render () {
-    const { domain, auctionState, auctionStateLoading, authDomain, login } = this.props;
+    const { strings, domain, auctionState, auctionStateLoading, authDomain, login } = this.props;
 
-    const displayState = getDisplayState(domain, auctionStateLoading, auctionState, authDomain, login);
+    const displayState = getDisplayState(domain, auctionStateLoading, auctionState, authDomain, login, strings);
 
     return (
       <Container>
@@ -102,10 +103,10 @@ class DomainStateComponent extends Component {
               <InputGroup className='mb-3'>
                 <FormControl type='text' value={this.state.searchValue} onChange={this.searchValueChange} className={!this.state.isValid && 'is-invalid'} />
                 <InputGroup.Append>
-                  <Button type='submit' size='sm'>Search</Button>
+                  <Button type='submit' size='sm'>{strings.search}</Button>
                 </InputGroup.Append>
                 <div className='invalid-feedback'>
-                  Invalid name.
+                  {strings.invalid_name}
                 </div>
               </InputGroup>
             </Form>
@@ -121,29 +122,20 @@ class DomainStateComponent extends Component {
                 {displayState}
               </Card.Body>
               <Button variant='link' onClick={this.changeShowProcess}>
-                {!this.state.showProcess ? 'Learn about process' : 'Hide'}
+                {!this.state.showProcess ? strings.learn_about_process : strings.hide}
               </Button>
               <Collapse in={this.state.showProcess}>
                 <Card.Body>
                   <hr />
-                  <p>
-                    Any user can start an auction for any available domain name.
-                    It is a public auction that respects the Vickrey auction principles.<br />
-                    A Vickrey auction is a type of blind auction.
-                    Bidders submit written bids without knowing the bid of the other people in the auction.
-                    The highest bidder wins but the price paid is the second-highest bid.<br /><br />
-                    There are 4 steps to follow:
-                  </p>
+                  <p> {strings.process}</p>
                   <ol>
-                    <li>Start an auction for a domain</li>
-                    <li>Bid in the auction</li>
-                    <li>Unseal the bid</li>
-                    <li>Finalize the auction</li>
+                    <li>{strings.process_step_1}</li>
+                    <li>{strings.process_step_2}</li>
+                    <li>{strings.process_step_3}</li>
+                    <li>{strings.process_step_4}</li>
                   </ol>
                   <p>
-                    <Button variant='link' onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>
-                      Learn more
-                    </Button>
+                    <Button variant='link' onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>{strings.learn_more}</Button>
                   </p>
                 </Card.Body>
               </Collapse>
@@ -156,4 +148,4 @@ class DomainStateComponent extends Component {
   }
 }
 
-export default DomainStateComponent;
+export default multilanguage(DomainStateComponent);

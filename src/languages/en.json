@@ -19,5 +19,22 @@
   "rns_white_paper": "rns white paper",
   "search": "search",
   "resolve": "resolve",
-  "invalid_name": "invalid name"
+  "invalid_name": "invalid name",
+  "open": "open",
+  "auction": "auction",
+  "finalize": "finalize",
+  "reveal": "reveal",
+  "owned": "owned",
+  "search_another_domain": "search another domain",
+  "bid_in_auction": "bid in the domain auction",
+  "finalize_the_auction": "finalize the auction",
+  "reveal_your_bid": "reveal your bid",
+  "learn_about_process": "learn about process",
+  "hide": "hide",
+  "process": "Any user can start an auction for any available domain name. It is a public auction that respects the Vickrey auction principles. A Vickrey auction is a type of blind auction. Bidders submit written bids without knowing the bid of the other people in the auction. The highest bidder wins but the price paid is the second-highest bid. There are 4 steps to follow:",
+  "process_step_1": "Start an auction for a domain",
+  "process_step_2": "Bid in the auction",
+  "process_step_3": "Unseal the bid",
+  "process_step_4": "Finalize the auction",
+  "learn_more": "learn more"
 }
