@@ -5,8 +5,20 @@ import Routes from './routes';
 import { HeaderContainer } from './containers';
 import { AuthModal } from './auth';
 import { Notifications } from './notifications';
+import { loadLanguages } from 'redux-multilanguage'
+import { connect } from 'react-redux';
 
 class App extends Component {
+  componentDidMount () {
+    const { dispatch } = this.props;
+
+    dispatch(loadLanguages({
+      languages: {
+        en: require('../languages/en.json')
+      }
+    }));
+  }
+
   render() {
     const { history } = this.props;
     return (
@@ -38,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

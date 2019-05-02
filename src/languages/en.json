@@ -1,0 +1,20 @@
+{
+  "home_title": "rif name service",
+  "home_subtitle": "get your domain, forget your address",
+  "register_your_domain": "register your domain",
+  "what_is_rns_title": "what is rns?",
+  "what_is_rns_text": "RIF Name Service provides an architecture which enables the identification of blockchain addresses by human-readable names.",
+  "resolve_a_domain": "resolve a domain",
+  "admin_your_domain_title": "admin your domain",
+  "admin_your_domain_action_1": "admin domain",
+  "admin_your_domain_action_2": "admin domain reolution",
+  "admin_your_domain_action_3": "create subdomains",
+  "admin": "admin",
+  "develop": "develop",
+  "libs": "libs",
+  "docs": "docs",
+  "github": "github",
+  "learn": "learn",
+  "rif_white_paper": "rif white paper",
+  "rns_white_paper": "rns white paper"
+}

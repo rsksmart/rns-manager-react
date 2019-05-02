@@ -4,90 +4,92 @@ import { Link } from 'react-router-dom';
 import landingFront from '../../../../assets/landing.png';
 import { GetDomainStateContainer } from '../../../containers';
 import { ResolveAddressContainer } from '../containers';
+import { multilanguage } from 'redux-multilanguage';
 
-export default () => (
-  <Row center={1}>
-    <Col lg={{ span: 10, offset: 1 }} md={12}>
-      <Container>
-        <Row>
-          <Col><h1 className='text-center'>rif name service</h1></Col>
-        </Row>
-        <Row>
-          <Col><h2 className='text-center'>get your domain, forget your address</h2></Col>
-        </Row>
-        <Row>
-          <Col><Image src={landingFront} alt='landing_front' fluid /></Col>
-        </Row>
-        <Row>
-          <Col>
-            <Jumbotron>
-              <h3>register your domain</h3>
-              <GetDomainStateContainer />
-            </Jumbotron>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Card>
-              <Card.Body>
-                <Card.Title>what is rns?</Card.Title>
-                <Card.Text>
-                  RIF Name Service provides an architecture which enables the identification of
-                  blockchain addresses by human-readable names.
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>resolve a domain</Card.Title>
-                <ResolveAddressContainer />
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={6} xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>admin your domain</Card.Title>
-                <ul>
-                  <li>admin domain</li>
-                  <li>admin domain reolution</li>
-                  <li>create subdomains</li>
-                </ul>
-              <Link className='card-link' to='/admin' rel='noopener noreferrer'>Admin</Link>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>develop</Card.Title>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem><a href='https://docs.rns.rifos.org/Libs' target='_blank' alt='libs' rel='noopener noreferrer'>libs</a></ListGroupItem>
-                  <ListGroupItem><a href='https://docs.rns.rifos.org' target='_blank' alt ='docs' rel='noopener noreferrer'>docs</a></ListGroupItem>
-                  <ListGroupItem><a href='https://github.com/rnsdomains' target='_blank' alt='github' rel='noopener noreferrer'>github</a></ListGroupItem>
-                </ListGroup>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={6} xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>learn</Card.Title>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem><a href='https://docs.rifos.org/rif-whitepaper-en.pdf' target='_blank' alt='rif_whitepaper' rel='noopener noreferrer'>rif white paper</a></ListGroupItem>
-                  <ListGroupItem><a href='https://docs.rifos.org/rif-directory-protocol-en.pdf' target='_blank' alt='rns_whitepapaer' rel='noopener noreferrer'>rns white paper</a></ListGroupItem>
-                </ListGroup>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    </Col>
-  </Row>
-);
+export default multilanguage(props => {
+  const { strings } = props;
+
+  return (
+    <Row center={1}>
+      <Col lg={{ span: 10, offset: 1 }} md={12}>
+        <Container>
+          <Row>
+            <Col><h1 className='text-center'>{strings.home_title}</h1></Col>
+          </Row>
+          <Row>
+            <Col><h2 className='text-center'>{strings.home_subtitle}</h2></Col>
+          </Row>
+          <Row>
+            <Col><Image src={landingFront} alt='landing_front' fluid /></Col>
+          </Row>
+          <Row>
+            <Col>
+              <Jumbotron>
+                <h3>{strings.register_your_domain}</h3>
+                <GetDomainStateContainer />
+              </Jumbotron>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.what_is_rns_title}</Card.Title>
+                  <Card.Text>{strings.what_is_rns_text}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.resolve_a_domain}</Card.Title>
+                  <ResolveAddressContainer />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={6} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.admin_your_domain_title}</Card.Title>
+                  <ul>
+                    <li>{strings.admin_your_domain_action_1}</li>
+                    <li>{strings.admin_your_domain_action_2}</li>
+                    <li>{strings.admin_your_domain_action_3}</li>
+                  </ul>
+                  <Link className='card-link' to='/admin' rel='noopener noreferrer'>{strings.admin}</Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.develop}</Card.Title>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem><a href='https://docs.rns.rifos.org/Libs' target='_blank' alt='libs' rel='noopener noreferrer'>{strings.libs}</a></ListGroupItem>
+                    <ListGroupItem><a href='https://docs.rns.rifos.org' target='_blank' alt ='docs' rel='noopener noreferrer'>{strings.docs}</a></ListGroupItem>
+                    <ListGroupItem><a href='https://github.com/rnsdomains' target='_blank' alt='github' rel='noopener noreferrer'>{strings.github}</a></ListGroupItem>
+                  </ListGroup>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={6} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.learn}</Card.Title>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem><a href='https://docs.rifos.org/rif-whitepaper-en.pdf' target='_blank' alt='rif_whitepaper' rel='noopener noreferrer'>{strings.rif_white_paper}</a></ListGroupItem>
+                    <ListGroupItem><a href='https://docs.rifos.org/rif-directory-protocol-en.pdf' target='_blank' alt='rns_whitepapaer' rel='noopener noreferrer'>{strings.rns_white_paper}</a></ListGroupItem>
+                  </ListGroup>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Col>
+    </Row>
+  )
+});
