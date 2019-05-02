@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, Button, FormControl } from 'react-bootstrap';
 import { isValidName } from '../validations';
+import { multilanguage } from 'redux-multilanguage';
 
 class GetDomainStateComponent extends Component {
   constructor (props) {
@@ -20,7 +21,7 @@ class GetDomainStateComponent extends Component {
   }
 
   render() {
-    const { domain, getDomainState } = this.props;
+    const { strings, domain, getDomainState } = this.props;
 
     let input;
 
@@ -33,10 +34,10 @@ class GetDomainStateComponent extends Component {
           <InputGroup className='mb-3'>
             <FormControl type='text' ref={node => (input = node)} defaultValue={domain} className={!this.state.isValid ? 'is-invalid' : null} />
             <InputGroup.Append>
-              <Button type="submit" size='sm'>Search</Button>
+              <Button type="submit" size='sm'>{strings.search}</Button>
             </InputGroup.Append>
             <div className='invalid-feedback'>
-              Invalid name.
+              {strings.invalid_name}
             </div>
           </InputGroup>
         </Form.Group>
@@ -45,4 +46,4 @@ class GetDomainStateComponent extends Component {
   }
 }
 
-export default GetDomainStateComponent;
+export default multilanguage(GetDomainStateComponent);

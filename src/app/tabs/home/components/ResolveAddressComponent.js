@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { isValidName } from '../../../validations';
+import { multilanguage } from 'redux-multilanguage';
 
 class ResolverAddressComponent extends Component {
   constructor (props) {
@@ -20,7 +21,7 @@ class ResolverAddressComponent extends Component {
   }
 
   render () {
-    const { onResolve } = this.props;
+    const { strings, onResolve } = this.props;
 
     let input;
 
@@ -32,10 +33,10 @@ class ResolverAddressComponent extends Component {
         <InputGroup>
           <FormControl ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null} />
           <InputGroup.Append>
-            <Button type="submit" size='sm'>Resolve</Button>
+            <Button type="submit" size='sm'>{strings.resolve}</Button>
           </InputGroup.Append>
           <div className='invalid-feedback'>
-            Invalid name.
+            {strings.invalid_name}
           </div>
         </InputGroup>
       </Form>
@@ -43,4 +44,4 @@ class ResolverAddressComponent extends Component {
   }
 }
 
-export default ResolverAddressComponent;
+export default multilanguage(ResolverAddressComponent);
