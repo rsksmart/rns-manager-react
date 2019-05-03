@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskButtonContainer } from '../../../containers';
 import { MyCryptoModal } from './MyCryptoModal';
+import { multilanguage } from 'redux-multilanguage';
 
 class StartAuctionComponent extends Component {
   constructor (props) {
@@ -18,15 +19,15 @@ class StartAuctionComponent extends Component {
   }
 
   render () {
-    const { domain, viewMyCrypto, startAuction } = this.props;
+    const { strings, domain, viewMyCrypto, startAuction } = this.props;
 
     return (
       <TabWithSearchComponent>
-        <h2>start an auction for <b>{domain}</b></h2>
+        <h2>{strings.start_an_auction_for} <b>{domain}</b></h2>
         {
           viewMyCrypto ?
-          <Button onClick={this.changeShowMyCrypto}>start auction</Button> :
-          <MetamaskButtonContainer onClick={() => startAuction(domain)}>start auction</MetamaskButtonContainer>
+          <Button onClick={this.changeShowMyCrypto}>{strings.start_auction}</Button> :
+          <MetamaskButtonContainer onClick={() => startAuction(domain)}>{strings.start_auciton}</MetamaskButtonContainer>
         }
         <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} />
       </TabWithSearchComponent>
@@ -34,4 +35,4 @@ class StartAuctionComponent extends Component {
   }
 }
 
-export default StartAuctionComponent;
+export default multilanguage(StartAuctionComponent);

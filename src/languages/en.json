@@ -48,5 +48,11 @@
   "result": "Result",
   "state": "State",
   "next_action": "Next action",
-  "go_to_mycrypto": "Go to MyCrypto"
+  "go_to_mycrypto": "Go to MyCrypto",
+  "start_an_auction_for": "start an auction for",
+  "start_auction": "start auction",
+  "mycrypto_start_title": "Start auction in MyCrypto",
+  "mycrypto_choose_checkout": "Choose your checkout method.",
+  "mycrypto_check_gas": "Check gas according to",
+  "mycrypto_write": "Write!"
 }
