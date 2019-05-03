@@ -1,0 +1,19 @@
+import { LanguageSelectComponent } from '../components';
+import { changeLanguage } from 'redux-multilanguage';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => ({
+  language: state.multilanguage.currentLanguageCode
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeLanguage: languageCode => {
+    dispatch(changeLanguage(languageCode));
+    localStorage.setItem('language', languageCode);
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LanguageSelectComponent);
