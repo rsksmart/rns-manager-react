@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
+import { LinkToMyCryptoInteractComponent } from '../../../components';
+
 import { multilanguage } from 'redux-multilanguage';
 
 export const MyCryptoModal = multilanguage(props => {
@@ -30,6 +32,9 @@ export const MyCryptoModal = multilanguage(props => {
           <li>{strings.mycrypto_write}</li>
         </ol>
       </Modal.Body>
+      <Modal.Footer>
+        <LinkToMyCryptoInteractComponent />
+      </Modal.Footer>
     </Modal>
   )
 });

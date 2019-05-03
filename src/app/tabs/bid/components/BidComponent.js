@@ -3,6 +3,7 @@ import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskFormContainer } from '../../../containers';
 import { MyCryptoModal } from './MyCryptoModal';
+import { multilanguage } from 'redux-multilanguage';
 
 const isValidTokenAmount = token => {
   return token >= 1;
@@ -50,17 +51,17 @@ class Bid extends Component {
   }
 
   render () {
-    const { domain, bid, loading, viewMyCrypto } = this.props;
+    const { strings, domain, bid, loading, viewMyCrypto } = this.props;
     const { showMyCrypto, value, salt } = this.state;
 
     return(
       <TabWithSearchComponent>
-        <h2>bid for <b>{domain}</b></h2>
+        <h2>{strings.bid_for} <b>{domain}</b></h2>
         <MetamaskFormContainer onSubmit={() => {
           if (this.validate(value)) bid(domain, value, salt);
         }}>
           <Form.Group>
-            <Form.Label>how much do you value {domain}?</Form.Label>
+            <Form.Label>{strings.how_much_do_you_value} {domain}?</Form.Label>
             <InputGroup className="mb-3">
               <FormControl value={this.state.value} onChange={this.changeValue} type='number' className={!this.state.isValid ? 'is-invalid' : null} />
               <InputGroup.Append>
@@ -68,23 +69,23 @@ class Bid extends Component {
               </InputGroup.Append>
             </InputGroup>
             <div className='invalid-feedback'>
-              You must bid at least 1 RIF
+              {strings.bid_error_onw_rif}
             </div>
           </Form.Group>
           <Form.Group>
-            <Form.Label>secret phrase</Form.Label>
+            <Form.Label>{strings.secrete_phrase}</Form.Label>
             <InputGroup className="mb-3">
               <FormControl value={this.state.salt} onChange={this.changeSalt} type='text' />
               <InputGroup.Append>
-                <Button size='sm' onClick={this.random}>Random</Button>
+                <Button size='sm' onClick={this.random}>{strings.random}</Button>
               </InputGroup.Append>
             </InputGroup>
           </Form.Group>
-          <Button variant='link' disabled>advenced options</Button><br />
+          <Button variant='link' disabled>{strings.advanced_options}</Button><br />
           {
             viewMyCrypto ?
-            <Button type='button' onClick={this.changeShowMyCrypto}>bid</Button> :
-            <Button type='submit'>bid</Button>
+            <Button type='button' onClick={this.changeShowMyCrypto}>{strings.bid}</Button> :
+            <Button type='submit'>{strings.bid}</Button>
           }
         </MetamaskFormContainer>
         {loading && '...'}
@@ -94,4 +95,4 @@ class Bid extends Component {
   }
 }
 
-export default Bid;
+export default multilanguage(Bid);

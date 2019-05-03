@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Modal, FormControl } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
+import { multilanguage } from 'redux-multilanguage';
+import { LinkToMyCryptoInteractComponent } from '../../../components';
 
-export class MyCryptoModal extends Component {
+class MyCryptoModalComponent extends Component {
   constructor (props) {
     super(props);
 
@@ -16,89 +18,96 @@ export class MyCryptoModal extends Component {
   }
 
   render () {
-    const { showMyCrypto, changeShowMyCrypto, name, value, salt } = this.props;
+    const { strings, showMyCrypto, changeShowMyCrypto, name, value, salt } = this.props;
     const { shaBid } = this.state;
 
     return (
       <Modal size='lg' show={showMyCrypto} onHide={changeShowMyCrypto}>
         <Modal.Header closeButton>
-          <h3>Bid for <code>{name}</code> on MyCrypto</h3>
+          <h3>{strings.mycrypto_bid_title}</h3>
+          <code>{name}</code>
         </Modal.Header>
         <Modal.Body>
           <ol>
-            <li>Go to My Crypto contract interaction on your <a target='_blank' rel='noopener noreferrer' href='https://mycrypto.com/contracts/interact' class='modal-link'>browser</a> or native app.</li>
-            <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
+          <li>{strings.mycrypto_select_network}</li>
+          <li>{strings.mycrypto_go_to_interact}</li>
             <li>
-              First we are going to seal the bid:
+              {strings.mycrypto_seal_the_bid}
               <ol>
-                <li>Select <b>RNS Registrar</b> contract on <i>Existing Contract</i> selector.</li>
-                <li>Access!</li>
-                <li>On <i>Read / Write Contract</i> select <b>shaBid</b>.</li>
+                <li>{strings.mycrypto_select_registrar}</li>
+                <li>{strings.mycrypto_access}</li>
+                <li>{strings.mycrypto_on_read_write_select} <b>shaBid</b>.</li>
                 <li>
-                  Copy this values and paste them in MyCrypto fields:
+                  {strings.mycrypto_copy_paste_values}
                   <ul>
                     <li>
                       <div>
-                        on <i>_hash bytes32</i>
+                        <i>_hash bytes32</i>
                       </div>
                       <code>0x{sha3(name.split('.')[0])}</code>
                     </li>
-                    <li><i>_owner address</i>: the domain's owner. You may want to use your wallet address.</li>
+                    <li>
+                      <i>_owner address</i>: {strings.mycrypto_bid_select_owner}
+                    </li>
                     <li>
                       <div>
-                        on <i>_value byte256</i>
+                        <i>_value byte256</i>
                       </div>
                       <code>{value * 10**18}</code>
                     </li>
                     <li>
                       <div>
-                        on <i>_salt bytes32</i>
+                        <i>_salt bytes32</i>
                       </div>
                       <code>{salt}</code>
                     </li>
                   </ul>
                 </li>
-                <li>Read!</li>
+                <li>{strings.mycrypto_read}</li>
               </ol>
             </li>
-            <b>Remember you must save all this data to unseal the bid on reveal phase!</b>
+            <b>{strings.mycrypto_remember_to_save_bid_data}</b>
             <li>
-              Copy the response here:
+              {strings.mycrypto_copy_response}
               <FormControl value={shaBid} onChange={this.changeShaBid} type='text' placeholder='0x...' />
-              <i id='invalid-shabid-mycrypto'>The hash is invalid. Copy and paste it again please.</i>
             </li>
-            <li>On MyCrypto, select <b>RIF</b> contract on <i>Existing Contract</i> selector.</li>
-            <li>Access!</li>
-            <li>On <i>Read / Write Contract</i> select <b>transferAndCall</b>.</li>
+            <li>{strings.mycrypto_select_rif}</li>
+            <li>{strings.mycrypto_access}</li>
+            <li>{strings.mycrypto_on_read_write_select} <b>transferAndCall</b>.</li>
             <li>
-              Copy this values and paste them in MyCrypto fields:
+              {strings.mycrypto_copy_paste_values}
               <ul>
                 <li>
                   <div>
-                    on <i>_to address</i>
+                    <i>_to address</i>
                   </div>
                   <code>0x2acc95758f8b5f583470ba265eb685a8f45fc9d5</code>
                 </li>
                 <li>
                     <div>
-                      on <i>_value uint256</i> (or a higher value)
+                      <i>_value uint256</i> (or a higher value)
                     </div>
                     <code>{value * 10**18}</code>
                 </li>
                 <li>
                   <div>
-                    on <i>_data bytes</i>
+                    <i>_data bytes</i>
                   </div>
                   <code>{!shaBid ? '...' : `0x1413151f${shaBid.slice(2)}00000000000000000000000000000000000000000000000000000000`}</code>
                 </li>
               </ul>
             </li>
-            <li>Choose your checkout method.</li>
-            <li>Check the gas according to <a href='https://stats.rsk.co/'>RSK stats</a>.</li>
-            <li>Write!</li>
+            <li>{strings.mycrypto_choose_checkout}</li>
+            <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+            <li>{strings.mycrypto_write}</li>
           </ol>
         </Modal.Body>
+        <Modal.Footer>
+          <LinkToMyCryptoInteractComponent />
+        </Modal.Footer>
       </Modal>
     );
   }
 };
+
+export const MyCryptoModal = multilanguage(MyCryptoModalComponent);

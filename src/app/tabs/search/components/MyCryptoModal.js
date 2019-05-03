@@ -1,8 +1,9 @@
 import React from 'react';
-import { Modal, Table, Button } from 'react-bootstrap';
+import { Modal, Table } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
+import { LinkToMyCryptoInteractComponent } from '../../../components';
 
 export const MyCryptoModal = multilanguage(props => {
   const { strings, name } = props;
@@ -61,7 +62,7 @@ export const MyCryptoModal = multilanguage(props => {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='primary' onClick={() => window.open('https://mycrypto.com/contracts/interact', '_blank')}>{strings.go_to_mycrypto}</Button>
+        <LinkToMyCryptoInteractComponent />
       </Modal.Footer>
     </Modal>
   )

@@ -54,5 +54,19 @@
   "mycrypto_start_title": "Start auction in MyCrypto",
   "mycrypto_choose_checkout": "Choose your checkout method.",
   "mycrypto_check_gas": "Check gas according to",
-  "mycrypto_write": "Write!"
+  "mycrypto_write": "Write!",
+  "bid_for": "bid for",
+  "how_much_do_you_value": "how much do you value",
+  "bid_error_one_rif": "You must bid at least 1 RIF",
+  "secret_phrase": "secret phrase",
+  "random": "random",
+  "advanced_options": "advenced options",
+  "bid": "bid",
+  "mycrypto_bid_title": "Bid in MyCrypto",
+  "mycrypto_seal_the_bid": "First we are going to seal the bid",
+  "mycrypto_copy_paste_values": "Copy this values and paste them in MyCrypto fields",
+  "mycrypto_bid_select_owner": "the domain's owner. You may want to use your wallet address.",
+  "mycrypto_remember_to_save_bid_data": "Remember you must save all this data to unseal the bid on reveal phase!",
+  "mycrypto_copy_response": "Copy the response here",
+  "mycrypto_select_rif": "Select RIF contract on Existing Contract selector."
 }
