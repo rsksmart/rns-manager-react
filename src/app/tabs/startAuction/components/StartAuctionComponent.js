@@ -27,7 +27,7 @@ class StartAuctionComponent extends Component {
         {
           viewMyCrypto ?
           <Button onClick={this.changeShowMyCrypto}>{strings.start_auction}</Button> :
-          <MetamaskButtonContainer onClick={() => startAuction(domain)}>{strings.start_auciton}</MetamaskButtonContainer>
+          <MetamaskButtonContainer onClick={() => startAuction(domain)}>{strings.start_auction}</MetamaskButtonContainer>
         }
         <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} />
       </TabWithSearchComponent>
