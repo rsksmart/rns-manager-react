@@ -100,5 +100,6 @@
   "use_with_mycrypto": "use with MyCrypto",
   "connect_metamask_to_rsk" : "connect Metamsk to RSK network",
   "connect": "connect",
-  "done": "done"
+  "done": "done",
+  "subdomains": "subdomains"
 }
