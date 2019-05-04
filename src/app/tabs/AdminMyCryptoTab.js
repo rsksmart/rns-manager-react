@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, InputGroup, FormGroup, Modal } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
 import { hash as namehash } from 'eth-ens-namehash';
+import { multilanguage } from 'redux-multilanguage';
 
-export class AdminMyCryptoTab extends Component {
+class AdminMyCryptoTabComponent extends Component {
   constructor (props) {
     super(props);
 
@@ -124,6 +125,7 @@ export class AdminMyCryptoTab extends Component {
   render () {
     const {
       state,
+      props,
       changeName,
       changeViewAdminOwnership, changeAdminField, changeAdminFieldValue, changeShowAdminGetModal, changeShowAdminSetModal,
       changeViewAdminSubdomain, changeLabel, changeSubdomainFieldValue, changeShowSubdomainGetModal, changeShowSubdomainSetModal,
@@ -137,15 +139,17 @@ export class AdminMyCryptoTab extends Component {
       resolverValue, resolverField, viewAdminResolver, resolverFieldValue, showResolverGetModal, showResolverSetModal
     } = state;
 
+    const { strings } = props;
+
     return (
       <Container>
         <Row>
           <Col>
-            <h2>admin your domain in MyCrypto</h2>
+            <h2>{strings.mycrypto_admin_title}</h2>
           </Col>
         </Row>
         <Form.Group as={Row}>
-          <Form.Label column md={2}>name</Form.Label>
+          <Form.Label column md={2}>{strings.name}</Form.Label>
           <Col sm={10}>
             <Form.Control value={name} onChange={changeName} />
           </Col>
@@ -159,7 +163,7 @@ export class AdminMyCryptoTab extends Component {
                   <Row>
                     <Col>
                       <h3>
-                        admin ownership
+                        {strings.admin_ownership}
                         <Button variant='link' onClick={changeViewAdminOwnership}>{viewAdminOwnership ? '-' : '+'}</Button>
                       </h3>
                     </Col>
@@ -168,13 +172,13 @@ export class AdminMyCryptoTab extends Component {
                     viewAdminOwnership &&
                     <React.Fragment>
                       <Form.Group as={Row}>
-                        <Form.Label column md={2}>field</Form.Label>
+                        <Form.Label column md={2}>{strings.field}</Form.Label>
                         <Col sm={10}>
                           <Form.Control as='select' value={adminField} onChange={changeAdminField}>
-                            <option value={''}>Choose...</option>
-                            <option value={'owner'}>owner</option>
-                            <option value={'resolver'}>resolver</option>
-                            <option value={'ttl'}>ttl</option>
+                            <option value={''}>{strings.choose_}</option>
+                            <option value={'owner'}>{strings.owner}</option>
+                            <option value={'resolver'}>{strings.resolver}</option>
+                            <option value={'ttl'}>{strings.ttl}</option>
                           </Form.Control>
                         </Col>
                       </Form.Group>
@@ -182,13 +186,13 @@ export class AdminMyCryptoTab extends Component {
                         adminField &&
                         <Row>
                           <Col>
-                            <Button size='sm' onClick={changeShowAdminGetModal}>get {adminField}</Button>
+                            <Button size='sm' onClick={changeShowAdminGetModal}>{strings.get} {adminField}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
                               <Form.Control type='text' value={adminFieldValue} onChange={changeAdminFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowAdminSetModal}>set {adminField}</Button>
+                                <Button size='sm' onClick={changeShowAdminSetModal}>{strings.set} {adminField}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -206,7 +210,7 @@ export class AdminMyCryptoTab extends Component {
                   <Row>
                     <Col>
                       <h3>
-                        admin subdomain ownership
+                        {strings.admin_subdomain_ownership}
                         <Button variant='link' onClick={changeViewAdminSubdomain}>{viewAdminSubdomain ? '-' : '+'}</Button>
                       </h3>
                     </Col>
@@ -215,7 +219,7 @@ export class AdminMyCryptoTab extends Component {
                     viewAdminSubdomain &&
                     <React.Fragment>
                       <FormGroup as={Row}>
-                        <Form.Label column sm={2}>subdomain</Form.Label>
+                        <Form.Label column sm={2}>{strings.subdomain}</Form.Label>
                         <Col sm={10}>
                           <InputGroup>
                             <Form.Control type='text' value={label} onChange={changeLabel} />
@@ -229,13 +233,13 @@ export class AdminMyCryptoTab extends Component {
                         label &&
                         <Row>
                           <Col>
-                            <Button size='sm' onClick={changeShowSubdomainGetModal}>get owner</Button>
+                            <Button size='sm' onClick={changeShowSubdomainGetModal}>{strings.get} {strings.owner}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
                               <Form.Control type='text' value={subdomainFieldValue} onChange={changeSubdomainFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowSubdomainSetModal}>set owner</Button>
+                                <Button size='sm' onClick={changeShowSubdomainSetModal}>{strings.set} {strings.owner}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -253,7 +257,7 @@ export class AdminMyCryptoTab extends Component {
                   <Row>
                     <Col>
                       <h3>
-                        admin resolution
+                        {strings.admin_resolution}
                         <Button variant='link' onClick={changeViewAdminResolver}>{viewAdminResolver ? '-' : '+'}</Button>
                       </h3>
                     </Col>
@@ -263,25 +267,25 @@ export class AdminMyCryptoTab extends Component {
                     <React.Fragment>
                       <Row>
                         <Col>
-                          <small>check domain resolver</small>
+                          <small>{strings.check_domain_resolver}</small>
                         </Col>
                       </Row>
                       <Form.Group as={Row}>
-                        <Form.Label column md={2}>resolver result</Form.Label>
+                        <Form.Label column md={2}>{strings.resolver_result}</Form.Label>
                         <Col sm={10}>
                           <Form.Control as='select' value={resolverValue} onChange={changeResolverValue}>
-                            <option value={''}>Choose...</option>
-                            <option value={'public'}>0x... (Public Resolver)</option>
+                            <option value={''}>{strings.choose_}</option>
+                            <option value={'public'}>0x4efd...e93a ({strings.public_resolver})</option>
                           </Form.Control>
                         </Col>
                       </Form.Group>
                       <Form.Group as={Row}>
-                        <Form.Label column md={2}>field</Form.Label>
+                        <Form.Label column md={2}>{strings.field}</Form.Label>
                         <Col sm={10}>
                           <Form.Control as='select' value={resolverField} onChange={changeResolverField}>
-                            <option value={''}>Choose...</option>
-                            <option value={'addr'}>addr</option>
-                            <option value={'content'}>content</option>
+                            <option value={''}>{strings.choose_}</option>
+                            <option value={'addr'}>{strings.addr}</option>
+                            <option value={'content'}>{strings.content}</option>
                           </Form.Control>
                         </Col>
                       </Form.Group>
@@ -289,13 +293,13 @@ export class AdminMyCryptoTab extends Component {
                         resolverValue && resolverField &&
                         <Row>
                           <Col>
-                            <Button size='sm' onClick={changeShowResolverGetModal}>get {resolverField}</Button>
+                            <Button size='sm' onClick={changeShowResolverGetModal}>{strings.get} {resolverField}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
                               <Form.Control type='text' value={resolverFieldValue} onChange={changeResolverFieldValue} />
                               <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowResolverSetModal}>set {resolverField}</Button>
+                                <Button size='sm' onClick={changeShowResolverSetModal}>{strings.set} {resolverField}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -496,3 +500,5 @@ export class AdminMyCryptoTab extends Component {
     );
   }
 }
+
+export const AdminMyCryptoTab = multilanguage(AdminMyCryptoTabComponent);
