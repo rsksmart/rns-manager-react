@@ -3,6 +3,7 @@ import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskFormContainer } from '../../../containers';
 import { MyCryptoModal } from './MyCryptoModal';
+import { multilanguage } from 'redux-multilanguage';
 
 class UnsealComponent extends Component {
   constructor (props) {
@@ -32,18 +33,18 @@ class UnsealComponent extends Component {
   }
 
   render () {
-    const { domain, unseal, loading, viewMyCrypto } = this.props;
+    const { strings, domain, unseal, loading, viewMyCrypto } = this.props;
     const { value, salt, showMyCrypto } = this.state;
 
     let valueInput, saltInput;
 
     return (
       <TabWithSearchComponent>
-        <h2>unseal your bid for <b>{domain}</b></h2>
-        <Button variant='disabled' size='sm' disabled>upload bid</Button>
+        <h2>{strings.unseal_bid_for} <b>{domain}</b></h2>
+        <Button variant='disabled' size='sm' disabled>{strings.upload_bid_data}</Button>
         <MetamaskFormContainer onSubmit={() => unseal(domain, valueInput.value, saltInput.value)}>
           <Form.Group>
-            <Form.Label>value</Form.Label>
+            <Form.Label>{strings.value}</Form.Label>
             <InputGroup className="mb-3">
               <FormControl type='number' value={value} onChange={this.changeValue} />
               <InputGroup.Append>
@@ -52,13 +53,13 @@ class UnsealComponent extends Component {
             </InputGroup>
           </Form.Group>
           <Form.Group>
-            <Form.Label>secret phrase</Form.Label>
+            <Form.Label>{strings.secret_phrase}</Form.Label>
             <FormControl type='text' salt={salt} onChange={this.changeSalt} />
           </Form.Group>
           {
             viewMyCrypto ?
-            <Button onClick={this.changeShowMyCrypto}>unseal</Button> :
-            <Button type='submit'>unseal</Button>
+            <Button onClick={this.changeShowMyCrypto}>{strings.unseal_bid}</Button> :
+            <Button type='submit'>{strings.unseal_bid}</Button>
           }
         </MetamaskFormContainer>
         {viewMyCrypto && <MyCryptoModal showMyCrypto={showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} salt={salt} value={value} />}
@@ -68,4 +69,4 @@ class UnsealComponent extends Component {
   }
 }
 
-export default UnsealComponent;
+export default multilanguage(UnsealComponent);

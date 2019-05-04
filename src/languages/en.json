@@ -70,5 +70,11 @@
   "mycrypto_copy_response": "Copy the response here",
   "mycrypto_select_rif": "Select RIF contract on Existing Contract selector.",
   "finalize_auction_for": "finalize auction for",
-  "finalize_auction": "finalize auction"
+  "finalize_auction": "finalize auction",
+  "mycrypto_finalize_title": "Finalize auction on MyCrypto",
+  "unseal_bid_for": "unseal your bid for",
+  "upload_bid_data": "upload bid data",
+  "value": "value",
+  "unseal_bid": "unseal bid",
+  "mycrypto_unseal_title": "Unseal bid on MyCrypto"
 }

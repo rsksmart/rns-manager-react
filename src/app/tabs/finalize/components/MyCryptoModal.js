@@ -10,7 +10,7 @@ export const MyCryptoModal = multilanguage(props => {
   return (
     <Modal size='lg' show={showMyCrypto} onHide={changeShowMyCrypto}>
       <Modal.Header closeButton>
-        <h3>{strings.mycrypto_start_title}</h3>
+        <h3>{strings.mycrypto_finalize_title}</h3>
         <code>{name}</code>
       </Modal.Header>
       <Modal.Body>
