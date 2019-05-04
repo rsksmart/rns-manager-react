@@ -94,5 +94,11 @@
   "resolver_result": "resolver result",
   "public_resolver": "Public Resolver",
   "addr": "addr",
-  "content": "content"
+  "content": "content",
+  "rsk_wallet_needed": "you need an RSK wallet to resolve, register and admin domains",
+  "get_metamask": "get Metamask",
+  "use_with_mycrypto": "use with MyCrypto",
+  "connect_metamask_to_rsk" : "connect Metamsk to RSK network",
+  "connect": "connect",
+  "done": "done"
 }
