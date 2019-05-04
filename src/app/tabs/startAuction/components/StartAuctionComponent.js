@@ -23,7 +23,7 @@ class StartAuctionComponent extends Component {
 
     return (
       <TabWithSearchComponent>
-        <h2>{strings.start_an_auction_for} <b>{domain}</b></h2>
+        <h2>{strings.start_an_auction_for} <code>{domain}</code></h2>
         {
           viewMyCrypto ?
           <Button onClick={this.changeShowMyCrypto}>{strings.start_auction}</Button> :

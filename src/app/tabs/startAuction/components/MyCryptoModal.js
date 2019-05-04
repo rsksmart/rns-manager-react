@@ -2,14 +2,13 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
 import { LinkToMyCryptoInteractComponent } from '../../../components';
-
 import { multilanguage } from 'redux-multilanguage';
 
 export const MyCryptoModal = multilanguage(props => {
-  const { strings, name } = props;
+  const { strings, name, showMyCrypto, changeShowMyCrypto } = props;
 
   return (
-    <Modal size='lg' show={props.showMyCrypto} onHide={props.changeShowMyCrypto}>
+    <Modal size='lg' show={showMyCrypto} onHide={changeShowMyCrypto}>
       <Modal.Header closeButton>
         <h3>{strings.mycrypto_start_title}</h3>
         <code>{name}</code>
