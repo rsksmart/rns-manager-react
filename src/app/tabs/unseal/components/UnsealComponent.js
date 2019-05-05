@@ -36,13 +36,11 @@ class UnsealComponent extends Component {
     const { strings, domain, unseal, loading, viewMyCrypto } = this.props;
     const { value, salt, showMyCrypto } = this.state;
 
-    let valueInput, saltInput;
-
     return (
       <TabWithSearchComponent>
         <h2>{strings.unseal_bid_for} <b>{domain}</b></h2>
         <Button variant='disabled' size='sm' disabled>{strings.upload_bid_data}</Button>
-        <MetamaskFormContainer onSubmit={() => unseal(domain, valueInput.value, saltInput.value)}>
+        <MetamaskFormContainer onSubmit={() => unseal(domain, value, salt)}>
           <Form.Group>
             <Form.Label>{strings.value}</Form.Label>
             <InputGroup className="mb-3">
