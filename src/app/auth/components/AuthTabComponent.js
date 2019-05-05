@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { StartButton } from '..';
+import { multilanguage } from 'redux-multilanguage';
 
 class AuthTabComponent extends Component {
   render () {
-    const { isLoggedIn } = this.props;
+    const { strings, isLoggedIn } = this.props;
 
     if (!isLoggedIn) return (
       <Container>
         <Row>
           <Col>
-            <p>Please log in.</p>
+            <p>{strings.please_log_in}</p>
             <StartButton />
           </Col>
         </Row>
@@ -21,4 +22,4 @@ class AuthTabComponent extends Component {
   }
 }
 
-export default AuthTabComponent;
+export default multilanguage(AuthTabComponent);

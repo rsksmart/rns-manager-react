@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { multilanguage } from 'redux-multilanguage';
 
 class AuthModalComponent extends Component {
   constructor (props) {
@@ -16,7 +17,7 @@ class AuthModalComponent extends Component {
   }
 
   render () {
-    const { show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, isOwner, openWallets, switchToMyCrypto } = this.props;
+    const { strings, show, close, hasMetamask, enabling, enableError, displayAddress, network, authenticate, authError, name, isOwner, openWallets, switchToMyCrypto } = this.props;
 
     let nameInput;
 
@@ -25,12 +26,12 @@ class AuthModalComponent extends Component {
     return (
       <Modal show={show} onEntered={() => nameInput && nameInput.focus()} onHide={close}>
         <Modal.Header closeButton>
-          <Modal.Title>log in</Modal.Title>
+          <Modal.Title>{strings.log_in}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {
             !hasMetamask ?
-            <Button type='link' onClick={openWallets}>get Metamask</Button> :
+            <Button type='link' onClick={openWallets}>{strings.get_metamask}</Button> :
             (
               enabling ?
               'Enabling...' :
@@ -39,7 +40,7 @@ class AuthModalComponent extends Component {
                 <React.Fragment>
                   <Form.Group as={Row} controlId='address'>
                     <Form.Label column sm='2'>
-                      address
+                      {strings.address}
                     </Form.Label>
                     <Col sm='10'>
                       <Form.Control plaintext readOnly defaultValue={displayAddress} />
@@ -47,7 +48,7 @@ class AuthModalComponent extends Component {
                   </Form.Group>
                   <Form.Group as={Row} controlId='network'>
                     <Form.Label column sm='2'>
-                      network
+                      {strings.network}
                     </Form.Label>
                     <Col sm='10'>
                       <Form.Control plaintext readOnly defaultValue={network} />
@@ -55,7 +56,7 @@ class AuthModalComponent extends Component {
                   </Form.Group>
                   <Form.Group as={Row} controlId='formPlaintextPassword'>
                     <Form.Label column sm='2'>
-                      name
+                      {strings.name}
                     </Form.Label>
                     <Col sm='10'>
                       <Form.Control type='text' value={nameInputValue} onChange={this.changeInputName} />
@@ -73,7 +74,7 @@ class AuthModalComponent extends Component {
                     (name && !isOwner) &&
                     <Form.Group as={Row}>
                       <Form.Label column sm='12'>
-                        You are not the name's owner. <Link onClick={close} to={`/search?domain=${name}`}>Get the name!</Link>
+                        {strings.not_domains_owner} <Link onClick={close} to={`/search?domain=${name}`}>{strings.get_the_domain}</Link>
                       </Form.Label>
                     </Form.Group>
                   }
@@ -86,15 +87,15 @@ class AuthModalComponent extends Component {
           {
             hasMetamask && !enabling && !enableError &&
               <React.Fragment>
-                <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className='btn btn-primary'>register</Link>
-                <Button onClick={() => authenticate(nameInputValue)} variant='secondary'>log in</Button>
+                <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className='btn btn-primary'>{strings.register}</Link>
+                <Button onClick={() => authenticate(nameInputValue)} variant='secondary'>{strings.log_in}</Button>
               </React.Fragment>
           }
-          <Button onClick={switchToMyCrypto} variant='light'>switch to MyCrypto</Button>
+          <Button onClick={switchToMyCrypto} variant='light'>{strings.switch_to_mycrypto}</Button>
         </Modal.Footer>
       </Modal>
     )
   }
 }
 
-export default AuthModalComponent;
+export default multilanguage(AuthModalComponent);

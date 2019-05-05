@@ -98,7 +98,7 @@
   "rsk_wallet_needed": "you need an RSK wallet to resolve, register and admin domains",
   "get_metamask": "get Metamask",
   "use_with_mycrypto": "use with MyCrypto",
-  "connect_metamask_to_rsk" : "connect Metamsk to RSK network",
+  "connect_metamask_to_rsk" : "connect Metamask to RSK network",
   "connect": "connect",
   "done": "done",
   "subdomains": "subdomains",
@@ -106,5 +106,15 @@
   "on_mycrypto": "on MyCrypto",
   "mycrypto_select_registry": "Select RNS Registry contract on Existing Contract selector.",
   "Set": "Set",
-  "mycrypto_select_resolver": "Select RNS Resolver contract on Existing Contract selector."
+  "mycrypto_select_resolver": "Select RNS Resolver contract on Existing Contract selector.",
+  "log_in": "log in",
+  "address": "address",
+  "network": "network",
+  "not_domains_owner_message": "You are not the domains's owner.",
+  "get_the_domain": "Get the domain!",
+  "switch_to_mycrypto": "switch to MyCrypto",
+  "register": "register",
+  "please_log_in": "Please log in.",
+  "switch_to_metamask": "switch to Metamask",
+  "start": "start"
 }
