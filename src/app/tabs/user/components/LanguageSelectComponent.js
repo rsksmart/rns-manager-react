@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, FormGroup, Form } from 'react-bootstrap'
+import { multilanguage } from 'redux-multilanguage';
 
 class LanguageSelectComponent extends Component {
   constructor (props) {
@@ -18,9 +19,11 @@ class LanguageSelectComponent extends Component {
   }
 
   render () {
+    const { strings } = this.props;
+
     return (
       <FormGroup as={Row}>
-        <Form.Label column md={4}>language</Form.Label>
+        <Form.Label column md={4}>{strings.language}</Form.Label>
         <Col md={8}>
           <Form.Control as='select' onChange={this.onLanguageChange} value={this.state.language}>
             <option value='en'>English</option>
@@ -31,5 +34,5 @@ class LanguageSelectComponent extends Component {
   }
 }
 
-export default LanguageSelectComponent;
+export default multilanguage(LanguageSelectComponent);
 

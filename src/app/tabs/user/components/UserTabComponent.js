@@ -3,10 +3,11 @@ import { Row, Col, Form } from 'react-bootstrap';
 import { AuthTabWrapper } from '../../../auth';
 import Switch from 'react-switch';
 import { LanguageSelectContainer } from '../containers';
+import { multilanguage } from 'redux-multilanguage';
 
 class UserTabComponent extends Component {
   render () {
-    const { name, address, network, viewMyCrypto, changeMyCryptoMetamask } = this.props;
+    const { strings, name, address, network, viewMyCrypto, changeMyCryptoMetamask } = this.props;
 
     return (
       <AuthTabWrapper>
@@ -17,18 +18,18 @@ class UserTabComponent extends Component {
         </Row>
         <br />
         <Row>
-          <Col md={4}>address</Col>
+          <Col md={4}>{strings.address}</Col>
           <Col md={8}>{address}</Col>
         </Row>
         <br />
         <Row>
-          <Col md={4}>network</Col>
+          <Col md={4}>{strings.network}</Col>
           <Col md={8}>{network}</Col>
         </Row>
         <hr />
         <Row>
           <Col md={4}>
-            <Form.Label>execute transacitons in</Form.Label>
+            <Form.Label>{strings.active_wallet}</Form.Label>
           </Col>
           <Col md={8}>
             <span>
@@ -49,4 +50,4 @@ class UserTabComponent extends Component {
   }
 }
 
-export default UserTabComponent;
+export default multilanguage(UserTabComponent);

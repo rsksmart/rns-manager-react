@@ -122,5 +122,8 @@
   "notifications": "notifications",
   "unread_notifications": "unread notifications",
   "Confirmed": "Confirmed",
-  "Waiting_for_confirmation_": "Waiting for confirmation..."
+  "Waiting_for_confirmation_": "Waiting for confirmation...",
+  "set_owner": "set_owner",
+  "language": "language",
+  "active_wallet": "active_wallet"
 }
