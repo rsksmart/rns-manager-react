@@ -3,10 +3,11 @@ import { Navbar, Nav, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { StartButton } from '../auth';
+import { multilanguage } from 'redux-multilanguage';
 
 class HeaderComponent extends Component {
 	render () {
-		const { isLoggedIn, viewMyCrypto } = this.props;
+		const { strings, isLoggedIn, viewMyCrypto } = this.props;
 
 		return (
 			<Navbar bg='dark' variant='dark' expand='lg' sticky='top'>
@@ -17,12 +18,12 @@ class HeaderComponent extends Component {
 				<Navbar.Collapse id='responsive-navbar-nav'>
 					<Nav className='mr-auto'></Nav>
 					<Nav>
-						<Link to='/search' className='nav-link'>search</Link>
-						<Link to='/resolve' className='nav-link'>resolve</Link>
+						<Link to='/search' className='nav-link'>{strings.search}</Link>
+						<Link to='/resolve' className='nav-link'>{strings.resolve}</Link>
 						{
 							(isLoggedIn || viewMyCrypto) &&
 							<React.Fragment>
-								<Link to='/admin' className='nav-link'>admin</Link>
+								<Link to='/admin' className='nav-link'>{strings.admin}</Link>
 							</React.Fragment>
 						}
 					</Nav>
@@ -35,4 +36,4 @@ class HeaderComponent extends Component {
 	}
 }
 
-export default HeaderComponent;
+export default multilanguage(HeaderComponent);

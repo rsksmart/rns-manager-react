@@ -116,5 +116,11 @@
   "register": "register",
   "please_log_in": "Please log in.",
   "switch_to_metamask": "switch to Metamask",
-  "start": "start"
+  "start": "start",
+  "edit": "edit",
+  "cancel": "cancel",
+  "notifications": "notifications",
+  "unread_notifications": "unread notifications",
+  "Confirmed": "Confirmed",
+  "Waiting_for_confirmation_": "Waiting for confirmation..."
 }

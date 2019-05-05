@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
+import { multilanguage } from 'redux-multilanguage';
 
 class FieldComponent extends Component {
   constructor (props) {
@@ -33,7 +34,7 @@ class FieldComponent extends Component {
   }
 
   render () {
-    const { fieldName, type, getting, value, changeEdit, editOpen, set, editting } = this.props;
+    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting } = this.props;
 
     let input;
 
@@ -43,7 +44,7 @@ class FieldComponent extends Component {
           <Col md={2}>{fieldName}</Col>
           <Col md={8}>{getting ? '...' : value}</Col>
           <Col md={2}>
-            <Button variant='link' onClick={changeEdit}>{editOpen ? 'cancel' : 'edit'}</Button>
+            <Button variant='link' onClick={changeEdit}>{editOpen ? strings.cancel : strings.edit}</Button>
           </Col>
         </Row>
         {
@@ -60,7 +61,7 @@ class FieldComponent extends Component {
                     <InputGroup>
                       <Form.Control type={type} ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null}/>
                       <InputGroup.Append>
-                        <Button type='submit' size='sm'>edit</Button>
+                        <Button type='submit' size='sm'>{strings.edit}</Button>
                       </InputGroup.Append>
                       <div className='invalid-feedback'>
                         {this.state.validationError}
@@ -80,4 +81,4 @@ class FieldComponent extends Component {
   }
 }
 
-export default FieldComponent;
+export default multilanguage(FieldComponent);
