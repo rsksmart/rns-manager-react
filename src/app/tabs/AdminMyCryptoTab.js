@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, InputGroup, FormGroup, Modal } from 
 import { keccak256 as sha3 } from 'js-sha3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { multilanguage } from 'redux-multilanguage';
+import { LinkToMyCryptoInteractComponent } from '../components';
 
 class AdminMyCryptoTabComponent extends Component {
   constructor (props) {
@@ -315,186 +316,214 @@ class AdminMyCryptoTabComponent extends Component {
 
         <Modal show={showAdminGetModal} onHide={changeShowAdminGetModal} size='lg'>
           <Modal.Header closeButton>
-            <h3>Get <code>{name}</code> {adminField} on MyCrypto</h3>
+            <h3>{strings.Get} {adminField} {strings.on_mycrypto}</h3>
+            <code>{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>{adminField}</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_registry}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>{adminField}</b></li>
               <li>
                   <div>
-                    Copy and paste this hash on <i>node bytes32</i>
+                    {strings.my_crypto_copy_paste_on} <i>node bytes32</i>
                   </div>
                   <code>{namehash(name)}</code>
               </li>
-              <li>Read!</li>
+              <li>{strings.mycrypto_read}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
 
         <Modal size='lg' show={showAdminSetModal} onHide={changeShowAdminSetModal}>
           <Modal.Header closeButton>
-            <h3>Set {adminField} for <code>{name}</code> on MyCrypto</h3>
+            <h3>{strings.Set} {adminField} {strings.on_mycrypto}</h3>
+            <code>{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>{adminField}</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_registry}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>{adminField}</b>.</li>
               <li>
-                Copy this values and paste them in MyCrypto fields:
+                {strings.mycrypto_copy_paste_values}
                 <ul>
                   <li>
-                      <div>
-                        on <i>node bytes32</i>
-                      </div>
-                      <code>{namehash(name)}</code>
+                    <div>
+                      <i>node bytes32</i>
+                    </div>
+                    <code>{namehash(name)}</code>
                   </li>
                   <li>
-                      <div>
-                        on <i>{
+                    <div>
+                      <i>
+                        {
                           adminField === 'owner' ? 'ownerAddress address' :
                           adminField === 'resolver' ? 'resolverAddress address' :
                           adminField === 'ttl' ? 'ttlValue uint64' : ''
-                        }</i>
-                      </div>
-                      <code>{adminFieldValue}</code>
+                        }
+                      </i>
+                    </div>
+                    <code>{adminFieldValue}</code>
                   </li>
                 </ul>
               </li>
-              <li>Choose your checkout method.</li>
-              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
-              <li>Write!</li>
+              <li>{strings.mycrypto_choose_checkout}</li>
+              <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>{strings.mycrypto_write}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
 
         <Modal show={showSubdomainGetModal} onHide={changeShowSubdomainGetModal} size='lg'>
           <Modal.Header closeButton>
-            <h3>Get <code>{label}.{name}</code> {adminField} on MyCrypto</h3>
+            <h3>{strings.get} {adminField} {strings.on_mycrypto}</h3>
+            <code>{label}.{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>owner</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_registry}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>owner</b></li>
               <li>
                   <div>
-                    Copy and paste this hash on <i>node bytes32</i>
+                    {strings.my_crypto_copy_paste_on} <i>node bytes32</i>
                   </div>
                   <code>{namehash(`${label}.${name}`)}</code>
               </li>
-              <li>Read!</li>
+              <li>{strings.mycrypto_read}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
 
         <Modal size='lg' show={showSubdomainSetModal} onHide={changeShowSubdomainSetModal}>
           <Modal.Header closeButton>
-            <h3>Set owner for <code>{label}.{name}</code> on MyCrypto</h3>
+            <h3>{strings.Set} owner {strings.on_mycrypto}</h3>
+            <code>{label}.{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Registry</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>setSubnodeOwner</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_registry}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>setSubnodeOwner</b>.</li>
               <li>
-                Copy this values and paste them in MyCrypto fields:
+                {strings.mycrypto_copy_paste_values}
                 <ul>
                   <li>
                       <div>
-                        on <i>node bytes32</i>
+                        <i>node bytes32</i>
                       </div>
                       <code>{namehash(name)}</code>
                   </li>
                   <li>
                       <div>
-                        on <i>label bytes32</i>
+                        <i>label bytes32</i>
                       </div>
                       <code>0x{sha3(label)}</code>
                   </li>
                   <li>
                       <div>
-                        on <i>node ownerAddress</i>
+                        <i>node ownerAddress</i>
                       </div>
                       <code>{subdomainFieldValue}</code>
                   </li>
                 </ul>
               </li>
-              <li>Choose your checkout method.</li>
-              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
-              <li>Write!</li>
+              <li>{strings.mycrypto_choose_checkout}</li>
+              <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>{strings.mycrypto_write}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
 
         <Modal show={showResolverGetModal} onHide={changeShowResolverGetModal} size='lg'>
           <Modal.Header closeButton>
-            <h3>Get {name} {resolverField} on MyCrypto</h3>
+            <h3>{strings.Get} {resolverField} {strings.on_mycrypto}</h3>
+            <code>{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' rel='noopener noreferrer' className='modal-link'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>{resolverField}</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_resolver}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>owner</b></li>
               <li>
                   <div>
-                    Copy and paste this hash on <i>node bytes32</i>
+                    {strings.my_crypto_copy_paste_on} <i>node bytes32</i>
                   </div>
                   <code>{namehash(name)}</code>
               </li>
-              <li>Read!</li>
+              <li>{strings.mycrypto_read}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
 
         <Modal size='lg' show={showResolverSetModal} onHide={changeShowResolverSetModal}>
           <Modal.Header closeButton>
-            <h3>Set {resolverField} for <code>{name}</code> on MyCrypto</h3>
+            <h3>{strings.Set} {resolverField} on MyCrypto</h3>
+            <code>{name}</code>
           </Modal.Header>
           <Modal.Body>
             <ol>
-              <li>Go to My Crypto contract interaction on your <a target='_blank' href='https://mycrypto.com/contracts/interact' className='modal-link' rel='noopener noreferrer'>browser</a> or native app.</li>
-              <li>Select <b>RSK MainNet</b> network on the top right selector.</li>
-              <li>Select <b>RNS Resolver</b> contract on <i>Existing Contract</i> selector.</li>
-              <li>Access!</li>
-              <li>On <i>Read / Write Contract</i> select <b>{resolverField}</b></li>
+              <li>{strings.mycrypto_select_network}</li>
+              <li>{strings.mycrypto_go_to_interact}</li>
+              <li>{strings.mycrypto_select_resolver}</li>
+              <li>{strings.mycrypto_access}</li>
+              <li>{strings.mycrypto_on_read_write_select} <b>{resolverField}</b>.</li>
               <li>
-                Copy this values and paste them in MyCrypto fields:
+                {strings.mycrypto_copy_paste_values}
                 <ul>
                   <li>
                       <div>
-                        on <i>node bytes32</i>
+                        <i>node bytes32</i>
                       </div>
                       <code>{namehash(name)}</code>
                   </li>
                   <li>
                       <div>
-                        on <i>{
-                          resolverField === 'addr' ? 'addrValue address' :
-                          resolverField === 'content' ? 'contentValue bytes32' : ''
-                        }</i>
+                        <i>
+                          {
+                            resolverField === 'addr' ? 'addrValue address' :
+                            resolverField === 'content' ? 'contentValue bytes32' : ''
+                          }
+                        </i>
                       </div>
                       <code>{resolverFieldValue}</code>
                   </li>
                 </ul>
               </li>
-              <li>Choose your checkout method.</li>
-              <li>Check the gas according to <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
-              <li>Write!</li>
+              <li>{strings.mycrypto_choose_checkout}</li>
+              <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+              <li>{strings.mycrypto_write}</li>
             </ol>
           </Modal.Body>
+          <Modal.Footer>
+            <LinkToMyCryptoInteractComponent />
+          </Modal.Footer>
         </Modal>
       </Container>
     );

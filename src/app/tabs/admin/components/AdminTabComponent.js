@@ -44,4 +44,4 @@ export default multilanguage(props => {
       </Container>
     </AuthTabWrapper>
   )
-})
+});

@@ -101,5 +101,10 @@
   "connect_metamask_to_rsk" : "connect Metamsk to RSK network",
   "connect": "connect",
   "done": "done",
-  "subdomains": "subdomains"
+  "subdomains": "subdomains",
+  "Get": "Get",
+  "on_mycrypto": "on MyCrypto",
+  "mycrypto_select_registry": "Select RNS Registry contract on Existing Contract selector.",
+  "Set": "Set",
+  "mycrypto_select_resolver": "Select RNS Resolver contract on Existing Contract selector."
 }

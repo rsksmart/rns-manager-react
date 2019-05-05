@@ -43,7 +43,6 @@ export const MyCryptoModal = multilanguage(props => {
               </li>
             </ul>
           </li>
-          <li>{strings.mycrypto_read}</li>
           <li>{strings.mycrypto_choose_checkout}</li>
           <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
           <li>{strings.mycrypto_write}</li>
