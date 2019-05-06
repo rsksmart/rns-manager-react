@@ -125,5 +125,18 @@
   "Waiting_for_confirmation_": "Waiting for confirmation...",
   "set_owner": "set_owner",
   "language": "language",
-  "active_wallet": "active_wallet"
+  "active_wallet": "active_wallet",
+  "setup_title": "Set up",
+  "setup_download_metamask": "Download Metamask",
+  "setup_connect_to_rsk": "Connect Metamask to RSK network:",
+  "setup_open_network_selector": "Open network selector",
+  "setup_select_custom_rpc": "Select 'Custom RPC'",
+  "setup_select_advanced": "In new RPC url select 'Advanced options' and fill",
+  "setup_save": "Save",
+  "": "Add RIF Token view (optional)",
+  "setup_open_left_menu": "Open left menu",
+  "setup_go_to_add_token": "Go to 'Add token'",
+  "setup_fill_token_address_with_": "In custom token tab fill Token address with: ",
+  "setup_next": "Next",
+  "setup_add_tokens": "Add tokens"
 }
