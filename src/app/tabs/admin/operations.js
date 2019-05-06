@@ -136,7 +136,7 @@ export const setSubdomainOwner = (parent, child, owner) => dispatch => {
     registry.setSubnodeOwner(node, label, owner, (error, result) => {
       dispatch(receiveSetSubdomainOwner(child));
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNOODE_OWNER, parent, child, owner })));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNOODE_OWNER, name: `${child}.${parent}`, owner })));
     });
   });
 };

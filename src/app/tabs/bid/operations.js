@@ -82,7 +82,7 @@ export const bid = (domain, value, salt) => dispatch => {
 
           const registrationDate = entriesResult[2].toNumber();
 
-          return resolve(dispatch(notifyTx(result, '', { type: txTypes.BID_AUCTION, domain, value, salt, registrationDate })));
+          return resolve(dispatch(notifyTx(result, '', { type: txTypes.BID_AUCTION, name: domain, value, salt, registrationDate })));
         });
       });
     });

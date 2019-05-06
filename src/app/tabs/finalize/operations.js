@@ -28,7 +28,7 @@ export const finalize = domain => dispatch => {
 
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.FINALIZE_AUCTION, domain })));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.FINALIZE_AUCTION, name: domain })));
     });
   });
 };

@@ -20,6 +20,7 @@ export const start = callback => dispatch => {
 
 export const authenticate = (name, address) => dispatch => {
   dispatch(requestLogin());
+  localStorage.setItem('name', name);
 
   const registry = window.web3.eth.contract([
     {
@@ -37,7 +38,6 @@ export const authenticate = (name, address) => dispatch => {
     }
   ]).at(registryAddress);
 
-
   const hash = namehash(name);
 
   return new Promise(resolve => {
@@ -45,8 +45,6 @@ export const authenticate = (name, address) => dispatch => {
       if (error) return resolve(dispatch(errorLogin(error)));
 
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
-
-      localStorage.setItem('name', name);
 
       return resolve(dispatch(receiveLogin(name, true)));
     });

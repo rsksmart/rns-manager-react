@@ -28,7 +28,7 @@ export const startAuction = domain => dispatch => {
 
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return resolve(dispatch(notifyTx(result, 'Auction started!', { type: txTypes.START_AUCTION, domain })));
+      return resolve(dispatch(notifyTx(result, 'Auction started!', { type: txTypes.START_AUCTION, name: domain })));
     });
   });
 };

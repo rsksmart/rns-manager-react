@@ -54,7 +54,7 @@ export const unseal = (domain, value, salt) => dispatch => {
 
         const registrationDate = entriesResult[2].toNumber();
 
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.UNSEAL_AUCTION, domain, registrationDate })));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.UNSEAL_AUCTION, name: domain, registrationDate })));
       });
     });
   });

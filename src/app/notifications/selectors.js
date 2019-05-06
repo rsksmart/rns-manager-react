@@ -5,17 +5,17 @@ import AddToCalendar from 'react-add-to-calendar';
 import { revealPeriod } from '../../config/contracts';
 import { Button } from 'react-bootstrap';
 
-const unsealEvent = (domain, registrationDate) => ({
-  title: `Unseal bid for ${domain}`,
-  description: `Go to https://manager.rns.rsk.co/unseal?domain=${domain} to unseal your bid!`,
+const unsealEvent = (domain, registrationDate, title) => ({
+  title: `${title} ${domain}`,
+  description: `https://manager.rns.rsk.co/unseal?domain=${domain}`,
   location: '',
   startTime: new Date((registrationDate - revealPeriod) * 1000).toString(),
   endTime: new Date(registrationDate * 1000).toString()
 });
 
-const finalizeEvent = (domain, registrationDate) => ({
-  title: `Finalize auction for ${domain}`,
-  description: `Go to https://manager.rns.rsk.co/finalize?domain=${domain} to finalize the auciton!`,
+const finalizeEvent = (domain, registrationDate, title) => ({
+  title: `${title} ${domain}`,
+  description: `https://manager.rns.rsk.co/finalize?domain=${domain}`,
   location: '',
   startTime: new Date(registrationDate * 1000).toString(),
   endTime: new Date((registrationDate + 86400) * 1000).toString()
@@ -34,71 +34,53 @@ const downloadBid = (domain, value, salt) => {
 	document.body.removeChild(element);
 }
 
-export const txDisplay = params => {
+const displaySetTx = (title, description) => ({
+  title,
+  description: `${title}: ${description}`
+});
+
+export const txDisplay = strings => params => {
   if (!params) return null;
   switch (params.type) {
-    case txTypes.START_AUCTION: return (
-      <p>Auction for {params.domain} started! <Link to={`/bid?domain=${params.domain}`}>Make your bid</Link></p>
-    )
-    case txTypes.BID_AUCTION: return (
-      <React.Fragment>
+    case txTypes.START_AUCTION: return {
+      title: strings.notifications_start_auction_title,
+      action: <Link to={`/bid?domain=${params.domain}`} className='btn btn-primary'>{strings.notifications_start_auction_action}</Link>
+    }
+    case txTypes.BID_AUCTION: return {
+      title: strings.notifications_bid_title,
+      action: (
+        <React.Fragment>
+          <p>
+            {strings.notifications_bid_dont_forget}
+            {params.registrationDate && <Button variant='link'><AddToCalendar event={unsealEvent(params.domain, params.registrationDate, strings.notifications_bid_event_title)} /></Button>}
+          </p>
+          <hr />
+          <p>
+            {strings.notifications_bid_download_message}
+            <Button variant='link' onClick={() => downloadBid(params.domain, params.value, params.salt)}>{strings.download}</Button>.
+          </p>
+        </React.Fragment>
+      )
+    };
+    case txTypes.UNSEAL_AUCTION: return {
+      title: strings.notifications_unseal_title,
+      action: (
         <p>
-          Bid emitted for {params.domain}.<br />
-          Don't forget to unseal the bid!
-          You will need your bid data, <Button variant='link' onClick={() => downloadBid(params.domain, params.value, params.salt)}>download it</Button>.
+          {strings.notifications_unseal_dont_forget}<br />
+          {params.registrationDate && <Button variant='link'><AddToCalendar event={finalizeEvent(params.domain, params.registrationDate, strings.notifications_unseal_event_title)} /></Button>}
         </p>
-        {
-          params.registrationDate && <AddToCalendar event={unsealEvent(params.domain, params.registrationDate)} />
-        }
-      </React.Fragment>
-    )
-    case txTypes.UNSEAL_AUCTION: return (
-      <React.Fragment>
-        <p>
-          Unsealed bid for {params.domain}.<br />
-          Don't forget to finalize the auction!
-        </p>
-        {
-          params.registrationDate && <AddToCalendar event={finalizeEvent(params.domain, params.registrationDate)} />
-        }
-      </React.Fragment>
-    )
-    case txTypes.FINALIZE_AUCTION: return (
-      <p>
-        Auction finalized. You are {params.domain} owner!<br />
-        <Link to={`/publicResolver?domain=${params.domain}`}>Set an addr resolution</Link> for your new domain.
-      </p>
-    )
-    case txTypes.SET_OWNER: return (
-      <p>
-        New owner for {params.domain}: {params.owner}
-      </p>
-    )
-    case txTypes.SET_RESOLVER: return (
-      <p>
-        New resolver for {params.domain}: {params.resolver}
-      </p>
-    )
-    case txTypes.SET_TTL: return (
-      <p>
-        New TTL for {params.domain}: {params.ttl}
-      </p>
-    )
-    case txTypes.SET_SUBNOODE_OWNER: return (
-      <p>
-        New owner for {`${params.child}.${params.parent}`}: {params.owner}
-      </p>
-    )
-    case txTypes.SET_ADDR: return (
-      <p>
-        New addr for {params.domain}: {params.addr}
-      </p>
-    )
-    case txTypes.SET_CONTENT: return (
-      <p>
-        New content for {params.domain}: {params.content}
-      </p>
-    )
+      )
+    }
+    case txTypes.FINALIZE_AUCTION: return {
+      title: strings.notifications_finalize_action,
+      action: <Link to={`/publicResolver?domain=${params.domain}`} className='btn btn-primary'>{strings.notifications_finalize_action}</Link>
+    }
+    case txTypes.SET_OWNER: return displaySetTx(strings.notifications_new_owner, params.value);
+    case txTypes.SET_RESOLVER: return displaySetTx(strings.notifications_new_resolver, params.value);
+    case txTypes.SET_TTL: return displaySetTx(strings.notifications_new_ttl, params.value);
+    case txTypes.SET_SUBNOODE_OWNER: return displaySetTx(strings.notifications_new_subdomain_owner, params.owner);
+    case txTypes.SET_ADDR: return displaySetTx(strings.notifications_new_addr, params.value);
+    case txTypes.SET_CONTENT: return displaySetTx(strings.notifications_new_content, params.value);
     default: return null;
   }
 }

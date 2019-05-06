@@ -18,7 +18,7 @@ class SubdomainsListComponent extends Component {
               input.value = '';
             }}>
               <InputGroup className="mb-3">
-                <FormControl ref={node => (input = node)} />
+                <FormControl type='text' ref={node => (input = node)} />
                 <InputGroup.Append>
                   <InputGroup.Text>{domain}</InputGroup.Text>
                 </InputGroup.Append>
