@@ -125,7 +125,7 @@
   "Waiting_for_confirmation_": "waiting for confirmation...",
   "set_owner": "set owner",
   "language": "language",
-  "active_wallet": "active_wallet",
+  "active_wallet": "active wallet",
   "setup_title": "Set up",
   "setup_download_metamask": "Download Metamask",
   "setup_connect_to_rsk": "Connect Metamask to RSK network:",
@@ -156,5 +156,11 @@
   "notifications_new_ttl": "new ttl",
   "notifications_new_subdomain_owner": "new subdomain owner",
   "notifications_new_addr": "new addr",
-  "notifications_new_content": "new content"
+  "notifications_new_content": "new content",
+  "rsk_address": "rsk address",
+  "chain_address": "chain address",
+  "bitcoin": "bitcoin (BTC)",
+  "ethereum": "ethereum (ETH)",
+  "bitcoin_cash": "bitcoin cash (BCH)",
+  "litecoin": "litecoin (LTC)"
 }
