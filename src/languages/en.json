@@ -162,5 +162,6 @@
   "bitcoin": "bitcoin (BTC)",
   "ethereum": "ethereum (ETH)",
   "bitcoin_cash": "bitcoin cash (BCH)",
-  "litecoin": "litecoin (LTC)"
+  "litecoin": "litecoin (LTC)",
+  "log_out": "log out"
 }

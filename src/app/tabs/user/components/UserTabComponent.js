@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import { AuthTabWrapper } from '../../../auth';
 import Switch from 'react-switch';
 import { LanguageSelectContainer } from '../containers';
@@ -7,7 +7,7 @@ import { multilanguage } from 'redux-multilanguage';
 
 class UserTabComponent extends Component {
   render () {
-    const { strings, name, address, network, viewMyCrypto, changeMyCryptoMetamask } = this.props;
+    const { strings, name, address, network, viewMyCrypto, changeMyCryptoMetamask, logOut } = this.props;
 
     return (
       <AuthTabWrapper>
@@ -43,6 +43,11 @@ class UserTabComponent extends Component {
         <Row>
           <Col>
             <LanguageSelectContainer />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button onClick={logOut}>{strings.log_out}</Button>
           </Col>
         </Row>
       </AuthTabWrapper>
