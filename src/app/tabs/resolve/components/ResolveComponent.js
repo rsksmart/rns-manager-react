@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, Image, Card, FormGroup } from 'react-bootstrap';
+import { ChainAddrSelectorComponent } from '../../../components';
 import { isValidName } from '../../../validations';
 import { CopyableComponent } from '../../../components';
 import { Alert } from '@githubprimer/octicons-react';
@@ -40,13 +41,14 @@ class ResolveComponent extends Component {
 
     this.state = {
       value: props.name,
-      isValid: true
+      isValid: true,
+      chainId: '0x80000000'
     };
 
     this.resolveValueChange = this.resolveValueChange.bind(this);
     this.validate = this.validate.bind(this);
     this.onResolve = this.onResolve.bind(this);
-    this.changeChainId = this.changeChainId.bind(this);
+    this.onChangeChainId = this.onChangeChainId.bind(this);
   }
 
   componentDidMount() {
@@ -77,10 +79,11 @@ class ResolveComponent extends Component {
     if (name !== newProps.name) resolveAddress(newProps.name);
   }
 
-  changeChainId (event) {
+  onChangeChainId (event) {
     const chainId = event.target.value;
     const { name, resolveChainAddr } = this.props;
-    resolveChainAddr(chainId, name);
+    if (chainId.length === 10) resolveChainAddr(chainId, name);
+    this.setState({ chainId });
   }
 
   render () {
@@ -97,7 +100,7 @@ class ResolveComponent extends Component {
                   {strings.invalid_name}
                 </div>
               </Form.Group>
-              <Button type="submit" size='sm'>Resolve</Button>
+              <Button type="submit" size='sm'>{strings.resolve}</Button>
               {!resolution && <p>{loading ? '...' : error}</p>}
             </Form>
           </Col>
@@ -132,12 +135,7 @@ class ResolveComponent extends Component {
               </Container>
               <FormGroup as={Row}>
                 <Col>
-                  <Form.Control as='select' onChange={this.changeChainId}>
-                    <option value='0x00000000'>{strings.bitcoin}</option>
-                    <option value='0x8000003c'>{strings.ethereum}</option>
-                    <option value='0x80000091'>{strings.bitcoin_cash}</option>
-                    <option value='0x80000002'>{strings.litecoin}</option>
-                  </Form.Control>
+                  <ChainAddrSelectorComponent onChange={this.onChangeChainId} list='chains' value={this.state.chainId} />
                 </Col>
               </FormGroup>
               {displayChainAddr(supportsChainAddr, chainAddrLoading, chainAddrError, chainAddrResolution)}

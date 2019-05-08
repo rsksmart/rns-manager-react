@@ -1,5 +1,5 @@
 import { addr, content } from './actions';
-import { resolver as resolverAddress } from '../../../config/contracts';
+import { publicResolver as resolverAddress } from '../../../config/contracts';
 import { txTypes } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 

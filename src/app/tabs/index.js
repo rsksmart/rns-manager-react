@@ -3,6 +3,7 @@ import bid from './bid';
 import finalize from './finalize';
 import home from './home';
 import publicResolver from './publicResolver';
+import multiChainResolver from './multiChainResolver';
 import resolve from './resolve';
 import search from './search';
 import startAuction from './startAuction';
@@ -15,6 +16,7 @@ export default {
   finalize,
   home,
   publicResolver,
+  multiChainResolver,
   search,
   startAuction,
   unseal,
@@ -28,6 +30,7 @@ export { FinalizeTab } from './finalize';
 export { HomeTab } from './home';
 export { NotificationTab } from './notifications';
 export { PublicResolverTab } from './publicResolver';
+export { MultiChainResolverTab } from './multiChainResolver';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { StartAuctionTab } from './startAuction';

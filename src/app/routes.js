@@ -12,6 +12,7 @@ import {
   FinalizeTab,
   AdminTab,
   PublicResolverTab,
+  MultiChainResolverTab,
   NotificationTab,
   UserTab,
   AdminMyCryptoTab
@@ -39,6 +40,7 @@ const Routes = props => {
       <Route path='/finalize' component={FinalizeTab} />
       <Route path='/admin' component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
       <Route path='/publicResolver' component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
+      <Route path='/multiChainResolver' component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
       <Route path='/notifications' component={NotificationTab} />
       <Route path='/wallets' component={NoMetamaskTab} />
       <Route component={NoMatch} />

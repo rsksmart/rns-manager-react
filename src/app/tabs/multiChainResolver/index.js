@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { AddrContainer, ContentContainer } from './containers';
-import { AuthTabWrapper } from '../../auth';
-import { multilanguage } from 'redux-multilanguage';
+import { ContentContainer, MultiChainAddrFieldContainer } from './containers';
+import { AuthTabWrapper } from '../../auth'
 
 import reducer from './reducer';
 export default reducer;
 
-const PublicResolverTab = multilanguage(props => {
-  const { strings } = props;
+class MultiChainResolverTab extends Component {
+  render () {
     return (
       <AuthTabWrapper>
         <Container>
           <Row>
             <Col>
-              <h2>{strings.admin_resolution}</h2>
+              <h2>admin resolution</h2>
             </Col>
           </Row>
           <Row>
             <Col>
-              <AddrContainer />
+              <MultiChainAddrFieldContainer />
             </Col>
           </Row>
           <br />
@@ -31,6 +30,7 @@ const PublicResolverTab = multilanguage(props => {
         </Container>
       </AuthTabWrapper>
     )
-});
+  }
+}
 
-export { PublicResolverTab }
+export { MultiChainResolverTab }

@@ -163,5 +163,7 @@
   "ethereum": "ethereum (ETH)",
   "bitcoin_cash": "bitcoin cash (BCH)",
   "litecoin": "litecoin (LTC)",
-  "log_out": "log out"
+  "log_out": "log out",
+  "notifications_new_chain_addr": "new chain addr",
+  "rsk": "rsk (RBTC)"
 }

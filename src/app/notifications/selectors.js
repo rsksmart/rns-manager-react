@@ -81,6 +81,7 @@ export const txDisplay = strings => params => {
     case txTypes.SET_SUBNOODE_OWNER: return displaySetTx(strings.notifications_new_subdomain_owner, params.owner);
     case txTypes.SET_ADDR: return displaySetTx(strings.notifications_new_addr, params.value);
     case txTypes.SET_CONTENT: return displaySetTx(strings.notifications_new_content, params.value);
+    case txTypes.SET_CHAIN_ADDR: return displaySetTx(strings.notifications_new_chain_addr, `${params.chainId} - ${params.value}`);
     default: return null;
   }
 }

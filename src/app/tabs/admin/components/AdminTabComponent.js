@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer } from '../containers';
 import { multilanguage } from 'redux-multilanguage';
 import { AuthTabWrapper } from '../../../auth';
+import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
 
 export default multilanguage(props => {
-  const { strings, name } = props;
+  const { strings, name, resolver } = props;
 
   return (
     <AuthTabWrapper>
@@ -25,7 +26,8 @@ export default multilanguage(props => {
         </Row>
         <Row>
           <Col>
-            <Link to='/publicResolver'>{strings.admin_resolution}</Link>
+            {resolver === publicResolver && <Link to='/publicResolver'>{strings.admin_resolution}</Link>}
+            {resolver === multiChainResolver && <Link to='/multiChainResolver'>{strings.admin_resolution}</Link>}
           </Col>
         </Row>
         <hr />

@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   const validate =
     valueType === valueTypes.ADDRESS ? address => validateAddress(address, network) :
       valueType === valueTypes.POSITIVE_NUMBER ? number => validatePositiveNumber(number) :
-        valueType === valueTypes.BYTES32 ? bytes => validateBytes32(bytes) : null;
+        valueType === valueTypes.BYTES32 ? bytes => validateBytes32(bytes) : () => null;
 
   return {
     name,
