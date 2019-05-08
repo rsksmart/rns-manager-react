@@ -7,7 +7,7 @@ import rootReducer from './app/reducers';
 
 export const history = createBrowserHistory();
 
-const middleware = [ thunk, routerMiddleware(history) ]
+const middleware = [thunk, routerMiddleware(history)];
 
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
