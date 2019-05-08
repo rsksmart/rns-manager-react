@@ -7,9 +7,6 @@ import { toChecksumAddress } from '../../../selectors';
 const mapStateToProps = (state, ownProps) => {
   const subdomain = state.admin.subdomains.find(subdomain => subdomain.label === ownProps.label);
 
-  console.log(subdomain)
-  console.log(state.auth.name)
-
   return {
     parent: state.auth.name,
     owner: subdomain.owner && toChecksumAddress(state)(subdomain.owner),
@@ -30,7 +27,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   set: (owner) => dispatchProps.set(stateProps.parent, owner)
-})
+});
 
 export default connect(
   mapStateToProps,

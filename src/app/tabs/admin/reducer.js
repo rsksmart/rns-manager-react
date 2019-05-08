@@ -1,6 +1,6 @@
 import {
   OWNER, RESOLVER, TTL,
-  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS,
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER
 } from './types';
 import { combineReducers } from 'redux';
@@ -52,6 +52,7 @@ const subdomains = (state = [], action) => {
           } : subdomain
         )
     }
+    case CLEAR_SUBDOMAINS: return [];
     default: return state;
   }
 }

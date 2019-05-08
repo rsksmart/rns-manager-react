@@ -3,6 +3,11 @@ import { Container, Row, Col, Form, InputGroup, FormControl, Button } from 'reac
 import { SubdomainContainer } from '../containers';
 
 class SubdomainsListComponent extends Component {
+  componentDidMount () {
+    const { loadSubdomains } = this.props;
+    loadSubdomains();
+  }
+
   render () {
     const { onAddSubdomain, subdomains, domain } = this.props;
 
@@ -14,7 +19,7 @@ class SubdomainsListComponent extends Component {
           <Col>
             <Form onSubmit={e => {
               e.preventDefault();
-              onAddSubdomain(domain, input.value);
+              onAddSubdomain(input.value);
               input.value = '';
             }}>
               <InputGroup className="mb-3">

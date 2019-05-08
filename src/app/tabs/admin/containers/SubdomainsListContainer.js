@@ -1,5 +1,5 @@
 import { SubdomainsListComponent } from '../components';
-import { addSubdomain } from '../operations';
+import { loadSubdomains, addSubdomain } from '../operations';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
@@ -8,10 +8,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddSubdomain: (domain, subdomain) => dispatch(addSubdomain(domain, subdomain))
+  onAddSubdomain: (domain, subdomain) => dispatch(addSubdomain(domain, subdomain)),
+  loadSubdomains: domain => dispatch(loadSubdomains(domain))
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  onAddSubdomain: (subdomain) => {
+    if (stateProps.subdomains && !stateProps.subdomains.find(s => s === subdomain)) dispatchProps.onAddSubdomain(stateProps.domain, subdomain);
+  },
+  loadSubdomains: () => dispatchProps.loadSubdomains(stateProps.domain)
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mergeProps
 )(SubdomainsListComponent);

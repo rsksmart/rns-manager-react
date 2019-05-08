@@ -1,6 +1,6 @@
 import {
   OWNER, RESOLVER, TTL,
-  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER,
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS,
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER
 } from './types';
 
@@ -21,6 +21,10 @@ export const receiveSubdomainOwner = (label, owner) => ({
   label,
   owner
 });
+
+export const clearSubdomains = () => ({
+  type: CLEAR_SUBDOMAINS
+})
 
 // subdomain owners
 export const viewEditSubdomainOwner = label => ({

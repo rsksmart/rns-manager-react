@@ -1,6 +1,6 @@
 import {
   owner, resolver, ttl,
-  addSubdomain as addSubdomainAction, receiveSubdomainOwner,
+  addSubdomain as addSubdomainAction, receiveSubdomainOwner, clearSubdomains,
   requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
 import { rns as registryAddress } from '../../../config/contracts';
@@ -108,11 +108,35 @@ export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SE
 export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver);
 export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL);
 
+export const loadSubdomains = domain => dispatch => {
+  dispatch(clearSubdomains());
+  const storedSubdomains = JSON.parse(localStorage.getItem('subdomains'));
+
+  if (!storedSubdomains || !storedSubdomains[domain]) return;
+
+  const subdomains = storedSubdomains[domain];
+
+  for (let i in subdomains) {
+    dispatch(addSubdomainAction(subdomains[i]));
+    dispatch(displaySubdomain(domain, subdomains[i]));
+  }
+}
+
 export const addSubdomain = (domain, subdomain) => dispatch => {
   if (!subdomain) return;
 
   dispatch(addSubdomainAction(subdomain));
 
+  let storedSubdomains = JSON.parse(localStorage.getItem('subdomains'));
+  if (!storedSubdomains) storedSubdomains = {};
+  if (!storedSubdomains[domain]) storedSubdomains[domain] = [];
+  storedSubdomains[domain].push(subdomain);
+  localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
+
+  return dispatch(displaySubdomain(domain, subdomain));
+}
+
+const displaySubdomain = (domain, subdomain) => dispatch => {
   const hash = namehash(`${subdomain}.${domain}`);
 
   return new Promise((resolve, reject) => {
@@ -122,8 +146,8 @@ export const addSubdomain = (domain, subdomain) => dispatch => {
       dispatch(receiveSubdomainOwner(subdomain, result));
 
       resolve(result);
-    })
-  })
+    });
+  });
 }
 
 export const setSubdomainOwner = (parent, child, owner) => dispatch => {
