@@ -1,8 +1,8 @@
 {
-  "rns": "0x884438398e67b199d38269db753dc2b4c22b7c61",
-  "registrar": "0x75de5966c7705ab0288ea8c41dbc65f288cb7fa8",
-  "publicResolver": "0x75bbd1c8ff4be90715279b12ce80c93705fa6a16",
-  "multiChainResolver": "0x74c8b39cc6aaba6895f44eb5c2a4ae43794d6718",
-  "rif": "0x96868103098445049307750b9b117303709211e6",
+  "rns": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5",
+  "registrar": "0x5269f5bc51cdd8aa62755c97229b7eeddd8e69a6",
+  "publicResolver": "0x4efd25e3d348f8f25a14fb7655fba6f72edfe93a",
+  "multiChainResolver": "0x99a12be4c89cbf6cfd11d1f2c029904a7b644368",
+  "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
   "revealPeriod": 259200
 }
