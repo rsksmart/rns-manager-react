@@ -18,6 +18,7 @@ import {
   AdminMyCryptoTab
 } from './tabs';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
 
@@ -52,4 +53,4 @@ const mapStateToProps = state => ({
   viewMyCrypto: state.user.viewMyCrypto
 });
 
-export default connect(mapStateToProps)(Routes);
+export default withRouter(connect(mapStateToProps)(Routes));
