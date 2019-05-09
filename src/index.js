@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import ReactGA from 'react-ga';
 
 import './style.css';
+import './index.css';
 
 const store = configureStore();
 
