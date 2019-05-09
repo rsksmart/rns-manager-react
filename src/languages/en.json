@@ -165,5 +165,8 @@
   "litecoin": "litecoin (LTC)",
   "log_out": "log out",
   "notifications_new_chain_addr": "new chain addr",
-  "rsk": "rsk (RBTC)"
+  "rsk": "rsk (RBTC)",
+  "suggested_subdomains": "wallet, donate, me, ...",
+  "rsk_resolver": "rsk address resolver",
+  "multi_chain_resolver": "multi chain address resolver"
 }

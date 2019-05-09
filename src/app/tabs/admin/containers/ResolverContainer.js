@@ -3,6 +3,7 @@ import { FieldContainer } from '../../../containers';
 import { valueTypes } from '../../../types';
 import { resolver } from '../actions';
 import { getDomainResolver, setDomainResolver } from '../operations';
+import { ResolverDatalist } from '../../../components';
 
 const registryFieldProps = {
   fieldName: 'resolver',
@@ -11,7 +12,11 @@ const registryFieldProps = {
   getField: state => state.admin.resolver,
   get: getDomainResolver,
   changeEdit: resolver.changeEdit,
-  set: setDomainResolver
+  set: setDomainResolver,
+  options: {
+    name: 'resolvers',
+    datalist: <ResolverDatalist />
+  }
 };
 
 export default () => <FieldContainer {...registryFieldProps} />;

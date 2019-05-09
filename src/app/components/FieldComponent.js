@@ -45,7 +45,7 @@ class FieldComponent extends Component {
   }
 
   render () {
-    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting } = this.props;
+    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting, options } = this.props;
 
     const { inputValue } = this.state;
 
@@ -70,7 +70,8 @@ class FieldComponent extends Component {
                 }}>
                   <Form.Group>
                     <InputGroup>
-                      <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!this.state.isValid ? 'is-invalid' : null}/>
+                      <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!this.state.isValid ? 'is-invalid' : null} list={options && options.name}/>
+                      {options && options.datalist}
                       <InputGroup.Append>
                         <Button type='submit' size='sm'>{strings.edit}</Button>
                       </InputGroup.Append>
