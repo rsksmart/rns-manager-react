@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { SubdomainContainer } from '../containers';
+import { multilanguage } from 'redux-multilanguage';
 
 class SubdomainsListComponent extends Component {
   componentDidMount () {
@@ -9,7 +10,7 @@ class SubdomainsListComponent extends Component {
   }
 
   render () {
-    const { onAddSubdomain, subdomains, domain } = this.props;
+    const { strings, onAddSubdomain, subdomains, domain } = this.props;
 
     let input;
 
@@ -23,7 +24,7 @@ class SubdomainsListComponent extends Component {
               input.value = '';
             }}>
               <InputGroup className="mb-3">
-                <FormControl type='text' ref={node => (input = node)} />
+                <FormControl type='text' ref={node => (input = node)} placeholder={strings.suggested_subdomains} />
                 <InputGroup.Append>
                   <InputGroup.Text>{domain}</InputGroup.Text>
                 </InputGroup.Append>
@@ -46,4 +47,4 @@ class SubdomainsListComponent extends Component {
   }
 }
 
-export default SubdomainsListComponent;
+export default multilanguage(SubdomainsListComponent);
