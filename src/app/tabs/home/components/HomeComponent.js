@@ -1,7 +1,6 @@
 import React from 'react';
-import { Container, Row, Col, Image, Jumbotron, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container, Row, Col, Jumbotron, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import landingFront from '../../../../assets/landing.png';
 import { GetDomainStateContainer } from '../../../containers';
 import { ResolveAddressContainer } from '../containers';
 import { multilanguage } from 'redux-multilanguage';
@@ -20,9 +19,6 @@ export default multilanguage(props => {
             <Col><h2 className='text-center'>{strings.home_subtitle}</h2></Col>
           </Row>
           <Row>
-            <Col><Image src={landingFront} alt='landing_front' fluid /></Col>
-          </Row>
-          <Row>
             <Col>
               <Jumbotron>
                 <h3>{strings.register_your_domain}</h3>
@@ -31,7 +27,7 @@ export default multilanguage(props => {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col style={{ padding: 10 }}>
               <Card>
                 <Card.Body>
                   <Card.Title>{strings.what_is_rns_title}</Card.Title>
@@ -41,7 +37,7 @@ export default multilanguage(props => {
             </Col>
           </Row>
           <Row>
-            <Col md={6} xs={12}>
+            <Col style={{ padding: 10 }} md={6} xs={12}>
               <Card>
                 <Card.Body>
                   <Card.Title>{strings.resolve_a_domain}</Card.Title>
@@ -49,22 +45,22 @@ export default multilanguage(props => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={6} xs={12}>
+            <Col style={{ padding: 10 }} md={6} xs={12}>
               <Card>
                 <Card.Body>
                   <Card.Title>{strings.admin_your_domain_title}</Card.Title>
-                  <ul>
-                    <li>{strings.admin_your_domain_action_1}</li>
-                    <li>{strings.admin_your_domain_action_2}</li>
-                    <li>{strings.admin_your_domain_action_3}</li>
-                  </ul>
+                  <p>
+                    {strings.admin_your_domain_action_1}<br />
+                    {strings.admin_your_domain_action_2}<br />
+                    {strings.admin_your_domain_action_3}
+                  </p>
                   <Link className='card-link' to='/admin' rel='noopener noreferrer'>{strings.admin}</Link>
                 </Card.Body>
               </Card>
             </Col>
           </Row>
           <Row>
-            <Col md={6} xs={12}>
+            <Col style={{ padding: 10 }} md={6} xs={12}>
               <Card>
                 <Card.Body>
                   <Card.Title>{strings.develop}</Card.Title>
@@ -76,7 +72,7 @@ export default multilanguage(props => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={6} xs={12}>
+            <Col style={{ padding: 10 }} md={6} xs={12}>
               <Card>
                 <Card.Body>
                   <Card.Title>{strings.learn}</Card.Title>
