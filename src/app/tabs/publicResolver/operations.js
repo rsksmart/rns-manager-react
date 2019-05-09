@@ -59,5 +59,5 @@ const resolver = window.web3 && window.web3.eth.contract([
 export const getAddr = get(addr.requestGet, addr.receiveGet, resolver && resolver.addr);
 export const getContent = get(content.requestGet, content.receiveGet, resolver && resolver.content);
 
-export const setAddr = set(addr.requestSet, addr.receiveSet, txTypes.SET_ADDR, resolver && resolver.setAddr);
-export const setContent = set(content.requestSet, content.receiveSet, txTypes.SET_CONTENT, resolver && resolver.setContent);
+export const setAddr = set(addr.requestSet, addr.receiveSet, txTypes.SET_ADDR, resolver && resolver.setAddr, getAddr);
+export const setContent = set(content.requestSet, content.receiveSet, txTypes.SET_CONTENT, resolver && resolver.setContent, getContent);

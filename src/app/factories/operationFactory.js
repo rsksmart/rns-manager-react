@@ -14,7 +14,7 @@ export const get = (request, receive, action) => name => dispatch => {
   });
 };
 
-export const set = (request, receive, txType, action) => (name, value) => dispatch => {
+export const set = (request, receive, txType, action, callback) => (name, value) => dispatch => {
   dispatch(request(name, value));
 
   const hash = namehash(name);
@@ -23,7 +23,7 @@ export const set = (request, receive, txType, action) => (name, value) => dispat
     action(hash, value, (error, result) => {
       dispatch(receive());
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txType, name, value })));
+      return resolve(dispatch(notifyTx(result, '', { type: txType, name, value }, callback ? () => callback(name) : null)));
     });
   });
 };

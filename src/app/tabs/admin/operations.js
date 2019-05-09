@@ -104,9 +104,9 @@ export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry &
 export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, registry && registry.resolver);
 export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry && registry.ttl);
 
-export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry && registry.setOwner);
-export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver);
-export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL);
+export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry && registry.setOwner, getDomainOwner);
+export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver, getDomainResolver);
+export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL, getDomainTtl);
 
 export const loadSubdomains = domain => dispatch => {
   dispatch(clearSubdomains());
@@ -160,7 +160,7 @@ export const setSubdomainOwner = (parent, child, owner) => dispatch => {
     registry.setSubnodeOwner(node, label, owner, (error, result) => {
       dispatch(receiveSetSubdomainOwner(child));
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNOODE_OWNER, name: `${child}.${parent}`, owner })));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNOODE_OWNER, name: `${child}.${parent}`, owner }, () => displaySubdomain(parent, child))));
     });
   });
 };

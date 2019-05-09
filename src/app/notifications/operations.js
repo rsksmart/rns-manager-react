@@ -1,6 +1,6 @@
 import { addTxNotification, txMined } from './actions';
 
-export const notifyTx = (tx, message, params) => dispatch => {
+export const notifyTx = (tx, message, params, callback) => dispatch => {
   dispatch(addTxNotification(tx, message, params));
 
   const checkInterval = setInterval(() => {
@@ -11,6 +11,7 @@ export const notifyTx = (tx, message, params) => dispatch => {
       if (response.result.blockNumber) {
         clearInterval(checkInterval);
         dispatch(txMined(tx));
+        if (callback) dispatch(callback());
       }
     });
   }, 2000);
