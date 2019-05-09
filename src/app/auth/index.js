@@ -6,4 +6,4 @@ export {
   AuthTabContainer as AuthTabWrapper
 } from './containers';
 export { logOut } from './actions';
-export { start } from './operations';
+export { start, authenticate } from './operations';

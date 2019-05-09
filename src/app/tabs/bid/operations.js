@@ -78,9 +78,14 @@ export const bid = (domain, value, salt) => dispatch => {
         }
 
         registrar.entries(hash, (entriesError, entriesResult) => {
-          if (error) return resolve(dispatch(notifyError(entriesError.message)));
+          if (error) {
+            dispatch(receiveBid());
+            return resolve(dispatch(notifyError(entriesError.message)));
+          }
 
           const registrationDate = entriesResult[2].toNumber();
+
+          dispatch(receiveBid());
 
           return resolve(dispatch(notifyTx(result, '', { type: txTypes.BID_AUCTION, name: domain, value, salt, registrationDate })));
         });
