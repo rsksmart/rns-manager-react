@@ -7,23 +7,30 @@ class FieldComponent extends Component {
     super(props);
 
     this.state = {
+      inputValue: props.preloadedValue,
       isValid: true,
       validationError: null
     };
 
     this.validate = this.validate.bind(this);
+    this.onInputValueChange = this.onInputValueChange.bind(this);
   }
 
-  validate (value) {
-    const validationError = this.props.validate(value);
+  validate () {
+    const { inputValue } = this.state;
+    const validationError = this.props.validate(inputValue);
     const isValid = validationError === null;
     this.setState({ validationError, isValid });
     return isValid;
   }
 
   componentDidMount () {
-    const { get, domain } = this.props;
+    const { get, domain, preloadedValue, changeEdit } = this.props;
     get(domain);
+
+    if (preloadedValue) {
+      changeEdit();
+    }
   }
 
   componentWillReceiveProps (newProps) {
@@ -33,10 +40,14 @@ class FieldComponent extends Component {
     }
   }
 
+  onInputValueChange (event) {
+    this.setState({ inputValue: event.target.value });
+  }
+
   render () {
     const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting } = this.props;
 
-    let input;
+    const { inputValue } = this.state;
 
     return (
       <React.Fragment>
@@ -55,11 +66,11 @@ class FieldComponent extends Component {
               <Col>
                 <Form onSubmit={e => {
                   e.preventDefault();
-                  if (this.validate(input.value)) set(input.value);
+                  if (this.validate()) set(inputValue);
                 }}>
                   <Form.Group>
                     <InputGroup>
-                      <Form.Control type={type} ref={node => (input = node)} className={!this.state.isValid ? 'is-invalid' : null}/>
+                      <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!this.state.isValid ? 'is-invalid' : null}/>
                       <InputGroup.Append>
                         <Button type='submit' size='sm'>{strings.edit}</Button>
                       </InputGroup.Append>

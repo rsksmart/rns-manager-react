@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { valueTypes } from '../types';
 import { validateAddress, validatePositiveNumber, validateBytes32 } from '../validations';
 import { toChecksumAddress } from '../selectors';
+import { parse } from 'query-string';
 
 const mapStateToProps = (state, ownProps) => {
   const { getField, valueType } = ownProps;
   const { getting, value, editOpen, editting } = getField(state);
   const { name, network } = state.auth;
+  const { action, defaultValue } = parse(state.router.location.search);
 
   const displayValue = valueType === valueTypes.ADDRESS ? toChecksumAddress(state)(value) :
     valueType === valueTypes.POSITIVE_NUMBER ? value && value.toNumber() : value;
@@ -17,13 +19,16 @@ const mapStateToProps = (state, ownProps) => {
       valueType === valueTypes.POSITIVE_NUMBER ? number => validatePositiveNumber(number) :
         valueType === valueTypes.BYTES32 ? bytes => validateBytes32(bytes) : () => null;
 
+  const preloadedValue = action === ownProps.fieldName ? defaultValue : '';
+
   return {
     name,
     getting,
     value: displayValue,
     editOpen,
     editting,
-    validate
+    validate,
+    preloadedValue
   };
 };
 

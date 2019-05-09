@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 
 const unsealEvent = (domain, registrationDate, title) => ({
   title: `${title} ${domain}`,
-  description: `https://manager.rns.rsk.co/unseal?domain=${domain}`,
+  description: `https://manager.rns.rsk.co/search?domain=${domain}`,
   location: '',
   startTime: new Date((registrationDate - revealPeriod) * 1000).toString(),
   endTime: new Date(registrationDate * 1000).toString()
@@ -15,7 +15,7 @@ const unsealEvent = (domain, registrationDate, title) => ({
 
 const finalizeEvent = (domain, registrationDate, title) => ({
   title: `${title} ${domain}`,
-  description: `https://manager.rns.rsk.co/finalize?domain=${domain}`,
+  description: `https://manager.rns.rsk.co/search?domain=${domain}`,
   location: '',
   startTime: new Date(registrationDate * 1000).toString(),
   endTime: new Date((registrationDate + 86400) * 1000).toString()
@@ -44,7 +44,7 @@ export const txDisplay = strings => params => {
   switch (params.type) {
     case txTypes.START_AUCTION: return {
       title: strings.notifications_start_auction_title,
-      action: <Link to={`/bid?domain=${params.domain}`} className='btn btn-primary'>{strings.notifications_start_auction_action}</Link>
+      action: <Link to={`/bid?domain=${params.name}`} className='btn btn-primary'>{strings.notifications_start_auction_action}</Link>
     }
     case txTypes.BID_AUCTION: return {
       title: strings.notifications_bid_title,
@@ -52,12 +52,12 @@ export const txDisplay = strings => params => {
         <React.Fragment>
           <p>
             {strings.notifications_bid_dont_forget}
-            {params.registrationDate && <Button variant='link'><AddToCalendar event={unsealEvent(params.domain, params.registrationDate, strings.notifications_bid_event_title)} /></Button>}
+            {params.registrationDate && <Button variant='link'><AddToCalendar event={unsealEvent(params.name, params.registrationDate, strings.notifications_bid_event_title)} /></Button>}
           </p>
           <hr />
           <p>
             {strings.notifications_bid_download_message}
-            <Button variant='link' onClick={() => downloadBid(params.domain, params.value, params.salt)}>{strings.download}</Button>.
+            <Button variant='link' onClick={() => downloadBid(params.name, params.value, params.salt)}>{strings.download}</Button>.
           </p>
         </React.Fragment>
       )
@@ -67,13 +67,13 @@ export const txDisplay = strings => params => {
       action: (
         <p>
           {strings.notifications_unseal_dont_forget}<br />
-          {params.registrationDate && <Button variant='link'><AddToCalendar event={finalizeEvent(params.domain, params.registrationDate, strings.notifications_unseal_event_title)} /></Button>}
+          {params.registrationDate && <Button variant='link'><AddToCalendar event={finalizeEvent(params.name, params.registrationDate, strings.notifications_unseal_event_title)} /></Button>}
         </p>
       )
     }
     case txTypes.FINALIZE_AUCTION: return {
       title: strings.notifications_finalize_action,
-      action: <Link to={`/publicResolver?domain=${params.domain}`} className='btn btn-primary'>{strings.notifications_finalize_action}</Link>
+      action: <Link to={`/publicResolver?action=addr&defaultValue=${params.addr}`} className='btn btn-primary'>{strings.notifications_finalize_action}</Link>
     }
     case txTypes.SET_OWNER: return displaySetTx(strings.notifications_new_owner, params.value);
     case txTypes.SET_RESOLVER: return displaySetTx(strings.notifications_new_resolver, params.value);

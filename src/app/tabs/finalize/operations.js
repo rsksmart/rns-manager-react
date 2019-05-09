@@ -29,7 +29,7 @@ export const finalize = domain => dispatch => {
 
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.FINALIZE_AUCTION, name: domain }, () => authenticate(domain, window.web3.eth.accounts[0]))));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.FINALIZE_AUCTION, name: domain, addr: window.web3.eth.accounts[0] }, () => authenticate(domain, window.web3.eth.accounts[0]))));
     });
   });
 };
