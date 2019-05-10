@@ -53,7 +53,7 @@ class FieldComponent extends Component {
       <React.Fragment>
         <Row>
           <Col md={2}>{fieldName}</Col>
-          <Col md={8}>{getting ? '...' : value}</Col>
+          <Col md={8}><b>{getting ? '...' : value}</b></Col>
           <Col md={2}>
             <Button variant='link' onClick={changeEdit}>{editOpen ? strings.cancel : strings.edit}</Button>
           </Col>

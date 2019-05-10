@@ -8,7 +8,7 @@ import { ResolverDatalist } from '../../../components';
 const registryFieldProps = {
   fieldName: 'resolver',
   type: 'text',
-  valueType: valueTypes.ADDRESS,
+  valueType: valueTypes.RESOLVER,
   getField: state => state.admin.resolver,
   get: getDomainResolver,
   changeEdit: resolver.changeEdit,
