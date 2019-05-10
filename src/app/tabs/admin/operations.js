@@ -6,7 +6,7 @@ import {
 import { rns as registryAddress } from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { notifyTx, notifyError, txTypes } from '../../notifications';
+import { notifyTx, notifyError, txTypes, checkResolver } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 
 const registry = window.web3 && window.web3.eth.contract([
@@ -105,7 +105,11 @@ export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, r
 export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry && registry.ttl);
 
 export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry && registry.setOwner, getDomainOwner);
-export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver, getDomainResolver);
+export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver,
+  name => {
+    getDomainResolver(name);
+    checkResolver(name)
+  });
 export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL, getDomainTtl);
 
 export const loadSubdomains = domain => dispatch => {

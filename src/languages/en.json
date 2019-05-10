@@ -168,5 +168,7 @@
   "rsk": "rsk (RBTC)",
   "suggested_subdomains": "wallet, donate, me, ...",
   "rsk_resolver": "rsk address resolver",
-  "multi_chain_resolver": "multi chain address resolver"
+  "multi_chain_resolver": "multi chain address resolver",
+  "migrate_multichain_resolver_title": "New feature available!",
+  "migrate_multichain_resolver_message": "Migrate to the new Multi Chain Resolver. It provides your domain of addresses for all assets, for example, your Bitcoin address."
 }

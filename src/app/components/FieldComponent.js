@@ -45,7 +45,7 @@ class FieldComponent extends Component {
   }
 
   render () {
-    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting, options } = this.props;
+    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting, options, preloadedValue } = this.props;
 
     const { inputValue } = this.state;
 
@@ -73,7 +73,7 @@ class FieldComponent extends Component {
                       <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!this.state.isValid ? 'is-invalid' : null} list={options && options.name}/>
                       {options && options.datalist}
                       <InputGroup.Append>
-                        <Button type='submit' size='sm'>{strings.edit}</Button>
+                        <Button type='submit' variant={preloadedValue ? 'success' : 'primary'} size='sm'>{strings.edit}</Button>
                       </InputGroup.Append>
                       <div className='invalid-feedback'>
                         {this.state.validationError}

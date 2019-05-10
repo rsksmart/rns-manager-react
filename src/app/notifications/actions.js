@@ -1,4 +1,4 @@
-import { notificationTypes, ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED } from './types';
+import { notificationTypes, ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, MIGRATE_RESOLVER_NOTIFICATION } from './types';
 
 export const addTxNotification = (tx, message, params) => ({
   type: ADD_NOTIFICATION,
@@ -26,4 +26,8 @@ export const viewNotification = id => ({
 export const txMined = txHash => ({
   type: TX_MINED,
   txHash
+});
+
+export const notifyMigrateResolver = () => ({
+  type: MIGRATE_RESOLVER_NOTIFICATION
 });

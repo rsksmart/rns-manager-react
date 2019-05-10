@@ -1,6 +1,7 @@
 export const notificationTypes = {
   ERROR: 'ERROR',
-  TX: 'TX'
+  TX: 'TX',
+  MIGRATE_RESOLVER: 'MIGRATE_RESOLVER'
 };
 
 export const txTypes = {
@@ -23,3 +24,5 @@ export const txTypes = {
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const VIEW_NOTIFICATION = 'VIEW_NOTIFICATION';
 export const TX_MINED = 'TX_MINED';
+
+export const MIGRATE_RESOLVER_NOTIFICATION = 'MIGRATE_RESOLVER_NOTIFICATION';

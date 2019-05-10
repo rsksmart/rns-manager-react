@@ -1,18 +1,16 @@
-import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, notificationTypes } from './types';
-import { NotificationListContainer } from './containers';
+import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, notificationTypes, MIGRATE_RESOLVER_NOTIFICATION, txTypes } from './types';
 
 const initialState = [];
 
 var notificationId = 0;
 
 const newNotification = notification => {
-  const newNotification = {
+  return {
     ...notification,
     id: notificationId++,
-    mined: false
+    mined: false,
+    viewed: false
   };
-
-  return NotificationListContainer.type === notificationTypes.TX ? { ...newNotification, params: notification.params, viewed: false } : newNotification;
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +21,12 @@ const reducer = (state = initialState, action) => {
     ];
     case VIEW_NOTIFICATION: return state.map(n => n.id === action.id ? { ...n, viewed: true } : n);
     case TX_MINED: return state.map(n => n.tx === action.txHash ? { ...n, mined: true } : n);
+    case MIGRATE_RESOLVER_NOTIFICATION: return [
+      ...state,
+      {
+        type: notificationTypes.MIGRATE_RESOLVER
+      }
+    ]
     default: return state;
   }
 }

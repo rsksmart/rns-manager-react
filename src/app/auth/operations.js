@@ -1,5 +1,6 @@
 import { rns as registryAddress } from '../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
+import { checkResolver } from '../notifications';
 
 import { receiveHasMetamask, requestEnable, receiveEnable, requestLogin, receiveLogin, errorLogin, errorEnable } from './actions'
 
@@ -45,6 +46,8 @@ export const authenticate = (name, address) => dispatch => {
       if (error) return resolve(dispatch(errorLogin(error)));
 
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
+
+      dispatch(checkResolver(name));
 
       return resolve(dispatch(receiveLogin(name, true)));
     });

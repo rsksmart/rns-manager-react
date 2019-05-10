@@ -1,4 +1,6 @@
-import { addTxNotification, txMined } from './actions';
+import { addTxNotification, txMined, notifyMigrateResolver } from './actions';
+import { rns as rnsAddress, publicResolver } from '../../config/contracts';
+import { hash as namehash } from 'eth-ens-namehash';
 
 export const notifyTx = (tx, message, params, callback) => dispatch => {
   dispatch(addTxNotification(tx, message, params));
@@ -16,3 +18,29 @@ export const notifyTx = (tx, message, params, callback) => dispatch => {
     });
   }, 2000);
 };
+
+export const checkResolver = name => dispatch => {
+  const rns = window.web3 && window.web3.eth.contract([
+    {
+      'constant': true,
+      'inputs': [
+        { 'name': 'node', 'type': 'bytes32' }
+      ],
+      'name': 'resolver',
+      'outputs': [
+        { 'name': '', 'type': 'address' }
+      ],
+      'payable': false,
+      'stateMutability': 'view',
+      'type': 'function'
+    }
+  ]).at(rnsAddress);
+
+  const node = namehash(name);
+
+  return new Promise(resolve => {
+    rns.resolver(node, (error, result) => {
+      if (!error && result && result.toLowerCase() === publicResolver) return resolve(dispatch(notifyMigrateResolver()));
+    });
+  });
+}
