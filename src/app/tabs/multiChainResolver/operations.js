@@ -86,7 +86,7 @@ export const setChainAddr = (name, chainId, value) => dispatch => {
     resolver.setChainAddr(hash, chainId, value, (error, result) => {
       dispatch(chainAddr.receiveSet());
       if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_CHAIN_ADDR, name, chainId, value }, () => getChainAddr(name, chainId))));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_CHAIN_ADDR, name, chainId, value, addr: window.web3.eth.accounts[0] }, () => getChainAddr(name, chainId))));
     });
   });
 };

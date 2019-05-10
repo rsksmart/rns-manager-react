@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, notificationTypes, MIGRATE_RESOLVER_NOTIFICATION, txTypes } from './types';
+import { ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, notificationTypes, MIGRATE_RESOLVER_NOTIFICATION } from './types';
 
 const initialState = [];
 

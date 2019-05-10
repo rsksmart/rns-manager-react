@@ -106,9 +106,9 @@ export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry && regi
 
 export const setDomainOwner = set(owner.requestSet, owner.receiveSet, txTypes.SET_OWNER, registry && registry.setOwner, getDomainOwner);
 export const setDomainResolver = set(resolver.requestSet, resolver.receiveSet, txTypes.SET_RESOLVER, registry && registry.setResolver,
-  name => {
-    getDomainResolver(name);
-    checkResolver(name)
+  name => dispatch => {
+    dispatch(getDomainResolver(name));
+    dispatch(checkResolver(name))
   });
 export const setDomainTtl = set(ttl.requestSet, ttl.receiveSet, txTypes.SET_TTL, registry && registry.setTTL, getDomainTtl);
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AddToCalendar from 'react-add-to-calendar';
 import { revealPeriod } from '../../config/contracts';
 import { Button } from 'react-bootstrap';
+import { multiChainResolver } from '../../config/contracts';
 
 const unsealEvent = (domain, registrationDate, title) => ({
   title: `${title} ${domain}`,
@@ -34,9 +35,10 @@ const downloadBid = (domain, value, salt) => {
 	document.body.removeChild(element);
 }
 
-const displaySetTx = (title, description) => ({
+const displaySetTx = (title, description, action = null) => ({
   title,
-  description: `${title}: ${description}`
+  description: `${title}: ${description}`,
+  action
 });
 
 export const txDisplay = strings => params => {
@@ -76,7 +78,8 @@ export const txDisplay = strings => params => {
       action: <Link to={`/publicResolver?action=addr&defaultValue=${params.addr}`} className='btn btn-primary'>{strings.notifications_finalize_action}</Link>
     }
     case txTypes.SET_OWNER: return displaySetTx(strings.notifications_new_owner, params.value);
-    case txTypes.SET_RESOLVER: return displaySetTx(strings.notifications_new_resolver, params.value);
+    case txTypes.SET_RESOLVER: return displaySetTx(strings.notifications_new_resolver, params.value,
+      params.value.toLowerCase() === multiChainResolver && <Link to={`/multiChainResolver?action=chain_addr&defaultValue=btcaddress`} className='btn btn-primary'>{strings.set_address}</Link>)
     case txTypes.SET_TTL: return displaySetTx(strings.notifications_new_ttl, params.value);
     case txTypes.SET_SUBNOODE_OWNER: return displaySetTx(strings.notifications_new_subdomain_owner, params.owner);
     case txTypes.SET_ADDR: return displaySetTx(strings.notifications_new_addr, params.value);

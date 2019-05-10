@@ -9,10 +9,12 @@ class MultiChainAddrFieldComponent extends Component {
 
     this.state = {
       validationError: null,
-      chainId: '0x80000089'
+      chainId: '0x80000000',
+      inputValue: props.prelodadValue
     };
 
     this.onChangeChainId = this.onChangeChainId.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
   }
 
   onChangeChainId (event) {
@@ -23,10 +25,18 @@ class MultiChainAddrFieldComponent extends Component {
     if (chainId.length === 10) get(chainId);
   }
 
+  onValueChange (event) {
+    this.setState({ inputValue: event.target.value });
+  }
+
   componentDidMount () {
-    const { get } = this.props;
+    const { get, preloadedValue, changeEdit } = this.props;
     const { chainId } = this.state;
     get(chainId);
+
+    if (preloadedValue) {
+      changeEdit();
+    }
   }
 
   componentWillReceiveProps (newProps) {
@@ -39,8 +49,7 @@ class MultiChainAddrFieldComponent extends Component {
 
   render () {
     const { strings, getting, value, changeEdit, editOpen, set, editting } = this.props;
-
-    let input;
+    const { inputValue } = this.state;
 
     return (
       <React.Fragment>
@@ -49,7 +58,7 @@ class MultiChainAddrFieldComponent extends Component {
           <Col md={3}>
             <ChainAddrSelectorComponent onChange={this.onChangeChainId} list='chains' value={this.state.chainId} />
           </Col>
-          <Col md={5}>{getting ? '...' : value}</Col>
+          <Col md={5}>{getting ? '...' : value || 'none'}</Col>
           <Col md={2}>
             <Button variant='link' onClick={changeEdit}>{editOpen ? strings.cancel : strings.edit}</Button>
           </Col>
@@ -62,11 +71,11 @@ class MultiChainAddrFieldComponent extends Component {
               <Col>
                 <Form onSubmit={e => {
                   e.preventDefault();
-                  set(this.state.chainId, input.value);
+                  set(this.state.chainId, inputValue);
                 }}>
                   <Form.Group>
                     <InputGroup>
-                      <Form.Control type='text' ref={node => (input = node)} />
+                      <Form.Control type='text' value={inputValue} onChange={this.onValueChange} />
                       <InputGroup.Append>
                         <Button type='submit' size='sm'>{strings.edit}</Button>
                       </InputGroup.Append>

@@ -13,7 +13,6 @@ class NotificationComponent extends Component {
     const { strings, viewNotification, notification } = this.props;
 
     const display = this.getTxDisplay(notification.params);
-    const body = display.action || display.description;
 
     return (
       <Alert variant='light' dismissible={this.props.dismissible} onClose={viewNotification}>
@@ -24,10 +23,17 @@ class NotificationComponent extends Component {
           {notification.mined ? <Badge variant='success'>{strings.Confirmed}</Badge> : <Badge variant='warning'>{strings.Waiting_for_confirmation_}</Badge>}
         </p>
         {
-          notification.mined && body &&
+          notification.mined && display.description &&
           <React.Fragment>
             <hr />
-            {body}
+            {display.description}
+          </React.Fragment>
+        }
+        {
+          notification.mined && display.action &&
+          <React.Fragment>
+            <hr />
+            {display.action}
           </React.Fragment>
         }
         {notification.mined && display.value && display.value}

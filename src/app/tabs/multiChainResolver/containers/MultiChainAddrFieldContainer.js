@@ -2,17 +2,22 @@ import { MultiChainAddrFieldComponent } from '../components';
 import { connect } from 'react-redux';
 import { chainAddr } from '../actions';
 import { getChainAddr, setChainAddr } from '../operations';
+import { parse } from 'query-string';
 
 const mapStateToProps = state  => {
   const { getting, value, editOpen, editting } = state.multiChainResolver.chainAddr;
   const { name } = state.auth;
+  const { action, defaultValue } = parse(state.router.location.search);
+
+  const preloadedValue = action === 'chain_addr' ? defaultValue : '';
 
   return {
     name,
     getting,
     value,
     editOpen,
-    editting
+    editting,
+    preloadedValue
   };
 };
 
