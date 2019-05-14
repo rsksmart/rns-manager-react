@@ -1,11 +1,12 @@
 import { requestUnseal, receiveUnseal } from './actions';
-import { registrar as registrarAddress } from '../../../config/contracts.json';
+import config from '../../../config/contracts';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 export const unseal = (domain, value, salt) => dispatch => {
   dispatch(requestUnseal());
 
+  const { registrar: registrarAddress } = config('app/tabs/unseal/operations');
   const registrar = window.web3.eth.contract([
     {
       'constant': false,

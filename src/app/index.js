@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { notificationTypes } from './notifications';
 import { multilanguage } from 'redux-multilanguage';
 import { Link } from 'react-router-dom';
-import { multiChainResolver } from '../config/contracts';
+import config from '../config/contracts';
 
 class App extends Component {
   componentDidMount () {
@@ -25,6 +25,7 @@ class App extends Component {
 
   render() {
     const { strings, history, multiChainNotification } = this.props;
+    const { multiChainResolver } = config('app/tabs/index');
 
     return (
       <ConnectedRouter history={history}>

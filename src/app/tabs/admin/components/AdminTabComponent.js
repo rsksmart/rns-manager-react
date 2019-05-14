@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer } from '../containers';
 import { multilanguage } from 'redux-multilanguage';
 import { AuthTabWrapper } from '../../../auth';
-import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
+import config from '../../../../config/contracts';
 
 class AdminTabComponent extends Component {
   constructor (props) {
@@ -22,6 +22,7 @@ class AdminTabComponent extends Component {
   render () {
     const { strings, name, resolver } = this.props;
     const { showAdvanced } = this.state;
+    const { publicResolver, multiChainResolver } = config('app/tabs/admin/components/AdminTabComponent');
 
     return (
       <AuthTabWrapper>

@@ -1,10 +1,11 @@
 import { requestBid, receiveBid } from './actions';
-import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
+import config from '../../../config/contracts';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
 export const bid = (domain, value, salt) => dispatch => {
   dispatch(requestBid());
+  const { rif: rifAddress, registrar: registrarAddress } = config('app/tabs/bid/operations');
 
   const registrar = window.web3.eth.contract([
     {

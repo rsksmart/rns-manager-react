@@ -1,6 +1,6 @@
 import { requestResolve, receiveResolve, errorResolve, requestChainResolve, receiveChainResolve, errorChainResolve } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
-import { rns as rnsAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 
 export const resolveAddress = domain => dispatch => {
   if (!domain) {
@@ -10,6 +10,7 @@ export const resolveAddress = domain => dispatch => {
 
   dispatch(requestResolve());
 
+  const { rns: rnsAddress } = config('app/tabs/resolve/operations');
   const rns = window.web3.eth.contract([
     {
       'constant': true,

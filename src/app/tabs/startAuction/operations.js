@@ -1,9 +1,11 @@
 import { requestStartAuction, receiveStartAuction } from './actions';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { registrar as registrarAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 
+
 export const startAuction = domain => dispatch => {
+  const { registrar: registrarAddress } = config('app/tabs/startAuction/operations');
   const registrar = window.web3.eth.contract([
     {
       'constant': false,

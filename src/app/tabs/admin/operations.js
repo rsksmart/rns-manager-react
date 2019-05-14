@@ -3,7 +3,7 @@ import {
   addSubdomain as addSubdomainAction, receiveSubdomainOwner, clearSubdomains,
   requestSetSubdomainOwner, receiveSetSubdomainOwner
 } from './actions';
-import { rns as registryAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes, checkResolver } from '../../notifications';
@@ -98,7 +98,7 @@ const registry = window.web3 && window.web3.eth.contract([
     'stateMutability': 'nonpayable',
     'type': 'function'
   },
-]).at(registryAddress);
+]).at(config('app/tabs/admin/operations').registryAddress); // FIXME: This will not work if the page does not refresh
 
 export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry && registry.owner);
 export const getDomainResolver = get(resolver.requestGet, resolver.receiveGet, registry && registry.resolver);

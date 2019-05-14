@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { StartButton } from '../auth';
 import { multilanguage } from 'redux-multilanguage';
+import config from '../../config/contracts';
 
 class HeaderComponent extends Component {
 	render () {
 		const { strings, isLoggedIn, viewMyCrypto } = this.props;
+    const { name: networkName } = config('app/components/HeaderComponent');
+    console.log(networkName);
 
 		return (
 			<Navbar bg='dark' variant='dark' expand='lg' sticky='top'>
@@ -30,6 +33,7 @@ class HeaderComponent extends Component {
 					<Form onSubmit={e => e.preventDefault()} inline>
 						<StartButton />
 					</Form>
+          <Nav style={{color: 'white'}}>{networkName}</Nav>
 				</Navbar.Collapse>
 			</Navbar>
 		)

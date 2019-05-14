@@ -2,17 +2,19 @@ import React from 'react';
 import { txTypes } from './types';
 import { Link } from 'react-router-dom';
 import AddToCalendar from 'react-add-to-calendar';
-import { revealPeriod } from '../../config/contracts';
+import config from '../../config/contracts';
 import { Button } from 'react-bootstrap';
-import { multiChainResolver } from '../../config/contracts';
 
-const unsealEvent = (domain, registrationDate, title) => ({
-  title: `${title} ${domain}`,
-  description: `https://manager.rns.rsk.co/search?domain=${domain}`,
-  location: '',
-  startTime: new Date((registrationDate - revealPeriod) * 1000).toString(),
-  endTime: new Date(registrationDate * 1000).toString()
-});
+const unsealEvent = (domain, registrationDate, title) => {
+  const { revealPeriod } = config('app/selectors/operations');
+  return {
+    title: `${title} ${domain}`,
+    description: `https://manager.rns.rsk.co/search?domain=${domain}`,
+    location: '',
+    startTime: new Date((registrationDate - revealPeriod) * 1000).toString(),
+    endTime: new Date(registrationDate * 1000).toString()
+  }
+};
 
 const finalizeEvent = (domain, registrationDate, title) => ({
   title: `${title} ${domain}`,
@@ -43,6 +45,8 @@ const displaySetTx = (title, description, action = null) => ({
 
 export const txDisplay = strings => params => {
   if (!params) return null;
+  const { multiChainResolver } = config();
+
   switch (params.type) {
     case txTypes.START_AUCTION: return {
       title: strings.notifications_start_auction_title,

@@ -1,11 +1,13 @@
 import { requestFinalize, receiveFinalize } from './actions';
-import { registrar as registrarAddress } from '../../../config/contracts.json';
+import config from '../../../config/contracts';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
 import { authenticate } from '../../auth';
 
+
 export const finalize = domain => dispatch => {
   dispatch(requestFinalize());
+  const { registrar: registrarAddress } = config('app/tabs/finalize/operations');
 
   const registrar = window.web3.eth.contract([
     {

@@ -1,5 +1,5 @@
 import { addTxNotification, txMined, notifyMigrateResolver } from './actions';
-import { rns as rnsAddress, publicResolver } from '../../config/contracts';
+import config from '../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 
 export const notifyTx = (tx, message, params, callback) => dispatch => {
@@ -20,6 +20,7 @@ export const notifyTx = (tx, message, params, callback) => dispatch => {
 };
 
 export const checkResolver = name => dispatch => {
+  const { rns: rnsAddress, publicResolver } = config('app/notifications/operations')
   const rns = window.web3 && window.web3.eth.contract([
     {
       'constant': true,

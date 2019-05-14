@@ -1,5 +1,5 @@
 import { addr, content } from './actions';
-import { publicResolver as resolverAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { txTypes } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 
@@ -54,7 +54,7 @@ const resolver = window.web3 && window.web3.eth.contract([
     'stateMutability': 'nonpayable',
     'type': 'function'
   }
-]).at(resolverAddress);
+]).at(config('app/tabs/publicResolver/operations').resolverAddress);  // FIXME: This will not work if the page does not refresh
 
 export const getAddr = get(addr.requestGet, addr.receiveGet, resolver && resolver.addr);
 export const getContent = get(content.requestGet, content.receiveGet, resolver && resolver.content);

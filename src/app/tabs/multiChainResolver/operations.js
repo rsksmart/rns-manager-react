@@ -1,5 +1,5 @@
 import { content, chainAddr } from './actions';
-import { multiChainResolver as resolverAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { txTypes, notifyTx, notifyError } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import { hash as namehash } from 'eth-ens-namehash';
@@ -59,7 +59,7 @@ const resolver = window.web3 && window.web3.eth.contract([
     'type': 'function',
     'signature': '0xd278b400'
   }
-]).at(resolverAddress);
+]).at(config('app/tabs/multiChainResolver/operations').resolverAddress);  // FIXME: This will not work if the page does not refresh
 
 export const getContent = get(content.requestGet, content.receiveGet, resolver && resolver.content);
 export const setContent = set(content.requestSet, content.receiveSet, txTypes.SET_CONTENT, resolver && resolver.setContent, getContent);

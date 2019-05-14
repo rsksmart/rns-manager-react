@@ -1,6 +1,6 @@
 import { requestDomainState, receiveDomainState } from './actions';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { registrar as registrarAddress } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { notifyError } from '../../notifications';
 
 export const getAuctionState = domain => dispatch => {
@@ -11,6 +11,7 @@ export const getAuctionState = domain => dispatch => {
 
   dispatch(requestDomainState());
 
+  const { registrar: registrarAddress } = config('app/tabs/search/operations');
   const registrar = window.web3 && window.web3.eth.contract([
     {
       'constant': true,

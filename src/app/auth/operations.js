@@ -1,4 +1,4 @@
-import { rns as registryAddress } from '../../config/contracts';
+import config from '../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
 import { checkResolver } from '../notifications';
 
@@ -23,6 +23,7 @@ export const authenticate = (name, address) => dispatch => {
   dispatch(requestLogin());
   localStorage.setItem('name', name);
 
+  const { rns: registryAddress } = config('app/auth/operations');
   const registry = window.web3.eth.contract([
     {
       'constant': true,

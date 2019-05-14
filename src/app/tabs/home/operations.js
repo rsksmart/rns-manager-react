@@ -1,10 +1,12 @@
 import { requestResolveAddress, receiveResolveAddress, } from './actions';
 import { hash as namehash } from 'eth-ens-namehash';
-import { rns as rnsAddress  } from '../../../config/contracts';
+import config from '../../../config/contracts';
 import { notifyError } from '../../notifications';
+
 
 export const resolveAddress = domain => dispatch => {
   dispatch(requestResolveAddress());
+  const { rns: rnsAddress  } = config('app/tabs/home/operations');
 
   const rns = window.web3.eth.contract([
     {
