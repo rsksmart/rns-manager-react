@@ -1,4 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# `rns-manager-react`
+
+Live at https://beta.manager.rns.rifos.org
+
+## Setup
+
+Install dependencies:
+```
+yarn
+```
+
+## Develop
+
+Run RNS in a local blockchain, and connect manager to this local network.
+
+#### Run RNS locally
+
+```
+git clone https://github.com/rnsomdains/RNS.git
+cd RNS
+# you can modiffy some values like auction lengths
+npm install
+truffle develop
+truffle(develop)> migrate --reset
+```
+
+#### Add Multi-chain resolver to RNS
+
+```
+git clone https://github.com/rnsomdains/rns-artifacts.git
+cd rns-artifacts
+# create migration file deploying MultiChainResolver artifact
+truffle console
+truffle(develop)> migrate --reset
+```
+
+#### Configure manager
+
+Edit `src/config/contracts.json`
 
 ## Available Scripts
 
