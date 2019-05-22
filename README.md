@@ -1,3 +1,5 @@
+<img src="/logo.png" alt="logo" height="200" />
+
 # `rns-manager-react`
 
 Live at https://beta.manager.rns.rifos.org
@@ -104,3 +106,18 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+---
+
+## Related links
+
+- [RSK](https://rsk.co)
+    - [Docs](https://github.com/rsksmart/rskj/wiki)
+- [RIF](https://rifos.org)
+    - [Docs](https://www.rifos.org/documentation/)
+    - [Whitepaper](https://docs.rifos.org/rif-whitepaper-en.pdf)
+    - [Testnet faucet](https://faucet.rifos.org)
+- RNS
+    - [Docs](https://docs.rns.rifos.org)
+    - [Manager](https://rns.rifos.org)
+    - [Testnet registrar](https://testnet.rns.rifos.org)
