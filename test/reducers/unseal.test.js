@@ -7,4 +7,10 @@ describe('unseal reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState)
   })
+  it('should handle REQUEST_UNSEAL', () => {
+    expect(reducer(undefined, { type: REQUEST_UNSEAL })).toEqual(
+      {
+        loading: true
+      })
+  })
 })
