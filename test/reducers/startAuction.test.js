@@ -13,4 +13,10 @@ describe('startAuction reducer', () => {
         loading: true
       })
   })
+  it('should handle RECEIVE_START_AUCTION', () => {
+    expect(reducer(undefined, { type: RECEIVE_START_AUCTION })).toEqual(
+      {
+        loading: false
+      })
+  })
 })
