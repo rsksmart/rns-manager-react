@@ -13,4 +13,10 @@ describe('unseal reducer', () => {
         loading: true
       })
   })
+  it('should handle RECEIVE_FINALIZE', () => {
+    expect(reducer(undefined, { type: RECEIVE_FINALIZE })).toEqual(
+      {
+        loading: false
+      })
+  })
 })
