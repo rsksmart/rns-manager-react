@@ -7,4 +7,10 @@ describe('startAuction reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState)
   })
+  it('should handle REQUEST_START_AUCTION', () => {
+    expect(reducer(undefined, { type: REQUEST_START_AUCTION })).toEqual(
+      {
+        loading: true
+      })
+  })
 })
