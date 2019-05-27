@@ -7,4 +7,10 @@ describe('unseal reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState)
   })
+  it('should handle REQUEST_FINALIZE', () => {
+    expect(reducer(undefined, { type: REQUEST_FINALIZE })).toEqual(
+      {
+        loading: true
+      })
+  })
 })
