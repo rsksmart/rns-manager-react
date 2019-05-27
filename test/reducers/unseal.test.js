@@ -19,4 +19,7 @@ describe('unseal reducer', () => {
         loading: false
       })
   })
+  it('should return initial state when action is not valid', () => {
+    expect(reducer(undefined, { type: "INVALID_TYPE" })).toEqual(initialState)
+  })
 })
