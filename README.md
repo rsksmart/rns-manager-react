@@ -13,14 +13,14 @@ yarn
 
 ## Develop
 
-Run RNS in a local blockchain, and connect manager to this local network.
+Run RNS in a local blockchain, and connect RNS Manager to this local network.
 
 #### Run RNS locally
 
 ```
-git clone https://github.com/rnsomdains/RNS.git
+git clone https://github.com/rnsdomains/RNS.git
 cd RNS
-# you can modiffy some values like auction lengths
+# you can modify some values like auction lengths
 npm install
 truffle develop
 truffle(develop)> migrate --reset
@@ -29,7 +29,7 @@ truffle(develop)> migrate --reset
 #### Add Multi-chain resolver to RNS
 
 ```
-git clone https://github.com/rnsomdains/rns-artifacts.git
+git clone https://github.com/rnsdomains/rns-artifacts.git
 cd rns-artifacts
 # create migration file deploying MultiChainResolver artifact
 truffle console
