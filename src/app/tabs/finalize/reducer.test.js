@@ -1,7 +1,7 @@
 import reducer from './reducer';
-import { REQUEST_START_AUCTION, RECEIVE_START_AUCTION } from './types';
+import { REQUEST_FINALIZE, RECEIVE_FINALIZE } from './types';
 
-describe('startAuction reducer', () => {
+describe('finalize reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
     .toEqual(
@@ -10,10 +10,10 @@ describe('startAuction reducer', () => {
     });
   });
 
-  it('should handle REQUEST_START_AUCTION', () => {
+  it('should handle REQUEST_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION
+        type: REQUEST_FINALIZE
       })
     )
     .toEqual({
@@ -21,20 +21,20 @@ describe('startAuction reducer', () => {
     });
   });
 
-  it('should handle RECEIVE_START_AUCTION', () => {
+  it('should handle RECEIVE_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: RECEIVE_START_AUCTION
+        type: RECEIVE_FINALIZE
       })
     ).toEqual({
       loading: false
     });
   });
 
-  it('should handle REQUEST_START_AUCTION and RECEIVE_START_AUCTION', () => {
+  it('should handle REQUEST_FINALIZE and RECEIVE_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION
+        type: REQUEST_FINALIZE
       })
     )
     .toEqual({
@@ -45,7 +45,7 @@ describe('startAuction reducer', () => {
       reducer({
         loading: true
       }, {
-        type: RECEIVE_START_AUCTION
+        type: RECEIVE_FINALIZE
       })
     ).toEqual({
       loading: false

@@ -1,7 +1,7 @@
 import reducer from './reducer';
-import { REQUEST_START_AUCTION, RECEIVE_START_AUCTION } from './types';
+import { REQUEST_UNSEAL, RECEIVE_UNSEAL } from './types';
 
-describe('startAuction reducer', () => {
+describe('unseal reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
     .toEqual(
@@ -10,10 +10,10 @@ describe('startAuction reducer', () => {
     });
   });
 
-  it('should handle REQUEST_START_AUCTION', () => {
+  it('should handle REQUEST_UNSEAL', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION
+        type: REQUEST_UNSEAL
       })
     )
     .toEqual({
@@ -21,20 +21,20 @@ describe('startAuction reducer', () => {
     });
   });
 
-  it('should handle RECEIVE_START_AUCTION', () => {
+  it('should handle RECEIVE_UNSEAL', () => {
     expect(
       reducer({}, {
-        type: RECEIVE_START_AUCTION
+        type: RECEIVE_UNSEAL
       })
     ).toEqual({
       loading: false
     });
   });
 
-  it('should handle REQUEST_START_AUCTION and RECEIVE_START_AUCTION', () => {
+  it('should handle REQUEST_UNSEAL and RECEIVE_UNSEAL', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION
+        type: REQUEST_UNSEAL
       })
     )
     .toEqual({
@@ -45,7 +45,7 @@ describe('startAuction reducer', () => {
       reducer({
         loading: true
       }, {
-        type: RECEIVE_START_AUCTION
+        type: RECEIVE_UNSEAL
       })
     ).toEqual({
       loading: false
