@@ -19,7 +19,7 @@ export const SetUpTab = multilanguage(props => {
                 <li>{strings.setup_open_network_selector}</li>
                 <li>{strings.setup_select_custom_rpc}</li>
                 <li>
-                  {strings.setup_select_advanced}
+                  {strings.setup_fill_with}
                   <ul>
                     <li>Network Name: RSK</li>
                     <li>New RPC URL: https://public-node.rsk.co</li>
