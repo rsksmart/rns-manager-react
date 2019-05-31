@@ -21,10 +21,12 @@ export const SetUpTab = multilanguage(props => {
                 <li>
                   {strings.setup_select_advanced}
                   <ul>
+                    <li>Network Name: RSK</li>
                     <li>New RPC URL: https://public-node.rsk.co</li>
                     <li>ChainID: 30</li>
                     <li>Symbol: RBTC</li>
                     <li>Nickname: RSK MainNet</li>
+                    <li>Block Explorer URL: https://explorer.rsk.co</li>
                   </ul>
                 </li>
                 <li>{strings.setup_save}</li>
