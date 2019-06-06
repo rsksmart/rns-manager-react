@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { isValidName } from '../../../validations';
 import { multilanguage } from 'redux-multilanguage';
 
-function getDisplayState (domain, auctionStateLoading, state, authDomain, login, strings) {
+function getDisplayState (domain, auctionStateLoading, state, strings) {
   if (!domain) return 'Search for a domain.';
   if (auctionStateLoading) return <Spinner animation='grow' variant='primary' />;
 
@@ -16,14 +16,8 @@ function getDisplayState (domain, auctionStateLoading, state, authDomain, login,
     case 5: return (
       <Card.Text>
         {strings.owned}<br />
-        {
-          (domain === authDomain) ?
-          <Link to={`/admin?domain=${domain}`}>{strings.admin_your_domain_title}</Link> :
-          <React.Fragment>
-            <Button onClick={() => login(domain)}>{strings.admin_your_domain_title}</Button><br />
-            <Link to={`/search`}>{strings.search_another_domain}</Link>
-            </React.Fragment>
-        }
+        <Link to={`/admin?domain=${domain}`} className='btn btn-primary'>{strings.admin_your_domain_title}</Link><br />
+        <Link to={`/search`}>{strings.search_another_domain}</Link>
       </Card.Text>
     )
     default: return null
@@ -80,9 +74,9 @@ class DomainStateComponent extends Component {
   }
 
   render () {
-    const { strings, domain, auctionState, auctionStateLoading, authDomain, login } = this.props;
+    const { strings, domain, auctionState, auctionStateLoading } = this.props;
 
-    const displayState = getDisplayState(domain, auctionStateLoading, auctionState, authDomain, login, strings);
+    const displayState = getDisplayState(domain, auctionStateLoading, auctionState, strings);
 
     return (
       <Container>
