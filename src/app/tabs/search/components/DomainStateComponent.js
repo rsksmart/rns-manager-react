@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { isValidName } from '../../../validations';
-import { MyCryptoModal } from './MyCryptoModal';
 import { multilanguage } from 'redux-multilanguage';
 
 function getDisplayState (domain, auctionStateLoading, state, authDomain, login, strings) {
   if (!domain) return 'Search for a domain.';
-  if (auctionStateLoading) return 'Loading...';
+  if (auctionStateLoading) return <Spinner animation='grow' variant='primary' />;
 
   switch(state) {
     case 0: return <Card.Text>{strings.open}<br /><Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link></Card.Text>
@@ -37,15 +36,13 @@ class DomainStateComponent extends Component {
 
     this.state = {
       searchValue: props.domain,
-      isValid: true,
-      showMyCrypto: false
+      isValid: true
     }
 
     this.searchValueChange = this.searchValueChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.validate = this.validate.bind(this);
     this.changeShowProcess = this.changeShowProcess.bind(this);
-    this.changeShowMyCrypto = this.changeShowMyCrypto.bind(this);
   }
 
   componentDidMount () {
@@ -62,7 +59,7 @@ class DomainStateComponent extends Component {
     const { domain, getState, search } = this.props;
     const { searchValue } = this.state;
     if (this.validate()) {
-      if (domain === searchValue) this.getStateOrMyCrypto(getState)(searchValue);
+      if (domain === searchValue) getState(searchValue);
       else search(searchValue);
     }
   }
@@ -79,15 +76,7 @@ class DomainStateComponent extends Component {
 
   componentWillReceiveProps (newProps) {
     const { domain, getState } = newProps;
-    if (this.props.domain !== domain) this.getStateOrMyCrypto(getState)(domain);
-  }
-
-  getStateOrMyCrypto (getState) {
-    return getState || this.changeShowMyCrypto;
-  }
-
-  changeShowMyCrypto () {
-    this.setState({ showMyCrypto: !this.state.showMyCrypto });
+    if (this.props.domain !== domain) getState(domain);
   }
 
   render () {
@@ -142,7 +131,6 @@ class DomainStateComponent extends Component {
             </Card>
           </Col>
         </Row>
-        <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={this.state.searchValue} />
       </Container>
     )
   }
