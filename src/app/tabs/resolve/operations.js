@@ -1,125 +1,79 @@
-import { requestResolve, receiveResolve, errorResolve, requestChainResolve, receiveChainResolve, errorChainResolve } from './actions';
-import { hash as namehash } from 'eth-ens-namehash';
+import * as actions from './actions';
+import Web3 from 'web3';
+import { rskMain } from '../../../config/nodes';
+import { rnsAbi, abstractResolverAbi } from './abis';
 import { rns as rnsAddress } from '../../../config/contracts';
+import { hash as namehash } from 'eth-ens-namehash';
+import resolverInterfaces from './resolverInterfaces';
 
-export const resolveAddress = domain => dispatch => {
+export const identifyInterfaces = domain => dispatch => {
   if (!domain) {
-    dispatch(receiveResolve(''));
-    return;
+    return dispatch(actions.receiveResolve(''));
   }
 
-  dispatch(requestResolve());
-
-  const rns = window.web3.eth.contract([
-    {
-      'constant': true,
-      'inputs': [
-        { 'name': 'node', 'type': 'bytes32' }
-      ],
-      'name': 'resolver',
-      'outputs': [
-        { 'name': '', 'type': 'address' }
-      ],
-      'payable': false,
-      'stateMutability': 'view',
-      'type': 'function'
-    }
-  ]).at(rnsAddress);
+  dispatch(actions.requestResolve());
 
   const hash = namehash(domain);
 
-  rns.resolver(hash, (error, resolverAddress) => {
-    if (error) return dispatch(errorResolve(error.message));
+  const web3 = new Web3(rskMain);
 
-    const abnstractResolver = window.web3.eth.contract([
-      {
-        'constant': true,
-        'inputs': [
-          { 'name': 'interfaceID', 'type': 'bytes4' }
-        ],
-        'name': 'supportsInterface',
-        'outputs': [
-          { 'name': '', 'type': 'bool' }
-        ],
-        'payable': false,
-        'stateMutability': 'pure',
-        'type': 'function'
-      }
-    ]).at(resolverAddress);
+  const rns = new web3.eth.Contract(rnsAbi, rnsAddress);
 
-    abnstractResolver.supportsInterface('0x3b3b57de', (error, isAddrResolver) => {
-      if (error) return dispatch(errorResolve(error.message));
+  rns.methods.resolver(hash).call()
+  .then(resolverAddress => {
+    if (resolverAddress === '0x0000000000000000000000000000000000000000') {
+      return dispatch(actions.errorResolve('this name is not registered'));
+    }
 
-      if (!isAddrResolver) return dispatch(errorResolve('Resolver does not support address interface'));
+    dispatch(actions.receiveResolverAddress(resolverAddress));
 
-      abnstractResolver.supportsInterface('0x8be4b5f6', (error, isMultiChainResolver) => {
-        if (error) return dispatch(errorResolve(error.message));
+    const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
-        const addrResolver = window.web3.eth.contract([
-          {
-            'constant': true,
-            'inputs': [
-              { 'name': 'node', 'type': 'bytes32' }
-            ],
-            'name': 'addr',
-            'outputs': [
-              { 'name': '', 'type': 'address' }
-            ],
-            'payable': false,
-            'stateMutability': 'view',
-            'type': 'function'
-          }
-        ]).at(resolverAddress);
+    let resolutions = [];
 
-        if (isMultiChainResolver) dispatch(resolveChainAddr(resolverAddress, '0x00000000', domain))
+    for (const resolverInterface of resolverInterfaces) {
+      const resolution = abstractResolver.methods.supportsInterface(resolverInterface.signature).call().then(supportsInterface => {
+        if (supportsInterface) {
+          dispatch(actions.receiveSupportedInterface(resolverInterface.name));
+        }
+      });
 
-        return new Promise(resolve => {
-          addrResolver.addr(hash, (error, addr) => {
-            if (error) return resolve(dispatch(errorResolve(error.message)));
-            return resolve(dispatch(receiveResolve(addr, resolverAddress, isMultiChainResolver)));
-          });
-        });
-      })
-    });
-  });
+      resolutions.push(resolution);
+    }
+
+    if (resolutions.length) {
+      return Promise.all(resolutions).then(() => dispatch(actions.receiveResolve()));
+    }
+
+    dispatch(actions.errorResolve('no resolution found'));
+  })
+  .catch(error => dispatch(actions.errorResolve(error.message)));
 };
 
-export const resolveChainAddr = (resolverAddress, chainId, name) => dispatch => {
-  dispatch(requestChainResolve());
+export const addr = (resolverAddress, name) => dispatch => {
+  dispatch(actions.requestAddr());
 
-  const multiChainResolver = window.web3.eth.contract([
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "node",
-          "type": "bytes32"
-        },
-        {
-          "name": "chain",
-          "type": "bytes4"
-        }
-      ],
-      "name": "chainAddr",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8be4b5f6"
-    }
-  ]).at(resolverAddress);
+  const web3 = new Web3(rskMain);
+
+  const addrReoslver = new web3.eth.Contract(resolverInterfaces[0].abi, resolverAddress);
 
   const hash = namehash(name);
 
-  return new Promise(resolve => {
-    multiChainResolver.chainAddr(hash, chainId, (error, addr) => {
-      if (error) return resolve(dispatch(errorChainResolve(error.message)));
-      return resolve(dispatch(receiveChainResolve(addr)));
-    });
-  });
-};
+  addrReoslver.methods.addr(hash).call().then(addr => {
+    dispatch(actions.receiveAddr(addr));
+  }).catch(error => dispatch(actions.errorAddr(error.message)));
+}
+
+export const chainAddr = (resolverAddress, name, chainId) => dispatch => {
+  dispatch(actions.requestChainAddr());
+
+  const web3 = new Web3(rskMain);
+
+  const addrReoslver = new web3.eth.Contract(resolverInterfaces[1].abi, resolverAddress);
+
+  const hash = namehash(name);
+
+  addrReoslver.methods.chainAddr(hash, chainId).call().then(chainAddr => {
+    dispatch(actions.receiveChainAddr(chainAddr));
+  }).catch(error => dispatch(actions.errorResolve(error.message)));
+}

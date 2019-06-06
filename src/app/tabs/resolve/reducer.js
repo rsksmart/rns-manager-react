@@ -1,57 +1,104 @@
-import { REQUEST_RESOLVE, RECEIVE_RESOLVE, ERROR_RESOLVE, REQUEST_CHAIN_RESOLVE, ERROR_CHAIN_RESOLVE, RECEIVE_CHAIN_RESOLVE } from "./types";
+import * as types from './types';
 
 const intialState = {
   loading: false,
-  resolution: null,
-  resolver: null,
-  supportsChainAddr: false,
   error: null,
-  chainAddrLoading: false,
-  chainAddrResolution: null,
-  chainAddrError: null
+  supportedInterfaces: [],
+  resolverAddress: null,
+  addr: {
+    loading: false,
+    value: null,
+    error: null
+  },
+  chainAddr: {
+    loading: false,
+    value: null,
+    error: null
+  }
 }
 
 const reducer = (state = intialState, action) => {
   switch (action.type) {
-    case REQUEST_RESOLVE: return {
-      ...state,
+    case types.REQUEST_RESOLVE: return {
       loading: true,
-      resolution: null,
-      resolver: null,
-      error: null
+      error: null,
+      supportedInterfaces: [],
+      resolverAddress: null,
+      addr: {
+        loading: false,
+        value: null,
+        error: null
+      },
+      chainAddr: {
+        loading: false,
+        value: null,
+        error: null
+      }
     };
-    case RECEIVE_RESOLVE: return {
+    case types.RECEIVE_RESOLVE: return {
       ...state,
       loading: false,
-      resolution: action.resolution,
-      resolver: action.resolverAddress,
-      supportsChainAddr: action.supportsChainAddr,
-      error: null
     };
-    case ERROR_RESOLVE: return {
+    case types.ERROR_RESOLVE: return {
       ...state,
       loading: false,
-      resolution: null,
-      resolver: null,
       error: action.error
     };
-    case REQUEST_CHAIN_RESOLVE: return {
+    case types.RECEIVE_RESOLVER_ADDRESS: return {
       ...state,
-      chainAddrLoading: true,
-      chainAddrResolution: null,
-      chainAddrError: null
+      resolverAddress: action.resolverAddress
     };
-    case RECEIVE_CHAIN_RESOLVE: return {
+    case types.RECEIVE_SUPPORTED_INTERFACE: return {
       ...state,
-      chainAddrLoading: false,
-      chainAddrResolution: action.chainAddr,
-      chainAddrError: null
+      supportedInterfaces: [...state.supportedInterfaces, action.supportedInterface]
     };
-    case ERROR_CHAIN_RESOLVE: return {
+    case types.REQUEST_RESOLVE_ADDR: return {
       ...state,
-      chainAddrLoading: false,
-      chainAddrResolution: null,
-      chainAddrError: action.error
+      addr: {
+        loading: true,
+        value: null,
+        error: null
+      }
+    };
+    case types.RECEIVE_RESOLVE_ADDR: return {
+      ...state,
+      addr: {
+        loading: false,
+        value: action.addr,
+        error: null
+      }
+    };
+    case types.ERROR_RESOLVE_ADDR: return {
+      ...state,
+      addr: {
+        loading: false,
+        value: null,
+        error: action.error
+      }
+    };
+    case types.REQUEST_RESOLVE_CHAIN_ADDR: return {
+      ...state,
+      chainAddr: {
+        loading: true,
+        value: null,
+        error: null
+      }
+    };
+    case types.RECEIVE_RESOLVE_CHAIN_ADDR: return {
+      ...state,
+      chainAddr: {
+        loading: false,
+        value: action.chainAddr,
+        error: null
+      }
+    };
+    case types.ERROR_RESOLVE_CHAIN_ADDR: return {
+      ...state,
+      chainAddr: {
+        loading: false,
+        value: null,
+        error: action.error
+      }
     };
     default: return state;
   }

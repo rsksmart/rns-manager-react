@@ -1,31 +1,55 @@
-import { REQUEST_RESOLVE, ERROR_RESOLVE, RECEIVE_RESOLVE, REQUEST_CHAIN_RESOLVE, ERROR_CHAIN_RESOLVE, RECEIVE_CHAIN_RESOLVE } from "./types";
+import * as types from './types';
 
 export const requestResolve = () => ({
-  type: REQUEST_RESOLVE
+  type: types.REQUEST_RESOLVE
 });
 
 export const receiveResolve = (resolution, resolverAddress, supportsChainAddr) => ({
-  type: RECEIVE_RESOLVE,
+  type: types.RECEIVE_RESOLVE,
   resolution,
   resolverAddress,
   supportsChainAddr
 });
 
 export const errorResolve = error => ({
-  type: ERROR_RESOLVE,
+  type: types.ERROR_RESOLVE,
   error
 });
 
-export const requestChainResolve = () => ({
-  type: REQUEST_CHAIN_RESOLVE
+export const receiveSupportedInterface = supportedInterface => ({
+  type: types.RECEIVE_SUPPORTED_INTERFACE,
+  supportedInterface
 });
 
-export const receiveChainResolve = chainAddr => ({
-  type: RECEIVE_CHAIN_RESOLVE,
+export const receiveResolverAddress = resolverAddress => ({
+  type: types.RECEIVE_RESOLVER_ADDRESS,
+  resolverAddress
+});
+
+export const requestAddr = () => ({
+  type: types.REQUEST_RESOLVE_ADDR
+});
+
+export const receiveAddr = addr => ({
+  type: types.RECEIVE_RESOLVE_ADDR,
+  addr
+});
+
+export const errorAddr = error => ({
+  type: types.ERROR_RESOLVE_ADDR,
+  error
+});
+
+export const requestChainAddr = () => ({
+  type: types.REQUEST_RESOLVE_CHAIN_ADDR
+});
+
+export const receiveChainAddr = chainAddr => ({
+  type: types.RECEIVE_RESOLVE_CHAIN_ADDR,
   chainAddr
 });
 
-export const errorChainResolve = error => ({
-  type: ERROR_CHAIN_RESOLVE,
+export const errorChainAddr = error => ({
+  type: types.ERROR_RESOLVE_CHAIN_ADDR,
   error
 });

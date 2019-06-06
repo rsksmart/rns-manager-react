@@ -12,12 +12,13 @@ function idToString (chainId, strings) {
     default: return chainId;
   }
 }
+
 export default multilanguage(props => {
   const { strings, onChange, value } = props;
 
   return (
     <React.Fragment>
-      <FormControl type='text' onChange={onChange} list='chains' value={idToString(value, strings)} />
+      <FormControl type='text' onChange={onChange} list='chains' value={idToString(value, strings)} placeholder={strings.select_chain} />
       <datalist id='chains'>
         <option value='0x80000089'>{strings.rsk}</option>
         <option value='0x80000000'>{strings.bitcoin}</option>
