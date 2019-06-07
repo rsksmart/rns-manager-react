@@ -1,0 +1,43 @@
+{
+  "rnsAbi": [
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "node", "type": "bytes32" }
+      ],
+      "name": "owner",
+      "outputs": [
+        { "name": "", "type": "address" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "node", "type": "bytes32" }
+      ],
+      "name": "resolver",
+      "outputs": [
+        { "name": "", "type": "address" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "node", "type": "bytes32" }
+      ],
+      "name": "ttl",
+      "outputs": [
+        { "name": "", "type": "uint64" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+import Web3 from 'web3';
+import { rskMain } from '../../../config/nodes';
+import { rnsAbi } from './abis';
+import { rns as rnsAddress } from '../../../config/contracts';
+import { hash as namehash } from 'eth-ens-namehash';
+
+export const getRnsField = (field, name) => {
+  const web3 = new Web3(rskMain);
+
+  const rns = new web3.eth.Contract(rnsAbi, rnsAddress);
+
+  const hash = namehash(name);
+
+  return rns.methods[field](hash).call();
+};
