@@ -174,5 +174,6 @@
   "set_address": "set address",
   "setup_fill_with": "Fill with:",
   "select_chain": "select chain",
-  "get_value_on_mycrypto": "get value on MyCrypto"
+  "get_value_on_mycrypto": "get value on MyCrypto",
+  "get_owner": "get owner"
 }

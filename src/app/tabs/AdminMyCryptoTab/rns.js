@@ -13,3 +13,9 @@ export const getRnsField = (field, name) => {
 
   return rns.methods[field](hash).call();
 };
+
+export const getSubdomainOwner = (domain, label) => {
+  const name = `${label}.${domain}`;
+
+  return getRnsField('owner', name);
+};

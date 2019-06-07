@@ -4,7 +4,7 @@ import { keccak256 as sha3 } from 'js-sha3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { multilanguage } from 'redux-multilanguage';
 import { LinkToMyCryptoInteractComponent } from '../../components';
-import { getRnsField } from './rns';
+import { getRnsField, getSubdomainOwner } from './rns';
 
 class AdminMyCryptoTabComponent extends Component {
   constructor (props) {
@@ -22,6 +22,9 @@ class AdminMyCryptoTabComponent extends Component {
 
       viewAdminSubdomain: false,
       label: '',
+      subdomainOwner: null,
+      subdomainOwnerError: null,
+      subdomainOwnerLoading: null,
       subdomainFieldValue: '',
       showSubdomainModal: false,
       showSubdomainGetModal: false,
@@ -46,6 +49,7 @@ class AdminMyCryptoTabComponent extends Component {
 
     this.changeViewAdminSubdomain = this.changeViewAdminSubdomain.bind(this);
     this.changeLabel = this.changeLabel.bind(this);
+    this.getSubdomainOwner = this.getSubdomainOwner.bind(this);
     this.changeSubdomainFieldValue = this.changeSubdomainFieldValue.bind(this);
     this.changeShowSubdomainGetModal = this.changeShowSubdomainGetModal.bind(this);
     this.changeShowSubdomainSetModal = this.changeShowSubdomainSetModal.bind(this);
@@ -95,7 +99,18 @@ class AdminMyCryptoTabComponent extends Component {
   }
 
   changeLabel (event) {
-    this.setState({ label: event.target.value });
+    this.setState({ label: event.target.value, subdomainOwner: null, subdomainOwnerError: null, subdomainOwnerLoading: false });
+  }
+
+  getSubdomainOwner () {
+    const { name, label } = this.state;
+
+    this.setState({ subdomainOwner: null, subdomainOwnerError: null, subdomainOwnerLoading: true });
+
+    getSubdomainOwner(name, label)
+    .then(subdomainOwner => this.setState({ subdomainOwner }))
+    .catch(subdomainOwnerError => this.setState({ subdomainOwnerError }))
+    .then(() => this.setState({ subdomainOwnerLoading: false }));
   }
 
   changeSubdomainFieldValue (event) {
@@ -140,14 +155,14 @@ class AdminMyCryptoTabComponent extends Component {
       props,
       changeName,
       changeViewAdminOwnership, changeAdminField, changeAdminFieldValue, changeShowAdminGetModal, changeShowAdminSetModal,
-      changeViewAdminSubdomain, changeLabel, changeSubdomainFieldValue, changeShowSubdomainGetModal, changeShowSubdomainSetModal,
+      changeViewAdminSubdomain, changeLabel, getSubdomainOwner, changeSubdomainFieldValue, changeShowSubdomainGetModal, changeShowSubdomainSetModal,
       changeViewAdminResolver, changeResolverValue, changeResolverField, changeResolverFieldValue, changeShowResolverGetModal, changeShowResolverSetModal
     } = this;
 
     const {
       name,
       viewAdminOwnership, adminField, fieldValue, fieldValueError, adminFieldValue, showAdminGetModal, showAdminSetModal,
-      label, viewAdminSubdomain, subdomainFieldValue, showSubdomainGetModal, showSubdomainSetModal,
+      label, subdomainOwner, subdomainOwnerError, subdomainOwnerLoading, viewAdminSubdomain, subdomainFieldValue, showSubdomainGetModal, showSubdomainSetModal,
       resolverValue, resolverField, viewAdminResolver, resolverFieldValue, showResolverGetModal, showResolverSetModal
     } = state;
 
@@ -209,9 +224,9 @@ class AdminMyCryptoTabComponent extends Component {
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
-                              <Form.Control type='text' value={adminFieldValue} onChange={changeAdminFieldValue} />
+                              <Form.Control type='text' value={adminFieldValue} onChange={changeAdminFieldValue} placeholder={strings.value} />
                               <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowAdminSetModal}>{strings.set} {adminField}</Button>
+                                <Button size='sm' onClick={changeShowAdminSetModal}>{strings.set} {adminField} {strings.on_mycrypto}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
@@ -241,7 +256,7 @@ class AdminMyCryptoTabComponent extends Component {
                         <Form.Label column sm={2}>{strings.subdomain}</Form.Label>
                         <Col sm={10}>
                           <InputGroup>
-                            <Form.Control type='text' value={label} onChange={changeLabel} />
+                            <Form.Control type='text' value={label} onChange={changeLabel} placeholder={strings.label} />
                             <InputGroup.Append>
                               <InputGroup.Text>.{name}</InputGroup.Text>
                             </InputGroup.Append>
@@ -252,13 +267,24 @@ class AdminMyCryptoTabComponent extends Component {
                         label &&
                         <Row>
                           <Col>
-                            <Button size='sm' onClick={changeShowSubdomainGetModal}>{strings.get} {strings.owner}</Button>
+                            <Button size='sm' onClick={getSubdomainOwner}>{strings.get_owner}</Button>
+                            <br />
+                            {
+                              subdomainOwner ? <p><br />owner: {subdomainOwner}</p> :
+                              subdomainOwnerError ? <Alert variant='danger'>{subdomainOwnerError}</Alert> :
+                              subdomainOwnerLoading ?
+                              <React.Fragment>
+                                <Spinner animation='grow' variant='primary' /><br />
+                              </React.Fragment> :
+                              <br />
+                            }
+                            <Button size='sm' onClick={changeShowSubdomainGetModal}>{strings.get_value_on_mycrypto}</Button>
                           </Col>
                           <Form.Group as={Col}>
                             <InputGroup>
-                              <Form.Control type='text' value={subdomainFieldValue} onChange={changeSubdomainFieldValue} />
+                              <Form.Control type='text' value={subdomainFieldValue} onChange={changeSubdomainFieldValue} placeholder={strings.owner} />
                               <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowSubdomainSetModal}>{strings.set} {strings.owner}</Button>
+                                <Button size='sm' onClick={changeShowSubdomainSetModal}>{strings.set} {strings.owner} {strings.on_mycrypto}</Button>
                               </InputGroup.Append>
                             </InputGroup>
                           </Form.Group>
