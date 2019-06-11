@@ -12,7 +12,7 @@
     "query-string": "^6.2.0",
     "react": "^16.8.3",
     "react-add-to-calendar": "^0.1.5",
-    "react-bootstrap": "^1.0.0-beta.5",
+    "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.3",
     "react-ga": "^2.5.7",
     "react-redux": "^6.0.1",
@@ -24,7 +24,8 @@
     "redux-logger": "^3.0.6",
     "redux-multilanguage": "^0.1.2",
     "redux-thunk": "^2.3.0",
-    "rskjs-util": "^1.0.3"
+    "rskjs-util": "^1.0.3",
+    "web3": "^1.0.0-beta.55"
   },
   "scripts": {
     "start": "react-scripts start",

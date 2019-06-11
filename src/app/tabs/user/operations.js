@@ -2,7 +2,6 @@ import { changeMyCryptoMetamask as changeMyCryptoMetamaskAction } from './action
 import { logOut } from '../../auth';
 
 export const changeMyCryptoMetamask = viewMyCrypto => dispatch => {
-  console.log(viewMyCrypto)
   dispatch(changeMyCryptoMetamaskAction(viewMyCrypto));
   if (viewMyCrypto) dispatch(logOut());
 

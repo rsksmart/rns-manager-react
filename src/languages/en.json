@@ -172,5 +172,8 @@
   "migrate_multichain_resolver_title": "New feature available!",
   "migrate_multichain_resolver_message": "Migrate to the new Multi Chain Resolver. It provides your domain of addresses for all assets, for example, your Bitcoin address.",
   "set_address": "set address",
-  "setup_fill_with": "Fill with:"
+  "setup_fill_with": "Fill with:",
+  "select_chain": "select chain",
+  "get_value_on_mycrypto": "get value on MyCrypto",
+  "get_owner": "get owner"
 }
