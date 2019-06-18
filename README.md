@@ -26,7 +26,7 @@ truffle develop
 truffle(develop)> migrate --reset
 ```
 
-#### Add Multi-chain resolver to RNS
+#### Add Multi-crypto resolver to RNS
 
 ```
 git clone https://github.com/rnsdomains/rns-artifacts.git
