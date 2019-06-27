@@ -107,6 +107,7 @@
   "mycrypto_select_registry": "Select RNS Registry contract on Existing Contract selector.",
   "Set": "Set",
   "mycrypto_select_resolver": "Select RNS Resolver contract on Existing Contract selector.",
+  "mycrypto_select_multi_resolver": "Select Multi-crypto Resolver contract on Existing Contract selector.",
   "log_in": "log in",
   "address": "address",
   "network": "network",

@@ -3,8 +3,9 @@ import { Container, Row, Col, Form, Button, InputGroup, FormGroup, Modal, Spinne
 import { keccak256 as sha3 } from 'js-sha3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { multilanguage } from 'redux-multilanguage';
-import { LinkToMyCryptoInteractComponent } from '../../components';
+import { LinkToMyCryptoInteractComponent, ResolverDatalist, ChainAddrSelectorComponent } from '../../components';
 import { getRnsField, getSubdomainOwner } from './rns';
+import { publicResolver, multiChainResolver } from '../../../config/contracts';
 
 class AdminMyCryptoTabComponent extends Component {
   constructor (props) {
@@ -31,12 +32,15 @@ class AdminMyCryptoTabComponent extends Component {
       showSubdomainSetModal: false,
 
       viewAdminResolver: false,
+      resolverLoading: false,
+      resolverError: null,
       resolverValue: '',
       resolverField: '',
       resolverFieldValue: '',
       showResolverModal: false,
       showResolverGetModal: false,
-      showResolverSetModal: false
+      showResolverSetModal: false,
+      chainId: ''
     };
 
     this.changeName = this.changeName.bind(this);
@@ -60,6 +64,8 @@ class AdminMyCryptoTabComponent extends Component {
     this.changeResolverFieldValue = this.changeResolverFieldValue.bind(this);
     this.changeShowResolverGetModal = this.changeShowResolverGetModal.bind(this);
     this.changeShowResolverSetModal = this.changeShowResolverSetModal.bind(this);
+
+    this.changeChainId = this.changeChainId.bind(this);
   }
 
   changeName (event) {
@@ -126,7 +132,18 @@ class AdminMyCryptoTabComponent extends Component {
   }
 
   changeViewAdminResolver () {
-    this.setState(state => ({ viewAdminResolver: !state.viewAdminResolver }));
+    const { viewAdminResolver } = this.state;
+    this.setState(state => ({ viewAdminResolver: !viewAdminResolver }));
+
+    if (!viewAdminResolver) {
+      this.setState({ resolverValue: '', resolverLoading: true, resolverError: null });
+
+      const { name } = this.state;
+      getRnsField('resolver', name)
+      .then(resolverValue => this.setState({ resolverValue: resolverValue.toLowerCase() }))
+      .catch(error => this.setState({ resolverError: error.message }))
+      .then(() => this.setState({ resolverLoading: false }));
+    }
   }
 
   changeResolverValue (event) {
@@ -149,6 +166,10 @@ class AdminMyCryptoTabComponent extends Component {
     this.setState(state => ({ showResolverSetModal: !state.showResolverSetModal }));
   }
 
+  changeChainId (event) {
+    this.setState({ chainId: event.target.value });
+  }
+
   render () {
     const {
       state,
@@ -156,14 +177,17 @@ class AdminMyCryptoTabComponent extends Component {
       changeName,
       changeViewAdminOwnership, changeAdminField, changeAdminFieldValue, changeShowAdminGetModal, changeShowAdminSetModal,
       changeViewAdminSubdomain, changeLabel, getSubdomainOwner, changeSubdomainFieldValue, changeShowSubdomainGetModal, changeShowSubdomainSetModal,
-      changeViewAdminResolver, changeResolverValue, changeResolverField, changeResolverFieldValue, changeShowResolverGetModal, changeShowResolverSetModal
+      changeViewAdminResolver, changeResolverValue, changeResolverField, changeResolverFieldValue, changeShowResolverGetModal, changeShowResolverSetModal,
+      changeChainId
     } = this;
 
     const {
       name,
       viewAdminOwnership, adminField, fieldValue, fieldValueError, adminFieldValue, showAdminGetModal, showAdminSetModal,
       label, subdomainOwner, subdomainOwnerError, subdomainOwnerLoading, viewAdminSubdomain, subdomainFieldValue, showSubdomainGetModal, showSubdomainSetModal,
-      resolverValue, resolverField, viewAdminResolver, resolverFieldValue, showResolverGetModal, showResolverSetModal
+      resolverValue, resolverLoading, resolverError,
+      resolverField, viewAdminResolver, resolverFieldValue, showResolverGetModal, showResolverSetModal,
+      chainId
     } = state;
 
     const { strings } = props;
@@ -308,49 +332,58 @@ class AdminMyCryptoTabComponent extends Component {
                     </Col>
                   </Row>
                   {
-                    viewAdminResolver &&
-                    <React.Fragment>
-                      <Row>
-                        <Col>
-                          <small>{strings.check_domain_resolver}</small>
-                        </Col>
-                      </Row>
-                      <Form.Group as={Row}>
-                        <Form.Label column md={2}>{strings.resolver_result}</Form.Label>
-                        <Col sm={10}>
-                          <Form.Control as='select' value={resolverValue} onChange={changeResolverValue}>
-                            <option value={''}>{strings.choose_}</option>
-                            <option value={'public'}>0x4efd...e93a ({strings.public_resolver})</option>
-                          </Form.Control>
-                        </Col>
-                      </Form.Group>
-                      <Form.Group as={Row}>
-                        <Form.Label column md={2}>{strings.field}</Form.Label>
-                        <Col sm={10}>
-                          <Form.Control as='select' value={resolverField} onChange={changeResolverField}>
-                            <option value={''}>{strings.choose_}</option>
-                            <option value={'addr'}>{strings.addr}</option>
-                            <option value={'content'}>{strings.content}</option>
-                          </Form.Control>
-                        </Col>
-                      </Form.Group>
-                      {
-                        resolverValue && resolverField &&
+                    viewAdminResolver && (
+                      resolverLoading ? <Spinner animation='grow' /> :
+                      <React.Fragment>
                         <Row>
                           <Col>
-                            <Button size='sm' onClick={changeShowResolverGetModal}>{strings.get} {resolverField}</Button>
+                            {
+                              resolverError &&
+                              <small>{strings.check_domain_resolver}</small>
+                            }
                           </Col>
-                          <Form.Group as={Col}>
-                            <InputGroup>
-                              <Form.Control type='text' value={resolverFieldValue} onChange={changeResolverFieldValue} />
-                              <InputGroup.Append>
-                                <Button size='sm' onClick={changeShowResolverSetModal}>{strings.set} {resolverField}</Button>
-                              </InputGroup.Append>
-                            </InputGroup>
-                          </Form.Group>
                         </Row>
-                      }
-                    </React.Fragment>
+                        <Form.Group as={Row}>
+                          <Form.Label column md={2}>{strings.resolver_result}</Form.Label>
+                          <Col sm={10}>
+                            <Form.Control tpye='text' value={resolverValue} onChange={changeResolverValue} list='resolvers' />
+                            <ResolverDatalist />
+                          </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                          <Form.Label column md={2}>{strings.field}</Form.Label>
+                          <Col sm={10}>
+                            <Form.Control as='select' value={resolverField} onChange={changeResolverField}>
+                              <option value={''}>{strings.choose_}</option>
+                              <option value={'addr'}>{strings.addr}</option>
+                              <option value={'content'}>{strings.content}</option>
+                              {
+                                resolverValue === multiChainResolver && <option value={'chainAddr'}>{strings.chain_address}</option>
+                              }
+                            </Form.Control>
+                          </Col>
+                        </Form.Group>
+                        {
+                          resolverValue && resolverField &&
+                          <Row>
+                            {
+                              resolverField === 'chainAddr' && <Col><ChainAddrSelectorComponent value={chainId} onChange={changeChainId} /></Col>
+                            }
+                            <Col>
+                              <Button size='sm' onClick={changeShowResolverGetModal}>{strings.get} {resolverField}</Button>
+                            </Col>
+                            <Form.Group as={Col}>
+                              <InputGroup>
+                                <Form.Control type='text' value={resolverFieldValue} onChange={changeResolverFieldValue} />
+                                <InputGroup.Append>
+                                  <Button size='sm' onClick={changeShowResolverSetModal}>{strings.set} {resolverField}</Button>
+                                </InputGroup.Append>
+                              </InputGroup>
+                            </Form.Group>
+                          </Row>
+                        }
+                      </React.Fragment>
+                    )
                   }
                 </Container>
               </Col>
@@ -509,7 +542,10 @@ class AdminMyCryptoTabComponent extends Component {
             <ol>
               <li>{strings.mycrypto_select_network}</li>
               <li>{strings.mycrypto_go_to_interact}</li>
-              <li>{strings.mycrypto_select_resolver}</li>
+              {
+                resolverValue === publicResolver ? <li>{strings.mycrypto_select_resolver}</li> :
+                resolverValue === multiChainResolver && <li>{strings.mycrypto_select_multi_resolver}</li>
+              }
               <li>{strings.mycrypto_access}</li>
               <li>{strings.mycrypto_on_read_write_select} <b>owner</b></li>
               <li>
@@ -518,6 +554,15 @@ class AdminMyCryptoTabComponent extends Component {
                   </div>
                   <code>{namehash(name)}</code>
               </li>
+              {
+                resolverField === 'chainAddr' &&
+                <li>
+                    <div>
+                      {strings.my_crypto_copy_paste_on} <i>chainId bytes8</i>
+                    </div>
+                    <code>{chainId}</code>
+                </li>
+              }
               <li>{strings.mycrypto_read}</li>
             </ol>
           </Modal.Body>
@@ -535,7 +580,10 @@ class AdminMyCryptoTabComponent extends Component {
             <ol>
               <li>{strings.mycrypto_select_network}</li>
               <li>{strings.mycrypto_go_to_interact}</li>
-              <li>{strings.mycrypto_select_resolver}</li>
+              {
+                resolverValue === publicResolver ? <li>{strings.mycrypto_select_resolver}</li> :
+                resolverValue === multiChainResolver && <li>{strings.mycrypto_select_multi_resolver}</li>
+              }
               <li>{strings.mycrypto_access}</li>
               <li>{strings.mycrypto_on_read_write_select} <b>{resolverField}</b>.</li>
               <li>
@@ -558,6 +606,15 @@ class AdminMyCryptoTabComponent extends Component {
                       </div>
                       <code>{resolverFieldValue}</code>
                   </li>
+                  {
+                    resolverField === 'chainAddr' &&
+                    <li>
+                        <div>
+                          <i>chainId bytes8</i>
+                        </div>
+                        <code>{chainId}</code>
+                    </li>
+                  }
                 </ul>
               </li>
               <li>{strings.mycrypto_choose_checkout}</li>
