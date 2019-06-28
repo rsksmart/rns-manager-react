@@ -5,12 +5,12 @@ import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
  * @param {string} name to validate
  * @returns {bool} if the name is valid
  */
-export const isValidName = name => {
+export const isValidName = (name) => {
   const labels = name.split('.');
 
   let isValid = true;
 
-  labels.forEach(label => {
+  labels.forEach((label) => {
     if (label.length === 0) isValid = false;
   });
 
@@ -28,18 +28,18 @@ export const validateAddress = (address, chainId) => {
   if (!isValidAddress(address)) return 'Invalid address';
   if (!isValidChecksumAddress(address, chainId) && address !== address.toLowerCase()) return 'Invalid checksum';
   return null;
-}
+};
 
 /**
  * validate if a number is positive
  * @param {number} number to validate
  * @returns {string} null if it's valid and an error message if it is not
  */
-export const validatePositiveNumber = number => number >= 0 ? null : 'Invalid number';
+export const validatePositiveNumber = number => (number >= 0 ? null : 'Invalid number');
 
 /**
  * validate a bytes32
  * @param {string} bytes to validate
  * @returns {string} null if it's valid and an error message if it is not
  */
-export const validateBytes32 = bytes => bytes.length === 66 && bytes.slice(0,2) === '0x' ? null : 'Invalid bytes';
+export const validateBytes32 = bytes => (bytes.length === 66 && bytes.slice(0, 2) === '0x' ? null : 'Invalid bytes');
