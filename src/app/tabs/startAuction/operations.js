@@ -1,26 +1,15 @@
-import { requestStartAuction, receiveStartAuction } from './actions';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { requestStartAuction, receiveStartAuction } from './actions';
 import { registrar as registrarAddress } from '../../../config/contracts';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
+import abi from './abi.json';
 
-export const startAuction = domain => dispatch => {
-  const registrar = window.web3.eth.contract([
-    {
-      'constant': false,
-      'inputs': [
-        { 'name': '_hash', 'type': 'bytes32' }
-      ],
-      'name': 'startAuction',
-      'outputs': [],
-      'payable': false,
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    }
-  ]).at(registrarAddress);
+export default domain => (dispatch) => {
+  const registrar = window.web3.eth.contract(abi).at(registrarAddress);
 
   dispatch(requestStartAuction());
 
-  let hash = `0x${sha3(domain.split('.')[0])}`;
+  const hash = `0x${sha3(domain.split('.')[0])}`;
 
   return new Promise((resolve) => {
     registrar.startAuction(hash, (error, result) => {
