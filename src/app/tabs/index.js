@@ -1,7 +1,6 @@
 import admin from './admin';
 import bid from './bid';
 import finalize from './finalize';
-import home from './home';
 import publicResolver from './publicResolver';
 import multiChainResolver from './multiChainResolver';
 import resolve from './resolve';
@@ -14,7 +13,6 @@ export default {
   admin,
   bid,
   finalize,
-  home,
   publicResolver,
   multiChainResolver,
   search,
