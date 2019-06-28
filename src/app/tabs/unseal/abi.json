@@ -1,0 +1,32 @@
+[
+  {
+    "constant": false,
+    "inputs": [
+      { "name": "_hash", "type": "bytes32" },
+      { "name": "_value", "type": "uint256" },
+      { "name": "_salt", "type": "bytes32" }
+    ],
+    "name": "unsealBid",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      { "name": "_hash", "type": "bytes32" }
+    ],
+    "name": "entries",
+    "outputs": [
+      { "name": "", "type": "uint8" },
+      { "name": "", "type": "address" },
+      { "name": "", "type": "uint256" },
+      { "name": "", "type": "uint256" },
+      { "name": "", "type": "uint256" }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

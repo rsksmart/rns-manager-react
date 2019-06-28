@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
-import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import React, { Component } from 'react';
+import propTypes from 'prop-types';
+import { multilanguage } from 'redux-multilanguage';
+import {
+  Form, InputGroup, FormControl, Button,
+} from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskFormContainer } from '../../../containers';
-import { MyCryptoModal } from './MyCryptoModal';
-import { multilanguage } from 'redux-multilanguage';
+import MyCryptoModal from './MyCryptoModal';
 
 class UnsealComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       value: 1,
       salt: '',
-      showMyCrypto: false
+      showMyCrypto: false,
     };
 
     this.changeValue = this.changeValue.bind(this);
@@ -20,31 +23,37 @@ class UnsealComponent extends Component {
     this.changeShowMyCrypto = this.changeShowMyCrypto.bind(this);
   }
 
-  changeValue (event) {
+  changeValue(event) {
     this.setState({ value: event.target.value });
   }
 
-  changeSalt (event) {
+  changeSalt(event) {
     this.setState({ salt: event.target.value });
   }
 
-  changeShowMyCrypto () {
+  changeShowMyCrypto() {
     this.setState(state => ({ showMyCrypto: !state.showMyCrypto }));
   }
 
-  render () {
-    const { strings, domain, unseal, loading, viewMyCrypto } = this.props;
+  render() {
+    const {
+      strings, domain, unseal, loading, viewMyCrypto,
+    } = this.props;
     const { value, salt, showMyCrypto } = this.state;
 
     return (
       <TabWithSearchComponent>
-        <h2>{strings.unseal_bid_for} <b>{domain}</b></h2>
-        <Button variant='disabled' size='sm' disabled>{strings.upload_bid_data}</Button>
+        <h2>
+          {strings.unseal_bid_for}
+          {' '}
+          <b>{domain}</b>
+        </h2>
+        <Button variant="disabled" size="sm" disabled>{strings.upload_bid_data}</Button>
         <MetamaskFormContainer onSubmit={() => unseal(domain, value, salt)}>
           <Form.Group>
             <Form.Label>{strings.value}</Form.Label>
             <InputGroup className="mb-3">
-              <FormControl type='number' value={value} onChange={this.changeValue} />
+              <FormControl type="number" value={value} onChange={this.changeValue} />
               <InputGroup.Append>
                 <InputGroup.Text>RIF</InputGroup.Text>
               </InputGroup.Append>
@@ -52,19 +61,43 @@ class UnsealComponent extends Component {
           </Form.Group>
           <Form.Group>
             <Form.Label>{strings.secret_phrase}</Form.Label>
-            <FormControl type='text' salt={salt} onChange={this.changeSalt} />
+            <FormControl type="text" salt={salt} onChange={this.changeSalt} />
           </Form.Group>
           {
-            viewMyCrypto ?
-            <Button onClick={this.changeShowMyCrypto}>{strings.unseal_bid}</Button> :
-            <Button type='submit'>{strings.unseal_bid}</Button>
+            viewMyCrypto
+              ? <Button onClick={this.changeShowMyCrypto}>{strings.unseal_bid}</Button>
+              : <Button type="submit">{strings.unseal_bid}</Button>
           }
         </MetamaskFormContainer>
-        {viewMyCrypto && <MyCryptoModal showMyCrypto={showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} salt={salt} value={value} />}
+        {
+          viewMyCrypto
+          && (
+            <MyCryptoModal
+              showMyCrypto={showMyCrypto}
+              changeShowMyCrypto={this.changeShowMyCrypto}
+              name={domain}
+              salt={salt}
+              value={value}
+            />
+          )}
         {loading && '...'}
       </TabWithSearchComponent>
-    )
+    );
   }
 }
+
+UnsealComponent.propTypes = {
+  strings: propTypes.shape({
+    unseal_bid_for: propTypes.string.isRequired,
+    upload_bid_data: propTypes.string.isRequired,
+    value: propTypes.string.isRequired,
+    secret_phrase: propTypes.string.isRequired,
+    unseal_bid: propTypes.string.isRequired,
+  }).isRequired,
+  domain: propTypes.string.isRequired,
+  unseal: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired,
+  viewMyCrypto: propTypes.bool.isRequired,
+};
 
 export default multilanguage(UnsealComponent);
