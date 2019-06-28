@@ -55,11 +55,11 @@ export const addr = (resolverAddress, name) => dispatch => {
 
   const web3 = new Web3(rskMain);
 
-  const addrReoslver = new web3.eth.Contract(resolverInterfaces[0].abi, resolverAddress);
+  const addrResolver = new web3.eth.Contract(resolverInterfaces[0].abi, resolverAddress);
 
   const hash = namehash(name);
 
-  addrReoslver.methods.addr(hash).call().then(addr => {
+  addrResolver.methods.addr(hash).call().then(addr => {
     dispatch(actions.receiveAddr(addr));
   }).catch(error => dispatch(actions.errorAddr(error.message)));
 }
@@ -69,11 +69,11 @@ export const chainAddr = (resolverAddress, name, chainId) => dispatch => {
 
   const web3 = new Web3(rskMain);
 
-  const addrReoslver = new web3.eth.Contract(resolverInterfaces[1].abi, resolverAddress);
+  const addrResolver = new web3.eth.Contract(resolverInterfaces[1].abi, resolverAddress);
 
   const hash = namehash(name);
 
-  addrReoslver.methods.chainAddr(hash, chainId).call().then(chainAddr => {
+  addrResolver.methods.chainAddr(hash, chainId).call().then(chainAddr => {
     dispatch(actions.receiveChainAddr(chainAddr));
   }).catch(error => dispatch(actions.errorChainAddr(error.message)));
 }
