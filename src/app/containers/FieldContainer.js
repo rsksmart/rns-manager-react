@@ -1,6 +1,6 @@
 import { FieldComponent } from '../components';
 import { connect } from 'react-redux';
-import { valueTypes } from '../types';
+import * as valueTypes from '../types';
 import { validateAddress, validatePositiveNumber, validateBytes32 } from '../validations';
 import { toChecksumAddress } from '../selectors';
 import { parse } from 'query-string';

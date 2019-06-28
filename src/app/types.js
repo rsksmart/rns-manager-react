@@ -1,6 +1,4 @@
-export const valueTypes = {
-  ADDRESS: 'ADDRESS',
-  POSITIVE_NUMBER: 'POSITIVE_NUMBER',
-  BYTES32: 'BYTES32',
-  RESOLVER: 'RESOLVER'
-};
+export const ADDRESS = 'ADDRESS';
+export const POSITIVE_NUMBER = 'POSITIVE_NUMBER';
+export const BYTES32 = 'BYTES32';
+export const RESOLVER = 'RESOLVER';
