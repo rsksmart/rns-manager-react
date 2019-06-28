@@ -75,5 +75,5 @@ export const chainAddr = (resolverAddress, name, chainId) => dispatch => {
 
   addrReoslver.methods.chainAddr(hash, chainId).call().then(chainAddr => {
     dispatch(actions.receiveChainAddr(chainAddr));
-  }).catch(error => dispatch(actions.errorResolve(error.message)));
+  }).catch(error => dispatch(actions.errorChainAddr(error.message)));
 }
