@@ -1,14 +1,16 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
-import { LinkToMyCryptoInteractComponent } from '../../../components';
 import { multilanguage } from 'redux-multilanguage';
+import { LinkToMyCryptoInteractComponent } from '../../../components';
 
-export const MyCryptoModal = multilanguage(props => {
-  const { strings, name, showMyCrypto, changeShowMyCrypto } = props;
+export default multilanguage((props) => {
+  const {
+    strings, name, showMyCrypto, changeShowMyCrypto,
+  } = props;
 
   return (
-    <Modal size='lg' show={showMyCrypto} onHide={changeShowMyCrypto}>
+    <Modal size="lg" show={showMyCrypto} onHide={changeShowMyCrypto}>
       <Modal.Header closeButton>
         <h3>{strings.mycrypto_finalize_title}</h3>
         <code>{name}</code>
@@ -19,15 +21,28 @@ export const MyCryptoModal = multilanguage(props => {
           <li>{strings.mycrypto_go_to_interact}</li>
           <li>{strings.mycrypto_select_registrar}</li>
           <li>{strings.mycrypto_access}</li>
-          <li>{strings.mycrypto_on_read_write_select} <b>finalizeAuction</b></li>
           <li>
-              <div>
-                {strings.my_crypto_copy_paste_on} <i>_hash bytes32</i>
-              </div>
-              <code>0x{sha3(name.split('.')[0])}</code>
+            {strings.mycrypto_on_read_write_select}
+            {' '}
+            <b>finalizeAuction</b>
+          </li>
+          <li>
+            <div>
+              {strings.my_crypto_copy_paste_on}
+              {' '}
+              <i>_hash bytes32</i>
+            </div>
+            <code>
+              {`0x${sha3(name.split('.')[0])}`}
+            </code>
           </li>
           <li>{strings.mycrypto_choose_checkout}</li>
-          <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+          <li>
+            {strings.mycrypto_check_gas}
+            {' '}
+            <a href="https://stats.rsk.co/" target="_blank" rel="noopener noreferrer">RSK stats</a>
+            {'.'}
+          </li>
           <li>{strings.mycrypto_write}</li>
         </ol>
       </Modal.Body>
@@ -35,5 +50,5 @@ export const MyCryptoModal = multilanguage(props => {
         <LinkToMyCryptoInteractComponent />
       </Modal.Footer>
     </Modal>
-  )
+  );
 });

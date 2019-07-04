@@ -5,12 +5,12 @@ const initialState = {
 };
 
 const finalizeReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case REQUEST_FINALIZE: return {
-      loading: true
+      loading: true,
     };
     case RECEIVE_FINALIZE: return {
-      loading: false
+      loading: false,
     };
     default: return state;
   }

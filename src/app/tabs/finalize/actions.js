@@ -1,9 +1,9 @@
 import { REQUEST_FINALIZE, RECEIVE_FINALIZE } from './types';
 
 export const requestFinalize = () => ({
-  type: REQUEST_FINALIZE
+  type: REQUEST_FINALIZE,
 });
 
 export const receiveFinalize = () => ({
-  type: RECEIVE_FINALIZE
+  type: RECEIVE_FINALIZE,
 });
