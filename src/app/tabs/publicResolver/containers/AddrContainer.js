@@ -11,7 +11,7 @@ const registryFieldProps = {
   getField: state => state.publicResolver.addr,
   get: getAddr,
   changeEdit: addr.changeEdit,
-  set: setAddr
+  set: setAddr,
 };
 
 export default () => <FieldContainer {...registryFieldProps} />;
