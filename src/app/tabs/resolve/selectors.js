@@ -14,11 +14,11 @@ export const getResolverAddress = state => state.resolve.resolverAddress;
 export const getAddr = state => ({
   loading: state.resolve.addr.loading,
   error: state.resolve.addr.error,
-  value: state.resolve.addr.value
+  value: state.resolve.addr.value,
 });
 
 export const getChainAddr = state => ({
   loading: state.resolve.chainAddr.loading,
   error: state.resolve.chainAddr.error,
-  value: state.resolve.chainAddr.value
+  value: state.resolve.chainAddr.value,
 });

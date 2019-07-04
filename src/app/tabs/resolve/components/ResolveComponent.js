@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap';
-import { isValidName } from '../../../validations';
+import propTypes from 'prop-types';
+import {
+  Container, Row, Col, Form, Button, Spinner, Alert,
+} from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
+import { isValidName } from '../../../validations';
 import { ResolveAddrContainer, ResolveChainAddrContainer } from '../containers';
 
 
-const renderResolutions = supportedInterfaces => {
+const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
   const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
 
   return (
     <Container>
       <Row>
-        {hasAddr && <Col lg={hasChainAddr ? 6 : { span: 6, offset: 3 }}><ResolveAddrContainer /></Col>}
+        {
+          hasAddr && (
+            <Col lg={hasChainAddr ? 6 : { span: 6, offset: 3 }}>
+              <ResolveAddrContainer />
+            </Col>
+          )
+        }
         {hasChainAddr && <Col lg={6}><ResolveChainAddrContainer /></Col>}
       </Row>
     </Container>
   );
-}
+};
 
 class ResolveComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       value: props.name,
       isValid: true,
-      showError: true
+      showError: true,
     };
 
     this.resolveValueChange = this.resolveValueChange.bind(this);
@@ -54,11 +63,7 @@ class ResolveComponent extends Component {
     }
   }
 
-  resolveValueChange (event) {
-    this.setState({ value: event.target.value });
-  }
-
-  onResolve (event) {
+  onResolve(event) {
     event.preventDefault();
 
     const { search, resolve, name } = this.props;
@@ -71,16 +76,36 @@ class ResolveComponent extends Component {
 
       search(value);
     }
+
+    return null;
   }
 
-  validate () {
-    const isValid = isValidName(this.state.value);
+  resolveValueChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  validate() {
+    const { value } = this.state;
+    const isValid = isValidName(value);
     this.setState({ isValid });
     return isValid;
   }
 
-  render () {
-    const { strings, loading, error, supportedInterfaces } = this.props;
+  render() {
+    const {
+      strings, loading, error, supportedInterfaces,
+    } = this.props;
+    const { value, isValid, showError } = this.state;
+
+    let result;
+
+    if (error) {
+      result = <Alert variant="danger" dismissible show={showError} onClose={() => this.setState({ showError: false })}>{error}</Alert>;
+    } else if (loading) {
+      result = <Spinner animation="grow" variant="primary" />;
+    } else {
+      result = renderResolutions(supportedInterfaces);
+    }
 
     return (
       <Container>
@@ -88,28 +113,36 @@ class ResolveComponent extends Component {
           <Col>
             <Form onSubmit={this.onResolve}>
               <Form.Group>
-                <Form.Control type='text' value={this.state.value} onChange={this.resolveValueChange} className={!this.state.isValid && 'is-invalid'} />
-                <div className='invalid-feedback'>
+                <Form.Control type="text" value={value} onChange={this.resolveValueChange} className={!isValid && 'is-invalid'} />
+                <div className="invalid-feedback">
                   {strings.invalid_name}
                 </div>
               </Form.Group>
-              <Button type="submit" size='sm' disabled={loading}>{strings.resolve}</Button>
+              <Button type="submit" size="sm" disabled={loading}>{strings.resolve}</Button>
             </Form>
           </Col>
         </Row>
         <Row>
           <Col>
-            {
-              error ? <Alert variant='danger' dismissible show={this.state.showError} onClose={() => this.setState({ showError: false })}>{error}</Alert> : (
-                loading ? <Spinner animation='grow' variant='primary' /> :
-                renderResolutions(supportedInterfaces)
-              )
-            }
+            {result}
           </Col>
         </Row>
       </Container>
     );
   }
 }
+
+ResolveComponent.propTypes = {
+  name: propTypes.string.isRequired,
+  resolve: propTypes.func.isRequired,
+  error: propTypes.string.isRequired,
+  search: propTypes.func.isRequired,
+  strings: propTypes.shape({
+    resolve: propTypes.string.isRequired,
+    invalid_name: propTypes.string.isRequired,
+  }).isRequired,
+  loading: propTypes.bool.isRequired,
+  supportedInterfaces: propTypes.arrayOf(propTypes.string).isRequired,
+};
 
 export default multilanguage(ResolveComponent);

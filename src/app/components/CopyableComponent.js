@@ -18,12 +18,10 @@ class CopyableComponent extends Component {
   constructor (props) {
     super(props);
 
+    this.state = { hover: false };
+
     this.hoverOn = this.hoverOn.bind(this);
     this.hoverOff = this.hoverOff.bind(this);
-  }
-
-  state = {
-    hover: false
   }
 
   hoverOn () {
