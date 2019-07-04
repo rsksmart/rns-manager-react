@@ -11,7 +11,7 @@ const registryFieldProps = {
   getField: state => state.multiChainResolver.content,
   get: getContent,
   changeEdit: content.changeEdit,
-  set: setContent
+  set: setContent,
 };
 
 export default () => <FieldContainer {...registryFieldProps} />;
