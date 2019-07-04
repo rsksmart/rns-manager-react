@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { DomainStateComponent } from '../components';
-import { parse } from 'query-string';
-import { getAuctionState } from '../operations';
 import { push } from 'connected-react-router';
+import { parse } from 'query-string';
+import { DomainStateComponent } from '../components';
+import getAuctionState from '../operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || '',
@@ -12,10 +12,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getAuctionState(domain)),
-  search: domain => dispatch(push(`/search?domain=${domain}`))
+  search: domain => dispatch(push(`/search?domain=${domain}`)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DomainStateComponent);
