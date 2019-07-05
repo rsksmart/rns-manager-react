@@ -1,64 +1,16 @@
+import { keccak_256 as sha3 } from 'js-sha3';
 import { requestBid, receiveBid } from './actions';
 import { rif as rifAddress, registrar as registrarAddress } from '../../../config/contracts.json';
-import { keccak_256 as sha3 } from 'js-sha3';
 import { notifyTx, notifyError, txTypes } from '../../notifications';
+import registrarAbi from './registrarAbi';
+import rifAbi from './rifAbi';
 
-export const bid = (domain, value, salt) => dispatch => {
+export default (domain, value, salt) => (dispatch) => {
   dispatch(requestBid());
 
-  const registrar = window.web3.eth.contract([
-    {
-      'constant': true,
-      'inputs': [
-        { 'name': '_hash', 'type': 'bytes32' },
-        { 'name': '_owner', 'type': 'address' },
-        { 'name': '_value', 'type': 'uint256' },
-        { 'name': '_salt', 'type': 'bytes32' }
-      ],
-      'name': 'shaBid',
-      'outputs': [
-        { 'name': '', 'type': 'bytes32' }
-      ],
-      'payable': false,
-      'stateMutability': 'pure',
-      'type': 'function'
-    },
-    {
-      'constant': true,
-      'inputs': [
-        { 'name': '_hash', 'type': 'bytes32' }
-      ],
-      'name': 'entries',
-      'outputs': [
-        { 'name': '', 'type': 'uint8' },
-        { 'name': '', 'type': 'address' },
-        { 'name': '', 'type': 'uint256' },
-        { 'name': '', 'type': 'uint256' },
-        { 'name': '', 'type': 'uint256' }
-      ],
-      'payable': false,
-      'stateMutability': 'view',
-      'type': 'function'
-    }
-  ]).at(registrarAddress);
+  const registrar = window.web3.eth.contract(registrarAbi).at(registrarAddress);
 
-  const rif = window.web3.eth.contract([
-    {
-      'constant': false,
-      'inputs': [
-        { 'name': '_to', 'type': 'address' },
-        { 'name': '_value', 'type': 'uint256' },
-        { 'name': 'data', 'type': 'bytes' }
-      ],
-      'name': 'transferAndCall',
-      'outputs': [
-        { 'name': '', 'type': 'bool' }
-      ],
-      'payable': false,
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    }
-  ]).at(rifAddress);
+  const rif = window.web3.eth.contract(rifAbi).at(rifAddress);
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
   const owner = window.web3.eth.accounts[0];
@@ -71,13 +23,13 @@ export const bid = (domain, value, salt) => dispatch => {
         return resolve(dispatch(notifyError(shaBidError.message)));
       }
 
-      rif.transferAndCall(registrarAddress, tokens, `0x1413151f${shaBidResult.slice(2)}`, (error, result) => {
+      return rif.transferAndCall(registrarAddress, tokens, `0x1413151f${shaBidResult.slice(2)}`, (error, result) => {
         if (error) {
           dispatch(receiveBid());
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        registrar.entries(hash, (entriesError, entriesResult) => {
+        return registrar.entries(hash, (entriesError, entriesResult) => {
           if (error) {
             dispatch(receiveBid());
             return resolve(dispatch(notifyError(entriesError.message)));
@@ -87,7 +39,9 @@ export const bid = (domain, value, salt) => dispatch => {
 
           dispatch(receiveBid());
 
-          return resolve(dispatch(notifyTx(result, '', { type: txTypes.BID_AUCTION, name: domain, value, salt, registrationDate })));
+          return resolve(dispatch(notifyTx(result, '', {
+            type: txTypes.BID_AUCTION, name: domain, value, salt, registrationDate,
+          })));
         });
       });
     });
