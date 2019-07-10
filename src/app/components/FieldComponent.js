@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
+import propTypes from 'prop-types';
+import {
+  Row, Col, Form, InputGroup, Button,
+} from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 
 class FieldComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       inputValue: props.preloadedValue,
       isValid: true,
-      validationError: null
+      validationError: null,
     };
 
     this.validate = this.validate.bind(this);
     this.onInputValueChange = this.onInputValueChange.bind(this);
   }
 
-  validate () {
-    const { inputValue } = this.state;
-    const validationError = this.props.validate(inputValue);
-    const isValid = validationError === null;
-    this.setState({ validationError, isValid });
-    return isValid;
-  }
-
-  componentDidMount () {
-    const { get, domain, preloadedValue, changeEdit } = this.props;
+  componentDidMount() {
+    const {
+      get, domain, preloadedValue, changeEdit,
+    } = this.props;
     get(domain);
 
     if (preloadedValue) {
@@ -33,21 +30,42 @@ class FieldComponent extends Component {
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     const { get, domain } = this.props;
     if (newProps.domain !== domain) {
       get(newProps.domain);
     }
   }
 
-  onInputValueChange (event) {
+  onInputValueChange(event) {
     this.setState({ inputValue: event.target.value });
   }
 
-  render () {
-    const { strings, fieldName, type, getting, value, changeEdit, editOpen, set, editting, options, preloadedValue } = this.props;
-
+  validate() {
     const { inputValue } = this.state;
+    const { validate } = this.props;
+    const validationError = validate(inputValue);
+    const isValid = validationError === null;
+    this.setState({ validationError, isValid });
+    return isValid;
+  }
+
+  render() {
+    const {
+      strings,
+      fieldName,
+      type,
+      getting,
+      value,
+      changeEdit,
+      editOpen,
+      set,
+      editing,
+      options,
+      preloadedValue,
+    } = this.props;
+
+    const { inputValue, isValid, validationError } = this.state;
 
     return (
       <React.Fragment>
@@ -55,28 +73,30 @@ class FieldComponent extends Component {
           <Col md={2}>{fieldName}</Col>
           <Col md={8}><b>{getting ? '...' : value}</b></Col>
           <Col md={2}>
-            <Button variant='link' onClick={changeEdit}>{editOpen ? strings.cancel : strings.edit}</Button>
+            <Button variant="link" onClick={changeEdit}>{editOpen ? strings.cancel : strings.edit}</Button>
           </Col>
         </Row>
         {
-          editOpen &&
+          editOpen
+          && (
           <React.Fragment>
             <br />
             <Row>
               <Col>
-                <Form onSubmit={e => {
+                <Form onSubmit={(e) => {
                   e.preventDefault();
                   if (this.validate()) set(inputValue);
-                }}>
+                }}
+                >
                   <Form.Group>
                     <InputGroup>
-                      <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!this.state.isValid ? 'is-invalid' : null} list={options && options.name}/>
+                      <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!isValid ? 'is-invalid' : null} list={options && options.name} />
                       {options && options.datalist}
                       <InputGroup.Append>
-                        <Button type='submit' variant={preloadedValue ? 'success' : 'primary'} size='sm'>{strings.edit}</Button>
+                        <Button type="submit" variant={preloadedValue ? 'success' : 'primary'} size="sm">{strings.edit}</Button>
                       </InputGroup.Append>
-                      <div className='invalid-feedback'>
-                        {this.state.validationError}
+                      <div className="invalid-feedback">
+                        {validationError}
                       </div>
                     </InputGroup>
                   </Form.Group>
@@ -84,13 +104,40 @@ class FieldComponent extends Component {
               </Col>
             </Row>
           </React.Fragment>
+          )
         }
         {
-          editting && '...'
+          editing && '...'
         }
       </React.Fragment>
     );
   }
 }
+
+FieldComponent.propTypes = {
+  get: propTypes.func.isRequired,
+  domain: propTypes.string.isRequired,
+  preloadedValue: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number,
+  ]).isRequired,
+  changeEdit: propTypes.func.isRequired,
+  validate: propTypes.func.isRequired,
+  strings: propTypes.shape({
+    cancel: propTypes.string.isRequired,
+    edit: propTypes.string.isRequired,
+  }).isRequired,
+  fieldName: propTypes.string.isRequired,
+  type: propTypes.string.isRequired,
+  getting: propTypes.bool.isRequired,
+  value: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number,
+  ]).isRequired,
+  editOpen: propTypes.bool.isRequired,
+  set: propTypes.func.isRequired,
+  editing: propTypes.bool.isRequired,
+  options: propTypes.node.isRequired,
+};
 
 export default multilanguage(FieldComponent);

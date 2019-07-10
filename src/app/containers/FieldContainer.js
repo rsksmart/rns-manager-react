@@ -15,7 +15,7 @@ function getResolverName (address, rskResolverText, multiChainResolverText) {
 
 const mapStateToProps = (state, ownProps) => {
   const { getField, valueType, strings } = ownProps;
-  const { getting, value, editOpen, editting } = getField(state);
+  const { getting, value, editOpen, editing } = getField(state);
   const { name, network } = state.auth;
   const { action, defaultValue } = parse(state.router.location.search);
 
@@ -35,7 +35,7 @@ const mapStateToProps = (state, ownProps) => {
     getting,
     value: displayValue,
     editOpen,
-    editting,
+    editing,
     validate,
     preloadedValue
   };

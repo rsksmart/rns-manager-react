@@ -2,7 +2,7 @@ const initialState = {
   getting: false,
   value: null,
   editOpen: false,
-  editting: false
+  editing: false
 }
 export const fieldReducer = field => (state = initialState, action) => {
   switch (action.type) {
@@ -22,11 +22,11 @@ export const fieldReducer = field => (state = initialState, action) => {
     };
     case field.REQUEST_SET: return {
       ...state,
-      editting: true
+      editing: true
     };
     case field.RECEIVE_SET: return {
       ...state,
-      editting: false
+      editing: false
     }
     default: return state;
   }
