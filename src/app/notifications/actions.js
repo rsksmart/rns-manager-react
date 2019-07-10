@@ -1,4 +1,6 @@
-import { notificationTypes, ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, MIGRATE_RESOLVER_NOTIFICATION } from './types';
+import {
+  notificationTypes, ADD_NOTIFICATION, VIEW_NOTIFICATION, TX_MINED, MIGRATE_RESOLVER_NOTIFICATION,
+} from './types';
 
 export const addTxNotification = (tx, message, params) => ({
   type: ADD_NOTIFICATION,
@@ -6,28 +8,28 @@ export const addTxNotification = (tx, message, params) => ({
     type: notificationTypes.TX,
     tx,
     message,
-    params
-  }
+    params,
+  },
 });
 
 export const notifyError = message => ({
   type: ADD_NOTIFICATION,
   notification: {
     type: notificationTypes.ERROR,
-    message
-  }
-})
+    message,
+  },
+});
 
 export const viewNotification = id => ({
   type: VIEW_NOTIFICATION,
-  id
+  id,
 });
 
 export const txMined = txHash => ({
   type: TX_MINED,
-  txHash
+  txHash,
 });
 
 export const notifyMigrateResolver = () => ({
-  type: MIGRATE_RESOLVER_NOTIFICATION
+  type: MIGRATE_RESOLVER_NOTIFICATION,
 });

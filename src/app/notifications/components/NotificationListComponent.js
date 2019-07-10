@@ -1,35 +1,41 @@
-import React, { Component } from 'react';
-import { TxNotificationComponent } from './index';
-import { Container } from 'react-bootstrap';
-import { Alert } from 'react-bootstrap';
+import React from 'react';
+import propTypes from 'prop-types';
+import { Container, Alert } from 'react-bootstrap';
+
+import TxNotificationComponent from './TxNotificationComponent';
 import { notificationTypes } from '../types';
 
-class NotificationListComponent extends Component {
-  render () {
-    const { notifications, viewNotification } = this.props;
+const NotificationListComponent = ({ notifications, viewNotification }) => (
+  <Container>
+    {
+      notifications.map((n) => {
+        if (n.type === notificationTypes.ERROR) {
+          return (
+            <Alert key={n.id} variant="danger" dismissible>
+              {n.message}
+            </Alert>
+          );
+        } if (n.type === notificationTypes.TX) {
+          return (
+            <TxNotificationComponent
+              key={n.id}
+              notification={n}
+              dismissible
+              viewNotification={() => viewNotification(n.id)}
+            />
+          );
+        } return null;
+      })
+    }
+  </Container>
+);
 
-    return (
-      <Container>
-        {
-          notifications.map(n => {
-            if (n.type === notificationTypes.ERROR) {
-              return (
-                <Alert key={n.id} variant='danger' dismissible>
-                  {n.message}
-                </Alert>
-              )
-            }
-            else if (n.type === notificationTypes.TX) {
-              return (
-                <TxNotificationComponent key={n.id} notification={n} dismissible={true} viewNotification={() => viewNotification(n.id)} />
-              )
-            }
-            else return null;
-          })
-        }
-      </Container>
-    )
-  }
-}
+NotificationListComponent.propTypes = {
+  notifications: propTypes.arrayOf(propTypes.shape({
+    id: propTypes.number.isRequired,
+    message: propTypes.string.isRequired,
+  })).isRequired,
+  viewNotification: propTypes.func.isRequired,
+};
 
 export default NotificationListComponent;

@@ -1,7 +1,7 @@
 export const notificationTypes = {
   ERROR: 'ERROR',
   TX: 'TX',
-  MIGRATE_RESOLVER: 'MIGRATE_RESOLVER'
+  MIGRATE_RESOLVER: 'MIGRATE_RESOLVER',
 };
 
 export const txTypes = {
@@ -18,8 +18,8 @@ export const txTypes = {
   SET_ADDR: 'SET_ADDR',
   SET_CONTENT: 'SET_CONTENT',
 
-  SET_CHAIN_ADDR: 'SET_CHAIN_ADDR'
-}
+  SET_CHAIN_ADDR: 'SET_CHAIN_ADDR',
+};
 
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const VIEW_NOTIFICATION = 'VIEW_NOTIFICATION';
