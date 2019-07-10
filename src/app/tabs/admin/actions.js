@@ -4,7 +4,7 @@ import {
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
 } from './types';
 
-import { filedActions } from '../../factories/actionFactory';
+import filedActions from '../../factories/actionFactory';
 
 export const owner = filedActions(OWNER);
 export const resolver = filedActions(RESOLVER);

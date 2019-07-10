@@ -2,32 +2,32 @@ const initialState = {
   getting: false,
   value: null,
   editOpen: false,
-  editing: false
-}
-export const fieldReducer = field => (state = initialState, action) => {
+  editing: false,
+};
+export default field => (state = initialState, action) => {
   switch (action.type) {
     case field.REQUEST_GET: return {
       ...state,
       getting: true,
-      value: null
+      value: null,
     };
     case field.RECEIVE_GET: return {
       ...state,
       getting: false,
-      value: action.value
+      value: action.value,
     };
     case field.CHANGE_EDIT: return {
       ...state,
-      editOpen: !state.editOpen
+      editOpen: !state.editOpen,
     };
     case field.REQUEST_SET: return {
       ...state,
-      editing: true
+      editing: true,
     };
     case field.RECEIVE_SET: return {
       ...state,
-      editing: false
-    }
+      editing: false,
+    };
     default: return state;
   }
 };

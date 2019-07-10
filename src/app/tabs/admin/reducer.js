@@ -4,7 +4,7 @@ import {
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS,
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER,
 } from './types';
-import { fieldReducer } from '../../factories/reducerFactory';
+import fieldReducer from '../../factories/reducerFactory';
 
 const subdomains = (state = [], action) => {
   switch (action.type) {

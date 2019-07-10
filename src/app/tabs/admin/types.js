@@ -1,4 +1,4 @@
-import { fieldTypes } from '../../factories/typeFactory';
+import fieldTypes from '../../factories/typeFactory';
 
 export const OWNER = fieldTypes('OWNER');
 export const RESOLVER = fieldTypes('RESOLVER');

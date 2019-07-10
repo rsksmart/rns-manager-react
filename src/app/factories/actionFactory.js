@@ -1,18 +1,18 @@
-export const filedActions = field => ({
+export default field => ({
   requestGet: () => ({
-    type: field.REQUEST_GET
+    type: field.REQUEST_GET,
   }),
   receiveGet: value => ({
     type: field.RECEIVE_GET,
-    value
+    value,
   }),
   changeEdit: () => ({
-    type: field.CHANGE_EDIT
+    type: field.CHANGE_EDIT,
   }),
   requestSet: () => ({
-    type: field.REQUEST_SET
+    type: field.REQUEST_SET,
   }),
   receiveSet: () => ({
-    type: field.RECEIVE_SET
-  })
+    type: field.RECEIVE_SET,
+  }),
 });
