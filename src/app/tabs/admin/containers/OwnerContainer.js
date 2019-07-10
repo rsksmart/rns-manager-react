@@ -11,7 +11,7 @@ const registryFieldProps = {
   getField: state => state.admin.owner,
   get: getDomainOwner,
   changeEdit: owner.changeEdit,
-  set: setDomainOwner
+  set: setDomainOwner,
 };
 
 export default () => <FieldContainer {...registryFieldProps} />;

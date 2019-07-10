@@ -1,4 +1,4 @@
-export { default as OwnerContainer } from './OwnerContianer';
+export { default as OwnerContainer } from './OwnerContainer';
 export { default as ResolverContainer } from './ResolverContainer';
 export { default as TtlContainer } from './TtlContainer';
 export { default as SubdomainsListContainer } from './SubdomainsListContainer';

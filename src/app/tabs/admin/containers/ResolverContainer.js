@@ -15,8 +15,8 @@ const registryFieldProps = {
   set: setDomainResolver,
   options: {
     name: 'resolvers',
-    datalist: <ResolverDatalist />
-  }
+    datalist: <ResolverDatalist />,
+  },
 };
 
 export default () => <FieldContainer {...registryFieldProps} />;
