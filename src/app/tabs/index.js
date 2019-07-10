@@ -19,7 +19,7 @@ export default {
   startAuction,
   unseal,
   resolve,
-  user
+  user,
 };
 
 export { AdminTab } from './admin';
@@ -33,7 +33,7 @@ export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { StartAuctionTab } from './startAuction';
 export { UnsealTab } from './unseal';
-export { NoMetamaskTab } from './NoMetamaskTab';
-export { SetUpTab } from './SetUpTab';
+export { default as NoMetamaskTab } from './NoMetamaskTab';
+export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
 export { default as AdminMyCryptoTab } from './AdminMyCryptoTab';
