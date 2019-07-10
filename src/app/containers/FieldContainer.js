@@ -1,13 +1,13 @@
-import { FieldComponent } from '../components';
 import { connect } from 'react-redux';
+import { parse } from 'query-string';
+import { multilanguage } from 'redux-multilanguage';
+import { FieldComponent } from '../components';
 import * as valueTypes from '../types';
 import { validateAddress, validatePositiveNumber, validateBytes32 } from '../validations';
 import { toChecksumAddress } from '../selectors';
-import { parse } from 'query-string';
-import { multilanguage } from 'redux-multilanguage';
 import { publicResolver, multiChainResolver } from '../../config/contracts';
 
-function getResolverName (address, rskResolverText, multiChainResolverText) {
+function getResolverName(address, rskResolverText, multiChainResolverText) {
   if (address.toLowerCase() === publicResolver.toLowerCase()) return rskResolverText;
   if (address.toLowerCase() === multiChainResolver.toLowerCase()) return multiChainResolverText;
   return address;
@@ -15,18 +15,34 @@ function getResolverName (address, rskResolverText, multiChainResolverText) {
 
 const mapStateToProps = (state, ownProps) => {
   const { getField, valueType, strings } = ownProps;
-  const { getting, value, editOpen, editing } = getField(state);
+  const {
+    getting, value, editOpen, editing,
+  } = getField(state);
   const { name, network } = state.auth;
   const { action, defaultValue } = parse(state.router.location.search);
 
-  const displayValue = valueType === valueTypes.ADDRESS ? toChecksumAddress(state)(value) :
-    valueType === valueTypes.RESOLVER ? value && getResolverName(value, strings.rsk_resolver, strings.multi_chain_resolver) :
-      valueType === valueTypes.POSITIVE_NUMBER ? value && value.toNumber() : value;
+  let displayValue = value;
 
-  const validate =
-    (valueType === valueTypes.ADDRESS || valueType === valueTypes.RESOLVER) ? address => validateAddress(address, network) :
-      valueType === valueTypes.POSITIVE_NUMBER ? number => validatePositiveNumber(number) :
-        valueType === valueTypes.BYTES32 ? bytes => validateBytes32(bytes) : () => null;
+  if (valueType === valueTypes.ADDRESS) {
+    displayValue = toChecksumAddress(state)(value);
+  } else if (valueType === valueTypes.RESOLVER) {
+    displayValue = (
+      value
+      && getResolverName(value, strings.rsk_resolver, strings.multi_chain_resolver)
+    );
+  } else if (valueType === valueTypes.POSITIVE_NUMBER) {
+    displayValue = value && value.toNumber();
+  }
+
+  let validate = () => null;
+
+  if (valueType === valueTypes.ADDRESS || valueType === valueTypes.RESOLVER) {
+    validate = address => validateAddress(address, network);
+  } else if (valueType === valueTypes.POSITIVE_NUMBER) {
+    validate = number => validatePositiveNumber(number);
+  } else if (valueType === valueTypes.BYTES32) {
+    validate = bytes => validateBytes32(bytes);
+  }
 
   const preloadedValue = action === ownProps.fieldName ? defaultValue : '';
 
@@ -37,7 +53,7 @@ const mapStateToProps = (state, ownProps) => {
     editOpen,
     editing,
     validate,
-    preloadedValue
+    preloadedValue,
   };
 };
 
@@ -47,22 +63,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     get: name => dispatch(get(name)),
     changeEdit: () => dispatch(changeEdit()),
-    set: (name, value) => dispatch(set(name, value))
+    set: (name, value) => dispatch(set(name, value)),
   };
 };
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  return {
-    ...ownProps,
-    ...stateProps,
-    ...dispatchProps,
-    get: () => dispatchProps.get(stateProps.name),
-    set: value => dispatchProps.set(stateProps.name, value)
-  }
-};
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  get: () => dispatchProps.get(stateProps.name),
+  set: value => dispatchProps.set(stateProps.name, value),
+});
 
 export default multilanguage(connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps
+  mergeProps,
 )(FieldComponent));
