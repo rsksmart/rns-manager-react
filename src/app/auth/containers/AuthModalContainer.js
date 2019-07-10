@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
 import { networkSelector, toChecksumAddress } from '../../selectors';
-import { push } from 'connected-react-router';
 import { changeMyCryptoMetamask } from '../../tabs/user';
 
 const mapStateToProps = state => ({
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
   name: state.auth.name,
   storageName: state.auth.storageName,
   isOwner: state.auth.isOwner,
-  defaultDomain: state.auth.defaultDomain
+  defaultDomain: state.auth.defaultDomain,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -28,20 +28,18 @@ const mapDispatchToProps = dispatch => ({
     dispatch(push('/walltes'));
     dispatch(closeModal());
   },
-  switchToMyCrypto: () => dispatch(changeMyCryptoMetamask(true))
+  switchToMyCrypto: () => dispatch(changeMyCryptoMetamask(true)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  return {
-    ...ownProps,
-    ...stateProps,
-    ...dispatchProps,
-    authenticate: name => dispatchProps.authenticate(name, stateProps.address)
-  }
-};
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  authenticate: name => dispatchProps.authenticate(name, stateProps.address),
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps
+  mergeProps,
 )(AuthModalComponent);

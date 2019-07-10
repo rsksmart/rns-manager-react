@@ -1,4 +1,4 @@
-import { RECEIVE_HAS_METAMASK, REQUEST_ENABLE, RECEIVE_ENABLE, SHOW_AUTH_MODAL, CLOSE_AUTH_MODAL, REQUEST_LOGIN, RECEIVE_LOGIN, ERROR_LOGIN, ERROR_ENABLE, LOG_OUT } from './types';
+import * as types from './types';
 
 const initialState = {
   showModal: false,
@@ -11,71 +11,71 @@ const initialState = {
   name: null,
   storageName: localStorage.getItem('name'),
   isOwner: false,
-  network: null
-}
+  network: null,
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_AUTH_MODAL: return {
+    case types.SHOW_AUTH_MODAL: return {
       ...state,
       defaultName: action.name,
-      showModal: true
-    }
-    case CLOSE_AUTH_MODAL: return {
+      showModal: true,
+    };
+    case types.CLOSE_AUTH_MODAL: return {
       ...state,
-      showModal: false
-    }
-    case RECEIVE_HAS_METAMASK: return {
+      showModal: false,
+    };
+    case types.RECEIVE_HAS_METAMASK: return {
       ...state,
-      hasMetamask: action.value
-    }
-    case REQUEST_ENABLE: return {
+      hasMetamask: action.value,
+    };
+    case types.REQUEST_ENABLE: return {
       ...state,
       enabling: true,
       enableError: null,
       address: null,
-      network: null
-    }
-    case RECEIVE_ENABLE: return {
+      network: null,
+    };
+    case types.RECEIVE_ENABLE: return {
       ...state,
       enabling: false,
       enableError: null,
       address: action.address,
-      network: action.network
-    }
-    case ERROR_ENABLE: return {
+      network: action.network,
+    };
+    case types.ERROR_ENABLE: return {
       ...state,
       enabling: false,
       enableError: action.message,
       address: null,
-      network: null
-    }
-    case REQUEST_LOGIN: return {
+      network: null,
+    };
+    case types.REQUEST_LOGIN: return {
       ...state,
       authenticating: true,
       authError: null,
-      name: null
-    }
-    case RECEIVE_LOGIN: return {
+      name: null,
+    };
+    case types.RECEIVE_LOGIN: return {
       ...state,
       authenticating: false,
       authError: null,
       name: action.name,
       storageName: action.name,
       isOwner: action.isOwner,
-      showModal: !action.isOwner
-    }
-    case ERROR_LOGIN: return {
+      showModal: !action.isOwner,
+    };
+    case types.ERROR_LOGIN: return {
       ...state,
       authenticating: false,
       authError: action.message,
-      name: null
-    }
-    case LOG_OUT: return {
+      name: null,
+    };
+    case types.LOG_OUT: return {
       name: null,
       storageName: localStorage.getItem('name'),
       isOwner: false,
-    }
+    };
     default: return state;
   }
 };

@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react';
+import propTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
-import { StartButton } from '..';
 import { multilanguage } from 'redux-multilanguage';
+import { StartButton } from '..';
 
-class AuthTabComponent extends Component {
-  render () {
-    const { strings, isLoggedIn } = this.props;
-
-    if (!isLoggedIn) return (
+const AuthTabComponent = ({ strings, isLoggedIn, children }) => {
+  if (!isLoggedIn) {
+    return (
       <Container>
         <Row>
           <Col>
@@ -17,9 +16,17 @@ class AuthTabComponent extends Component {
         </Row>
       </Container>
     );
-
-    return this.props.children;
   }
-}
+
+  return children;
+};
+
+AuthTabComponent.propTypes = {
+  strings: propTypes.shape({
+    please_log_in: propTypes.string.isRequired,
+  }).isRequired,
+  isLoggedIn: propTypes.bool.isRequired,
+  children: propTypes.node.isRequired,
+};
 
 export default multilanguage(AuthTabComponent);
