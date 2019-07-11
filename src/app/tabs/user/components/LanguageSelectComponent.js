@@ -33,6 +33,12 @@ class LanguageSelectComponent extends Component {
         <Col md={8}>
           <Form.Control as="select" onChange={this.onLanguageChange} value={language}>
             <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="zh">简体中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
           </Form.Control>
         </Col>
       </FormGroup>
