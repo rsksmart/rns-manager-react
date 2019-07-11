@@ -1,37 +1,66 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card, Spinner } from 'react-bootstrap';
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { isValidName } from '../../../validations';
+import {
+  Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card, Spinner,
+} from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
+import { isValidName } from '../../../validations';
 
-function getDisplayState (domain, auctionStateLoading, state, strings) {
+function getDisplayState(domain, auctionStateLoading, state, strings) {
   if (!domain) return 'Search for a domain.';
-  if (auctionStateLoading) return <Spinner animation='grow' variant='primary' />;
+  if (auctionStateLoading) return <Spinner animation="grow" variant="primary" />;
 
-  switch(state) {
-    case 0: return <Card.Text>{strings.open}<br /><Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link></Card.Text>
-    case 1: return <Card.Text>{strings.auction}<br /><Link to={`/bid?domain=${domain}`}>{strings.bid_in_auction}</Link></Card.Text>
-    case 2: return <Card.Text>{strings.finalize}<br /><Link to={`/finalize?domain=${domain}`}>{strings.finalize_the_auction}</Link></Card.Text>
-    case 4: return <Card.Text>{strings.reveal}<br /><Link to={`/unseal?domain=${domain}`}>{strings.reveal_your_bid}</Link></Card.Text>
+  switch (state) {
+    case 0: return (
+      <Card.Text>
+        {strings.open}
+        <br />
+        <Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link>
+      </Card.Text>
+    );
+    case 1: return (
+      <Card.Text>
+        {strings.auction}
+        <br />
+        <Link to={`/bid?domain=${domain}`}>{strings.bid_in_auction}</Link>
+      </Card.Text>
+    );
+    case 2: return (
+      <Card.Text>
+        {strings.finalize}
+        <br />
+        <Link to={`/finalize?domain=${domain}`}>{strings.finalize_the_auction}</Link>
+      </Card.Text>
+    );
+    case 4: return (
+      <Card.Text>
+        {strings.reveal}
+        <br />
+        <Link to={`/unseal?domain=${domain}`}>{strings.reveal_your_bid}</Link>
+      </Card.Text>
+    );
     case 5: return (
       <Card.Text>
-        {strings.owned}<br />
-        <Link to={`/admin?domain=${domain}`} className='btn btn-primary'>{strings.admin_your_domain_title}</Link><br />
-        <Link to={`/search`}>{strings.search_another_domain}</Link>
+        {strings.owned}
+        <br />
+        <Link to={`/admin?domain=${domain}`} className="btn btn-primary">{strings.admin_your_domain_title}</Link>
+        <br />
+        <Link to="/search">{strings.search_another_domain}</Link>
       </Card.Text>
-    )
-    default: return null
+    );
+    default: return null;
   }
 }
 
 class DomainStateComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       searchValue: props.domain,
-      isValid: true
-    }
+      isValid: true,
+    };
 
     this.searchValueChange = this.searchValueChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -39,16 +68,18 @@ class DomainStateComponent extends Component {
     this.changeShowProcess = this.changeShowProcess.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { domain, getState } = this.props;
     if (domain && getState) getState(domain);
   }
 
-  searchValueChange (event) {
-    this.setState({ searchValue: event.target.value });
+  componentWillReceiveProps(newProps) {
+    const { getState } = newProps;
+    const { domain } = this.props;
+    if (domain !== newProps.domain) getState(newProps.domain);
   }
 
-  onSearch (event) {
+  onSearch(event) {
     event.preventDefault();
     const { domain, getState, search } = this.props;
     const { searchValue } = this.state;
@@ -58,23 +89,27 @@ class DomainStateComponent extends Component {
     }
   }
 
-  validate () {
-    const isValid = isValidName(this.state.searchValue);
+  searchValueChange(event) {
+    this.setState({ searchValue: event.target.value });
+  }
+
+  validate() {
+    const { searchValue } = this.state;
+    const isValid = isValidName(searchValue);
     this.setState({ isValid });
     return isValid;
   }
 
-  changeShowProcess () {
-    this.setState({ showProcess: !this.state.showProcess });
+  changeShowProcess() {
+    const { showProcess } = this.state;
+    this.setState({ showProcess: !showProcess });
   }
 
-  componentWillReceiveProps (newProps) {
-    const { domain, getState } = newProps;
-    if (this.props.domain !== domain) getState(domain);
-  }
-
-  render () {
-    const { strings, domain, auctionState, auctionStateLoading } = this.props;
+  render() {
+    const {
+      strings, domain, auctionState, auctionStateLoading,
+    } = this.props;
+    const { searchValue, isValid, showProcess } = this.state;
 
     const displayState = getDisplayState(domain, auctionStateLoading, auctionState, strings);
 
@@ -83,12 +118,12 @@ class DomainStateComponent extends Component {
         <Row>
           <Col>
             <Form onSubmit={this.onSearch}>
-              <InputGroup className='mb-3'>
-                <FormControl type='text' value={this.state.searchValue} onChange={this.searchValueChange} className={!this.state.isValid && 'is-invalid'} />
+              <InputGroup className="mb-3">
+                <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={!isValid && 'is-invalid'} />
                 <InputGroup.Append>
-                  <Button type='submit' size='sm'>{strings.search}</Button>
+                  <Button type="submit" size="sm">{strings.search}</Button>
                 </InputGroup.Append>
-                <div className='invalid-feedback'>
+                <div className="invalid-feedback">
                   {strings.invalid_name}
                 </div>
               </InputGroup>
@@ -104,13 +139,16 @@ class DomainStateComponent extends Component {
                 </Card.Title>
                 {displayState}
               </Card.Body>
-              <Button variant='link' onClick={this.changeShowProcess}>
-                {!this.state.showProcess ? strings.learn_about_process : strings.hide}
+              <Button variant="link" onClick={this.changeShowProcess}>
+                {!showProcess ? strings.learn_about_process : strings.hide}
               </Button>
-              <Collapse in={this.state.showProcess}>
+              <Collapse in={showProcess}>
                 <Card.Body>
                   <hr />
-                  <p> {strings.process}</p>
+                  <p>
+                    {' '}
+                    {strings.process}
+                  </p>
                   <ol>
                     <li>{strings.process_step_1}</li>
                     <li>{strings.process_step_2}</li>
@@ -118,7 +156,7 @@ class DomainStateComponent extends Component {
                     <li>{strings.process_step_4}</li>
                   </ol>
                   <p>
-                    <Button variant='link' onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>{strings.learn_more}</Button>
+                    <Button variant="link" onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>{strings.learn_more}</Button>
                   </p>
                 </Card.Body>
               </Collapse>
@@ -126,8 +164,28 @@ class DomainStateComponent extends Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 }
+
+DomainStateComponent.propTypes = {
+  strings: propTypes.shape({
+    search: propTypes.string.isRequired,
+    invalid_name: propTypes.string.isRequired,
+    learn_about_process: propTypes.string.isRequired,
+    hide: propTypes.string.isRequired,
+    process: propTypes.string.isRequired,
+    process_step_1: propTypes.string.isRequired,
+    process_step_2: propTypes.string.isRequired,
+    process_step_3: propTypes.string.isRequired,
+    process_step_4: propTypes.string.isRequired,
+    learn_more: propTypes.string.isRequired,
+  }).isRequired,
+  domain: propTypes.string.isRequired,
+  auctionState: propTypes.number.isRequired,
+  auctionStateLoading: propTypes.bool.isRequired,
+  getState: propTypes.func.isRequired,
+  search: propTypes.func.isRequired,
+};
 
 export default multilanguage(DomainStateComponent);

@@ -1,16 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-class MetamaskButtonComponent extends Component {
-  render () {
-    const { startAndClick, enabled, onClick, ...props } = this.props;
+const MetamaskButtonComponent = (props) => {
+  const {
+    startAndClick, enabled, onClick,
+  } = props;
 
-    return (
-      <Button {...props} onClick={
-        enabled ? onClick : startAndClick
-      } />
-    );
-  }
-}
+  return (
+    <Button
+      {...props}
+      onClick={
+      enabled ? onClick : startAndClick
+    }
+    />
+  );
+};
+
+MetamaskButtonComponent.propTypes = {
+  startAndClick: propTypes.func.isRequired,
+  enabled: propTypes.bool.isRequired,
+  onClick: propTypes.func.isRequired,
+};
 
 export default MetamaskButtonComponent;

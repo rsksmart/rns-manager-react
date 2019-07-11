@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from './app/reducers';
@@ -13,11 +13,11 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 }
 
-const configureStore = prelodedState => {
+const configureStore = (prelodedState) => {
   const store = createStore(
     rootReducer(history),
     prelodedState,
-    applyMiddleware(...middleware)
+    applyMiddleware(...middleware),
   );
   return store;
 };

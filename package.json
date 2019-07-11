@@ -9,6 +9,7 @@
     "eth-ens-namehash": "^2.0.8",
     "history": "^4.7.2",
     "js-sha3": "^0.8.0",
+    "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
     "react": "^16.8.3",
     "react-add-to-calendar": "^0.1.5",
@@ -30,8 +31,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
-    "eject": "react-scripts eject"
+    "test": "jest && eslint src",
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +43,12 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.7.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.14.2"
+  }
 }

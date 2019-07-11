@@ -4,61 +4,63 @@ import { REQUEST_FINALIZE, RECEIVE_FINALIZE } from './types';
 describe('finalize reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
-    .toEqual(
-    {
-      loading: false
-    });
+      .toEqual(
+        {
+          loading: false,
+        },
+      );
   });
 
   it('should handle REQUEST_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: REQUEST_FINALIZE
-      })
+        type: REQUEST_FINALIZE,
+      }),
     )
-    .toEqual({
-      loading: true
-    });
+      .toEqual({
+        loading: true,
+      });
   });
 
   it('should handle RECEIVE_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: RECEIVE_FINALIZE
-      })
+        type: RECEIVE_FINALIZE,
+      }),
     ).toEqual({
-      loading: false
+      loading: false,
     });
   });
 
   it('should handle REQUEST_FINALIZE and RECEIVE_FINALIZE', () => {
     expect(
       reducer({}, {
-        type: REQUEST_FINALIZE
-      })
+        type: REQUEST_FINALIZE,
+      }),
     )
-    .toEqual({
-      loading: true
-    });
+      .toEqual({
+        loading: true,
+      });
 
     expect(
       reducer({
-        loading: true
+        loading: true,
       }, {
-        type: RECEIVE_FINALIZE
-      })
+        type: RECEIVE_FINALIZE,
+      }),
     ).toEqual({
-      loading: false
+      loading: false,
     });
   });
 
   it('should return the initial state when action is not implemented', () => {
     expect(reducer(undefined, {
-      type: 'NOT_IMPLEMENTED'
+      type: 'NOT_IMPLEMENTED',
     }))
-    .toEqual(
-    {
-      loading: false
-    });
+      .toEqual(
+        {
+          loading: false,
+        },
+      );
   });
 });

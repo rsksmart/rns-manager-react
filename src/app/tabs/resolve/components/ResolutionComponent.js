@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Image, Card, Alert, Spinner } from 'react-bootstrap';
+import propTypes from 'prop-types';
+import {
+  Container, Row, Col, Image, Card, Alert, Spinner,
+} from 'react-bootstrap';
 import { CopyableComponent } from '../../../components';
 
-export default class extends Component {
-  state = { showError: false };
+class ResolutionComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showError: false };
+  }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     const { error } = this.props;
 
     if (newProps.error !== error) {
@@ -13,18 +19,20 @@ export default class extends Component {
     }
   }
 
-  render () {
+  render() {
     const { error, loading, value } = this.props;
+    const { showError } = this.state;
+
     if (error) {
-      return <Alert variant='danger' dismissible show={this.state.showError} onClose={() => this.setState({ showError: false })}>{error}</Alert>;
+      return <Alert variant="danger" dismissible show={showError} onClose={() => this.setState({ showError: false })}>{error}</Alert>;
     }
 
     if (loading) {
-      return <Spinner animation='grow' variant='primary' />;
+      return <Spinner animation="grow" variant="primary" />;
     }
 
     if (!value) {
-      return 'no reolution';
+      return 'no resolution';
     }
 
     return (
@@ -33,7 +41,7 @@ export default class extends Component {
           <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={12}>
             <br />
             <Card>
-              <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${value}&choe=UTF-8`} alt='resolution qr' className='card-img-top' />
+              <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${value}&choe=UTF-8`} alt="resolution qr" className="card-img-top" />
             </Card>
           </Col>
         </Row>
@@ -44,6 +52,14 @@ export default class extends Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
+}
+
+ResolutionComponent.propTypes = {
+  error: propTypes.string.isRequired,
+  loading: propTypes.bool.isRequired,
+  value: propTypes.string.isRequired,
 };
+
+export default ResolutionComponent;

@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import { ResolveAddressComponent } from '../components';
 import { push } from 'connected-react-router';
+import { ResolveAddressComponent } from '../components';
 
 const mapDispatchToProps = dispatch => ({
-  onResolve: domain => dispatch(push(`/resolve?name=${domain}`))
+  onResolve: domain => dispatch(push(`/resolve?name=${domain}`)),
 });
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ResolveAddressComponent);

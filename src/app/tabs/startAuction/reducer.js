@@ -1,19 +1,19 @@
 import { REQUEST_START_AUCTION, RECEIVE_START_AUCTION } from './types';
 
 const initialState = {
-  loading: false
+  loading: false,
 };
 
 const startAuctionReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case REQUEST_START_AUCTION: return {
-      loading: true
-    }
+      loading: true,
+    };
     case RECEIVE_START_AUCTION: return {
       loading: false,
-    }
-    default: return state
+    };
+    default: return state;
   }
-}
+};
 
 export default startAuctionReducer;

@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { BidComponent } from '../components';
-import { bid } from '../operations';
+import bid from '../operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   loading: state.bid.loading,
-  viewMyCrypto: state.user.viewMyCrypto
+  viewMyCrypto: state.user.viewMyCrypto,
 });
 
 const mapDispatchToProps = dispatch => ({
-  bid: (domain, value, salt) => dispatch(bid(domain, value, salt))
-})
+  bid: (domain, value, salt) => dispatch(bid(domain, value, salt)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(BidComponent);

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { Modal, FormControl } from 'react-bootstrap';
 import { keccak256 as sha3 } from 'js-sha3';
 import { multilanguage } from 'redux-multilanguage';
 import { LinkToMyCryptoInteractComponent } from '../../../components';
 
 class MyCryptoModalComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = { shaBid: '' };
@@ -13,30 +14,37 @@ class MyCryptoModalComponent extends Component {
     this.changeShaBid = this.changeShaBid.bind(this);
   }
 
-  changeShaBid (event) {
+  changeShaBid(event) {
     this.setState({ shaBid: event.target.value });
   }
 
-  render () {
-    const { strings, showMyCrypto, changeShowMyCrypto, name, value, salt } = this.props;
+  render() {
+    const {
+      strings, showMyCrypto, changeShowMyCrypto, name, value, salt,
+    } = this.props;
     const { shaBid } = this.state;
 
     return (
-      <Modal size='lg' show={showMyCrypto} onHide={changeShowMyCrypto}>
+      <Modal size="lg" show={showMyCrypto} onHide={changeShowMyCrypto}>
         <Modal.Header closeButton>
           <h3>{strings.mycrypto_bid_title}</h3>
           <code>{name}</code>
         </Modal.Header>
         <Modal.Body>
           <ol>
-          <li>{strings.mycrypto_select_network}</li>
-          <li>{strings.mycrypto_go_to_interact}</li>
+            <li>{strings.mycrypto_select_network}</li>
+            <li>{strings.mycrypto_go_to_interact}</li>
             <li>
               {strings.mycrypto_seal_the_bid}
               <ol>
                 <li>{strings.mycrypto_select_registrar}</li>
                 <li>{strings.mycrypto_access}</li>
-                <li>{strings.mycrypto_on_read_write_select} <b>shaBid</b>.</li>
+                <li>
+                  {strings.mycrypto_on_read_write_select}
+                  {' '}
+                  <b>shaBid</b>
+.
+                </li>
                 <li>
                   {strings.mycrypto_copy_paste_values}
                   <ul>
@@ -44,16 +52,21 @@ class MyCryptoModalComponent extends Component {
                       <div>
                         <i>_hash bytes32</i>
                       </div>
-                      <code>0x{sha3(name.split('.')[0])}</code>
+                      <code>
+0x
+                        {sha3(name.split('.')[0])}
+                      </code>
                     </li>
                     <li>
-                      <i>_owner address</i>: {strings.mycrypto_bid_select_owner}
+                      <i>_owner address</i>
+:
+                      {strings.mycrypto_bid_select_owner}
                     </li>
                     <li>
                       <div>
                         <i>_value byte256</i>
                       </div>
-                      <code>{value * 10**18}</code>
+                      <code>{value * (10 ** 18)}</code>
                     </li>
                     <li>
                       <div>
@@ -69,11 +82,16 @@ class MyCryptoModalComponent extends Component {
             <b>{strings.mycrypto_remember_to_save_bid_data}</b>
             <li>
               {strings.mycrypto_copy_response}
-              <FormControl value={shaBid} onChange={this.changeShaBid} type='text' placeholder='0x...' />
+              <FormControl value={shaBid} onChange={this.changeShaBid} type="text" placeholder="0x..." />
             </li>
             <li>{strings.mycrypto_select_rif}</li>
             <li>{strings.mycrypto_access}</li>
-            <li>{strings.mycrypto_on_read_write_select} <b>transferAndCall</b>.</li>
+            <li>
+              {strings.mycrypto_on_read_write_select}
+              {' '}
+              <b>transferAndCall</b>
+.
+            </li>
             <li>
               {strings.mycrypto_copy_paste_values}
               <ul>
@@ -84,10 +102,11 @@ class MyCryptoModalComponent extends Component {
                   <code>0x2acc95758f8b5f583470ba265eb685a8f45fc9d5</code>
                 </li>
                 <li>
-                    <div>
-                      <i>_value uint256</i> (or a higher value)
-                    </div>
-                    <code>{value * 10**18}</code>
+                  <div>
+                    <i>_value uint256</i>
+                    {' (or a higher value)'}
+                  </div>
+                  <code>{value * (10 ** 18)}</code>
                 </li>
                 <li>
                   <div>
@@ -98,7 +117,12 @@ class MyCryptoModalComponent extends Component {
               </ul>
             </li>
             <li>{strings.mycrypto_choose_checkout}</li>
-            <li>{strings.mycrypto_check_gas} <a href='https://stats.rsk.co/' target='_blank' rel='noopener noreferrer'>RSK stats</a>.</li>
+            <li>
+              {strings.mycrypto_check_gas}
+              {' '}
+              <a href="https://stats.rsk.co/" target="_blank" rel="noopener noreferrer">RSK stats</a>
+.
+            </li>
             <li>{strings.mycrypto_write}</li>
           </ol>
         </Modal.Body>
@@ -108,6 +132,32 @@ class MyCryptoModalComponent extends Component {
       </Modal>
     );
   }
+}
+
+MyCryptoModalComponent.propTypes = {
+  strings: propTypes.shape({
+    mycrypto_bid_title: propTypes.string.isRequired,
+    mycrypto_select_network: propTypes.string.isRequired,
+    mycrypto_go_to_interact: propTypes.string.isRequired,
+    mycrypto_seal_the_bid: propTypes.string.isRequired,
+    mycrypto_select_registrar: propTypes.string.isRequired,
+    mycrypto_access: propTypes.string.isRequired,
+    mycrypto_on_read_write_select: propTypes.string.isRequired,
+    mycrypto_copy_paste_values: propTypes.string.isRequired,
+    mycrypto_bid_select_owner: propTypes.string.isRequired,
+    mycrypto_read: propTypes.string.isRequired,
+    mycrypto_remember_to_save_bid_data: propTypes.string.isRequired,
+    mycrypto_copy_response: propTypes.string.isRequired,
+    mycrypto_select_rif: propTypes.string.isRequired,
+    mycrypto_choose_checkout: propTypes.string.isRequired,
+    mycrypto_check_gas: propTypes.string.isRequired,
+    mycrypto_write: propTypes.string.isRequired,
+  }).isRequired,
+  showMyCrypto: propTypes.bool.isRequired,
+  changeShowMyCrypto: propTypes.func.isRequired,
+  name: propTypes.string.isRequired,
+  value: propTypes.number.isRequired,
+  salt: propTypes.string.isRequired,
 };
 
-export const MyCryptoModal = multilanguage(MyCryptoModalComponent);
+export default multilanguage(MyCryptoModalComponent);

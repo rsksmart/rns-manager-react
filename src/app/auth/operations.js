@@ -1,10 +1,18 @@
-import { rns as registryAddress } from '../../config/contracts';
 import { hash as namehash } from 'eth-ens-namehash';
+import { rns as registryAddress } from '../../config/contracts';
 import { checkResolver } from '../notifications';
 
-import { receiveHasMetamask, requestEnable, receiveEnable, requestLogin, receiveLogin, errorLogin, errorEnable } from './actions'
+import {
+  receiveHasMetamask,
+  requestEnable,
+  receiveEnable,
+  requestLogin,
+  receiveLogin,
+  errorLogin,
+  errorEnable,
+} from './actions';
 
-export const start = callback => dispatch => {
+export const start = callback => (dispatch) => {
   const hasMetamask = window.ethereum !== undefined;
 
   dispatch(receiveHasMetamask(hasMetamask));
@@ -17,31 +25,31 @@ export const start = callback => dispatch => {
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
   }
-}
+};
 
-export const authenticate = (name, address) => dispatch => {
+export const authenticate = (name, address) => (dispatch) => {
   dispatch(requestLogin());
   localStorage.setItem('name', name);
 
   const registry = window.web3.eth.contract([
     {
-      'constant': true,
-      'inputs': [
-        { 'name': 'node', 'type': 'bytes32' }
+      constant: true,
+      inputs: [
+        { name: 'node', type: 'bytes32' },
       ],
-      'name': 'owner',
-      'outputs': [
-        { 'name': '', 'type': 'address' }
+      name: 'owner',
+      outputs: [
+        { name: '', type: 'address' },
       ],
-      'payable': false,
-      'stateMutability': 'view',
-      'type': 'function'
-    }
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    },
   ]).at(registryAddress);
 
   const hash = namehash(name);
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     registry.owner(hash, (error, result) => {
       if (error) return resolve(dispatch(errorLogin(error)));
 

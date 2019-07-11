@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { multilanguage } from 'redux-multilanguage';
 import { TabWithSearchComponent } from '../../../components';
 import { MetamaskButtonContainer } from '../../../containers';
-import { MyCryptoModal } from './MyCryptoModal';
-import { multilanguage } from 'redux-multilanguage';
+import MyCryptoModal from './MyCryptoModal';
 
 class StartAuctionComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = { showMyCrypto: false };
@@ -14,25 +15,50 @@ class StartAuctionComponent extends Component {
     this.changeShowMyCrypto = this.changeShowMyCrypto.bind(this);
   }
 
-  changeShowMyCrypto () {
-    this.setState({ showMyCrypto: !this.state.showMyCrypto })
+  changeShowMyCrypto() {
+    this.setState(state => ({ showMyCrypto: !state.showMyCrypto }));
   }
 
-  render () {
-    const { strings, domain, viewMyCrypto, startAuction } = this.props;
+  render() {
+    const {
+      strings, domain, viewMyCrypto, startAuction,
+    } = this.props;
+    const { showMyCrypto } = this.state;
 
     return (
       <TabWithSearchComponent>
-        <h2>{strings.start_an_auction_for} <code>{domain}</code></h2>
+        <h2>
+          {strings.start_an_auction_for}
+          {' '}
+          <code>{domain}</code>
+        </h2>
         {
-          viewMyCrypto ?
-          <Button onClick={this.changeShowMyCrypto}>{strings.start_auction}</Button> :
-          <MetamaskButtonContainer onClick={() => startAuction(domain)}>{strings.start_auction}</MetamaskButtonContainer>
+          viewMyCrypto
+            ? <Button onClick={this.changeShowMyCrypto}>{strings.start_auction}</Button>
+            : (
+              <MetamaskButtonContainer onClick={() => startAuction(domain)}>
+                {strings.start_auction}
+              </MetamaskButtonContainer>
+            )
         }
-        <MyCryptoModal showMyCrypto={this.state.showMyCrypto} changeShowMyCrypto={this.changeShowMyCrypto} name={domain} />
+        <MyCryptoModal
+          showMyCrypto={showMyCrypto}
+          changeShowMyCrypto={this.changeShowMyCrypto}
+          name={domain}
+        />
       </TabWithSearchComponent>
     );
   }
 }
+
+StartAuctionComponent.propTypes = {
+  strings: propTypes.shape({
+    start_an_auction_for: propTypes.string.isRequired,
+    start_auction: propTypes.string.isRequired,
+  }).isRequired,
+  domain: propTypes.string.isRequired,
+  viewMyCrypto: propTypes.bool.isRequired,
+  startAuction: propTypes.func.isRequired,
+};
 
 export default multilanguage(StartAuctionComponent);

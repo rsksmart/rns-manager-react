@@ -1,12 +1,12 @@
-import { requestDomainState, receiveDomainState } from './actions';
+import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { requestDomainState, receiveDomainState } from './actions';
 import { registrar as registrarAddress } from '../../../config/contracts';
 import { notifyError } from '../../notifications';
-import Web3 from 'web3';
 import { rskMain } from '../../../config/nodes';
 import { registrarAbi, deedAbi } from './abis';
 
-export const getAuctionState = domain => dispatch => {
+export default domain => (dispatch) => {
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
@@ -17,28 +17,28 @@ export const getAuctionState = domain => dispatch => {
 
   const registrar = new web3.eth.Contract(registrarAbi, registrarAddress);
 
-  const hash = '0x' + sha3(domain.split('.')[0]);
+  const hash = `0x${sha3(domain.split('.')[0])}`;
 
-  registrar.methods.entries(hash).call()
-  .then(entry => {
-    let state = entry[0];
+  return registrar.methods.entries(hash).call()
+    .then((entry) => {
+      const state = entry[0];
 
-    if (state !== 2) {
-      return dispatch(receiveDomainState(state))
-    }
-
-    const deedAddress = entry[1];
-
-    const deed = new web3.eth.Contract(deedAbi, deedAddress);
-
-    deed.methods.expirationDate().call()
-    .then(expirationDate => {
-      if (expirationDate === 0) {
-        return dispatch(receiveDomainState(2));
+      if (state !== 2) {
+        return dispatch(receiveDomainState(state));
       }
 
-      return dispatch(receiveDomainState(5));
-    });
-  })
-  .catch(error => dispatch(notifyError(error.message)))
+      const deedAddress = entry[1];
+
+      const deed = new web3.eth.Contract(deedAbi, deedAddress);
+
+      return deed.methods.expirationDate().call()
+        .then((expirationDate) => {
+          if (expirationDate === 0) {
+            return dispatch(receiveDomainState(2));
+          }
+
+          return dispatch(receiveDomainState(5));
+        });
+    })
+    .catch(error => dispatch(notifyError(error.message)));
 };
