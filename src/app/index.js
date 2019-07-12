@@ -14,7 +14,7 @@ import { Notifications, notificationTypes } from './notifications';
 import { multiChainResolver } from '../config/contracts';
 
 // eslint-disable-next-line react/prop-types
-const App = multilanguage(({ strings, history, multiChainNotification }) => (
+const App = ({ strings, history, multiChainNotification }) => (
   <ConnectedRouter history={history}>
     <React.Fragment>
       <HeaderContainer />
@@ -50,7 +50,7 @@ const App = multilanguage(({ strings, history, multiChainNotification }) => (
       </Container>
     </React.Fragment>
   </ConnectedRouter>
-));
+);
 
 App.propTypes = {
   strings: propTypes.shape({
@@ -64,4 +64,4 @@ const mapStateToProps = state => ({
   multiChainNotification: state.notifications.find(n => n.type === notificationTypes.MIGRATE_RESOLVER) && !localStorage.getItem('multichain_resolver_dissimised'),
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(multilanguage(App));
