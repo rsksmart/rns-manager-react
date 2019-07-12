@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Row, Col, FormGroup, Form,
+  FormGroup, Form,
 } from 'react-bootstrap';
-import { multilanguage } from 'redux-multilanguage';
+
+const selectStyle = {
+  background: 'none',
+  color: '#149dd9',
+  borderColor: '#149dd9',
+  width: '90px',
+  margin: '0px 10px',
+};
 
 class LanguageSelectComponent extends Component {
   constructor(props) {
@@ -24,17 +31,19 @@ class LanguageSelectComponent extends Component {
   }
 
   render() {
-    const { strings } = this.props;
     const { language } = this.state;
 
     return (
-      <FormGroup as={Row}>
-        <Form.Label column md={4}>{strings.language}</Form.Label>
-        <Col md={8}>
-          <Form.Control as="select" onChange={this.onLanguageChange} value={language}>
-            <option value="en">English</option>
-          </Form.Control>
-        </Col>
+      <FormGroup>
+        <Form.Control size="lg" as="select" onChange={this.onLanguageChange} value={language} style={selectStyle}>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="zh">简体中文</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="pt">Português</option>
+          <option value="ru">Русский</option>
+        </Form.Control>
       </FormGroup>
     );
   }
@@ -43,9 +52,6 @@ class LanguageSelectComponent extends Component {
 LanguageSelectComponent.propTypes = {
   language: propTypes.string.isRequired,
   changeLanguage: propTypes.func.isRequired,
-  strings: propTypes.shape({
-    language: propTypes.string,
-  }).isRequired,
 };
 
-export default multilanguage(LanguageSelectComponent);
+export default LanguageSelectComponent;

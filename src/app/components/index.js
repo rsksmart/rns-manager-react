@@ -8,3 +8,4 @@ export { default as MetamaskFormComponent } from './metamask/MetamaskFormCompone
 export { default as LinkToMyCryptoInteractComponent } from './LinkToMyCryptoInteractComponent';
 export { default as ChainAddrSelectorComponent } from './ChainAddrSelectorComponent';
 export { default as ResolverDatalist } from './ResolverDatalist';
+export { default as LanguageSelectComponent } from './LanguageSelectComponent';
