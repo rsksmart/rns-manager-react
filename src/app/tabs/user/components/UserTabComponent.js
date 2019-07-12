@@ -6,7 +6,6 @@ import {
 import Switch from 'react-switch';
 import { multilanguage } from 'redux-multilanguage';
 import { AuthTabWrapper } from '../../../auth';
-import { LanguageSelectContainer } from '../containers';
 
 const UserTabComponent = (props) => {
   const {
@@ -44,11 +43,6 @@ const UserTabComponent = (props) => {
         </Col>
       </Row>
       <hr />
-      <Row>
-        <Col>
-          <LanguageSelectContainer />
-        </Col>
-      </Row>
       <Row>
         <Col>
           <Button onClick={logOut}>{strings.log_out}</Button>

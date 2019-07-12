@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/logo.svg';
 import { StartButton } from '../auth';
+import { LanguageSelectContainer } from '../containers';
 
 const HeaderComponent = (props) => {
   const { strings, isLoggedIn, viewMyCrypto } = props;
@@ -30,6 +31,7 @@ const HeaderComponent = (props) => {
           }
         </Nav>
         <Form onSubmit={e => e.preventDefault()} inline>
+          <LanguageSelectContainer />
           <StartButton />
         </Form>
       </Navbar.Collapse>
