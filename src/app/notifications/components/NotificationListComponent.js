@@ -11,7 +11,7 @@ const NotificationListComponent = ({ notifications, viewNotification }) => (
       notifications.map((n) => {
         if (n.type === notificationTypes.ERROR) {
           return (
-            <Alert key={n.id} variant="danger" dismissible>
+            <Alert key={n.id} variant="danger" onClose={() => viewNotification(n.id)} dismissible>
               {n.message}
             </Alert>
           );
