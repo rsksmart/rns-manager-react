@@ -130,22 +130,30 @@ class AuthModalComponent extends Component {
 }
 
 AuthModalComponent.propTypes = {
-  defaultName: propTypes.string.isRequired,
+  defaultName: propTypes.string,
   storageName: propTypes.string.isRequired,
-  strings: propTypes.arrayOf(propTypes.string).isRequired,
+  strings: propTypes.objectOf(propTypes.string).isRequired,
   show: propTypes.bool.isRequired,
   close: propTypes.func.isRequired,
   hasMetamask: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
-  enableError: propTypes.string.isRequired,
-  displayAddress: propTypes.string.isRequired,
+  enableError: propTypes.string,
+  displayAddress: propTypes.string,
   network: propTypes.string.isRequired,
   authenticate: propTypes.func.isRequired,
-  authError: propTypes.string.isRequired,
-  name: propTypes.string.isRequired,
+  authError: propTypes.string,
+  name: propTypes.string,
   isOwner: propTypes.bool.isRequired,
   openWallets: propTypes.func.isRequired,
   switchToMyCrypto: propTypes.func.isRequired,
+};
+
+AuthModalComponent.defaultProps = {
+  defaultName: '',
+  enableError: null,
+  displayAddress: null,
+  authError: null,
+  name: null,
 };
 
 export default multilanguage(AuthModalComponent);

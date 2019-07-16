@@ -116,7 +116,7 @@ class FieldComponent extends Component {
 
 FieldComponent.propTypes = {
   get: propTypes.func.isRequired,
-  domain: propTypes.string.isRequired,
+  domain: propTypes.string,
   preloadedValue: propTypes.oneOfType([
     propTypes.string,
     propTypes.number,
@@ -133,11 +133,20 @@ FieldComponent.propTypes = {
   value: propTypes.oneOfType([
     propTypes.string,
     propTypes.number,
-  ]).isRequired,
+  ]),
   editOpen: propTypes.bool.isRequired,
   set: propTypes.func.isRequired,
   editing: propTypes.bool.isRequired,
-  options: propTypes.node.isRequired,
+  options: propTypes.shape({
+    name: propTypes.string.isRequired,
+    datalist: propTypes.node.isRequired,
+  }),
+};
+
+FieldComponent.defaultProps = {
+  domain: null,
+  value: null,
+  options: null,
 };
 
 export default multilanguage(FieldComponent);

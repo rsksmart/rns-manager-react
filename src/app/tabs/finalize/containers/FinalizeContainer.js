@@ -6,6 +6,7 @@ import finalize from '../operations';
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   viewMyCrypto: state.user.viewMyCrypto,
+  loading: state.finalize.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

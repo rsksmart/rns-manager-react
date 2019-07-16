@@ -57,7 +57,11 @@ App.propTypes = {
     migrate_multichain_resolver_title: propTypes.string.isRequired,
     migrate_multichain_resolver_message: propTypes.string.isRequired,
   }).isRequired,
-  multiChainNotification: propTypes.bool.isRequired,
+  multiChainNotification: propTypes.bool,
+};
+
+App.defaultProps = {
+  multiChainNotification: false,
 };
 
 const mapStateToProps = state => ({

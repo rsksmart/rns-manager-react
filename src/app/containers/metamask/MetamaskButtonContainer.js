@@ -3,7 +3,7 @@ import { MetamaskButtonComponent } from '../../components';
 import { start } from '../../auth';
 
 const mapStateToProps = state => ({
-  enabled: state.auth.address,
+  address: state.auth.address,
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
   startAndClick: () => dispatch(start(ownProps.onClick)),

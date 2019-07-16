@@ -86,8 +86,13 @@ AdminTabComponent.propTypes = {
     admin_resolution: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
   }).isRequired,
-  name: propTypes.string.isRequired,
-  resolver: propTypes.string.isRequired,
+  name: propTypes.string,
+  resolver: propTypes.string,
+};
+
+AdminTabComponent.defaultProps = {
+  resolver: null,
+  name: null,
 };
 
 export default multilanguage(AdminTabComponent);

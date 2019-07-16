@@ -104,17 +104,22 @@ class MultiChainAddrFieldComponent extends Component {
 MultiChainAddrFieldComponent.propTypes = {
   get: propTypes.func.isRequired,
   preloadedValue: propTypes.string.isRequired,
-  domain: propTypes.string.isRequired,
+  domain: propTypes.string,
   strings: propTypes.shape({
     cancel: propTypes.string.isRequired,
     edit: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
-  value: propTypes.string.isRequired,
+  value: propTypes.string,
   changeEdit: propTypes.func.isRequired,
   editOpen: propTypes.bool.isRequired,
   set: propTypes.func.isRequired,
   editing: propTypes.bool.isRequired,
+};
+
+MultiChainAddrFieldComponent.defaultProps = {
+  domain: null,
+  value: null,
 };
 
 export default multilanguage(MultiChainAddrFieldComponent);

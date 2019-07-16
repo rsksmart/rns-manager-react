@@ -57,9 +57,14 @@ class ResolutionComponent extends Component {
 }
 
 ResolutionComponent.propTypes = {
-  error: propTypes.string.isRequired,
+  error: propTypes.string,
   loading: propTypes.bool.isRequired,
-  value: propTypes.string.isRequired,
+  value: propTypes.string,
+};
+
+ResolutionComponent.defaultProps = {
+  error: null,
+  value: null,
 };
 
 export default ResolutionComponent;

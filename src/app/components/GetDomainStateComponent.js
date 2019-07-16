@@ -64,8 +64,12 @@ GetDomainStateComponent.propTypes = {
     search: propTypes.string.isRequired,
     invalid_name: propTypes.string.isRequired,
   }).isRequired,
-  domain: propTypes.string.isRequired,
+  domain: propTypes.string,
   getDomainState: propTypes.func.isRequired,
+};
+
+GetDomainStateComponent.defaultProps = {
+  domain: '',
 };
 
 export default multilanguage(GetDomainStateComponent);

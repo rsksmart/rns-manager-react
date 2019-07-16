@@ -3,7 +3,7 @@ import { MetamaskFormComponent } from '../../components';
 import { start } from '../../auth';
 
 const mapStateToProps = state => ({
-  enabled: state.auth.address,
+  address: state.auth.address,
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
   startAndSubmit: () => dispatch(start(ownProps.onSubmit)),

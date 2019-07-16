@@ -43,9 +43,14 @@ ResolveChainAddr.propTypes = {
     chain_address: propTypes.string.isRequired,
   }).isRequired,
   loading: propTypes.bool.isRequired,
-  error: propTypes.string.isRequired,
-  value: propTypes.string.isRequired,
+  error: propTypes.string,
+  value: propTypes.string,
   getChainAddr: propTypes.func.isRequired,
+};
+
+ResolveChainAddr.defaultProps = {
+  error: null,
+  value: null,
 };
 
 export default multilanguage(ResolveChainAddr);

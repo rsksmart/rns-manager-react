@@ -84,11 +84,11 @@ class Bid extends Component {
               </InputGroup.Append>
             </InputGroup>
             <div className="invalid-feedback">
-              {strings.bid_error_onw_rif}
+              {strings.bid_error_one_rif}
             </div>
           </Form.Group>
           <Form.Group>
-            <Form.Label>{strings.secrete_phrase}</Form.Label>
+            <Form.Label>{strings.secret_phrase}</Form.Label>
             <InputGroup className="mb-3">
               <FormControl value={salt} onChange={this.changeSalt} type="text" />
               <InputGroup.Append>
@@ -126,8 +126,8 @@ Bid.propTypes = {
   strings: propTypes.shape({
     bid_for: propTypes.string.isRequired,
     how_much_do_you_value: propTypes.string.isRequired,
-    bid_error_onw_rif: propTypes.string.isRequired,
-    secrete_phrase: propTypes.string.isRequired,
+    bid_error_one_rif: propTypes.string.isRequired,
+    secret_phrase: propTypes.string.isRequired,
     random: propTypes.string.isRequired,
     advanced_options: propTypes.string.isRequired,
     bid: propTypes.string.isRequired,
