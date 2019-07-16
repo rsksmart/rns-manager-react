@@ -4,5 +4,5 @@
   "publicResolver": "0x4efd25e3d348f8f25a14fb7655fba6f72edfe93a",
   "multiChainResolver": "0x99a12be4c89cbf6cfd11d1f2c029904a7b644368",
   "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
-  "revealPeriod": 259200
+  "revealPeriod": 172800
 }
