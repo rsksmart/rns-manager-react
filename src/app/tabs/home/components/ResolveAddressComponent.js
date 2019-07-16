@@ -4,7 +4,7 @@ import {
   Form, InputGroup, FormControl, Button,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { isValidName } from '../../../validations';
+import { isValidDomain } from '../../../validations';
 
 class ResolverAddressComponent extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ResolverAddressComponent extends Component {
   }
 
   validate(name) {
-    const isValid = isValidName(name);
+    const isValid = isValidDomain(name);
     this.setState({ isValid });
     return isValid;
   }

@@ -8,6 +8,29 @@ import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
 export const isValidName = (name) => {
   const labels = name.split('.');
 
+  if (labels.length > 2) {
+    return 'Search only .rsk simple names';
+  }
+
+  if (labels.length === 2) {
+    if (labels[1] !== 'rsk') {
+      return 'Search only .rsk names';
+    }
+    if (labels[0].length === 0) {
+      return 'Search for a name.';
+    }
+  }
+
+  if (labels[0].match('[^A-Za-z0-9]')) {
+    return 'Invalid name.';
+  }
+
+  return null;
+};
+
+export const isValidDomain = (name) => {
+  const labels = name.split('.');
+
   let isValid = true;
 
   labels.forEach((label) => {

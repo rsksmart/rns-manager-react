@@ -4,7 +4,7 @@ import {
   Container, Row, Col, Form, Button, Spinner, Alert,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { isValidName } from '../../../validations';
+import { isValidDomain } from '../../../validations';
 import { ResolveAddrContainer, ResolveChainAddrContainer } from '../containers';
 
 
@@ -86,7 +86,7 @@ class ResolveComponent extends Component {
 
   validate() {
     const { value } = this.state;
-    const isValid = isValidName(value);
+    const isValid = isValidDomain(value);
     this.setState({ isValid });
     return isValid;
   }
