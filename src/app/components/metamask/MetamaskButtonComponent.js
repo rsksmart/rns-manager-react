@@ -4,14 +4,16 @@ import { Button } from 'react-bootstrap';
 
 const MetamaskButtonComponent = (props) => {
   const {
-    startAndClick, enabled, onClick,
+    startAndClick, address, onClick, ...restProps
   } = props;
 
   return (
     <Button
-      {...props}
-      onClick={
-      enabled ? onClick : startAndClick
+      {...restProps}
+      onClick={() => {
+        if (address) onClick();
+        else startAndClick();
+      }
     }
     />
   );
@@ -19,8 +21,12 @@ const MetamaskButtonComponent = (props) => {
 
 MetamaskButtonComponent.propTypes = {
   startAndClick: propTypes.func.isRequired,
-  enabled: propTypes.bool.isRequired,
+  address: propTypes.string,
   onClick: propTypes.func.isRequired,
+};
+
+MetamaskButtonComponent.defaultProps = {
+  address: null,
 };
 
 export default MetamaskButtonComponent;

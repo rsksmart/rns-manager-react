@@ -182,10 +182,14 @@ DomainStateComponent.propTypes = {
     learn_more: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
-  auctionState: propTypes.number.isRequired,
+  auctionState: propTypes.number,
   auctionStateLoading: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   search: propTypes.func.isRequired,
+};
+
+DomainStateComponent.defaultProps = {
+  auctionState: null,
 };
 
 export default multilanguage(DomainStateComponent);

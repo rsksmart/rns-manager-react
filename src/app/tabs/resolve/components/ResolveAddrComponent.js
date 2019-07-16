@@ -38,8 +38,13 @@ ResolveAddr.propTypes = {
     rsk_address: propTypes.string.isRequired,
   }).isRequired,
   loading: propTypes.bool.isRequired,
-  error: propTypes.string.isRequired,
-  value: propTypes.string.isRequired,
+  error: propTypes.string,
+  value: propTypes.string,
+};
+
+ResolveAddr.defaultProps = {
+  error: null,
+  value: null,
 };
 
 export default multilanguage(ResolveAddr);

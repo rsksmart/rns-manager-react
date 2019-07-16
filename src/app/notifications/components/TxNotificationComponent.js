@@ -58,7 +58,7 @@ NotificationComponent.propTypes = {
   }).isRequired,
   viewNotification: propTypes.func.isRequired,
   notification: propTypes.shape({
-    params: propTypes.arrayOf(propTypes.string.isRequired),
+    params: propTypes.objectOf(propTypes.string.isRequired),
     tx: propTypes.string.isRequired,
     mined: propTypes.bool.isRequired,
   }).isRequired,

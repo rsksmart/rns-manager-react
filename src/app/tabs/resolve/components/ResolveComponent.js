@@ -135,7 +135,7 @@ class ResolveComponent extends Component {
 ResolveComponent.propTypes = {
   name: propTypes.string.isRequired,
   resolve: propTypes.func.isRequired,
-  error: propTypes.string.isRequired,
+  error: propTypes.string,
   search: propTypes.func.isRequired,
   strings: propTypes.shape({
     resolve: propTypes.string.isRequired,
@@ -143,6 +143,10 @@ ResolveComponent.propTypes = {
   }).isRequired,
   loading: propTypes.bool.isRequired,
   supportedInterfaces: propTypes.arrayOf(propTypes.string).isRequired,
+};
+
+ResolveComponent.defaultProps = {
+  error: null,
 };
 
 export default multilanguage(ResolveComponent);

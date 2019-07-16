@@ -2,16 +2,16 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 
-const MetamaskButtonComponent = (props) => {
+const MetamaskFormComponent = (props) => {
   const {
-    startAndSubmit, enabled, onSubmit, children,
+    startAndSubmit, address, onSubmit, children, ...restProps
   } = props;
 
   return (
     <Form
-      {...props}
+      {...restProps}
       onSubmit={
-      enabled
+      address
         ? (e) => {
           e.preventDefault();
           onSubmit();
@@ -27,11 +27,15 @@ const MetamaskButtonComponent = (props) => {
   );
 };
 
-MetamaskButtonComponent.propTypes = {
+MetamaskFormComponent.propTypes = {
   startAndSubmit: propTypes.func.isRequired,
-  enabled: propTypes.bool.isRequired,
+  address: propTypes.string,
   onSubmit: propTypes.func.isRequired,
   children: propTypes.node.isRequired,
 };
 
-export default MetamaskButtonComponent;
+MetamaskFormComponent.defaultProps = {
+  address: null,
+};
+
+export default MetamaskFormComponent;

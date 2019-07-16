@@ -51,9 +51,14 @@ StartButtonComponent.propTypes = {
   open: propTypes.func.isRequired,
   user: propTypes.func.isRequired,
   isOwner: propTypes.bool.isRequired,
-  domain: propTypes.string.isRequired,
-  address: propTypes.string.isRequired,
+  domain: propTypes.string,
+  address: propTypes.string,
   viewMyCrypto: propTypes.bool.isRequired,
+};
+
+StartButtonComponent.defaultProps = {
+  domain: null,
+  address: null,
 };
 
 export default multilanguage(StartButtonComponent);

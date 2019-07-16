@@ -6,6 +6,7 @@ import unseal from '../operations';
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   viewMyCrypto: state.user.viewMyCrypto,
+  loading: state.unseal.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
