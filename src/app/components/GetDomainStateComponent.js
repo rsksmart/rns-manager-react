@@ -11,29 +11,29 @@ class GetDomainStateComponent extends Component {
     super(props);
 
     this.state = {
-      isValid: true,
+      invalid: null,
     };
 
     this.validate = this.validate.bind(this);
   }
 
   validate(name) {
-    const isValid = isValidName(name);
-    this.setState({ isValid });
-    return isValid;
+    const invalid = isValidName(name);
+    this.setState({ invalid });
+    return invalid;
   }
 
   render() {
     const { strings, domain, getDomainState } = this.props;
 
-    const { isValid } = this.state;
+    const { invalid } = this.state;
 
     let input;
 
     return (
       <Form onSubmit={(e) => {
         e.preventDefault();
-        if (this.validate(input.value)) getDomainState(input.value);
+        if (!this.validate(input.value)) getDomainState(input.value);
       }}
       >
         <Form.Group>
@@ -44,13 +44,13 @@ class GetDomainStateComponent extends Component {
                 input = node;
               }}
               defaultValue={domain}
-              className={!isValid ? 'is-invalid' : null}
+              className={invalid ? 'is-invalid' : null}
             />
             <InputGroup.Append>
               <Button type="submit" size="sm">{strings.search}</Button>
             </InputGroup.Append>
             <div className="invalid-feedback">
-              {strings.invalid_name}
+              {invalid}
             </div>
           </InputGroup>
         </Form.Group>

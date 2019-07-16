@@ -59,7 +59,7 @@ class DomainStateComponent extends Component {
 
     this.state = {
       searchValue: props.domain,
-      isValid: true,
+      invalid: null,
     };
 
     this.searchValueChange = this.searchValueChange.bind(this);
@@ -83,7 +83,7 @@ class DomainStateComponent extends Component {
     event.preventDefault();
     const { domain, getState, search } = this.props;
     const { searchValue } = this.state;
-    if (this.validate()) {
+    if (!this.validate()) {
       if (domain === searchValue) getState(searchValue);
       else search(searchValue);
     }
@@ -95,9 +95,9 @@ class DomainStateComponent extends Component {
 
   validate() {
     const { searchValue } = this.state;
-    const isValid = isValidName(searchValue);
-    this.setState({ isValid });
-    return isValid;
+    const invalid = isValidName(searchValue);
+    this.setState({ invalid });
+    return invalid;
   }
 
   changeShowProcess() {
@@ -109,7 +109,13 @@ class DomainStateComponent extends Component {
     const {
       strings, domain, auctionState, auctionStateLoading,
     } = this.props;
-    const { searchValue, isValid, showProcess } = this.state;
+    const { searchValue, invalid, showProcess } = this.state;
+
+    let domainDisplay = '';
+
+    if (domain) {
+      domainDisplay = domain.split('.').length === 1 ? `${domain}.rsk` : domain;
+    }
 
     const displayState = getDisplayState(domain, auctionStateLoading, auctionState, strings);
 
@@ -119,12 +125,12 @@ class DomainStateComponent extends Component {
           <Col>
             <Form onSubmit={this.onSearch}>
               <InputGroup className="mb-3">
-                <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={!isValid && 'is-invalid'} />
+                <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={invalid && 'is-invalid'} />
                 <InputGroup.Append>
                   <Button type="submit" size="sm">{strings.search}</Button>
                 </InputGroup.Append>
                 <div className="invalid-feedback">
-                  {strings.invalid_name}
+                  {invalid}
                 </div>
               </InputGroup>
             </Form>
@@ -135,7 +141,7 @@ class DomainStateComponent extends Component {
             <Card>
               <Card.Body>
                 <Card.Title>
-                  <h2>{domain}</h2>
+                  <h2>{domainDisplay}</h2>
                 </Card.Title>
                 {displayState}
               </Card.Body>
