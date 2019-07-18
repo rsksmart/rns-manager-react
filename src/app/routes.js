@@ -30,12 +30,12 @@ const Routes = (props) => {
     <Switch>
       <Route exact path="/" component={HomeTab} />
       <Route path="/setup" component={SetUpTab} />
+      <Route path="/search" component={SearchTab} />
+      <Route path="/resolve" component={ResolveTab} />
       {
         !window.ethereum && !viewMyCrypto && <Route component={NoMetamaskTab} />
       }
       <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
-      <Route path="/search" component={SearchTab} />
-      <Route path="/resolve" component={ResolveTab} />
       <Route path="/start" component={StartAuctionTab} />
       <Route path="/bid" component={BidTab} />
       <Route path="/unseal" component={UnsealTab} />
