@@ -15,6 +15,11 @@ const initialState = {
     value: null,
     error: null,
   },
+  name: {
+    loading: false,
+    value: null,
+    error: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +35,11 @@ const reducer = (state = initialState, action) => {
         error: null,
       },
       chainAddr: {
+        loading: false,
+        value: null,
+        error: null,
+      },
+      name: {
         loading: false,
         value: null,
         error: null,
@@ -55,6 +65,30 @@ const reducer = (state = initialState, action) => {
     case types.REQUEST_RESOLVE_ADDR: return {
       ...state,
       addr: {
+        loading: true,
+        value: null,
+        error: null,
+      },
+    };
+    case types.RECEIVE_RESOLVE_NAME: return {
+      ...state,
+      name: {
+        loading: false,
+        value: action.name,
+        error: null,
+      },
+    };
+    case types.ERROR_RESOLVE_NAME: return {
+      ...state,
+      name: {
+        loading: false,
+        value: null,
+        error: action.error,
+      },
+    };
+    case types.REQUEST_RESOLVE_NAME: return {
+      ...state,
+      name: {
         loading: true,
         value: null,
         error: null,

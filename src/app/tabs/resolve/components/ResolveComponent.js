@@ -5,12 +5,13 @@ import {
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidDomain } from '../../../validations';
-import { ResolveAddrContainer, ResolveChainAddrContainer } from '../containers';
+import { ResolveAddrContainer, ResolveChainAddrContainer, ResolveNameContainer } from '../containers';
 
 
 const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
   const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
+  const hasName = supportedInterfaces.indexOf('name') > -1;
 
   return (
     <Container>
@@ -23,6 +24,15 @@ const renderResolutions = (supportedInterfaces) => {
           )
         }
         {hasChainAddr && <Col lg={6}><ResolveChainAddrContainer /></Col>}
+      </Row>
+      <Row>
+        {
+          hasName && (
+            <Col>
+              <ResolveNameContainer />
+            </Col>
+          )
+        }
       </Row>
     </Container>
   );

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { ResolveChainAddrComponent } from '../components';
-import { getName, getChainAddr, getResolverAddress } from '../selectors';
+import { getSearch, getChainAddr, getResolverAddress } from '../selectors';
 import { chainAddr } from '../operations';
 
 const mapStateToProps = state => ({
-  name: getName(state),
+  name: getSearch(state),
   resolverAddress: getResolverAddress(state),
   chainAddr: getChainAddr(state),
 });

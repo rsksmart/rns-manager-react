@@ -26,6 +26,20 @@ export const receiveResolverAddress = resolverAddress => ({
   resolverAddress,
 });
 
+export const requestName = () => ({
+  type: types.REQUEST_RESOLVE_NAME,
+});
+
+export const receiveName = name => ({
+  type: types.RECEIVE_RESOLVE_NAME,
+  name,
+});
+
+export const errorName = error => ({
+  type: types.ERROR_RESOLVE_NAME,
+  error,
+});
+
 export const requestAddr = () => ({
   type: types.REQUEST_RESOLVE_ADDR,
 });

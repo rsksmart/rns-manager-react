@@ -60,5 +60,20 @@
       "type": "function",
       "signature": "0x8be4b5f6"
     }
+  ],
+  "nameResolverAbi": [
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "node", "type": "bytes32" }
+      ],
+      "name": "name",
+      "outputs": [
+        { "name": "", "type": "string" }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
   ]
 }

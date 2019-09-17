@@ -1,10 +1,13 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import * as actions from './actions';
-import { rskMain } from '../../../config/nodes';
+// import { rskMain } from '../../../config/nodes';
 import { rnsAbi, abstractResolverAbi } from './abis';
-import { rns as rnsAddress } from '../../../config/contracts';
+// import { rns as rnsAddress } from '../../../config/contracts';
 import resolverInterfaces from './resolverInterfaces';
+
+const rskMain = 'http://127.0.0.1:8545';
+const rnsAddress = '0xc941Ce74107042778a4d2fd1a974aE4EE2eFdB2E';
 
 export const identifyInterfaces = domain => (dispatch) => {
   if (!domain) {
@@ -80,4 +83,18 @@ export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
   return addrResolver.methods.chainAddr(hash, chainId).call().then((chainAddrResolution) => {
     dispatch(actions.receiveChainAddr(chainAddrResolution));
   }).catch(error => dispatch(actions.errorChainAddr(error.message)));
+};
+
+export const name = (resolverAddress, address) => (dispatch) => {
+  dispatch(actions.requestName());
+
+  const web3 = new Web3(rskMain);
+
+  const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
+
+  const hash = namehash(address);
+
+  return nameResolver.methods.name(hash).call().then((nameResolution) => {
+    dispatch(actions.receiveName(nameResolution));
+  }).catch(error => dispatch(actions.errorName(error.message)));
 };

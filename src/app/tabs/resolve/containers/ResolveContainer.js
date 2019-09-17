@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { ResolveComponent } from '../components';
 import { identifyInterfaces } from '../operations';
-import { getName, getResolve } from '../selectors';
+import { getSearch, getResolve } from '../selectors';
 
 const mapStateToProps = state => ({
-  name: getName(state),
+  name: getSearch(state),
   ...getResolve(state),
 });
 
