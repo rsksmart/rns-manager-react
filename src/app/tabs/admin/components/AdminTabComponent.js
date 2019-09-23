@@ -6,7 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer,
+  OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer, ReverseSetupContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
 import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
@@ -55,6 +55,13 @@ class AdminTabComponent extends Component {
             </Col>
           </Row>
           <hr />
+          <Row>
+            <Col>
+              <h3>{strings.reverse_resolution}</h3>
+              <ReverseSetupContainer />
+            </Col>
+          </Row>
+          <hr />
           <Button variant="link" onClick={this.changeShowAdvanced}>{showAdvanced ? 'simple -' : 'advanced +'}</Button>
           {
             showAdvanced
@@ -85,6 +92,7 @@ AdminTabComponent.propTypes = {
     admin: propTypes.string.isRequired,
     admin_resolution: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
+    reverse_resolution: propTypes.string.isRequired,
   }).isRequired,
   name: propTypes.string,
   resolver: propTypes.string,
