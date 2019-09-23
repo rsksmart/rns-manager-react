@@ -52,7 +52,7 @@ const subdomains = (state = [], action) => {
 };
 
 const defaultReverse = {
-  hasReverse: false,
+  reverseResolution: undefined,
   getting: false,
   setting: false,
 };
@@ -69,28 +69,28 @@ const reverse = (state = defaultReverse, action) => {
       return {
         ...state,
         getting: false,
-        hasReverse: action.reverseResolution ? true : false,
+        reverseResolution: action.reverseResolution,
       };
     }
     case (REVERSE_REQUEST_SET): {
       return {
         ...state,
         setting: true,
-        hasReverse: false,
+        reverseResolution: undefined,
       };
     }
     case (REVERSE_RECEIVE_SET): {
       return {
         ...state,
         setting: false,
-        hasReverse: true,
+        reverseResolution: action.reverseResolution,
       };
     }
     case (REVERSE_ERROR_SET): {
       return {
         ...state,
         setting: false,
-        hasReverse: false,
+        reverseResolution: undefined,
       };
     }
     default: return state;

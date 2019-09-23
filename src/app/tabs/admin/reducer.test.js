@@ -198,7 +198,7 @@ describe('admin reducer', () => {
       .toEqual(
         {
           getting: true,
-          hasReverse: false,
+          reverseResolution: undefined,
           setting: false,
         },
       );
@@ -206,26 +206,13 @@ describe('admin reducer', () => {
 
   it('should handle REVERSE_RECEIVE_GET with empty string and set hasReverse to false', () => {
     expect(reducer(undefined, {
-      hasReverse: '',
+      reverseResolution: '',
       type: REVERSE_RECEIVE_GET,
     }).reverse)
       .toEqual(
         {
           getting: false,
-          hasReverse: false,
-          setting: false,
-        },
-      );
-  });
-
-  it('should handle REVERSE_RECEIVE_GET with undefined resolution and set hasReverse to false', () => {
-    expect(reducer(undefined, {
-      type: REVERSE_RECEIVE_GET,
-    }).reverse)
-      .toEqual(
-        {
-          getting: false,
-          hasReverse: false,
+          reverseResolution: '',
           setting: false,
         },
       );
@@ -239,7 +226,7 @@ describe('admin reducer', () => {
       .toEqual(
         {
           getting: false,
-          hasReverse: true,
+          reverseResolution: 'test',
           setting: false,
         },
       );
@@ -252,7 +239,7 @@ describe('admin reducer', () => {
       .toEqual(
         {
           getting: false,
-          hasReverse: false,
+          reverseResolution: undefined,
           setting: true,
         },
       );
@@ -260,12 +247,13 @@ describe('admin reducer', () => {
 
   it('should handle REVERSE_RECEIVE_SET and set hasReverse', () => {
     expect(reducer(undefined, {
+      reverseResolution: 'test',
       type: REVERSE_RECEIVE_SET,
     }).reverse)
       .toEqual(
         {
           getting: false,
-          hasReverse: true,
+          reverseResolution: 'test',
           setting: false,
         },
       );
@@ -278,7 +266,7 @@ describe('admin reducer', () => {
       .toEqual(
         {
           getting: false,
-          hasReverse: false,
+          reverseResolution: undefined,
           setting: false,
         },
       );

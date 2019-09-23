@@ -57,8 +57,9 @@ export const requestSetReverse = () => ({
   type: REVERSE_REQUEST_SET,
 });
 
-export const receiveSetReverse = () => ({
+export const receiveSetReverse = reverseResolution => ({
   type: REVERSE_RECEIVE_SET,
+  reverseResolution,
 });
 
 export const errorSetReverse = () => ({

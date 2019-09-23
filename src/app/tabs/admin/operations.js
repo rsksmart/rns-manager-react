@@ -137,7 +137,7 @@ export const setReverseResolution = name => (dispatch) => {
         dispatch(errorSetReverse());
         return resolve(dispatch(notifyError(error.message)));
       }
-      dispatch(receiveSetReverse());
+      dispatch(receiveSetReverse(name));
       return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_REVERSE_RESOLUTION, name })));
     });
   });

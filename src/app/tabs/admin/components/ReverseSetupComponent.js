@@ -11,20 +11,24 @@ class ReverseSetupComponent extends Component {
 
   render() {
     const {
-      hasReverse, getting, setting, setReverse, strings,
+      reverseResolution, getting, setting, setReverse, strings,
     } = this.props;
 
     if (getting || setting) {
       return <Spinner animation="grow" variant="primary" />;
     }
 
-    if (hasReverse) {
+    if (reverseResolution) {
       return strings.has_reverse;
     }
 
     return <Button disabled={setting} onClick={setReverse}>{strings.set_reverse}</Button>;
   }
 }
+
+ReverseSetupComponent.defaultProps = {
+  reverseResolution: undefined,
+};
 
 ReverseSetupComponent.propTypes = {
   strings: propTypes.shape({
@@ -33,7 +37,7 @@ ReverseSetupComponent.propTypes = {
   }).isRequired,
   getReverse: propTypes.func.isRequired,
   setReverse: propTypes.func.isRequired,
-  hasReverse: propTypes.bool.isRequired,
+  reverseResolution: propTypes.string,
   getting: propTypes.bool.isRequired,
   setting: propTypes.bool.isRequired,
 };

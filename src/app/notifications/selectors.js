@@ -103,7 +103,6 @@ export default strings => (params) => {
     case txTypes.SET_CHAIN_ADDR: return displaySetTx(strings.notifications_new_chain_addr, `${params.chainId} - ${params.value}`);
     case txTypes.SET_REVERSE_RESOLUTION: return displaySetTx(
       strings.notifications_new_reverse_resolution,
-      params.value,
     );
     default: return null;
   }
