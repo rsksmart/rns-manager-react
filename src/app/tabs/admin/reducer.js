@@ -8,7 +8,7 @@ import {
 } from './types';
 import fieldReducer from '../../factories/reducerFactory';
 
-const subdomains = (state = [], action) => {
+const subdomains = (state = [], action = {}) => {
   switch (action.type) {
     case ADD_SUBDOMAIN: {
       return [...state, {

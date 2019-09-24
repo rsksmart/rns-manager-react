@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ResolveNameComponent } from '../components';
+import { ResolveQRComponent } from '../components';
 import { getSearch, getResolverAddress, getName } from '../selectors';
 import { name } from '../operations';
 
@@ -23,4 +23,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(ResolveNameComponent);
+)(ResolveQRComponent);

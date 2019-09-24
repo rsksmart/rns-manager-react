@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ResolveAddrComponent } from '../components';
+import { ResolveQRComponent } from '../components';
 import { getSearch, getResolverAddress, getAddr } from '../selectors';
 import { addr } from '../operations';
 
@@ -23,4 +23,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(ResolveAddrComponent);
+)(ResolveQRComponent);

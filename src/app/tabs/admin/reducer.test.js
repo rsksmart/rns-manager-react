@@ -190,7 +190,9 @@ describe('admin reducer', () => {
         }],
       );
   });
+});
 
+describe('admin reverse reducer', () => {
   it('should handle REVERSE_REQUEST_GET and set props', () => {
     expect(reducer(undefined, {
       type: REVERSE_REQUEST_GET,
@@ -263,6 +265,17 @@ describe('admin reducer', () => {
     expect(reducer(undefined, {
       type: REVERSE_ERROR_SET,
     }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: undefined,
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).reverse)
       .toEqual(
         {
           getting: false,
