@@ -94,7 +94,7 @@ export default strings => (params) => {
         ),
     );
     case txTypes.SET_TTL: return displaySetTx(strings.notifications_new_ttl, params.value);
-    case txTypes.SET_SUBNOODE_OWNER: return displaySetTx(
+    case txTypes.SET_SUBNODE_OWNER: return displaySetTx(
       strings.notifications_new_subdomain_owner,
       params.owner,
     );
