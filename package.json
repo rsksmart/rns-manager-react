@@ -53,6 +53,7 @@
   },
   "resolutions": {
     "lodash": "^4.17.14",
-    "lodash.template": "^4.5.0"
+    "lodash.template": "^4.5.0",
+    "eslint-utils": "^1.4.1"
   }
 }
