@@ -57,7 +57,7 @@ class AuthModalComponent extends Component {
             <Form.Label column sm="2">
               {strings.address}
             </Form.Label>
-            <Col sm="10">
+            <Col sm="12">
               <Form.Control plaintext readOnly defaultValue={displayAddress} />
             </Col>
           </Form.Group>
@@ -65,7 +65,7 @@ class AuthModalComponent extends Component {
             <Form.Label column sm="2">
               {strings.network}
             </Form.Label>
-            <Col sm="10">
+            <Col sm="12">
               <Form.Control plaintext readOnly defaultValue={network} />
             </Col>
           </Form.Group>
@@ -73,7 +73,7 @@ class AuthModalComponent extends Component {
             <Form.Label column sm="2">
               {strings.name}
             </Form.Label>
-            <Col sm="10">
+            <Col sm="12">
               <Form.Control type="text" value={nameInputValue} onChange={this.changeInputName} />
             </Col>
           </Form.Group>
