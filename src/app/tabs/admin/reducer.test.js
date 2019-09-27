@@ -6,6 +6,11 @@ import {
   REQUEST_SET_SUBDOMAIN_OWNER,
   RECEIVE_SET_SUBDOMAIN_OWNER,
   VIEW_EDIT_SUBDOMAIN_OWNER,
+  REVERSE_REQUEST_GET,
+  REVERSE_RECEIVE_GET,
+  REVERSE_REQUEST_SET,
+  REVERSE_RECEIVE_SET,
+  REVERSE_ERROR_SET,
 } from './types';
 
 describe('admin reducer', () => {
@@ -183,6 +188,100 @@ describe('admin reducer', () => {
         [{
           label: 'test',
         }],
+      );
+  });
+});
+
+describe('admin reverse reducer', () => {
+  it('should handle REVERSE_REQUEST_GET and set props', () => {
+    expect(reducer(undefined, {
+      type: REVERSE_REQUEST_GET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: true,
+          reverseResolution: undefined,
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle REVERSE_RECEIVE_GET with empty string and set hasReverse to false', () => {
+    expect(reducer(undefined, {
+      reverseResolution: '',
+      type: REVERSE_RECEIVE_GET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: '',
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle REVERSE_RECEIVE_GET and set reverse resolution', () => {
+    expect(reducer(undefined, {
+      reverseResolution: 'test',
+      type: REVERSE_RECEIVE_GET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: 'test',
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle REVERSE_REQUEST_SET and set setting', () => {
+    expect(reducer(undefined, {
+      type: REVERSE_REQUEST_SET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: undefined,
+          setting: true,
+        },
+      );
+  });
+
+  it('should handle REVERSE_RECEIVE_SET and set hasReverse', () => {
+    expect(reducer(undefined, {
+      reverseResolution: 'test',
+      type: REVERSE_RECEIVE_SET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: 'test',
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle REVERSE_ERROR_SET and remove setting flag', () => {
+    expect(reducer(undefined, {
+      type: REVERSE_ERROR_SET,
+    }).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: undefined,
+          setting: false,
+        },
+      );
+  });
+
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).reverse)
+      .toEqual(
+        {
+          getting: false,
+          reverseResolution: undefined,
+          setting: false,
+        },
       );
   });
 });

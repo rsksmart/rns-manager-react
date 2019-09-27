@@ -81,3 +81,17 @@ export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
     dispatch(actions.receiveChainAddr(chainAddrResolution));
   }).catch(error => dispatch(actions.errorChainAddr(error.message)));
 };
+
+export const name = (resolverAddress, address) => (dispatch) => {
+  dispatch(actions.requestName());
+
+  const web3 = new Web3(rskMain);
+
+  const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
+
+  const hash = namehash(address);
+
+  return nameResolver.methods.name(hash).call().then((nameResolution) => {
+    dispatch(actions.receiveName(nameResolution));
+  }).catch(error => dispatch(actions.errorName(error.message)));
+};

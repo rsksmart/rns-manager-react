@@ -99,4 +99,31 @@ describe('resolve actions', () => {
         error,
       });
   });
+
+  it('should create REQUEST_RESOLVE_NAME', () => {
+    expect(actions.requestName())
+      .toEqual({
+        type: types.REQUEST_RESOLVE_NAME,
+      });
+  });
+
+  it('should create RECEIVE_RESOLVE_NAME', () => {
+    const name = 'name';
+
+    expect(actions.receiveName(name))
+      .toEqual({
+        type: types.RECEIVE_RESOLVE_NAME,
+        name,
+      });
+  });
+
+  it('should create ERROR_RESOLVE_NAME', () => {
+    const error = 'error';
+
+    expect(actions.errorName(error))
+      .toEqual({
+        type: types.ERROR_RESOLVE_NAME,
+        error,
+      });
+  });
 });

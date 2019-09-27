@@ -3,10 +3,12 @@ import {
   OWNER, RESOLVER, TTL,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS,
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER,
+  REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET, REVERSE_REQUEST_SET,
+  REVERSE_RECEIVE_SET, REVERSE_ERROR_SET,
 } from './types';
 import fieldReducer from '../../factories/reducerFactory';
 
-const subdomains = (state = [], action) => {
+const subdomains = (state = [], action = {}) => {
   switch (action.type) {
     case ADD_SUBDOMAIN: {
       return [...state, {
@@ -49,9 +51,56 @@ const subdomains = (state = [], action) => {
   }
 };
 
+const defaultReverse = {
+  reverseResolution: undefined,
+  getting: false,
+  setting: false,
+};
+
+const reverse = (state = defaultReverse, action) => {
+  switch (action.type) {
+    case (REVERSE_REQUEST_GET): {
+      return {
+        ...state,
+        getting: true,
+      };
+    }
+    case (REVERSE_RECEIVE_GET): {
+      return {
+        ...state,
+        getting: false,
+        reverseResolution: action.reverseResolution,
+      };
+    }
+    case (REVERSE_REQUEST_SET): {
+      return {
+        ...state,
+        setting: true,
+        reverseResolution: undefined,
+      };
+    }
+    case (REVERSE_RECEIVE_SET): {
+      return {
+        ...state,
+        setting: false,
+        reverseResolution: action.reverseResolution,
+      };
+    }
+    case (REVERSE_ERROR_SET): {
+      return {
+        ...state,
+        setting: false,
+        reverseResolution: undefined,
+      };
+    }
+    default: return state;
+  }
+};
+
 export default combineReducers({
   owner: fieldReducer(OWNER),
   resolver: fieldReducer(RESOLVER),
   ttl: fieldReducer(TTL),
   subdomains,
+  reverse,
 });

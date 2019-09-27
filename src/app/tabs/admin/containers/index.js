@@ -4,3 +4,4 @@ export { default as TtlContainer } from './TtlContainer';
 export { default as SubdomainsListContainer } from './SubdomainsListContainer';
 export { default as SubdomainContainer } from './SubdomainContainer';
 export { default as AdminTabContainer } from './AdminTabContainer';
+export { default as ReverseSetupContainer } from './ReverseSetupContainer';

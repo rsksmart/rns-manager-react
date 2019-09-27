@@ -176,5 +176,9 @@
   "setup_fill_with": "Fill with:",
   "select_chain": "select chain",
   "get_value_on_mycrypto": "get value on MyCrypto",
-  "get_owner": "get owner"
+  "get_owner": "get owner",
+  "reverse_resolution": "reverse resolution",
+  "set_reverse": "set reverse",
+  "has_reverse": "already set",
+  "notifications_new_reverse_resolution": "new reverse resolution registered"
 }

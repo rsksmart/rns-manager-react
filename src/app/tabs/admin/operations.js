@@ -4,15 +4,24 @@ import {
   owner, resolver, ttl,
   addSubdomain as addSubdomainAction, receiveSubdomainOwner, clearSubdomains,
   requestSetSubdomainOwner, receiveSetSubdomainOwner,
+  requestGetReverse, receiveGetReverse, requestSetReverse, receiveSetReverse, errorSetReverse,
 } from './actions';
-import { rns as registryAddress } from '../../../config/contracts';
+import {
+  rns as registryAddress,
+  reverseRegistrar as reverseRegistryAddress,
+  nameResolver as nameResolverAddress,
+} from '../../../config/contracts';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
-import abi from './abi';
+import { rnsAbi, reverseAbi, nameResolverAbi } from './abis';
 
-const registry = window.web3 && window.web3.eth.contract(abi).at(registryAddress);
+const registry = window.web3 && window.web3.eth.contract(rnsAbi).at(registryAddress);
+const reverseRegistry = window.web3
+  && window.web3.eth.contract(reverseAbi).at(reverseRegistryAddress);
+const nameResolver = window.web3
+  && window.web3.eth.contract(nameResolverAbi).at(nameResolverAddress);
 
 export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry && registry.owner);
 export const getDomainResolver = get(
@@ -100,6 +109,36 @@ export const setSubdomainOwner = (parent, child, _owner) => (dispatch) => {
       dispatch(receiveSetSubdomainOwner(child));
       if (error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNODE_OWNER, name: `${child}.${parent}`, owner: _owner }, () => displaySubdomain(parent, child))));
+    });
+  });
+};
+
+export const getReverseResolution = address => (dispatch) => {
+  const name = `${address.toLowerCase().slice(2)}.addr.reverse`;
+
+  dispatch(requestGetReverse());
+
+  const hash = namehash(name);
+
+  return new Promise((resolve) => {
+    nameResolver.name(hash, (error, nameResolution) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(receiveGetReverse(nameResolution)));
+    });
+  });
+};
+
+export const setReverseResolution = name => (dispatch) => {
+  dispatch(requestSetReverse());
+
+  return new Promise((resolve) => {
+    reverseRegistry.setName(name, (error, result) => {
+      if (error) {
+        dispatch(errorSetReverse());
+        return resolve(dispatch(notifyError(error.message)));
+      }
+      dispatch(receiveSetReverse(name));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_REVERSE_RESOLUTION, name })));
     });
   });
 };
