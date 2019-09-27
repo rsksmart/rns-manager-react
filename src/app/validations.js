@@ -21,8 +21,8 @@ export const isValidName = (name) => {
     }
   }
 
-  if (labels[0].match('[^A-Za-z0-9]')) {
-    return 'Invalid name.';
+  if (labels[0].match('[^a-z0-9]')) {
+    return 'Invalid name. Must be lower case characters and/or numbers';
   }
 
   return null;
@@ -35,6 +35,7 @@ export const isValidDomain = (name) => {
 
   labels.forEach((label) => {
     if (label.length === 0) isValid = false;
+    if (label.match('[^a-z0-9]')) isValid = false;
   });
 
   return isValid;
