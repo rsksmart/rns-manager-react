@@ -6,7 +6,8 @@ import {
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  OwnerContainer, ResolverContainer, TtlContainer, SubdomainsListContainer, ReverseSetupContainer,
+  OwnerContainer, ResolverContainer, TtlContainer,
+  SubdomainsListContainer, ReverseSetupContainer, FIFSMigrationContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
 import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
@@ -38,6 +39,13 @@ class AdminTabComponent extends Component {
           </h2>
           <Row>
             <Col>
+              <h3>{strings.fifs_migration}</h3>
+              <FIFSMigrationContainer />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h3>{strings.resolver}</h3>
               <ResolverContainer />
             </Col>
           </Row>
@@ -93,6 +101,8 @@ AdminTabComponent.propTypes = {
     admin_resolution: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
     reverse_resolution: propTypes.string.isRequired,
+    fifs_migration: propTypes.string.isRequired,
+    resolver: propTypes.string.isRequired,
   }).isRequired,
   name: propTypes.string,
   resolver: propTypes.string,

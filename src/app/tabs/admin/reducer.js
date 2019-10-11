@@ -5,6 +5,7 @@ import {
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER,
   REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET, REVERSE_REQUEST_SET,
   REVERSE_RECEIVE_SET, REVERSE_ERROR_SET,
+  FIFS_MIGRATION_CHECK_SUBDOMAIN,
 } from './types';
 import fieldReducer from '../../factories/reducerFactory';
 
@@ -97,10 +98,29 @@ const reverse = (state = defaultReverse, action) => {
   }
 };
 
+const defaultFifsMigration = {
+  isSubdomain: undefined,
+  getting: false,
+  migrating: false,
+};
+
+const fifsMigration = (state = defaultFifsMigration, action) => {
+  switch (action.type) {
+    case (FIFS_MIGRATION_CHECK_SUBDOMAIN): {
+      return {
+        ...state,
+        isSubdomain: action.isSubdomain,
+      };
+    }
+    default: return state;
+  }
+};
+
 export default combineReducers({
   owner: fieldReducer(OWNER),
   resolver: fieldReducer(RESOLVER),
   ttl: fieldReducer(TTL),
   subdomains,
   reverse,
+  fifsMigration,
 });

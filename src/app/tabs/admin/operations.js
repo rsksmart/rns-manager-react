@@ -5,6 +5,7 @@ import {
   addSubdomain as addSubdomainAction, receiveSubdomainOwner, clearSubdomains,
   requestSetSubdomainOwner, receiveSetSubdomainOwner,
   requestGetReverse, receiveGetReverse, requestSetReverse, receiveSetReverse, errorSetReverse,
+  fifsMigrationcheckIfSubdomain,
 } from './actions';
 import {
   rns as registryAddress,
@@ -141,4 +142,24 @@ export const setReverseResolution = name => (dispatch) => {
       return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_REVERSE_RESOLUTION, name })));
     });
   });
+};
+
+export const checkIfSubdomain = name => (dispatch) => {
+  const labelsAmount = name.split('.').length;
+
+  if (labelsAmount > 2) {
+    dispatch(fifsMigrationcheckIfSubdomain(true));
+  } else {
+    dispatch(fifsMigrationcheckIfSubdomain(false));
+  }
+};
+
+export const migrateToFifsRegistrar = address => (dispatch) => { // TODO
+  const labelsAmount = address.length;
+
+  if (labelsAmount > 2) {
+    dispatch(fifsMigrationcheckIfSubdomain(true));
+  } else {
+    dispatch(fifsMigrationcheckIfSubdomain(false));
+  }
 };

@@ -4,6 +4,7 @@ import {
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
   REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET,
   REVERSE_REQUEST_SET, REVERSE_RECEIVE_SET, REVERSE_ERROR_SET,
+  FIFS_MIGRATION_CHECK_SUBDOMAIN,
 } from './types';
 
 import filedActions from '../../factories/actionFactory';
@@ -64,4 +65,9 @@ export const receiveSetReverse = reverseResolution => ({
 
 export const errorSetReverse = () => ({
   type: REVERSE_ERROR_SET,
+});
+
+export const fifsMigrationcheckIfSubdomain = isSubdomain => ({
+  type: FIFS_MIGRATION_CHECK_SUBDOMAIN,
+  isSubdomain,
 });

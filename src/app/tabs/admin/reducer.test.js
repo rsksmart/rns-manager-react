@@ -11,6 +11,7 @@ import {
   REVERSE_REQUEST_SET,
   REVERSE_RECEIVE_SET,
   REVERSE_ERROR_SET,
+  FIFS_MIGRATION_CHECK_SUBDOMAIN,
 } from './types';
 
 describe('admin reducer', () => {
@@ -281,6 +282,47 @@ describe('admin reverse reducer', () => {
           getting: false,
           reverseResolution: undefined,
           setting: false,
+        },
+      );
+  });
+});
+
+describe('admin fifs migration reducer', () => {
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).fifsMigration)
+      .toEqual(
+        {
+          getting: false,
+          migrating: false,
+          isSubdomain: undefined,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_CHECK_SUBDOMAIN and subdomain true', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_CHECK_SUBDOMAIN,
+      isSubdomain: true,
+    }).fifsMigration)
+      .toEqual(
+        {
+          getting: false,
+          migrating: false,
+          isSubdomain: true,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_CHECK_SUBDOMAIN and subdomain false', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_CHECK_SUBDOMAIN,
+      isSubdomain: false,
+    }).fifsMigration)
+      .toEqual(
+        {
+          getting: false,
+          migrating: false,
+          isSubdomain: false,
         },
       );
   });
