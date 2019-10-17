@@ -176,5 +176,9 @@
   "setup_fill_with": "Заполнить:",
   "select_chain": "выбрать цепочку",
   "get_value_on_mycrypto": "получить значение на MyCrypto",
-  "get_owner": "получить данные владельца"
+  "get_owner": "получить данные владельца",
+  "reverse_resolution": "обратное преобразование",
+  "set_reverse": "задать как обратное",
+  "has_reverse": "уже используется",
+  "notifications_new_reverse_resolution": "зарегистрировано новое обратное преобразование"
 }

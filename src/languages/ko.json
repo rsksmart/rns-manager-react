@@ -176,5 +176,9 @@
   "setup_fill_with": "채우기:",
   "select_chain": "체인 선택하기",
   "get_value_on_mycrypto": "MyCrypto에서 값 얻기",
-  "get_owner": "소유자 얻기"
+  "get_owner": "소유자 얻기",
+  "reverse_resolution": "역순 결정",
+  "set_reverse": "역순 설정",
+  "has_reverse": "이미 설정됨",
+  "notifications_new_reverse_resolution": "신규 역순 결정 등록 완료"
 }
