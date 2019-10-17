@@ -176,5 +176,9 @@
   "setup_fill_with": "填写：",
   "select_chain": "选择链",
   "get_value_on_mycrypto": "获取 MyCrypto 上的值",
-  "get_owner": "获取所有者"
+  "get_owner": "获取所有者",
+  "reverse_resolution": "反向分辨率",
+  "set_reverse": "设置反向",
+  "has_reverse": "已经设定",
+  "notifications_new_reverse_resolution": "注册了新的反向分辨率"
 }
