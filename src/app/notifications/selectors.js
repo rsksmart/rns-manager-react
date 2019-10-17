@@ -104,6 +104,9 @@ export default strings => (params) => {
     case txTypes.SET_REVERSE_RESOLUTION: return displaySetTx(
       strings.notifications_new_reverse_resolution,
     );
+    case txTypes.MIGRATE_FIFS_REGISTRAR: return displaySetTx(
+      strings.notifications_migrated_domain,
+    );
     default: return null;
   }
 };

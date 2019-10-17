@@ -39,7 +39,6 @@ class AdminTabComponent extends Component {
           </h2>
           <Row>
             <Col>
-              <h3>{strings.fifs_migration}</h3>
               <FIFSMigrationContainer />
             </Col>
           </Row>

@@ -5,24 +5,30 @@ import {
   addSubdomain as addSubdomainAction, receiveSubdomainOwner, clearSubdomains,
   requestSetSubdomainOwner, receiveSetSubdomainOwner,
   requestGetReverse, receiveGetReverse, requestSetReverse, receiveSetReverse, errorSetReverse,
-  fifsMigrationcheckIfSubdomain,
+  fifsMigrationCheckIfSubdomain, requestCheckFifsMigration, receiveCheckFifsMigration,
+  requestFifsMigration, receiveFifsMigration, errorFifsMigration, errorCheckFifsMigration,
 } from './actions';
 import {
   rns as registryAddress,
   reverseRegistrar as reverseRegistryAddress,
   nameResolver as nameResolverAddress,
+  registrar as tokenRegistrarAddress,
 } from '../../../config/contracts';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
-import { rnsAbi, reverseAbi, nameResolverAbi } from './abis';
+import {
+  rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi,
+} from './abis';
 
 const registry = window.web3 && window.web3.eth.contract(rnsAbi).at(registryAddress);
 const reverseRegistry = window.web3
   && window.web3.eth.contract(reverseAbi).at(reverseRegistryAddress);
 const nameResolver = window.web3
   && window.web3.eth.contract(nameResolverAbi).at(nameResolverAddress);
+const tokenRegistrar = window.web3
+  && window.web3.eth.contract(tokenRegistrarAbi).at(tokenRegistrarAddress);
 
 export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry && registry.owner);
 export const getDomainResolver = get(
@@ -144,22 +150,44 @@ export const setReverseResolution = name => (dispatch) => {
   });
 };
 
-export const checkIfSubdomain = name => (dispatch) => {
+export const checkIfSubdomainOrMigrated = name => (dispatch) => {
   const labelsAmount = name.split('.').length;
 
   if (labelsAmount > 2) {
-    dispatch(fifsMigrationcheckIfSubdomain(true));
-  } else {
-    dispatch(fifsMigrationcheckIfSubdomain(false));
+    return Promise.resolve(dispatch(fifsMigrationCheckIfSubdomain(true)));
   }
+
+  dispatch(requestCheckFifsMigration());
+
+  return new Promise((resolve) => {
+    const label = `0x${sha3(name.split('.')[0])}`;
+
+    tokenRegistrar.entries(label, (error, result) => {
+      if (error) {
+        dispatch(errorCheckFifsMigration());
+        return resolve(dispatch(notifyError(error.message)));
+      }
+
+      const deed = result[1];
+
+      return resolve(dispatch(receiveCheckFifsMigration(deed === '0x0000000000000000000000000000000000000000')));
+    });
+  });
 };
 
-export const migrateToFifsRegistrar = address => (dispatch) => { // TODO
-  const labelsAmount = address.length;
+export const migrateToFifsRegistrar = name => (dispatch) => {
+  dispatch(requestFifsMigration());
 
-  if (labelsAmount > 2) {
-    dispatch(fifsMigrationcheckIfSubdomain(true));
-  } else {
-    dispatch(fifsMigrationcheckIfSubdomain(false));
-  }
+  return new Promise((resolve) => {
+    const label = `0x${sha3(name.split('.')[0])}`;
+
+    tokenRegistrar.transferRegistrars(label, (error, result) => {
+      if (error) {
+        dispatch(errorFifsMigration());
+        return resolve(dispatch(notifyError(error.message)));
+      }
+      dispatch(receiveFifsMigration());
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.MIGRATE_FIFS_REGISTRAR, name })));
+    });
+  });
 };

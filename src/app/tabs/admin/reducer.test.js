@@ -1,17 +1,11 @@
 import reducer from './reducer';
 import {
-  ADD_SUBDOMAIN,
-  RECEIVE_SUBDOMAIN_OWNER,
-  CLEAR_SUBDOMAINS,
-  REQUEST_SET_SUBDOMAIN_OWNER,
-  RECEIVE_SET_SUBDOMAIN_OWNER,
-  VIEW_EDIT_SUBDOMAIN_OWNER,
-  REVERSE_REQUEST_GET,
-  REVERSE_RECEIVE_GET,
-  REVERSE_REQUEST_SET,
-  REVERSE_RECEIVE_SET,
-  REVERSE_ERROR_SET,
-  FIFS_MIGRATION_CHECK_SUBDOMAIN,
+  ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS, REQUEST_SET_SUBDOMAIN_OWNER,
+  RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER, REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET,
+  REVERSE_REQUEST_SET, REVERSE_RECEIVE_SET, REVERSE_ERROR_SET, FIFS_MIGRATION_CHECK_SUBDOMAIN,
+  FIFS_MIGRATION_REQUEST_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
+  FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
+  FIFS_MIGRATION_ERROR_CHECK_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
 } from './types';
 
 describe('admin reducer', () => {
@@ -292,9 +286,11 @@ describe('admin fifs migration reducer', () => {
     expect(reducer(undefined, {}).fifsMigration)
       .toEqual(
         {
-          getting: false,
+          checking: false,
           migrating: false,
+          migrated: false,
           isSubdomain: undefined,
+          justMigrated: false,
         },
       );
   });
@@ -306,9 +302,11 @@ describe('admin fifs migration reducer', () => {
     }).fifsMigration)
       .toEqual(
         {
-          getting: false,
+          checking: false,
+          migrated: false,
           migrating: false,
           isSubdomain: true,
+          justMigrated: false,
         },
       );
   });
@@ -320,9 +318,118 @@ describe('admin fifs migration reducer', () => {
     }).fifsMigration)
       .toEqual(
         {
-          getting: false,
+          checking: false,
+          migrated: false,
           migrating: false,
           isSubdomain: false,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_REQUEST_CHECK_MIGRATION and set checking flag', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_REQUEST_CHECK_MIGRATION,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: true,
+          migrated: false,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION and set migrated flag to false', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
+      migrated: false,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: false,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION and set migrated flag to true', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
+      migrated: true,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: true,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_REQUEST_MIGRATION and set migrated flag to true', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_REQUEST_MIGRATION,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: false,
+          migrating: true,
+          isSubdomain: undefined,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_RECEIVE_MIGRATION and set migrated flag to true', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_RECEIVE_MIGRATION,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: true,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: true,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_ERROR_MIGRATION', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_ERROR_MIGRATION,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: false,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: false,
+        },
+      );
+  });
+
+  it('should handle FIFS_MIGRATION_ERROR_CHECK_MIGRATION', () => {
+    expect(reducer(undefined, {
+      type: FIFS_MIGRATION_ERROR_CHECK_MIGRATION,
+    }).fifsMigration)
+      .toEqual(
+        {
+          checking: false,
+          migrated: false,
+          migrating: false,
+          isSubdomain: undefined,
+          justMigrated: false,
         },
       );
   });
