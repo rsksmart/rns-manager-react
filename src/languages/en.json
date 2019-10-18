@@ -180,5 +180,12 @@
   "reverse_resolution": "reverse resolution",
   "set_reverse": "set reverse",
   "has_reverse": "already set",
-  "notifications_new_reverse_resolution": "new reverse resolution registered"
+  "notifications_new_reverse_resolution": "new reverse resolution registered",
+  "fifs_migration": "fifs registrar migration",
+  "already_migrated": "your domain has been succesfully migrated to the fifs registrar",
+  "fifs_subdomain": "subdomains don't need to be migrated",
+  "fifs_migrate": "migrate to fifs registrar",
+  "due_migration_date": "you have to migrate your domain to the new FIFS registrar by clicking on the button below. the due migration date is DD/MM/YYYY 12:00 AM UTC",
+  "action_needed": "action needed",
+  "notifications_migrated_domain": "your domain has been migrated to the new fifs registrar"
 }
