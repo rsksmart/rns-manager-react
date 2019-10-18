@@ -176,5 +176,9 @@
   "setup_fill_with": "次で充填する：",
   "select_chain": "チェーンを選択する",
   "get_value_on_mycrypto": "MyCrypto で価額を取得する",
-  "get_owner": "所有者を取得する"
+  "get_owner": "所有者を取得する",
+  "reverse_resolution": "逆引き",
+  "set_reverse": "逆向きに設定します",
+  "has_reverse": "すでに設定されている",
+  "notifications_new_reverse_resolution": "新しい逆引きが登録されました"
 }

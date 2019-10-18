@@ -176,5 +176,9 @@
   "setup_fill_with": "Completar con:",
   "select_chain": "seleccionar cadena",
   "get_value_on_mycrypto": "obtener valor en MyCrypto",
-  "get_owner": "establecer el propietario"
+  "get_owner": "establecer el propietario",
+  "reverse_resolution": "resolución inversa",
+  "set_reverse": "establecer inversa",
+  "has_reverse": "ya establecida",
+  "notifications_new_reverse_resolution": "nueva resolución inversa registrada"
 }

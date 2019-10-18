@@ -176,5 +176,9 @@
   "setup_fill_with": "Preencha os campos com:",
   "select_chain": "selecionar cadeia",
   "get_value_on_mycrypto": "obter valor no MyCrypto",
-  "get_owner": "obter proprietário"
+  "get_owner": "obter proprietário",
+  "reverse_resolution": "resolução inversa",
+  "set_reverse": "definir reversão",
+  "has_reverse": "já definida",
+  "notifications_new_reverse_resolution": "nova resolução inversa registrada"
 }
