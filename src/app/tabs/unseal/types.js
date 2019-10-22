@@ -1,2 +1,0 @@
-export const REQUEST_UNSEAL = 'REQUEST_UNSEAL';
-export const RECEIVE_UNSEAL = 'RECEVIE_UNSEAL';

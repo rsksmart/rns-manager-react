@@ -9,9 +9,6 @@ import {
   ResolveTab,
   SearchTab,
   StartAuctionTab,
-  BidTab,
-  UnsealTab,
-  FinalizeTab,
   AdminTab,
   PublicResolverTab,
   MultiChainResolverTab,
@@ -37,9 +34,6 @@ const Routes = (props) => {
       }
       <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
       <Route path="/start" component={StartAuctionTab} />
-      <Route path="/bid" component={BidTab} />
-      <Route path="/unseal" component={UnsealTab} />
-      <Route path="/finalize" component={FinalizeTab} />
       <Route path="/admin" component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
       <Route path="/publicResolver" component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
       <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
