@@ -3,30 +3,16 @@
     {
       "constant": true,
       "inputs": [
-        { "name": "_hash", "type": "bytes32" }
+        {
+          "name": "label",
+          "type": "bytes32"
+        }
       ],
-      "name": "entries",
-      "outputs": [
-        { "name": "", "type": "uint8" },
-        { "name": "", "type": "address" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" },
-        { "name": "", "type": "uint256" }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ],
-  "deedAbi": [
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "expirationDate",
+      "name": "available",
       "outputs": [
         {
           "name": "",
-          "type": "uint256"
+          "type": "bool"
         }
       ],
       "payable": false,

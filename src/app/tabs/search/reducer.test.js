@@ -1,13 +1,14 @@
 import reducer from './reducer';
-import { REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE } from './types';
+import { REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE, BLOCKED_DOMAIN } from './types';
 
 describe('search reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
       .toEqual(
         {
-          auctionState: null,
-          auctionStateLoading: false,
+          owned: undefined,
+          domainStateLoading: false,
+          blocked: undefined,
         },
       );
   });
@@ -19,20 +20,31 @@ describe('search reducer', () => {
       }),
     )
       .toEqual({
-        auctionState: null,
-        auctionStateLoading: true,
+        domainStateLoading: true,
       });
+  });
+
+  it('should handle BLOCKED_DOMAIN', () => {
+    expect(
+      reducer({}, {
+        type: BLOCKED_DOMAIN,
+      }),
+    ).toEqual({
+      domainStateLoading: false,
+      blocked: true,
+    });
   });
 
   it('should handle RECEIVE_DOMAIN_STATE', () => {
     expect(
       reducer({}, {
         type: RECEIVE_DOMAIN_STATE,
-        state: '0',
+        owned: true,
       }),
     ).toEqual({
-      auctionState: '0',
-      auctionStateLoading: false,
+      owned: true,
+      domainStateLoading: false,
+      blocked: false,
     });
   });
 
@@ -43,21 +55,21 @@ describe('search reducer', () => {
       }),
     )
       .toEqual({
-        auctionState: null,
-        auctionStateLoading: true,
+        domainStateLoading: true,
       });
 
     expect(
       reducer({
-        auctionState: null,
-        auctionStateLoading: true,
+        owned: undefined,
+        domainStateLoading: true,
       }, {
         type: RECEIVE_DOMAIN_STATE,
-        state: '1',
+        owned: false,
       }),
     ).toEqual({
-      auctionState: '1',
-      auctionStateLoading: false,
+      owned: false,
+      domainStateLoading: false,
+      blocked: false,
     });
   });
 
@@ -67,8 +79,9 @@ describe('search reducer', () => {
     }))
       .toEqual(
         {
-          auctionState: null,
-          auctionStateLoading: false,
+          owned: undefined,
+          domainStateLoading: false,
+          blocked: undefined,
         },
       );
   });

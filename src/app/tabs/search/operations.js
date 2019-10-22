@@ -1,14 +1,18 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { requestDomainState, receiveDomainState } from './actions';
-import { registrar as registrarAddress } from '../../../config/contracts';
+import { requestDomainState, receiveDomainState, blockedDomain } from './actions';
+import { fifsRegistrar as registrarAddress } from '../../../config/contracts';
 import { notifyError } from '../../notifications';
 import { rskMain } from '../../../config/nodes';
-import { registrarAbi, deedAbi } from './abis';
+import { registrarAbi } from './abis';
 
 export default domain => (dispatch) => {
   if (!domain) {
     return dispatch(receiveDomainState(''));
+  }
+
+  if (domain.length <= 5) {
+    return dispatch(blockedDomain(true));
   }
 
   dispatch(requestDomainState());
@@ -19,26 +23,7 @@ export default domain => (dispatch) => {
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
-  return registrar.methods.entries(hash).call()
-    .then((entry) => {
-      const state = entry[0];
-
-      if (state !== 2) {
-        return dispatch(receiveDomainState(state));
-      }
-
-      const deedAddress = entry[1];
-
-      const deed = new web3.eth.Contract(deedAbi, deedAddress);
-
-      return deed.methods.expirationDate().call()
-        .then((expirationDate) => {
-          if (expirationDate === 0) {
-            return dispatch(receiveDomainState(2));
-          }
-
-          return dispatch(receiveDomainState(5));
-        });
-    })
+  return registrar.methods.available(hash).call()
+    .then(available => dispatch(receiveDomainState(available)))
     .catch(error => dispatch(notifyError(error.message)));
 };

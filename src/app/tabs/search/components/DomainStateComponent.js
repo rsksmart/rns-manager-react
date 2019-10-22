@@ -7,40 +7,12 @@ import {
 import { multilanguage } from 'redux-multilanguage';
 import { isValidName } from '../../../validations';
 
-function getDisplayState(domain, auctionStateLoading, state, strings) {
+function getDisplayState(domain, domainStateLoading, owned, blocked, strings) {
   if (!domain) return 'Search for a domain.';
-  if (auctionStateLoading) return <Spinner animation="grow" variant="primary" />;
+  if (domainStateLoading) return <Spinner animation="grow" variant="primary" />;
 
-  switch (state) {
-    case 0: return (
-      <Card.Text>
-        {strings.open}
-        <br />
-        <Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link>
-      </Card.Text>
-    );
-    case 1: return (
-      <Card.Text>
-        {strings.auction}
-        <br />
-        <Link to={`/bid?domain=${domain}`}>{strings.bid_in_auction}</Link>
-      </Card.Text>
-    );
-    case 2: return (
-      <Card.Text>
-        {strings.finalize}
-        <br />
-        <Link to={`/finalize?domain=${domain}`}>{strings.finalize_the_auction}</Link>
-      </Card.Text>
-    );
-    case 4: return (
-      <Card.Text>
-        {strings.reveal}
-        <br />
-        <Link to={`/unseal?domain=${domain}`}>{strings.reveal_your_bid}</Link>
-      </Card.Text>
-    );
-    case 5: return (
+  if (owned) {
+    return (
       <Card.Text>
         {strings.owned}
         <br />
@@ -49,8 +21,19 @@ function getDisplayState(domain, auctionStateLoading, state, strings) {
         <Link to="/search">{strings.search_another_domain}</Link>
       </Card.Text>
     );
-    default: return null;
   }
+
+  if (blocked) {
+    return strings.domain_not_available;
+  }
+
+  return (
+    <Card.Text>
+      {strings.open}
+      <br />
+      <Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link>
+    </Card.Text>
+  );
 }
 
 class DomainStateComponent extends Component {
@@ -107,7 +90,7 @@ class DomainStateComponent extends Component {
 
   render() {
     const {
-      strings, domain, auctionState, auctionStateLoading,
+      strings, domain, owned, domainStateLoading, blocked,
     } = this.props;
     const { searchValue, invalid, showProcess } = this.state;
 
@@ -117,7 +100,7 @@ class DomainStateComponent extends Component {
       domainDisplay = domain.split('.').length === 1 ? `${domain}.rsk` : domain;
     }
 
-    const displayState = getDisplayState(domain, auctionStateLoading, auctionState, strings);
+    const displayState = getDisplayState(domain, domainStateLoading, owned, blocked, strings);
 
     return (
       <Container>
@@ -188,14 +171,16 @@ DomainStateComponent.propTypes = {
     learn_more: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
-  auctionState: propTypes.number,
-  auctionStateLoading: propTypes.bool.isRequired,
+  owned: propTypes.bool,
+  blocked: propTypes.bool,
+  domainStateLoading: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   search: propTypes.func.isRequired,
 };
 
 DomainStateComponent.defaultProps = {
-  auctionState: null,
+  owned: false,
+  blocked: false,
 };
 
 export default multilanguage(DomainStateComponent);
