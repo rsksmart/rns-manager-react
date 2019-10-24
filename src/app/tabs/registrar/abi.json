@@ -1,0 +1,29 @@
+[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "name": "expires",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCost",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,55 +1,59 @@
 import reducer from './reducer';
-import { REQUEST_START_AUCTION, RECEIVE_START_AUCTION } from './types';
+import { REQUEST_GET_COST, RECEIVE_GET_COST } from './types';
 
-describe('startAuction reducer', () => {
+describe('register reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
       .toEqual(
         {
-          loading: false,
+          gettingCost: false,
         },
       );
   });
 
-  it('should handle REQUEST_START_AUCTION', () => {
+  it('should handle REQUEST_GET_COST', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION,
+        type: REQUEST_GET_COST,
       }),
     )
       .toEqual({
-        loading: true,
+        gettingCost: true,
       });
   });
 
-  it('should handle RECEIVE_START_AUCTION', () => {
+  it('should handle RECEIVE_GET_COST', () => {
     expect(
       reducer({}, {
-        type: RECEIVE_START_AUCTION,
+        type: RECEIVE_GET_COST,
+        rifCost: 12,
       }),
     ).toEqual({
-      loading: false,
+      gettingCost: false,
+      rifCost: 12,
     });
   });
 
-  it('should handle REQUEST_START_AUCTION and RECEIVE_START_AUCTION', () => {
+  it('should handle REQUEST_GET_COST and RECEIVE_GET_COST', () => {
     expect(
       reducer({}, {
-        type: REQUEST_START_AUCTION,
+        type: REQUEST_GET_COST,
       }),
     )
       .toEqual({
-        loading: true,
+        gettingCost: true,
       });
 
     expect(
       reducer({
-        loading: true,
+        gettingCost: true,
       }, {
-        type: RECEIVE_START_AUCTION,
+        type: RECEIVE_GET_COST,
+        rifCost: 23,
       }),
     ).toEqual({
-      loading: false,
+      gettingCost: false,
+      rifCost: 23,
     });
   });
 
@@ -59,7 +63,7 @@ describe('startAuction reducer', () => {
     }))
       .toEqual(
         {
-          loading: false,
+          gettingCost: false,
         },
       );
   });

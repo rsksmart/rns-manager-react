@@ -1,0 +1,2 @@
+export const RECEIVE_GET_COST = 'RECEIVE_GET_COST';
+export const REQUEST_GET_COST = 'REQUEST_GET_COST';

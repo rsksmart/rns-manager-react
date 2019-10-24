@@ -188,5 +188,7 @@
   "due_migration_date": "you have to migrate your domain to the new FIFS registrar by clicking on the button below. the due migration date is DD/MM/YYYY 12:00 AM UTC",
   "action_needed": "action needed",
   "notifications_migrated_domain": "your domain has been migrated to the new fifs registrar",
-  "domain_not_available": "not available"
+  "domain_not_available": "not available",
+  "start_registration_for": "start the registration for",
+  "rental_period": "rental period in years"
 }

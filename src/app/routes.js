@@ -8,7 +8,7 @@ import {
   NoMetamaskTab,
   ResolveTab,
   SearchTab,
-  StartAuctionTab,
+  RegistrarTab,
   AdminTab,
   PublicResolverTab,
   MultiChainResolverTab,
@@ -33,7 +33,7 @@ const Routes = (props) => {
         !window.ethereum && !viewMyCrypto && <Route component={NoMetamaskTab} />
       }
       <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
-      <Route path="/start" component={StartAuctionTab} />
+      <Route path="/registrar" component={RegistrarTab} />
       <Route path="/admin" component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
       <Route path="/publicResolver" component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
       <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />

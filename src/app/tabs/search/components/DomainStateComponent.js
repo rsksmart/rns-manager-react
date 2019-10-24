@@ -31,7 +31,7 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, strings) {
     <Card.Text>
       {strings.open}
       <br />
-      <Link to={`/start?domain=${domain}`}>{strings.register_your_domain}</Link>
+      <Link to={`/registrar?domain=${domain}`}>{strings.register_your_domain}</Link>
     </Card.Text>
   );
 }

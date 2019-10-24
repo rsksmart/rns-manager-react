@@ -3,7 +3,7 @@ import publicResolver from './publicResolver';
 import multiChainResolver from './multiChainResolver';
 import resolve from './resolve';
 import search from './search';
-import startAuction from './startAuction';
+import registrar from './registrar';
 import user from './user';
 
 export default {
@@ -11,7 +11,7 @@ export default {
   publicResolver,
   multiChainResolver,
   search,
-  startAuction,
+  registrar,
   resolve,
   user,
 };
@@ -23,7 +23,7 @@ export { PublicResolverTab } from './publicResolver';
 export { MultiChainResolverTab } from './multiChainResolver';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
-export { StartAuctionTab } from './startAuction';
+export { RegistrarTab } from './registrar';
 export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
