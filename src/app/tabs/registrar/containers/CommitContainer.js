@@ -1,26 +1,26 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
-import { RentalPeriodComponent } from '../components';
-import { getCost } from '../operations';
+import { CommitComponent } from '../components';
+import { commit } from '../operations';
 
 const mapStateToProps = state => ({
-  rifCost: state.registrar.rifCost,
-  getting: state.registrar.gettingCost,
+  committing: state.registrar.committing,
+  committed: state.registrar.committed,
   domain: parse(state.router.location.search).domain,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCost: (domain, duration) => dispatch(getCost(domain, duration)),
+  doCommitment: domain => dispatch(commit(domain)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  getCost: duration => dispatchProps.getCost(stateProps.domain, duration),
+  doCommitment: () => dispatchProps.doCommitment(stateProps.domain),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(RentalPeriodComponent);
+)(CommitComponent);

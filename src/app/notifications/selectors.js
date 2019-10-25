@@ -107,6 +107,9 @@ export default strings => (params) => {
     case txTypes.MIGRATE_FIFS_REGISTRAR: return displaySetTx(
       strings.notifications_migrated_domain,
     );
+    case txTypes.REGISTRAR_COMMIT: return displaySetTx(
+      strings.notifications_registrar_committed,
+    );
     default: return null;
   }
 };

@@ -1,5 +1,8 @@
 import reducer from './reducer';
-import { REQUEST_GET_COST, RECEIVE_GET_COST } from './types';
+import {
+  REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
+  REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT,
+} from './types';
 
 describe('register reducer', () => {
   it('should return the initial state', () => {
@@ -7,25 +10,31 @@ describe('register reducer', () => {
       .toEqual(
         {
           gettingCost: false,
+          committing: false,
+          committed: false,
+          owner: undefined,
+          duration: undefined,
         },
       );
   });
 
-  it('should handle REQUEST_GET_COST', () => {
+  it('should handle REQUEST_REGISTRAR_GET_COST', () => {
     expect(
       reducer({}, {
-        type: REQUEST_GET_COST,
+        type: REQUEST_REGISTRAR_GET_COST,
+        duration: 12,
       }),
     )
       .toEqual({
         gettingCost: true,
+        duration: 12,
       });
   });
 
-  it('should handle RECEIVE_GET_COST', () => {
+  it('should handle RECEIVE_REGISTRAR_GET_COST', () => {
     expect(
       reducer({}, {
-        type: RECEIVE_GET_COST,
+        type: RECEIVE_REGISTRAR_GET_COST,
         rifCost: 12,
       }),
     ).toEqual({
@@ -34,26 +43,74 @@ describe('register reducer', () => {
     });
   });
 
-  it('should handle REQUEST_GET_COST and RECEIVE_GET_COST', () => {
+  it('should handle REQUEST_REGISTRAR_GET_COST and RECEIVE_REGISTRAR_GET_COST', () => {
     expect(
       reducer({}, {
-        type: REQUEST_GET_COST,
+        type: REQUEST_REGISTRAR_GET_COST,
+        duration: 23,
       }),
     )
       .toEqual({
         gettingCost: true,
+        duration: 23,
       });
 
     expect(
       reducer({
         gettingCost: true,
+        duration: 23,
       }, {
-        type: RECEIVE_GET_COST,
-        rifCost: 23,
+        type: RECEIVE_REGISTRAR_GET_COST,
+        rifCost: 45,
       }),
     ).toEqual({
       gettingCost: false,
-      rifCost: 23,
+      rifCost: 45,
+      duration: 23,
+    });
+  });
+
+  it('should handle REQUEST_REGISTRAR_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_COMMIT,
+      }),
+    )
+      .toEqual({
+        committing: true,
+      });
+  });
+
+  it('should handle RECEIVE_REGISTRAR_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: RECEIVE_REGISTRAR_COMMIT,
+      }),
+    ).toEqual({
+      committing: false,
+      committed: true,
+    });
+  });
+
+  it('should handle REQUEST_REGISTRAR_COMMIT and RECEIVE_REGISTRAR_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_COMMIT,
+      }),
+    )
+      .toEqual({
+        committing: true,
+      });
+
+    expect(
+      reducer({
+        committing: true,
+      }, {
+        type: RECEIVE_REGISTRAR_COMMIT,
+      }),
+    ).toEqual({
+      committing: false,
+      committed: true,
     });
   });
 
@@ -64,6 +121,10 @@ describe('register reducer', () => {
       .toEqual(
         {
           gettingCost: false,
+          committing: false,
+          committed: false,
+          owner: undefined,
+          duration: undefined,
         },
       );
   });

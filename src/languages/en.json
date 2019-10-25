@@ -190,5 +190,7 @@
   "notifications_migrated_domain": "your domain has been migrated to the new fifs registrar",
   "domain_not_available": "not available",
   "start_registration_for": "start the registration for",
-  "rental_period": "rental period in years"
+  "rental_period": "rental period in years",
+  "commit": "request for registration",
+  "notifications_registrar_committed": "your domain has been committed to be registered"
 }

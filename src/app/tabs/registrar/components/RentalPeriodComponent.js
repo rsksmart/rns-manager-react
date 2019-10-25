@@ -87,9 +87,6 @@ class RentalPeriodComponent extends Component {
             {rifCost}
             RIF
           </Col>
-          <Col xs="auto">
-            40.00 USD
-          </Col>
         </Row>
       </div>
     );
