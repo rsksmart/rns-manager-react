@@ -12,12 +12,20 @@ const CommitComponent = (props) => {
     return <Spinner animation="grow" variant="primary" />;
   }
 
-  return <Button disabled={committed} onClick={doCommitment}>{strings.commit}</Button>;
+  return (
+    <div>
+      <Button disabled={committed} onClick={doCommitment}>{strings.process_step_1}</Button>
+      <p>
+        {strings.process_step_1_explanation}
+      </p>
+    </div>
+  );
 };
 
 CommitComponent.propTypes = {
   strings: propTypes.shape({
-    commit: propTypes.string.isRequired,
+    process_step_1: propTypes.string.isRequired,
+    process_step_1_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,

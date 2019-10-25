@@ -142,7 +142,6 @@ class DomainStateComponent extends Component {
                     <li>{strings.process_step_1}</li>
                     <li>{strings.process_step_2}</li>
                     <li>{strings.process_step_3}</li>
-                    <li>{strings.process_step_4}</li>
                   </ol>
                   <p>
                     <Button variant="link" onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>{strings.learn_more}</Button>
@@ -167,7 +166,6 @@ DomainStateComponent.propTypes = {
     process_step_1: propTypes.string.isRequired,
     process_step_2: propTypes.string.isRequired,
     process_step_3: propTypes.string.isRequired,
-    process_step_4: propTypes.string.isRequired,
     learn_more: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,

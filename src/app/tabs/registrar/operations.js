@@ -41,7 +41,7 @@ export const commit = domain => async (dispatch) => {
         if (_error) return resolve(dispatch(notifyError(_error.message)));
 
         dispatch(receiveCommitRegistrar());
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT, domain })));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
       });
     });
   });
