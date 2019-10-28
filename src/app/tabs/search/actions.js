@@ -4,9 +4,9 @@ export const requestDomainState = () => ({
   type: REQUEST_DOMAIN_STATE,
 });
 
-export const receiveDomainState = owned => ({
+export const receiveDomainState = available => ({
   type: RECEIVE_DOMAIN_STATE,
-  owned,
+  owned: !available,
 });
 
 export const blockedDomain = () => ({

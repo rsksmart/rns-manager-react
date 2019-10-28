@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { TabWithSearchComponent } from '../../../components';
-import { RentalPeriodContainer, CommitContainer } from '../containers';
+import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class RegistrarComponent extends Component {
         </TabWithSearchComponent>
         <RentalPeriodContainer />
         <CommitContainer />
+        <RevealContainer />
       </div>
     );
   }

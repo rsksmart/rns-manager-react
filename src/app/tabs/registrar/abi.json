@@ -1,19 +1,5 @@
 [
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "commitment",
-        "type": "bytes32"
-      }
-    ],
-    "name": "commit",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -41,10 +27,43 @@
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "commitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "commit",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
-        "name": "name",
+        "name": "commitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "canReveal",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "domain",
         "type": "string"
       },
       {
@@ -52,7 +71,7 @@
         "type": "uint256"
       },
       {
-        "name": "expires",
+        "name": "expirationDate",
         "type": "uint256"
       }
     ],
@@ -64,7 +83,7 @@
       }
     ],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "pure",
     "type": "function"
   }
 ]

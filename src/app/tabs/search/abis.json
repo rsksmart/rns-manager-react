@@ -1,11 +1,11 @@
 {
-  "registrarAbi": [
+  "rskOwnerAbi": [
     {
       "constant": true,
       "inputs": [
         {
-          "name": "label",
-          "type": "bytes32"
+          "name": "tokenId",
+          "type": "uint256"
         }
       ],
       "name": "available",
