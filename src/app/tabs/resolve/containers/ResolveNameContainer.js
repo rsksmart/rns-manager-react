@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps.nameResolution,
-  getName: () => dispatchProps.getName(stateProps.resolverAddress, stateProps.name),
+  getAddr: () => dispatchProps.getName(stateProps.resolverAddress, stateProps.name),
 });
 
 export default connect(
