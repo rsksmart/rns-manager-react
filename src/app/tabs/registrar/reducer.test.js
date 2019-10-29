@@ -1,7 +1,7 @@
 import reducer from './reducer';
 import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
-  REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT,
+  REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
 } from './types';
 
 describe('register reducer', () => {
@@ -12,8 +12,10 @@ describe('register reducer', () => {
           gettingCost: false,
           committing: false,
           committed: false,
-          owner: undefined,
-          duration: undefined,
+          hash: undefined,
+          revealing: false,
+          revealed: false,
+          waiting: false,
         },
       );
   });
@@ -85,10 +87,24 @@ describe('register reducer', () => {
     expect(
       reducer({}, {
         type: RECEIVE_REGISTRAR_COMMIT,
+        hash: 'sarasa',
       }),
     ).toEqual({
       committing: false,
       committed: true,
+      hash: 'sarasa',
+      waiting: true,
+    });
+  });
+
+  it('should handle ERROR_REGISTRAR_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: ERROR_REGISTRAR_COMMIT,
+      }),
+    ).toEqual({
+      committing: false,
+      committed: false,
     });
   });
 
@@ -107,10 +123,35 @@ describe('register reducer', () => {
         committing: true,
       }, {
         type: RECEIVE_REGISTRAR_COMMIT,
+        hash: 'sarasa',
       }),
     ).toEqual({
       committing: false,
       committed: true,
+      hash: 'sarasa',
+      waiting: true,
+    });
+  });
+
+  it('should handle REQUEST_REGISTRAR_COMMIT and ERROR_REGISTRAR_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_COMMIT,
+      }),
+    )
+      .toEqual({
+        committing: true,
+      });
+
+    expect(
+      reducer({
+        committing: true,
+      }, {
+        type: ERROR_REGISTRAR_COMMIT,
+      }),
+    ).toEqual({
+      committing: false,
+      committed: false,
     });
   });
 
@@ -123,8 +164,10 @@ describe('register reducer', () => {
           gettingCost: false,
           committing: false,
           committed: false,
-          owner: undefined,
-          duration: undefined,
+          hash: undefined,
+          revealing: false,
+          revealed: false,
+          waiting: false,
         },
       );
   });

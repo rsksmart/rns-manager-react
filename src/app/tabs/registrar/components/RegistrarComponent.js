@@ -1,37 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { TabWithSearchComponent } from '../../../components';
 import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
 
-class RegistrarComponent extends Component {
-  constructor(props) {
-    super(props);
+const RegistrarComponent = (props) => {
+  const {
+    strings, domain,
+  } = props;
 
-    this.state = { };
-  }
-
-  render() {
-    const {
-      strings, domain,
-    } = this.props;
-
-    return (
-      <div>
-        <TabWithSearchComponent>
-          <h2>
-            {strings.start_registration_for}
-            {' '}
-            <code>{domain}</code>
-          </h2>
-        </TabWithSearchComponent>
-        <RentalPeriodContainer />
-        <CommitContainer />
-        <RevealContainer />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <TabWithSearchComponent>
+        <h2>
+          {strings.start_registration_for}
+          {' '}
+          <code>{domain}</code>
+        </h2>
+      </TabWithSearchComponent>
+      <RentalPeriodContainer />
+      <CommitContainer />
+      <RevealContainer />
+    </div>
+  );
+};
 
 RegistrarComponent.propTypes = {
   strings: propTypes.shape({

@@ -45,7 +45,7 @@ class RentalPeriodComponent extends Component {
 
   render() {
     const {
-      strings, getting, rifCost,
+      strings, getting, rifCost, committing, committed,
     } = this.props;
 
     const { duration } = this.state;
@@ -56,14 +56,14 @@ class RentalPeriodComponent extends Component {
           {strings.rental_period}
           <InputGroup>
             <InputGroup.Append>
-              <Button size="sm" onClick={this.decrement}>-</Button>
+              <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
             </InputGroup.Append>
             <FormControl
               value={duration}
               readOnly
             />
             <InputGroup.Append>
-              <Button size="sm" onClick={this.increment}>+</Button>
+              <Button size="sm" disabled={committing || committed} onClick={this.increment}>+</Button>
             </InputGroup.Append>
           </InputGroup>
         </Col>
@@ -101,6 +101,8 @@ RentalPeriodComponent.propTypes = {
   rifCost: propTypes.number,
   duration: propTypes.number,
   getCost: propTypes.func.isRequired,
+  committing: propTypes.bool.isRequired,
+  committed: propTypes.bool.isRequired,
 };
 
 RentalPeriodComponent.defaultProps = {

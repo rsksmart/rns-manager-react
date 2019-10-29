@@ -109,6 +109,10 @@ export default strings => (params) => {
     };
     case txTypes.REGISTRAR_COMMIT: return {
       title: strings.notifications_registrar_committed,
+      // description: strings.process_step_2_explanation,
+    };
+    case txTypes.REVEAL_COMMIT: return {
+      title: strings.notifications_registrar_committed,
       description: strings.process_step_2_explanation,
     };
     default: return null;

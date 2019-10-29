@@ -6,6 +6,8 @@ import { getCost } from '../operations';
 const mapStateToProps = state => ({
   rifCost: state.registrar.rifCost,
   getting: state.registrar.gettingCost,
+  committing: state.registrar.committing,
+  committed: state.registrar.committed,
   domain: parse(state.router.location.search).domain,
 });
 

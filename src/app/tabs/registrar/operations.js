@@ -1,6 +1,7 @@
 import {
   requestGetCost, receiveGetCost,
-  requestCommitRegistrar, receiveCommitRegistrar,
+  requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
+  requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
 } from './actions';
 import { fifsRegistrar as fifsRegistrarAddress } from '../../../config/contracts';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
@@ -38,10 +39,52 @@ export const commit = domain => async (dispatch) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return registrar.commit(hashCommit, (_error, result) => {
+        if (_error) {
+          dispatch(errorRegistrarCommit());
+          return resolve(dispatch(notifyError(_error.message)));
+        }
+
+        dispatch(receiveCommitRegistrar(hashCommit));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
+      });
+    });
+  });
+};
+
+export const checkCanReveal = hash => async (dispatch) => {
+  const registrar = window.web3.eth.contract(abi).at(fifsRegistrarAddress);
+
+  return new Promise((resolve) => {
+    registrar.canReveal(hash, (error, canReveal) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      return dispatch(receiveCanRevealCommit(canReveal));
+    });
+  });
+};
+
+export const revealCommit = domain => async (dispatch) => {
+  dispatch(requestRevealCommit());
+
+  const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
+  const salt = `0x${Array.from(randomBytes).map(byte => byte.toString(16)).join('')}`;
+
+  localStorage.setItem(`${domain}-salt`, salt);
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const registrar = window.web3.eth.contract(abi).at(fifsRegistrarAddress);
+
+  return new Promise((resolve) => {
+    registrar.makeCommitment(domain, currentAddress, salt, (error, hashCommit) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      return registrar.commit(hashCommit, (_error, result) => {
         if (_error) return resolve(dispatch(notifyError(_error.message)));
 
-        dispatch(receiveCommitRegistrar());
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
+        dispatch(receiveRevealCommit());
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT })));
       });
     });
   });
