@@ -6,8 +6,8 @@ import ResolutionComponent from './ResolutionComponent';
 
 class ResolveAddr extends Component {
   componentDidMount() {
-    const { getAddr } = this.props;
-    getAddr();
+    const { getResolution } = this.props;
+    getResolution();
   }
 
   render() {
@@ -33,7 +33,7 @@ class ResolveAddr extends Component {
 }
 
 ResolveAddr.propTypes = {
-  getAddr: propTypes.func.isRequired,
+  getResolution: propTypes.func.isRequired,
   strings: propTypes.shape({
     rsk_address: propTypes.string.isRequired,
   }).isRequired,
