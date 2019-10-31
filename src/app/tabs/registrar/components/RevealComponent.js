@@ -9,6 +9,7 @@ class RevealComponent extends Component {
 
     this.state = {
       seconds: 3,
+      percentage: 3,
       lastCheck: 0,
     };
 
@@ -30,28 +31,24 @@ class RevealComponent extends Component {
         const { waiting, checkCanReveal } = this.props;
 
         if (waiting) {
-          const { seconds, lastCheck } = this.state;
+          const { seconds, lastCheck, percentage } = this.state;
+          let newLastCheck;
 
           if ((seconds - lastCheck) >= (this.progressBarInterval * this.amountIntervalsToCheck)) {
             // time to check if canReveal
+            newLastCheck = seconds;
             checkCanReveal();
-
-            return this.setState(
-              {
-                seconds: seconds + (this.progressBarInterval),
-                lastCheck: seconds,
-              },
-              this.canReveal(),
-            );
+          } else {
+            newLastCheck = lastCheck;
           }
 
           if (seconds >= this.progressBarMax - (2 * this.progressBarInterval)) {
-            // if there are less than two intervals to complete the progress bar =>
-            // return to the middle of the bar
+            // if there are less than two intervals to complete the bar, freeze percentage value
             return this.setState(
               {
-                seconds: this.progressBarMax / 2,
-                lastCheck: (this.progressBarMax / 2) - (2 * this.progressBarInterval),
+                seconds: seconds + this.progressBarInterval,
+                percentage,
+                lastCheck: newLastCheck,
               },
               this.canReveal(),
             );
@@ -59,8 +56,9 @@ class RevealComponent extends Component {
 
           return this.setState(
             {
-              seconds: seconds + (this.progressBarInterval),
-              lastCheck,
+              seconds: seconds + this.progressBarInterval,
+              percentage: percentage + this.progressBarInterval,
+              lastCheck: newLastCheck,
             },
             this.canReveal(),
           );
@@ -81,11 +79,16 @@ class RevealComponent extends Component {
     }
 
     if (waiting) {
-      const { seconds } = this.state;
+      const { percentage } = this.state;
 
       return (
         <div>
-          <ProgressBar animated now={seconds} min={this.progressBarMin} max={this.progressBarMax} />
+          <ProgressBar
+            animated
+            now={percentage}
+            min={this.progressBarMin}
+            max={this.progressBarMax}
+          />
           <p>
             {strings.process_step_2_explanation}
           </p>

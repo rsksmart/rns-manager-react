@@ -13,6 +13,7 @@ const initialState = {
   revealing: false,
   revealed: false,
   waiting: false,
+  canReveal: false,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -54,6 +55,7 @@ const registrar = (state = initialState, action) => {
     case RECEIVE_CAN_REVEAL_COMMIT: return {
       ...state,
       canReveal: action.canReveal,
+      waiting: !action.canReveal,
     };
     default: return state;
   }

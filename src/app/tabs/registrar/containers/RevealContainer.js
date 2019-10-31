@@ -5,22 +5,25 @@ import { revealCommit, checkCanReveal } from '../operations';
 
 const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
+  canReveal: state.registrar.canReveal,
   revealing: state.registrar.revealing,
   revealed: state.registrar.revealed,
   committed: state.registrar.committed,
   domain: parse(state.router.location.search).domain,
   hash: state.registrar.hash,
+  rifCost: state.registrar.rifCost,
+  duration: state.registrar.duration,
 });
 
 const mapDispatchToProps = dispatch => ({
-  revealCommit: domain => dispatch(revealCommit(domain)),
+  revealCommit: (domain, rifCost, duration) => dispatch(revealCommit(domain, rifCost, duration)),
   checkCanReveal: hashCommit => dispatch(checkCanReveal(hashCommit)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  revealCommit: () => dispatchProps.revealCommit(stateProps.domain),
+  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
   checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash),
 });
 
