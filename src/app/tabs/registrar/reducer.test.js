@@ -2,6 +2,7 @@ import reducer from './reducer';
 import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
+  RECEIVE_REGISTRAR_REVEAL_COMMIT, REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_CAN_REVEAL_COMMIT,
 } from './types';
 
 describe('register reducer', () => {
@@ -16,6 +17,7 @@ describe('register reducer', () => {
           revealing: false,
           revealed: false,
           waiting: false,
+          canReveal: false,
         },
       );
   });
@@ -155,6 +157,74 @@ describe('register reducer', () => {
     });
   });
 
+  it('should handle REQUEST_REGISTRAR_REVEAL_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_REVEAL_COMMIT,
+      }),
+    )
+      .toEqual({
+        revealing: true,
+      });
+  });
+
+  it('should handle RECEIVE_REGISTRAR_REVEAL_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: RECEIVE_REGISTRAR_REVEAL_COMMIT,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: true,
+    });
+  });
+
+  it('should handle REQUEST_REGISTRAR_REVEAL_COMMIT and RECEIVE_REGISTRAR_REVEAL_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_REVEAL_COMMIT,
+      }),
+    )
+      .toEqual({
+        revealing: true,
+      });
+
+    expect(
+      reducer({
+        revealing: true,
+      }, {
+        type: RECEIVE_REGISTRAR_REVEAL_COMMIT,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: true,
+    });
+  });
+
+  it('should handle RECEIVE_CAN_REVEAL_COMMIT false', () => {
+    expect(
+      reducer({}, {
+        type: RECEIVE_CAN_REVEAL_COMMIT,
+        canReveal: false,
+      }),
+    ).toEqual({
+      canReveal: false,
+      waiting: true,
+    });
+  });
+
+  it('should handle RECEIVE_CAN_REVEAL_COMMIT true', () => {
+    expect(
+      reducer({}, {
+        type: RECEIVE_CAN_REVEAL_COMMIT,
+        canReveal: true,
+      }),
+    ).toEqual({
+      canReveal: true,
+      waiting: false,
+    });
+  });
+
   it('should return the initial state when action is not implemented', () => {
     expect(reducer(undefined, {
       type: 'NOT_IMPLEMENTED',
@@ -168,6 +238,7 @@ describe('register reducer', () => {
           revealing: false,
           revealed: false,
           waiting: false,
+          canReveal: false,
         },
       );
   });

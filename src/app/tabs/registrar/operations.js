@@ -115,9 +115,8 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   const data = getRegisterData(domain, currentAddress, salt, duration);
 
   const rif = window.web3.eth.contract(rifAbi).at(rifAddress);
-  debugger;
+
   return new Promise((resolve) => {
-    console.log(fifsRegistrarAddress, weiValue, data);
     rif.transferAndCall(fifsRegistrarAddress, weiValue, `0x1413151f${data.slice(2)}`, (error, result) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 

@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
+  // eslint-disable-next-line max-len
   revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
   checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash),
 });
