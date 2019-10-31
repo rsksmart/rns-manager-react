@@ -1,13 +1,12 @@
 {
-  "rns": "0x3AdE9908F7Ccb088aDe5a0e0cC5e5Df6EeD7529f",
-  "registrar": "0x5f85f3CcD01b43B250b881C55644e1D0B71D4338",
-  "fifsRegistrar": "0xb137FB20a8b0b9dA0A05F8F8418959fF517032F2",
-  "rskOwner": "0xa8D50e7f9e930F20ceBeA7C942346fB25Db0C505",
-  "rif": "0x215Caa8b09FfE3617D7B4f54FD1A32985bC388ce",
-
-  "reverseRegistrar": "0x01C555768dBa88605615a40c439D1Cdc73Bc81d0",
-  "publicResolver": "0x84204C66ad5C217f0CA49F9b694deF0617Eaac02",
-  "nameResolver": "0x55f87a9EB8bB5afD2B30b17f8BE61a3f9f86eBc4",
-  "multiChainResolver": "0x21871C2689d48f275F8B3ea6F2AC6c8c7A381Bfc",
-  "revealPeriod": 172800
+  "rns": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5",
+  "registrar": "0x5269f5bc51cdd8aa62755c97229b7eeddd8e69a6",
+  "reverseRegistrar": "0xd25c3f94a743b93ecffecbe691beea51c3c2d9d1",
+  "publicResolver": "0x4efd25e3d348f8f25a14fb7655fba6f72edfe93a",
+  "nameResolver": "0x4b1a11bf6723e60b9d2e02aa3ece34e24bde77d9",
+  "multiChainResolver": "0x99a12be4c89cbf6cfd11d1f2c029904a7b644368",
+  "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
+  "revealPeriod": 172800,
+  "fifsRegistrar": "",
+  "rskOwner": ""
 }
