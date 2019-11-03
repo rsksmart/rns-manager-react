@@ -26,7 +26,7 @@ export default domain => (dispatch) => {
       }
 
       if (domain.length <= 5) {
-        return dispatch(blockedDomain(true));
+        return dispatch(blockedDomain());
       }
 
       return dispatch(receiveDomainState(available));
