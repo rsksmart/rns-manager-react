@@ -64,19 +64,19 @@
       "constant": true,
       "inputs": [
         {
-          "name": "domain",
+          "name": "name",
           "type": "string"
+        },
+        {
+          "name": "expires",
+          "type": "uint256"
         },
         {
           "name": "duration",
           "type": "uint256"
-        },
-        {
-          "name": "expirationDate",
-          "type": "uint256"
         }
       ],
-      "name": "getCost",
+      "name": "price",
       "outputs": [
         {
           "name": "",
@@ -84,7 +84,7 @@
         }
       ],
       "payable": false,
-      "stateMutability": "pure",
+      "stateMutability": "view",
       "type": "function"
     }
   ],
