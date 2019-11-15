@@ -40,7 +40,7 @@ export const commit = domain => async (dispatch) => {
   const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
 
   return new Promise((resolve) => {
-    registrar.makeCommitment(sha3(domain), currentAddress, salt, (error, hashCommit) => {
+    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return registrar.commit(hashCommit, (_error, result) => {
