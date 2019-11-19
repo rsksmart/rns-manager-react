@@ -34,6 +34,7 @@ class FIFSMigrationComponent extends Component {
         <Container>
           {title}
           {html}
+          <hr />
         </Container>
       );
     }
