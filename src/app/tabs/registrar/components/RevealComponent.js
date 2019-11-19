@@ -8,8 +8,8 @@ class RevealComponent extends Component {
     super(props);
 
     this.state = {
-      seconds: 3,
-      percentage: 3,
+      seconds: 0,
+      percentage: 0,
       lastCheck: 0,
     };
 
@@ -42,7 +42,7 @@ class RevealComponent extends Component {
             newLastCheck = lastCheck;
           }
 
-          if (seconds >= this.progressBarMax - (2 * this.progressBarInterval)) {
+          if (seconds >= this.progressBarMax) {
             // if there are less than two intervals to complete the bar, freeze percentage value
             return this.setState(
               {
@@ -74,39 +74,40 @@ class RevealComponent extends Component {
       waiting, strings, revealCommit, committed, revealing, revealed,
     } = this.props;
 
-    if (!committed) {
-      return '';
-    }
-
-    if (waiting) {
-      const { percentage } = this.state;
-
-      return (
-        <div>
-          <ProgressBar
-            animated
-            now={percentage}
-            min={this.progressBarMin}
-            max={this.progressBarMax}
-          />
-          <p>
-            {strings.process_step_2_explanation}
-          </p>
-        </div>
-      );
-    }
-
-    if (revealing) {
-      return <Spinner animation="grow" variant="primary" />;
-    }
+    const { percentage } = this.state;
 
     return (
-      <div>
-        <Button disabled={revealed} onClick={revealCommit}>{strings.process_step_3}</Button>
-        <p>
-          {strings.process_step_3_explanation}
-        </p>
-      </div>
+      <React.Fragment>
+        {
+          <div>
+            <ProgressBar
+              animated
+              now={percentage}
+              min={this.progressBarMin}
+              max={this.progressBarMax}
+            />
+          </div>
+        }
+        <hr />
+        {
+          revealing
+            ? <Spinner animation="grow" variant="primary" />
+            : (
+              <div>
+                <p>
+                  3.
+                  {strings.process_step_3_explanation}
+                </p>
+                <Button
+                  disabled={!committed || waiting || revealed}
+                  onClick={revealCommit}
+                >
+                  {strings.process_step_3}
+                </Button>
+              </div>
+            )
+        }
+      </React.Fragment>
     );
   }
 }

@@ -21,7 +21,6 @@ const RegistrarComponent = (props) => {
         <RentalPeriodContainer />
         <hr />
         <CommitContainer />
-        <hr />
         <RevealContainer />
       </TabWithSearchComponent>
     </div>

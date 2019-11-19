@@ -94,7 +94,6 @@ class RentalPeriodComponent extends Component {
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
     rental_period: propTypes.string.isRequired,
-    price: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
