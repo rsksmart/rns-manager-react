@@ -1,7 +1,9 @@
 import React from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
-import { Container, Row, Col, Spinner, Button } from 'react-bootstrap';
+import {
+  Container, Row, Col, Spinner, Button,
+} from 'react-bootstrap';
 
 const CommitComponent = (props) => {
   const {
