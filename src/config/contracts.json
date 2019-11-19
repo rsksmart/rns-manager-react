@@ -6,5 +6,7 @@
   "nameResolver": "0x4b1a11bf6723e60b9d2e02aa3ece34e24bde77d9",
   "multiChainResolver": "0x99a12be4c89cbf6cfd11d1f2c029904a7b644368",
   "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
-  "revealPeriod": 172800
+  "revealPeriod": 172800,
+  "fifsRegistrar": "0xDc7790E79422CCAd4780A6A87D2F4E2C36554914",
+  "rskOwner": "0x36CC1F7E28E89Cfe48D6B7164c0d40BB4124dC44"
 }

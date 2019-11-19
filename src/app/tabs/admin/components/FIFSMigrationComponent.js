@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Spinner, Button, Alert, Container,
+  Spinner, Button, Container,
 } from 'react-bootstrap';
 
 class FIFSMigrationComponent extends Component {
@@ -26,15 +26,7 @@ class FIFSMigrationComponent extends Component {
         html = strings.already_migrated;
       } else {
         html = (
-          <div>
-            <Alert variant="danger" dismissible="true">
-              <Alert.Heading>{strings.action_needed}</Alert.Heading>
-              <p>
-                {strings.due_migration_date}
-              </p>
-            </Alert>
-            <Button disabled={migrating} onClick={migrate}>{strings.fifs_migrate}</Button>
-          </div>
+          <Button disabled={migrating} onClick={migrate}>{strings.fifs_migrate}</Button>
         );
       }
 
@@ -42,6 +34,7 @@ class FIFSMigrationComponent extends Component {
         <Container>
           {title}
           {html}
+          <hr />
         </Container>
       );
     }
