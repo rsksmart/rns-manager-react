@@ -5,6 +5,10 @@ import {
   REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER, VIEW_EDIT_SUBDOMAIN_OWNER,
   REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET, REVERSE_REQUEST_SET,
   REVERSE_RECEIVE_SET, REVERSE_ERROR_SET,
+  FIFS_MIGRATION_CHECK_SUBDOMAIN, FIFS_MIGRATION_REQUEST_CHECK_MIGRATION,
+  FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
+  FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
+  FIFS_MIGRATION_ERROR_CHECK_MIGRATION,
 } from './types';
 import fieldReducer from '../../factories/reducerFactory';
 
@@ -97,10 +101,73 @@ const reverse = (state = defaultReverse, action) => {
   }
 };
 
+const defaultFifsMigration = {
+  isSubdomain: undefined,
+  migrated: false,
+  checking: false,
+  migrating: false,
+  justMigrated: false,
+};
+
+const fifsMigration = (state = defaultFifsMigration, action) => {
+  switch (action.type) {
+    case (FIFS_MIGRATION_CHECK_SUBDOMAIN): {
+      return {
+        ...state,
+        isSubdomain: action.isSubdomain,
+      };
+    }
+    case (FIFS_MIGRATION_REQUEST_CHECK_MIGRATION): {
+      return {
+        ...state,
+        checking: true,
+      };
+    }
+    case (FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION): {
+      return {
+        ...state,
+        migrated: action.migrated,
+        checking: false,
+      };
+    }
+    case (FIFS_MIGRATION_ERROR_CHECK_MIGRATION): {
+      return {
+        ...state,
+        migrated: false,
+        checking: false,
+      };
+    }
+    case (FIFS_MIGRATION_REQUEST_MIGRATION): {
+      return {
+        ...state,
+        migrating: true,
+      };
+    }
+    case (FIFS_MIGRATION_RECEIVE_MIGRATION): {
+      return {
+        ...state,
+        migrating: false,
+        migrated: true,
+        justMigrated: true,
+      };
+    }
+    case (FIFS_MIGRATION_ERROR_MIGRATION): {
+      return {
+        ...state,
+        migrated: false,
+        migrating: false,
+        justMigrated: false,
+      };
+    }
+    default: return state;
+  }
+};
+
 export default combineReducers({
   owner: fieldReducer(OWNER),
   resolver: fieldReducer(RESOLVER),
   ttl: fieldReducer(TTL),
   subdomains,
   reverse,
+  fifsMigration,
 });

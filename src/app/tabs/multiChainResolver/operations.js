@@ -35,11 +35,13 @@ export const setChainAddr = (name, chainId, value) => (dispatch) => {
   const hash = namehash(name);
 
   return new Promise((resolve) => {
-    resolver.setChainAddr(hash, chainId, value, (error, result) => {
+    resolver.setChainAddr(hash, chainId, value, async (error, result) => {
       dispatch(chainAddr.receiveSet());
       if (error) return resolve(dispatch(notifyError(error.message)));
+
+      const accounts = await window.ethereum.enable();
       return resolve(dispatch(notifyTx(result, '', {
-        type: txTypes.SET_CHAIN_ADDR, name, chainId, value, addr: window.web3.eth.accounts[0],
+        type: txTypes.SET_CHAIN_ADDR, name, chainId, value, addr: accounts[0],
       }, () => getChainAddr(name, chainId))));
     });
   });

@@ -4,6 +4,10 @@ import {
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
   REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET,
   REVERSE_REQUEST_SET, REVERSE_RECEIVE_SET, REVERSE_ERROR_SET,
+  FIFS_MIGRATION_CHECK_SUBDOMAIN, FIFS_MIGRATION_REQUEST_CHECK_MIGRATION,
+  FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
+  FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
+  FIFS_MIGRATION_ERROR_CHECK_MIGRATION,
 } from './types';
 
 import filedActions from '../../factories/actionFactory';
@@ -64,4 +68,34 @@ export const receiveSetReverse = reverseResolution => ({
 
 export const errorSetReverse = () => ({
   type: REVERSE_ERROR_SET,
+});
+
+export const fifsMigrationCheckIfSubdomain = isSubdomain => ({
+  type: FIFS_MIGRATION_CHECK_SUBDOMAIN,
+  isSubdomain,
+});
+
+export const requestCheckFifsMigration = () => ({
+  type: FIFS_MIGRATION_REQUEST_CHECK_MIGRATION,
+});
+
+export const receiveCheckFifsMigration = migrated => ({
+  type: FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
+  migrated,
+});
+
+export const errorCheckFifsMigration = () => ({
+  type: FIFS_MIGRATION_ERROR_CHECK_MIGRATION,
+});
+
+export const requestFifsMigration = () => ({
+  type: FIFS_MIGRATION_REQUEST_MIGRATION,
+});
+
+export const receiveFifsMigration = () => ({
+  type: FIFS_MIGRATION_RECEIVE_MIGRATION,
+});
+
+export const errorFifsMigration = () => ({
+  type: FIFS_MIGRATION_ERROR_MIGRATION,
 });

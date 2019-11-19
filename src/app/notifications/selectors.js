@@ -101,9 +101,19 @@ export default strings => (params) => {
     case txTypes.SET_ADDR: return displaySetTx(strings.notifications_new_addr, params.value);
     case txTypes.SET_CONTENT: return displaySetTx(strings.notifications_new_content, params.value);
     case txTypes.SET_CHAIN_ADDR: return displaySetTx(strings.notifications_new_chain_addr, `${params.chainId} - ${params.value}`);
-    case txTypes.SET_REVERSE_RESOLUTION: return displaySetTx(
-      strings.notifications_new_reverse_resolution,
-    );
+    case txTypes.SET_REVERSE_RESOLUTION: return {
+      title: strings.notifications_new_reverse_resolution,
+    };
+    case txTypes.MIGRATE_FIFS_REGISTRAR: return {
+      title: strings.notifications_migrated_domain,
+    };
+    case txTypes.REGISTRAR_COMMIT: return {
+      title: strings.notifications_registrar_committed,
+    };
+    case txTypes.REVEAL_COMMIT: return {
+      title: strings.notifications_registrar_revealed,
+      description: strings.login_explanation,
+    };
     default: return null;
   }
 };
