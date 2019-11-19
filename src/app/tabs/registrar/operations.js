@@ -18,7 +18,7 @@ export const getCost = (domain, duration) => (dispatch) => {
   dispatch(requestGetCost(duration));
 
   return new Promise((resolve) => {
-    registrar.price(domain, duration, duration, (error, result) => {
+    registrar.price(domain, 0, duration, (error, result) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return dispatch(receiveGetCost(window.web3.toDecimal(result / (10 ** 18))));
