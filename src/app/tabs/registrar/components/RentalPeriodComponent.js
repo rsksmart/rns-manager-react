@@ -51,43 +51,35 @@ class RentalPeriodComponent extends Component {
     const { duration } = this.state;
 
     const counter = (
-      <Row className="justify-content-md-center">
-        <Col xs="2">
-          {strings.rental_period}
-          <InputGroup>
-            <InputGroup.Append>
-              <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
-            </InputGroup.Append>
-            <FormControl
-              value={duration}
-              readOnly
-            />
-            <InputGroup.Append>
-              <Button size="sm" disabled={committing || committed} onClick={this.increment}>+</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Col>
-      </Row>
+      <div>
+        <Row className="justify-content-md-center">
+          <Col xs="2">
+            {strings.rental_period}
+            <InputGroup>
+              <InputGroup.Append>
+                <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
+              </InputGroup.Append>
+              <FormControl
+                value={duration}
+                readOnly
+              />
+              <InputGroup.Append>
+                <Button size="sm" disabled={committing || committed} onClick={this.increment}>+</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+        </Row>
+      </div>
     );
-
-    if (getting) {
-      return (
-        <div>
-          {counter}
-          <Spinner animation="grow" variant="primary" />
-        </div>
-      );
-    }
 
     return (
       <div>
         {counter}
-        <Row className="justify-content-md-center">
-          <Col xs="auto">
-            {rifCost}
-            RIF
-          </Col>
-        </Row>
+        {
+          getting
+            ? <Spinner animation="grow" variant="primary" />
+            : <b>{`price: ${rifCost} RIF`}</b>
+        }
       </div>
     );
   }
@@ -96,6 +88,7 @@ class RentalPeriodComponent extends Component {
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
     rental_period: propTypes.string.isRequired,
+    price: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
