@@ -1,7 +1,7 @@
-import { utils } from 'web3';
+import Utils from 'web3-utils';
 
 function numberToUint32(number) {
-  const hexDuration = utils.numberToHex(number);
+  const hexDuration = Utils.numberToHex(number);
   let duration = '';
   for (let i = 0; i < 66 - hexDuration.length; i += 1) {
     duration += '0';
@@ -11,7 +11,7 @@ function numberToUint32(number) {
 }
 
 function utf8ToHexString(string) {
-  return string ? utils.asciiToHex(string).slice(2) : '';
+  return string ? Utils.asciiToHex(string).slice(2) : '';
 }
 
 /**

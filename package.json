@@ -26,7 +26,8 @@
     "redux-multilanguage": "^0.1.2",
     "redux-thunk": "^2.3.0",
     "rskjs-util": "^1.0.3",
-    "web3": "^1.0.0-beta.55"
+    "web3": "^1.0.0-beta.55",
+    "web3-utils": "^1.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
