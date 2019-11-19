@@ -17,10 +17,13 @@ const RegistrarComponent = (props) => {
           {' '}
           <code>{domain}</code>
         </h2>
+        <h4>registering a name requires you to complete 3 steps</h4>
+        <RentalPeriodContainer />
+        <hr />
+        <CommitContainer />
+        <hr />
+        <RevealContainer />
       </TabWithSearchComponent>
-      <RentalPeriodContainer />
-      <CommitContainer />
-      <RevealContainer />
     </div>
   );
 };
