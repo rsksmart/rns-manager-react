@@ -74,12 +74,18 @@ class RentalPeriodComponent extends Component {
 
     return (
       <div>
+        <p>
+          1. For how long do you want your name?
+          <br />
+        </p>
         {counter}
         {
           getting
             ? <Spinner animation="grow" variant="primary" />
             : <b>{`price: ${rifCost} RIF`}</b>
         }
+        <br />
+        <i>50% discount per year from the third year</i>
       </div>
     );
   }
