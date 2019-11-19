@@ -19,14 +19,14 @@ export default domain => (dispatch) => {
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
+  if (domain.length <= 5) {
+    return dispatch(blockedDomain());
+  }
+
   return rskOwner.methods.available(hash).call()
     .then((available) => {
       if (!available) {
         return dispatch(receiveDomainState(false));
-      }
-
-      if (domain.length <= 5) {
-        return dispatch(blockedDomain());
       }
 
       return dispatch(receiveDomainState(available));
