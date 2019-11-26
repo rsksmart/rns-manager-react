@@ -24,7 +24,9 @@ class GetDomainStateComponent extends Component {
   }
 
   render() {
-    const { strings, domain, getDomainState } = this.props;
+    const {
+      strings, domain, getDomainState, disableSearchButton,
+    } = this.props;
 
     const { invalid } = this.state;
 
@@ -47,7 +49,7 @@ class GetDomainStateComponent extends Component {
               className={invalid ? 'is-invalid' : null}
             />
             <InputGroup.Append>
-              <Button type="submit" size="sm">{strings.search}</Button>
+              <Button type="submit" size="sm" disabled={disableSearchButton}>{strings.search}</Button>
             </InputGroup.Append>
             <div className="invalid-feedback">
               {invalid}
@@ -65,6 +67,7 @@ GetDomainStateComponent.propTypes = {
     invalid_name: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string,
+  disableSearchButton: propTypes.bool.isRequired,
   getDomainState: propTypes.func.isRequired,
 };
 
