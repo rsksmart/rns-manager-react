@@ -2,7 +2,7 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
 } from './types';
 
 const initialState = {
@@ -61,6 +61,10 @@ const registrar = (state = initialState, action) => {
       ...state,
       canReveal: action.canReveal,
       waiting: !action.canReveal,
+    };
+    case SALT_NOT_FOUND: return {
+      ...state,
+      ...initialState,
     };
     default: return state;
   }

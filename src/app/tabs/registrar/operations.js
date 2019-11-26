@@ -3,7 +3,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
-  errorRevealCommit,
+  errorRevealCommit, saltNotFound,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -23,25 +23,6 @@ export const getCost = (domain, duration) => (dispatch) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return dispatch(receiveGetCost(window.web3.toDecimal(result / (10 ** 18))));
-    });
-  });
-};
-
-export const checkIfAlreadyCommitted = domain => async (dispatch) => {
-  const salt = localStorage.getItem(`${domain}-salt`);
-
-  if (!salt) return null;
-
-  dispatch(requestCommitRegistrar());
-
-  const accounts = await window.ethereum.enable();
-  const currentAddress = accounts[0];
-
-  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
-  return new Promise((resolve) => {
-    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(receiveCommitRegistrar(hashCommit)));
     });
   });
 };
@@ -83,6 +64,28 @@ export const checkCanReveal = hash => async (dispatch) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return dispatch(receiveCanRevealCommit(canReveal));
+    });
+  });
+};
+
+export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+  const salt = localStorage.getItem(`${domain}-salt`);
+
+  if (!salt) return dispatch(saltNotFound());
+
+  dispatch(requestCommitRegistrar());
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+  return new Promise((resolve) => {
+    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      dispatch(receiveCommitRegistrar(hashCommit));
+
+      return resolve(dispatch(checkCanReveal(hashCommit)));
     });
   });
 };

@@ -19,7 +19,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   doCommitment: () => dispatchProps.doCommitment(stateProps.domain),
   checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain),
-
 });
 
 export default connect(

@@ -6,7 +6,6 @@ import {
 } from 'react-bootstrap';
 
 class CommitComponent extends Component {
-
   componentDidMount() {
     const { checkIfAlreadyCommitted } = this.props;
     checkIfAlreadyCommitted();
