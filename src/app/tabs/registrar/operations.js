@@ -27,13 +27,30 @@ export const getCost = (domain, duration) => (dispatch) => {
   });
 };
 
+export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+  const salt = localStorage.getItem(`${domain}-salt`);
+
+  if (!salt) return null;
+
+  dispatch(requestCommitRegistrar());
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+  return new Promise((resolve) => {
+    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+      return resolve(dispatch(receiveCommitRegistrar(hashCommit)));
+    });
+  });
+};
+
 export const commit = domain => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
   const salt = `0x${Array.from(randomBytes).map(byte => byte.toString(16)).join('')}`;
-
-  localStorage.setItem(`${domain}-salt`, salt);
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -50,6 +67,7 @@ export const commit = domain => async (dispatch) => {
           return resolve(dispatch(notifyError(_error.message)));
         }
 
+        localStorage.setItem(`${domain}-salt`, salt);
         dispatch(receiveCommitRegistrar(hashCommit));
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
       });
