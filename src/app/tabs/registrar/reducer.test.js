@@ -2,7 +2,8 @@ import reducer from './reducer';
 import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
-  RECEIVE_REGISTRAR_REVEAL_COMMIT, REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_CAN_REVEAL_COMMIT,
+  RECEIVE_REGISTRAR_REVEAL_COMMIT, REQUEST_REGISTRAR_REVEAL_COMMIT,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT,
 } from './types';
 
 describe('register reducer', () => {
@@ -198,6 +199,39 @@ describe('register reducer', () => {
     ).toEqual({
       revealing: false,
       revealed: true,
+    });
+  });
+
+  it('should handle ERROR_REGISTRAR_REVEAL_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: ERROR_REGISTRAR_REVEAL_COMMIT,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: false,
+    });
+  });
+
+  it('should handle REQUEST_REGISTRAR_REVEAL_COMMIT and ERROR_REGISTRAR_REVEAL_COMMIT', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_REVEAL_COMMIT,
+      }),
+    )
+      .toEqual({
+        revealing: true,
+      });
+
+    expect(
+      reducer({
+        revealing: true,
+      }, {
+        type: ERROR_REGISTRAR_REVEAL_COMMIT,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: false,
     });
   });
 
