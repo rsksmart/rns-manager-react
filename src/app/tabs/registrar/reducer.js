@@ -2,7 +2,7 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT,
 } from './types';
 
 const initialState = {
@@ -51,6 +51,11 @@ const registrar = (state = initialState, action) => {
       ...state,
       revealing: false,
       revealed: true,
+    };
+    case ERROR_REGISTRAR_REVEAL_COMMIT: return {
+      ...state,
+      revealing: false,
+      revealed: false,
     };
     case RECEIVE_CAN_REVEAL_COMMIT: return {
       ...state,

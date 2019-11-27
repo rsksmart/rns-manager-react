@@ -3,6 +3,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
+  errorRevealCommit,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -84,7 +85,10 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
 
   return new Promise((resolve) => {
     rif.transferAndCall(fifsRegistrarAddress, weiBN, data, (error, result) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
+      if (error) {
+        dispatch(errorRevealCommit());
+        return resolve(dispatch(notifyError(error.message)));
+      }
 
       dispatch(receiveRevealCommit());
       return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT })));
