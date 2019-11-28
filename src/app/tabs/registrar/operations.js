@@ -3,7 +3,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
-  errorRevealCommit, saltNotFound,
+  errorRevealCommit, saltNotFound, commitTxMined,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -50,7 +50,7 @@ export const commit = domain => async (dispatch) => {
 
         localStorage.setItem(`${domain}-salt`, salt);
         dispatch(receiveCommitRegistrar(hashCommit));
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
       });
     });
   });
@@ -83,7 +83,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
     registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      dispatch(receiveCommitRegistrar(hashCommit));
+      dispatch(receiveCommitRegistrar(hashCommit, true));
 
       return resolve(dispatch(checkCanReveal(hashCommit)));
     });

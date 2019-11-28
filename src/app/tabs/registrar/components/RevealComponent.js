@@ -23,55 +23,57 @@ class RevealComponent extends Component {
     this.canReveal();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   canReveal() {
-    const { canReveal } = this.props;
+    this.timer = setTimeout(() => {
+      const {
+        waiting, checkCanReveal, commitConfirmed,
+      } = this.props;
 
-    if (!canReveal) {
-      setTimeout(() => {
-        const { waiting, checkCanReveal } = this.props;
+      if (waiting && commitConfirmed) {
+        const { seconds, lastCheck, percentage } = this.state;
+        let newLastCheck;
 
-        if (waiting) {
-          const { seconds, lastCheck, percentage } = this.state;
-          let newLastCheck;
+        if ((seconds - lastCheck) >= (this.progressBarInterval * this.amountIntervalsToCheck)) {
+          // time to check if canReveal
+          newLastCheck = seconds;
+          checkCanReveal();
+        } else {
+          newLastCheck = lastCheck;
+        }
 
-          if ((seconds - lastCheck) >= (this.progressBarInterval * this.amountIntervalsToCheck)) {
-            // time to check if canReveal
-            newLastCheck = seconds;
-            checkCanReveal();
-          } else {
-            newLastCheck = lastCheck;
-          }
-
-          if (seconds >= this.progressBarMax) {
-            // if there are less than two intervals to complete the bar, freeze percentage value
-            return this.setState(
-              {
-                seconds: seconds + this.progressBarInterval,
-                percentage,
-                lastCheck: newLastCheck,
-              },
-              this.canReveal(),
-            );
-          }
-
+        if (seconds >= this.progressBarMax - (this.progressBarInterval * 2)) {
+          // if there are less than two intervals to complete the bar, freeze percentage value
           return this.setState(
             {
               seconds: seconds + this.progressBarInterval,
-              percentage: percentage + this.progressBarInterval,
+              percentage,
               lastCheck: newLastCheck,
             },
             this.canReveal(),
           );
         }
 
-        return this.canReveal();
-      }, this.progressBarInterval * 1000);
-    }
+        return this.setState(
+          {
+            seconds: seconds + this.progressBarInterval,
+            percentage: percentage + this.progressBarInterval,
+            lastCheck: newLastCheck,
+          },
+          this.canReveal(),
+        );
+      }
+
+      return this.canReveal();
+    }, this.progressBarInterval * 1000);
   }
 
   render() {
     const {
-      waiting, strings, revealCommit, committed, revealing, revealed,
+      waiting, strings, revealCommit, committed, revealing, revealed, canReveal,
     } = this.props;
 
     const { percentage } = this.state;
@@ -82,7 +84,7 @@ class RevealComponent extends Component {
           <div>
             <ProgressBar
               animated
-              now={percentage}
+              now={canReveal ? 100 : percentage}
               min={this.progressBarMin}
               max={this.progressBarMax}
             />
@@ -121,10 +123,15 @@ RevealComponent.propTypes = {
   revealCommit: propTypes.func.isRequired,
   checkCanReveal: propTypes.func.isRequired,
   waiting: propTypes.bool.isRequired,
+  commitConfirmed: propTypes.bool,
   canReveal: propTypes.bool.isRequired,
   revealing: propTypes.bool.isRequired,
   revealed: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
+};
+
+RevealComponent.defaultProps = {
+  commitConfirmed: false,
 };
 
 export default multilanguage(RevealComponent);

@@ -3,6 +3,7 @@ import {
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
+  REGISTRAR_COMMIT_CONFIRMED,
 } from './types';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   revealed: false,
   waiting: false,
   canReveal: false,
+  commitConfirmed: undefined,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -37,6 +39,7 @@ const registrar = (state = initialState, action) => {
       committed: true,
       waiting: true,
       hash: action.hash,
+      commitConfirmed: action.commitConfirmed,
     };
     case ERROR_REGISTRAR_COMMIT: return {
       ...state,
@@ -61,6 +64,10 @@ const registrar = (state = initialState, action) => {
       ...state,
       canReveal: action.canReveal,
       waiting: !action.canReveal,
+    };
+    case REGISTRAR_COMMIT_CONFIRMED: return {
+      ...state,
+      commitConfirmed: true,
     };
     case SALT_NOT_FOUND: return {
       ...state,

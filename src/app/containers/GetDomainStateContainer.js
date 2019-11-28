@@ -5,7 +5,7 @@ import { GetDomainStateComponent } from '../components';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
-  disableSearchButton: state.registrar.committing || state.registrar.committed,
+  disableSearchButton: (state.registrar.committing || state.registrar.committed) && state.router.location.pathname === '/registrar',
 });
 
 const mapDispatchToProps = dispatch => ({
