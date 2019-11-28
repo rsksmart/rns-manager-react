@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
-import { ProgressBar, Button, Spinner } from 'react-bootstrap';
+import {
+  ProgressBar, Button, Spinner,
+} from 'react-bootstrap';
+import { StartButton } from '../../../auth';
 
 class RevealComponent extends Component {
   constructor(props) {
@@ -73,7 +76,8 @@ class RevealComponent extends Component {
 
   render() {
     const {
-      waiting, strings, revealCommit, committed, revealing, revealed, canReveal,
+      waiting, strings, revealCommit, committed, revealing,
+      revealed, canReveal, revealConfirmed,
     } = this.props;
 
     const { percentage } = this.state;
@@ -106,6 +110,10 @@ class RevealComponent extends Component {
                 >
                   {strings.process_step_3}
                 </Button>
+                <hr />
+                <div hidden={!revealed || !revealConfirmed}>
+                  <StartButton />
+                </div>
               </div>
             )
         }
@@ -119,11 +127,13 @@ RevealComponent.propTypes = {
     process_step_3: propTypes.string.isRequired,
     process_step_3_explanation: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
+    admin_domain: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   checkCanReveal: propTypes.func.isRequired,
   waiting: propTypes.bool.isRequired,
   commitConfirmed: propTypes.bool,
+  revealConfirmed: propTypes.bool,
   canReveal: propTypes.bool.isRequired,
   revealing: propTypes.bool.isRequired,
   revealed: propTypes.bool.isRequired,
@@ -132,6 +142,7 @@ RevealComponent.propTypes = {
 
 RevealComponent.defaultProps = {
   commitConfirmed: false,
+  revealConfirmed: false,
 };
 
 export default multilanguage(RevealComponent);

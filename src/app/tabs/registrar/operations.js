@@ -3,7 +3,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
-  errorRevealCommit, saltNotFound, commitTxMined,
+  errorRevealCommit, saltNotFound, commitTxMined, revealTxMined,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -112,7 +112,7 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
       }
 
       dispatch(receiveRevealCommit());
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT })));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
     });
   });
 };

@@ -3,7 +3,8 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   RECEIVE_REGISTRAR_REVEAL_COMMIT, REQUEST_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, REGISTRAR_COMMIT_CONFIRMED,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT,
+  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED,
 } from './types';
 
 describe('register reducer', () => {
@@ -14,12 +15,13 @@ describe('register reducer', () => {
           gettingCost: false,
           committing: false,
           committed: false,
-          hash: undefined,
+          hash: null,
           revealing: false,
           revealed: false,
           waiting: false,
           canReveal: false,
-          commitConfirmed: undefined,
+          commitConfirmed: null,
+          revealConfirmed: null,
         },
       );
   });
@@ -98,7 +100,7 @@ describe('register reducer', () => {
       committed: true,
       hash: 'sarasa',
       waiting: true,
-      commitConfirmed: undefined,
+      commitConfirmed: null,
     });
   });
 
@@ -151,7 +153,7 @@ describe('register reducer', () => {
       committed: true,
       hash: 'sarasa',
       waiting: true,
-      commitConfirmed: undefined,
+      commitConfirmed: null,
     });
 
     expect(
@@ -160,7 +162,7 @@ describe('register reducer', () => {
         committed: true,
         hash: 'sarasa',
         waiting: true,
-        commitConfirmed: undefined,
+        commitConfirmed: null,
       }, {
         type: REGISTRAR_COMMIT_CONFIRMED,
       }),
@@ -239,6 +241,41 @@ describe('register reducer', () => {
     });
   });
 
+  it('should handle REQUEST_REGISTRAR_REVEAL_COMMIT and RECEIVE_REGISTRAR_REVEAL_COMMIT and REVAL_COMMIT_CONFIRMED', () => {
+    expect(
+      reducer({}, {
+        type: REQUEST_REGISTRAR_REVEAL_COMMIT,
+      }),
+    )
+      .toEqual({
+        revealing: true,
+      });
+
+    expect(
+      reducer({
+        revealing: true,
+      }, {
+        type: RECEIVE_REGISTRAR_REVEAL_COMMIT,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: true,
+    });
+
+    expect(
+      reducer({
+        revealing: false,
+        revealed: true,
+      }, {
+        type: REVEAL_COMMIT_CONFIRMED,
+      }),
+    ).toEqual({
+      revealing: false,
+      revealed: true,
+      revealConfirmed: true,
+    });
+  });
+
   it('should handle ERROR_REGISTRAR_REVEAL_COMMIT', () => {
     expect(
       reducer({}, {
@@ -282,6 +319,16 @@ describe('register reducer', () => {
     });
   });
 
+  it('should handle REVEAL_COMMIT_CONFIRMED', () => {
+    expect(
+      reducer({}, {
+        type: REVEAL_COMMIT_CONFIRMED,
+      }),
+    ).toEqual({
+      revealConfirmed: true,
+    });
+  });
+
   it('should handle RECEIVE_CAN_REVEAL_COMMIT false', () => {
     expect(
       reducer({}, {
@@ -308,19 +355,20 @@ describe('register reducer', () => {
 
   it('should return the initial state when action is SALT_NOT_FOUND', () => {
     expect(reducer(undefined, {
-      type: 'NOT_IMPLEMENTED',
+      type: 'SALT_NOT_FOUND',
     }))
       .toEqual(
         {
           gettingCost: false,
           committing: false,
           committed: false,
-          hash: undefined,
+          hash: null,
           revealing: false,
           revealed: false,
           waiting: false,
           canReveal: false,
-          commitConfirmed: undefined,
+          commitConfirmed: null,
+          revealConfirmed: null,
         },
       );
   });
@@ -334,12 +382,13 @@ describe('register reducer', () => {
           gettingCost: false,
           committing: false,
           committed: false,
-          hash: undefined,
+          hash: null,
           revealing: false,
           revealed: false,
           waiting: false,
           canReveal: false,
-          commitConfirmed: undefined,
+          commitConfirmed: null,
+          revealConfirmed: null,
         },
       );
   });

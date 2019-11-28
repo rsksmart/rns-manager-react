@@ -6,6 +6,7 @@ import { revealCommit, checkCanReveal } from '../operations';
 const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
   commitConfirmed: state.registrar.commitConfirmed,
+  revealConfirmed: state.registrar.revealConfirmed,
   canReveal: state.registrar.canReveal,
   revealing: state.registrar.revealing,
   revealed: state.registrar.revealed,
