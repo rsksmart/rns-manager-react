@@ -3,6 +3,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
+  errorRevealCommit, saltNotFound, commitTxMined, revealTxMined,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -32,8 +33,6 @@ export const commit = domain => async (dispatch) => {
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
   const salt = `0x${Array.from(randomBytes).map(byte => byte.toString(16)).join('')}`;
 
-  localStorage.setItem(`${domain}-salt`, salt);
-
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
@@ -49,8 +48,9 @@ export const commit = domain => async (dispatch) => {
           return resolve(dispatch(notifyError(_error.message)));
         }
 
+        localStorage.setItem(`${domain}-salt`, salt);
         dispatch(receiveCommitRegistrar(hashCommit));
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT })));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
       });
     });
   });
@@ -64,6 +64,28 @@ export const checkCanReveal = hash => async (dispatch) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       return dispatch(receiveCanRevealCommit(canReveal));
+    });
+  });
+};
+
+export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+  const salt = localStorage.getItem(`${domain}-salt`);
+
+  if (!salt) return dispatch(saltNotFound());
+
+  dispatch(requestCommitRegistrar());
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+  return new Promise((resolve) => {
+    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
+      if (error) return resolve(dispatch(notifyError(error.message)));
+
+      dispatch(receiveCommitRegistrar(hashCommit, true));
+
+      return resolve(dispatch(checkCanReveal(hashCommit)));
     });
   });
 };
@@ -84,10 +106,13 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
 
   return new Promise((resolve) => {
     rif.transferAndCall(fifsRegistrarAddress, weiBN, data, (error, result) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
+      if (error) {
+        dispatch(errorRevealCommit());
+        return resolve(dispatch(notifyError(error.message)));
+      }
 
       dispatch(receiveRevealCommit());
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT })));
+      return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
     });
   });
 };

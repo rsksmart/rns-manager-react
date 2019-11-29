@@ -190,5 +190,6 @@
   "commit": "등록 요청하기",
   "notifications_registrar_committed": "여러분의 도메인 등록이 요청되었습니다",
   "notifications_registrar_revealed":  "여러분의 도메인이 등록되었습니다",
-  "login_explanation": "방금 등록된 도메인으로 이제 로그인할 수 있습니다"
+  "login_explanation": "방금 등록된 도메인으로 이제 로그인할 수 있습니다",
+  "rskTld": ".rsk"
 }
