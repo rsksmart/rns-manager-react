@@ -110,6 +110,9 @@ class DomainStateComponent extends Component {
               <InputGroup className="mb-3">
                 <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={invalid && 'is-invalid'} />
                 <InputGroup.Append>
+                  <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
+                </InputGroup.Append>
+                <InputGroup.Append>
                   <Button type="submit" size="sm">{strings.search}</Button>
                 </InputGroup.Append>
                 <div className="invalid-feedback">
@@ -167,6 +170,7 @@ DomainStateComponent.propTypes = {
     process_step_2: propTypes.string.isRequired,
     process_step_3: propTypes.string.isRequired,
     learn_more: propTypes.string.isRequired,
+    rskTld: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,

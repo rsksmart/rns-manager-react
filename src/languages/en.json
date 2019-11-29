@@ -196,5 +196,6 @@
   "commit": "request for registration",
   "notifications_registrar_committed": "your domain has been requested to be registered",
   "notifications_registrar_revealed":  "your domain has been registered",
-  "login_explanation": "now you can login with your just registered domain"
+  "login_explanation": "now you can login with your just registered domain",
+  "rskTld": ".rsk"
 }

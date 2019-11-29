@@ -8,18 +8,22 @@ import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
 export const isValidName = (name) => {
   const labels = name.split('.');
 
-  if (labels.length > 2) {
-    return 'Search only .rsk simple names';
+  if (labels.length > 1) {
+    return 'Search only simple names';
   }
 
-  if (labels.length === 2) {
-    if (labels[1] !== 'rsk') {
-      return 'Search only .rsk names';
-    }
-    if (labels[0].length === 0) {
-      return 'Search for a name.';
-    }
-  }
+  // if (labels.length > 2) {
+  //   return 'Search only .rsk simple names';
+  // }
+
+  // if (labels.length === 2) {
+  //   if (labels[1] !== 'rsk') {
+  //     return 'Search only .rsk names';
+  //   }
+  //   if (labels[0].length === 0) {
+  //     return 'Search for a name.';
+  //   }
+  // }
 
   if (labels[0].match('[^a-z0-9]')) {
     return 'Invalid name. Must be lower case characters and/or numbers';

@@ -190,5 +190,6 @@
   "commit": "要求注册",
   "notifications_registrar_committed": "您的域名已被要求注册",
   "notifications_registrar_revealed":  "您的域名已注册",
-  "login_explanation": "现在您可使用您刚注册的域登录"
+  "login_explanation": "现在您可使用您刚注册的域登录",
+  "rskTld": ".rsk"
 }
