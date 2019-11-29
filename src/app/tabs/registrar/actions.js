@@ -2,7 +2,8 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
+  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -19,9 +20,10 @@ export const requestCommitRegistrar = () => ({
   type: REQUEST_REGISTRAR_COMMIT,
 });
 
-export const receiveCommitRegistrar = hash => ({
+export const receiveCommitRegistrar = (hash, commitConfirmed) => ({
   type: RECEIVE_REGISTRAR_COMMIT,
   hash,
+  commitConfirmed,
 });
 
 export const errorRegistrarCommit = () => ({
@@ -43,4 +45,16 @@ export const errorRevealCommit = () => ({
 export const receiveCanRevealCommit = canReveal => ({
   type: RECEIVE_CAN_REVEAL_COMMIT,
   canReveal,
+});
+
+export const saltNotFound = () => ({
+  type: SALT_NOT_FOUND,
+});
+
+export const commitTxMined = () => ({
+  type: REGISTRAR_COMMIT_CONFIRMED,
+});
+
+export const revealTxMined = () => ({
+  type: REVEAL_COMMIT_CONFIRMED,
 });
