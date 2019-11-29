@@ -49,6 +49,9 @@ class GetDomainStateComponent extends Component {
               className={invalid ? 'is-invalid' : null}
             />
             <InputGroup.Append>
+              <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
+            </InputGroup.Append>
+            <InputGroup.Append>
               <Button type="submit" size="sm" disabled={disableSearchButton}>{strings.search}</Button>
             </InputGroup.Append>
             <div className="invalid-feedback">
@@ -65,6 +68,7 @@ GetDomainStateComponent.propTypes = {
   strings: propTypes.shape({
     search: propTypes.string.isRequired,
     invalid_name: propTypes.string.isRequired,
+    rskTld: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string,
   disableSearchButton: propTypes.bool.isRequired,

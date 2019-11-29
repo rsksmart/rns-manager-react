@@ -190,5 +190,6 @@
   "commit": "solicitação de registro",
   "notifications_registrar_committed": "o registro de seu domínio foi solicitado",
   "notifications_registrar_revealed":  "seu domínio foi registrado",
-  "login_explanation": "agora você pode fazer login com o domínio que acaba de registrar"
+  "login_explanation": "agora você pode fazer login com o domínio que acaba de registrar",
+  "rskTld": ".rsk"
 }

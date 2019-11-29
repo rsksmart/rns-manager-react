@@ -32,12 +32,14 @@ class RegistrarComponent extends Component {
     } else if (blocked) {
       elementToRender = <h4>{strings.domain_not_available}</h4>;
     } else {
+      const domainDisplay = `${domain}.rsk`;
+
       elementToRender = (
         <div>
           <h2>
             {strings.start_registration_for}
             {' '}
-            <code>{domain}</code>
+            <code>{domainDisplay}</code>
           </h2>
           <h4>registering a name requires you to complete 3 steps</h4>
           <RentalPeriodContainer />
