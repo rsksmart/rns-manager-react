@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
   const {
     getting, value, editOpen, editing,
   } = state.multiChainResolver.chainAddr;
-  const { name } = state.auth;
+  const { name, address } = state.auth;
   const { action, defaultValue } = parse(state.router.location.search);
 
   const preloadedValue = action === 'chain_addr' ? defaultValue : '';
@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
     value,
     editOpen,
     editing,
+    address,
     preloadedValue,
   };
 };
@@ -26,7 +27,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   get: (name, chianId) => dispatch(getChainAddr(name, chianId)),
   changeEdit: () => dispatch(chainAddr.changeEdit()),
-  set: (name, chainId, value) => dispatch(setChainAddr(name, chainId, value)),
+  set: (name, chainId, value, address) => dispatch(setChainAddr(name, chainId, value, address)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -34,7 +35,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   get: chainId => dispatchProps.get(stateProps.name, chainId),
-  set: (chainId, value) => dispatchProps.set(stateProps.name, chainId, value),
+  set: (chainId, value) => dispatchProps.set(stateProps.name, chainId, value, stateProps.address),
 });
 
 export default connect(
