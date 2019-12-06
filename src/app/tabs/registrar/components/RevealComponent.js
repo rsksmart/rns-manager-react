@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
@@ -14,12 +15,15 @@ class RevealComponent extends Component {
       seconds: 0,
       percentage: 0,
       lastCheck: 0,
+      registerNewName: false,
     };
 
     this.progressBarInterval = 3; // seconds
     this.progressBarMax = 60; // seconds
     this.progressBarMin = 0; // seconds
     this.amountIntervalsToCheck = 3;
+
+    this.registerNewName = this.registerNewName.bind(this);
   }
 
   componentDidMount() {
@@ -74,13 +78,21 @@ class RevealComponent extends Component {
     }, this.progressBarInterval * 1000);
   }
 
+  registerNewName() {
+    return this.setState({ registerNewName: true });
+  }
+
   render() {
     const {
       waiting, strings, revealCommit, committed, revealing,
       revealed, canReveal, revealConfirmed,
     } = this.props;
 
-    const { percentage } = this.state;
+    const { percentage, registerNewName } = this.state;
+
+    if (registerNewName) {
+      return <Redirect to="/search" />;
+    }
 
     return (
       <React.Fragment>
@@ -113,7 +125,14 @@ class RevealComponent extends Component {
                 <hr />
                 <div hidden={!revealed || !revealConfirmed}>
                   <StartButton />
+                  <p>
+                    {strings.or}
+                  </p>
+                  <Button onClick={this.registerNewName}>
+                    {strings.register_new_name}
+                  </Button>
                 </div>
+                <hr />
               </div>
             )
         }
@@ -128,6 +147,8 @@ RevealComponent.propTypes = {
     process_step_3_explanation: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
     admin_domain: propTypes.string.isRequired,
+    register_new_name: propTypes.string.isRequired,
+    or: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   checkCanReveal: propTypes.func.isRequired,
