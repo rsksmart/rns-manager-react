@@ -40,7 +40,7 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
   }
 
   if (blocked) {
-    return strings.domain_not_available;
+    return strings.blocked_domain;
   }
 
   return (
@@ -189,6 +189,7 @@ DomainStateComponent.propTypes = {
     process_step_3: propTypes.string.isRequired,
     learn_more: propTypes.string.isRequired,
     rskTld: propTypes.string.isRequired,
+    blocked_domain: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,
