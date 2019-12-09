@@ -15,14 +15,14 @@ import {
   nameResolver as nameResolverAddress,
   registrar as tokenRegistrarAddress,
   gasPrice as defaultGasPrice,
-} from '../../../config/contracts';
+} from '../../../config/contracts.json';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import {
   rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi,
-} from './abis';
+} from './abis.json';
 
 const web3 = new Web3(window.ethereum);
 const registry = new web3.eth.Contract(

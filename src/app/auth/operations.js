@@ -1,5 +1,5 @@
 import { hash as namehash } from 'eth-ens-namehash';
-import { rns as registryAddress } from '../../config/contracts';
+import { rns as registryAddress } from '../../config/contracts.json';
 import { checkResolver } from '../notifications';
 
 import {

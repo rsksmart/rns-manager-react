@@ -1,6 +1,6 @@
 import { hash as namehash } from 'eth-ens-namehash';
 import { addTxNotification, txMined, notifyMigrateResolver } from './actions';
-import { rns as rnsAddress, publicResolver } from '../../config/contracts';
+import { rns as rnsAddress, publicResolver } from '../../config/contracts.json';
 
 export const notifyTx = (tx, message, params, callback) => (dispatch) => {
   dispatch(addTxNotification(tx, message, params));
