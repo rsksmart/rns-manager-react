@@ -1,25 +1,49 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Card, Spinner } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
+import { isValidName } from '../../../validations';
+
 
 class RegistrarComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      invalid: null,
+    };
+  }
+
   componentDidMount() {
     const { domain, getState } = this.props;
-    if (domain && getState) getState(domain);
+    if (domain && this.validate() && getState) getState(domain);
+  }
+
+  validate() {
+    const { domain } = this.props;
+    const invalid = isValidName(domain);
+    this.setState({ invalid });
+    return !invalid;
   }
 
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading,
     } = this.props;
+    const { invalid } = this.state;
 
     let elementToRender;
 
-    if (domainStateLoading) {
+    if (!domain) {
+      return <Redirect to="/search" />;
+    }
+
+    if (invalid) {
+      elementToRender = <h4>{invalid}</h4>;
+    } else if (domainStateLoading) {
       elementToRender = <Spinner animation="grow" variant="primary" />;
     } else if (owned) {
       elementToRender = (
@@ -69,10 +93,15 @@ RegistrarComponent.propTypes = {
     owned: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
-  domainStateLoading: propTypes.string.isRequired,
-  owned: propTypes.bool.isRequired,
-  blocked: propTypes.bool.isRequired,
+  domainStateLoading: propTypes.bool.isRequired,
+  owned: propTypes.bool,
+  blocked: propTypes.bool,
   getState: propTypes.func.isRequired,
+};
+
+RegistrarComponent.defaultProps = {
+  owned: false,
+  blocked: false,
 };
 
 export default multilanguage(RegistrarComponent);
