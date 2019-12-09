@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   const {
     getting, value, editOpen, editing,
   } = getField(state);
-  const { name, network } = state.auth;
+  const { name, network, address } = state.auth;
   const { action, defaultValue } = parse(state.router.location.search);
 
   let displayValue = value;
@@ -31,13 +31,14 @@ const mapStateToProps = (state, ownProps) => {
       && getResolverName(value, strings.rsk_resolver, strings.multi_chain_resolver)
     );
   } else if (valueType === valueTypes.POSITIVE_NUMBER) {
-    displayValue = value && value.toNumber();
+    // eslint-disable-next-line radix
+    displayValue = value && parseInt(value);
   }
 
   let validate = () => null;
 
   if (valueType === valueTypes.ADDRESS || valueType === valueTypes.RESOLVER) {
-    validate = address => validateAddress(address, network);
+    validate = addr => validateAddress(addr, network);
   } else if (valueType === valueTypes.POSITIVE_NUMBER) {
     validate = number => validatePositiveNumber(number);
   } else if (valueType === valueTypes.BYTES32) {
@@ -50,6 +51,7 @@ const mapStateToProps = (state, ownProps) => {
     name,
     getting,
     value: displayValue,
+    address,
     editOpen,
     editing,
     validate,
@@ -63,7 +65,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     get: name => dispatch(get(name)),
     changeEdit: () => dispatch(changeEdit()),
-    set: (name, value) => dispatch(set(name, value)),
+    set: (name, value, address) => dispatch(set(name, value, address)),
   };
 };
 
@@ -72,7 +74,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   get: () => dispatchProps.get(stateProps.name),
-  set: value => dispatchProps.set(stateProps.name, value),
+  set: value => dispatchProps.set(stateProps.name, value, stateProps.address),
 });
 
 export default multilanguage(connect(

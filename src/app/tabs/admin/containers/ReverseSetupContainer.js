@@ -10,14 +10,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getReverse: address => dispatch(getReverseResolution(address)),
-  setReverse: name => dispatch(setReverseResolution(name)),
+  setReverse: (name, address) => dispatch(setReverseResolution(name, address)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   getReverse: () => dispatchProps.getReverse(stateProps.address),
-  setReverse: () => dispatchProps.setReverse(stateProps.name),
+  setReverse: () => dispatchProps.setReverse(stateProps.name, stateProps.address),
 });
 
 export default connect(

@@ -19,7 +19,7 @@ export default domain => (dispatch) => {
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
-  if (domain.length <= 5) {
+  if (domain.length < 5) {
     return dispatch(blockedDomain());
   }
 
