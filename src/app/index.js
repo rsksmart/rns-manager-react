@@ -11,7 +11,7 @@ import Routes from './routes';
 import { HeaderContainer } from './containers';
 import { AuthModal } from './auth';
 import { Notifications, notificationTypes } from './notifications';
-import { multiChainResolver } from '../config/contracts';
+import { multiChainResolver } from '../config/contracts.json';
 
 // eslint-disable-next-line react/prop-types
 const App = ({ strings, history, multiChainNotification }) => (

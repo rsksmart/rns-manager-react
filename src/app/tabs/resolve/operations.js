@@ -1,10 +1,10 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import * as actions from './actions';
-import { rskMain } from '../../../config/nodes';
-import { rnsAbi, abstractResolverAbi } from './abis';
-import { rns as rnsAddress } from '../../../config/contracts';
-import resolverInterfaces from './resolverInterfaces';
+import { rskMain } from '../../../config/nodes.json';
+import { rnsAbi, abstractResolverAbi } from './abis.json';
+import { rns as rnsAddress } from '../../../config/contracts.json';
+import resolverInterfaces from './resolverInterfaces.json';
 
 export const identifyInterfaces = domain => (dispatch) => {
   if (!domain) {

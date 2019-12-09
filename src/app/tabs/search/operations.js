@@ -1,10 +1,10 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { requestDomainState, receiveDomainState, blockedDomain } from './actions';
-import { rskOwner as rskOwnerAddress } from '../../../config/contracts';
+import { rskOwner as rskOwnerAddress } from '../../../config/contracts.json';
 import { notifyError } from '../../notifications';
-import { rskMain } from '../../../config/nodes';
-import { rskOwnerAbi } from './abis';
+import { rskMain } from '../../../config/nodes.json';
+import { rskOwnerAbi } from './abis.json';
 
 export default domain => (dispatch) => {
   if (!domain) {
