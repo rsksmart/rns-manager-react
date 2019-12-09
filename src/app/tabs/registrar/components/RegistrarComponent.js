@@ -51,6 +51,8 @@ class RegistrarComponent extends Component {
           {strings.owned}
           <br />
           <Link to={`/admin?domain=${domain}`} className="btn btn-primary">{strings.admin_your_domain_title}</Link>
+          <br />
+          <Link to="/search">{strings.search_another_domain}</Link>
         </Card.Text>
       );
     } else if (blocked) {
@@ -91,6 +93,7 @@ RegistrarComponent.propTypes = {
     domain_not_available: propTypes.string.isRequired,
     admin_your_domain_title: propTypes.string.isRequired,
     owned: propTypes.string.isRequired,
+    search_another_domain: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
