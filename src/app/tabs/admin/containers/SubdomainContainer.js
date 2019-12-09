@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     parent: state.auth.name,
+    address: state.auth.address,
     owner: subdomain.owner && toChecksumAddress(state)(subdomain.owner),
     viewEdit: subdomain.viewEdit,
     editing: subdomain.editing,
@@ -19,14 +20,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   changeEdit: () => dispatch(viewEditSubdomainOwner(ownProps.label)),
-  set: (node, owner) => dispatch(setSubdomainOwner(node, ownProps.label, owner)),
+  set: (node, owner, address) => dispatch(setSubdomainOwner(node, ownProps.label, owner, address)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  set: owner => dispatchProps.set(stateProps.parent, owner),
+  set: owner => dispatchProps.set(stateProps.parent, owner, stateProps.address),
 });
 
 export default connect(

@@ -1,3 +1,4 @@
+import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
   requestGetCost, receiveGetCost,
@@ -8,7 +9,8 @@ import {
 import {
   fifsRegistrar as fifsRegistrarAddress,
   rif as rifAddress,
-} from '../../../config/contracts';
+  gasPrice as defaultGasPrice,
+} from '../../../config/contracts.json';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData } from './helpers';
@@ -36,23 +38,29 @@ export const commit = domain => async (dispatch) => {
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+  const web3 = new Web3(window.ethereum);
+  const registrar = new web3.eth.Contract(
+    fifsRegistrarAbi, fifsRegistrarAddress, { from: currentAddress, gasPrice: defaultGasPrice },
+  );
 
   return new Promise((resolve) => {
-    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
+    registrar
+      .methods
+      .makeCommitment(`0x${sha3(domain)}`, currentAddress, salt)
+      .call((error, hashCommit) => {
+        if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return registrar.commit(hashCommit, (_error, result) => {
-        if (_error) {
-          dispatch(errorRegistrarCommit());
-          return resolve(dispatch(notifyError(_error.message)));
-        }
+        return registrar.methods.commit(hashCommit).send((_error, result) => {
+          if (_error) {
+            dispatch(errorRegistrarCommit());
+            return resolve(dispatch(notifyError(_error.message)));
+          }
 
-        localStorage.setItem(`${domain}-salt`, salt);
-        dispatch(receiveCommitRegistrar(hashCommit));
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
+          localStorage.setItem(`${domain}-salt`, salt);
+          dispatch(receiveCommitRegistrar(hashCommit));
+          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
+        });
       });
-    });
   });
 };
 
@@ -94,7 +102,6 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   dispatch(requestRevealCommit());
 
   const weiValue = tokens * (10 ** 18);
-  const weiBN = window.web3.toBigNumber(weiValue);
   const salt = localStorage.getItem(`${domain}-salt`);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -102,17 +109,23 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
 
   const data = getRegisterData(domain, currentAddress, salt, durationBN);
 
-  const rif = window.web3.eth.contract(rifAbi).at(rifAddress);
+  const web3 = new Web3(window.ethereum);
+  const rif = new web3.eth.Contract(
+    rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
+  );
 
   return new Promise((resolve) => {
-    rif.transferAndCall(fifsRegistrarAddress, weiBN, data, (error, result) => {
-      if (error) {
-        dispatch(errorRevealCommit());
-        return resolve(dispatch(notifyError(error.message)));
-      }
+    rif
+      .methods
+      .transferAndCall(fifsRegistrarAddress, weiValue.toString(), data)
+      .send((error, result) => {
+        if (error) {
+          dispatch(errorRevealCommit());
+          return resolve(dispatch(notifyError(error.message)));
+        }
 
-      dispatch(receiveRevealCommit());
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
-    });
+        dispatch(receiveRevealCommit());
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
+      });
   });
 };

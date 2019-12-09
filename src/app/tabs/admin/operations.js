@@ -1,4 +1,5 @@
 import { hash as namehash } from 'eth-ens-namehash';
+import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
   owner, resolver, ttl,
@@ -13,43 +14,50 @@ import {
   reverseRegistrar as reverseRegistryAddress,
   nameResolver as nameResolverAddress,
   registrar as tokenRegistrarAddress,
-} from '../../../config/contracts';
+  gasPrice as defaultGasPrice,
+} from '../../../config/contracts.json';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import {
   rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi,
-} from './abis';
+} from './abis.json';
 
-const registry = window.web3 && window.web3.eth.contract(rnsAbi).at(registryAddress);
-const reverseRegistry = window.web3
-  && window.web3.eth.contract(reverseAbi).at(reverseRegistryAddress);
-const nameResolver = window.web3
-  && window.web3.eth.contract(nameResolverAbi).at(nameResolverAddress);
-const tokenRegistrar = window.web3
-  && window.web3.eth.contract(tokenRegistrarAbi).at(tokenRegistrarAddress);
+const web3 = new Web3(window.ethereum);
+const registry = new web3.eth.Contract(
+  rnsAbi, registryAddress, { gasPrice: defaultGasPrice },
+);
+const nameResolver = new web3.eth.Contract(
+  nameResolverAbi, nameResolverAddress, { gasPrice: defaultGasPrice },
+);
+const tokenRegistrar = new web3.eth.Contract(
+  tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
+);
+const reverseRegistry = new web3.eth.Contract(
+  reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
+);
 
-export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry && registry.owner);
+export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry.methods.owner);
 export const getDomainResolver = get(
   resolver.requestGet,
   resolver.receiveGet,
-  registry && registry.resolver,
+  registry.methods.resolver,
 );
-export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry && registry.ttl);
+export const getDomainTtl = get(ttl.requestGet, ttl.receiveGet, registry.methods.ttl);
 
 export const setDomainOwner = set(
   owner.requestSet,
   owner.receiveSet,
   txTypes.SET_OWNER,
-  registry && registry.setOwner,
+  registry.methods.setOwner,
   getDomainOwner,
 );
 export const setDomainResolver = set(
   resolver.requestSet,
   resolver.receiveSet,
   txTypes.SET_RESOLVER,
-  registry && registry.setResolver,
+  registry.methods.setResolver,
   name => (dispatch) => {
     dispatch(getDomainResolver(name));
     dispatch(checkResolver(name));
@@ -59,7 +67,7 @@ export const setDomainTtl = set(
   ttl.requestSet,
   ttl.receiveSet,
   txTypes.SET_TTL,
-  registry && registry.setTTL,
+  registry.methods.setTTL,
   getDomainTtl,
 );
 
@@ -67,7 +75,7 @@ const displaySubdomain = (domain, subdomain) => (dispatch) => {
   const hash = namehash(`${subdomain}.${domain}`);
 
   return new Promise((resolve, reject) => {
-    registry.owner(hash, (error, result) => {
+    registry.methods.owner(hash).call((error, result) => {
       if (error) reject(dispatch(notifyError(error.message)));
 
       dispatch(receiveSubdomainOwner(subdomain, result));
@@ -105,18 +113,21 @@ export const addSubdomain = (domain, subdomain) => (dispatch) => {
   dispatch(displaySubdomain(domain, subdomain));
 };
 
-export const setSubdomainOwner = (parent, child, _owner) => (dispatch) => {
+export const setSubdomainOwner = (parent, child, _owner, sender) => (dispatch) => {
   dispatch(requestSetSubdomainOwner(child));
 
   const label = `0x${sha3(child)}`;
   const node = namehash(parent);
 
   return new Promise((resolve) => {
-    registry.setSubnodeOwner(node, label, _owner, (error, result) => {
-      dispatch(receiveSetSubdomainOwner(child));
-      if (error) return resolve(dispatch(notifyError(error.message)));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNODE_OWNER, name: `${child}.${parent}`, owner: _owner }, () => displaySubdomain(parent, child))));
-    });
+    registry.methods.setSubnodeOwner(node, label, _owner).send(
+      { from: sender },
+      (error, result) => {
+        dispatch(receiveSetSubdomainOwner(child));
+        if (error) return resolve(dispatch(notifyError(error.message)));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_SUBNODE_OWNER, name: `${child}.${parent}`, owner: _owner }, () => displaySubdomain(parent, child))));
+      },
+    );
   });
 };
 
@@ -128,25 +139,28 @@ export const getReverseResolution = address => (dispatch) => {
   const hash = namehash(name);
 
   return new Promise((resolve) => {
-    nameResolver.name(hash, (error, nameResolution) => {
+    nameResolver.methods.name(hash).call((error, nameResolution) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
       return resolve(dispatch(receiveGetReverse(nameResolution)));
     });
   });
 };
 
-export const setReverseResolution = name => (dispatch) => {
+export const setReverseResolution = (name, sender) => (dispatch) => {
   dispatch(requestSetReverse());
 
   return new Promise((resolve) => {
-    reverseRegistry.setName(name, (error, result) => {
-      if (error) {
-        dispatch(errorSetReverse());
-        return resolve(dispatch(notifyError(error.message)));
-      }
-      dispatch(receiveSetReverse(name));
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_REVERSE_RESOLUTION, name })));
-    });
+    reverseRegistry.methods.setName(name).send(
+      { from: sender },
+      (error, result) => {
+        if (error) {
+          dispatch(errorSetReverse());
+          return resolve(dispatch(notifyError(error.message)));
+        }
+        dispatch(receiveSetReverse(name));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.SET_REVERSE_RESOLUTION, name })));
+      },
+    );
   });
 };
 
@@ -162,7 +176,7 @@ export const checkIfSubdomainOrMigrated = name => (dispatch) => {
   return new Promise((resolve) => {
     const label = `0x${sha3(name.split('.')[0])}`;
 
-    tokenRegistrar.entries(label, (error, result) => {
+    tokenRegistrar.methods.entries(label).call((error, result) => {
       if (error) {
         dispatch(errorCheckFifsMigration());
         return resolve(dispatch(notifyError(error.message)));
@@ -175,19 +189,22 @@ export const checkIfSubdomainOrMigrated = name => (dispatch) => {
   });
 };
 
-export const migrateToFifsRegistrar = name => (dispatch) => {
+export const migrateToFifsRegistrar = (name, sender) => (dispatch) => {
   dispatch(requestFifsMigration());
 
   return new Promise((resolve) => {
     const label = `0x${sha3(name.split('.')[0])}`;
 
-    tokenRegistrar.transferRegistrars(label, (error, result) => {
-      if (error) {
-        dispatch(errorFifsMigration());
-        return resolve(dispatch(notifyError(error.message)));
-      }
-      dispatch(receiveFifsMigration());
-      return resolve(dispatch(notifyTx(result, '', { type: txTypes.MIGRATE_FIFS_REGISTRAR, name })));
-    });
+    tokenRegistrar.methods.transferRegistrars(label).send(
+      { from: sender },
+      (error, result) => {
+        if (error) {
+          dispatch(errorFifsMigration());
+          return resolve(dispatch(notifyError(error.message)));
+        }
+        dispatch(receiveFifsMigration());
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.MIGRATE_FIFS_REGISTRAR, name })));
+      },
+    );
   });
 };
