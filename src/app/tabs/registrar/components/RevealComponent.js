@@ -125,11 +125,9 @@ class RevealComponent extends Component {
                 <hr />
                 <div hidden={!revealed || !revealConfirmed}>
                   <StartButton />
-                  <p>
-                    {strings.or}
-                  </p>
+                  <span> </span>
                   <Button onClick={this.registerNewName}>
-                    {strings.register_new_name}
+                    {strings.register}
                   </Button>
                 </div>
                 <hr />
@@ -147,8 +145,7 @@ RevealComponent.propTypes = {
     process_step_3_explanation: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
     admin_domain: propTypes.string.isRequired,
-    register_new_name: propTypes.string.isRequired,
-    or: propTypes.string.isRequired,
+    register: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   checkCanReveal: propTypes.func.isRequired,
