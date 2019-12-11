@@ -30,11 +30,7 @@ export const getRegisterData = (name, owner, secret, duration) => {
   const dataOwner = owner.toLowerCase().slice(2);
 
   // 32 bytes
-  let dataSecret = secret.slice(2);
-  const padding = 64 - dataSecret.length;
-  for (let i = 0; i < padding; i += 1) {
-    dataSecret += '0';
-  }
+  const dataSecret = secret.slice(2);
 
   // 32 bytes
   const dataDuration = numberToUint32(duration);
