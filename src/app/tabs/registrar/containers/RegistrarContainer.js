@@ -8,7 +8,9 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   domainStateLoading: state.search.domainStateLoading,
   owned: state.search.owned,
+  owner: state.search.owner,
   blocked: state.search.blocked,
+  requestingOwner: state.search.requestingOwner,
 });
 
 const mapDispatchToProps = dispatch => ({
