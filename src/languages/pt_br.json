@@ -191,5 +191,6 @@
   "notifications_registrar_committed": "o registro de seu domínio foi solicitado",
   "notifications_registrar_revealed":  "seu domínio foi registrado",
   "login_explanation": "agora você pode fazer login com o domínio que acaba de registrar",
-  "rskTld": ".rsk"
+  "rskTld": ".rsk",
+  "blocked_domain": "domínios com menos de 5 caracteres estão bloqueados. fique atento, vamos liberá-los em breve"
 }
