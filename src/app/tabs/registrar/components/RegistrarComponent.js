@@ -70,7 +70,7 @@ class RegistrarComponent extends Component {
         );
       }
     } else if (blocked) {
-      elementToRender = <h4>{strings.domain_not_available}</h4>;
+      elementToRender = <h4>{strings.blocked_domain}</h4>;
     } else {
       const domainDisplay = `${domain}.rsk`;
 
@@ -104,7 +104,7 @@ RegistrarComponent.propTypes = {
   strings: propTypes.shape({
     start_registration_for: propTypes.string.isRequired,
     rental_period: propTypes.string.isRequired,
-    domain_not_available: propTypes.string.isRequired,
+    blocked_domain: propTypes.string.isRequired,
     admin_your_domain_title: propTypes.string.isRequired,
     owned: propTypes.string.isRequired,
     search_another_domain: propTypes.string.isRequired,

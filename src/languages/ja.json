@@ -191,5 +191,6 @@
   "notifications_registrar_committed": "お客様のドメインを登録する必要があります",
   "notifications_registrar_revealed":  "お客様のドメインが登録されました",
   "login_explanation": "お客様は登録したばかりのドメインに今すぐログインできます",
-  "rskTld": ".rsk"
+  "rskTld": ".rsk",
+  "blocked_domain": "5文字以下のドメインはブロックされます。チャンネルはそのままで、私たちはそれらをすぐにリリースします"
 }
