@@ -7,16 +7,32 @@ import {
 import { multilanguage } from 'redux-multilanguage';
 import { isValidName } from '../../../validations';
 
-function getDisplayState(domain, domainStateLoading, owned, blocked, strings) {
+// eslint-disable-next-line max-len
+function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, strings) {
   if (!domain) return 'Search for a domain.';
   if (domainStateLoading) return <Spinner animation="grow" variant="primary" />;
 
   if (owned) {
+    if (requestingOwner) {
+      return (
+        <Card.Text>
+          {strings.owned}
+          <br />
+          <Spinner animation="grow" variant="primary" />
+        </Card.Text>
+      );
+    }
     return (
       <Card.Text>
         {strings.owned}
         <br />
-        <Link to={`/admin?domain=${domain}`} className="btn btn-primary">{strings.admin_your_domain_title}</Link>
+        <strong>
+          {strings.owner}
+          {': '}
+        </strong>
+        {owner}
+        <br />
+        <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
         <br />
         <Link to="/search">{strings.search_another_domain}</Link>
       </Card.Text>
@@ -24,7 +40,7 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, strings) {
   }
 
   if (blocked) {
-    return strings.domain_not_available;
+    return strings.blocked_domain;
   }
 
   return (
@@ -90,7 +106,7 @@ class DomainStateComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, domainStateLoading, blocked,
+      strings, domain, owned, domainStateLoading, blocked, owner, requestingOwner,
     } = this.props;
     const { searchValue, invalid, showProcess } = this.state;
 
@@ -100,7 +116,9 @@ class DomainStateComponent extends Component {
       domainDisplay = domain.split('.').length === 1 ? `${domain}.rsk` : domain;
     }
 
-    const displayState = getDisplayState(domain, domainStateLoading, owned, blocked, strings);
+    const displayState = getDisplayState(
+      domain, domainStateLoading, owned, blocked, owner, requestingOwner, strings,
+    );
 
     return (
       <Container>
@@ -171,10 +189,13 @@ DomainStateComponent.propTypes = {
     process_step_3: propTypes.string.isRequired,
     learn_more: propTypes.string.isRequired,
     rskTld: propTypes.string.isRequired,
+    blocked_domain: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,
+  owner: propTypes.string,
   blocked: propTypes.bool,
+  requestingOwner: propTypes.bool.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   search: propTypes.func.isRequired,
@@ -182,6 +203,7 @@ DomainStateComponent.propTypes = {
 
 DomainStateComponent.defaultProps = {
   owned: false,
+  owner: '',
   blocked: false,
 };
 

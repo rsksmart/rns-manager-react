@@ -191,5 +191,6 @@
   "notifications_registrar_committed": "您的域名已被要求注册",
   "notifications_registrar_revealed":  "您的域名已注册",
   "login_explanation": "现在您可使用您刚注册的域登录",
-  "rskTld": ".rsk"
+  "rskTld": ".rsk",
+  "blocked_domain": "少于 5 个字符的域名被拦截了。请继续关注，我们将尽快发布"
 }

@@ -33,7 +33,8 @@ export const commit = domain => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
-  const salt = `0x${Array.from(randomBytes).map(byte => byte.toString(16)).join('')}`;
+  const strSalt = Array.from(randomBytes).map(byte => byte.toString(16)).join('');
+  const salt = `0x${strSalt.padEnd(64, '0')}`;
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];

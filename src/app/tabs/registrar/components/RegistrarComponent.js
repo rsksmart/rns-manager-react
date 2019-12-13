@@ -31,7 +31,7 @@ class RegistrarComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, blocked, domainStateLoading,
+      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
     } = this.props;
     const { invalid } = this.state;
 
@@ -46,17 +46,31 @@ class RegistrarComponent extends Component {
     } else if (domainStateLoading) {
       elementToRender = <Spinner animation="grow" variant="primary" />;
     } else if (owned) {
-      elementToRender = (
-        <Card.Text>
-          {strings.owned}
-          <br />
-          <Link to={`/admin?domain=${domain}`} className="btn btn-primary">{strings.admin_your_domain_title}</Link>
-          <br />
-          <Link to="/search">{strings.search_another_domain}</Link>
-        </Card.Text>
-      );
+      if (requestingOwner) {
+        elementToRender = (
+          <Card.Text>
+            {strings.owned}
+            <br />
+            <Spinner animation="grow" variant="primary" />
+          </Card.Text>
+        );
+      } else {
+        elementToRender = (
+          <Card.Text>
+            {strings.owned}
+            <br />
+            <strong>
+              {strings.owner}
+              {': '}
+            </strong>
+            {owner}
+            <br />
+            <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
+          </Card.Text>
+        );
+      }
     } else if (blocked) {
-      elementToRender = <h4>{strings.domain_not_available}</h4>;
+      elementToRender = <h4>{strings.blocked_domain}</h4>;
     } else {
       const domainDisplay = `${domain}.rsk`;
 
@@ -90,21 +104,26 @@ RegistrarComponent.propTypes = {
   strings: propTypes.shape({
     start_registration_for: propTypes.string.isRequired,
     rental_period: propTypes.string.isRequired,
-    domain_not_available: propTypes.string.isRequired,
+    blocked_domain: propTypes.string.isRequired,
     admin_your_domain_title: propTypes.string.isRequired,
     owned: propTypes.string.isRequired,
     search_another_domain: propTypes.string.isRequired,
+    owner: propTypes.string.isRequired,
+    resolve: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
   owned: propTypes.bool,
   blocked: propTypes.bool,
+  owner: propTypes.string,
+  requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
 };
 
 RegistrarComponent.defaultProps = {
   owned: false,
   blocked: false,
+  owner: '',
 };
 
 export default multilanguage(RegistrarComponent);

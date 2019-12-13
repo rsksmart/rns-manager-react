@@ -1,10 +1,15 @@
-import { REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE, BLOCKED_DOMAIN } from './types';
+import {
+  REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE, BLOCKED_DOMAIN,
+  REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
+} from './types';
 
 // TODO: check initial state
 const initialState = {
   owned: undefined,
+  owner: undefined,
   domainStateLoading: false,
   blocked: undefined,
+  requestingOwner: false,
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -28,6 +33,19 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         domainStateLoading: false,
         blocked: true,
+      };
+    }
+    case REQUEST_DOMAIN_OWNER: {
+      return {
+        ...state,
+        requestingOwner: true,
+      };
+    }
+    case RECEIVE_DOMAIN_OWNER: {
+      return {
+        ...state,
+        requestingOwner: false,
+        owner: action.owner,
       };
     }
     default: return state;
