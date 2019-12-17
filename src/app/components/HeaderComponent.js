@@ -1,40 +1,60 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Navbar, Nav, Form } from 'react-bootstrap';
+import {
+  Navbar, Nav, Form, Container, Image,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/img/logo.svg';
 import { StartButton } from '../auth';
 import { LanguageSelectContainer } from '../containers';
 
 const HeaderComponent = (props) => {
-  const { strings, isLoggedIn, viewMyCrypto } = props;
+  const { strings, isLoggedIn } = props;
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-      <Link to="/" className="navbar-brand">
-        <img src={logo} width="100" alt="logo" />
-      </Link>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto" />
-        <Nav>
-          <Link to="/search" className="nav-link">{strings.search}</Link>
-          <Link to="/resolve" className="nav-link">{strings.resolve}</Link>
-          {
-            (isLoggedIn || viewMyCrypto)
-            && (
-              <React.Fragment>
-                <Link to="/admin" className="nav-link">{strings.admin}</Link>
-              </React.Fragment>
-            )
-          }
-        </Nav>
-        <Form onSubmit={e => e.preventDefault()} inline>
-          <LanguageSelectContainer />
-          <StartButton />
-        </Form>
-      </Navbar.Collapse>
+    <Navbar
+      expand="md"
+      className="navbar-expand-md navbar-light bg-light fixed-top"
+    >
+      <Container>
+        <Link to="/" className="navbar-brand">
+          <Image
+            src={logo}
+            className="logo"
+            alt="Logo"
+          />
+        </Link>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse className>
+          <Nav className="ml-auto">
+            <Nav.Item key={strings.search}>
+              <Link to="/search" className="nav-link" title={strings.search}>
+                {strings.search}
+              </Link>
+            </Nav.Item>
+            <Nav.Item key={strings.resolve}>
+              <Link to="/resolve" className="nav-link" title={strings.resolve}>
+                {strings.resolve}
+              </Link>
+            </Nav.Item>
+            {
+              isLoggedIn
+              && (
+                <Nav.Item key={strings.admin}>
+                  <Link className="nav-link" to="/admin">
+                    {strings.admin}
+                  </Link>
+                </Nav.Item>
+              )
+            }
+          </Nav>
+          <Form onSubmit={e => e.preventDefault()} inline>
+            <LanguageSelectContainer />
+            <StartButton />
+          </Form>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
@@ -42,7 +62,6 @@ const HeaderComponent = (props) => {
 HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
   isLoggedIn: propTypes.bool.isRequired,
-  viewMyCrypto: propTypes.bool.isRequired,
 };
 
 export default multilanguage(HeaderComponent);

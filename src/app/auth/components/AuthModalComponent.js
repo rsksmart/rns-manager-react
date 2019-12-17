@@ -34,10 +34,11 @@ class AuthModalComponent extends Component {
       name,
       isOwner,
       openWallets,
-      switchToMyCrypto,
     } = this.props;
 
     let nameInput;
+
+    const variant = 'rif';
 
     const { nameInputValue } = this.state;
 
@@ -52,30 +53,52 @@ class AuthModalComponent extends Component {
           : (
             enableError
         || (
-        <React.Fragment>
-          <Form.Group as={Row} controlId="address">
-            <Form.Label column sm="2">
-              {strings.address}
-            </Form.Label>
-            <Col sm="12">
-              <Form.Control plaintext readOnly defaultValue={displayAddress} />
-            </Col>
+        <Form>
+          <Form.Group controlId="address">
+            <Row>
+              <Col lg={2}>
+                <Form.Label className={`control-label-${variant}`}>Address</Form.Label>
+              </Col>
+              <Col lg={10}>
+                <Form.Control
+                  className={`form-control-${variant}`}
+                  plaintext
+                  readOnly
+                  defaultValue={displayAddress}
+                />
+              </Col>
+            </Row>
           </Form.Group>
-          <Form.Group as={Row} controlId="network">
-            <Form.Label column sm="2">
-              {strings.network}
-            </Form.Label>
-            <Col sm="12">
-              <Form.Control plaintext readOnly defaultValue={network} />
-            </Col>
+          <Form.Group controlId="network">
+            <Row>
+              <Col lg={2}>
+                <Form.Label className={`control-label-${variant}`}>Network</Form.Label>
+              </Col>
+              <Col lg={10}>
+                <Form.Control
+                  className={`form-control-${variant}`}
+                  plaintext
+                  readOnly
+                  defaultValue={network}
+                />
+              </Col>
+            </Row>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              {strings.name}
-            </Form.Label>
-            <Col sm="12">
-              <Form.Control type="text" value={nameInputValue} onChange={this.changeInputName} />
-            </Col>
+
+          <Form.Group controlId="name">
+            <Row>
+              <Col lg={2}>
+                <Form.Label className={`control-label-${variant}`}>Name</Form.Label>
+              </Col>
+              <Col lg={10}>
+                <Form.Control
+                  className={`form-control-${variant}`}
+                  type="text"
+                  value={nameInputValue}
+                  onChange={this.changeInputName}
+                />
+              </Col>
+            </Row>
           </Form.Group>
           {
             authError
@@ -99,7 +122,7 @@ class AuthModalComponent extends Component {
             </Form.Group>
             )
           }
-        </React.Fragment>
+        </Form>
         ))
       );
     }
@@ -115,14 +138,13 @@ class AuthModalComponent extends Component {
         <Modal.Footer>
           {
             hasMetamask && !enabling && !enableError
-              && (
-              <React.Fragment>
-                <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className="btn btn-primary">{strings.register}</Link>
-                <Button onClick={() => authenticate(nameInputValue)} variant="secondary">{strings.log_in}</Button>
-              </React.Fragment>
-              )
+            && (
+            <React.Fragment>
+              <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className="btn btn-primary">{strings.register}</Link>
+              <Button onClick={() => authenticate(nameInputValue)}>{strings.log_in}</Button>
+            </React.Fragment>
+            )
           }
-          <Button onClick={switchToMyCrypto} variant="light">{strings.switch_to_mycrypto}</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -145,7 +167,6 @@ AuthModalComponent.propTypes = {
   name: propTypes.string,
   isOwner: propTypes.bool.isRequired,
   openWallets: propTypes.func.isRequired,
-  switchToMyCrypto: propTypes.func.isRequired,
 };
 
 AuthModalComponent.defaultProps = {

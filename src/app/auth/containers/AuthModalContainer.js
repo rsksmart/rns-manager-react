@@ -4,7 +4,6 @@ import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
 import { networkSelector, toChecksumAddress } from '../../selectors';
-import { changeMyCryptoMetamask } from '../../tabs/user';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,
@@ -28,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(push('/walltes'));
     dispatch(closeModal());
   },
-  switchToMyCrypto: () => dispatch(changeMyCryptoMetamask(true)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
