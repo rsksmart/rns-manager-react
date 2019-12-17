@@ -1,44 +1,41 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {
+  Nav, Button,
+} from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-
-const buttonStyle = {
-  width: '100px',
-};
 
 const StartButtonComponent = (props) => {
   const {
-    strings, open, user, isOwner, domain, address, viewMyCrypto,
+    strings, open, user, isOwner, domain, address,
   } = props;
-
-  if (viewMyCrypto) {
-    return (
-      <button type="button" className="btn btn-outline-primary my-2 my-sm-0 ml-1" onClick={open} style={buttonStyle}>
-        {strings.switch_to_metamask}
-      </button>
-    );
-  }
 
   if (!address) {
     return (
-      <button type="button" className="btn btn-outline-primary my-2 my-sm-0 ml-1" onClick={open} style={buttonStyle}>
-        {strings.start}
-      </button>
+      <Nav.Item key={strings.start}>
+        <Button className="my-2 my-sm-0" onClick={open}>
+          {strings.start}
+        </Button>
+      </Nav.Item>
     );
   }
 
   if (domain && isOwner) {
     return (
-      <button type="button" className="btn btn-outline-primary my-2 my-sm-0 ml-1" onClick={user} style={buttonStyle}>
-        {domain}
-      </button>
+      <Nav.Item key={domain}>
+        <Button className="my-2 my-sm-0" onClick={user}>
+          {domain}
+        </Button>
+      </Nav.Item>
     );
   }
 
   return (
-    <button type="button" className="btn btn-outline-primary my-2 my-sm-0 ml-1" onClick={open} style={buttonStyle}>
-      {strings.log_in}
-    </button>
+    <Nav.Item key={strings.log_in}>
+      <Button className="my-2 my-sm-0" onClick={open}>
+        {strings.log_in}
+      </Button>
+    </Nav.Item>
   );
 };
 
@@ -53,7 +50,6 @@ StartButtonComponent.propTypes = {
   isOwner: propTypes.bool.isRequired,
   domain: propTypes.string,
   address: propTypes.string,
-  viewMyCrypto: propTypes.bool.isRequired,
 };
 
 StartButtonComponent.defaultProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Row, Col, Jumbotron, Card, ListGroup, ListGroupItem,
+  Container, Row, Col, Jumbotron, Card,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
@@ -29,16 +29,6 @@ export default multilanguage((props) => {
             </Col>
           </Row>
           <Row>
-            <Col style={{ padding: 10 }}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.what_is_rns_title}</Card.Title>
-                  <Card.Text>{strings.what_is_rns_text}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
             <Col style={{ padding: 10 }} md={6} xs={12}>
               <Card>
                 <Card.Body>
@@ -59,31 +49,6 @@ export default multilanguage((props) => {
                     {strings.admin_your_domain_action_3}
                   </p>
                   <Link className="card-link" to="/admin" rel="noopener noreferrer">{strings.admin}</Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ padding: 10 }} md={6} xs={12}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.develop}</Card.Title>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem><a href="https://docs.rns.rifos.org/Libs" target="_blank" alt="libs" rel="noopener noreferrer">{strings.libs}</a></ListGroupItem>
-                    <ListGroupItem><a href="https://docs.rns.rifos.org" target="_blank" alt="docs" rel="noopener noreferrer">{strings.docs}</a></ListGroupItem>
-                    <ListGroupItem><a href="https://github.com/rnsdomains" target="_blank" alt="github" rel="noopener noreferrer">{strings.github}</a></ListGroupItem>
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col style={{ padding: 10 }} md={6} xs={12}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.learn}</Card.Title>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem><a href="https://docs.rifos.org/rif-whitepaper-en.pdf" target="_blank" alt="rif_whitepaper" rel="noopener noreferrer">{strings.rif_white_paper}</a></ListGroupItem>
-                    <ListGroupItem><a href="https://docs.rifos.org/rif-directory-protocol-en.pdf" target="_blank" alt="rns_whitepapaer" rel="noopener noreferrer">{strings.rns_white_paper}</a></ListGroupItem>
-                  </ListGroup>
                 </Card.Body>
               </Card>
             </Col>
