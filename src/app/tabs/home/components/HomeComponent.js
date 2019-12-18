@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Row, Col, Jumbotron, Card,
+  Container, Row, Col, Card,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
@@ -22,10 +22,12 @@ export default multilanguage((props) => {
           </Row>
           <Row>
             <Col>
-              <Jumbotron>
-                <h3>{strings.register_your_domain}</h3>
-                <GetDomainStateContainer />
-              </Jumbotron>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{strings.register_your_domain}</Card.Title>
+                  <GetDomainStateContainer />
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
           <Row>
