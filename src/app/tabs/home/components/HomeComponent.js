@@ -15,7 +15,9 @@ export default multilanguage((props) => {
       <Col lg={{ span: 10, offset: 1 }} md={12}>
         <Container>
           <Row>
-            <Col><h1 className="text-center">{strings.home_title}</h1></Col>
+            <Col>
+              <h1 className="text-center main-title-box"><b>{strings.home_title}</b></h1>
+            </Col>
           </Row>
           <Row>
             <Col><h2 className="text-center">{strings.home_subtitle}</h2></Col>
