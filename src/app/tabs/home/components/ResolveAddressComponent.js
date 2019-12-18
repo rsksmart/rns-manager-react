@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Form, InputGroup, FormControl, Button,
+  Form, InputGroup, FormControl, Button, Col,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidDomain } from '../../../validations';
@@ -30,26 +30,28 @@ class ResolverAddressComponent extends Component {
     let input;
 
     return (
-      <Form onSubmit={(e) => {
-        e.preventDefault();
-        if (this.validate(input.value)) onResolve(input.value);
-      }}
-      >
-        <InputGroup>
-          <FormControl
-            ref={(node) => {
-              input = node;
-            }}
-            className={!isValid ? 'is-invalid' : null}
-          />
-          <InputGroup.Append>
-            <Button type="submit" size="sm">{strings.resolve}</Button>
-          </InputGroup.Append>
-          <div className="invalid-feedback">
-            {strings.invalid_name}
-          </div>
-        </InputGroup>
-      </Form>
+      <Col lg={12}>
+        <Form onSubmit={(e) => {
+          e.preventDefault();
+          if (this.validate(input.value)) onResolve(input.value);
+        }}
+        >
+          <InputGroup className="mb-3">
+            <FormControl
+              ref={(node) => {
+                input = node;
+              }}
+              className={!isValid ? 'is-invalid' : null}
+            />
+            <div className="invalid-feedback">
+              {strings.invalid_name}
+            </div>
+          </InputGroup>
+          <Col className="text-center">
+            <Button type="submit" variant="primary-rif" className="btn-primary">{strings.resolve}</Button>
+          </Col>
+        </Form>
+      </Col>
     );
   }
 }

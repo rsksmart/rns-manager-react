@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Form, InputGroup, Button, FormControl,
+  Form, InputGroup, Button, FormControl, Container, Col, Row,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidName } from '../validations';
@@ -33,43 +33,45 @@ class GetDomainStateComponent extends Component {
     let input;
 
     return (
-      <Form onSubmit={(e) => {
-        e.preventDefault();
-        if (!this.validate(input.value)) getDomainState(input.value);
-      }}
-      >
-        <Form.Group>
-          <InputGroup className="mb-3">
-            <FormControl
-              type="text"
-              ref={(node) => {
-                input = node;
-              }}
-              defaultValue={domain}
-              className={invalid ? 'is-invalid' : null}
-            />
-            <InputGroup.Append>
-              <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
-            </InputGroup.Append>
-            <InputGroup.Append>
-              <Button type="submit" size="sm" disabled={disableSearchButton}>{strings.search}</Button>
-            </InputGroup.Append>
-            <div className="invalid-feedback">
-              {invalid}
-            </div>
-          </InputGroup>
-        </Form.Group>
-      </Form>
+      <Container>
+        <Row>
+          <Col lg={12}>
+            <Form onSubmit={(e) => {
+              e.preventDefault();
+              if (!this.validate(input.value)) getDomainState(input.value);
+            }}
+            >
+              <Col>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    type="text"
+                    ref={(node) => {
+                      input = node;
+                    }}
+                    defaultValue={domain}
+                    className={invalid ? 'is-invalid' : null}
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
+                  </InputGroup.Append>
+                  <div className="invalid-feedback">
+                    {invalid}
+                  </div>
+                </InputGroup>
+              </Col>
+              <Col className="text-center">
+                <Button type="submit" variant="primary-rif" disabled={disableSearchButton}>{strings.search}</Button>
+              </Col>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
 
 GetDomainStateComponent.propTypes = {
-  strings: propTypes.shape({
-    search: propTypes.string.isRequired,
-    invalid_name: propTypes.string.isRequired,
-    rskTld: propTypes.string.isRequired,
-  }).isRequired,
+  strings: propTypes.shape().isRequired,
   domain: propTypes.string,
   disableSearchButton: propTypes.bool.isRequired,
   getDomainState: propTypes.func.isRequired,

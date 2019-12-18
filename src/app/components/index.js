@@ -10,3 +10,4 @@ export { default as LinkToMyCryptoInteractComponent } from './LinkToMyCryptoInte
 export { default as ChainAddrSelectorComponent } from './ChainAddrSelectorComponent';
 export { default as ResolverDatalist } from './ResolverDatalist';
 export { default as LanguageSelectComponent } from './LanguageSelectComponent';
+export { default as RegisterProcessComponent } from './RegisterProcessComponent';
