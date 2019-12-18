@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 
+const languages = [
+  { value: 'en', displayValue: 'English' },
+  { value: 'es', displayValue: 'Español' },
+  { value: 'zh', displayValue: '简体中文' },
+  { value: 'ja', displayValue: '日本語' },
+  { value: 'ko', displayValue: '한국어' },
+  { value: 'pt', displayValue: 'Português' },
+  { value: 'ru', displayValue: 'Русский' },
+];
+
 class LanguageSelectComponent extends Component {
   constructor(props) {
     super(props);
@@ -21,16 +31,6 @@ class LanguageSelectComponent extends Component {
 
   render() {
     const { language } = this.state;
-
-    const languages = [
-      { value: 'en', displayValue: 'English' },
-      { value: 'es', displayValue: 'Español' },
-      { value: 'zh', displayValue: '简体中文' },
-      { value: 'ja', displayValue: '日本語' },
-      { value: 'ko', displayValue: '한국어' },
-      { value: 'pt', displayValue: 'Português' },
-      { value: 'ru', displayValue: 'Русский' },
-    ];
 
     const currentLanguage = languages.find(lang => lang.value === language).displayValue;
 
