@@ -6,6 +6,10 @@ import {
   FIFS_MIGRATION_REQUEST_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
   FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
   FIFS_MIGRATION_ERROR_CHECK_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
+  TRANSFER_DOMAIN_CHECK_SUBDOMAIN, TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+  TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER, TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+  TRANSFER_DOMAIN_REQUEST_TRANSFER, TRANSFER_DOMAIN_RECEIVE_TRANSFER,
+  TRANSFER_DOMAIN_ERROR_TRANSFER,
 } from './types';
 
 describe('admin reducer', () => {
@@ -430,6 +434,188 @@ describe('admin fifs migration reducer', () => {
           migrating: false,
           isSubdomain: undefined,
           justMigrated: false,
+        },
+      );
+  });
+});
+
+describe('admin transfer domain reducer', () => {
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).transferDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_CHECK_SUBDOMAIN and subdomain true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: true,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: true,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_CHECK_SUBDOMAIN and subdomain false', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: false,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: false,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_REQUEST_CHECK_OWNER and set checking flag', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: true,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER and set currentOwner and isTokenOwner flag to false', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+      isTokenOwner: false,
+      currentOwner: 'test',
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: 'test',
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER and set currentOwner and isTokenOwner flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+      isTokenOwner: true,
+      currentOwner: 'test',
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: true,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: 'test',
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_REQUEST_TRANSFER and set transferring flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_REQUEST_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: true,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_TRANSFER and set justTransferred flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: true,
+          checking: false,
+          transferring: false,
+          justTransferred: true,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_ERROR_TRANSFER', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_ERROR_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_ERROR_CHECK_OWNER', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle NOT_IMPLEMENTED and return default state', () => {
+    expect(reducer(undefined, {
+      type: 'NOT_IMPLEMENTED',
+    }).transferDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
         },
       );
   });

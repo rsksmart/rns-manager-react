@@ -6,3 +6,5 @@ export { default as SubdomainContainer } from './SubdomainContainer';
 export { default as AdminTabContainer } from './AdminTabContainer';
 export { default as ReverseSetupContainer } from './ReverseSetupContainer';
 export { default as FIFSMigrationContainer } from './FIFSMigrationContainer';
+export { default as TransferDomainContainer } from './TransferDomainContainer';
+export { default as DangerZoneContainer } from './DangerZoneContainer';

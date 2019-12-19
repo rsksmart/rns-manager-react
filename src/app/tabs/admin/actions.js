@@ -1,5 +1,5 @@
 import {
-  OWNER, RESOLVER, TTL,
+  OWNER, RESOLVER, TTL, TRANSFER_DOMAIN,
   ADD_SUBDOMAIN, RECEIVE_SUBDOMAIN_OWNER, CLEAR_SUBDOMAINS,
   VIEW_EDIT_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
   REVERSE_REQUEST_GET, REVERSE_RECEIVE_GET,
@@ -8,6 +8,13 @@ import {
   FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
   FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
   FIFS_MIGRATION_ERROR_CHECK_MIGRATION,
+  TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+  TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+  TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+  TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+  TRANSFER_DOMAIN_REQUEST_TRANSFER,
+  TRANSFER_DOMAIN_ERROR_TRANSFER,
+  TRANSFER_DOMAIN_RECEIVE_TRANSFER,
 } from './types';
 
 import filedActions from '../../factories/actionFactory';
@@ -15,6 +22,7 @@ import filedActions from '../../factories/actionFactory';
 export const owner = filedActions(OWNER);
 export const resolver = filedActions(RESOLVER);
 export const ttl = filedActions(TTL);
+export const transferDomain = filedActions(TRANSFER_DOMAIN);
 
 // subdomains
 export const addSubdomain = label => ({
@@ -98,4 +106,35 @@ export const receiveFifsMigration = () => ({
 
 export const errorFifsMigration = () => ({
   type: FIFS_MIGRATION_ERROR_MIGRATION,
+});
+
+export const transferDomainCheckIfSubdomain = isSubdomain => ({
+  type: TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+  isSubdomain,
+});
+
+export const requestCheckTokenOwner = () => ({
+  type: TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+});
+
+export const errorCheckTokenOwner = () => ({
+  type: TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+});
+
+export const receiveCheckTokenOwner = (isTokenOwner, currentOwner) => ({
+  type: TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+  isTokenOwner,
+  currentOwner,
+});
+
+export const requestTransferDomain = () => ({
+  type: TRANSFER_DOMAIN_REQUEST_TRANSFER,
+});
+
+export const errorTransferDomain = () => ({
+  type: TRANSFER_DOMAIN_ERROR_TRANSFER,
+});
+
+export const receiveTransferDomain = () => ({
+  type: TRANSFER_DOMAIN_RECEIVE_TRANSFER,
 });
