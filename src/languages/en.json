@@ -198,5 +198,9 @@
   "notifications_registrar_revealed":  "your domain has been registered",
   "login_explanation": "now you can login with your just registered domain",
   "rskTld": ".rsk",
-  "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon"
+  "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon",
+  "transfer_domain": "transfer domain",
+  "transfer": "transfer",
+  "already_transferred": "your domain ownership has been succesfully transferred",
+  "notifications_transferred_domain_token": "your domain ownership has been succesfully transferred"
 }
