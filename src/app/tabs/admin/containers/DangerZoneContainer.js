@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { checkIfSubdomainOrTokenOwner, transferToken } from '../operations';
+import { checkIfSubdomainOrTokenOwner } from '../operations';
 import { DangerZoneComponent } from '../components';
 
 const mapStateToProps = state => ({
@@ -11,11 +11,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   checkIfSubdomainOrTokenOwner:
     (name, currentAddress) => dispatch(checkIfSubdomainOrTokenOwner(name, currentAddress)),
-  transferToken: (
-    name,
-    addressToTransfer,
-    currentAddress,
-  ) => dispatch(transferToken(name, addressToTransfer, currentAddress)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -23,11 +18,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   checkIfSubdomainOrTokenOwner:
     () => dispatchProps.checkIfSubdomainOrTokenOwner(stateProps.name, stateProps.currentAddress),
-  transfer: addressToTransfer => dispatchProps.transferToken(
-    stateProps.name,
-    addressToTransfer,
-    stateProps.currentAddress,
-  ),
 });
 
 export default connect(
