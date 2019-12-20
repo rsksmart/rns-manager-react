@@ -260,7 +260,7 @@ export const transferToken = (name, addressToTransfer, sender) => (dispatch) => 
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        resolve(dispatch(receiveTransferDomain(result)));
+        resolve(dispatch(receiveTransferDomain()));
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.TRANSFER_DOMAIN_TOKEN })));
       },
     );
