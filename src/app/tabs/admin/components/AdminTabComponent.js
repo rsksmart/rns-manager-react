@@ -8,7 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import {
   OwnerContainer, ResolverContainer, TtlContainer,
   SubdomainsListContainer, ReverseSetupContainer, FIFSMigrationContainer,
-  DangerZoneContainer,
+  DangerZoneContainer, RenewContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
 import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
@@ -90,6 +90,11 @@ class AdminTabComponent extends Component {
             )
           }
           <hr />
+          <Row>
+            <Col>
+              <RenewContainer />
+            </Col>
+          </Row>
           <Row>
             <Col>
               <DangerZoneContainer />
