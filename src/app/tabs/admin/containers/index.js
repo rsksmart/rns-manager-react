@@ -8,3 +8,4 @@ export { default as ReverseSetupContainer } from './ReverseSetupContainer';
 export { default as FIFSMigrationContainer } from './FIFSMigrationContainer';
 export { default as TransferDomainContainer } from './TransferDomainContainer';
 export { default as DangerZoneContainer } from './DangerZoneContainer';
+export { default as RenewContainer } from './RenewContainer';

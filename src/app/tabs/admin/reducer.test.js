@@ -9,7 +9,9 @@ import {
   TRANSFER_DOMAIN_CHECK_SUBDOMAIN, TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
   TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER, TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
   TRANSFER_DOMAIN_REQUEST_TRANSFER, TRANSFER_DOMAIN_RECEIVE_TRANSFER,
-  TRANSFER_DOMAIN_ERROR_TRANSFER,
+  TRANSFER_DOMAIN_ERROR_TRANSFER, RENEW_DOMAIN_CHECK_SUBDOMAIN,
+  RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME, RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
+  RENEW_DOMAIN_REQUEST_EXPIRATION_TIME,
 } from './types';
 
 describe('admin reducer', () => {
@@ -616,6 +618,100 @@ describe('admin transfer domain reducer', () => {
           transferring: false,
           justTransferred: false,
           currentOwner: null,
+        },
+      );
+  });
+});
+
+describe('admin renew domain', () => {
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_CHECK_SUBDOMAIN and subdomain true', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: true,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: true,
+          checking: false,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_CHECK_SUBDOMAIN and subdomain false', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: false,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: false,
+          checking: false,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_REQUEST_EXPIRATION_TIME and set checking flag', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_REQUEST_EXPIRATION_TIME,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: true,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME and set expirationRemaining', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME,
+      expirationRemaining: 1234,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          expirationRemaining: 1234,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_ERROR_EXPIRATION_TIME', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle NOT_IMPLEMENTED and return default state', () => {
+    expect(reducer(undefined, {
+      type: 'NOT_IMPLEMENTED',
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          expirationRemaining: 0,
         },
       );
   });

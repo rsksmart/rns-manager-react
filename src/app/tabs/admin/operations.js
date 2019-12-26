@@ -10,6 +10,8 @@ import {
   requestFifsMigration, receiveFifsMigration, errorFifsMigration, errorCheckFifsMigration,
   transferDomainCheckIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
   errorCheckTokenOwner, requestTransferDomain, receiveTransferDomain, errorTransferDomain,
+  renewDomainIsSubdomain, requestLabelExpirationTime, errorLabelExpirationTime,
+  receiveLabelExpirationTime,
 } from './actions';
 import {
   rns as registryAddress,
@@ -212,6 +214,43 @@ export const migrateToFifsRegistrar = (name, sender) => (dispatch) => {
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.MIGRATE_FIFS_REGISTRAR, name })));
       },
     );
+  });
+};
+
+export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
+  const labelsAmount = name.split('.').length;
+
+  if (labelsAmount > 2) {
+    return Promise.resolve(dispatch(renewDomainIsSubdomain(true)));
+  }
+
+  const label = name.split('.')[0];
+
+  dispatch(requestLabelExpirationTime());
+
+  return new Promise((resolve) => {
+    const hash = `0x${sha3(label)}`;
+
+    rskOwner.methods.expirationTime(hash).call((error, result) => {
+      if (error) {
+        return dispatch(errorLabelExpirationTime());
+      }
+
+      const expirationTime = result;
+
+      return web3.eth.getBlock('latest').then((currentBlock, timeError) => {
+        if (timeError) {
+          return dispatch(errorLabelExpirationTime());
+        }
+
+        const diff = expirationTime - currentBlock.timestamp;
+
+        // the difference is in seconds, so it is divided by the amount of seconds per day
+        const remainingDays = Math.floor(diff / (60 * 60 * 24));
+
+        return resolve(dispatch(receiveLabelExpirationTime(remainingDays)));
+      });
+    });
   });
 };
 

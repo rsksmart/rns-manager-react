@@ -11,7 +11,9 @@ import {
   FIFS_MIGRATION_ERROR_CHECK_MIGRATION, TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
   TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER, TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
   TRANSFER_DOMAIN_REQUEST_TRANSFER, TRANSFER_DOMAIN_RECEIVE_TRANSFER,
-  TRANSFER_DOMAIN_ERROR_TRANSFER, TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+  TRANSFER_DOMAIN_ERROR_TRANSFER, TRANSFER_DOMAIN_REQUEST_CHECK_OWNER, RENEW_DOMAIN_CHECK_SUBDOMAIN,
+  RENEW_DOMAIN_REQUEST_EXPIRATION_TIME, RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
+  RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME,
 } from './types';
 import fieldReducer from '../../factories/reducerFactory';
 
@@ -229,6 +231,43 @@ const transferDomain = (state = defaultTransferDomain, action) => {
   }
 };
 
+const defaultRenewDomain = {
+  isSubdomain: null,
+  expirationRemaining: 0,
+  checking: false,
+};
+
+const renewDomain = (state = defaultRenewDomain, action) => {
+  switch (action.type) {
+    case (RENEW_DOMAIN_CHECK_SUBDOMAIN): {
+      return {
+        ...state,
+        isSubdomain: action.isSubdomain,
+      };
+    }
+    case (RENEW_DOMAIN_REQUEST_EXPIRATION_TIME): {
+      return {
+        ...state,
+        checking: true,
+      };
+    }
+    case (RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME): {
+      return {
+        ...state,
+        checking: false,
+        expirationRemaining: action.expirationRemaining,
+      };
+    }
+    case (RENEW_DOMAIN_ERROR_EXPIRATION_TIME): {
+      return {
+        ...state,
+        checking: false,
+      };
+    }
+    default: return state;
+  }
+};
+
 export default combineReducers({
   owner: fieldReducer(OWNER),
   resolver: fieldReducer(RESOLVER),
@@ -237,4 +276,5 @@ export default combineReducers({
   reverse,
   fifsMigration,
   transferDomain,
+  renewDomain,
 });
