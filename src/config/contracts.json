@@ -1,12 +1,13 @@
 {
-  "rns": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5",
-  "registrar": "0x5269f5bc51cdd8aa62755c97229b7eeddd8e69a6",
-  "reverseRegistrar": "0xd25c3f94a743b93ecffecbe691beea51c3c2d9d1",
-  "publicResolver": "0x4efd25e3d348f8f25a14fb7655fba6f72edfe93a",
-  "nameResolver": "0x4b1a11bf6723e60b9d2e02aa3ece34e24bde77d9",
-  "multiChainResolver": "0x99a12be4c89cbf6cfd11d1f2c029904a7b644368",
-  "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
-  "fifsRegistrar": "0x779195c53cc7c1a33bd2eea5f63f2c1da8798d61",
-  "rskOwner": "0x45d3e4fb311982a06ba52359d44cb4f5980e0ef1",
+  "rns": "0x04a7E5d78A99d8781Af442301C2B9BaDe842BB22",
+  "registrar": "0xE0FD55AebB52D5c3DA149867D858B535F4800d06",
+  "reverseRegistrar": "0x4ffcC998aa770bC5A11DEDd9E2DA3dfdC8362e0c",
+  "publicResolver": "0xFadeb96b661e1e4FB39d33554F548d3e7D3304e4",
+  "nameResolver": "0x5a52226daed553730BF4a664B30E030780CEbb0c",
+  "multiChainResolver": "0x6F944825Def9FF0D1Cd79Ea14eA03DA1dA14DBe1",
+  "rif": "0xd71E4172c304EE3a239ec2e1a34ed226E0BBF819",
+  "fifsRegistrar": "0x78c0a1EEDf068262c0d7deE9758F6208bd486EBF",
+  "rskOwner": "0x01DA48584D186f6c1dBCaCF0ab976eCe5000b172",
+  "renewer": "0xd3F09038Ee5FB0D3b2f234e3526b0DEEb5Bc6089",
   "gasPrice": "60000000"
 }

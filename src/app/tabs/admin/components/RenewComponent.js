@@ -28,13 +28,14 @@ class RenewComponent extends Component {
 
   render() {
     const {
-      isSubdomain, checking, strings, expirationRemaining,
+      isSubdomain, checking, strings, expirationRemaining, domain,
     } = this.props;
 
     const { renewName } = this.state;
 
     if (renewName) {
-      return <Redirect to="/renew" />;
+      const redirection = `/renew?domain=${domain}`;
+      return <Redirect to={redirection} />;
     }
 
     if (!isSubdomain) {
@@ -64,6 +65,7 @@ class RenewComponent extends Component {
 }
 
 RenewComponent.defaultProps = {
+  domain: '',
   isSubdomain: undefined,
 };
 
@@ -77,6 +79,7 @@ RenewComponent.propTypes = {
   isSubdomain: propTypes.bool,
   checking: propTypes.bool.isRequired,
   expirationRemaining: propTypes.number.isRequired,
+  domain: propTypes.string,
 };
 
 export default multilanguage(RenewComponent);

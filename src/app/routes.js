@@ -15,6 +15,7 @@ import {
   NotificationTab,
   UserTab,
   AdminMyCryptoTab,
+  RenewTab,
 } from './tabs';
 
 
@@ -39,6 +40,7 @@ const Routes = (props) => {
       <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
+      <Route path="/renew" component={RenewTab} />
       <Route component={NoMatch} />
     </Switch>
   );

@@ -248,7 +248,7 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
         // the difference is in seconds, so it is divided by the amount of seconds per day
         const remainingDays = Math.floor(diff / (60 * 60 * 24));
 
-        return resolve(dispatch(receiveLabelExpirationTime(remainingDays)));
+        return resolve(dispatch(receiveLabelExpirationTime(remainingDays, label)));
       });
     });
   });

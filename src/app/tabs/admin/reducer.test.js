@@ -672,6 +672,7 @@ describe('admin renew domain', () => {
           isSubdomain: null,
           checking: true,
           expirationRemaining: 0,
+          domain: null,
         },
       );
   });
@@ -680,11 +681,13 @@ describe('admin renew domain', () => {
     expect(reducer(undefined, {
       type: RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME,
       expirationRemaining: 1234,
+      domain: 'testing',
     }).renewDomain)
       .toEqual(
         {
           isSubdomain: null,
           checking: false,
+          domain: 'testing',
           expirationRemaining: 1234,
         },
       );
@@ -698,6 +701,7 @@ describe('admin renew domain', () => {
         {
           isSubdomain: null,
           checking: false,
+          domain: null,
           expirationRemaining: 0,
         },
       );
@@ -711,6 +715,7 @@ describe('admin renew domain', () => {
         {
           isSubdomain: null,
           checking: false,
+          domain: null,
           expirationRemaining: 0,
         },
       );

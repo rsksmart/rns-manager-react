@@ -5,6 +5,7 @@ import resolve from './resolve';
 import search from './search';
 import registrar from './registrar';
 import user from './user';
+import renew from './renew';
 
 export default {
   admin,
@@ -14,6 +15,7 @@ export default {
   registrar,
   resolve,
   user,
+  renew,
 };
 
 export { AdminTab } from './admin';
@@ -24,6 +26,7 @@ export { MultiChainResolverTab } from './multiChainResolver';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { RegistrarTab } from './registrar';
+export { RenewTab } from './renew';
 export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
