@@ -4,6 +4,7 @@ import { RenewComponent } from '../components';
 
 const mapStateToProps = state => ({
   name: state.auth.name,
+  domain: state.admin.renewDomain.domain,
   expirationRemaining: state.admin.renewDomain.expirationRemaining,
   ...state.admin.fifsMigration,
 });

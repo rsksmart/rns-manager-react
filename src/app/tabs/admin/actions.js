@@ -151,7 +151,8 @@ export const errorLabelExpirationTime = () => ({
   type: RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
 });
 
-export const receiveLabelExpirationTime = expirationRemaining => ({
+export const receiveLabelExpirationTime = (expirationRemaining, domain) => ({
   type: RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME,
   expirationRemaining,
+  domain,
 });

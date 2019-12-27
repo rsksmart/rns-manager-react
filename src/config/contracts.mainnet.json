@@ -8,5 +8,6 @@
   "rif": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
   "fifsRegistrar": "0x779195c53cc7c1a33bd2eea5f63f2c1da8798d61",
   "rskOwner": "0x45d3e4fb311982a06ba52359d44cb4f5980e0ef1",
+  "renewer": "0x779195c53cc7c1a33bd2eea5f63f2c1da8798d61",
   "gasPrice": "60000000"
 }

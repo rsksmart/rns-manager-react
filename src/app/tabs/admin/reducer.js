@@ -234,6 +234,7 @@ const transferDomain = (state = defaultTransferDomain, action) => {
 const defaultRenewDomain = {
   isSubdomain: null,
   expirationRemaining: 0,
+  domain: null,
   checking: false,
 };
 
@@ -256,6 +257,7 @@ const renewDomain = (state = defaultRenewDomain, action) => {
         ...state,
         checking: false,
         expirationRemaining: action.expirationRemaining,
+        domain: action.domain,
       };
     }
     case (RENEW_DOMAIN_ERROR_EXPIRATION_TIME): {

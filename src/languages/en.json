@@ -205,5 +205,9 @@
   "notifications_transferred_domain_token": "your domain ownership has been succesfully transferred",
   "renew_your_domain": "renew your domain",
   "your_domain_expires": "Your domain expires in ",
-  "days": " days."
+  "days": " days.",
+  "not_registered_domain": "The domain has not been registered or has expired, you should register it before renewing.",
+  "start_renovation_for": "start renovation for",
+  "renew": "renew",
+  "renew_domain_successfully": "the domain has been renewed succesfully"
 }
