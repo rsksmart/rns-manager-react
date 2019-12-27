@@ -79,7 +79,7 @@ class RenewComponent extends Component {
                 ? <Spinner animation="grow" variant="primary" />
                 : (
                   <Button
-                    disabled={renewing || !hasBalance}
+                    disabled={!hasBalance}
                     onClick={doRenew}
                   >
                     {strings.renew}

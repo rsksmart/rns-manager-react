@@ -631,6 +631,7 @@ describe('admin renew domain', () => {
           isSubdomain: null,
           checking: false,
           expirationRemaining: 0,
+          domain: null,
         },
       );
   });
@@ -645,6 +646,7 @@ describe('admin renew domain', () => {
           isSubdomain: true,
           checking: false,
           expirationRemaining: 0,
+          domain: null,
         },
       );
   });
@@ -658,6 +660,7 @@ describe('admin renew domain', () => {
         {
           isSubdomain: false,
           checking: false,
+          domain: null,
           expirationRemaining: 0,
         },
       );
