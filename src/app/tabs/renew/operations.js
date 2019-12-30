@@ -26,18 +26,16 @@ export default (domain, tokens, duration) => async (dispatch) => {
     abi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
   );
 
-  return new Promise((resolve) => {
-    rif
-      .methods
-      .transferAndCall(renewerAddress, weiValue.toString(), data)
-      .send((error, result) => {
-        if (error) {
-          dispatch(errorRenewDomain());
-          return resolve(dispatch(notifyError(error.message)));
-        }
+  return rif
+    .methods
+    .transferAndCall(renewerAddress, weiValue.toString(), data)
+    .send((error, result) => {
+      if (error) {
+        dispatch(errorRenewDomain());
+        return dispatch(notifyError(error.message));
+      }
 
-        dispatch(receiveRenewDomain());
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.RENEW_DOMAIN })));
-      });
-  });
+      dispatch(receiveRenewDomain());
+      return dispatch(notifyTx(result, '', { type: txTypes.RENEW_DOMAIN }));
+    });
 };
