@@ -17,6 +17,7 @@ const initialState = {
   canReveal: false,
   commitConfirmed: null,
   revealConfirmed: null,
+  hasBalance: false,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -29,6 +30,7 @@ const registrar = (state = initialState, action) => {
       ...state,
       gettingCost: false,
       rifCost: action.rifCost,
+      hasBalance: action.hasBalance,
     };
     case REQUEST_REGISTRAR_COMMIT: return {
       ...state,

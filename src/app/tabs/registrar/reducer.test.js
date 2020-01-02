@@ -22,6 +22,7 @@ describe('register reducer', () => {
           canReveal: false,
           commitConfirmed: null,
           revealConfirmed: null,
+          hasBalance: false,
         },
       );
   });
@@ -39,15 +40,31 @@ describe('register reducer', () => {
       });
   });
 
-  it('should handle RECEIVE_REGISTRAR_GET_COST', () => {
+  it('should handle RECEIVE_REGISTRAR_GET_COST with hasBalance true', () => {
     expect(
       reducer({}, {
         type: RECEIVE_REGISTRAR_GET_COST,
         rifCost: 12,
+        hasBalance: true,
       }),
     ).toEqual({
       gettingCost: false,
       rifCost: 12,
+      hasBalance: true,
+    });
+  });
+
+  it('should handle RECEIVE_REGISTRAR_GET_COST with hasBalance false', () => {
+    expect(
+      reducer({}, {
+        type: RECEIVE_REGISTRAR_GET_COST,
+        rifCost: 12,
+        hasBalance: false,
+      }),
+    ).toEqual({
+      gettingCost: false,
+      rifCost: 12,
+      hasBalance: false,
     });
   });
 
@@ -369,6 +386,7 @@ describe('register reducer', () => {
           canReveal: false,
           commitConfirmed: null,
           revealConfirmed: null,
+          hasBalance: false,
         },
       );
   });
@@ -389,6 +407,7 @@ describe('register reducer', () => {
           canReveal: false,
           commitConfirmed: null,
           revealConfirmed: null,
+          hasBalance: false,
         },
       );
   });

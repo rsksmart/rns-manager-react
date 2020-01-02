@@ -213,5 +213,7 @@
   "discount": "50% discount per year from the third year",
   "rif_per_year": "RIF per year",
   "price": "price",
-  "how_long_want_name": "For how long do you want your name"
+  "how_long_want_name": "For how long do you want your name",
+  "not_enough_balance": "you don't have enough balance to perform this action",
+  "click_here_not_enough_balance": "click here and check where you can buy more tokens"
 }
