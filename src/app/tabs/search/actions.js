@@ -1,6 +1,6 @@
 import {
   REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE,
-  BLOCKED_DOMAIN, REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
+  BLOCKED_DOMAIN, REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, RECEIVE_DOMAIN_COST,
 } from './types';
 
 export const requestDomainState = () => ({
@@ -23,4 +23,9 @@ export const receiveDomainOwner = owner => ({
 
 export const blockedDomain = () => ({
   type: BLOCKED_DOMAIN,
+});
+
+export const receiveDomainCost = rifCost => ({
+  type: RECEIVE_DOMAIN_COST,
+  rifCost,
 });
