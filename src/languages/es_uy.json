@@ -192,5 +192,12 @@
   "notifications_registrar_revealed":  "su dominio ha sido registrado",
   "login_explanation": "ahora puede iniciar sesión con su dominio recién registrado",
   "rskTld": ".rsk",
-  "blocked_domain": "los dominios con menos de 5 caracteres están bloqueados. no se vayan, los liberaremos pronto"
+  "blocked_domain": "los dominios con menos de 5 caracteres están bloqueados. no se vayan, los liberaremos pronto",
+  "renew_your_domain": "renueve su dominio",
+  "your_domain_expires": "Su dominio caduca en ",
+  "days": " días.",
+  "not_registered_domain": "El dominio no se ha registrado o ha caducado; debe registrarlo antes de renovarlo.",
+  "start_renovation_for": "comenzar renovación para",
+  "renew": "renovar",
+  "renew_domain_successfully": "el dominio ha sido renovado con éxito"
 }

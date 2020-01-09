@@ -192,5 +192,12 @@
   "notifications_registrar_revealed":  "お客様のドメインが登録されました",
   "login_explanation": "お客様は登録したばかりのドメインに今すぐログインできます",
   "rskTld": ".rsk",
-  "blocked_domain": "5文字以下のドメインはブロックされます。チャンネルはそのままで、私たちはそれらをすぐにリリースします"
+  "blocked_domain": "5文字以下のドメインはブロックされます。チャンネルはそのままで、私たちはそれらをすぐにリリースします",
+  "renew_your_domain": "ドメインを更新します",
+  "your_domain_expires": "お使いのドメインはあと ",
+  "days": " 日で有効期限が切れます。",
+  "not_registered_domain": "そのドメインは登録されていないか、または有効期限が切れているため、更新する前に登録してください。",
+  "start_renovation_for": "の修復を始めます",
+  "renew": "更新",
+  "renew_domain_successfully": "ドメインは正常に更新されました"
 }

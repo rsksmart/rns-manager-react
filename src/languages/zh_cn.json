@@ -192,5 +192,12 @@
   "notifications_registrar_revealed":  "您的域名已注册",
   "login_explanation": "现在您可使用您刚注册的域登录",
   "rskTld": ".rsk",
-  "blocked_domain": "少于 5 个字符的域名被拦截了。请继续关注，我们将尽快发布"
+  "blocked_domain": "少于 5 个字符的域名被拦截了。请继续关注，我们将尽快发布",
+  "renew_your_domain": "续订您的网域",
+  "your_domain_expires": "您的网域即将在 ",
+  "days": " 天后到期。",
+  "not_registered_domain": "该网域尚未注册或已过期，您应在续订之前重新注册。",
+  "start_renovation_for": "开始续订：",
+  "renew": "续订",
+  "renew_domain_successfully": "网域已成功续订"
 }
