@@ -9,9 +9,9 @@ import { isValidName } from '../../../validations';
 import { RegisterProcessContainer } from '../../../containers';
 
 // eslint-disable-next-line max-len
-function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, rifCost, strings) {
+function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, strings) {
   if (!domain) return 'Search for a domain.';
-  if (domainStateLoading) return <Spinner animation="grow" variant="primary" />;
+  if (domainStateLoading || requestingCost) return <Spinner animation="grow" variant="primary" />;
 
   if (owned) {
     if (requestingOwner) {
@@ -111,7 +111,8 @@ class DomainStateComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, domainStateLoading, blocked, owner, requestingOwner, rifCost,
+      strings, domain, owned, domainStateLoading, blocked, owner, requestingOwner,
+      requestingCost, rifCost,
     } = this.props;
     const { searchValue, invalid, showProcess } = this.state;
 
@@ -122,7 +123,8 @@ class DomainStateComponent extends Component {
     }
 
     const displayState = getDisplayState(
-      domain, domainStateLoading, owned, blocked, owner, requestingOwner, rifCost, strings,
+      domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost,
+      rifCost, strings,
     );
 
     return (
@@ -197,6 +199,7 @@ DomainStateComponent.propTypes = {
   domainStateLoading: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   search: propTypes.func.isRequired,
+  requestingCost: propTypes.bool.isRequired,
   rifCost: propTypes.number.isRequired,
 };
 
