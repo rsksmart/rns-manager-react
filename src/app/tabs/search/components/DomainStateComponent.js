@@ -50,7 +50,7 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
       <br />
       <Link to={`/registrar?domain=${domain}`}>{strings.register_your_domain}</Link>
       <br />
-      {`${rifCost} RIF per year`}
+      {`${rifCost} ${strings.rif_per_year}`}
       <br />
       <em>{strings.discount}</em>
     </Card.Text>
@@ -189,6 +189,7 @@ DomainStateComponent.propTypes = {
     blocked_domain: propTypes.string.isRequired,
     home_title: propTypes.string.isRequired,
     home_subtitle: propTypes.string.isRequired,
+    rif_per_year: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
