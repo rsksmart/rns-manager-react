@@ -85,7 +85,7 @@ class RentalPeriodComponent extends Component {
             : <b>{`price: ${rifCost} RIF`}</b>
         }
         <br />
-        <i>50% discount per year from the third year</i>
+        <em>{strings.discount}</em>
       </div>
     );
   }
@@ -94,6 +94,7 @@ class RentalPeriodComponent extends Component {
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
     rental_period: propTypes.string.isRequired,
+    discount: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
