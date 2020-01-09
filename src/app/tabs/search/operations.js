@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
   requestDomainState, receiveDomainState, blockedDomain,
-  requestDomainOwner, receiveDomainOwner, receiveDomainCost,
+  requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -41,6 +41,7 @@ export default domain => (dispatch) => {
         return dispatch(blockedDomain());
       }
 
+      dispatch(requestDomainCost());
       registrar.methods.price(domain, 0, 1).call()
         .then((result) => {
           dispatch(receiveDomainCost(window.web3.toDecimal(result / (10 ** 18))));
