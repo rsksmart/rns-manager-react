@@ -27,10 +27,6 @@ export default domain => (dispatch) => {
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
-  if (domain.length < 5) {
-    return dispatch(blockedDomain());
-  }
-
   return rskOwner.methods.available(hash).call()
     .then((available) => {
       if (!available) {
@@ -39,6 +35,10 @@ export default domain => (dispatch) => {
         return rskOwner.methods.ownerOf(hash).call()
           .then(owner => dispatch(receiveDomainOwner(owner)))
           .catch(error => dispatch(notifyError(error.message)));
+      }
+
+      if (domain.length < 5) {
+        return dispatch(blockedDomain());
       }
 
       registrar.methods.price(domain, 0, 1).call()
