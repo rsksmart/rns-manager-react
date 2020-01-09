@@ -52,7 +52,7 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
       <br />
       {`${rifCost} RIF per year`}
       <br />
-      <em>50% discount per year from the third year</em>
+      <em>{strings.discount}</em>
     </Card.Text>
   );
 }
@@ -187,6 +187,7 @@ DomainStateComponent.propTypes = {
     blocked_domain: propTypes.string.isRequired,
     home_title: propTypes.string.isRequired,
     home_subtitle: propTypes.string.isRequired,
+    discount: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,
