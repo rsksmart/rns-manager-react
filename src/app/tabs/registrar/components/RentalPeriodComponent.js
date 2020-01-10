@@ -52,8 +52,8 @@ class RentalPeriodComponent extends Component {
 
     const counter = (
       <div>
-        <Row className="justify-content-md-center">
-          <Col xs="2">
+        <Row className="justify-content-center">
+          <Col xs="4" lg="3">
             {strings.rental_period}
             <InputGroup>
               <InputGroup.Append>
