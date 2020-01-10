@@ -113,8 +113,7 @@ class RevealComponent extends Component {
             : (
               <div>
                 <p>
-                  3.
-                  {strings.process_step_3_explanation}
+                  {`3. ${strings.process_step_3_explanation}`}
                 </p>
                 <Button
                   disabled={!committed || waiting || revealed}
