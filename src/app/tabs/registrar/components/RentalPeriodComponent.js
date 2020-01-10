@@ -75,7 +75,7 @@ class RentalPeriodComponent extends Component {
     return (
       <div>
         <p>
-          1. For how long do you want your name?
+          {`1. ${strings.how_long_want_name} ?`}
           <br />
         </p>
         {counter}
@@ -96,6 +96,7 @@ RentalPeriodComponent.propTypes = {
     rental_period: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
     price: propTypes.string.isRequired,
+    how_long_want_name: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
