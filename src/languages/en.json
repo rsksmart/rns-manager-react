@@ -212,5 +212,6 @@
   "renew_domain_successfully": "the domain has been renewed succesfully",
   "discount": "50% discount per year from the third year",
   "rif_per_year": "RIF per year",
-  "price": "price"
+  "price": "price",
+  "how_long_want_name": "For how long do you want your name"
 }
