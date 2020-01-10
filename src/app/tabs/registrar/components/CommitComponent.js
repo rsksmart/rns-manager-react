@@ -43,9 +43,11 @@ class CommitComponent extends Component {
         </Row>
         <Row>
           <Col md={8} className="offset-md-2">
-            <i>
-              {strings.process_step_2_explanation}
-            </i>
+            <p>
+              <em>
+                {strings.process_step_2_explanation}
+              </em>
+            </p>
           </Col>
         </Row>
       </Container>
