@@ -211,5 +211,6 @@
   "renew": "renew",
   "renew_domain_successfully": "the domain has been renewed succesfully",
   "discount": "50% discount per year from the third year",
-  "rif_per_year": "RIF per year"
+  "rif_per_year": "RIF per year",
+  "price": "price"
 }

@@ -82,7 +82,7 @@ class RentalPeriodComponent extends Component {
         {
           getting
             ? <Spinner animation="grow" variant="primary" />
-            : <b>{`price: ${rifCost} RIF`}</b>
+            : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
         }
         <br />
         <em>{strings.discount}</em>
@@ -95,6 +95,7 @@ RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
     rental_period: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
+    price: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
