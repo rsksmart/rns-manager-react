@@ -203,5 +203,11 @@
   "discount": "50% de desconto por ano a partir do 3º ano",
   "rif_per_year": "RIF por ano",
   "price": "preço",
-  "how_long_want_name": "Por quanto tempo você quer ter seu nome"
+  "how_long_want_name": "Por quanto tempo você quer ter seu nome",
+  "transfer_domain": "transferir domínio",
+	"transfer": "transferir",
+	"already_transferred": "a titularidade do seu domínio foi transferida com sucesso",
+	"notifications_transferred_domain_token": "a titularidade do seu domínio foi transferida com sucesso",
+	"not_enough_balance": "você não tem saldo suficiente para esta ação",
+	"click_here_not_enough_balance": "clique aqui para comprar mais tokens"
 }

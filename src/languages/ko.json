@@ -203,5 +203,11 @@
   "discount": "3년째부터 연 50% 할인 제공",
   "rif_per_year": "연간 RIF",
   "price": "가격",
-  "how_long_want_name": "이름을 유지하고자 하는 기간은 무엇입니까"
+  "how_long_want_name": "이름을 유지하고자 하는 기간은 무엇입니까",
+  "transfer_domain": "도메인 이전",
+	"transfer": "이전",
+	"already_transferred": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
+	"notifications_transferred_domain_token": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
+	"not_enough_balance": "이 행동을 실행할 잔액이 부족합니다",
+	"click_here_not_enough_balance": "여기를 클릭해 토큰을 더 구입할 수 있는 곳을 확인하십시오"
 }
