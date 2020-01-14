@@ -199,5 +199,9 @@
   "not_registered_domain": "O domínio não foi registrado ou expirou. É preciso registrar o domínio antes de renová-lo.",
   "start_renovation_for": "começar a renovação para",
   "renew": "renovar",
-  "renew_domain_successfully": "o domínio foi renovado com sucesso"
+  "renew_domain_successfully": "o domínio foi renovado com sucesso",
+  "discount": "50% de desconto por ano a partir do 3º ano",
+  "rif_per_year": "RIF por ano",
+  "price": "preço",
+  "how_long_want_name": "Por quanto tempo você quer ter seu nome"
 }

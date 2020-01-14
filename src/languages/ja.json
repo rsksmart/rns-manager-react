@@ -199,5 +199,9 @@
   "not_registered_domain": "そのドメインは登録されていないか、または有効期限が切れているため、更新する前に登録してください。",
   "start_renovation_for": "の修復を始めます",
   "renew": "更新",
-  "renew_domain_successfully": "ドメインは正常に更新されました"
+  "renew_domain_successfully": "ドメインは正常に更新されました",
+  "discount": "3年目から年に50%割引",
+  "rif_per_year": "RIF 年ごと",
+  "price": "金額",
+  "how_long_want_name": "あなたの名称はどのくらいの長さにしますか"
 }
