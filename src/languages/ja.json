@@ -205,9 +205,9 @@
   "price": "金額",
   "how_long_want_name": "あなたの名称はどのくらいの長さにしますか",
   "transfer_domain": "ドメインを移管",
-	"transfer": "移管",
-	"already_transferred": "ドメインの所有権が正常に移管されました",
-	"notifications_transferred_domain_token": "ドメインの所有権が正常に移管されました",
-	"not_enough_balance": "このアクションを実行するのに十分なバランスがありません",
-	"click_here_not_enough_balance": "ここをクリックして、トークンを追加で購入できる場所を確認します"
+  "transfer": "移管",
+  "already_transferred": "ドメインの所有権が正常に移管されました",
+  "notifications_transferred_domain_token": "ドメインの所有権が正常に移管されました",
+  "not_enough_balance": "このアクションを実行するのに十分なバランスがありません",
+  "click_here_not_enough_balance": "ここをクリックして、トークンを追加で購入できる場所を確認します"
 }
