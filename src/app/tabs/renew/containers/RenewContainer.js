@@ -9,10 +9,10 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   domainStateLoading: state.search.domainStateLoading,
   available: !state.search.owner,
-  hasBalance: true, // TODO
   renewing: state.renew.renewing,
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,
+  hasBalance: state.registrar.hasBalance,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -15,16 +15,27 @@ import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData } from './helpers';
 
-export const getCost = (domain, duration) => (dispatch) => {
-  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+export const getCost = (domain, duration) => async (dispatch) => {
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const web3 = new Web3(window.ethereum);
+  const rif = new web3.eth.Contract(rifAbi, rifAddress);
+
+  const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
 
   dispatch(requestGetCost(duration));
 
   return new Promise((resolve) => {
-    registrar.price(domain, 0, duration, (error, result) => {
+    registrar.methods.price(domain, 0, duration).call((error, cost) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
-      return dispatch(receiveGetCost(window.web3.toDecimal(result / (10 ** 18))));
+      return rif.methods.balanceOf(currentAddress).call((balanceError, balance) => {
+        if (balanceError) return resolve(dispatch(notifyError(balanceError.message)));
+
+        const enoughBalance = balance >= cost;
+        return dispatch(receiveGetCost(window.web3.toDecimal(cost / (10 ** 18)), enoughBalance));
+      });
     });
   });
 };

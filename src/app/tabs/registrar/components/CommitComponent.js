@@ -13,7 +13,7 @@ class CommitComponent extends Component {
 
   render() {
     const {
-      committing, strings, doCommitment, committed,
+      committing, strings, doCommitment, committed, hasBalance,
     } = this.props;
 
     return (
@@ -32,7 +32,7 @@ class CommitComponent extends Component {
                 ? <Spinner animation="grow" variant="primary" />
                 : (
                   <Button
-                    disabled={committing || committed}
+                    disabled={committing || committed || !hasBalance}
                     onClick={doCommitment}
                   >
                     {strings.process_step_1}
@@ -65,6 +65,7 @@ CommitComponent.propTypes = {
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
+  hasBalance: propTypes.bool.isRequired,
 };
 
 export default multilanguage(CommitComponent);
