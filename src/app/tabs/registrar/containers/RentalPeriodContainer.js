@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   committing: state.registrar.committing,
   committed: state.registrar.committed,
   domain: parse(state.router.location.search).domain,
+  hasBalance: state.registrar.hasBalance,
 });
 
 const mapDispatchToProps = dispatch => ({

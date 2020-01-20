@@ -6,6 +6,12 @@ import {
   FIFS_MIGRATION_REQUEST_CHECK_MIGRATION, FIFS_MIGRATION_RECEIVE_CHECK_MIGRATION,
   FIFS_MIGRATION_REQUEST_MIGRATION, FIFS_MIGRATION_RECEIVE_MIGRATION,
   FIFS_MIGRATION_ERROR_CHECK_MIGRATION, FIFS_MIGRATION_ERROR_MIGRATION,
+  TRANSFER_DOMAIN_CHECK_SUBDOMAIN, TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+  TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER, TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+  TRANSFER_DOMAIN_REQUEST_TRANSFER, TRANSFER_DOMAIN_RECEIVE_TRANSFER,
+  TRANSFER_DOMAIN_ERROR_TRANSFER, RENEW_DOMAIN_CHECK_SUBDOMAIN,
+  RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME, RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
+  RENEW_DOMAIN_REQUEST_EXPIRATION_TIME,
 } from './types';
 
 describe('admin reducer', () => {
@@ -430,6 +436,290 @@ describe('admin fifs migration reducer', () => {
           migrating: false,
           isSubdomain: undefined,
           justMigrated: false,
+        },
+      );
+  });
+});
+
+describe('admin transfer domain reducer', () => {
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).transferDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_CHECK_SUBDOMAIN and subdomain true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: true,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: true,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_CHECK_SUBDOMAIN and subdomain false', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: false,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: false,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_REQUEST_CHECK_OWNER and set checking flag', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_REQUEST_CHECK_OWNER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: true,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER and set currentOwner and isTokenOwner flag to false', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+      isTokenOwner: false,
+      currentOwner: 'test',
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: 'test',
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER and set currentOwner and isTokenOwner flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_CHECK_OWNER,
+      isTokenOwner: true,
+      currentOwner: 'test',
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: true,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: 'test',
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_REQUEST_TRANSFER and set transferring flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_REQUEST_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: true,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_RECEIVE_TRANSFER and set justTransferred flag to true', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_RECEIVE_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: true,
+          checking: false,
+          transferring: false,
+          justTransferred: true,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_ERROR_TRANSFER', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_ERROR_TRANSFER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle TRANSFER_DOMAIN_ERROR_CHECK_OWNER', () => {
+    expect(reducer(undefined, {
+      type: TRANSFER_DOMAIN_ERROR_CHECK_OWNER,
+    }).transferDomain)
+      .toEqual(
+        {
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+          isSubdomain: null,
+        },
+      );
+  });
+
+  it('should handle NOT_IMPLEMENTED and return default state', () => {
+    expect(reducer(undefined, {
+      type: 'NOT_IMPLEMENTED',
+    }).transferDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          isTokenOwner: false,
+          checking: false,
+          transferring: false,
+          justTransferred: false,
+          currentOwner: null,
+        },
+      );
+  });
+});
+
+describe('admin renew domain', () => {
+  it('should handle undefined action', () => {
+    expect(reducer(undefined, {}).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          expirationRemaining: 0,
+          domain: null,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_CHECK_SUBDOMAIN and subdomain true', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: true,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: true,
+          checking: false,
+          expirationRemaining: 0,
+          domain: null,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_CHECK_SUBDOMAIN and subdomain false', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_CHECK_SUBDOMAIN,
+      isSubdomain: false,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: false,
+          checking: false,
+          domain: null,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_REQUEST_EXPIRATION_TIME and set checking flag', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_REQUEST_EXPIRATION_TIME,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: true,
+          expirationRemaining: 0,
+          domain: null,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME and set expirationRemaining', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_RECEIVE_EXPIRATION_TIME,
+      expirationRemaining: 1234,
+      domain: 'testing',
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          domain: 'testing',
+          expirationRemaining: 1234,
+        },
+      );
+  });
+
+  it('should handle RENEW_DOMAIN_ERROR_EXPIRATION_TIME', () => {
+    expect(reducer(undefined, {
+      type: RENEW_DOMAIN_ERROR_EXPIRATION_TIME,
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          domain: null,
+          expirationRemaining: 0,
+        },
+      );
+  });
+
+  it('should handle NOT_IMPLEMENTED and return default state', () => {
+    expect(reducer(undefined, {
+      type: 'NOT_IMPLEMENTED',
+    }).renewDomain)
+      .toEqual(
+        {
+          isSubdomain: null,
+          checking: false,
+          domain: null,
+          expirationRemaining: 0,
         },
       );
   });

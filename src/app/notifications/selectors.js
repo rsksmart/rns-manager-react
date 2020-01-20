@@ -47,6 +47,12 @@ export default strings => (params) => {
       title: strings.notifications_registrar_revealed,
       description: strings.login_explanation,
     };
+    case txTypes.TRANSFER_DOMAIN_TOKEN: return {
+      title: strings.notifications_transferred_domain_token,
+    };
+    case txTypes.RENEW_DOMAIN: return {
+      title: strings.renew_domain_successfully,
+    };
     default: return null;
   }
 };

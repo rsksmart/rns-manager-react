@@ -198,5 +198,22 @@
   "notifications_registrar_revealed":  "your domain has been registered",
   "login_explanation": "now you can login with your just registered domain",
   "rskTld": ".rsk",
-  "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon"
+  "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon",
+  "transfer_domain": "transfer domain",
+  "transfer": "transfer",
+  "already_transferred": "your domain ownership has been succesfully transferred",
+  "notifications_transferred_domain_token": "your domain ownership has been succesfully transferred",
+  "renew_your_domain": "renew your domain",
+  "your_domain_expires": "Your domain expires in ",
+  "days": " days.",
+  "not_registered_domain": "The domain has not been registered or has expired, you should register it before renewing.",
+  "start_renovation_for": "start renovation for",
+  "renew": "renew",
+  "renew_domain_successfully": "the domain has been renewed succesfully",
+  "discount": "50% discount per year from the third year",
+  "rif_per_year": "RIF per year",
+  "price": "price",
+  "how_long_want_name": "For how long do you want your name",
+  "not_enough_balance": "you don't have enough balance to perform this action",
+  "click_here_not_enough_balance": "click here and check where you can buy more tokens"
 }

@@ -192,5 +192,22 @@
   "notifications_registrar_revealed":  "您的域名已注册",
   "login_explanation": "现在您可使用您刚注册的域登录",
   "rskTld": ".rsk",
-  "blocked_domain": "少于 5 个字符的域名被拦截了。请继续关注，我们将尽快发布"
+  "blocked_domain": "少于 5 个字符的域名被拦截了。请继续关注，我们将尽快发布",
+  "renew_your_domain": "续订您的网域",
+  "your_domain_expires": "您的网域即将在 ",
+  "days": " 天后到期。",
+  "not_registered_domain": "该网域尚未注册或已过期，您应在续订之前重新注册。",
+  "start_renovation_for": "开始续订：",
+  "renew": "续订",
+  "renew_domain_successfully": "网域已成功续订",
+  "discount": "从第三年开始每年打 5 折",
+  "rif_per_year": "每年 RIF",
+  "price": "价格",
+  "how_long_want_name": "您想使用该域名多长时间",
+  "transfer_domain": "转让域名",
+  "transfer": "转让",
+  "already_transferred": "您的域名所有权已成功转让",
+  "notifications_transferred_domain_token": "您的域名所有权已成功转让",
+  "not_enough_balance": "您的余额不足不能执行该步骤",
+  "click_here_not_enough_balance": "点击这里并查看在哪里可以购买更多的代币"
 }

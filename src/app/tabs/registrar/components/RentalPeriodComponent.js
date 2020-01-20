@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  Col, InputGroup, FormControl, Button, Row, Spinner,
+  Col, InputGroup, FormControl, Button, Row, Spinner, Alert,
 } from 'react-bootstrap';
 
 
@@ -45,15 +45,15 @@ class RentalPeriodComponent extends Component {
 
   render() {
     const {
-      strings, getting, rifCost, committing, committed,
+      strings, getting, rifCost, committing, committed, hasBalance,
     } = this.props;
 
     const { duration } = this.state;
 
     const counter = (
       <div>
-        <Row className="justify-content-md-center">
-          <Col xs="2">
+        <Row className="justify-content-center">
+          <Col xs="4" lg="3">
             {strings.rental_period}
             <InputGroup>
               <InputGroup.Append>
@@ -64,7 +64,7 @@ class RentalPeriodComponent extends Component {
                 readOnly
               />
               <InputGroup.Append>
-                <Button size="sm" disabled={committing || committed} onClick={this.increment}>+</Button>
+                <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
               </InputGroup.Append>
             </InputGroup>
           </Col>
@@ -75,17 +75,26 @@ class RentalPeriodComponent extends Component {
     return (
       <div>
         <p>
-          1. For how long do you want your name?
+          {`1. ${strings.how_long_want_name} ?`}
           <br />
         </p>
         {counter}
         {
           getting
             ? <Spinner animation="grow" variant="primary" />
-            : <b>{`price: ${rifCost} RIF`}</b>
+            : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
         }
         <br />
-        <i>50% discount per year from the third year</i>
+        <em>{strings.discount}</em>
+        {
+          !hasBalance
+          && (
+            <Alert variant="warning" dismissible="false">
+              <p>{strings.not_enough_balance}</p>
+              <a href="https://www.rsk.co/#exchanges">{strings.click_here_not_enough_balance}</a>
+            </Alert>
+          )
+        }
       </div>
     );
   }
@@ -94,9 +103,15 @@ class RentalPeriodComponent extends Component {
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
     rental_period: propTypes.string.isRequired,
+    discount: propTypes.string.isRequired,
+    price: propTypes.string.isRequired,
+    how_long_want_name: propTypes.string.isRequired,
+    click_here_not_enough_balance: propTypes.string.isRequired,
+    not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
+  hasBalance: propTypes.bool.isRequired,
   duration: propTypes.number,
   getCost: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,

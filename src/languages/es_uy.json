@@ -192,5 +192,22 @@
   "notifications_registrar_revealed":  "su dominio ha sido registrado",
   "login_explanation": "ahora puede iniciar sesión con su dominio recién registrado",
   "rskTld": ".rsk",
-  "blocked_domain": "los dominios con menos de 5 caracteres están bloqueados. no se vayan, los liberaremos pronto"
+  "blocked_domain": "los dominios con menos de 5 caracteres están bloqueados. no se vayan, los liberaremos pronto",
+  "renew_your_domain": "renueve su dominio",
+  "your_domain_expires": "Su dominio caduca en ",
+  "days": " días.",
+  "not_registered_domain": "El dominio no se ha registrado o ha caducado; debe registrarlo antes de renovarlo.",
+  "start_renovation_for": "comenzar renovación para",
+  "renew": "renovar",
+  "renew_domain_successfully": "el dominio ha sido renovado con éxito",
+  "discount": "50% de descuento por año a partir del tercer año",
+  "rif_per_year": "RIF por año",
+  "price": "precio",
+  "how_long_want_name": "Por cuanto tiempo quiere su nombre",
+  "transfer_domain": "transferir dominio",
+  "transfer": "transferir",
+  "already_transferred": "la propiedad de su dominio se ha transferido correctamente",
+  "notifications_transferred_domain_token": "la propiedad de su dominio se ha transferido correctamente",
+  "not_enough_balance": "no tiene suficiente saldo para realizar esta acción",
+  "click_here_not_enough_balance": "haga clic aquí y consulte dónde puede comprar más tokens"
 }

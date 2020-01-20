@@ -6,8 +6,11 @@ import configureStore, { history } from './configureStore';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 
-import './style.css';
-import './index.css';
+import './assets/css/main.css';
+import './assets/css/theming.css';
+import './assets/css/overwrite_theming.css';
+import './assets/css/ReplaceBootstrap.css';
+import './assets/css/OverwriteBootstrap.css';
 
 const store = configureStore();
 

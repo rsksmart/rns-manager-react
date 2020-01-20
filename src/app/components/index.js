@@ -1,4 +1,5 @@
 export { default as HeaderComponent } from './HeaderComponent';
+export { default as FooterComponent } from './FooterComponent';
 export { default as GetDomainStateComponent } from './GetDomainStateComponent';
 export { default as TabWithSearchComponent } from './TabWithSearchComponent';
 export { default as CopyableComponent } from './CopyableComponent';
@@ -9,3 +10,4 @@ export { default as LinkToMyCryptoInteractComponent } from './LinkToMyCryptoInte
 export { default as ChainAddrSelectorComponent } from './ChainAddrSelectorComponent';
 export { default as ResolverDatalist } from './ResolverDatalist';
 export { default as LanguageSelectComponent } from './LanguageSelectComponent';
+export { default as RegisterProcessComponent } from './RegisterProcessComponent';

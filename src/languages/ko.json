@@ -192,5 +192,22 @@
   "notifications_registrar_revealed":  "여러분의 도메인이 등록되었습니다",
   "login_explanation": "방금 등록된 도메인으로 이제 로그인할 수 있습니다",
   "rskTld": ".rsk",
-  "blocked_domain": "5자 이하인 도메인은 차단됩니다. 곧 발표 예정이니 기대해 주세요"
+  "blocked_domain": "5자 이하인 도메인은 차단됩니다. 곧 발표 예정이니 기대해 주세요",
+  "renew_your_domain": "도메인을 갱신하세요",
+  "your_domain_expires": "귀하의 도메인이 ",
+  "days": " ____일 후에 만료됩니다.",
+  "not_registered_domain": "해당 도메인이 등록되지 않았거나 만료되었습니다. 갱신하기 전에 먼저 등록하시기 바랍니다.",
+  "start_renovation_for": "다음 대상 갱신 시작",
+  "renew": "갱신하기",
+  "renew_domain_successfully": "도메인이 성공적으로 갱신되었습니다",
+  "discount": "3년째부터 연 50% 할인 제공",
+  "rif_per_year": "연간 RIF",
+  "price": "가격",
+  "how_long_want_name": "이름을 유지하고자 하는 기간은 무엇입니까",
+  "transfer_domain": "도메인 이전",
+  "transfer": "이전",
+  "already_transferred": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
+  "notifications_transferred_domain_token": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
+  "not_enough_balance": "이 행동을 실행할 잔액이 부족합니다",
+  "click_here_not_enough_balance": "여기를 클릭해 토큰을 더 구입할 수 있는 곳을 확인하십시오"
 }

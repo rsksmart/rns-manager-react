@@ -8,6 +8,10 @@ import {
   requestGetReverse, receiveGetReverse, requestSetReverse, receiveSetReverse, errorSetReverse,
   fifsMigrationCheckIfSubdomain, requestCheckFifsMigration, receiveCheckFifsMigration,
   requestFifsMigration, receiveFifsMigration, errorFifsMigration, errorCheckFifsMigration,
+  transferDomainCheckIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
+  errorCheckTokenOwner, requestTransferDomain, receiveTransferDomain, errorTransferDomain,
+  renewDomainIsSubdomain, requestLabelExpirationTime, errorLabelExpirationTime,
+  receiveLabelExpirationTime,
 } from './actions';
 import {
   rns as registryAddress,
@@ -15,13 +19,14 @@ import {
   nameResolver as nameResolverAddress,
   registrar as tokenRegistrarAddress,
   gasPrice as defaultGasPrice,
+  rskOwner as rskOwnerAddress,
 } from '../../../config/contracts.json';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import {
-  rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi,
+  rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi, rskOwnerAbi,
 } from './abis.json';
 
 const web3 = new Web3(window.ethereum);
@@ -36,6 +41,9 @@ const tokenRegistrar = new web3.eth.Contract(
 );
 const reverseRegistry = new web3.eth.Contract(
   reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
+);
+const rskOwner = new web3.eth.Contract(
+  rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
 );
 
 export const getDomainOwner = get(owner.requestGet, owner.receiveGet, registry.methods.owner);
@@ -204,6 +212,95 @@ export const migrateToFifsRegistrar = (name, sender) => (dispatch) => {
         }
         dispatch(receiveFifsMigration());
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.MIGRATE_FIFS_REGISTRAR, name })));
+      },
+    );
+  });
+};
+
+export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
+  const labelsAmount = name.split('.').length;
+
+  if (labelsAmount > 2) {
+    return Promise.resolve(dispatch(renewDomainIsSubdomain(true)));
+  }
+
+  const label = name.split('.')[0];
+
+  dispatch(requestLabelExpirationTime());
+
+  return new Promise((resolve) => {
+    const hash = `0x${sha3(label)}`;
+
+    rskOwner.methods.expirationTime(hash).call((error, result) => {
+      if (error) {
+        return dispatch(errorLabelExpirationTime());
+      }
+
+      const expirationTime = result;
+
+      return web3.eth.getBlock('latest').then((currentBlock, timeError) => {
+        if (timeError) {
+          return dispatch(errorLabelExpirationTime());
+        }
+
+        const diff = expirationTime - currentBlock.timestamp;
+
+        // the difference is in seconds, so it is divided by the amount of seconds per day
+        const remainingDays = Math.floor(diff / (60 * 60 * 24));
+
+        return resolve(dispatch(receiveLabelExpirationTime(remainingDays, label)));
+      });
+    });
+  });
+};
+
+export const checkIfSubdomainOrTokenOwner = (name, currentAddress) => (dispatch) => {
+  const labelsAmount = name.split('.').length;
+
+  if (labelsAmount > 2) {
+    return Promise.resolve(dispatch(transferDomainCheckIfSubdomain(true)));
+  }
+
+  const label = name.split('.')[0];
+
+  dispatch(requestCheckTokenOwner());
+
+  return new Promise((resolve) => {
+    const hash = `0x${sha3(label)}`;
+
+    rskOwner.methods.ownerOf(hash).call((error, result) => {
+      if (error) {
+        return dispatch(errorCheckTokenOwner());
+      }
+
+      const domainOwner = result;
+
+      return resolve(dispatch(receiveCheckTokenOwner(
+        domainOwner.toLowerCase() === currentAddress.toLowerCase(),
+        domainOwner,
+      )));
+    });
+  });
+};
+
+export const transferToken = (name, addressToTransfer, sender) => (dispatch) => {
+  dispatch(requestTransferDomain());
+
+  const label = name.split('.')[0];
+
+  return new Promise((resolve) => {
+    const hash = `0x${sha3(label)}`;
+
+    rskOwner.methods.safeTransferFrom(sender, addressToTransfer, hash).send(
+      { from: sender },
+      (error, result) => {
+        if (error) {
+          dispatch(errorTransferDomain());
+          return resolve(dispatch(notifyError(error.message)));
+        }
+
+        resolve(dispatch(receiveTransferDomain()));
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.TRANSFER_DOMAIN_TOKEN })));
       },
     );
   });

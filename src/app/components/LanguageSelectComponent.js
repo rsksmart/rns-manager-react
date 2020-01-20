@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import {
-  FormGroup, Form,
-} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
-const selectStyle = {
-  background: 'none',
-  color: '#149dd9',
-  borderColor: '#149dd9',
-  width: '90px',
-  margin: '0px 10px',
-};
+const languages = [
+  { value: 'en', displayValue: 'English' },
+  { value: 'es', displayValue: 'Español' },
+  { value: 'zh', displayValue: '简体中文' },
+  { value: 'ja', displayValue: '日本語' },
+  { value: 'ko', displayValue: '한국어' },
+  { value: 'pt', displayValue: 'Português' },
+  { value: 'ru', displayValue: 'Русский' },
+];
 
 class LanguageSelectComponent extends Component {
   constructor(props) {
@@ -21,8 +21,7 @@ class LanguageSelectComponent extends Component {
     this.onLanguageChange = this.onLanguageChange.bind(this);
   }
 
-  onLanguageChange(event) {
-    const { value } = event.target;
+  onLanguageChange(value) {
     const { changeLanguage } = this.props;
 
     this.setState({ language: value });
@@ -33,18 +32,22 @@ class LanguageSelectComponent extends Component {
   render() {
     const { language } = this.state;
 
+    const currentLanguage = languages.find(lang => lang.value === language).displayValue;
+
     return (
-      <FormGroup>
-        <Form.Control size="lg" as="select" onChange={this.onLanguageChange} value={language} style={selectStyle}>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="zh">简体中文</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-          <option value="pt">Português</option>
-          <option value="ru">Русский</option>
-        </Form.Control>
-      </FormGroup>
+      <Dropdown key="dropdown-language" onSelect={this.onLanguageChange} value={language}>
+        <Dropdown.Toggle>{currentLanguage}</Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {
+            languages.map(dropItem => (
+              <Dropdown.Item eventKey={dropItem.value} key={dropItem.value} value={dropItem.value}>
+                {dropItem.displayValue}
+              </Dropdown.Item>
+            ))
+          }
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }

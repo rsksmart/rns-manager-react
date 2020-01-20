@@ -192,5 +192,22 @@
   "notifications_registrar_revealed":  "seu domínio foi registrado",
   "login_explanation": "agora você pode fazer login com o domínio que acaba de registrar",
   "rskTld": ".rsk",
-  "blocked_domain": "domínios com menos de 5 caracteres estão bloqueados. fique atento, vamos liberá-los em breve"
+  "blocked_domain": "domínios com menos de 5 caracteres estão bloqueados. fique atento, vamos liberá-los em breve",
+  "renew_your_domain": "renove seu domínio",
+  "your_domain_expires": "Seu domínio expira em ",
+  "days": " dias.",
+  "not_registered_domain": "O domínio não foi registrado ou expirou. É preciso registrar o domínio antes de renová-lo.",
+  "start_renovation_for": "começar a renovação para",
+  "renew": "renovar",
+  "renew_domain_successfully": "o domínio foi renovado com sucesso",
+  "discount": "50% de desconto por ano a partir do 3º ano",
+  "rif_per_year": "RIF por ano",
+  "price": "preço",
+  "how_long_want_name": "Por quanto tempo você quer ter seu nome",
+  "transfer_domain": "transferir domínio",
+  "transfer": "transferir",
+  "already_transferred": "a titularidade do seu domínio foi transferida com sucesso",
+  "notifications_transferred_domain_token": "a titularidade do seu domínio foi transferida com sucesso",
+  "not_enough_balance": "você não tem saldo suficiente para esta ação",
+  "click_here_not_enough_balance": "clique aqui para comprar mais tokens"
 }

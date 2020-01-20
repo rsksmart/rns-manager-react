@@ -8,7 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Routes from './routes';
-import { HeaderContainer } from './containers';
+import { HeaderContainer, FooterContainer } from './containers';
 import { AuthModal } from './auth';
 import { Notifications, notificationTypes } from './notifications';
 import { multiChainResolver } from '../config/contracts.json';
@@ -48,6 +48,7 @@ const App = ({ strings, history, multiChainNotification }) => (
         </Row>
         <AuthModal />
       </Container>
+      <FooterContainer />
     </React.Fragment>
   </ConnectedRouter>
 );

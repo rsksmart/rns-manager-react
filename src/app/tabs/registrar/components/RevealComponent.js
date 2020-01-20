@@ -113,8 +113,7 @@ class RevealComponent extends Component {
             : (
               <div>
                 <p>
-                  3.
-                  {strings.process_step_3_explanation}
+                  {`3. ${strings.process_step_3_explanation}`}
                 </p>
                 <Button
                   disabled={!committed || waiting || revealed}
@@ -144,7 +143,6 @@ RevealComponent.propTypes = {
     process_step_3: propTypes.string.isRequired,
     process_step_3_explanation: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
-    admin_domain: propTypes.string.isRequired,
     register: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,

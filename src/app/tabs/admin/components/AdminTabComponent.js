@@ -8,6 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import {
   OwnerContainer, ResolverContainer, TtlContainer,
   SubdomainsListContainer, ReverseSetupContainer, FIFSMigrationContainer,
+  DangerZoneContainer, RenewContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
 import { publicResolver, multiChainResolver } from '../../../../config/contracts.json';
@@ -88,6 +89,17 @@ class AdminTabComponent extends Component {
             </React.Fragment>
             )
           }
+          <hr />
+          <Row>
+            <Col>
+              <RenewContainer />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <DangerZoneContainer />
+            </Col>
+          </Row>
         </Container>
       </AuthTabWrapper>
     );
@@ -102,6 +114,7 @@ AdminTabComponent.propTypes = {
     reverse_resolution: propTypes.string.isRequired,
     fifs_migration: propTypes.string.isRequired,
     resolver: propTypes.string.isRequired,
+    transfer_domain: propTypes.string.isRequired,
   }).isRequired,
   name: propTypes.string,
   resolver: propTypes.string,

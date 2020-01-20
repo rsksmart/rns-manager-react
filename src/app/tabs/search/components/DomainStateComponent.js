@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Container, Row, Col, Form, FormControl, InputGroup, Button, Collapse, Card, Spinner,
+  Container, Row, Col, Form, FormControl, InputGroup, Button, Card, Spinner,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidName } from '../../../validations';
+import { RegisterProcessContainer } from '../../../containers';
 
 // eslint-disable-next-line max-len
-function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, strings) {
+function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, strings) {
   if (!domain) return 'Search for a domain.';
-  if (domainStateLoading) return <Spinner animation="grow" variant="primary" />;
+  if (domainStateLoading || requestingCost) return <Spinner animation="grow" variant="primary" />;
 
   if (owned) {
     if (requestingOwner) {
@@ -48,6 +49,10 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
       {strings.open}
       <br />
       <Link to={`/registrar?domain=${domain}`}>{strings.register_your_domain}</Link>
+      <br />
+      {`${rifCost} ${strings.rif_per_year}`}
+      <br />
+      <em>{strings.discount}</em>
     </Card.Text>
   );
 }
@@ -107,6 +112,7 @@ class DomainStateComponent extends Component {
   render() {
     const {
       strings, domain, owned, domainStateLoading, blocked, owner, requestingOwner,
+      requestingCost, rifCost,
     } = this.props;
     const { searchValue, invalid, showProcess } = this.state;
 
@@ -117,59 +123,53 @@ class DomainStateComponent extends Component {
     }
 
     const displayState = getDisplayState(
-      domain, domainStateLoading, owned, blocked, owner, requestingOwner, strings,
+      domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost,
+      rifCost, strings,
     );
 
     return (
       <Container>
         <Row>
-          <Col>
-            <Form onSubmit={this.onSearch}>
-              <InputGroup className="mb-3">
-                <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={invalid && 'is-invalid'} />
-                <InputGroup.Append>
-                  <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
-                </InputGroup.Append>
-                <InputGroup.Append>
-                  <Button type="submit" size="sm">{strings.search}</Button>
-                </InputGroup.Append>
-                <div className="invalid-feedback">
-                  {invalid}
-                </div>
-              </InputGroup>
-            </Form>
+          <Col lg={12} className="text-center main-title-box">
+            <h1>
+              {strings.home_title}
+            </h1>
+            <span className="bajada mb-3 d-block">
+              {strings.home_subtitle}
+            </span>
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  <h2>{domainDisplay}</h2>
-                </Card.Title>
-                {displayState}
-              </Card.Body>
-              <Button variant="link" onClick={this.changeShowProcess}>
-                {!showProcess ? strings.learn_about_process : strings.hide}
-              </Button>
-              <Collapse in={showProcess}>
-                <Card.Body>
-                  <hr />
-                  <p>
-                    {' '}
-                    {strings.process}
-                  </p>
-                  <ol>
-                    <li>{strings.process_step_1}</li>
-                    <li>{strings.process_step_2}</li>
-                    <li>{strings.process_step_3}</li>
-                  </ol>
-                  <p>
-                    <Button variant="link" onClick={() => window.open('https://docs.rns.rifos.org/Operation/Register-a-name/', '_blank')}>{strings.learn_more}</Button>
-                  </p>
-                </Card.Body>
-              </Collapse>
-            </Card>
+          <Col lg={12}>
+            <Form onSubmit={this.onSearch}>
+              <Col>
+                <InputGroup className="mb-3">
+                  <FormControl type="text" value={searchValue} onChange={this.searchValueChange} className={invalid && 'is-invalid'} />
+                  <InputGroup.Append>
+                    <InputGroup.Text>{strings.rskTld}</InputGroup.Text>
+                  </InputGroup.Append>
+                  <div className="invalid-feedback">
+                    {invalid}
+                  </div>
+                </InputGroup>
+              </Col>
+              <Col className="text-center">
+                <Button type="submit" variant="primary-rif">{strings.search}</Button>
+              </Col>
+            </Form>
+          </Col>
+
+        </Row>
+        <Row className="justify-content center mt-5">
+          <Col lg={12} className="text-center">
+            <h2>{domainDisplay}</h2>
+            {displayState}
+          </Col>
+          <Col lg={12} className="text-center">
+            <Button variant="primary-rif" className="mt-5" onClick={this.changeShowProcess}>
+              {!showProcess ? strings.learn_about_process : strings.hide}
+            </Button>
+            {showProcess && <RegisterProcessContainer />}
           </Col>
         </Row>
       </Container>
@@ -184,12 +184,13 @@ DomainStateComponent.propTypes = {
     learn_about_process: propTypes.string.isRequired,
     hide: propTypes.string.isRequired,
     process: propTypes.string.isRequired,
-    process_step_1: propTypes.string.isRequired,
-    process_step_2: propTypes.string.isRequired,
-    process_step_3: propTypes.string.isRequired,
     learn_more: propTypes.string.isRequired,
     rskTld: propTypes.string.isRequired,
     blocked_domain: propTypes.string.isRequired,
+    home_title: propTypes.string.isRequired,
+    home_subtitle: propTypes.string.isRequired,
+    rif_per_year: propTypes.string.isRequired,
+    discount: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,
@@ -199,6 +200,8 @@ DomainStateComponent.propTypes = {
   domainStateLoading: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   search: propTypes.func.isRequired,
+  requestingCost: propTypes.bool.isRequired,
+  rifCost: propTypes.number.isRequired,
 };
 
 DomainStateComponent.defaultProps = {
