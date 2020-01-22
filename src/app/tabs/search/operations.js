@@ -10,7 +10,7 @@ import {
 } from '../../adapters/configAdapter';
 
 import { notifyError } from '../../notifications';
-import { rskMain } from '../../../config/nodes.json';
+import { rskNode } from '../../adapters/nodeAdapter';
 import { rskOwnerAbi, fifsRegistrarAbi } from './abis.json';
 
 export default domain => (dispatch) => {
@@ -20,7 +20,7 @@ export default domain => (dispatch) => {
 
   dispatch(requestDomainState());
 
-  const web3 = new Web3(rskMain);
+  const web3 = new Web3(rskNode);
 
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
 
