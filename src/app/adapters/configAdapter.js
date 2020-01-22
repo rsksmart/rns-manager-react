@@ -2,16 +2,17 @@ import Production from '../../config/contracts.json';
 import Testnet from '../../config/contracts.testnet.json';
 import Local from '../../config/contracts.local.json';
 
-const env = 'PRODUCTION';
+const env = process.env.REACT_APP_ENVIRONMENT;
 
 const returnValue = (name) => {
   console.log(`fetching contract ${name} from ${env}`);
+
   switch (env) {
-    case 'TESTNET':
+    case 'testnet':
       return Testnet[name];
-    case 'LOCAL':
+    case 'local':
       return Local[name];
-    case 'PRODUCTION':
+    case 'production':
     default:
       return Production[name];
   }
