@@ -38,7 +38,7 @@ truffle(develop)> migrate --reset
 
 ## Run the RNS Manager locally
 
-The manager can be run in mainnet, testnet, or on a local network. It uses .env files for the configuration of each network. You can use the following to
+The manager can be run in mainnet, testnet, or on a local network. It uses .env files for the configuration of each network.
 
 ### Production
 
