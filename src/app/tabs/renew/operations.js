@@ -6,9 +6,9 @@ import { getRenewData } from './helpers';
 import abi from './abi.json';
 import {
   rif as rifAddress,
-  gasPrice as defaultGasPrice,
   renewer as renewerAddress,
 } from '../../adapters/configAdapter';
+import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 
 export default (domain, tokens, duration) => async (dispatch) => {

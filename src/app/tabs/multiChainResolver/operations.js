@@ -3,8 +3,8 @@ import { hash as namehash } from 'eth-ens-namehash';
 import { content, chainAddr } from './actions';
 import {
   multiChainResolver as resolverAddress,
-  gasPrice as defaultGasPrice,
 } from '../../adapters/configAdapter';
+import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { txTypes, notifyTx, notifyError } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import abi from './abi.json';

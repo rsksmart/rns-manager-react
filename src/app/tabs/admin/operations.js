@@ -18,9 +18,9 @@ import {
   reverseRegistrar as reverseRegistryAddress,
   nameResolver as nameResolverAddress,
   registrar as tokenRegistrarAddress,
-  gasPrice as defaultGasPrice,
   rskOwner as rskOwnerAddress,
 } from '../../adapters/configAdapter';
+import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';

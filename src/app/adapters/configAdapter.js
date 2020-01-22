@@ -27,4 +27,3 @@ export const rif = returnValue('rif');
 export const fifsRegistrar = returnValue('fifsRegistrar');
 export const rskOwner = returnValue('rskOwner');
 export const renewer = returnValue('renewer');
-export const gasPrice = returnValue('gasPrice');
