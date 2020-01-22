@@ -7,7 +7,8 @@ import {
 import {
   rskOwner as rskOwnerAddress,
   fifsRegistrar as fifsRegistrarAddress,
-} from '../../../config/contracts.json';
+} from '../../configAdapter';
+
 import { notifyError } from '../../notifications';
 import { rskMain } from '../../../config/nodes.json';
 import { rskOwnerAbi, fifsRegistrarAbi } from './abis.json';

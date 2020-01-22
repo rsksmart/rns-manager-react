@@ -1,6 +1,6 @@
 import React from 'react';
 import { multilanguage } from 'redux-multilanguage';
-import { publicResolver, multiChainResolver } from '../../config/contracts.json';
+import { publicResolver, multiChainResolver } from '../configAdapter';
 
 export default multilanguage(({ strings }) => (
   <datalist id="resolvers">

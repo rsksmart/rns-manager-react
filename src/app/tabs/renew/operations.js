@@ -8,7 +8,7 @@ import {
   rif as rifAddress,
   gasPrice as defaultGasPrice,
   renewer as renewerAddress,
-} from '../../../config/contracts.json';
+} from '../../configAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 
 export default (domain, tokens, duration) => async (dispatch) => {

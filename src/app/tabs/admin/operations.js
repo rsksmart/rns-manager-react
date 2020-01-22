@@ -20,7 +20,7 @@ import {
   registrar as tokenRegistrarAddress,
   gasPrice as defaultGasPrice,
   rskOwner as rskOwnerAddress,
-} from '../../../config/contracts.json';
+} from '../../configAdapter';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';

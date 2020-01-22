@@ -4,7 +4,7 @@ import { content, chainAddr } from './actions';
 import {
   multiChainResolver as resolverAddress,
   gasPrice as defaultGasPrice,
-} from '../../../config/contracts.json';
+} from '../../configAdapter';
 import { txTypes, notifyTx, notifyError } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import abi from './abi.json';

@@ -5,7 +5,7 @@ import { FieldComponent } from '../components';
 import * as valueTypes from '../types';
 import { validateAddress, validatePositiveNumber, validateBytes32 } from '../validations';
 import { toChecksumAddress } from '../selectors';
-import { publicResolver, multiChainResolver } from '../../config/contracts.json';
+import { publicResolver, multiChainResolver } from '../configAdapter';
 
 function getResolverName(address, rskResolverText, multiChainResolverText) {
   if (address.toLowerCase() === publicResolver.toLowerCase()) return rskResolverText;

@@ -3,7 +3,7 @@ import { addr, content } from './actions';
 import {
   publicResolver as resolverAddress,
   gasPrice as defaultGasPrice,
-} from '../../../config/contracts.json';
+} from '../../configAdapter';
 import { txTypes } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import abi from './abi.json';
