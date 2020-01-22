@@ -20,7 +20,7 @@ import {
   registrar as tokenRegistrarAddress,
   gasPrice as defaultGasPrice,
   rskOwner as rskOwnerAddress,
-} from '../../configAdapter';
+} from '../../adapters/configAdapter';
 import {
   notifyTx, notifyError, txTypes, checkResolver,
 } from '../../notifications';

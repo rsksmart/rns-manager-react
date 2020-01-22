@@ -10,7 +10,7 @@ import {
   fifsRegistrar as fifsRegistrarAddress,
   rif as rifAddress,
   gasPrice as defaultGasPrice,
-} from '../../configAdapter';
+} from '../../adapters/configAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData } from './helpers';

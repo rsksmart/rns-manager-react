@@ -1,6 +1,6 @@
-import Production from '../config/contracts.json';
-import Testnet from '../config/contracts.testnet.json';
-import Local from '../config/contracts.local.json';
+import Production from '../../config/contracts.json';
+import Testnet from '../../config/contracts.testnet.json';
+import Local from '../../config/contracts.local.json';
 
 const env = 'PRODUCTION';
 

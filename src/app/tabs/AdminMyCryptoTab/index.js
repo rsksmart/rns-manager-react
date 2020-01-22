@@ -8,7 +8,7 @@ import { hash as namehash } from 'eth-ens-namehash';
 import { multilanguage } from 'redux-multilanguage';
 import { LinkToMyCryptoInteractComponent, ResolverDatalist, ChainAddrSelectorComponent } from '../../components';
 import { getRnsField, getSubdomainOwner as _getSubdomainOwner } from './rns';
-import { publicResolver, multiChainResolver } from '../../configAdapter';
+import { publicResolver, multiChainResolver } from '../../adapters/configAdapter';
 
 class AdminMyCryptoTabComponent extends Component {
   constructor(props) {

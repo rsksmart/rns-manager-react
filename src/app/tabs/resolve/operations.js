@@ -3,7 +3,7 @@ import { hash as namehash } from 'eth-ens-namehash';
 import * as actions from './actions';
 import { rskMain } from '../../../config/nodes.json';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
-import { rns as rnsAddress } from '../../configAdapter';
+import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
 
 export const identifyInterfaces = domain => (dispatch) => {

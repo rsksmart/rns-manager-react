@@ -11,7 +11,7 @@ import {
   DangerZoneContainer, RenewContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
-import { publicResolver, multiChainResolver } from '../../../configAdapter';
+import { publicResolver, multiChainResolver } from '../../../adapters/configAdapter';
 
 class AdminTabComponent extends Component {
   constructor(props) {
