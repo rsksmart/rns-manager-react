@@ -1,12 +1,12 @@
 {
-  "rns": "0x6536263cc0aa7f24d890Ce979D3F3D488bF0eC2D",
-  "registrar": "0x5ee1FE294eBF4e0fEE6eBa08c915056Fb9692a79",
-  "reverseRegistrar": "0x8970ce36034133420c0Ff574f67a49679E36c6DF",
-  "publicResolver": "0x76b0634FC077382240812b4F6f21D547251348FB",
-  "nameResolver": "0x347220b3C5994E4B712d98a0FcE4b73085c8035e",
-  "multiChainResolver": "0x51536B1Bb38703F7569C54e97eAAaf150b3D9861",
-  "rif": "0xd61a3CCce5501F01D57c487A1CFE433a1c684568",
-  "fifsRegistrar": "0x0613c919E4af2068C671B8788a1288f14B5c9F0C",
-  "rskOwner": "0x3528149D45A110bC21b7B71AC4dA7F6C0049C854",
-  "renewer": "0x93e1d7714f604d967fB56D312b980695d9A09FaD"
+  "rns": "",
+  "registrar": "",
+  "reverseRegistrar": "",
+  "publicResolver": "",
+  "nameResolver": "",
+  "multiChainResolver": "",
+  "rif": "",
+  "fifsRegistrar": "",
+  "rskOwner": "",
+  "renewer": ""
  }

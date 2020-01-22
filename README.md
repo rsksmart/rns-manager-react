@@ -36,20 +36,39 @@ truffle console
 truffle(develop)> migrate --reset
 ```
 
-#### Configure network
+## Run the RNS Manager locally
 
-By default the manager is set to connect to the RSK Mainnet. This can be changed to TestNet or a local network by changing the variable in the `.env` file. The three options are: production/test/local
+The manager can be run in mainnet, testnet, or on a local network. It uses .env files for the configuration of each network. You can use the following to
+
+### Production
 
 ```
-REACT_APP_ENVIRONMENT=production
+npm start
 ```
 
-If you are using a local network, set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the variable name execpt for the following: 
+### Testnet
+
+```
+npm run-script start:testnet
+```
+
+### Local Network
+
+#### Configuration
+
+Set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the variable name execpt for the following: 
 
 - `rif` variable is the `ERC677` contract
 - `registrar` variable is the `TokenRegistrar` contract
 
-If you are not using localhost:8545 as your network, change the local variable in the nodes file: `/src/app/config/nodes.json`.
+If you are not using `localhost:8545` as your network, change the .env variable in `.env.local`
+
+#### Run command
+
+```
+npm run-script start:local
+```
+
 
 ## Available Scripts
 
