@@ -40,23 +40,11 @@ truffle(develop)> migrate --reset
 
 The manager can be run in mainnet, testnet, or on a local network. It uses .env files for the configuration of each network.
 
-### Production
-
-```
-npm start
-```
-
-### Testnet
-
-```
-npm run-script start:testnet
-```
-
-### Local Network
+### Connect to a local RSK Network
 
 #### Configuration
 
-Set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the variable name execpt for the following: 
+Set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the JSON variable name execpt for the following: 
 
 - `rif` variable is the `ERC677` contract
 - `registrar` variable is the `TokenRegistrar` contract
@@ -66,9 +54,33 @@ If you are not using `localhost:8545` as your network, change the .env variable 
 #### Run command
 
 ```
-npm run-script start:local
+yarn start
 ```
 
+### Connect to the RSK Mainnet
+
+#### Run command
+```
+yarn start:mainnet
+```
+
+#### Build command
+```
+yarn build:mainnet
+```
+
+### Connect to the RSK Testnet
+
+#### Run command
+
+```
+yarn start:testnet
+```
+
+#### Build command
+```
+yarn build:testnet
+```
 
 ## Available Scripts
 
