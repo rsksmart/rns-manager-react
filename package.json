@@ -31,13 +31,12 @@
     "web3-utils": "^1.2.4"
   },
   "scripts": {
-    "start": "env-cmd -f .env.production react-scripts start",
-    "start:local": "env-cmd -f .env.local react-scripts start",
+    "start": "env-cmd -f .env.local react-scripts start",
     "start:testnet": "env-cmd -f .env.testnet react-scripts start",
+    "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "env-cmd -f .env.testnet react-scripts build",
-    "build": "env-cmd -f .env.production react-scripts build",
+    "build:mainnet": "env-cmd -f .env.production react-scripts build",
     "test": "jest && eslint src",
-    "eject": "react-scripts eject",
     "lint": "eslint src"
   },
   "eslintConfig": {
