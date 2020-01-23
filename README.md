@@ -42,9 +42,11 @@ The manager can be run in mainnet, testnet, or on a local network. It uses .env 
 
 ### Connect to a local RSK Network
 
+A full RNS suite can be run on top of a local blockchain via [`rns-suite`](https://github.com/rnsdomains/rns-suite).
+
 #### Configuration
 
-Set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the JSON variable name execpt for the following: 
+Set the contract addresses in `/src/app/config/contracts.local.json`. The contract names are the same as the JSON variable name except for the following:
 
 - `rif` variable is the `ERC677` contract
 - `registrar` variable is the `TokenRegistrar` contract
