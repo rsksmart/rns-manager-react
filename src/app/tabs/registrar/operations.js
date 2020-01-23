@@ -33,7 +33,7 @@ export const getCost = (domain, duration) => async (dispatch) => {
       return rif.methods.balanceOf(currentAddress).call((balanceError, balance) => {
         if (balanceError) return resolve(dispatch(notifyError(balanceError.message)));
 
-        const enoughBalance = balance >= cost;
+        const enoughBalance = web3.utils.toBN(balance).gte(web3.utils.toBN(cost));
         return dispatch(receiveGetCost(window.web3.toDecimal(cost / (10 ** 18)), enoughBalance));
       });
     });
