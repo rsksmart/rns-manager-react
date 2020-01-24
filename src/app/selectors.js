@@ -7,13 +7,10 @@ export const toChecksumAddress = state => (
 );
 
 export const networkSelector = (network) => {
-  if (network === process.env.REACT_APP_ENVIRONMENT_ID) {
-    return 'Local';
-  }
-
   switch (network) {
     case '30': return 'RSK MainNet';
     case '31': return 'RSK TestNet';
+    case process.env.REACT_APP_ENVIRONMENT_ID: return 'Local';
     default: return 'invalid';
   }
 };
