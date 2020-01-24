@@ -16,6 +16,7 @@ import {
   UserTab,
   AdminMyCryptoTab,
   RenewTab,
+  ErrorTab,
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
@@ -32,7 +33,7 @@ const Routes = (props) => {
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
       {
-        notLoggedIn && <Route component={NoMetamaskTab} />
+        notLoggedIn && <Route component={ErrorTab} />
       }
       <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
       <Route path="/registrar" component={RegistrarTab} />
