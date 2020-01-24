@@ -21,9 +21,8 @@ import {
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { viewMyCrypto, userNetwork } = props;
+  const { viewMyCrypto, networkMatch } = props;
 
-  const networkMatch = process.env.REACT_APP_ENVIRONMENT_ID === userNetwork;
   const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch;
 
   return (
@@ -49,17 +48,17 @@ const Routes = (props) => {
 };
 
 Routes.defaultProps = {
-  userNetwork: 0,
+  networkMatch: false,
 };
 
 Routes.propTypes = {
   viewMyCrypto: propTypes.bool.isRequired,
-  userNetwork: propTypes.bool,
+  networkMatch: propTypes.bool,
 };
 
 const mapStateToProps = state => ({
   viewMyCrypto: state.user.viewMyCrypto,
-  userNetwork: state.auth.network,
+  networkMatch: state.auth.networkMatch,
 });
 
 export default withRouter(connect(mapStateToProps)(Routes));

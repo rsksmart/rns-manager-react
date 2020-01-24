@@ -12,6 +12,7 @@ const initialState = {
   storageName: localStorage.getItem('name'),
   isOwner: false,
   network: null,
+  networkMatch: false,
 };
 
 export default (state = initialState, action) => {
@@ -42,6 +43,7 @@ export default (state = initialState, action) => {
       enableError: null,
       address: action.address,
       network: action.network,
+      networkMatch: action.networkMatch,
     };
     case types.ERROR_ENABLE: return {
       ...state,

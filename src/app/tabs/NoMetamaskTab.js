@@ -34,6 +34,7 @@ const NoMetamaskTab = multilanguage(({ strings }) => (
       <Container>
         <Row>
           <Col>
+            <h2>Network Error</h2>
             <Image src={rskWallet} alt="rsk_wallet" fluid style={{ height: 300 }} />
           </Col>
         </Row>
