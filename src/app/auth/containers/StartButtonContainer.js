@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(start());
   },
   user: () => dispatch(push('/user')),
+  null: dispatch(start()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
