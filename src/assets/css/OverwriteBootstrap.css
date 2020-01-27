@@ -258,7 +258,13 @@ a:hover {
     font-weight: 500;
 }
 
-.btn-primary:hover {
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #6c757d;
+    border-color:#6c757d;
+    cursor: not-allowed;
+}
+
+.btn-primary:hover:not([disabled]) {
     color: #008CFF;
     background-color: #FFFFFF;
     border-color: #FFFFFF;
