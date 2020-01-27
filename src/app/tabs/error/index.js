@@ -7,18 +7,16 @@ import {
 } from 'react-bootstrap';
 
 import rskWallet from '../../../assets/rsk_wallet.png';
-
 import { networkSelector } from '../../selectors';
 
-
-const DetailsSectionComponent = ({
+const ErrorTabComponent = ({
   hasMetamask, walletNetwork, envNetwork, strings,
 }) => {
   if (!hasMetamask) {
     return (
       <div>
         <img src={rskWallet} alt="rsk_wallet" width="250px" />
-        <h2>No wallet detected</h2>
+        <h2>{strings.no_wallet}</h2>
         <p>{strings.rsk_wallet_needed}</p>
         <Button onClick={() => window.open('https://metamask.io', '_blank')}>
           {strings.get_metamask}
@@ -40,21 +38,17 @@ const DetailsSectionComponent = ({
       </p>
 
       <p>
-        {strings.current_connected}
-        {' '}
-        <strong>
-          {walletNetwork}
-        </strong>
+        {`${strings.current_connected} ${walletNetwork}`}
       </p>
     </div>
   );
 };
 
-DetailsSectionComponent.defaultProps = {
+ErrorTabComponent.defaultProps = {
   walletNetwork: '',
 };
 
-DetailsSectionComponent.propTypes = {
+ErrorTabComponent.propTypes = {
   hasMetamask: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
@@ -68,8 +62,10 @@ const mapStateToProps = state => ({
   envNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
 });
 
-const DetailsSection = connect(mapStateToProps, null)(multilanguage(DetailsSectionComponent));
+const ErrorTabConnect = connect(
+  mapStateToProps,
+  null,
+)(multilanguage(ErrorTabComponent));
 
-const ErrorTab = () => (<DetailsSection />);
-
+const ErrorTab = () => (<ErrorTabConnect />);
 export default ErrorTab;
