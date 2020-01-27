@@ -20,7 +20,9 @@ const DetailsSectionComponent = ({
         <img src={rskWallet} alt="rsk_wallet" width="250px" />
         <h2>No wallet detected</h2>
         <p>{strings.rsk_wallet_needed}</p>
-        <Button onClick={() => window.open('https://metamask.io', '_blank')}>{strings.get_metamask}</Button>
+        <Button onClick={() => window.open('https://metamask.io', '_blank')}>
+          {strings.get_metamask}
+        </Button>
       </div>
     );
   }
