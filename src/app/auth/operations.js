@@ -11,6 +11,7 @@ import {
   errorLogin,
   errorEnable,
 } from './actions';
+import { push } from 'connected-react-router';
 
 export const start = callback => (dispatch) => {
   const hasMetamask = window.ethereum !== undefined;
@@ -61,6 +62,8 @@ export const authenticate = (name, address) => (dispatch) => {
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
 
       dispatch(checkResolver(name));
+
+      dispatch(push('/admin'));
 
       return resolve(dispatch(receiveLogin(name, true)));
     });
