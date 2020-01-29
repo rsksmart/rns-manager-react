@@ -209,5 +209,9 @@
   "already_transferred": "ドメインの所有権が正常に移管されました",
   "notifications_transferred_domain_token": "ドメインの所有権が正常に移管されました",
   "not_enough_balance": "このアクションを実行するのに十分なバランスがありません",
-  "click_here_not_enough_balance": "ここをクリックして、トークンを追加で購入できる場所を確認します"
+  "click_here_not_enough_balance": "ここをクリックして、トークンを追加で購入できる場所を確認します",
+  "no_wallet": "ウォレットが検出されていません",
+  "network_mismatch": "ネットワーク不適合",
+  "connect_to_network": "ウォレットを次に接続します：",
+  "current_connected": "あなたのウォレットは現在、次に接続されています："
 }

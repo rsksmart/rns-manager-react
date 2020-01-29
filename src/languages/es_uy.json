@@ -209,5 +209,9 @@
   "already_transferred": "la propiedad de su dominio se ha transferido correctamente",
   "notifications_transferred_domain_token": "la propiedad de su dominio se ha transferido correctamente",
   "not_enough_balance": "no tiene suficiente saldo para realizar esta acción",
-  "click_here_not_enough_balance": "haga clic aquí y consulte dónde puede comprar más tokens"
+  "click_here_not_enough_balance": "haga clic aquí y consulte dónde puede comprar más tokens",
+  "no_wallet": "No se detectó ninguna wallet",
+  "network_mismatch": "Las redes no coinciden",
+  "connect_to_network": "Conecte su wallet a",
+  "current_connected": "Actualmente su wallet está conectada a"
 }
