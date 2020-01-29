@@ -209,5 +209,9 @@
   "already_transferred": "您的域名所有权已成功转让",
   "notifications_transferred_domain_token": "您的域名所有权已成功转让",
   "not_enough_balance": "您的余额不足不能执行该步骤",
-  "click_here_not_enough_balance": "点击这里并查看在哪里可以购买更多的代币"
+  "click_here_not_enough_balance": "点击这里并查看在哪里可以购买更多的代币",
+  "no_wallet": "未检测到钱包",
+  "network_mismatch": "网络不匹配",
+  "connect_to_network": "将您的钱包连接到",
+  "current_connected": "您的钱包当前已连接至"
 }

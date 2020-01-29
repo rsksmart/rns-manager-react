@@ -6,6 +6,7 @@ import search from './search';
 import registrar from './registrar';
 import user from './user';
 import renew from './renew';
+import error from './error';
 
 export default {
   admin,
@@ -16,6 +17,7 @@ export default {
   resolve,
   user,
   renew,
+  error,
 };
 
 export { AdminTab } from './admin';
@@ -31,3 +33,4 @@ export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
 export { default as AdminMyCryptoTab } from './AdminMyCryptoTab';
+export { default as ErrorTab } from './error';

@@ -16,13 +16,15 @@ import {
   UserTab,
   AdminMyCryptoTab,
   RenewTab,
+  ErrorTab,
 } from './tabs';
-
 
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { viewMyCrypto } = props;
+  const { viewMyCrypto, networkMatch } = props;
+
+  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch;
 
   return (
     <Switch>
@@ -31,7 +33,7 @@ const Routes = (props) => {
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
       {
-        !window.ethereum && !viewMyCrypto && <Route component={NoMetamaskTab} />
+        notLoggedIn && <Route component={ErrorTab} />
       }
       <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
       <Route path="/registrar" component={RegistrarTab} />
@@ -46,12 +48,18 @@ const Routes = (props) => {
   );
 };
 
+Routes.defaultProps = {
+  networkMatch: false,
+};
+
 Routes.propTypes = {
   viewMyCrypto: propTypes.bool.isRequired,
+  networkMatch: propTypes.bool,
 };
 
 const mapStateToProps = state => ({
   viewMyCrypto: state.user.viewMyCrypto,
+  networkMatch: state.auth.networkMatch,
 });
 
 export default withRouter(connect(mapStateToProps)(Routes));

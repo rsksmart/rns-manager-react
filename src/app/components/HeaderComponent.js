@@ -6,11 +6,13 @@ import {
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
+import logotest from '../../assets/img/logo-testnet.svg';
 import { StartButton } from '../auth';
 import { LanguageSelectContainer } from '../containers';
 
+
 const HeaderComponent = (props) => {
-  const { strings, isLoggedIn } = props;
+  const { strings, isLoggedIn, network } = props;
 
   return (
     <Navbar
@@ -20,9 +22,9 @@ const HeaderComponent = (props) => {
       <Container>
         <Link to="/" className="navbar-brand">
           <Image
-            src={logo}
+            src={(network === '31') ? logotest : logo}
             className="logo"
-            alt="Logo"
+            alt="RSK Logo"
           />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -62,6 +64,7 @@ const HeaderComponent = (props) => {
 HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
   isLoggedIn: propTypes.bool.isRequired,
+  network: propTypes.string.isRequired,
 };
 
 export default multilanguage(HeaderComponent);

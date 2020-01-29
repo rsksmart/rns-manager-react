@@ -18,10 +18,11 @@ export const requestEnable = () => ({
   type: types.REQUEST_ENABLE,
 });
 
-export const receiveEnable = (address, network) => ({
+export const receiveEnable = (address, network, networkMatch) => ({
   type: types.RECEIVE_ENABLE,
   address,
   network,
+  networkMatch,
 });
 
 export const errorEnable = message => ({
