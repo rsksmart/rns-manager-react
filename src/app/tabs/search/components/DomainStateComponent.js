@@ -11,18 +11,9 @@ import { RegisterProcessContainer } from '../../../containers';
 // eslint-disable-next-line max-len
 function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, strings) {
   if (!domain) return 'Search for a domain.';
-  if (domainStateLoading || requestingCost) return <Spinner animation="grow" variant="primary" />;
+  if (domainStateLoading || requestingCost || requestingOwner) return <Spinner animation="grow" variant="primary" />;
 
   if (owned) {
-    if (requestingOwner) {
-      return (
-        <Card.Text>
-          {strings.owned}
-          <br />
-          <Spinner animation="grow" variant="primary" />
-        </Card.Text>
-      );
-    }
     return (
       <Card.Text>
         {strings.owned}
