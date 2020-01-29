@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   owner: state.search.owner,
   blocked: state.search.blocked,
   requestingOwner: state.search.requestingOwner,
+  requestingCost: state.search.requestingCost,
   rifCost: state.search.rifCost,
 });
 

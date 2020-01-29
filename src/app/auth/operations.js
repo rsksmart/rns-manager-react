@@ -1,4 +1,5 @@
 import { hash as namehash } from 'eth-ens-namehash';
+import { push } from 'connected-react-router';
 import { rns as registryAddress } from '../adapters/configAdapter';
 import { checkResolver } from '../notifications';
 
@@ -61,6 +62,8 @@ export const authenticate = (name, address) => (dispatch) => {
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
 
       dispatch(checkResolver(name));
+
+      dispatch(push('/admin'));
 
       return resolve(dispatch(receiveLogin(name, true)));
     });
