@@ -30,10 +30,10 @@ const FooterComponent = (props) => {
             <Col lg="4" />
             <Col lg="2">
               <span className="footer-title mb-3">{strings.develop}</span>
-              <a href="https://docs.rns.rifos.org/Libs">
+              <a href="https://developers.rsk.co/rif/rns/libs/">
                 {strings.libs}
               </a>
-              <a href="https://docs.rns.rifos.org">
+              <a href="https://developers.rsk.co/rif/rns/">
                 {strings.docs}
               </a>
               <a href="https://github.com/rnsdomains">

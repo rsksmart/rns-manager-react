@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { StartButton } from '../auth';
+import { explorer } from '../adapters/explorerAdapter';
 
 const SetUpTab = multilanguage(({ strings }) => (
   <Container>
@@ -24,7 +25,7 @@ const SetUpTab = multilanguage(({ strings }) => (
                   <li>ChainID: 30</li>
                   <li>Symbol: RBTC</li>
                   <li>Nickname: RSK MainNet</li>
-                  <li>Block Explorer URL: https://explorer.rsk.co</li>
+                  <li>{`Block Explorer URL: ${explorer}`}</li>
                 </ul>
               </li>
               <li>{strings.setup_save}</li>

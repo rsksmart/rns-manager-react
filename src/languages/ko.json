@@ -209,5 +209,9 @@
   "already_transferred": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
   "notifications_transferred_domain_token": "귀하의 도메인 소유권이 성공적으로 이전되었습니다",
   "not_enough_balance": "이 행동을 실행할 잔액이 부족합니다",
-  "click_here_not_enough_balance": "여기를 클릭해 토큰을 더 구입할 수 있는 곳을 확인하십시오"
+  "click_here_not_enough_balance": "여기를 클릭해 토큰을 더 구입할 수 있는 곳을 확인하십시오",
+  "no_wallet": "감지된 지갑이 없습니다",
+  "network_mismatch": "네트워크 불일치",
+  "connect_to_network": "지갑을 연결하십시오",
+  "current_connected": "귀하의 지갑은 현재 연결되어 있습니다."
 }

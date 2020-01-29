@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Alert, Badge } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import txDisplay from '../selectors';
+import { explorer } from '../../adapters/explorerAdapter';
 
 class NotificationComponent extends Component {
   getTxDisplay(params) {
@@ -22,7 +23,7 @@ class NotificationComponent extends Component {
         <code>{notification.params.name}</code>
         <Alert.Heading>{display.title}</Alert.Heading>
         <p>
-          <Alert.Link href={`https://explorer.rsk.co/tx/${notification.tx}`} target="_blank">{notification.tx}</Alert.Link>
+          <Alert.Link href={`${explorer}/tx/${notification.tx}`} target="_blank">{notification.tx}</Alert.Link>
           <br />
           {/* eslint-disable-next-line no-underscore-dangle */}
           {notification.mined ? <Badge variant="success">{strings.Confirmed}</Badge> : <Badge variant="warning">{strings.Waiting_for_confirmation_}</Badge>}

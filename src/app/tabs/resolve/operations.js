@@ -1,9 +1,9 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import * as actions from './actions';
-import { rskMain } from '../../../config/nodes.json';
+import { rskNode } from '../../adapters/nodeAdapter';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
-import { rns as rnsAddress } from '../../../config/contracts.json';
+import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
 
 export const identifyInterfaces = domain => (dispatch) => {
@@ -15,7 +15,7 @@ export const identifyInterfaces = domain => (dispatch) => {
 
   const hash = namehash(domain);
 
-  const web3 = new Web3(rskMain);
+  const web3 = new Web3(rskNode);
 
   const rns = new web3.eth.Contract(rnsAbi, rnsAddress);
 
@@ -57,7 +57,7 @@ export const identifyInterfaces = domain => (dispatch) => {
 export const addr = (resolverAddress, name) => (dispatch) => {
   dispatch(actions.requestAddr());
 
-  const web3 = new Web3(rskMain);
+  const web3 = new Web3(rskNode);
 
   const addrResolver = new web3.eth.Contract(resolverInterfaces[0].abi, resolverAddress);
 
@@ -71,7 +71,7 @@ export const addr = (resolverAddress, name) => (dispatch) => {
 export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
   dispatch(actions.requestChainAddr());
 
-  const web3 = new Web3(rskMain);
+  const web3 = new Web3(rskNode);
 
   const addrResolver = new web3.eth.Contract(resolverInterfaces[1].abi, resolverAddress);
 
@@ -85,7 +85,7 @@ export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
 export const name = (resolverAddress, address) => (dispatch) => {
   dispatch(actions.requestName());
 
-  const web3 = new Web3(rskMain);
+  const web3 = new Web3(rskNode);
 
   const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
 

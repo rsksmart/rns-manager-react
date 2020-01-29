@@ -2,8 +2,8 @@ import Web3 from 'web3';
 import { addr, content } from './actions';
 import {
   publicResolver as resolverAddress,
-  gasPrice as defaultGasPrice,
-} from '../../../config/contracts.json';
+} from '../../adapters/configAdapter';
+import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { txTypes } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import abi from './abi.json';

@@ -1,5 +1,6 @@
 import { hash as namehash } from 'eth-ens-namehash';
-import { rns as registryAddress } from '../../config/contracts.json';
+import { push } from 'connected-react-router';
+import { rns as registryAddress } from '../adapters/configAdapter';
 import { checkResolver } from '../notifications';
 
 import {
@@ -21,7 +22,12 @@ export const start = callback => (dispatch) => {
     dispatch(requestEnable());
 
     window.ethereum.enable()
-      .then(accounts => dispatch(receiveEnable(accounts[0], window.ethereum.networkVersion)))
+      .then(accounts => dispatch(receiveEnable(
+        accounts[0],
+        window.ethereum.publicConfigStore.getState().networkVersion,
+        window.ethereum.publicConfigStore.getState().networkVersion
+          === process.env.REACT_APP_ENVIRONMENT_ID,
+      )))
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
   }
@@ -56,6 +62,8 @@ export const authenticate = (name, address) => (dispatch) => {
       if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
 
       dispatch(checkResolver(name));
+
+      dispatch(push('/admin'));
 
       return resolve(dispatch(receiveLogin(name, true)));
     });

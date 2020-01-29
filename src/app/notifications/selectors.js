@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { multiChainResolver } from '../../config/contracts.json';
+import { multiChainResolver } from '../adapters/configAdapter';
 import { txTypes } from './types';
 
 const displaySetTx = (title, description, action = null) => ({
