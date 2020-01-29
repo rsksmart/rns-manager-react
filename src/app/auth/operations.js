@@ -1,4 +1,5 @@
 import { hash as namehash } from 'eth-ens-namehash';
+import { push } from 'connected-react-router';
 import { rns as registryAddress } from '../adapters/configAdapter';
 import { checkResolver } from '../notifications';
 
@@ -11,7 +12,6 @@ import {
   errorLogin,
   errorEnable,
 } from './actions';
-import { push } from 'connected-react-router';
 
 export const start = callback => (dispatch) => {
   const hasMetamask = window.ethereum !== undefined;
