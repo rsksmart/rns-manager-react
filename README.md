@@ -15,26 +15,15 @@ yarn
 
 Run RNS in a local blockchain, and connect RNS Manager to this local network.
 
-#### Run RNS locally
-
 ```
-git clone https://github.com/rnsdomains/RNS.git
-cd RNS
-# you can modify some values like auction lengths
+git clone https://github.com/rsksmart/rns-suite
+cd rns-suite
 npm install
 truffle develop
-truffle(develop)> migrate --reset
+truffle(develop)> migrate
 ```
 
-#### Add Multi-crypto resolver to RNS
-
-```
-git clone https://github.com/rnsdomains/rns-artifacts.git
-cd rns-artifacts
-# create migration file deploying MultiChainResolver artifact
-truffle console
-truffle(develop)> migrate --reset
-```
+Copy Addresses to `src/config/contracts.local.json`.
 
 ## Run the RNS Manager locally
 
@@ -82,6 +71,20 @@ yarn start:testnet
 #### Build command
 ```
 yarn build:testnet
+```
+
+## Running production builds
+
+Mainnet:
+```
+docker build -t rns-manager-mainnet . -f mainnet.Dockerfile
+docker run -d --name rns-manager-mainnet -p 5000:5000 rns-manager-mainnet
+```
+
+Testnet:
+```
+docker build -t rns-manager-testnet . -f testnet.Dockerfile
+docker run -d --name rns-manager-testnet -p 5000:5000 rns-manager-testnet
 ```
 
 ---
