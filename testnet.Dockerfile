@@ -7,5 +7,5 @@ RUN yarn 2> /dev/null
 RUN yarn build:testnet
 
 RUN yarn global add serve
-EXPOSE 5000
-CMD [ "serve", "-s", "build", "-l", "5000"]
+EXPOSE 5001
+CMD [ "serve", "-s", "build", "-l", "5001"]
