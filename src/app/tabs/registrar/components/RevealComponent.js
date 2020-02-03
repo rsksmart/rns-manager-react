@@ -123,7 +123,6 @@ class RevealComponent extends Component {
                 </Button>
                 <hr />
                 <div hidden={!revealed || !revealConfirmed}>
-                  <StartButton />
                   <span> </span>
                   <Button onClick={this.registerNewName}>
                     {strings.register}

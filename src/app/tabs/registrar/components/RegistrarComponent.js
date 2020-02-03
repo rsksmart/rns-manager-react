@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link, Redirect } from 'react-router-dom';
-import { Card, Spinner } from 'react-bootstrap';
+import {
+  Card, Spinner, Row, Col,
+} from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
 import { isValidName } from '../../../validations';
-
+import { StartButton } from '../../../auth';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -75,17 +77,68 @@ class RegistrarComponent extends Component {
       const domainDisplay = `${domain}.rsk`;
 
       elementToRender = (
-        <div>
-          <h2>
+        <div className="register">
+          <h1 className="sub-heading">
             {strings.start_registration_for}
             {' '}
-            <code>{domainDisplay}</code>
-          </h2>
-          <h4>registering a name requires you to complete 3 steps</h4>
-          <RentalPeriodContainer />
-          <hr />
-          <CommitContainer />
-          <RevealContainer />
+            <span className="domain">{domainDisplay}</span>
+          </h1>
+          <p>registering a name requires you to complete 3 steps</p>
+
+          <Card>
+            <Card.Header>
+              <h2 className="normal-size">
+                <strong>Step 1: </strong>
+                {' '}
+                Request to Register
+              </h2>
+            </Card.Header>
+            <Card.Body>
+              <Card.Body>
+                <RentalPeriodContainer />
+                <CommitContainer />
+              </Card.Body>
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Header>
+              <h2 className="normal-size">
+                <strong>Step 2: </strong>
+                Wait for a minute
+              </h2>
+            </Card.Header>
+            <Card.Body>
+              <Row>
+                <Col md={{ span: 8, offset: 2 }}>
+                  {strings.process_step_2_explanation}
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Header>
+              <h2 className="normal-size">
+                <strong>Step 3: </strong>
+              </h2>
+            </Card.Header>
+            <Card.Body>
+              <RevealContainer />
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Header>
+              <h2 className="normal-size">
+                <strong>Step 4: </strong>
+                Login and Administer!
+              </h2>
+            </Card.Header>
+            <Card.Body>
+              <StartButton />
+            </Card.Body>
+          </Card>
         </div>
       );
     }
@@ -110,6 +163,8 @@ RegistrarComponent.propTypes = {
     search_another_domain: propTypes.string.isRequired,
     owner: propTypes.string.isRequired,
     resolve: propTypes.string.isRequired,
+    how_long_want_name: propTypes.string.isRequired,
+    process_step_2_explanation: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,

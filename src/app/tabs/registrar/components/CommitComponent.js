@@ -21,7 +21,7 @@ class CommitComponent extends Component {
         <Row>
           <Col md={6} className="offset-md-3">
             <p>
-              {`2. ${strings.process_step_1_explanation}`}
+              {strings.process_step_1_explanation}
             </p>
           </Col>
         </Row>
@@ -39,15 +39,6 @@ class CommitComponent extends Component {
                   </Button>
                 )
             }
-          </Col>
-        </Row>
-        <Row>
-          <Col md={8} className="offset-md-2">
-            <p>
-              <em>
-                {strings.process_step_2_explanation}
-              </em>
-            </p>
           </Col>
         </Row>
       </Container>

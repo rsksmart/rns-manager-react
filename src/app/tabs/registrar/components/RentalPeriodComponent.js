@@ -74,18 +74,21 @@ class RentalPeriodComponent extends Component {
 
     return (
       <div>
-        <p>
-          {`1. ${strings.how_long_want_name} ?`}
-          <br />
-        </p>
+        <h3>
+          {strings.how_long_want_name}
+          ?
+        </h3>
         {counter}
-        {
-          getting
-            ? <Spinner animation="grow" variant="primary" />
-            : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
-        }
-        <br />
-        <em>{strings.discount}</em>
+        <p>
+          {
+            getting
+              ? <Spinner animation="grow" variant="primary" />
+              : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
+          }
+        </p>
+        <p>
+          <em>{strings.discount}</em>
+        </p>
         {
           !hasBalance
           && (
