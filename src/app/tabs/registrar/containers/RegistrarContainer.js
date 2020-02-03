@@ -11,6 +11,8 @@ const mapStateToProps = state => ({
   owner: state.search.owner,
   blocked: state.search.blocked,
   requestingOwner: state.search.requestingOwner,
+  committed: state.registrar.committed,
+  waiting: state.registrar.waiting,
 });
 
 const mapDispatchToProps = dispatch => ({

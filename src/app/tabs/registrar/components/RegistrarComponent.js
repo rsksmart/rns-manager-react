@@ -3,10 +3,12 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link, Redirect } from 'react-router-dom';
 import {
-  Card, Spinner, Row, Col,
+  Card, Spinner,
 } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
-import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
+import {
+  RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer,
+} from '../containers';
 import { isValidName } from '../../../validations';
 import { StartButton } from '../../../auth';
 
@@ -33,7 +35,7 @@ class RegistrarComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
+      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner, committed, waiting,
     } = this.props;
     const { invalid } = this.state;
 
@@ -100,22 +102,23 @@ class RegistrarComponent extends Component {
               </Card.Body>
             </Card.Body>
           </Card>
+          
 
-          <Card>
-            <Card.Header>
-              <h2 className="normal-size">
-                <strong>Step 2: </strong>
-                Wait for a minute
-              </h2>
-            </Card.Header>
-            <Card.Body>
-              <Row>
-                <Col md={{ span: 8, offset: 2 }}>
-                  {strings.process_step_2_explanation}
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
+          {waiting
+            && (
+              <Card>
+                <Card.Header>
+                  <h2 className="normal-size">
+                    <strong>Step 2: </strong>
+                    Wait for a minute
+                  </h2>
+                </Card.Header>
+                <Card.Body>
+                  <LoadingContainer />
+                </Card.Body>
+              </Card>
+            )
+          }
 
           <Card>
             <Card.Header>
@@ -173,6 +176,8 @@ RegistrarComponent.propTypes = {
   owner: propTypes.string,
   requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
+  committed: propTypes.bool.isRequired,
+  waiting: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {
