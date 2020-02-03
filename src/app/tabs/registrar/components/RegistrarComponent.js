@@ -60,17 +60,21 @@ class RegistrarComponent extends Component {
         );
       } else {
         elementToRender = (
-          <Card.Text>
-            {strings.owned}
-            <br />
-            <strong>
-              {strings.owner}
-              {': '}
-            </strong>
-            {owner}
-            <br />
-            <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
-          </Card.Text>
+          <Card>
+            <Card.Header>{strings.owned}</Card.Header>
+            <Card.Body>
+              <p>
+                <strong>
+                  {strings.owner}
+                  {': '}
+                </strong>
+                {owner}
+              </p>
+              <p>
+                <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
+              </p>
+            </Card.Body>
+          </Card>
         );
       }
     } else if (blocked) {
@@ -87,6 +91,7 @@ class RegistrarComponent extends Component {
           </h1>
           <p>registering a name requires you to complete 3 steps</p>
 
+          
           <Card>
             <Card.Header>
               <h2 className="normal-size">
@@ -140,6 +145,7 @@ class RegistrarComponent extends Component {
             </Card.Header>
             <Card.Body>
               <StartButton />
+              // Register another button
             </Card.Body>
           </Card>
         </div>
