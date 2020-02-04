@@ -36,7 +36,7 @@ class LoadingComponent extends Component {
       </div>
     );
   }
-};
+}
 
 LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,

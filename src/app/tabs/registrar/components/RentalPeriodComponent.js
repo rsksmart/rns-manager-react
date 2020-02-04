@@ -128,7 +128,7 @@ RentalPeriodComponent.propTypes = {
 
 RentalPeriodComponent.defaultProps = {
   rifCost: 0,
-  duration: 1,
+  duration: 3,
 };
 
 export default multilanguage(RentalPeriodComponent);
