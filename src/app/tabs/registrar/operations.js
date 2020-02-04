@@ -136,7 +136,8 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        localStorage.setItem('name', domain);
+        localStorage.setItem('name', `${domain}.rsk`);
+        localStorage.removeItem(`${domain}-salt`);
 
         dispatch(receiveRevealCommit());
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));

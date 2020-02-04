@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Card, Spinner,
 } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import {
-  RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer,
+  RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
 import { isValidName } from '../../../validations';
-import { StartButton } from '../../../auth';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -41,10 +40,6 @@ class RegistrarComponent extends Component {
     const { invalid } = this.state;
 
     let elementToRender;
-
-    if (!domain && !revealConfirmed) {
-      return <Redirect to="/search" />;
-    }
 
     if (invalid) {
       elementToRender = <h4>{invalid}</h4>;
@@ -154,7 +149,7 @@ class RegistrarComponent extends Component {
             {revealConfirmed
               && (
                 <Card.Body>
-                  <StartButton />
+                  <AutoLoginComponent />
                 </Card.Body>
               )
             }

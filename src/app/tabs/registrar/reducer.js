@@ -3,7 +3,7 @@ import {
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
-  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED,
+  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
 } from './types';
 
 const initialState = {
@@ -80,6 +80,8 @@ const registrar = (state = initialState, action) => {
       ...state,
       ...initialState,
     };
+    case RESET_REGISTRAR_STATE:
+      return initialState;
     default: return state;
   }
 };
