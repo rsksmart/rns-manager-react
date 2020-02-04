@@ -42,7 +42,7 @@ class RegistrarComponent extends Component {
 
     let elementToRender;
 
-    if (!domain) {
+    if (!domain && !revealConfirmed) {
       return <Redirect to="/search" />;
     }
 
@@ -92,7 +92,6 @@ class RegistrarComponent extends Component {
           </h1>
           <p>registering a name requires you to complete 3 steps</p>
 
-          
           <Card>
             <Card.Header>
               <h2 className="normal-size">
@@ -156,7 +155,6 @@ class RegistrarComponent extends Component {
               && (
                 <Card.Body>
                   <StartButton />
-                // Register another button
                 </Card.Body>
               )
             }
