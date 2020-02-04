@@ -79,13 +79,12 @@ class RentalPeriodComponent extends Component {
           ?
         </h3>
         {counter}
-        <p>
-          {
-            getting
-              ? <Spinner animation="grow" variant="primary" />
-              : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
-          }
-        </p>
+
+        {
+          getting
+            ? <Spinner animation="grow" variant="primary" />
+            : <p><strong>{`${strings.price}: ${rifCost} RIF`}</strong></p>
+        }
         <p>
           <em>{strings.discount}</em>
         </p>
