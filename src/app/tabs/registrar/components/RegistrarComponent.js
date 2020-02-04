@@ -148,7 +148,7 @@ class RegistrarComponent extends Component {
             <Card.Header>
               <h2 className="normal-size">
                 <strong>Step 4: </strong>
-                Login and Administer!
+                Login and administer
               </h2>
             </Card.Header>
             {revealConfirmed

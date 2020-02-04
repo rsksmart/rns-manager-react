@@ -38,15 +38,17 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
   }
 
   return (
-    <Card.Text>
-      {strings.open}
-      <br />
-      <Link to={`/registrar?domain=${domain}`}>{strings.register_your_domain}</Link>
-      <br />
-      {`${rifCost} ${strings.rif_per_year}`}
-      <br />
-      <em>{strings.discount}</em>
-    </Card.Text>
+    <>
+      <p>{strings.open}</p>
+      <p>
+        <Link to={`/registrar?domain=${domain}`} className="btn btn-primary">{strings.register_your_domain}</Link>
+      </p>
+      <p>
+        {`${rifCost} ${strings.rif_per_year}`}
+        <br />
+        <em>{strings.discount}</em>
+      </p>
+    </>
   );
 }
 
