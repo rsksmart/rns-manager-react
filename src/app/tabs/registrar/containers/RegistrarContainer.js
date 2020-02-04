@@ -13,6 +13,8 @@ const mapStateToProps = state => ({
   requestingOwner: state.search.requestingOwner,
   committed: state.registrar.committed,
   waiting: state.registrar.waiting,
+  canReveal: state.registrar.canReveal,
+  revealConfirmed: state.registrar.revealConfirmed,
 });
 
 const mapDispatchToProps = dispatch => ({

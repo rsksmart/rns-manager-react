@@ -35,7 +35,8 @@ class RegistrarComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner, committed, waiting,
+      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
+      committed, waiting, canReveal, revealConfirmed,
     } = this.props;
     const { invalid } = this.state;
 
@@ -100,40 +101,48 @@ class RegistrarComponent extends Component {
                 Request to Register
               </h2>
             </Card.Header>
-            <Card.Body>
+            {!committed
+              && (
               <Card.Body>
-                <RentalPeriodContainer />
-                <CommitContainer />
+                <Card.Body>
+                  <RentalPeriodContainer />
+                  <CommitContainer />
+                </Card.Body>
               </Card.Body>
-            </Card.Body>
+              )
+            }
           </Card>
-          
 
-          {waiting
-            && (
-              <Card>
-                <Card.Header>
-                  <h2 className="normal-size">
-                    <strong>Step 2: </strong>
-                    Wait for a minute
-                  </h2>
-                </Card.Header>
+          <Card>
+            <Card.Header>
+              <h2 className="normal-size">
+                <strong>Step 2: </strong>
+                Wait for a minute
+              </h2>
+            </Card.Header>
+            {waiting
+              && (
                 <Card.Body>
                   <LoadingContainer />
                 </Card.Body>
-              </Card>
-            )
-          }
+              )
+            }
+          </Card>
 
           <Card>
             <Card.Header>
               <h2 className="normal-size">
                 <strong>Step 3: </strong>
+                Register the domain
               </h2>
             </Card.Header>
-            <Card.Body>
-              <RevealContainer />
-            </Card.Body>
+            {(canReveal && !revealConfirmed)
+              && (
+              <Card.Body>
+                <RevealContainer />
+              </Card.Body>
+              )
+            }
           </Card>
 
           <Card>
@@ -143,11 +152,16 @@ class RegistrarComponent extends Component {
                 Login and Administer!
               </h2>
             </Card.Header>
-            <Card.Body>
-              <StartButton />
-              // Register another button
-            </Card.Body>
+            {revealConfirmed
+              && (
+                <Card.Body>
+                  <StartButton />
+                // Register another button
+                </Card.Body>
+              )
+            }
           </Card>
+
         </div>
       );
     }
@@ -184,6 +198,8 @@ RegistrarComponent.propTypes = {
   getState: propTypes.func.isRequired,
   committed: propTypes.bool.isRequired,
   waiting: propTypes.bool.isRequired,
+  canReveal: propTypes.bool.isRequired,
+  revealConfirmed: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

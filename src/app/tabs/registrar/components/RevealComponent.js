@@ -7,8 +7,7 @@ import {
 
 const RevealComponent = (props) => {
   const {
-    waiting, strings, revealCommit, committed, revealing,
-    revealed, revealConfirmed,
+    waiting, strings, revealCommit, committed, revealed,
   } = props;
 
   return (
@@ -35,14 +34,8 @@ RevealComponent.propTypes = {
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   waiting: propTypes.bool.isRequired,
-  revealConfirmed: propTypes.bool,
-  revealing: propTypes.bool.isRequired,
   revealed: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
-};
-
-RevealComponent.defaultProps = {
-  revealConfirmed: false,
 };
 
 export default multilanguage(RevealComponent);
