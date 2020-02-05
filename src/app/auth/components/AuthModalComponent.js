@@ -28,6 +28,7 @@ class AuthModalComponent extends Component {
       enabling,
       enableError,
       network,
+      managerNetwork,
       authenticate,
       authError,
       name,
@@ -45,6 +46,13 @@ class AuthModalComponent extends Component {
 
     if (!hasMetamask) {
       body = <Button type="link" onClick={openWallets}>{strings.get_metamask}</Button>;
+    } else if (network === 'invalid') {
+      body = (
+        <div>
+          <p><strong>{strings.network_mismatch}</strong></p>
+          <p>{`${strings.connect_to_network} ${managerNetwork}`}</p>
+        </div>
+      );
     } else {
       body = (
         enabling
@@ -138,6 +146,7 @@ AuthModalComponent.propTypes = {
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,
   network: propTypes.string.isRequired,
+  managerNetwork: propTypes.string.isRequired,
   authenticate: propTypes.func.isRequired,
   authError: propTypes.string,
   name: propTypes.string,

@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   enableError: state.auth.enableError,
   address: state.auth.address,
   network: networkSelector(state.auth.network),
+  managerNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
   authError: state.auth.authError,
   name: state.auth.name,
   storageName: state.auth.storageName,
