@@ -91,7 +91,13 @@ class RentalPeriodComponent extends Component {
           && (
             <Alert variant="warning" dismissible="false">
               <p>{strings.not_enough_balance}</p>
-              <a href="https://www.rsk.co/#exchanges">{strings.click_here_not_enough_balance}</a>
+              <a
+                href="https://www.rsk.co/#exchanges"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {strings.click_here_not_enough_balance}
+              </a>
             </Alert>
           )
         }
