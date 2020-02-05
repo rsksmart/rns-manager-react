@@ -92,13 +92,11 @@ class AuthModalComponent extends Component {
           {
             (name && !isOwner)
             && (
-            <Form.Group as={Row}>
-              <Form.Label column sm="12">
-                {strings.not_domains_owner}
-                {' '}
-                <Link onClick={close} to={`/search?domain=${name}`}>{strings.get_the_domain}</Link>
-              </Form.Label>
-            </Form.Group>
+              <Row>
+                <Col>
+                  <p>{strings.not_domains_owner_message}</p>
+                </Col>
+              </Row>
             )
           }
         </Form>
