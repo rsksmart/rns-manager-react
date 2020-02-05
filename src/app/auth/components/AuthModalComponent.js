@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {
   Modal, Row, Col, Form, Button,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 
 class AuthModalComponent extends Component {
@@ -125,7 +124,6 @@ class AuthModalComponent extends Component {
             hasMetamask && !enabling && !enableError
             && (
             <React.Fragment>
-              <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className="btn btn-primary">{strings.register}</Link>
               <Button onClick={() => authenticate(nameInputValue)}>{strings.log_in}</Button>
             </React.Fragment>
             )
