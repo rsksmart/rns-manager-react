@@ -27,7 +27,6 @@ class AuthModalComponent extends Component {
       hasMetamask,
       enabling,
       enableError,
-      displayAddress,
       network,
       authenticate,
       authError,
@@ -54,33 +53,13 @@ class AuthModalComponent extends Component {
             enableError
         || (
         <Form>
-          <Form.Group controlId="address">
-            <Row>
-              <Col lg={2}>
-                <Form.Label className={`control-label-${variant}`}>Address</Form.Label>
-              </Col>
-              <Col lg={10}>
-                <Form.Control
-                  className={`form-control-${variant}`}
-                  plaintext
-                  readOnly
-                  defaultValue={displayAddress}
-                />
-              </Col>
-            </Row>
-          </Form.Group>
           <Form.Group controlId="network">
             <Row>
               <Col lg={2}>
                 <Form.Label className={`control-label-${variant}`}>Network</Form.Label>
               </Col>
               <Col lg={10}>
-                <Form.Control
-                  className={`form-control-${variant}`}
-                  plaintext
-                  readOnly
-                  defaultValue={network}
-                />
+                {network}
               </Col>
             </Row>
           </Form.Group>
@@ -160,7 +139,6 @@ AuthModalComponent.propTypes = {
   hasMetamask: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,
-  displayAddress: propTypes.string,
   network: propTypes.string.isRequired,
   authenticate: propTypes.func.isRequired,
   authError: propTypes.string,
@@ -172,7 +150,6 @@ AuthModalComponent.propTypes = {
 AuthModalComponent.defaultProps = {
   defaultName: '',
   enableError: null,
-  displayAddress: null,
   authError: null,
   name: null,
 };

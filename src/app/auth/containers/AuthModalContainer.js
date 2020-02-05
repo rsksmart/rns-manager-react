@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
-import { networkSelector, toChecksumAddress } from '../../selectors';
+import { networkSelector } from '../../selectors';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,
@@ -11,7 +11,6 @@ const mapStateToProps = state => ({
   enabling: state.auth.enabling,
   enableError: state.auth.enableError,
   address: state.auth.address,
-  displayAddress: state.auth.address && toChecksumAddress(state)(state.auth.address),
   network: networkSelector(state.auth.network),
   authError: state.auth.authError,
   name: state.auth.name,
