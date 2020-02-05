@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link } from 'react-router-dom';
 import {
-  Card, Spinner,
+  Row, OverlayTrigger, Tooltip, Card, Spinner, Button,
 } from 'react-bootstrap';
 import { TabWithSearchComponent } from '../../../components';
 import {
@@ -89,11 +89,29 @@ class RegistrarComponent extends Component {
 
           <Card>
             <Card.Header>
-              <h2 className="normal-size">
-                <strong>Step 1: </strong>
-                {' '}
-                Request to Register
-              </h2>
+              <Row>
+                <div className="step col-md-4">
+                  <p><strong>Step 1: </strong></p>
+                </div>
+                <div className="description col-md-6">
+                  <p>Request to Register</p>
+                </div>
+                <div className="question col-md-2">
+                  <OverlayTrigger
+                    key="step1"
+                    placement="left"
+                    overlay={(
+                      <Tooltip id="tooltip-step1">
+                        <div>
+                          {strings.process_step_1_explanation}
+                        </div>
+                      </Tooltip>
+                    )}
+                  >
+                    <Button variant="secondary">?</Button>
+                  </OverlayTrigger>
+                </div>
+              </Row>
             </Card.Header>
             {!committed
               && (
@@ -109,10 +127,29 @@ class RegistrarComponent extends Component {
 
           <Card>
             <Card.Header>
-              <h2 className="normal-size">
-                <strong>Step 2: </strong>
-                Wait for a minute
-              </h2>
+              <Row>
+                <div className="step col-md-4">
+                  <p><strong>Step 2: </strong></p>
+                </div>
+                <div className="description col-md-6">
+                  <p>Wait for aproximately a minute</p>
+                </div>
+                <div className="question col-md-2">
+                  <OverlayTrigger
+                    key="step2"
+                    placement="left"
+                    overlay={(
+                      <Tooltip id="tooltip-step2">
+                        <div>
+                          {strings.process_step_2_explanation}
+                        </div>
+                      </Tooltip>
+                    )}
+                  >
+                    <Button variant="secondary">?</Button>
+                  </OverlayTrigger>
+                </div>
+              </Row>
             </Card.Header>
             {waiting
               && (
@@ -125,10 +162,29 @@ class RegistrarComponent extends Component {
 
           <Card>
             <Card.Header>
-              <h2 className="normal-size">
-                <strong>Step 3: </strong>
-                Register the domain
-              </h2>
+              <Row>
+                <div className="step col-md-4">
+                  <p><strong>Step 3: </strong></p>
+                </div>
+                <div className="description col-md-6">
+                  <p>Register the domain</p>
+                </div>
+                <div className="question col-md-2">
+                  <OverlayTrigger
+                    key="step3"
+                    placement="left"
+                    overlay={(
+                      <Tooltip id="tooltip-step3">
+                        <div>
+                          {strings.process_step_3_explanation}
+                        </div>
+                      </Tooltip>
+                    )}
+                  >
+                    <Button variant="secondary">?</Button>
+                  </OverlayTrigger>
+                </div>
+              </Row>
             </Card.Header>
             {(canReveal && !revealConfirmed)
               && (
@@ -141,10 +197,14 @@ class RegistrarComponent extends Component {
 
           <Card>
             <Card.Header>
-              <h2 className="normal-size">
-                <strong>Step 4: </strong>
-                Login and administer
-              </h2>
+              <Row>
+                <div className="step col-md-4">
+                  <p><strong>Step 4: </strong></p>
+                </div>
+                <div className="description col-md-8">
+                  <p>Login and administer</p>
+                </div>
+              </Row>
             </Card.Header>
             {revealConfirmed
               && (
@@ -180,7 +240,9 @@ RegistrarComponent.propTypes = {
     owner: propTypes.string.isRequired,
     resolve: propTypes.string.isRequired,
     how_long_want_name: propTypes.string.isRequired,
+    process_step_1_explanation: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
+    process_step_3_explanation: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,

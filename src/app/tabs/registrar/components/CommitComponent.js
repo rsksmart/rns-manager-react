@@ -19,13 +19,6 @@ class CommitComponent extends Component {
     return (
       <Container>
         <Row>
-          <Col md={6} className="offset-md-3">
-            <p>
-              {strings.process_step_1_explanation}
-            </p>
-          </Col>
-        </Row>
-        <Row>
           <Col>
             {
               committing

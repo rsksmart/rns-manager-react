@@ -15,10 +15,6 @@ const RevealComponent = (props) => {
       <h3>Registration Options</h3>
       <p><strong>THIS IS WHERE THE CHECKBOXES FOR REGISTER OPTIONS WILL GO!</strong></p>
 
-      <h3>Register</h3>
-      <p>
-        {strings.process_step_3_explanation}
-      </p>
       {
         revealing
           ? <Spinner animation="grow" variant="primary" />

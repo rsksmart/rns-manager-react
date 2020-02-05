@@ -7,6 +7,15 @@
   }
 
   .card-header {
-    cursor: pointer;
+    p {
+      margin-bottom: 0;
+      line-height: 2em;
+    }
+    .step {
+      text-align: right;
+    }
+    .description {
+      text-align: left;
+    }
   }
 }

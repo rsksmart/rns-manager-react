@@ -29,8 +29,8 @@ class LoadingComponent extends Component {
       <div>
         <Row>
           <Col md={{ span: 8, offset: 2 }}>
+            <h3>{strings.notifications_registrar_committed}</h3>
             <Spinner animation="border" variant="primary" />
-            <p>{strings.process_step_2_explanation}</p>
           </Col>
         </Row>
       </div>
@@ -41,6 +41,7 @@ class LoadingComponent extends Component {
 LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
   strings: propTypes.shape({
+    notifications_registrar_committed: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
   }).isRequired,
 });
