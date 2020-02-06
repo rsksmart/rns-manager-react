@@ -213,5 +213,7 @@
   "no_wallet": "ウォレットが検出されていません",
   "network_mismatch": "ネットワーク不適合",
   "connect_to_network": "ウォレットを次に接続します：",
-  "current_connected": "あなたのウォレットは現在、次に接続されています："
+  "current_connected": "あなたのウォレットは現在、次に接続されています：",
+  "connected_successful": "接続が無事完了しました",
+  "unknown_network": "未知のネットワーク"
 }
