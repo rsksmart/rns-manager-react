@@ -26,8 +26,8 @@ class AuthModalComponent extends Component {
       hasMetamask,
       enabling,
       enableError,
-      network,
       managerNetwork,
+      networkMatch,
       authenticate,
       authError,
       name,
@@ -45,7 +45,7 @@ class AuthModalComponent extends Component {
 
     if (!hasMetamask) {
       body = <Button type="link" onClick={openWallets}>{strings.get_metamask}</Button>;
-    } else if (network === 'invalid') {
+    } else if (!networkMatch) {
       body = (
         <div>
           <p><strong>{strings.unknown_network}</strong></p>
@@ -66,7 +66,7 @@ class AuthModalComponent extends Component {
                 <Form.Label className={`control-label-${variant}`}>Network</Form.Label>
               </Col>
               <Col lg={10}>
-                {network}
+                {managerNetwork}
               </Col>
             </Row>
           </Form.Group>
@@ -143,8 +143,8 @@ AuthModalComponent.propTypes = {
   hasMetamask: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,
-  network: propTypes.string.isRequired,
   managerNetwork: propTypes.string.isRequired,
+  networkMatch: propTypes.bool.isRequired,
   authenticate: propTypes.func.isRequired,
   authError: propTypes.string,
   name: propTypes.string,
