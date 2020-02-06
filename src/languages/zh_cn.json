@@ -213,5 +213,7 @@
   "no_wallet": "未检测到钱包",
   "network_mismatch": "网络不匹配",
   "connect_to_network": "将您的钱包连接到",
-  "current_connected": "您的钱包当前已连接至"
+  "current_connected": "您的钱包当前已连接至",
+  "connected_successful": "连接成功",
+  "unknown_network": "未知网络"
 }

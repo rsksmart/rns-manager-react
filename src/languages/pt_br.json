@@ -213,5 +213,7 @@
   "no_wallet": "Nenhuma carteira detectada",
   "network_mismatch": "Incompatibilidade de rede",
   "connect_to_network": "Conecte sua carteira a",
-  "current_connected": "Sua carteira está atualmente conectada a"
+  "current_connected": "Sua carteira está atualmente conectada a",
+  "connected_successful": "Conexão realizada com sucesso",
+  "unknown_network": "Rede desconhecida"
 }

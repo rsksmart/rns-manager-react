@@ -1,0 +1,27 @@
+.indicator {
+  margin-left: 10px;
+  padding-right: 12px !important;
+  span {
+    position: relative;
+    margin-left: 5px;
+    padding-left: 3px;
+  }
+  span::before {
+    position: absolute;
+    right: 98%;
+    top: 50%;
+    transform: translate(-5px, -50%);
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #40d512;
+  }
+}
+
+.indicator.btn-outline-danger {
+  span::before {
+    background-color:#dc3545;
+  }
+}

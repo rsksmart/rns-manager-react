@@ -219,5 +219,7 @@
   "no_wallet": "No wallet detected",
   "network_mismatch": "Network Mismatch",
   "connect_to_network": "Connect your wallet to",
-  "current_connected": "Your wallet is currently connected to"
+  "current_connected": "Your wallet is currently connected to",
+  "connected_successful": "Connected Successfully",
+  "unknown_network": "Unknown Network"
 }

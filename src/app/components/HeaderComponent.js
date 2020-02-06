@@ -8,7 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
 import logotest from '../../assets/img/logo-testnet.svg';
 import { StartButton } from '../auth';
-import { LanguageSelectContainer } from '../containers';
+import { LanguageSelectContainer, IndicatorLight } from '../containers';
 
 
 const HeaderComponent = (props) => {
@@ -27,6 +27,7 @@ const HeaderComponent = (props) => {
             alt="RSK Logo"
           />
         </Link>
+        <IndicatorLight />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className>
           <Nav className="ml-auto">

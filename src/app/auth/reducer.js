@@ -77,6 +77,7 @@ export default (state = initialState, action) => {
       name: null,
       storageName: localStorage.getItem('name'),
       isOwner: false,
+      networkMatch: true,
     };
     default: return state;
   }

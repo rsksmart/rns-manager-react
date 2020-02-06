@@ -213,5 +213,7 @@
   "no_wallet": "Кошелек не обнаружен",
   "network_mismatch": "Несоответствие сети",
   "connect_to_network": "Подключите свой кошелек к",
-  "current_connected": "Ваш кошелек в настоящее время подключен к"
+  "current_connected": "Ваш кошелек в настоящее время подключен к",
+  "connected_successful": "Успешно подключено",
+  "unknown_network": "Неизвестная сеть"
 }

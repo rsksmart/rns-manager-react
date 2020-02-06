@@ -13,6 +13,7 @@ import './assets/css/theming.css';
 import './assets/css/overwrite_theming.css';
 import './assets/css/ReplaceBootstrap.css';
 import './assets/css/OverwriteBootstrap.css';
+import './assets/css/sass/_index.scss';
 
 const store = configureStore();
 

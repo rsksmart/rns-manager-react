@@ -6,3 +6,4 @@ export { default as FieldContainer } from './FieldContainer';
 export { default as MetamaskButtonContainer } from './metamask/MetamaskButtonContainer';
 export { default as MetamaskFormContainer } from './metamask/MetamaskFormContainer';
 export { default as LanguageSelectContainer } from './LanguageSelectContainer';
+export { default as IndicatorLight } from './IndicatorLight';
