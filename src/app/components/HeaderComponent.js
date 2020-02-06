@@ -27,6 +27,7 @@ const HeaderComponent = (props) => {
             alt="RSK Logo"
           />
         </Link>
+        <IndicatorLight />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className>
           <Nav className="ml-auto">
@@ -55,7 +56,6 @@ const HeaderComponent = (props) => {
             <LanguageSelectContainer />
             <StartButton />
           </Form>
-          <IndicatorLight />
         </Navbar.Collapse>
       </Container>
     </Navbar>
