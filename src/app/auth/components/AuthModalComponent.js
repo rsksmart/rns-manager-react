@@ -48,7 +48,7 @@ class AuthModalComponent extends Component {
     } else if (network === 'invalid') {
       body = (
         <div>
-          <p><strong>{strings.network_mismatch}</strong></p>
+          <p><strong>{strings.unknown_network}</strong></p>
           <p>{`${strings.connect_to_network} ${managerNetwork}`}</p>
         </div>
       );
