@@ -13,27 +13,6 @@ import {
   errorEnable,
 } from './actions';
 
-export const start = callback => (dispatch) => {
-  const hasMetamask = window.ethereum !== undefined;
-
-  dispatch(receiveHasMetamask(hasMetamask));
-
-  if (hasMetamask) {
-    dispatch(requestEnable());
-
-    window.ethereum.enable()
-      .then(accounts => dispatch(receiveEnable(
-        accounts[0],
-        window.ethereum.publicConfigStore.getState().networkVersion,
-        window.ethereum.publicConfigStore.getState().networkVersion
-          === process.env.REACT_APP_ENVIRONMENT_ID,
-        accounts.length !== 0,
-      )))
-      .then(() => callback && callback())
-      .catch(e => dispatch(errorEnable(e.message)));
-  }
-};
-
 export const authenticate = (name, address) => (dispatch) => {
   dispatch(requestLogin());
   localStorage.setItem('name', name);
@@ -69,4 +48,24 @@ export const authenticate = (name, address) => (dispatch) => {
       return resolve(dispatch(receiveLogin(name, true)));
     });
   });
+};
+
+export const start = callback => (dispatch) => {
+  const hasMetamask = window.ethereum !== undefined;
+
+  dispatch(receiveHasMetamask(hasMetamask));
+
+  if (hasMetamask) {
+    dispatch(requestEnable());
+
+    window.ethereum.enable()
+      .then(accounts => dispatch(receiveEnable(
+        accounts[0],
+        window.ethereum.publicConfigStore.getState().networkVersion,
+        window.ethereum.publicConfigStore.getState().networkVersion
+          === process.env.REACT_APP_ENVIRONMENT_ID,
+      )))
+      .then(() => callback && callback())
+      .catch(e => dispatch(errorEnable(e.message)));
+  }
 };
