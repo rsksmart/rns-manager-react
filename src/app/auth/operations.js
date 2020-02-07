@@ -16,7 +16,6 @@ import {
 
 export const authenticate = (name, address) => (dispatch) => {
   dispatch(requestLogin());
-  localStorage.setItem('name', name);
 
   const registry = window.web3.eth.contract([
     {
@@ -45,6 +44,7 @@ export const authenticate = (name, address) => (dispatch) => {
       dispatch(checkResolver(name));
 
       dispatch(push('/admin'));
+      localStorage.setItem('name', name);
 
       return resolve(dispatch(receiveLogin(name, true)));
     });
