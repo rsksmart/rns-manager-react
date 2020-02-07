@@ -6,9 +6,25 @@ import { multilanguage } from 'redux-multilanguage';
 import { networkSelector } from '../selectors';
 
 const IndicatorLight = (props) => {
-  const { networkMatch, network, strings } = props;
-  const className = (networkMatch) ? 'btn-outline-success' : 'btn-outline-danger';
-  const popup = (networkMatch) ? strings.connected_successful : `${strings.connect_to_network} ${networkSelector(network)}`;
+  const {
+    networkMatch,
+    network,
+    strings,
+    hasMetamask,
+  } = props;
+
+  let className = 'btn-outline-success';
+  let popup = strings.connected_successful;
+  let networkString = networkSelector(network);
+
+  if (!hasMetamask) {
+    className = 'btn-outline-warning';
+    popup = strings.no_wallet;
+  } else if (!networkMatch) {
+    className = 'btn-outline-danger';
+    popup = `${strings.connect_to_network} ${networkSelector(network)}`;
+    networkString = strings.unknown_network;
+  }
 
   return (
     <div className={`indicator btn disabled ${className}`}>
@@ -22,7 +38,7 @@ const IndicatorLight = (props) => {
         )}
       >
         <span>
-          {(networkMatch) ? networkSelector(network) : strings.unknown_network}
+          {networkString}
         </span>
       </OverlayTrigger>
     </div>
@@ -32,6 +48,7 @@ const IndicatorLight = (props) => {
 IndicatorLight.propTypes = {
   networkMatch: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
+  hasMetamask: propTypes.string.isRequired,
   strings: propTypes.shape().isRequired,
 };
 

@@ -20,6 +20,13 @@
   }
 }
 
+.indicator.btn-outline-warning {
+  color: #000000;
+  span::before {
+    background-color: #ffc107;
+  }
+}
+
 .indicator.btn-outline-danger {
   span::before {
     background-color:#dc3545;
