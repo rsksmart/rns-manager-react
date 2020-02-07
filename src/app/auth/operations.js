@@ -11,6 +11,7 @@ import {
   receiveLogin,
   errorLogin,
   errorEnable,
+  logOut,
 } from './actions';
 
 export const authenticate = (name, address) => (dispatch) => {
@@ -73,4 +74,6 @@ export const start = callback => (dispatch) => {
 export const logoutManager = () => (dispatch) => {
   localStorage.removeItem('name');
   dispatch(logOut());
+  dispatch(push('/'));
+  dispatch(start());
 };
