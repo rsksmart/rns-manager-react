@@ -27,6 +27,7 @@ export const start = callback => (dispatch) => {
         window.ethereum.publicConfigStore.getState().networkVersion,
         window.ethereum.publicConfigStore.getState().networkVersion
           === process.env.REACT_APP_ENVIRONMENT_ID,
+        accounts.length !== 0,
       )))
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
