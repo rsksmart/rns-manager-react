@@ -12,10 +12,19 @@ class AuthModalComponent extends Component {
     this.state = { nameInputValue: props.defaultName || props.storageName };
 
     this.changeInputName = this.changeInputName.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   changeInputName(event) {
     this.setState({ nameInputValue: event.target.value });
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault();
+
+    const { authenticate } = this.props;
+    const { nameInputValue } = this.state;
+    authenticate(nameInputValue);
   }
 
   render() {
@@ -28,7 +37,6 @@ class AuthModalComponent extends Component {
       enableError,
       managerNetwork,
       networkMatch,
-      authenticate,
       authError,
       name,
       isOwner,
@@ -59,7 +67,7 @@ class AuthModalComponent extends Component {
           : (
             enableError
         || (
-        <Form>
+        <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlId="network">
             <Row>
               <Col lg={2}>
@@ -124,7 +132,7 @@ class AuthModalComponent extends Component {
             hasMetamask && !enabling && !enableError
             && (
             <React.Fragment>
-              <Button onClick={() => authenticate(nameInputValue)}>{strings.log_in}</Button>
+              <Button onClick={this.handleFormSubmit}>{strings.log_in}</Button>
             </React.Fragment>
             )
           }
