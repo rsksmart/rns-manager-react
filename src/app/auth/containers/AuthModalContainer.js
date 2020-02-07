@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
   storageName: state.auth.storageName,
   isOwner: state.auth.isOwner,
   defaultDomain: state.auth.defaultDomain,
+  authenticating: state.auth.authenticating,
 });
 
 const mapDispatchToProps = dispatch => ({

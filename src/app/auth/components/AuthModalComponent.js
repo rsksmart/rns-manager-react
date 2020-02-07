@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Modal, Row, Col, Form, Button,
+  Modal, Row, Col, Form, Button, Spinner
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
+import { authenticate } from '../operations';
 
 class AuthModalComponent extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class AuthModalComponent extends Component {
       name,
       isOwner,
       openWallets,
+      authenticating,
     } = this.props;
 
     let nameInput;
@@ -60,6 +62,8 @@ class AuthModalComponent extends Component {
           <p>{`${strings.connect_to_network} ${managerNetwork}`}</p>
         </div>
       );
+    } else if (authenticating) {
+      body = <Spinner animation="grow" variant="primary" />;
     } else {
       body = (
         enabling
@@ -129,7 +133,7 @@ class AuthModalComponent extends Component {
         </Modal.Body>
         <Modal.Footer>
           {
-            hasMetamask && !enabling && !enableError
+            hasMetamask && !enabling && !enableError && !authenticating
             && (
             <React.Fragment>
               <Button onClick={this.handleFormSubmit}>{strings.log_in}</Button>
@@ -158,6 +162,7 @@ AuthModalComponent.propTypes = {
   name: propTypes.string,
   isOwner: propTypes.bool.isRequired,
   openWallets: propTypes.func.isRequired,
+  authenticating: propTypes.bool.isRequired,
 };
 
 AuthModalComponent.defaultProps = {
