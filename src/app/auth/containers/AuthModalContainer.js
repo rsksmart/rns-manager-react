@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
   close: () => dispatch(closeModal()),
   authenticate: (name, address) => dispatch(authenticate(name, address)),
   openWallets: () => {
-    dispatch(push('/walltes'));
+    dispatch(push('/setup'));
     dispatch(closeModal());
   },
 });
