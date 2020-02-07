@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Modal, Row, Col, Form, Button, Spinner
+  Modal, Row, Col, Form, Button, Spinner,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { authenticate } from '../operations';
 
 class AuthModalComponent extends Component {
   constructor(props) {
