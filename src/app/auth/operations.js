@@ -69,3 +69,8 @@ export const start = callback => (dispatch) => {
       .catch(e => dispatch(errorEnable(e.message)));
   }
 };
+
+export const logoutManager = () => (dispatch) => {
+  localStorage.removeItem('name');
+  dispatch(logOut());
+};

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { UserTabComponent } from '../components';
 import { networkSelector, toChecksumAddress } from '../../../selectors';
 import { changeMyCryptoMetamask } from '../operations';
-import { logOut } from '../../../auth';
+import { logoutManager } from '../../../auth/operations';
 
 const mapStateToProps = state => ({
   name: state.auth.name,
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeMyCryptoMetamask: viewMyCrypto => dispatch(changeMyCryptoMetamask(viewMyCrypto)),
-  logOut: () => dispatch(logOut()),
+  logOut: () => dispatch(logoutManager()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
