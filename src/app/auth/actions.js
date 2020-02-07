@@ -18,11 +18,12 @@ export const requestEnable = () => ({
   type: types.REQUEST_ENABLE,
 });
 
-export const receiveEnable = (address, network, networkMatch) => ({
+export const receiveEnable = (address, network, networkMatch, walletUnlocked) => ({
   type: types.RECEIVE_ENABLE,
   address,
   network,
   networkMatch,
+  walletUnlocked,
 });
 
 export const errorEnable = message => ({
