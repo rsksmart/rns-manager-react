@@ -27,6 +27,10 @@
   }
 }
 
+a:hover .indicator.btn-outline-warning {
+  color: #a07800;
+}
+
 .indicator.btn-outline-danger {
   span::before {
     background-color:#dc3545;

@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
@@ -26,7 +27,7 @@ const IndicatorLight = (props) => {
     networkString = strings.unknown_network;
   }
 
-  return (
+  const body = (
     <div className={`indicator btn disabled ${className}`}>
       <OverlayTrigger
         key="bottom"
@@ -43,6 +44,8 @@ const IndicatorLight = (props) => {
       </OverlayTrigger>
     </div>
   );
+
+  return hasMetamask ? body : <Link to="/setup">{body}</Link>;
 };
 
 IndicatorLight.propTypes = {
