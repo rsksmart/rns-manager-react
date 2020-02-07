@@ -8,6 +8,7 @@ import { networkSelector } from '../../selectors';
 const mapStateToProps = state => ({
   show: state.auth.showModal,
   hasMetamask: state.auth.hasMetamask,
+  walletUnlocked: state.auth.walletUnlocked,
   enabling: state.auth.enabling,
   enableError: state.auth.enableError,
   address: state.auth.address,

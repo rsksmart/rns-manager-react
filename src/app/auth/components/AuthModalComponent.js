@@ -33,6 +33,7 @@ class AuthModalComponent extends Component {
       show,
       close,
       hasMetamask,
+      walletUnlocked,
       enabling,
       enableError,
       managerNetwork,
@@ -54,6 +55,8 @@ class AuthModalComponent extends Component {
 
     if (!hasMetamask) {
       body = <Button type="link" onClick={openWallets}>{strings.get_metamask}</Button>;
+    } else if (!walletUnlocked) {
+      body = <div>{strings.unlock_wallet}</div>;
     } else if (!networkMatch) {
       body = (
         <div>
@@ -132,7 +135,7 @@ class AuthModalComponent extends Component {
         </Modal.Body>
         <Modal.Footer>
           {
-            hasMetamask && !enabling && !enableError && !authenticating
+            hasMetamask && walletUnlocked && !enabling && !enableError && !authenticating
             && (
             <React.Fragment>
               <Button onClick={this.handleFormSubmit}>{strings.log_in}</Button>
@@ -152,6 +155,7 @@ AuthModalComponent.propTypes = {
   show: propTypes.bool.isRequired,
   close: propTypes.func.isRequired,
   hasMetamask: propTypes.bool.isRequired,
+  walletUnlocked: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,
   managerNetwork: propTypes.string.isRequired,
