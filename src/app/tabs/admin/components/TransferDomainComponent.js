@@ -5,6 +5,7 @@ import {
   Spinner, Button, Container, Col, Form, FormControl, InputGroup,
 } from 'react-bootstrap';
 import { validateAddress } from '../../../validations';
+import { ChecksumErrorContainer } from '../../../containers';
 
 class TransferDomainComponent extends Component {
   constructor(props) {
@@ -20,14 +21,15 @@ class TransferDomainComponent extends Component {
     this.validate = this.validate.bind(this);
     this.addressChange = this.addressChange.bind(this);
     this.onTransfer = this.onTransfer.bind(this);
+    this.handleChecksumClick = this.handleChecksumClick.bind(this);
   }
 
   onTransfer(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     const { transfer } = this.props;
     const { addressToTransfer } = this.state;
     if (!this.validate()) {
-      transfer(addressToTransfer);
+      transfer(addressToTransfer.toLowerCase());
     }
   }
 
@@ -37,9 +39,15 @@ class TransferDomainComponent extends Component {
 
   validate() {
     const { addressToTransfer } = this.state;
-    const invalid = validateAddress(addressToTransfer);
+    const invalid = validateAddress(addressToTransfer, process.env.REACT_APP_ENVIRONMENT_ID);
     this.setState({ invalid });
     return invalid;
+  }
+
+  handleChecksumClick(newValue) {
+    this.setState({ addressToTransfer: newValue }, () => {
+      this.onTransfer();
+    });
   }
 
   render() {
@@ -63,7 +71,12 @@ class TransferDomainComponent extends Component {
               <InputGroup className="mb-3">
                 <FormControl type="text" value={addressToTransfer} onChange={this.addressChange} className={invalid && 'is-invalid'} />
                 <div className="invalid-feedback">
-                  {invalid}
+                  <div className="title">{invalid}</div>
+                  <ChecksumErrorContainer
+                    show={invalid === 'Invalid checksum'}
+                    inputValue={addressToTransfer}
+                    handleClick={newValue => this.handleChecksumClick(newValue)}
+                  />
                 </div>
               </InputGroup>
             </Col>
