@@ -222,5 +222,6 @@
   "current_connected": "Your wallet is currently connected to",
   "connected_successful": "Connected Successfully",
   "unknown_network": "Unknown Network",
-  "unlock_wallet": "Please unlock your wallet"
+  "unlock_wallet": "Please unlock your wallet",
+  "string_resolver": "String resolver"
 }
