@@ -215,5 +215,6 @@
   "connect_to_network": "Conecte sua carteira a",
   "current_connected": "Sua carteira está atualmente conectada a",
   "connected_successful": "Conexão realizada com sucesso",
-  "unknown_network": "Rede desconhecida"
+  "unknown_network": "Rede desconhecida",
+  "unlock_wallet": "Desbloqueie sua carteira"
 }
