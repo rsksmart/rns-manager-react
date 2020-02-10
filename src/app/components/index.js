@@ -12,3 +12,4 @@ export { default as ResolverDatalist } from './ResolverDatalist';
 export { default as LanguageSelectComponent } from './LanguageSelectComponent';
 export { default as RegisterProcessComponent } from './RegisterProcessComponent';
 export { default as IndicatorLight } from './IndicatorLight';
+export { default as ChecksumErrorComponent } from './ChecksumErrorComponent';

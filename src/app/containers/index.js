@@ -7,3 +7,4 @@ export { default as MetamaskButtonContainer } from './metamask/MetamaskButtonCon
 export { default as MetamaskFormContainer } from './metamask/MetamaskFormContainer';
 export { default as LanguageSelectContainer } from './LanguageSelectContainer';
 export { default as IndicatorLight } from './IndicatorLight';
+export { default as ChecksumErrorContainer } from './ChecksumErrorContainer';

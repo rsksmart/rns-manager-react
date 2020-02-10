@@ -4,6 +4,7 @@ import {
   Row, Col, Form, InputGroup, Button,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
+import { ChecksumErrorContainer } from '../containers';
 
 class FieldComponent extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class FieldComponent extends Component {
 
     this.validate = this.validate.bind(this);
     this.onInputValueChange = this.onInputValueChange.bind(this);
+    this.handleChecksumClick = this.handleChecksumClick.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +50,14 @@ class FieldComponent extends Component {
     const isValid = validationError === null;
     this.setState({ validationError, isValid });
     return isValid;
+  }
+
+  handleChecksumClick(newValue) {
+    this.setState({ inputValue: newValue }, () => {
+      const { inputValue } = this.state;
+      const { set } = this.props;
+      if (this.validate()) set(inputValue);
+    });
   }
 
   render() {
@@ -85,7 +95,7 @@ class FieldComponent extends Component {
               <Col>
                 <Form onSubmit={(e) => {
                   e.preventDefault();
-                  if (this.validate()) set(inputValue);
+                  if (this.validate()) set(inputValue.toLowerCase());
                 }}
                 >
                   <Form.Group>
@@ -96,7 +106,12 @@ class FieldComponent extends Component {
                         <Button type="submit" variant={preloadedValue ? 'success' : 'primary'} size="sm">{strings.edit}</Button>
                       </InputGroup.Append>
                       <div className="invalid-feedback">
-                        {validationError}
+                        <div className="title">{validationError}</div>
+                        <ChecksumErrorContainer
+                          show={validationError === 'Invalid checksum'}
+                          inputValue={inputValue}
+                          handleClick={newValue => this.handleChecksumClick(newValue)}
+                        />
                       </div>
                     </InputGroup>
                   </Form.Group>
