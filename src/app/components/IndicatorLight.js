@@ -12,6 +12,7 @@ const IndicatorLight = (props) => {
     network,
     strings,
     hasMetamask,
+    walletUnlocked,
   } = props;
 
   let className = 'btn-outline-success';
@@ -21,6 +22,9 @@ const IndicatorLight = (props) => {
   if (!hasMetamask) {
     className = 'btn-outline-warning';
     popup = strings.no_wallet;
+  } else if (!walletUnlocked) {
+    className = 'btn-outline-warning';
+    popup = strings.unlock_wallet;
   } else if (!networkMatch) {
     className = 'btn-outline-danger';
     popup = `${strings.connect_to_network} ${networkSelector(network)}`;
@@ -52,6 +56,7 @@ IndicatorLight.propTypes = {
   networkMatch: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
   hasMetamask: propTypes.string.isRequired,
+  walletUnlocked: propTypes.string.isRequired,
   strings: propTypes.shape().isRequired,
 };
 
