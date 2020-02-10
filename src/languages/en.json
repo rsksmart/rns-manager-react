@@ -223,5 +223,7 @@
   "connected_successful": "Connected Successfully",
   "unknown_network": "Unknown Network",
   "unlock_wallet": "Please unlock your wallet",
-  "string_resolver": "String resolver"
+  "string_resolver": "String resolver",
+  "notifications_new_str": "new str",
+  "admin_str_resolution": "admin str resolution"
 }
