@@ -35,15 +35,20 @@ class LoadingComponent extends Component {
             {!commitConfirmed
               && (
                 <>
-                  <h3 className="blue">Did you know that...</h3>
-                  <p className="lead minor-section">You can use your domain in RIF Marketplace to provide your services. </p>
+                  <h3 className="blue">
+                    {strings.did_you_know}
+                    ...
+                  </h3>
+                  <p className="lead minor-section">
+                    {strings.tip1}
+                  </p>
                   <p>
                     <a
                       href="https://iovlabs.org"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Read more about it
+                      {strings.read_more}
                     </a>
                   </p>
                 </>
@@ -55,7 +60,7 @@ class LoadingComponent extends Component {
                   <svg width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 10.5L12.5 21L36 1" stroke="#008FF7" strokeWidth="2" />
                   </svg>
-                  <p className="blue">Your domain has been requested</p>
+                  <p className="blue">{strings.domain_requested}</p>
                 </div>
               )
             }
@@ -70,8 +75,11 @@ LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
   commitConfirmed: propTypes.bool.isRequired,
   strings: propTypes.shape({
-    notifications_registrar_committed: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
+    did_you_know: propTypes.string.isRequired,
+    tip1: propTypes.string.isRequired,
+    read_more: propTypes.string.isRequired,
+    domain_requested: propTypes.string.isRequired,
   }).isRequired,
 });
 

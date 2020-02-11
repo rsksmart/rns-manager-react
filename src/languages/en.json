@@ -229,5 +229,16 @@
   "address_formatted_incorrectly" : "Your address is not formatted for this network.",
   "address_formatted_incorrectly_description" : "Please check that the address is correct before continuing. If the address is correct, please use the button below to convert your address to lowercase and proceed.",
   "convert_to_lowercase": "Convert address to lowercase and continue.",
-  "registering": "Registering"
+  "registering": "Registering",
+  "request_domain": "Request domain",
+  "register_domain": "Register domain",
+  "login": "Login",
+  "did_you_know": "Did you know that",
+  "tip1": "You can use your domain in RIF Marketplace to provide your services.",
+  "read_more": "Read more about it",
+  "domain_requested": "Your domain has been requested",
+  "to_register": "To register",
+  "it_can_take_two_minutes": "It can take approximately 2 minutes to register your domain",
+  "manage_domain": "Manage my domain",
+  "register_another_domain": "Register another domain"
 }

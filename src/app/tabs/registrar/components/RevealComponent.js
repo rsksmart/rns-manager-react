@@ -15,7 +15,7 @@ const RevealComponent = (props) => {
       <Row>
         <div className="col-md-6 offset-md-3">
           <p>
-            To register
+            {strings.to_register}
             <span className="blue">{` ${domain}.rsk`}</span>
             <br />
             {strings.process_step_3_explanation}
@@ -36,7 +36,7 @@ const RevealComponent = (props) => {
           && (
             <div>
               <Spinner animation="grow" variant="primary" className="major-section" />
-              <p>It can take approximately 2 minutes to register your domain</p>
+              <p>{strings.it_can_take_two_minutes}</p>
             </div>
           )
           }
@@ -50,8 +50,9 @@ RevealComponent.propTypes = {
   strings: propTypes.shape({
     process_step_3: propTypes.string.isRequired,
     process_step_3_explanation: propTypes.string.isRequired,
-    process_step_2_explanation: propTypes.string.isRequired,
     register: propTypes.string.isRequired,
+    to_register: propTypes.string.isRequired,
+    it_can_take_two_minutes: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   revealing: propTypes.bool.isRequired,

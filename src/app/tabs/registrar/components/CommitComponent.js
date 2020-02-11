@@ -43,8 +43,6 @@ class CommitComponent extends Component {
 CommitComponent.propTypes = {
   strings: propTypes.shape({
     process_step_1: propTypes.string.isRequired,
-    process_step_1_explanation: propTypes.string.isRequired,
-    process_step_2_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,

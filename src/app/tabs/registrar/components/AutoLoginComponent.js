@@ -22,12 +22,12 @@ const AutoLoginComponent = (props) => {
       <Row className="major-section">
         <div className="col-md-3 offset-3">
           <Button onClick={handleManageClick}>
-            Manage my domain
+            {strings.manage_domain}
           </Button>
         </div>
         <div className="col-md-3">
           <Button onClick={handleRegisterNewClick}>
-            Register new domain
+            {strings.register_another_domain}
           </Button>
         </div>
       </Row>
@@ -38,6 +38,8 @@ const AutoLoginComponent = (props) => {
 AutoLoginComponent.propTypes = {
   strings: propTypes.shape({
     log_in: propTypes.string.isRequired,
+    manage_domain: propTypes.string.isRequired,
+    register_another_domain: propTypes.string.isRequired,
   }).isRequired,
   handleManageClick: propTypes.func.isRequired,
   handleRegisterNewClick: propTypes.func.isRequired,
