@@ -4,6 +4,7 @@ import {
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
+  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -62,4 +63,13 @@ export const revealTxMined = () => ({
 
 export const resetRegistrarState = () => ({
   type: RESET_REGISTRAR_STATE,
+});
+
+export const requestConversionRate = () => ({
+  type: REQUEST_CONVERSION_RATE,
+});
+
+export const recieveConversionRate = conversionRate => ({
+  type: RECEIVE_CONVERSION_RATE,
+  conversionRate,
 });

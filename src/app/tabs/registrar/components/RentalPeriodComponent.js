@@ -21,6 +21,9 @@ class RentalPeriodComponent extends Component {
   }
 
   componentDidMount() {
+    const { getConversionRate } = this.props;
+    getConversionRate();
+
     this.handleChangeDuration();
   }
 
@@ -45,7 +48,14 @@ class RentalPeriodComponent extends Component {
 
   render() {
     const {
-      strings, getting, rifCost, committing, committed, hasBalance,
+      strings,
+      getting,
+      rifCost,
+      committing,
+      committed,
+      hasBalance,
+      gettingConversionRate,
+      conversionRate,
     } = this.props;
 
     const { duration } = this.state;
@@ -72,6 +82,8 @@ class RentalPeriodComponent extends Component {
       </div>
     );
 
+    const usdAmount = parseFloat(rifCost * conversionRate).toPrecision(4);
+
     const price = (
       <div className="price">
         <h3>{strings.price}</h3>
@@ -82,7 +94,7 @@ class RentalPeriodComponent extends Component {
             RIF
           </p>
           <p className="usdPrice">
-            <em>$@todo USD</em>
+            {!gettingConversionRate && <>{`$${usdAmount} USD`}</> }
           </p>
         </div>
       </div>
@@ -153,8 +165,11 @@ RentalPeriodComponent.propTypes = {
   hasBalance: propTypes.bool.isRequired,
   duration: propTypes.number,
   getCost: propTypes.func.isRequired,
+  getConversionRate: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
+  gettingConversionRate: propTypes.bool.isRequired,
+  conversionRate: propTypes.number.isRequired,
 };
 
 RentalPeriodComponent.defaultProps = {
