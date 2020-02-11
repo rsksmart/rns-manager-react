@@ -59,7 +59,9 @@ class FieldComponent extends Component {
     }
     const { set } = this.props;
     const { inputValue } = this.state;
-    if (this.validate()) set(inputValue.toLowerCase());
+    if (this.validate()) {
+      set(inputValue.toLowerCase());
+    }
   }
 
   handleChecksumClick(newValue) {
