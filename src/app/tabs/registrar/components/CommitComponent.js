@@ -18,13 +18,14 @@ class CommitComponent extends Component {
 
     return (
       <Container>
-        <Row>
+        <Row className="major-section">
           <Col>
             {
               committing
                 ? <Spinner animation="grow" variant="primary" />
                 : (
                   <Button
+                    className="commitButton"
                     disabled={committing || committed || !hasBalance}
                     onClick={doCommitment}
                   >

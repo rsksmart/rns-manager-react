@@ -228,5 +228,6 @@
   "admin_str_resolution": "admin str resolution",
   "address_formatted_incorrectly" : "Your address is not formatted for this network.",
   "address_formatted_incorrectly_description" : "Please check that the address is correct before continuing. If the address is correct, please use the button below to convert your address to lowercase and proceed.",
-  "convert_to_lowercase": "Convert address to lowercase and continue."
+  "convert_to_lowercase": "Convert address to lowercase and continue.",
+  "registering": "Registering"
 }

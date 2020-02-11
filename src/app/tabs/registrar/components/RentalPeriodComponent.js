@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  Col, InputGroup, FormControl, Button, Row, Spinner, Alert,
+  InputGroup, FormControl, Button, Row, Spinner, Alert,
 } from 'react-bootstrap';
 
 
@@ -51,46 +51,61 @@ class RentalPeriodComponent extends Component {
     const { duration } = this.state;
 
     const counter = (
-      <div>
-        <Row className="justify-content-center">
-          <Col xs="4" lg="3">
-            {strings.rental_period}
-            <InputGroup>
-              <InputGroup.Append>
-                <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
-              </InputGroup.Append>
-              <FormControl
-                value={duration}
-                readOnly
-              />
-              <InputGroup.Append>
-                <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
-      </div>
-    );
-
-    return (
-      <div>
+      <div className="counter">
         <h3>
           {strings.how_long_want_name}
           ?
         </h3>
-        {counter}
+        <InputGroup>
+          <InputGroup.Append>
+            <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
+          </InputGroup.Append>
+          <FormControl
+            value={duration}
+            readOnly
+          />
+          <InputGroup.Append>
+            <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
+          </InputGroup.Append>
+        </InputGroup>
+        <p>{strings.rental_period}</p>
+      </div>
+    );
 
-        {
-          getting
-            ? <Spinner animation="grow" variant="primary" />
-            : <p><strong>{`${strings.price}: ${rifCost} RIF`}</strong></p>
-        }
-        <p>
-          <em>{strings.discount}</em>
-        </p>
+    const price = (
+      <div className="price">
+        <h3>{strings.price}</h3>
+        <div className="box">
+          <p className="rifPrice">
+            {rifCost}
+            {' '}
+            RIF
+          </p>
+          <p className="usdPrice">
+            <em>$@todo USD</em>
+          </p>
+        </div>
+      </div>
+    );
+
+    return (
+      <div className="rentalPeriod">
+        <Row>
+          <div className="col-md-3 offset-md-3">
+            {counter}
+          </div>
+          <div className="col-md-3">
+            {
+              getting
+                ? <Spinner animation="grow" variant="primary" />
+                : price
+            }
+          </div>
+        </Row>
         {
           !hasBalance
           && (
+<<<<<<< HEAD
             <Alert variant="warning" dismissible="false">
               <p>{strings.not_enough_balance}</p>
               <a
@@ -101,6 +116,22 @@ class RentalPeriodComponent extends Component {
                 {strings.click_here_not_enough_balance}
               </a>
             </Alert>
+=======
+            <Row>
+              <Alert variant="warning" dismissible="false">
+                <h3>{strings.not_enough_balance}</h3>
+                <p>
+                  <a
+                    href="https://www.rsk.co/#exchanges"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {strings.click_here_not_enough_balance}
+                  </a>
+                </p>
+              </Alert>
+            </Row>
+>>>>>>> Implement new design and steps.
           )
         }
       </div>

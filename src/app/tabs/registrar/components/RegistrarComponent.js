@@ -3,9 +3,8 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link } from 'react-router-dom';
 import {
-  Row, OverlayTrigger, Tooltip, Card, Spinner, Button,
+  Row, Card, Spinner,
 } from 'react-bootstrap';
-import { TabWithSearchComponent } from '../../../components';
 import {
   RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
@@ -81,139 +80,38 @@ class RegistrarComponent extends Component {
       elementToRender = (
         <div className="register">
           <h1 className="sub-heading">
-            {strings.start_registration_for}
-            {' '}
+            {strings.registering}
+            {': '}
             <span className="domain">{domainDisplay}</span>
           </h1>
-          <p>registering a name requires you to complete 3 steps</p>
+          <ul className="list-inline steps">
+            <li><div className={`btn ${(!committed || waiting) ? 'btn-active' : 'btn-outline-primary'}`}>1. Request domain</div></li>
+            <li><div className={`btn ${(committed && !revealConfirmed) ? 'btn-active' : 'btn-outline-primary'}`}>2. Register domain</div></li>
+            <li><div className={`btn ${revealConfirmed ? 'btn-active' : 'btn-outline-primary'}`}>3. Login</div></li>
+          </ul>
 
-          <Card>
-            <Card.Header>
-              <Row>
-                <div className="step col-md-4">
-                  <p><strong>Step 1: </strong></p>
-                </div>
-                <div className="description col-md-6">
-                  <p>Request to Register</p>
-                </div>
-                <div className="question col-md-2">
-                  <OverlayTrigger
-                    key="step1"
-                    placement="left"
-                    overlay={(
-                      <Tooltip id="tooltip-step1">
-                        <div>
-                          {strings.process_step_1_explanation}
-                        </div>
-                      </Tooltip>
-                    )}
-                  >
-                    <Button variant="secondary">?</Button>
-                  </OverlayTrigger>
-                </div>
-              </Row>
-            </Card.Header>
-            {!committed
-              && (
-              <Card.Body>
-                <Card.Body>
-                  <RentalPeriodContainer />
-                  <CommitContainer />
-                </Card.Body>
-              </Card.Body>
-              )
-            }
-          </Card>
+          {!committed
+            && (
+            <div>
+              <RentalPeriodContainer />
+              <CommitContainer />
+            </div>
+            )
+          }
 
-          <Card>
-            <Card.Header>
-              <Row>
-                <div className="step col-md-4">
-                  <p><strong>Step 2: </strong></p>
-                </div>
-                <div className="description col-md-6">
-                  <p>Wait for aproximately a minute</p>
-                </div>
-                <div className="question col-md-2">
-                  <OverlayTrigger
-                    key="step2"
-                    placement="left"
-                    overlay={(
-                      <Tooltip id="tooltip-step2">
-                        <div>
-                          {strings.process_step_2_explanation}
-                        </div>
-                      </Tooltip>
-                    )}
-                  >
-                    <Button variant="secondary">?</Button>
-                  </OverlayTrigger>
-                </div>
-              </Row>
-            </Card.Header>
-            {waiting
-              && (
-                <Card.Body>
-                  <LoadingContainer />
-                </Card.Body>
-              )
-            }
-          </Card>
+          {waiting && <LoadingContainer />}
 
-          <Card>
-            <Card.Header>
-              <Row>
-                <div className="step col-md-4">
-                  <p><strong>Step 3: </strong></p>
-                </div>
-                <div className="description col-md-6">
-                  <p>Register the domain</p>
-                </div>
-                <div className="question col-md-2">
-                  <OverlayTrigger
-                    key="step3"
-                    placement="left"
-                    overlay={(
-                      <Tooltip id="tooltip-step3">
-                        <div>
-                          {strings.process_step_3_explanation}
-                        </div>
-                      </Tooltip>
-                    )}
-                  >
-                    <Button variant="secondary">?</Button>
-                  </OverlayTrigger>
-                </div>
-              </Row>
-            </Card.Header>
-            {(canReveal && !revealConfirmed)
-              && (
-              <Card.Body>
-                <RevealContainer />
-              </Card.Body>
-              )
-            }
-          </Card>
+          {(canReveal && !revealConfirmed)
+            && (
+            <RevealContainer />
+            )
+          }
 
-          <Card>
-            <Card.Header>
-              <Row>
-                <div className="step col-md-4">
-                  <p><strong>Step 4: </strong></p>
-                </div>
-                <div className="description col-md-8">
-                  <p>Login and administer</p>
-                </div>
-              </Row>
-            </Card.Header>
-            {revealConfirmed
-              && (
-                <Card.Body>
-                  <AutoLoginComponent />
-                </Card.Body>
-              )
-            }
-          </Card>
+          {revealConfirmed
+            && (
+              <AutoLoginComponent />
+            )
+          }
 
         </div>
       );
@@ -221,9 +119,7 @@ class RegistrarComponent extends Component {
 
     return (
       <div>
-        <TabWithSearchComponent>
-          {elementToRender}
-        </TabWithSearchComponent>
+        {elementToRender}
       </div>
     );
   }
@@ -231,7 +127,7 @@ class RegistrarComponent extends Component {
 
 RegistrarComponent.propTypes = {
   strings: propTypes.shape({
-    start_registration_for: propTypes.string.isRequired,
+    registering: propTypes.string.isRequired,
     rental_period: propTypes.string.isRequired,
     blocked_domain: propTypes.string.isRequired,
     admin_your_domain_title: propTypes.string.isRequired,

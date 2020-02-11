@@ -1,14 +1,14 @@
+$gray: #919191;
+$light-gray: #f7f7f7;
+$blue: #008CFF;
+
 @import 'layout';
 @import 'header';
 @import 'footer';
 @import 'containers';
 @import 'columns';
 @import 'extends';
-<<<<<<< HEAD
 @import 'errorMessages';
-=======
-
 @import 'typography';
-
-@import 'registration-page';
->>>>>>> Break steps into cards and use SCSS to manage new registration page.
+@import 'registration/registration-page';
+@import 'registration/commit-step';

@@ -8,9 +8,13 @@ import { autoLogin } from '../../../auth/operations';
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: () => {
+  handleManageClick: () => {
     dispatch(push('/admin'));
     dispatch(autoLogin(localStorage.getItem('name')));
+    dispatch(resetRegistrarState());
+  },
+  handleRegisterNewClick: () => {
+    dispatch(push('/search'));
     dispatch(resetRegistrarState());
   },
 });

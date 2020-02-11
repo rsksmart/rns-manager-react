@@ -5,6 +5,7 @@ import { checkCanReveal } from '../operations';
 const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
   hash: state.registrar.hash,
+  commitConfirmed: state.registrar.commitConfirmed,
 });
 
 const mapDispatchToProps = dispatch => ({

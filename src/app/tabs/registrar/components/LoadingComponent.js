@@ -23,14 +23,42 @@ class LoadingComponent extends Component {
   }
 
   render() {
-    const { strings } = this.props;
+    const { strings, commitConfirmed } = this.props;
 
     return (
-      <div>
+      <div className="waiting">
         <Row>
-          <Col md={{ span: 8, offset: 2 }}>
-            <h3>{strings.notifications_registrar_committed}</h3>
-            <Spinner animation="border" variant="primary" />
+          <Col md={{ span: 6, offset: 3 }}>
+            <Spinner animation="border" variant="primary" className="minor-section" />
+            <p>{strings.process_step_2_explanation}</p>
+
+            {!commitConfirmed
+              && (
+                <>
+                  <h3 className="blue">Did you know that...</h3>
+                  <p className="lead minor-section">You can use your domain in RIF Marketplace to provide your services. </p>
+                  <p>
+                    <a
+                      href="https://iovlabs.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read more about it
+                    </a>
+                  </p>
+                </>
+              )
+            }
+            {commitConfirmed
+              && (
+                <div className="commitConfirmedBox major-section">
+                  <svg width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 10.5L12.5 21L36 1" stroke="#008FF7" strokeWidth="2" />
+                  </svg>
+                  <p className="blue">Your domain has been requested</p>
+                </div>
+              )
+            }
           </Col>
         </Row>
       </div>
@@ -40,6 +68,7 @@ class LoadingComponent extends Component {
 
 LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
+  commitConfirmed: propTypes.bool.isRequired,
   strings: propTypes.shape({
     notifications_registrar_committed: propTypes.string.isRequired,
     process_step_2_explanation: propTypes.string.isRequired,
