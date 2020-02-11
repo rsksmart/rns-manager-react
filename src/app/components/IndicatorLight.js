@@ -1,16 +1,37 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { networkSelector } from '../selectors';
 
 const IndicatorLight = (props) => {
-  const { networkMatch, network, strings } = props;
-  const className = (networkMatch) ? 'btn-outline-success' : 'btn-outline-danger';
-  const popup = (networkMatch) ? strings.connected_successful : `${strings.connect_to_network} ${networkSelector(network)}`;
+  const {
+    networkMatch,
+    network,
+    strings,
+    hasMetamask,
+    walletUnlocked,
+  } = props;
 
-  return (
+  let className = 'btn-outline-success';
+  let popup = strings.connected_successful;
+  let networkString = networkSelector(network);
+
+  if (!hasMetamask) {
+    className = 'btn-outline-warning';
+    popup = strings.no_wallet;
+  } else if (!walletUnlocked) {
+    className = 'btn-outline-warning';
+    popup = strings.unlock_wallet;
+  } else if (!networkMatch) {
+    className = 'btn-outline-danger';
+    popup = `${strings.connect_to_network} ${networkSelector(network)}`;
+    networkString = strings.unknown_network;
+  }
+
+  const body = (
     <div className={`indicator btn disabled ${className}`}>
       <OverlayTrigger
         key="bottom"
@@ -22,16 +43,20 @@ const IndicatorLight = (props) => {
         )}
       >
         <span>
-          {(networkMatch) ? networkSelector(network) : strings.unknown_network}
+          {networkString}
         </span>
       </OverlayTrigger>
     </div>
   );
+
+  return hasMetamask ? body : <Link to="/setup">{body}</Link>;
 };
 
 IndicatorLight.propTypes = {
   networkMatch: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
+  hasMetamask: propTypes.string.isRequired,
+  walletUnlocked: propTypes.string.isRequired,
   strings: propTypes.shape().isRequired,
 };
 

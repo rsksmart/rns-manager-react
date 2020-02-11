@@ -215,5 +215,6 @@
   "connect_to_network": "将您的钱包连接到",
   "current_connected": "您的钱包当前已连接至",
   "connected_successful": "连接成功",
-  "unknown_network": "未知网络"
+  "unknown_network": "未知网络",
+  "unlock_wallet": "解锁你的钱包"
 }
