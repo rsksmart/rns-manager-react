@@ -170,6 +170,7 @@ AuthModalComponent.propTypes = {
 
 AuthModalComponent.defaultProps = {
   defaultName: '',
+  storageName: null,
   enableError: null,
   authError: null,
   name: null,
