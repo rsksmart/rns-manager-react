@@ -17,6 +17,7 @@ import {
   AdminMyCryptoTab,
   RenewTab,
   ErrorTab,
+  StringResolverTab,
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
@@ -40,6 +41,7 @@ const Routes = (props) => {
       <Route path="/admin" component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
       <Route path="/publicResolver" component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
       <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
+      <Route path="/stringResolver" component={viewMyCrypto ? NoMatch : StringResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
       <Route path="/renew" component={RenewTab} />

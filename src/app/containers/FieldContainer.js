@@ -43,6 +43,8 @@ const mapStateToProps = (state, ownProps) => {
     validate = number => validatePositiveNumber(number);
   } else if (valueType === valueTypes.BYTES32) {
     validate = bytes => validateBytes32(bytes);
+  } else if (valueType === valueTypes.STRING) {
+    validate = () => null;
   }
 
   const preloadedValue = action === ownProps.fieldName ? defaultValue : '';

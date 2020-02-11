@@ -11,7 +11,7 @@ import {
   DangerZoneContainer, RenewContainer,
 } from '../containers';
 import { AuthTabWrapper } from '../../../auth';
-import { publicResolver, multiChainResolver } from '../../../adapters/configAdapter';
+import { publicResolver, multiChainResolver, stringResolver } from '../../../adapters/configAdapter';
 
 class AdminTabComponent extends Component {
   constructor(props) {
@@ -29,6 +29,23 @@ class AdminTabComponent extends Component {
   render() {
     const { strings, name, resolver } = this.props;
     const { showAdvanced } = this.state;
+
+    let adminResolutionLink;
+
+    switch (resolver) {
+      case publicResolver:
+        adminResolutionLink = <Link to="/publicResolver">{strings.admin_resolution}</Link>;
+        break;
+      case multiChainResolver:
+        adminResolutionLink = <Link to="/multiChainResolver">{strings.admin_resolution}</Link>;
+        break;
+      case stringResolver:
+        adminResolutionLink = <Link to="/stringResolver">{strings.admin_resolution}</Link>;
+        break;
+      default:
+        adminResolutionLink = null;
+        break;
+    }
 
     return (
       <AuthTabWrapper>
@@ -49,12 +66,15 @@ class AdminTabComponent extends Component {
               <ResolverContainer />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              {resolver === publicResolver && <Link to="/publicResolver">{strings.admin_resolution}</Link>}
-              {resolver === multiChainResolver && <Link to="/multiChainResolver">{strings.admin_resolution}</Link>}
-            </Col>
-          </Row>
+          {
+            adminResolutionLink && (
+              <Row>
+                <Col>
+                  {adminResolutionLink}
+                </Col>
+              </Row>
+            )
+          }
           <hr />
           <Row>
             <Col>
