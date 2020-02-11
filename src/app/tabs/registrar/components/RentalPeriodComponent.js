@@ -117,7 +117,6 @@ class RentalPeriodComponent extends Component {
         {
           !hasBalance
           && (
-<<<<<<< HEAD
             <Alert variant="warning" dismissible="false">
               <p>{strings.not_enough_balance}</p>
               <a
@@ -128,22 +127,6 @@ class RentalPeriodComponent extends Component {
                 {strings.click_here_not_enough_balance}
               </a>
             </Alert>
-=======
-            <Row>
-              <Alert variant="warning" dismissible="false">
-                <h3>{strings.not_enough_balance}</h3>
-                <p>
-                  <a
-                    href="https://www.rsk.co/#exchanges"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {strings.click_here_not_enough_balance}
-                  </a>
-                </p>
-              </Alert>
-            </Row>
->>>>>>> Implement new design and steps.
           )
         }
       </div>

@@ -23,6 +23,8 @@ describe('register reducer', () => {
           commitConfirmed: null,
           revealConfirmed: null,
           hasBalance: false,
+          gettingConversionRate: false,
+          conversionRate: null,
         },
       );
   });
@@ -387,6 +389,8 @@ describe('register reducer', () => {
           commitConfirmed: null,
           revealConfirmed: null,
           hasBalance: false,
+          gettingConversionRate: false,
+          conversionRate: null,
         },
       );
   });
@@ -408,6 +412,8 @@ describe('register reducer', () => {
           commitConfirmed: null,
           revealConfirmed: null,
           hasBalance: false,
+          gettingConversionRate: false,
+          conversionRate: null,
         },
       );
   });
