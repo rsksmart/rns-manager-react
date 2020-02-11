@@ -55,8 +55,8 @@ const IndicatorLight = (props) => {
 IndicatorLight.propTypes = {
   networkMatch: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
-  hasMetamask: propTypes.string.isRequired,
-  walletUnlocked: propTypes.string.isRequired,
+  hasMetamask: propTypes.bool.isRequired,
+  walletUnlocked: propTypes.bool.isRequired,
   strings: propTypes.shape().isRequired,
 };
 
