@@ -150,7 +150,7 @@ class AuthModalComponent extends Component {
 
 AuthModalComponent.propTypes = {
   defaultName: propTypes.string,
-  storageName: propTypes.string.isRequired,
+  storageName: propTypes.string,
   strings: propTypes.objectOf(propTypes.string).isRequired,
   show: propTypes.bool.isRequired,
   close: propTypes.func.isRequired,
