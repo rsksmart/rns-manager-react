@@ -19,6 +19,7 @@ class FieldComponent extends Component {
     this.validate = this.validate.bind(this);
     this.onInputValueChange = this.onInputValueChange.bind(this);
     this.handleChecksumClick = this.handleChecksumClick.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -52,11 +53,18 @@ class FieldComponent extends Component {
     return isValid;
   }
 
+  handleFormSubmit(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    const { set } = this.props;
+    const { inputValue } = this.state;
+    if (this.validate()) set(inputValue.toLowerCase());
+  }
+
   handleChecksumClick(newValue) {
     this.setState({ inputValue: newValue }, () => {
-      const { inputValue } = this.state;
-      const { set } = this.props;
-      if (this.validate()) set(inputValue);
+      this.handleFormSubmit();
     });
   }
 
@@ -69,7 +77,6 @@ class FieldComponent extends Component {
       value,
       changeEdit,
       editOpen,
-      set,
       editing,
       options,
       preloadedValue,
@@ -93,11 +100,7 @@ class FieldComponent extends Component {
             <br />
             <Row>
               <Col>
-                <Form onSubmit={(e) => {
-                  e.preventDefault();
-                  if (this.validate()) set(inputValue.toLowerCase());
-                }}
-                >
+                <Form onSubmit={this.handleFormSubmit}>
                   <Form.Group>
                     <InputGroup>
                       <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!isValid ? 'is-invalid' : null} list={options && options.name} />

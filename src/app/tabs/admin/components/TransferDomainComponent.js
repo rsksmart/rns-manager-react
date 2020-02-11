@@ -25,7 +25,9 @@ class TransferDomainComponent extends Component {
   }
 
   onTransfer(event) {
-    if (event) event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     const { transfer } = this.props;
     const { addressToTransfer } = this.state;
     if (!this.validate()) {

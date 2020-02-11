@@ -36,7 +36,10 @@ class SubdomainComponent extends Component {
   }
 
   handleEditFormSubmit(e) {
-    if (e) e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+
     const { addressToEdit } = this.state;
     if (this.validate()) {
       const { set } = this.props;

@@ -18,7 +18,9 @@ const ChecksumErrorComponent = (props) => {
     handleClick(inputValue.toLowerCase());
   };
 
-  if (!show) return <></>;
+  if (!show) {
+    return <></>;
+  }
 
   return (
     <>
