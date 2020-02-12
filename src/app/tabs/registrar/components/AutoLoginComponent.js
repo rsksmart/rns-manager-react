@@ -10,22 +10,21 @@ const AutoLoginComponent = (props) => {
     <>
       <Row>
         <div className="col-md-4 offset-md-4">
-          <h2 className="blue">
-            <svg width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 10.5L12.5 21L36 1" stroke="#008FF7" strokeWidth="2" />
-            </svg>
-            <br />
+          <svg width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 10.5L12.5 21L36 1" stroke="#008FF7" strokeWidth="2" />
+          </svg>
+          <h2 className="blue small break-above">
             Your domain has been registered
           </h2>
         </div>
       </Row>
       <Row className="major-section">
-        <div className="col-md-3 offset-3">
+        <div className="col-md-4 offset-md-2 col-lg-3 offset-lg-3">
           <Button onClick={handleManageClick}>
-            {strings.manage_domain}
+            {strings.admin_domain}
           </Button>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-4 col-lg-3">
           <Button onClick={handleRegisterNewClick}>
             {strings.register_another_domain}
           </Button>
@@ -38,7 +37,7 @@ const AutoLoginComponent = (props) => {
 AutoLoginComponent.propTypes = {
   strings: propTypes.shape({
     log_in: propTypes.string.isRequired,
-    manage_domain: propTypes.string.isRequired,
+    admin_domain: propTypes.string.isRequired,
     register_another_domain: propTypes.string.isRequired,
   }).isRequired,
   handleManageClick: propTypes.func.isRequired,

@@ -237,7 +237,7 @@
   "read_more": "Read more about it",
   "domain_requested": "Your domain has been requested",
   "to_register": "To finish registering",
-  "manage_domain": "Manage my domain",
+  "admin_domain": "Admin my domain",
   "register_another_domain": "Register another domain",
   "wait_for_two_minutes": "Wait for aproximately two minutes",
   "wait_period_reason": "the waiting period is required to securely request your domain.",

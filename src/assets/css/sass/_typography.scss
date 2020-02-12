@@ -3,11 +3,18 @@ h1.sub-heading {
   color: $gray;
 }
 
+h2 {
+  color: $gray;
+}
+
+h2.small {
+  font-size: 22px;
+}
+
 h2.normal-size {
   font-size: 16px;
   margin:0;
   padding:0;
-  color: $gray;
 }
 
 h3 {
