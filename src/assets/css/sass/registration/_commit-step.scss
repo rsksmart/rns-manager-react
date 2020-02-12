@@ -1,13 +1,19 @@
-.rentalPeriod {
+.requestDomain {
   h3 {
     font-size:1.1em;
-    color: $gray;
   }
 
   p {
     font-size: .8em;
-    color: $gray;
     margin: .5em 0;
+  }
+
+  p.blue {
+    font-size: .7em;
+  }
+
+  p.explanation {
+    font-size: .9em;
   }
 
   .counter {
@@ -17,6 +23,7 @@
         border: none;
         color: $gray;
         font-size: 1.25em;
+        padding: 10px 20px !important;
       }
       .btn:hover {
         box-shadow: none;

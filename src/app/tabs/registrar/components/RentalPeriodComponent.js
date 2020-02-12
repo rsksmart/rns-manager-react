@@ -79,6 +79,7 @@ class RentalPeriodComponent extends Component {
           </InputGroup.Append>
         </InputGroup>
         <p>{strings.rental_period}</p>
+        <p className="blue">{strings.discount}</p>
       </div>
     );
 
@@ -91,7 +92,7 @@ class RentalPeriodComponent extends Component {
           <p className="rifPrice">
             {rifCost}
             {' '}
-            RIF
+            rif
           </p>
           <p className="usdPrice">
             {!gettingConversionRate && <>{`$${usdAmount} USD`}</> }
@@ -101,7 +102,7 @@ class RentalPeriodComponent extends Component {
     );
 
     return (
-      <div className="rentalPeriod">
+      <div>
         <Row>
           <div className="col-md-3 offset-md-3">
             {counter}

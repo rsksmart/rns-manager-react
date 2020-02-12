@@ -4,14 +4,15 @@
   }
 
   .list-inline {
+    margin-bottom: 4em;
     li {
       display:inline-block;
       margin: 1em .5em;
-      min-width: 205px;
+      min-width: 222px;
     }
     div.btn, div.btn:hover {
-      padding: .75em 3em !important;
-      border-radius: 8px;
+      padding: 1em 3em !important;
+      border-radius: 5px;
       width: 100%;
       background-color: #fff !important;
       color: $blue;

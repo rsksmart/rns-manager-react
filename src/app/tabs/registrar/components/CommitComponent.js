@@ -35,6 +35,11 @@ class CommitComponent extends Component {
             }
           </Col>
         </Row>
+        <Row>
+          <div className="col-md-6 offset-md-3">
+            <p className="explanation">{strings.process_step_1_explanation}</p>
+          </div>
+        </Row>
       </Container>
     );
   }
@@ -43,6 +48,7 @@ class CommitComponent extends Component {
 CommitComponent.propTypes = {
   strings: propTypes.shape({
     process_step_1: propTypes.string.isRequired,
+    process_step_1_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,
