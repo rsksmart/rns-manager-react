@@ -10,7 +10,7 @@ import rskWallet from '../../../assets/rsk_wallet.png';
 import { networkSelector } from '../../selectors';
 
 const ErrorTabComponent = ({
-  hasMetamask, walletNetwork, envNetwork, strings,
+  hasMetamask, walletNetwork, envNetwork, walletUnlocked, strings,
 }) => {
   if (!hasMetamask) {
     return (
@@ -21,6 +21,14 @@ const ErrorTabComponent = ({
         <Button onClick={() => window.open('https://metamask.io', '_blank')}>
           {strings.get_metamask}
         </Button>
+      </div>
+    );
+  }
+  if (!walletUnlocked) {
+    return (
+      <div>
+        <img src={rskWallet} alt="rsk_wallet" width="250px" />
+        <h2>{strings.unlock_wallet}</h2>
       </div>
     );
   }
@@ -50,6 +58,7 @@ ErrorTabComponent.defaultProps = {
 
 ErrorTabComponent.propTypes = {
   hasMetamask: propTypes.bool.isRequired,
+  walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
   strings: propTypes.arrayOf(propTypes.string).isRequired,
@@ -58,6 +67,7 @@ ErrorTabComponent.propTypes = {
 const mapStateToProps = state => ({
   hasMetamask: state.auth.hasMetamask,
   networkMatch: state.auth.networkMatch,
+  walletUnlocked: state.auth.walletUnlocked,
   walletNetwork: networkSelector(state.auth.network),
   envNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
 });
