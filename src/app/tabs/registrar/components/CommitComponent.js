@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Container, Row, Col, Spinner, Button,
+  Container, Row, Col, Spinner, Button, Form,
 } from 'react-bootstrap';
 
 class CommitComponent extends Component {
@@ -13,11 +13,28 @@ class CommitComponent extends Component {
 
   render() {
     const {
-      committing, strings, doCommitment, committed, hasBalance,
+      committing,
+      strings,
+      doCommitment,
+      committed,
+      hasBalance,
+      setupAddr,
+      toggleSetupAddr,
     } = this.props;
 
     return (
       <Container>
+        <Row className="major-section fifsRegistration">
+          <Col>
+            <Form.Check
+              type="switch"
+              id="setup-addr-switch"
+              label="Set RSK resolution to registering address"
+              checked={setupAddr}
+              onChange={toggleSetupAddr}
+            />
+          </Col>
+        </Row>
         <Row className="major-section">
           <Col>
             {
@@ -51,10 +68,12 @@ CommitComponent.propTypes = {
     process_step_1_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
+  toggleSetupAddr: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
   hasBalance: propTypes.bool.isRequired,
+  setupAddr: propTypes.bool.isRequired,
 };
 
 export default multilanguage(CommitComponent);
