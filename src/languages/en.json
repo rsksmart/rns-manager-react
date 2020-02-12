@@ -35,7 +35,6 @@
   "process_step_1": "Request to register",
   "process_step_1_explanation": "Your wallet will open and you will be asked to confirm the first of two transactions required for registration.",
   "process_step_2": "Wait for a minute",
-  "process_step_2_explanation": "Wait for aproximately a minute: the waiting period is required to ensure another person hasn’t tried to register the same name and protect you after your request.",
   "process_step_3": "Register",
   "process_step_3_explanation": "Click ‘register’ and your wallet will re-open. Only after the 2nd transaction is confirmed you'll know if you got the domain",
   "learn_more": "learn more",
@@ -237,8 +236,12 @@
   "tip1": "You can use your domain in RIF Marketplace to provide your services.",
   "read_more": "Read more about it",
   "domain_requested": "Your domain has been requested",
-  "to_register": "To register",
-  "it_can_take_two_minutes": "It can take approximately 2 minutes to register your domain",
+  "to_register": "To finish registering",
   "manage_domain": "Manage my domain",
-  "register_another_domain": "Register another domain"
+  "register_another_domain": "Register another domain",
+  "wait_for_two_minutes": "Wait for aproximately two minutes",
+  "wait_period_reason": "the waiting period is required to securely request your domain.",
+  "click_register_domain": "click 'Register domain' and your wallet will re-open.",
+  "your_domain_will_be_registered": "Your domain will be registered after the transaction is confirmed.",
+  "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute."
 }

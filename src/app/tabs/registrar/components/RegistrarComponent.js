@@ -84,12 +84,12 @@ class RegistrarComponent extends Component {
           </h1>
           <ul className="list-inline steps">
             <li>
-              <div className={`btn ${!committed ? 'btn-active' : 'btn-outline-primary'}`}>
+              <div className={`btn ${!committed || waiting ? 'btn-active' : 'btn-outline-primary'}`}>
                 {`1. ${strings.request_domain}`}
               </div>
             </li>
             <li>
-              <div className={`btn ${(committed && !revealConfirmed) ? 'btn-active' : 'btn-outline-primary'}`}>
+              <div className={`btn ${(committed && !waiting && !revealConfirmed) ? 'btn-active' : 'btn-outline-primary'}`}>
                 {`2. ${strings.register_domain}`}
               </div>
             </li>

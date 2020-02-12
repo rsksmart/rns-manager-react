@@ -13,33 +13,36 @@ const RevealComponent = (props) => {
   return (
     <>
       <Row>
-        <div className="col-md-6 offset-md-3">
+        <div className="col-md-8 offset-md-2">
           <p>
             {strings.to_register}
             <span className="blue">{` ${domain}.rsk`}</span>
             <br />
-            {strings.process_step_3_explanation}
+            {strings.click_register_domain}
+            <br />
+            {strings.your_domain_will_be_registered}
           </p>
         </div>
       </Row>
       <Row>
         <div className="col-md-4 offset-md-4">
-          <Button
-            disabled={revealing}
-            onClick={revealCommit}
-            className="minor-section"
-          >
-            {strings.process_step_3}
-          </Button>
-
           {revealing
-          && (
-            <div>
-              <Spinner animation="grow" variant="primary" className="major-section" />
-              <p>{strings.it_can_take_two_minutes}</p>
-            </div>
-          )
-          }
+            ? <Spinner animation="grow" variant="primary" className="major-section" />
+            : (
+              <Button
+                disabled={revealing}
+                onClick={revealCommit}
+                className="minor-section"
+              >
+                {strings.register_domain}
+              </Button>
+            )
+        }
+        </div>
+      </Row>
+      <Row className="large-break-above">
+        <div className="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
+          <p>{strings.wait_transation_confirmed}</p>
         </div>
       </Row>
     </>
@@ -48,11 +51,12 @@ const RevealComponent = (props) => {
 
 RevealComponent.propTypes = {
   strings: propTypes.shape({
-    process_step_3: propTypes.string.isRequired,
-    process_step_3_explanation: propTypes.string.isRequired,
+    register_domain: propTypes.string.isRequired,
+    your_domain_will_be_registered: propTypes.string.isRequired,
+    click_register_domain: propTypes.string.isRequired,
     register: propTypes.string.isRequired,
     to_register: propTypes.string.isRequired,
-    it_can_take_two_minutes: propTypes.string.isRequired,
+    wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   revealing: propTypes.bool.isRequired,

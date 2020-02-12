@@ -23,47 +23,25 @@ class LoadingComponent extends Component {
   }
 
   render() {
-    const { strings, commitConfirmed } = this.props;
-
+    const { strings } = this.props;
     return (
       <div className="waiting">
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
-            <Spinner animation="border" variant="primary" className="minor-section" />
-            <p>{strings.process_step_2_explanation}</p>
+            <Spinner animation="border" variant="primary" className="break-below" />
+            <p>
+              {strings.wait_for_two_minutes}
+              <br />
+              {strings.wait_period_reason}
+            </p>
 
-            {!commitConfirmed
-              && (
-                <>
-                  <h3 className="blue">
-                    {strings.did_you_know}
-                    ...
-                  </h3>
-                  <p className="lead minor-section">
-                    {strings.tip1}
-                  </p>
-                  <p>
-                    <a
-                      href="https://iovlabs.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {strings.read_more}
-                    </a>
-                  </p>
-                </>
-              )
-            }
-            {commitConfirmed
-              && (
-                <div className="commitConfirmedBox major-section">
-                  <svg width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 10.5L12.5 21L36 1" stroke="#008FF7" strokeWidth="2" />
-                  </svg>
-                  <p className="blue">{strings.domain_requested}</p>
-                </div>
-              )
-            }
+            <h3 className="blue major-section">
+              {strings.did_you_know}
+              ...
+            </h3>
+            <p className="lead minor-section">
+              {strings.tip1}
+            </p>
           </Col>
         </Row>
       </div>
@@ -73,12 +51,11 @@ class LoadingComponent extends Component {
 
 LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
-  commitConfirmed: propTypes.bool.isRequired,
   strings: propTypes.shape({
-    process_step_2_explanation: propTypes.string.isRequired,
+    wait_for_two_minutes: propTypes.string.isRequired,
+    wait_period_reason: propTypes.string.isRequired,
     did_you_know: propTypes.string.isRequired,
     tip1: propTypes.string.isRequired,
-    read_more: propTypes.string.isRequired,
     domain_requested: propTypes.string.isRequired,
   }).isRequired,
 });
