@@ -76,10 +76,7 @@ export default (state = initialState, action) => {
       name: null,
     };
     case types.LOG_OUT: return {
-      name: null,
-      storageName: localStorage.getItem('name'),
-      isOwner: false,
-      networkMatch: true,
+      ...initialState,
     };
     default: return state;
   }

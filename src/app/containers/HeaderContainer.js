@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { HeaderComponent } from '../components';
+import { logoutManager } from '../auth/operations';
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isOwner,
@@ -8,4 +9,11 @@ const mapStateToProps = state => ({
   network: process.env.REACT_APP_ENVIRONMENT_ID,
 });
 
-export default connect(mapStateToProps)(HeaderComponent);
+const mapDispatchToProps = dispatch => ({
+  logOut: () => dispatch(logoutManager()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderComponent);

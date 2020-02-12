@@ -23,9 +23,9 @@ import {
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { viewMyCrypto, networkMatch } = props;
+  const { viewMyCrypto, networkMatch, walletUnlocked } = props;
 
-  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch;
+  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch || !walletUnlocked;
 
   return (
     <Switch>
@@ -52,16 +52,19 @@ const Routes = (props) => {
 
 Routes.defaultProps = {
   networkMatch: false,
+  walletUnlocked: false,
 };
 
 Routes.propTypes = {
   viewMyCrypto: propTypes.bool.isRequired,
   networkMatch: propTypes.bool,
+  walletUnlocked: propTypes.bool,
 };
 
 const mapStateToProps = state => ({
   viewMyCrypto: state.user.viewMyCrypto,
   networkMatch: state.auth.networkMatch,
+  walletUnlocked: state.auth.walletUnlocked,
 });
 
 export default withRouter(connect(mapStateToProps)(Routes));
