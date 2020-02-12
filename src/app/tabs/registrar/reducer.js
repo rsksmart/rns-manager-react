@@ -96,7 +96,7 @@ const registrar = (state = initialState, action) => {
     case TOGGLE_SETUP_ADDRESS: return {
       ...state,
       setupAddr: action.setupAddr,
-    }
+    };
     case RESET_REGISTRAR_STATE:
       return initialState;
     default: return state;

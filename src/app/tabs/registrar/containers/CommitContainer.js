@@ -13,16 +13,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  doCommitment: domain => dispatch(commit(domain)),
-  checkIfAlreadyCommitted: domain => dispatch(checkIfAlreadyCommitted(domain)),
+  doCommitment: (domain, setupAddr) => dispatch(commit(domain, setupAddr)),
+  // eslint-disable-next-line max-len
+  checkIfAlreadyCommitted: (domain, setupAddr) => dispatch(checkIfAlreadyCommitted(domain, setupAddr)),
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  doCommitment: () => dispatchProps.doCommitment(stateProps.domain),
-  checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain),
+  doCommitment: () => dispatchProps.doCommitment(stateProps.domain, stateProps.setupAddr),
+  // eslint-disable-next-line max-len
+  checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain, stateProps.setupAddr),
   toggleSetupAddr: () => dispatchProps.toggleSetupAddr(stateProps.setupAddr),
 });
 

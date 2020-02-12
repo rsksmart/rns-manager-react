@@ -9,12 +9,13 @@ import {
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
+  fifsAddrRegistrar as fifsAddrRegistrarAddress,
   rif as rifAddress,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
-import { fifsRegistrarAbi, rifAbi } from './abis.json';
-import { getRegisterData } from './helpers';
+import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
+import { getRegisterData, getAddrRegisterData } from './helpers';
 
 export const getCost = (domain, duration) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
@@ -54,7 +55,7 @@ export const getConversionRate = () => async (dispatch) => {
   });
 };
 
-export const commit = domain => async (dispatch) => {
+export const commit = (domain, setupAddr) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
@@ -65,8 +66,12 @@ export const commit = domain => async (dispatch) => {
   const currentAddress = accounts[0];
 
   const web3 = new Web3(window.ethereum);
+
+  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+
   const registrar = new web3.eth.Contract(
-    fifsRegistrarAbi, fifsRegistrarAddress, { from: currentAddress, gasPrice: defaultGasPrice },
+    abi, address, { from: currentAddress, gasPrice: defaultGasPrice },
   );
 
   return new Promise((resolve) => {
@@ -90,8 +95,11 @@ export const commit = domain => async (dispatch) => {
   });
 };
 
-export const checkCanReveal = hash => async (dispatch) => {
-  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+export const checkCanReveal = (hash, setupAddr) => async (dispatch) => {
+  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+
+  const registrar = window.web3.eth.contract(abi).at(address);
 
   return new Promise((resolve) => {
     registrar.canReveal(hash, (error, canReveal) => {
@@ -102,7 +110,7 @@ export const checkCanReveal = hash => async (dispatch) => {
   });
 };
 
-export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+export const checkIfAlreadyCommitted = (domain, setupAddr) => async (dispatch) => {
   const salt = localStorage.getItem(`${domain}-salt`);
 
   if (!salt) return dispatch(saltNotFound());
@@ -112,7 +120,10 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  const registrar = window.web3.eth.contract(fifsRegistrarAbi).at(fifsRegistrarAddress);
+  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+
+  const registrar = window.web3.eth.contract(abi).at(address);
   return new Promise((resolve) => {
     registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
@@ -124,7 +135,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   });
 };
 
-export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
+export const revealCommit = (domain, tokens, duration, setupAddr) => async (dispatch) => {
   dispatch(requestRevealCommit());
 
   const weiValue = tokens * (10 ** 18);
@@ -133,7 +144,11 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   const currentAddress = accounts[0];
   const durationBN = window.web3.toBigNumber(duration);
 
-  const data = getRegisterData(domain, currentAddress, salt, durationBN);
+  const data = setupAddr
+    ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
+    : getRegisterData(domain, currentAddress, salt, durationBN);
+
+  const fifsAddress = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const web3 = new Web3(window.ethereum);
   const rif = new web3.eth.Contract(
@@ -143,7 +158,7 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   return new Promise((resolve) => {
     rif
       .methods
-      .transferAndCall(fifsRegistrarAddress, weiValue.toString(), data)
+      .transferAndCall(fifsAddress, weiValue.toString(), data)
       .send((error, result) => {
         if (error) {
           dispatch(errorRevealCommit());
