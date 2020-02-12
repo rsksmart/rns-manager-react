@@ -243,5 +243,7 @@
   "wait_period_reason": "the waiting period is required to securely request your domain.",
   "click_register_domain": "click 'Register domain' and your wallet will re-open.",
   "your_domain_will_be_registered": "Your domain will be registered after the transaction is confirmed.",
-  "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute."
+  "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
+  "how_long_want_domain": "How long do you want your domain",
+  "period_in_years": "period in years"
 }

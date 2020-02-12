@@ -63,7 +63,7 @@ class RentalPeriodComponent extends Component {
     const counter = (
       <div className="counter">
         <h3>
-          {strings.how_long_want_name}
+          {strings.how_long_want_domain}
           ?
         </h3>
         <InputGroup>
@@ -78,7 +78,7 @@ class RentalPeriodComponent extends Component {
             <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
           </InputGroup.Append>
         </InputGroup>
-        <p>{strings.rental_period}</p>
+        <p>{strings.period_in_years}</p>
         <p className="blue">{strings.discount}</p>
       </div>
     );
@@ -137,10 +137,10 @@ class RentalPeriodComponent extends Component {
 
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
-    rental_period: propTypes.string.isRequired,
+    period_in_years: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
     price: propTypes.string.isRequired,
-    how_long_want_name: propTypes.string.isRequired,
+    how_long_want_domain: propTypes.string.isRequired,
     click_here_not_enough_balance: propTypes.string.isRequired,
     not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
