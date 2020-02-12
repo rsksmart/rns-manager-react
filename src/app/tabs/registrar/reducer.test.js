@@ -25,6 +25,7 @@ describe('register reducer', () => {
           hasBalance: false,
           gettingConversionRate: false,
           conversionRate: null,
+          setupAddr: true,
         },
       );
   });
@@ -391,6 +392,7 @@ describe('register reducer', () => {
           hasBalance: false,
           gettingConversionRate: false,
           conversionRate: null,
+          setupAddr: true,
         },
       );
   });
@@ -414,6 +416,32 @@ describe('register reducer', () => {
           hasBalance: false,
           gettingConversionRate: false,
           conversionRate: null,
+          setupAddr: true,
+        },
+      );
+  });
+
+  it('should set the checkbox to false', () => {
+    expect(reducer(undefined, {
+      type: 'TOGGLE_SETUP_ADDRESS',
+      setupAddr: false,
+    }))
+      .toEqual(
+        {
+          gettingCost: false,
+          committing: false,
+          committed: false,
+          hash: null,
+          revealing: false,
+          revealed: false,
+          waiting: false,
+          canReveal: false,
+          commitConfirmed: null,
+          revealConfirmed: null,
+          hasBalance: false,
+          gettingConversionRate: false,
+          conversionRate: null,
+          setupAddr: false,
         },
       );
   });
