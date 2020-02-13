@@ -7,7 +7,7 @@ import {
 
 const RevealComponent = (props) => {
   const {
-    strings, revealCommit, revealing, domain,
+    strings, revealCommit, revealing, domain, revealed, revealConfirmed,
   } = props;
 
   return (
@@ -26,7 +26,7 @@ const RevealComponent = (props) => {
       </Row>
       <Row>
         <div className="col-md-4 offset-md-4">
-          {revealing
+          {revealing || (revealed && !revealConfirmed)
             ? <Spinner animation="grow" variant="primary" className="major-section" />
             : (
               <Button
@@ -49,6 +49,10 @@ const RevealComponent = (props) => {
   );
 };
 
+RevealComponent.defaultProps = {
+  revealConfirmed: false,
+};
+
 RevealComponent.propTypes = {
   strings: propTypes.shape({
     register_domain: propTypes.string.isRequired,
@@ -60,6 +64,8 @@ RevealComponent.propTypes = {
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   revealing: propTypes.bool.isRequired,
+  revealConfirmed: propTypes.bool,
+  revealed: propTypes.bool.isRequired,
   domain: propTypes.string.isRequired,
 };
 
