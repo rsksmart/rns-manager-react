@@ -29,7 +29,7 @@ class CommitComponent extends Component {
             <Form.Check
               type="switch"
               id="setup-addr-switch"
-              label="Set RSK resolution to registering address"
+              label={strings.auto_address_setup}
               checked={setupAddr}
               onChange={toggleSetupAddr}
             />
@@ -66,6 +66,7 @@ CommitComponent.propTypes = {
   strings: propTypes.shape({
     process_step_1: propTypes.string.isRequired,
     process_step_1_explanation: propTypes.string.isRequired,
+    auto_address_setup: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   toggleSetupAddr: propTypes.func.isRequired,
