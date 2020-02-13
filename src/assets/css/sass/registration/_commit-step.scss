@@ -3,7 +3,7 @@
     font-size:1.1em;
   }
 
-  p {
+  p, label {
     font-size: .8em;
     margin: .5em 0;
   }
@@ -62,6 +62,10 @@
     p.usdPrice {
       margin-top: 0;
     }
+  }
+
+  label {
+    cursor: pointer;
   }
 
   .alert {

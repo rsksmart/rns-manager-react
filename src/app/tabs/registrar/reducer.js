@@ -4,7 +4,7 @@ import {
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
-  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE,
+  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS,
 } from './types';
 
 const initialState = {
@@ -21,6 +21,7 @@ const initialState = {
   hasBalance: false,
   gettingConversionRate: false,
   conversionRate: null,
+  setupAddr: true,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -91,6 +92,10 @@ const registrar = (state = initialState, action) => {
       ...state,
       conversionRate: action.conversionRate,
       gettingConversionRate: false,
+    };
+    case TOGGLE_SETUP_ADDRESS: return {
+      ...state,
+      setupAddr: action.setupAddr,
     };
     case RESET_REGISTRAR_STATE:
       return initialState;

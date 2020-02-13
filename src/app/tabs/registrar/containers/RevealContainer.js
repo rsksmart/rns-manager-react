@@ -15,17 +15,19 @@ const mapStateToProps = state => ({
   hash: state.registrar.hash,
   rifCost: state.registrar.rifCost,
   duration: state.registrar.duration,
+  setupAddr: state.registrar.setupAddr,
 });
 
 const mapDispatchToProps = dispatch => ({
-  revealCommit: (domain, rifCost, duration) => dispatch(revealCommit(domain, rifCost, duration)),
+  // eslint-disable-next-line max-len
+  revealCommit: (domain, rifCost, duration, setupAddr) => dispatch(revealCommit(domain, rifCost, duration, setupAddr)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   // eslint-disable-next-line max-len
-  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
+  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration, stateProps.setupAddr),
 });
 
 export default connect(
