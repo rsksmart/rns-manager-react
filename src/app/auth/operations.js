@@ -92,3 +92,8 @@ export const logoutManager = () => (dispatch) => {
   dispatch(push('/'));
   dispatch(start());
 };
+
+export const autoLogin = domain => async (dispatch) => {
+  const accounts = await window.ethereum.enable();
+  dispatch(authenticate(domain, accounts[0]));
+};

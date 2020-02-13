@@ -1,3 +1,7 @@
+$gray: #919191;
+$light-gray: #f7f7f7;
+$blue: #008CFF;
+
 @import 'layout';
 @import 'header';
 @import 'footer';
@@ -5,3 +9,6 @@
 @import 'columns';
 @import 'extends';
 @import 'errorMessages';
+@import 'typography';
+@import 'registration/registration-page';
+@import 'registration/commit-step';

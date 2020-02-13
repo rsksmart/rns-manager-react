@@ -5,6 +5,7 @@ import {
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
   errorRevealCommit, saltNotFound, commitTxMined, revealTxMined,
+  requestConversionRate, recieveConversionRate,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -37,6 +38,19 @@ export const getCost = (domain, duration) => async (dispatch) => {
         return dispatch(receiveGetCost(window.web3.toDecimal(cost / (10 ** 18)), enoughBalance));
       });
     });
+  });
+};
+
+export const getConversionRate = () => async (dispatch) => {
+  dispatch(requestConversionRate());
+
+  return new Promise((resolve) => {
+    fetch('https://api.coinmarketcap.com/v1/ticker/rif-token/')
+      .then(res => res.json())
+      .then(data => resolve(dispatch(recieveConversionRate(parseFloat(data[0].price_usd)))))
+      .catch((error) => {
+        resolve(dispatch(notifyError(error)));
+      });
   });
 };
 
@@ -135,6 +149,9 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
           dispatch(errorRevealCommit());
           return resolve(dispatch(notifyError(error.message)));
         }
+
+        localStorage.setItem('name', `${domain}.rsk`);
+        localStorage.removeItem(`${domain}-salt`);
 
         dispatch(receiveRevealCommit());
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));

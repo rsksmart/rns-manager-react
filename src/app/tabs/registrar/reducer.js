@@ -3,7 +3,8 @@ import {
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
-  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED,
+  REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
+  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE,
 } from './types';
 
 const initialState = {
@@ -18,6 +19,8 @@ const initialState = {
   commitConfirmed: null,
   revealConfirmed: null,
   hasBalance: false,
+  gettingConversionRate: false,
+  conversionRate: null,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -80,6 +83,17 @@ const registrar = (state = initialState, action) => {
       ...state,
       ...initialState,
     };
+    case REQUEST_CONVERSION_RATE: return {
+      ...state,
+      gettingConversionRate: true,
+    };
+    case RECEIVE_CONVERSION_RATE: return {
+      ...state,
+      conversionRate: action.conversionRate,
+      gettingConversionRate: false,
+    };
+    case RESET_REGISTRAR_STATE:
+      return initialState;
     default: return state;
   }
 };

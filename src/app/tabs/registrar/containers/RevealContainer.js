@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { RevealComponent } from '../components';
-import { revealCommit, checkCanReveal } from '../operations';
+import { revealCommit } from '../operations';
 
 const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   revealCommit: (domain, rifCost, duration) => dispatch(revealCommit(domain, rifCost, duration)),
-  checkCanReveal: hashCommit => dispatch(checkCanReveal(hashCommit)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -27,7 +26,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   // eslint-disable-next-line max-len
   revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
-  checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash),
 });
 
 export default connect(

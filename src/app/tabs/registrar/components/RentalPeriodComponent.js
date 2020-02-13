@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  Col, InputGroup, FormControl, Button, Row, Spinner, Alert,
+  InputGroup, FormControl, Button, Row, Spinner, Alert,
 } from 'react-bootstrap';
 
 
@@ -21,6 +21,9 @@ class RentalPeriodComponent extends Component {
   }
 
   componentDidMount() {
+    const { getConversionRate } = this.props;
+    getConversionRate();
+
     this.handleChangeDuration();
   }
 
@@ -45,47 +48,73 @@ class RentalPeriodComponent extends Component {
 
   render() {
     const {
-      strings, getting, rifCost, committing, committed, hasBalance,
+      strings,
+      getting,
+      rifCost,
+      committing,
+      committed,
+      hasBalance,
+      gettingConversionRate,
+      conversionRate,
     } = this.props;
 
     const { duration } = this.state;
 
     const counter = (
-      <div>
-        <Row className="justify-content-center">
-          <Col xs="4" lg="3">
-            {strings.rental_period}
-            <InputGroup>
-              <InputGroup.Append>
-                <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
-              </InputGroup.Append>
-              <FormControl
-                value={duration}
-                readOnly
-              />
-              <InputGroup.Append>
-                <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </Row>
+      <div className="counter">
+        <h3>
+          {strings.how_long_want_domain}
+          ?
+        </h3>
+        <InputGroup>
+          <InputGroup.Append>
+            <Button size="sm" disabled={committing || committed} onClick={this.decrement}>-</Button>
+          </InputGroup.Append>
+          <FormControl
+            value={duration}
+            readOnly
+          />
+          <InputGroup.Append>
+            <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
+          </InputGroup.Append>
+        </InputGroup>
+        <p>{strings.period_in_years}</p>
+        <p className="blue">{strings.discount}</p>
+      </div>
+    );
+
+    const usdAmount = parseFloat(rifCost * conversionRate).toPrecision(4);
+
+    const price = (
+      <div className="price">
+        <h3>{strings.price}</h3>
+        <div className="box">
+          <p className="rifPrice">
+            {rifCost}
+            {' '}
+            rif
+          </p>
+          <p className="usdPrice">
+            {!gettingConversionRate && <>{`$${usdAmount} USD`}</> }
+          </p>
+        </div>
       </div>
     );
 
     return (
       <div>
-        <p>
-          {`1. ${strings.how_long_want_name} ?`}
-          <br />
-        </p>
-        {counter}
-        {
-          getting
-            ? <Spinner animation="grow" variant="primary" />
-            : <strong>{`${strings.price}: ${rifCost} RIF`}</strong>
-        }
-        <br />
-        <em>{strings.discount}</em>
+        <Row>
+          <div className="col-md-3 offset-md-3">
+            {counter}
+          </div>
+          <div className="col-md-3">
+            {
+              getting
+                ? <Spinner animation="grow" variant="primary" />
+                : price
+            }
+          </div>
+        </Row>
         {
           !hasBalance
           && (
@@ -108,10 +137,10 @@ class RentalPeriodComponent extends Component {
 
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
-    rental_period: propTypes.string.isRequired,
+    period_in_years: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
     price: propTypes.string.isRequired,
-    how_long_want_name: propTypes.string.isRequired,
+    how_long_want_domain: propTypes.string.isRequired,
     click_here_not_enough_balance: propTypes.string.isRequired,
     not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
@@ -120,13 +149,16 @@ RentalPeriodComponent.propTypes = {
   hasBalance: propTypes.bool.isRequired,
   duration: propTypes.number,
   getCost: propTypes.func.isRequired,
+  getConversionRate: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
+  gettingConversionRate: propTypes.bool.isRequired,
+  conversionRate: propTypes.number.isRequired,
 };
 
 RentalPeriodComponent.defaultProps = {
   rifCost: 0,
-  duration: 1,
+  duration: 3,
 };
 
 export default multilanguage(RentalPeriodComponent);

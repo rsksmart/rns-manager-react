@@ -18,20 +18,14 @@ class CommitComponent extends Component {
 
     return (
       <Container>
-        <Row>
-          <Col md={6} className="offset-md-3">
-            <p>
-              {`2. ${strings.process_step_1_explanation}`}
-            </p>
-          </Col>
-        </Row>
-        <Row>
+        <Row className="major-section">
           <Col>
             {
               committing
                 ? <Spinner animation="grow" variant="primary" />
                 : (
                   <Button
+                    className="commitButton"
                     disabled={committing || committed || !hasBalance}
                     onClick={doCommitment}
                   >
@@ -42,13 +36,9 @@ class CommitComponent extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={8} className="offset-md-2">
-            <p>
-              <em>
-                {strings.process_step_2_explanation}
-              </em>
-            </p>
-          </Col>
+          <div className="col-md-6 offset-md-3">
+            <p className="explanation">{strings.process_step_1_explanation}</p>
+          </div>
         </Row>
       </Container>
     );
@@ -59,7 +49,6 @@ CommitComponent.propTypes = {
   strings: propTypes.shape({
     process_step_1: propTypes.string.isRequired,
     process_step_1_explanation: propTypes.string.isRequired,
-    process_step_2_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,
