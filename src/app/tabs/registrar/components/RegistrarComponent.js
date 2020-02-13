@@ -15,6 +15,8 @@ class RegistrarComponent extends Component {
     this.state = {
       invalid: null,
     };
+
+    this.stepsMenu = this.stepsMenu.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +29,37 @@ class RegistrarComponent extends Component {
     const invalid = isValidName(domain);
     this.setState({ invalid });
     return !invalid;
+  }
+
+  stepsMenu() {
+    const {
+      strings,
+      committed,
+      waiting,
+      revealConfirmed,
+    } = this.props;
+    const activeClass = 'btn-active';
+    const defaultClass = 'btn-outline-primary';
+
+    return (
+      <ul className="list-inline steps">
+        <li>
+          <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
+            {`1. ${strings.request_domain}`}
+          </div>
+        </li>
+        <li>
+          <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
+            {`2. ${strings.register_domain}`}
+          </div>
+        </li>
+        <li>
+          <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
+            {`3. ${strings.login}`}
+          </div>
+        </li>
+      </ul>
+    );
   }
 
   render() {
@@ -82,23 +115,8 @@ class RegistrarComponent extends Component {
             {': '}
             <span className="domain">{domainDisplay}</span>
           </h1>
-          <ul className="list-inline steps">
-            <li>
-              <div className={`btn ${!committed || waiting ? 'btn-active' : 'btn-outline-primary'}`}>
-                {`1. ${strings.request_domain}`}
-              </div>
-            </li>
-            <li>
-              <div className={`btn ${(committed && !waiting && !revealConfirmed) ? 'btn-active' : 'btn-outline-primary'}`}>
-                {`2. ${strings.register_domain}`}
-              </div>
-            </li>
-            <li>
-              <div className={`btn ${revealConfirmed ? 'btn-active' : 'btn-outline-primary'}`}>
-                {`3. ${strings.login}`}
-              </div>
-            </li>
-          </ul>
+
+          {this.stepsMenu()}
 
           {!committed
             && (
