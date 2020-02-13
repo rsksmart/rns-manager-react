@@ -8,26 +8,26 @@ import {
 } from './types';
 
 describe('register reducer', () => {
+  const initialState = {
+    gettingCost: false,
+    committing: false,
+    committed: false,
+    hash: null,
+    revealing: false,
+    revealed: false,
+    waiting: false,
+    canReveal: false,
+    commitConfirmed: null,
+    revealConfirmed: null,
+    hasBalance: false,
+    gettingConversionRate: false,
+    conversionRate: null,
+    setupAddr: true,
+  };
+
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
-      .toEqual(
-        {
-          gettingCost: false,
-          committing: false,
-          committed: false,
-          hash: null,
-          revealing: false,
-          revealed: false,
-          waiting: false,
-          canReveal: false,
-          commitConfirmed: null,
-          revealConfirmed: null,
-          hasBalance: false,
-          gettingConversionRate: false,
-          conversionRate: null,
-          setupAddr: true,
-        },
-      );
+      .toEqual(initialState);
   });
 
   it('should handle REQUEST_REGISTRAR_GET_COST', () => {
@@ -377,72 +377,25 @@ describe('register reducer', () => {
     expect(reducer(undefined, {
       type: 'SALT_NOT_FOUND',
     }))
-      .toEqual(
-        {
-          gettingCost: false,
-          committing: false,
-          committed: false,
-          hash: null,
-          revealing: false,
-          revealed: false,
-          waiting: false,
-          canReveal: false,
-          commitConfirmed: null,
-          revealConfirmed: null,
-          hasBalance: false,
-          gettingConversionRate: false,
-          conversionRate: null,
-          setupAddr: true,
-        },
-      );
+      .toEqual(initialState);
   });
 
   it('should return the initial state when action is not implemented', () => {
     expect(reducer(undefined, {
       type: 'NOT_IMPLEMENTED',
     }))
-      .toEqual(
-        {
-          gettingCost: false,
-          committing: false,
-          committed: false,
-          hash: null,
-          revealing: false,
-          revealed: false,
-          waiting: false,
-          canReveal: false,
-          commitConfirmed: null,
-          revealConfirmed: null,
-          hasBalance: false,
-          gettingConversionRate: false,
-          conversionRate: null,
-          setupAddr: true,
-        },
-      );
+      .toEqual(initialState);
   });
 
   it('should set the checkbox to false', () => {
+    const expected = {
+      ...initialState,
+      setupAddr: false,
+    };
     expect(reducer(undefined, {
       type: 'TOGGLE_SETUP_ADDRESS',
       setupAddr: false,
     }))
-      .toEqual(
-        {
-          gettingCost: false,
-          committing: false,
-          committed: false,
-          hash: null,
-          revealing: false,
-          revealed: false,
-          waiting: false,
-          canReveal: false,
-          commitConfirmed: null,
-          revealConfirmed: null,
-          hasBalance: false,
-          gettingConversionRate: false,
-          conversionRate: null,
-          setupAddr: false,
-        },
-      );
+      .toEqual(expected);
   });
 });
