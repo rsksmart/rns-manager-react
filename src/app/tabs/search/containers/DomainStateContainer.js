@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import { parse } from 'query-string';
 import { DomainStateComponent } from '../components';
 import getDomainState from '../operations';
+import { resetRegistrarState } from '../../registrar/actions';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || '',
@@ -18,6 +19,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
   search: domain => dispatch(push(`/search?domain=${domain}`)),
+  registerDomain: (domain) => {
+    dispatch(resetRegistrarState());
+    dispatch(push(`/registrar?domain=${domain}`));
+  },
 });
 
 export default connect(
