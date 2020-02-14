@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Container, Row, Col, Spinner, Button, Form,
+  Container, Row, Col, Spinner, Button, Form, OverlayTrigger, Tooltip,
 } from 'react-bootstrap';
 
 class CommitComponent extends Component {
@@ -33,6 +33,19 @@ class CommitComponent extends Component {
               checked={setupAddr}
               onChange={toggleSetupAddr}
             />
+            <OverlayTrigger
+              key="fifsExplanation"
+              placement="right"
+              overlay={(
+                <Tooltip id="tooltip-status">
+                  {strings.auto_address_explanation}
+                </Tooltip>
+              )}
+            >
+              <div className="overlay-helper">
+                ?
+              </div>
+            </OverlayTrigger>
           </Col>
         </Row>
         <Row className="major-section">
@@ -67,6 +80,7 @@ CommitComponent.propTypes = {
     process_step_1: propTypes.string.isRequired,
     process_step_1_explanation: propTypes.string.isRequired,
     auto_address_setup: propTypes.string.isRequired,
+    auto_address_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   toggleSetupAddr: propTypes.func.isRequired,
