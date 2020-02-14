@@ -17,14 +17,15 @@ import {
   AdminMyCryptoTab,
   RenewTab,
   ErrorTab,
+  StringResolverTab,
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { viewMyCrypto, networkMatch } = props;
+  const { viewMyCrypto, networkMatch, walletUnlocked } = props;
 
-  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch;
+  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch || !walletUnlocked;
 
   return (
     <Switch>
@@ -40,6 +41,7 @@ const Routes = (props) => {
       <Route path="/admin" component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
       <Route path="/publicResolver" component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
       <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
+      <Route path="/stringResolver" component={viewMyCrypto ? NoMatch : StringResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
       <Route path="/renew" component={RenewTab} />
@@ -50,16 +52,19 @@ const Routes = (props) => {
 
 Routes.defaultProps = {
   networkMatch: false,
+  walletUnlocked: false,
 };
 
 Routes.propTypes = {
   viewMyCrypto: propTypes.bool.isRequired,
   networkMatch: propTypes.bool,
+  walletUnlocked: propTypes.bool,
 };
 
 const mapStateToProps = state => ({
   viewMyCrypto: state.user.viewMyCrypto,
   networkMatch: state.auth.networkMatch,
+  walletUnlocked: state.auth.walletUnlocked,
 });
 
 export default withRouter(connect(mapStateToProps)(Routes));

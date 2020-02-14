@@ -25,5 +25,7 @@ export const nameResolver = returnValue('nameResolver');
 export const multiChainResolver = returnValue('multiChainResolver');
 export const rif = returnValue('rif');
 export const fifsRegistrar = returnValue('fifsRegistrar');
+export const fifsAddrRegistrar = returnValue('fifsAddrRegistrar');
 export const rskOwner = returnValue('rskOwner');
 export const renewer = returnValue('renewer');
+export const stringResolver = returnValue('stringResolver');

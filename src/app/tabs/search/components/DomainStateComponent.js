@@ -9,7 +9,7 @@ import { isValidName } from '../../../validations';
 import { RegisterProcessContainer } from '../../../containers';
 
 // eslint-disable-next-line max-len
-function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, strings) {
+function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, registerDomain, strings) {
   if (!domain) return 'Search for a domain.';
   if (domainStateLoading || requestingCost || requestingOwner) {
     return <Spinner animation="grow" variant="primary" />;
@@ -38,15 +38,21 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
   }
 
   return (
-    <Card.Text>
-      {strings.open}
-      <br />
-      <Link to={`/registrar?domain=${domain}`}>{strings.register_your_domain}</Link>
-      <br />
-      {`${rifCost} ${strings.rif_per_year}`}
-      <br />
-      <em>{strings.discount}</em>
-    </Card.Text>
+    <>
+      <p>{strings.open}</p>
+      <p>
+        <Button
+          onClick={() => registerDomain(domain)}
+        >
+          {strings.register_your_domain}
+        </Button>
+      </p>
+      <p>
+        {`${rifCost} ${strings.rif_per_year}`}
+        <br />
+        <em>{strings.discount}</em>
+      </p>
+    </>
   );
 }
 
@@ -105,7 +111,7 @@ class DomainStateComponent extends Component {
   render() {
     const {
       strings, domain, owned, domainStateLoading, blocked, owner, requestingOwner,
-      requestingCost, rifCost,
+      requestingCost, rifCost, registerDomain,
     } = this.props;
     const { searchValue, invalid, showProcess } = this.state;
 
@@ -117,7 +123,7 @@ class DomainStateComponent extends Component {
 
     const displayState = getDisplayState(
       domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost,
-      rifCost, strings,
+      rifCost, registerDomain, strings,
     );
 
     return (
@@ -195,6 +201,7 @@ DomainStateComponent.propTypes = {
   search: propTypes.func.isRequired,
   requestingCost: propTypes.bool.isRequired,
   rifCost: propTypes.number.isRequired,
+  registerDomain: propTypes.func.isRequired,
 };
 
 DomainStateComponent.defaultProps = {

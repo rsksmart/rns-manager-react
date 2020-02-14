@@ -45,7 +45,8 @@ export default domain => (dispatch) => {
       dispatch(requestDomainCost());
       registrar.methods.price(domain, 0, 1).call()
         .then((result) => {
-          dispatch(receiveDomainCost(window.web3.toDecimal(result / (10 ** 18))));
+          const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
+          dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));
         })
         .catch(error => dispatch(notifyError(error.message)));
 

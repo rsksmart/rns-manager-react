@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, Spinner } from 'react-bootstrap';
-import { TabWithSearchComponent } from '../../../components';
-import { RentalPeriodContainer, CommitContainer, RevealContainer } from '../containers';
+import {
+  RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
+} from '../containers';
 import { isValidName } from '../../../validations';
-
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -15,6 +15,8 @@ class RegistrarComponent extends Component {
     this.state = {
       invalid: null,
     };
+
+    this.stepsMenu = this.stepsMenu.bind(this);
   }
 
   componentDidMount() {
@@ -29,17 +31,45 @@ class RegistrarComponent extends Component {
     return !invalid;
   }
 
+  stepsMenu() {
+    const {
+      strings,
+      committed,
+      waiting,
+      revealConfirmed,
+    } = this.props;
+    const activeClass = 'btn-active';
+    const defaultClass = 'btn-outline-primary';
+
+    return (
+      <ul className="list-inline steps">
+        <li>
+          <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
+            {`1. ${strings.request_domain}`}
+          </div>
+        </li>
+        <li>
+          <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
+            {`2. ${strings.register_domain}`}
+          </div>
+        </li>
+        <li>
+          <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
+            {`3. ${strings.login}`}
+          </div>
+        </li>
+      </ul>
+    );
+  }
+
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
+      committed, waiting, canReveal, revealConfirmed,
     } = this.props;
     const { invalid } = this.state;
 
     let elementToRender;
-
-    if (!domain) {
-      return <Redirect to="/search" />;
-    }
 
     if (invalid) {
       elementToRender = <h4>{invalid}</h4>;
@@ -56,17 +86,21 @@ class RegistrarComponent extends Component {
         );
       } else {
         elementToRender = (
-          <Card.Text>
-            {strings.owned}
-            <br />
-            <strong>
-              {strings.owner}
-              {': '}
-            </strong>
-            {owner}
-            <br />
-            <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
-          </Card.Text>
+          <Card>
+            <Card.Header>{strings.owned}</Card.Header>
+            <Card.Body>
+              <p>
+                <strong>
+                  {strings.owner}
+                  {': '}
+                </strong>
+                {owner}
+              </p>
+              <p>
+                <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
+              </p>
+            </Card.Body>
+          </Card>
         );
       }
     } else if (blocked) {
@@ -75,26 +109,45 @@ class RegistrarComponent extends Component {
       const domainDisplay = `${domain}.rsk`;
 
       elementToRender = (
-        <div>
-          <h2>
-            {strings.start_registration_for}
-            {' '}
-            <code>{domainDisplay}</code>
-          </h2>
-          <h4>registering a name requires you to complete 3 steps</h4>
-          <RentalPeriodContainer />
-          <hr />
-          <CommitContainer />
-          <RevealContainer />
+        <div className="register">
+          <h1 className="sub-heading">
+            {strings.registering}
+            {': '}
+            <span className="domain">{domainDisplay}</span>
+          </h1>
+
+          {this.stepsMenu()}
+
+          {!committed
+            && (
+            <div className="requestDomain">
+              <RentalPeriodContainer />
+              <CommitContainer />
+            </div>
+            )
+          }
+
+          {waiting && <LoadingContainer />}
+
+          {(canReveal && !revealConfirmed)
+            && (
+            <RevealContainer />
+            )
+          }
+
+          {revealConfirmed
+            && (
+              <AutoLoginComponent />
+            )
+          }
+
         </div>
       );
     }
 
     return (
       <div>
-        <TabWithSearchComponent>
-          {elementToRender}
-        </TabWithSearchComponent>
+        {elementToRender}
       </div>
     );
   }
@@ -102,14 +155,14 @@ class RegistrarComponent extends Component {
 
 RegistrarComponent.propTypes = {
   strings: propTypes.shape({
-    start_registration_for: propTypes.string.isRequired,
-    rental_period: propTypes.string.isRequired,
-    blocked_domain: propTypes.string.isRequired,
-    admin_your_domain_title: propTypes.string.isRequired,
-    owned: propTypes.string.isRequired,
-    search_another_domain: propTypes.string.isRequired,
     owner: propTypes.string.isRequired,
     resolve: propTypes.string.isRequired,
+    owned: propTypes.string.isRequired,
+    blocked_domain: propTypes.string.isRequired,
+    registering: propTypes.string.isRequired,
+    request_domain: propTypes.string.isRequired,
+    register_domain: propTypes.string.isRequired,
+    login: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
@@ -118,6 +171,10 @@ RegistrarComponent.propTypes = {
   owner: propTypes.string,
   requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
+  committed: propTypes.bool.isRequired,
+  waiting: propTypes.bool.isRequired,
+  canReveal: propTypes.bool.isRequired,
+  revealConfirmed: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

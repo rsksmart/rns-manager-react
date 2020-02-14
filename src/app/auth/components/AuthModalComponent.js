@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import {
-  Modal, Row, Col, Form, Button,
+  Modal, Row, Col, Form, Button, Spinner,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 
 class AuthModalComponent extends Component {
@@ -13,10 +12,19 @@ class AuthModalComponent extends Component {
     this.state = { nameInputValue: props.defaultName || props.storageName };
 
     this.changeInputName = this.changeInputName.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   changeInputName(event) {
     this.setState({ nameInputValue: event.target.value });
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault();
+
+    const { authenticate } = this.props;
+    const { nameInputValue } = this.state;
+    authenticate(nameInputValue);
   }
 
   render() {
@@ -25,15 +33,16 @@ class AuthModalComponent extends Component {
       show,
       close,
       hasMetamask,
+      walletUnlocked,
       enabling,
       enableError,
-      displayAddress,
-      network,
-      authenticate,
+      managerNetwork,
+      networkMatch,
       authError,
       name,
       isOwner,
       openWallets,
+      authenticating,
     } = this.props;
 
     let nameInput;
@@ -46,6 +55,17 @@ class AuthModalComponent extends Component {
 
     if (!hasMetamask) {
       body = <Button type="link" onClick={openWallets}>{strings.get_metamask}</Button>;
+    } else if (!walletUnlocked) {
+      body = <div>{strings.unlock_wallet}</div>;
+    } else if (!networkMatch) {
+      body = (
+        <div>
+          <p><strong>{strings.unknown_network}</strong></p>
+          <p>{`${strings.connect_to_network} ${managerNetwork}`}</p>
+        </div>
+      );
+    } else if (authenticating) {
+      body = <Spinner animation="grow" variant="primary" />;
     } else {
       body = (
         enabling
@@ -53,34 +73,14 @@ class AuthModalComponent extends Component {
           : (
             enableError
         || (
-        <Form>
-          <Form.Group controlId="address">
-            <Row>
-              <Col lg={2}>
-                <Form.Label className={`control-label-${variant}`}>Address</Form.Label>
-              </Col>
-              <Col lg={10}>
-                <Form.Control
-                  className={`form-control-${variant}`}
-                  plaintext
-                  readOnly
-                  defaultValue={displayAddress}
-                />
-              </Col>
-            </Row>
-          </Form.Group>
+        <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlId="network">
             <Row>
               <Col lg={2}>
                 <Form.Label className={`control-label-${variant}`}>Network</Form.Label>
               </Col>
               <Col lg={10}>
-                <Form.Control
-                  className={`form-control-${variant}`}
-                  plaintext
-                  readOnly
-                  defaultValue={network}
-                />
+                {managerNetwork}
               </Col>
             </Row>
           </Form.Group>
@@ -113,13 +113,11 @@ class AuthModalComponent extends Component {
           {
             (name && !isOwner)
             && (
-            <Form.Group as={Row}>
-              <Form.Label column sm="12">
-                {strings.not_domains_owner}
-                {' '}
-                <Link onClick={close} to={`/search?domain=${name}`}>{strings.get_the_domain}</Link>
-              </Form.Label>
-            </Form.Group>
+              <Row>
+                <Col>
+                  <p>{strings.not_domains_owner_message}</p>
+                </Col>
+              </Row>
             )
           }
         </Form>
@@ -137,11 +135,10 @@ class AuthModalComponent extends Component {
         </Modal.Body>
         <Modal.Footer>
           {
-            hasMetamask && !enabling && !enableError
+            hasMetamask && walletUnlocked && !enabling && !enableError && !authenticating
             && (
             <React.Fragment>
-              <Link onClick={close} to={nameInputValue ? `/search?domain=${nameInputValue}` : '/search'} className="btn btn-primary">{strings.register}</Link>
-              <Button onClick={() => authenticate(nameInputValue)}>{strings.log_in}</Button>
+              <Button onClick={this.handleFormSubmit}>{strings.log_in}</Button>
             </React.Fragment>
             )
           }
@@ -153,26 +150,28 @@ class AuthModalComponent extends Component {
 
 AuthModalComponent.propTypes = {
   defaultName: propTypes.string,
-  storageName: propTypes.string.isRequired,
+  storageName: propTypes.string,
   strings: propTypes.objectOf(propTypes.string).isRequired,
   show: propTypes.bool.isRequired,
   close: propTypes.func.isRequired,
   hasMetamask: propTypes.bool.isRequired,
+  walletUnlocked: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,
-  displayAddress: propTypes.string,
-  network: propTypes.string.isRequired,
+  managerNetwork: propTypes.string.isRequired,
+  networkMatch: propTypes.bool.isRequired,
   authenticate: propTypes.func.isRequired,
   authError: propTypes.string,
   name: propTypes.string,
   isOwner: propTypes.bool.isRequired,
   openWallets: propTypes.func.isRequired,
+  authenticating: propTypes.bool.isRequired,
 };
 
 AuthModalComponent.defaultProps = {
   defaultName: '',
+  storageName: null,
   enableError: null,
-  displayAddress: null,
   authError: null,
   name: null,
 };

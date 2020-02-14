@@ -1,18 +1,23 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-  Navbar, Nav, Form, Container, Image,
+  Navbar, Nav, Form, Container, Image, Button,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
 import logotest from '../../assets/img/logo-testnet.svg';
 import { StartButton } from '../auth';
-import { LanguageSelectContainer } from '../containers';
+import { LanguageSelectContainer, IndicatorLight } from '../containers';
 
 
 const HeaderComponent = (props) => {
-  const { strings, isLoggedIn, network } = props;
+  const {
+    strings,
+    isLoggedIn,
+    network,
+    logOut,
+  } = props;
 
   return (
     <Navbar
@@ -27,6 +32,7 @@ const HeaderComponent = (props) => {
             alt="RSK Logo"
           />
         </Link>
+        <IndicatorLight />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className>
           <Nav className="ml-auto">
@@ -43,11 +49,18 @@ const HeaderComponent = (props) => {
             {
               isLoggedIn
               && (
-                <Nav.Item key={strings.admin}>
-                  <Link className="nav-link" to="/admin">
-                    {strings.admin}
-                  </Link>
-                </Nav.Item>
+                <>
+                  <Nav.Item key={strings.admin}>
+                    <Link className="nav-link" to="/admin">
+                      {strings.admin}
+                    </Link>
+                  </Nav.Item>
+                  <Nav.Item key={strings.log_out}>
+                    <Button className="nav-link" onClick={logOut}>
+                      {strings.log_out}
+                    </Button>
+                  </Nav.Item>
+                </>
               )
             }
           </Nav>
@@ -65,6 +78,7 @@ HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
   isLoggedIn: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
+  logOut: propTypes.func.isRequired,
 };
 
 export default multilanguage(HeaderComponent);

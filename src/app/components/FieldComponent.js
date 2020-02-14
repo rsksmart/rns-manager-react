@@ -4,6 +4,7 @@ import {
   Row, Col, Form, InputGroup, Button,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
+import { ChecksumErrorContainer } from '../containers';
 
 class FieldComponent extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class FieldComponent extends Component {
 
     this.validate = this.validate.bind(this);
     this.onInputValueChange = this.onInputValueChange.bind(this);
+    this.handleChecksumClick = this.handleChecksumClick.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +53,23 @@ class FieldComponent extends Component {
     return isValid;
   }
 
+  handleFormSubmit(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    const { set } = this.props;
+    const { inputValue } = this.state;
+    if (this.validate()) {
+      set(inputValue.toLowerCase());
+    }
+  }
+
+  handleChecksumClick(newValue) {
+    this.setState({ inputValue: newValue }, () => {
+      this.handleFormSubmit();
+    });
+  }
+
   render() {
     const {
       strings,
@@ -59,7 +79,6 @@ class FieldComponent extends Component {
       value,
       changeEdit,
       editOpen,
-      set,
       editing,
       options,
       preloadedValue,
@@ -83,11 +102,7 @@ class FieldComponent extends Component {
             <br />
             <Row>
               <Col>
-                <Form onSubmit={(e) => {
-                  e.preventDefault();
-                  if (this.validate()) set(inputValue);
-                }}
-                >
+                <Form onSubmit={this.handleFormSubmit}>
                   <Form.Group>
                     <InputGroup>
                       <Form.Control type={type} value={inputValue} onChange={this.onInputValueChange} className={!isValid ? 'is-invalid' : null} list={options && options.name} />
@@ -96,7 +111,12 @@ class FieldComponent extends Component {
                         <Button type="submit" variant={preloadedValue ? 'success' : 'primary'} size="sm">{strings.edit}</Button>
                       </InputGroup.Append>
                       <div className="invalid-feedback">
-                        {validationError}
+                        <div className="title">{validationError}</div>
+                        <ChecksumErrorContainer
+                          show={validationError === 'Invalid checksum'}
+                          inputValue={inputValue}
+                          handleClick={newValue => this.handleChecksumClick(newValue)}
+                        />
                       </div>
                     </InputGroup>
                   </Form.Group>

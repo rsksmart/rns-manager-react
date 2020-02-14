@@ -7,6 +7,8 @@
   "multiChainResolver": "",
   "rif": "",
   "fifsRegistrar": "",
+  "fifsAddrRegistrar": "",
   "rskOwner": "",
-  "renewer": ""
- }
+  "renewer": "",
+  "stringResolver": ""
+}

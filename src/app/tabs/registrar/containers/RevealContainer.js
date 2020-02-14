@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { RevealComponent } from '../components';
-import { revealCommit, checkCanReveal } from '../operations';
+import { revealCommit } from '../operations';
 
 const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
@@ -15,19 +15,19 @@ const mapStateToProps = state => ({
   hash: state.registrar.hash,
   rifCost: state.registrar.rifCost,
   duration: state.registrar.duration,
+  setupAddr: state.registrar.setupAddr,
 });
 
 const mapDispatchToProps = dispatch => ({
-  revealCommit: (domain, rifCost, duration) => dispatch(revealCommit(domain, rifCost, duration)),
-  checkCanReveal: hashCommit => dispatch(checkCanReveal(hashCommit)),
+  // eslint-disable-next-line max-len
+  revealCommit: (domain, rifCost, duration, setupAddr) => dispatch(revealCommit(domain, rifCost, duration, setupAddr)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   // eslint-disable-next-line max-len
-  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
-  checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash),
+  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration, stateProps.setupAddr),
 });
 
 export default connect(
