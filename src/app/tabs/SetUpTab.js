@@ -14,7 +14,7 @@ const SetUpTab = multilanguage(({ strings }) => {
 
   return (
     <Container>
-      <Row>
+      <Row className="setup">
         <Col style={{ textAlign: 'left' }}>
           <h2>{strings.setup_title}</h2>
           <ol>
@@ -27,11 +27,27 @@ const SetUpTab = multilanguage(({ strings }) => {
                 <li>
                   {strings.setup_fill_with}
                   <ul>
-                    <li>{`Network Name: ${networkName}`}</li>
-                    <li>{`New RPC URL: ${rskNode}`}</li>
-                    <li>{`ChainID: ${networkId}`}</li>
-                    <li>Symbol: RBTC</li>
-                    <li>{`Block Explorer URL: ${explorer}`}</li>
+                    <li>
+                      Network Name:
+                      <span>{` ${networkName}`}</span>
+                    </li>
+                    <li>
+                      New RPC URL:
+                      <span>{` ${rskNode}`}</span>
+                    </li>
+                    <li>
+                      ChainID:
+                      <span>{` ${networkId}`}</span>
+                    </li>
+                    <li>
+                      Symbol:
+                      {' '}
+                      <span>RBTC</span>
+                    </li>
+                    <li>
+                      Block Explorer URL:
+                      <span>{` ${explorer}`}</span>
+                    </li>
                   </ul>
                 </li>
                 <li>{strings.setup_save}</li>
@@ -45,7 +61,7 @@ const SetUpTab = multilanguage(({ strings }) => {
                 <li>
                   {/* eslint-disable-next-line no-underscore-dangle */}
                   {strings.setup_fill_token_address_with_}
-                  {rifAddress}
+                  <span>{rifAddress}</span>
                 </li>
                 <li>{strings.setup_next}</li>
                 <li>{strings.setup_add_tokens}</li>
