@@ -4,7 +4,7 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
-  errorRevealCommit, saltNotFound, commitTxMined, revealTxMined,
+  errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
   requestConversionRate, recieveConversionRate,
 } from './actions';
 import {
@@ -101,7 +101,7 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
 
 export const checkCanReveal = (hash, domain) => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(saltNotFound());
+  if (!options) return dispatch(optionsNotFound());
 
   options = JSON.parse(options);
   const { contract } = options;
@@ -122,7 +122,7 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
 
 export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(saltNotFound());
+  if (!options) return dispatch(optionsNotFound());
 
   options = JSON.parse(options);
   const { salt, contract } = options;
@@ -149,7 +149,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
 export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(saltNotFound());
+  if (!options) return dispatch(optionsNotFound());
 
   options = JSON.parse(options);
   const { salt, contract } = options;
