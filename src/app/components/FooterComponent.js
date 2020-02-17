@@ -30,22 +30,42 @@ const FooterComponent = (props) => {
             <Col lg="4" />
             <Col lg="2">
               <span className="footer-title mb-3">{strings.develop}</span>
-              <a href="https://developers.rsk.co/rif/rns/libs/">
+              <a
+                href="https://developers.rsk.co/rif/rns/libs/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {strings.libs}
               </a>
-              <a href="https://developers.rsk.co/rif/rns/">
+              <a
+                href="https://developers.rsk.co/rif/rns/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {strings.docs}
               </a>
-              <a href="https://github.com/rnsdomains">
+              <a
+                href="https://github.com/rnsdomains"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {strings.github}
               </a>
             </Col>
             <Col lg="2">
               <span className="footer-title mb-3">{strings.learn}</span>
-              <a href="https://docs.rifos.org/rif-whitepaper-en.pdf">
+              <a
+                href="https://docs.rifos.org/rif-whitepaper-en.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {strings.rif_white_paper}
               </a>
-              <a href="https://docs.rifos.org/rif-directory-protocol-en.pdf">
+              <a
+                href="https://docs.rifos.org/rif-directory-protocol-en.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {strings.rns_white_paper}
               </a>
             </Col>
