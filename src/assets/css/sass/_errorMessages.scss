@@ -1,0 +1,24 @@
+.invalid-feedback {
+  font-size: 100%;
+
+  div.title {
+    font-weight: 500 !important;
+  }
+  span {
+    display: inline-block;
+    margin: .5em 0;
+    cursor: pointer;
+  }
+
+  span::after {
+    display: inline-block;
+    margin: 0 .5em;
+    content: '?';
+    background-color: #E5E5E5;
+    color:#dc3545;
+    font-weight: 500 !important;
+    width: 1.5em;
+    height: 1.5em;    
+    border-radius: 1em;
+  }
+}

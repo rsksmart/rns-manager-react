@@ -11,31 +11,11 @@ import {
   receiveLogin,
   errorLogin,
   errorEnable,
+  logOut,
 } from './actions';
 
-export const start = callback => (dispatch) => {
-  const hasMetamask = window.ethereum !== undefined;
-
-  dispatch(receiveHasMetamask(hasMetamask));
-
-  if (hasMetamask) {
-    dispatch(requestEnable());
-
-    window.ethereum.enable()
-      .then(accounts => dispatch(receiveEnable(
-        accounts[0],
-        window.ethereum.publicConfigStore.getState().networkVersion,
-        window.ethereum.publicConfigStore.getState().networkVersion
-          === process.env.REACT_APP_ENVIRONMENT_ID,
-      )))
-      .then(() => callback && callback())
-      .catch(e => dispatch(errorEnable(e.message)));
-  }
-};
-
-export const authenticate = (name, address) => (dispatch) => {
+export const authenticate = (name, address, noRedirect) => (dispatch) => {
   dispatch(requestLogin());
-  localStorage.setItem('name', name);
 
   const registry = window.web3.eth.contract([
     {
@@ -59,13 +39,61 @@ export const authenticate = (name, address) => (dispatch) => {
     registry.owner(hash, (error, result) => {
       if (error) return resolve(dispatch(errorLogin(error)));
 
-      if (address !== result) return resolve(dispatch(receiveLogin(name, false)));
+      if (address !== result) {
+        if (!noRedirect) {
+          return resolve(dispatch(receiveLogin(name, false)));
+        }
+        return null;
+      }
 
       dispatch(checkResolver(name));
 
-      dispatch(push('/admin'));
+      if (!noRedirect) {
+        dispatch(push('/admin'));
+      }
+
+      localStorage.setItem('name', name);
 
       return resolve(dispatch(receiveLogin(name, true)));
     });
   });
+};
+
+export const start = callback => (dispatch) => {
+  const hasMetamask = window.ethereum !== undefined;
+
+  dispatch(receiveHasMetamask(hasMetamask));
+
+  if (hasMetamask) {
+    dispatch(requestEnable());
+
+    window.ethereum.enable()
+      .then((accounts) => {
+        dispatch(receiveEnable(
+          accounts[0],
+          window.ethereum.publicConfigStore.getState().networkVersion,
+          window.ethereum.publicConfigStore.getState().networkVersion
+            === process.env.REACT_APP_ENVIRONMENT_ID,
+          accounts.length !== 0,
+        ));
+
+        if (localStorage.getItem('name')) {
+          dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
+        }
+      })
+      .then(() => callback && callback())
+      .catch(e => dispatch(errorEnable(e.message)));
+  }
+};
+
+export const logoutManager = () => (dispatch) => {
+  localStorage.removeItem('name');
+  dispatch(logOut());
+  dispatch(push('/'));
+  dispatch(start());
+};
+
+export const autoLogin = domain => async (dispatch) => {
+  const accounts = await window.ethereum.enable();
+  dispatch(authenticate(domain, accounts[0]));
 };

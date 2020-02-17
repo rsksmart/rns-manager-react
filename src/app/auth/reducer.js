@@ -3,6 +3,7 @@ import * as types from './types';
 const initialState = {
   showModal: false,
   hasMetamask: true,
+  walletUnlocked: false,
   enabling: false,
   enableError: null,
   address: null,
@@ -44,6 +45,7 @@ export default (state = initialState, action) => {
       address: action.address,
       network: action.network,
       networkMatch: action.networkMatch,
+      walletUnlocked: action.walletUnlocked,
     };
     case types.ERROR_ENABLE: return {
       ...state,
@@ -74,9 +76,7 @@ export default (state = initialState, action) => {
       name: null,
     };
     case types.LOG_OUT: return {
-      name: null,
-      storageName: localStorage.getItem('name'),
-      isOwner: false,
+      ...initialState,
     };
     default: return state;
   }

@@ -34,6 +34,7 @@ export default strings => (params) => {
     case txTypes.SET_ADDR: return displaySetTx(strings.notifications_new_addr, params.value);
     case txTypes.SET_CONTENT: return displaySetTx(strings.notifications_new_content, params.value);
     case txTypes.SET_CHAIN_ADDR: return displaySetTx(strings.notifications_new_chain_addr, `${params.chainId} - ${params.value}`);
+    case txTypes.SET_STR: return displaySetTx(strings.notifications_new_str, params.value);
     case txTypes.SET_REVERSE_RESOLUTION: return {
       title: strings.notifications_new_reverse_resolution,
     };
