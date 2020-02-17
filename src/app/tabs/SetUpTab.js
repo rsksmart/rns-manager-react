@@ -4,8 +4,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { StartButton } from '../auth';
 import { explorer } from '../adapters/explorerAdapter';
+import { rskNode } from '../adapters/nodeAdapter';
+import { rif as rifAddress } from '../adapters/configAdapter';
+import { networkSelector } from '../selectors';
 
 const SetUpTab = multilanguage(({ strings }) => {
+  const networkId = process.env.REACT_APP_ENVIRONMENT_ID;
+  const networkName = networkSelector(networkId);
 
   return (
     <Container>
@@ -22,11 +27,10 @@ const SetUpTab = multilanguage(({ strings }) => {
                 <li>
                   {strings.setup_fill_with}
                   <ul>
-                    <li>Network Name: RSK</li>
-                    <li>New RPC URL: https://public-node.rsk.co</li>
-                    <li>ChainID: 30</li>
+                    <li>{`Network Name: ${networkName}`}</li>
+                    <li>{`New RPC URL: ${rskNode}`}</li>
+                    <li>{`ChainID: ${networkId}`}</li>
                     <li>Symbol: RBTC</li>
-                    <li>Nickname: RSK MainNet</li>
                     <li>{`Block Explorer URL: ${explorer}`}</li>
                   </ul>
                 </li>
@@ -41,7 +45,7 @@ const SetUpTab = multilanguage(({ strings }) => {
                 <li>
                   {/* eslint-disable-next-line no-underscore-dangle */}
                   {strings.setup_fill_token_address_with_}
-                  {' 0x2acc95758f8b5f583470ba265eb685a8f45fc9d5'}
+                  {rifAddress}
                 </li>
                 <li>{strings.setup_next}</li>
                 <li>{strings.setup_add_tokens}</li>
