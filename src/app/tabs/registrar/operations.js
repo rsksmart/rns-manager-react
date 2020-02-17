@@ -87,7 +87,11 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
             return resolve(dispatch(notifyError(_error.message)));
           }
 
-          localStorage.setItem(`${domain}-salt`, salt);
+          localStorage.setItem(`${domain}-options`, JSON.stringify({
+            salt,
+            contract: setupAddr ? 'FIFSADDR' : 'FIFIS',
+          }));
+
           dispatch(receiveCommitRegistrar(hashCommit));
           return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
         });
@@ -95,9 +99,15 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
   });
 };
 
-export const checkCanReveal = (hash, setupAddr) => async (dispatch) => {
-  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+export const checkCanReveal = (hash, domain) => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) return dispatch(saltNotFound());
+
+  options = JSON.parse(options);
+  const { contract } = options;
+
+  const abi = (contract === 'FIFSADDR') ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
 
@@ -110,18 +120,20 @@ export const checkCanReveal = (hash, setupAddr) => async (dispatch) => {
   });
 };
 
-export const checkIfAlreadyCommitted = (domain, setupAddr) => async (dispatch) => {
-  const salt = localStorage.getItem(`${domain}-salt`);
+export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) return dispatch(saltNotFound());
 
-  if (!salt) return dispatch(saltNotFound());
+  options = JSON.parse(options);
+  const { salt, contract } = options;
 
   dispatch(requestCommitRegistrar());
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const abi = (contract === 'FIFSADDR') ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
   return new Promise((resolve) => {
@@ -135,20 +147,25 @@ export const checkIfAlreadyCommitted = (domain, setupAddr) => async (dispatch) =
   });
 };
 
-export const revealCommit = (domain, tokens, duration, setupAddr) => async (dispatch) => {
+export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) return dispatch(saltNotFound());
+
+  options = JSON.parse(options);
+  const { salt, contract } = options;
+
   dispatch(requestRevealCommit());
 
   const weiValue = tokens * (10 ** 18);
-  const salt = localStorage.getItem(`${domain}-salt`);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const durationBN = window.web3.toBigNumber(duration);
 
-  const data = setupAddr
+  const data = (contract === 'FIFSADDR')
     ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
     : getRegisterData(domain, currentAddress, salt, durationBN);
 
-  const fifsAddress = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const fifsAddress = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const web3 = new Web3(window.ethereum);
   const rif = new web3.eth.Contract(
@@ -166,7 +183,7 @@ export const revealCommit = (domain, tokens, duration, setupAddr) => async (disp
         }
 
         localStorage.setItem('name', `${domain}.rsk`);
-        localStorage.removeItem(`${domain}-salt`);
+        localStorage.removeItem(`${domain}-options`);
 
         dispatch(receiveRevealCommit());
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
