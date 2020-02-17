@@ -121,7 +121,7 @@ class RentalPeriodComponent extends Component {
             <Alert variant="warning" dismissible="false">
               <p>{strings.not_enough_balance}</p>
               <a
-                href="https://www.rsk.co/#exchanges"
+                href="https://www.rifos.org/#rif-token"
                 target="_blank"
                 rel="noopener noreferrer"
               >
