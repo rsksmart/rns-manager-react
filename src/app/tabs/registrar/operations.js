@@ -16,6 +16,7 @@ import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
+import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
 
 export const getCost = (domain, duration) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
@@ -89,7 +90,7 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
 
           localStorage.setItem(`${domain}-options`, JSON.stringify({
             salt,
-            contract: setupAddr ? 'FIFSADDR' : 'FIFIS',
+            contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
           }));
 
           dispatch(receiveCommitRegistrar(hashCommit));
@@ -108,8 +109,9 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   options = JSON.parse(options);
   const { contract } = options;
 
-  const abi = (contract === 'FIFSADDR') ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
 
@@ -136,8 +138,9 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  const abi = (contract === 'FIFSADDR') ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
   return new Promise((resolve) => {
@@ -167,11 +170,12 @@ export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   const currentAddress = accounts[0];
   const durationBN = window.web3.toBigNumber(duration);
 
-  const data = (contract === 'FIFSADDR')
+  const data = (contract === FIFS_ADDR_REGISTRER)
     ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
     : getRegisterData(domain, currentAddress, salt, durationBN);
 
-  const fifsAddress = (contract === 'FIFSADDR') ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const fifsAddress = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const web3 = new Web3(window.ethereum);
   const rif = new web3.eth.Contract(

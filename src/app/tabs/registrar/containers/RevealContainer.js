@@ -19,15 +19,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // eslint-disable-next-line max-len
   revealCommit: (domain, rifCost, duration) => dispatch(revealCommit(domain, rifCost, duration)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  // eslint-disable-next-line max-len
-  revealCommit: () => dispatchProps.revealCommit(stateProps.domain, stateProps.rifCost, stateProps.duration),
+  revealCommit: () => dispatchProps.revealCommit(
+    stateProps.domain,
+    stateProps.rifCost,
+    stateProps.duration,
+  ),
 });
 
 export default connect(
