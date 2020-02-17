@@ -101,7 +101,9 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
 
 export const checkCanReveal = (hash, domain) => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(optionsNotFound());
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
 
   options = JSON.parse(options);
   const { contract } = options;
@@ -122,7 +124,9 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
 
 export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(optionsNotFound());
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
 
   options = JSON.parse(options);
   const { salt, contract } = options;
@@ -149,7 +153,9 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
 export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
-  if (!options) return dispatch(optionsNotFound());
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
 
   options = JSON.parse(options);
   const { salt, contract } = options;
