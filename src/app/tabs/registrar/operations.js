@@ -149,7 +149,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
       dispatch(receiveCommitRegistrar(hashCommit, true));
 
-      return resolve(dispatch(checkCanReveal(hashCommit)));
+      return resolve(dispatch(checkCanReveal(hashCommit, domain)));
     });
   });
 };
