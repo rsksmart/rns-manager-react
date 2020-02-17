@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { parse } from 'query-string';
 import { LoadingComponent } from '../components';
 import { checkCanReveal } from '../operations';
 
@@ -7,16 +8,17 @@ const mapStateToProps = state => ({
   hash: state.registrar.hash,
   setupAddr: state.registrar.setupAddr,
   commitConfirmed: state.registrar.commitConfirmed,
+  domain: parse(state.router.location.search).domain,
 });
 
 const mapDispatchToProps = dispatch => ({
-  checkCanReveal: (hashCommit, setupAddr) => dispatch(checkCanReveal(hashCommit, setupAddr)),
+  checkCanReveal: (hashCommit, domain) => dispatch(checkCanReveal(hashCommit, domain)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash, stateProps.setupAddr),
+  checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash, stateProps.domain),
 });
 
 export default connect(
