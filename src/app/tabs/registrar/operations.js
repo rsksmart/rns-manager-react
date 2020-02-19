@@ -56,7 +56,7 @@ export const getConversionRate = () => async (dispatch) => {
   });
 };
 
-export const commit = (domain, setupAddr) => async (dispatch) => {
+export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
@@ -90,6 +90,8 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
 
           localStorage.setItem(`${domain}-options`, JSON.stringify({
             salt,
+            duration,
+            rifCost,
             contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
           }));
 
@@ -154,18 +156,18 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   });
 };
 
-export const revealCommit = (domain, tokens, duration) => async (dispatch) => {
+export const revealCommit = domain => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
   if (!options) {
     return dispatch(optionsNotFound());
   }
 
   options = JSON.parse(options);
-  const { salt, contract } = options;
+  const { salt, contract, duration, rifCost } = options;
 
   dispatch(requestRevealCommit());
 
-  const weiValue = tokens * (10 ** 18);
+  const weiValue = rifCost * (10 ** 18);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const durationBN = window.web3.toBigNumber(duration);

@@ -10,10 +10,12 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
   hasBalance: state.registrar.hasBalance,
   setupAddr: state.registrar.setupAddr,
+  duration: state.registrar.duration,
+  rifCost: state.registrar.rifCost,
 });
 
 const mapDispatchToProps = dispatch => ({
-  doCommitment: (domain, setupAddr) => dispatch(commit(domain, setupAddr)),
+  doCommitment: (domain, duration, rifCost, setupAddr) => dispatch(commit(domain, duration, rifCost, setupAddr)),
   checkIfAlreadyCommitted: domain => dispatch(checkIfAlreadyCommitted(domain)),
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
 });
@@ -21,7 +23,12 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  doCommitment: () => dispatchProps.doCommitment(stateProps.domain, stateProps.setupAddr),
+  doCommitment: () => dispatchProps.doCommitment(
+    stateProps.domain,
+    stateProps.duration,
+    stateProps.rifCost,
+    stateProps.setupAddr,
+  ),
   checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain),
   toggleSetupAddr: () => dispatchProps.toggleSetupAddr(stateProps.setupAddr),
 });
