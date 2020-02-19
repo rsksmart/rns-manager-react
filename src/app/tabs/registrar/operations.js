@@ -163,7 +163,12 @@ export const revealCommit = domain => async (dispatch) => {
   }
 
   options = JSON.parse(options);
-  const { salt, contract, duration, rifCost } = options;
+  const {
+    salt,
+    contract,
+    duration,
+    rifCost,
+  } = options;
 
   dispatch(requestRevealCommit());
 

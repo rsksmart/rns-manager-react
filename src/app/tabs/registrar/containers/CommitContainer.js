@@ -15,7 +15,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  doCommitment: (domain, duration, rifCost, setupAddr) => dispatch(commit(domain, duration, rifCost, setupAddr)),
+  doCommitment: (domain, duration, rifCost, setupAddr) => dispatch(commit(
+    domain,
+    duration,
+    rifCost,
+    setupAddr,
+  )),
   checkIfAlreadyCommitted: domain => dispatch(checkIfAlreadyCommitted(domain)),
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
 });
