@@ -38,6 +38,7 @@
     "build:testnet": "env-cmd -f .env.testnet react-scripts build",
     "build:mainnet": "env-cmd -f .env.production react-scripts build",
     "test": "jest && eslint src",
+    "test:watch": "jest --watch",
     "lint": "eslint src"
   },
   "eslintConfig": {
@@ -50,15 +51,33 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "7.14.3"
+    "eslint-plugin-react": "7.14.3",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
+    "redux-mock-store": "^1.5.4"
   },
   "resolutions": {
     "lodash": "^4.17.14",
     "lodash.template": "^4.5.0",
     "eslint-utils": "^1.4.1"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./tests/setupTests.js",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "testEnvironment": "enzyme",
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
   }
 }
