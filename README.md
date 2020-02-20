@@ -73,6 +73,25 @@ yarn start:testnet
 yarn build:testnet
 ```
 
+## Testing
+
+Run the linter and a single test run:
+
+```
+yarn test
+```
+
+Run a test watcher:
+
+```
+yarn test:watch
+```
+
+Update snapshots and run watcher:
+```
+yarn test:watch -u
+```
+
 ## Running production builds
 
 Mainnet:
