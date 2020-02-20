@@ -6,15 +6,20 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 class LoadingComponent extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { intervalId: false };
+
     this.checkStatus = this.checkStatus.bind(this);
   }
 
   componentDidMount() {
-    this.intervalId = setInterval(this.checkStatus, 3000);
+    const intervalId = setInterval(this.checkStatus, 3000);
+    this.setState({ intervalId });
   }
 
   componentWillUnmount() {
-    clearInterval(this.intervalId);
+    const { intervalId } = this.state;
+    clearInterval(intervalId);
   }
 
   checkStatus() {
