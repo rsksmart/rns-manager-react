@@ -4,6 +4,7 @@ import { parse } from 'query-string';
 import { DomainStateComponent } from '../components';
 import getDomainState from '../operations';
 import { resetRegistrarState } from '../../registrar/actions';
+import { checkBrowserNotifications } from '../../../browerNotifications/operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || '',
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
   registerDomain: (domain) => {
     dispatch(resetRegistrarState());
     dispatch(push(`/registrar?domain=${domain}`));
+    dispatch(checkBrowserNotifications());
   },
 });
 
