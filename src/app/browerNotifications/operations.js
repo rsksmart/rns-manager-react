@@ -1,7 +1,8 @@
 import { requestBrowserNotifications, recieveBrowserNotifications } from './actions';
 import { DENIED, GRANTED } from './types';
+import configureStore from '../../configureStore';
 
-export const checkBrowserNotifications = (dispatch) => {
+export const checkBrowserNotifications = () => (dispatch) => {
   dispatch(requestBrowserNotifications());
 
   if (!('Notification' in window) || Notification.permission === DENIED) {
@@ -25,10 +26,23 @@ export const checkBrowserNotifications = (dispatch) => {
   return dispatch(recieveBrowserNotifications(DENIED));
 };
 
-export const sendNotification = (permission, message) => {
-  if (permission !== GRANTED) {
-    checkBrowserNotifications();
+const getLanguageString = (string) => {
+  const store = configureStore();
+  const state = store.getState();
+  const strings = state.multilanguage.languages[state.multilanguage.currentLanguageCode];
+  return strings[string];
+};
+
+export const sendBrowserNotification = (title, string) => {
+  if (Notification.permission === DENIED) {
+    return;
   }
 
-  Notification(message);
+  const options = {
+    icon: '/assets/favicons/favicon-32x32.png',
+    body: getLanguageString(string),
+  };
+
+  const userNotification = new Notification(title, options);
+  setTimeout(userNotification.close.bind(userNotification), 8000);
 };

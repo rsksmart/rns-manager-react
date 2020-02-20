@@ -247,5 +247,6 @@
   "how_long_want_domain": "How long do you want your domain",
   "period_in_years": "period in years",
   "auto_address_setup": "Automatic address setup",
-  "auto_address_explanation": "If you choose this option, your wallet address will automatically be set as the resolved address of your domain."
+  "auto_address_explanation": "If you choose this option, your wallet address will automatically be set as the resolved address of your domain.",
+  "notification_domain_ready_register": "Your domain is ready to be registered"
 }
