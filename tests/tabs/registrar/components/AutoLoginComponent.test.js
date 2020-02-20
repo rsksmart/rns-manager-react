@@ -28,6 +28,7 @@ describe('AutoLoginComponent', () => {
   it('should matches snapshot', () => {
     expect(component).toMatchSnapshot();
   });
+
   it('should call functions when buttons are clicked', () => {
     const buttons = component.find('.btn-primary');
 
