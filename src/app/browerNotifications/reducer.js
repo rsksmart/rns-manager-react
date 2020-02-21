@@ -9,11 +9,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_BROWSER_NOTIFICATIONS: return {
       ...initialState,
-      requesting: action.requesting,
+      requesting: true,
     };
     case RECIEVE_BROWSER_NOTIFICATIONS: return {
       ...initialState,
-      requesting: true,
+      requesting: false,
       permission: action.result,
     };
     default: return state;

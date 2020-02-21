@@ -13,20 +13,11 @@ export const checkBrowserNotifications = () => (dispatch) => {
     return dispatch(recieveBrowserNotifications(GRANTED));
   }
 
-  if (Notification.permission !== DENIED) {
-    Notification.requestPermission()
-      .then((permission) => {
-        if (permission === GRANTED) {
-          return dispatch(recieveBrowserNotifications(GRANTED));
-        }
-        return dispatch(recieveBrowserNotifications(DENIED));
-      });
-  }
-
-  return dispatch(recieveBrowserNotifications(DENIED));
+  Notification.requestPermission()
+    .then(permission => dispatch(recieveBrowserNotifications(permission)));
 };
 
-const getLanguageString = (string) => {
+export const getLanguageString = (string) => {
   const store = configureStore();
   const state = store.getState();
   const strings = state.multilanguage.languages[state.multilanguage.currentLanguageCode];
