@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import mockStore from '../../../config/mockStore';
-import en from '../../../../src/languages/en.json';
+import mockStore from '../../../../../tests/config/mockStore';
+import en from '../../../../languages/en.json';
 
-import AutoLoginComponent from '../../../../src/app/tabs/registrar/components/AutoLoginComponent';
+import AutoLoginComponent from './AutoLoginComponent';
 
 const store = mockStore({
   log_in: en.log_in,
