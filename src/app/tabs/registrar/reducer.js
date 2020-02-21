@@ -95,7 +95,6 @@ const registrar = (state = initialState, action) => {
     };
     case ERROR_CONVERSION_RATE: return {
       ...state,
-      conversionRate: 0,
       gettingConversionRate: false,
     };
     case TOGGLE_SETUP_ADDRESS: return {
