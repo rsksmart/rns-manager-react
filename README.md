@@ -2,6 +2,11 @@
 
 # `rns-manager-react`
 
+[![CircleCI](https://circleci.com/gh/rnsdomains/rns-manager-react.svg?style=svg)](https://circleci.com/gh/circrnsdomains/rns-manager-react)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rnsdomains/rns-manager-react/context:javascript)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rnsdomains_rns-manager-react&metric=alert_status)](https://sonarcloud.io/dashboard?id=rnsdomains_rns-manager-react)
+
 Live at https://beta.manager.rns.rifos.org
 
 ## Setup
