@@ -7,11 +7,17 @@ import {
 import {
   rskOwner as rskOwnerAddress,
   fifsRegistrar as fifsRegistrarAddress,
+  registrar as auctionRegistrarAddress,
 } from '../../adapters/configAdapter';
 
 import { notifyError } from '../../notifications';
 import { rskNode } from '../../adapters/nodeAdapter';
-import { rskOwnerAbi, fifsRegistrarAbi } from './abis.json';
+import {
+  rskOwnerAbi,
+  fifsRegistrarAbi,
+  auctionRegistrarAbi,
+  deedRegistrarAbi,
+} from './abis.json';
 
 export default domain => (dispatch) => {
   if (!domain) {
@@ -33,8 +39,25 @@ export default domain => (dispatch) => {
       if (!available) {
         dispatch(receiveDomainState(false));
         dispatch(requestDomainOwner());
-        return rskOwner.methods.ownerOf(hash).call()
-          .then(owner => dispatch(receiveDomainOwner(owner)))
+
+        const auctionRegistrar = new web3.eth.Contract(
+          auctionRegistrarAbi,
+          auctionRegistrarAddress,
+        );
+
+        auctionRegistrar.methods.entries(hash).call()
+          .then((results) => {
+            if (results[0] === '2') {
+              const deedContract = new web3.eth.Contract(deedRegistrarAbi, results[1]);
+              return deedContract.methods.owner().call()
+                .then(owner => dispatch(receiveDomainOwner(owner)))
+                .catch(error => dispatch(notifyError(error.message)));
+            }
+
+            return rskOwner.methods.ownerOf(hash).call()
+              .then(owner => dispatch(receiveDomainOwner(owner)))
+              .catch(error => dispatch(notifyError(error.message)));
+          })
           .catch(error => dispatch(notifyError(error.message)));
       }
 
