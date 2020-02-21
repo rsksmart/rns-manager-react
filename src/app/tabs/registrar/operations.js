@@ -5,7 +5,7 @@ import {
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
   errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
-  requestConversionRate, recieveConversionRate,
+  requestConversionRate, recieveConversionRate, errorConversionRate,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -50,9 +50,7 @@ export const getConversionRate = () => async (dispatch) => {
     fetch('https://api.coinmarketcap.com/v1/ticker/rif-token/')
       .then(res => res.json())
       .then(data => resolve(dispatch(recieveConversionRate(parseFloat(data[0].price_usd)))))
-      .catch((error) => {
-        resolve(dispatch(notifyError(error)));
-      });
+      .catch(() => dispatch(errorConversionRate()));
   });
 };
 

@@ -95,7 +95,7 @@ class RentalPeriodComponent extends Component {
             rif
           </p>
           <p className="usdPrice">
-            {!gettingConversionRate && <>{`$${usdAmount} USD`}</> }
+            {(!gettingConversionRate && conversionRate) && <>{`$${usdAmount} USD`}</> }
           </p>
         </div>
       </div>
