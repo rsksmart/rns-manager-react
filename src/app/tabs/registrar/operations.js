@@ -17,6 +17,7 @@ import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
+import { sendBrowserNotification } from '../../browerNotifications/operations';
 
 export const getCost = (domain, duration) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
@@ -94,7 +95,10 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
           }));
 
           dispatch(receiveCommitRegistrar(hashCommit));
-          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
+
+          const confirmedCallBack = () => { dispatch(commitTxMined()); };
+
+          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => confirmedCallBack)));
         });
       });
   });
@@ -118,7 +122,9 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   return new Promise((resolve) => {
     registrar.canReveal(hash, (error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
-
+      if (canReveal) {
+        sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
+      }
       return dispatch(receiveCanRevealCommit(canReveal));
     });
   });
@@ -201,7 +207,11 @@ export const revealCommit = domain => async (dispatch) => {
         localStorage.removeItem(`${domain}-options`);
 
         dispatch(receiveRevealCommit());
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
+        const revealCallback = () => {
+          dispatch(revealTxMined());
+          sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+        };
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => revealCallback)));
       });
   });
 };

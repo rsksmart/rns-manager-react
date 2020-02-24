@@ -1,8 +1,10 @@
 import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-const mockStore = (languages) => {
-  const mock = configureMockStore([]);
-  const initialState = {
+const mockStore = (languages, initialState) => {
+  const mock = configureMockStore([thunk]);
+  const state = {
+    ...initialState,
     multilanguage: {
       currentLanguageCode: 'en',
       languages: {
@@ -10,7 +12,7 @@ const mockStore = (languages) => {
       },
     },
   };
-  return mock(() => initialState);
+  return mock(() => state);
 };
 
 export default mockStore;
