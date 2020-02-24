@@ -96,10 +96,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
 
           dispatch(receiveCommitRegistrar(hashCommit));
 
-          const confirmedCallBack = () => {
-            dispatch(commitTxMined());
-            sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_committed');
-          };
+          const confirmedCallBack = () => { dispatch(commitTxMined()); };
 
           return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => confirmedCallBack)));
         });
