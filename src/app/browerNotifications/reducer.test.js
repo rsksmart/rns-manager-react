@@ -2,7 +2,6 @@ import reducer from './reducer';
 import { REQUEST_BROWSER_NOTIFICATIONS, RECIEVE_BROWSER_NOTIFICATIONS, GRANTED } from './types';
 
 describe('browserNotifications reducer', () => {
-
   const initialState = {
     permission: 'default',
     requesting: false,
