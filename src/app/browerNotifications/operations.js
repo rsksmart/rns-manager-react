@@ -1,6 +1,7 @@
 import { requestBrowserNotifications, recieveBrowserNotifications } from './actions';
 import { DENIED, GRANTED } from './types';
 import configureStore from '../../configureStore';
+import notificationIcon from '../../assets/img/notification-icon.png';
 
 export const checkBrowserNotifications = () => (dispatch) => {
   dispatch(requestBrowserNotifications());
@@ -13,7 +14,7 @@ export const checkBrowserNotifications = () => (dispatch) => {
     return dispatch(recieveBrowserNotifications(GRANTED));
   }
 
-  Notification.requestPermission()
+  return Notification.requestPermission()
     .then(permission => dispatch(recieveBrowserNotifications(permission)));
 };
 
@@ -30,7 +31,7 @@ export const sendBrowserNotification = (title, string) => {
   }
 
   const options = {
-    icon: '/assets/favicons/favicon-32x32.png',
+    icon: notificationIcon,
     body: getLanguageString(string),
   };
 

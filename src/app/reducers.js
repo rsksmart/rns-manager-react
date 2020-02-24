@@ -3,7 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import tabReducers from './tabs';
 import authReducer from './auth';
 import notificationReducer from './notifications';
-import browserNotificationsReducer from './browerNotifications/reducer';
+import browserNotificationsReducer from './browerNotifications';
 import multilanguage from './multilanguageReducer';
 
 const rootReducer = history => combineReducers({
