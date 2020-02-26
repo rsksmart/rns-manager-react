@@ -7,6 +7,7 @@ import {
   RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
 import { isValidName } from '../../../validations';
+import { StartButtonContainer } from '../../../auth/containers';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class RegistrarComponent extends Component {
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
-      committed, waiting, canReveal, revealConfirmed,
+      committed, waiting, canReveal, revealConfirmed, walletAddress,
     } = this.props;
     const { invalid } = this.state;
 
@@ -86,6 +87,7 @@ class RegistrarComponent extends Component {
           </Card.Text>
         );
       } else {
+        const isOwner = walletAddress === owner.toLowerCase();
         elementToRender = (
           <Card>
             <Card.Header>{strings.owned}</Card.Header>
@@ -98,7 +100,8 @@ class RegistrarComponent extends Component {
                 {owner}
               </p>
               <p>
-                <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link>
+                {isOwner && <StartButtonContainer />}
+                {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
               </p>
             </Card.Body>
           </Card>
@@ -170,6 +173,7 @@ RegistrarComponent.propTypes = {
   owned: propTypes.bool,
   blocked: propTypes.bool,
   owner: propTypes.string,
+  walletAddress: propTypes.bool.isRequired,
   requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   committed: propTypes.bool.isRequired,

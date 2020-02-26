@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   domainStateLoading: state.search.domainStateLoading,
   owned: state.search.owned,
   owner: state.search.owner,
+  walletAddress: state.auth.address,
   blocked: state.search.blocked,
   requestingOwner: state.search.requestingOwner,
   committed: state.registrar.committed,
