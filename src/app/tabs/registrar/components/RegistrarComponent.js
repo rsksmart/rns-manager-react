@@ -20,8 +20,9 @@ class RegistrarComponent extends Component {
   }
 
   componentDidMount() {
-    const { domain, getState } = this.props;
+    const { domain, getState, checkIfAlreadyRegistered } = this.props;
     if (domain && this.validate() && getState) getState(domain);
+    checkIfAlreadyRegistered(domain);
   }
 
   validate() {
@@ -175,6 +176,7 @@ RegistrarComponent.propTypes = {
   waiting: propTypes.bool.isRequired,
   canReveal: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool.isRequired,
+  checkIfAlreadyRegistered: propTypes.func.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

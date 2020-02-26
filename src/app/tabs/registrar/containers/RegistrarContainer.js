@@ -2,7 +2,7 @@ import { parse } from 'query-string';
 import { connect } from 'react-redux';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
-
+import { checkIfAlreadyRegistered } from '../operations';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
+  checkIfAlreadyRegistered: domain => dispatch(checkIfAlreadyRegistered(domain)),
 });
 
 export default connect(

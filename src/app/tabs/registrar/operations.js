@@ -203,15 +203,45 @@ export const revealCommit = domain => async (dispatch) => {
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        localStorage.setItem('name', `${domain}.rsk`);
-        localStorage.removeItem(`${domain}-options`);
+        localStorage.setItem(`${domain}-options`, JSON.stringify({
+          ...options,
+          registerHash: result,
+        }));
 
         dispatch(receiveRevealCommit());
         const revealCallback = () => {
           dispatch(revealTxMined());
           sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+          localStorage.setItem('name', `${domain}.rsk`);
+          localStorage.removeItem(`${domain}-options`);
         };
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => revealCallback)));
       });
   });
+};
+
+export const checkIfAlreadyRegistered = domain => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  options = JSON.parse(options);
+
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  if (!options.registerHash) {
+    return false;
+  }
+
+  const web3 = new Web3(window.ethereum);
+
+  return web3.eth.getTransactionReceipt(options.registerHash)
+    .then((result) => {
+      if (result) {
+        dispatch(revealTxMined());
+        sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+        localStorage.setItem('name', `${domain}.rsk`);
+        localStorage.removeItem(`${domain}-options`);
+      }
+      return dispatch(receiveRevealCommit());
+    });
 };
