@@ -220,10 +220,9 @@ export const revealCommit = domain => async (dispatch) => {
   });
 };
 
-export const checkIfAlreadyRegistered = domain => async (dispatch) => {
+export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
   let options = localStorage.getItem(`${domain}-options`);
   options = JSON.parse(options);
-
   if (!options) {
     return dispatch(optionsNotFound());
   }
@@ -236,12 +235,19 @@ export const checkIfAlreadyRegistered = domain => async (dispatch) => {
 
   return web3.eth.getTransactionReceipt(options.registerHash)
     .then((result) => {
+      let intervalId = intId;
       if (result) {
+        clearInterval(intervalId);
         dispatch(revealTxMined());
         sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
         localStorage.setItem('name', `${domain}.rsk`);
         localStorage.removeItem(`${domain}-options`);
       }
-      return dispatch(receiveRevealCommit());
+
+      dispatch(requestRevealCommit());
+      if (!intervalId) {
+        const checkAgain = () => dispatch(checkIfAlreadyRegistered(domain, intervalId));
+        intervalId = setInterval(checkAgain, 5000);
+      }
     });
 };
