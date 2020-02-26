@@ -67,7 +67,6 @@ export default (state = initialState, action) => {
       name: action.name,
       storageName: action.name,
       isOwner: action.isOwner,
-      showModal: !action.isOwner,
     };
     case types.ERROR_LOGIN: return {
       ...state,
