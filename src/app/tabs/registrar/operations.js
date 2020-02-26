@@ -236,7 +236,7 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
   return web3.eth.getTransactionReceipt(options.registerHash)
     .then((result) => {
       let intervalId = intId;
-      if (result) {
+      if (result && result.status) {
         clearInterval(intervalId);
         dispatch(revealTxMined());
         sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
