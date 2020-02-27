@@ -111,7 +111,7 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   }
 
   options = JSON.parse(options);
-  const { contract } = options;
+  const { contract, notificationReady } = options;
 
   const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
   const address = (contract === FIFS_ADDR_REGISTRER)
@@ -122,9 +122,13 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   return new Promise((resolve) => {
     registrar.canReveal(hash, (error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
-      if (canReveal) {
+      if (canReveal && !notificationReady) {
         sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
       }
+      localStorage.setItem(`${domain}-options`, JSON.stringify({
+        ...options,
+        notificationReady: true,
+      }));
       return dispatch(receiveCanRevealCommit(canReveal));
     });
   });
@@ -203,15 +207,51 @@ export const revealCommit = domain => async (dispatch) => {
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        localStorage.setItem('name', `${domain}.rsk`);
-        localStorage.removeItem(`${domain}-options`);
+        localStorage.setItem(`${domain}-options`, JSON.stringify({
+          ...options,
+          registerHash: result,
+        }));
 
         dispatch(receiveRevealCommit());
         const revealCallback = () => {
           dispatch(revealTxMined());
           sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+          localStorage.setItem('name', `${domain}.rsk`);
+          localStorage.removeItem(`${domain}-options`);
         };
         return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => revealCallback)));
       });
   });
+};
+
+export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  options = JSON.parse(options);
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  if (!options.registerHash) {
+    return false;
+  }
+
+  const web3 = new Web3(window.ethereum);
+
+  return web3.eth.getTransactionReceipt(options.registerHash)
+    .then((result) => {
+      let intervalId = intId;
+      if (result && result.status) {
+        clearInterval(intervalId);
+        dispatch(revealTxMined());
+        sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+        localStorage.setItem('name', `${domain}.rsk`);
+        localStorage.removeItem(`${domain}-options`);
+      }
+
+      dispatch(requestRevealCommit());
+      if (!intervalId) {
+        const checkAgain = () => dispatch(checkIfAlreadyRegistered(domain, intervalId));
+        intervalId = setInterval(checkAgain, 5000);
+      }
+    });
 };
