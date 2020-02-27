@@ -111,7 +111,7 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   }
 
   options = JSON.parse(options);
-  const { contract } = options;
+  const { contract, notificationReady } = options;
 
   const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
   const address = (contract === FIFS_ADDR_REGISTRER)
@@ -122,9 +122,13 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   return new Promise((resolve) => {
     registrar.canReveal(hash, (error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
-      if (canReveal) {
+      if (canReveal && !notificationReady) {
         sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
       }
+      localStorage.setItem(`${domain}-options`, JSON.stringify({
+        ...options,
+        notificationReady: true,
+      }));
       return dispatch(receiveCanRevealCommit(canReveal));
     });
   });
