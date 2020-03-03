@@ -9,6 +9,11 @@
 
 Live at https://manager.rns.rifos.org
 
+## Requisites
+
+- [Node v12](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com/)
+
 ## Setup
 
 Install dependencies:
