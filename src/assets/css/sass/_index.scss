@@ -1,6 +1,7 @@
 $gray: #919191;
 $light-gray: #f7f7f7;
 $blue: #008CFF;
+$white: #ffffff;
 
 @import 'layout';
 @import 'header';
@@ -14,3 +15,4 @@ $blue: #008CFF;
 @import 'registration/commit-step';
 @import 'setupTab/setup';
 @import 'admin/index';
+@import 'components/index';
