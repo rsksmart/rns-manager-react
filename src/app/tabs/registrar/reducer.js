@@ -2,9 +2,9 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
-  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS,
+  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS, ERROR_CONVERSION_RATE,
 } from './types';
 
 const initialState = {
@@ -80,7 +80,7 @@ const registrar = (state = initialState, action) => {
       ...state,
       revealConfirmed: true,
     };
-    case SALT_NOT_FOUND: return {
+    case OPTIONS_NOT_FOUND: return {
       ...state,
       ...initialState,
     };
@@ -91,6 +91,10 @@ const registrar = (state = initialState, action) => {
     case RECEIVE_CONVERSION_RATE: return {
       ...state,
       conversionRate: action.conversionRate,
+      gettingConversionRate: false,
+    };
+    case ERROR_CONVERSION_RATE: return {
+      ...state,
       gettingConversionRate: false,
     };
     case TOGGLE_SETUP_ADDRESS: return {

@@ -2,9 +2,10 @@ import {
   REQUEST_REGISTRAR_GET_COST, RECEIVE_REGISTRAR_GET_COST,
   REQUEST_REGISTRAR_COMMIT, RECEIVE_REGISTRAR_COMMIT, ERROR_REGISTRAR_COMMIT,
   REQUEST_REGISTRAR_REVEAL_COMMIT, RECEIVE_REGISTRAR_REVEAL_COMMIT,
-  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, SALT_NOT_FOUND,
+  RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
-  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS,
+  REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
+  TOGGLE_SETUP_ADDRESS,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -49,8 +50,8 @@ export const receiveCanRevealCommit = canReveal => ({
   canReveal,
 });
 
-export const saltNotFound = () => ({
-  type: SALT_NOT_FOUND,
+export const optionsNotFound = () => ({
+  type: OPTIONS_NOT_FOUND,
 });
 
 export const commitTxMined = () => ({
@@ -72,6 +73,10 @@ export const requestConversionRate = () => ({
 export const recieveConversionRate = conversionRate => ({
   type: RECEIVE_CONVERSION_RATE,
   conversionRate,
+});
+
+export const errorConversionRate = () => ({
+  type: ERROR_CONVERSION_RATE,
 });
 
 export const toggleSetupAddr = setupAddr => ({

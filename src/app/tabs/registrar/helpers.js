@@ -21,7 +21,6 @@ function utf8ToHexString(string) {
  * @param {hex} secret of the commit
  * @param {BN} duration to register in years
  */
-// eslint-disable-next-line import/prefer-default-export
 export const getRegisterData = (name, owner, secret, duration) => {
   // 0x + 8 bytes
   const dataSignature = '0xc2c414c8';

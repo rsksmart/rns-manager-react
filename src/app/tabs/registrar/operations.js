@@ -4,8 +4,8 @@ import {
   requestGetCost, receiveGetCost,
   requestCommitRegistrar, receiveCommitRegistrar, errorRegistrarCommit,
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
-  errorRevealCommit, saltNotFound, commitTxMined, revealTxMined,
-  requestConversionRate, recieveConversionRate,
+  errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
+  requestConversionRate, recieveConversionRate, errorConversionRate,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -16,6 +16,8 @@ import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import { notifyError, notifyTx, txTypes } from '../../notifications';
 import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
+import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
+import { sendBrowserNotification } from '../../browerNotifications/operations';
 
 export const getCost = (domain, duration) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
@@ -49,13 +51,11 @@ export const getConversionRate = () => async (dispatch) => {
     fetch('https://api.coinmarketcap.com/v1/ticker/rif-token/')
       .then(res => res.json())
       .then(data => resolve(dispatch(recieveConversionRate(parseFloat(data[0].price_usd)))))
-      .catch((error) => {
-        resolve(dispatch(notifyError(error)));
-      });
+      .catch(() => dispatch(errorConversionRate()));
   });
 };
 
-export const commit = (domain, setupAddr) => async (dispatch) => {
+export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
@@ -87,41 +87,70 @@ export const commit = (domain, setupAddr) => async (dispatch) => {
             return resolve(dispatch(notifyError(_error.message)));
           }
 
-          localStorage.setItem(`${domain}-salt`, salt);
+          localStorage.setItem(`${domain}-options`, JSON.stringify({
+            salt,
+            duration,
+            rifCost,
+            contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
+          }));
+
           dispatch(receiveCommitRegistrar(hashCommit));
-          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => dispatch(commitTxMined()))));
+
+          const confirmedCallBack = () => { dispatch(commitTxMined()); };
+
+          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => confirmedCallBack)));
         });
       });
   });
 };
 
-export const checkCanReveal = (hash, setupAddr) => async (dispatch) => {
-  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+export const checkCanReveal = (hash, domain) => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  options = JSON.parse(options);
+  const { contract, notificationReady } = options;
+
+  const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
 
   return new Promise((resolve) => {
     registrar.canReveal(hash, (error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
-
+      if (canReveal && !notificationReady) {
+        sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
+      }
+      localStorage.setItem(`${domain}-options`, JSON.stringify({
+        ...options,
+        notificationReady: true,
+      }));
       return dispatch(receiveCanRevealCommit(canReveal));
     });
   });
 };
 
-export const checkIfAlreadyCommitted = (domain, setupAddr) => async (dispatch) => {
-  const salt = localStorage.getItem(`${domain}-salt`);
+export const checkIfAlreadyCommitted = domain => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
 
-  if (!salt) return dispatch(saltNotFound());
+  options = JSON.parse(options);
+  const { salt, contract } = options;
 
   dispatch(requestCommitRegistrar());
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
-  const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
+  const address = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const registrar = window.web3.eth.contract(abi).at(address);
   return new Promise((resolve) => {
@@ -130,25 +159,38 @@ export const checkIfAlreadyCommitted = (domain, setupAddr) => async (dispatch) =
 
       dispatch(receiveCommitRegistrar(hashCommit, true));
 
-      return resolve(dispatch(checkCanReveal(hashCommit)));
+      return resolve(dispatch(checkCanReveal(hashCommit, domain)));
     });
   });
 };
 
-export const revealCommit = (domain, tokens, duration, setupAddr) => async (dispatch) => {
+export const revealCommit = domain => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  options = JSON.parse(options);
+  const {
+    salt,
+    contract,
+    duration,
+    rifCost,
+  } = options;
+
   dispatch(requestRevealCommit());
 
-  const weiValue = tokens * (10 ** 18);
-  const salt = localStorage.getItem(`${domain}-salt`);
+  const weiValue = rifCost * (10 ** 18);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const durationBN = window.web3.toBigNumber(duration);
 
-  const data = setupAddr
+  const data = (contract === FIFS_ADDR_REGISTRER)
     ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
     : getRegisterData(domain, currentAddress, salt, durationBN);
 
-  const fifsAddress = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
+  const fifsAddress = (contract === FIFS_ADDR_REGISTRER)
+    ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
   const web3 = new Web3(window.ethereum);
   const rif = new web3.eth.Contract(
@@ -165,11 +207,51 @@ export const revealCommit = (domain, tokens, duration, setupAddr) => async (disp
           return resolve(dispatch(notifyError(error.message)));
         }
 
-        localStorage.setItem('name', `${domain}.rsk`);
-        localStorage.removeItem(`${domain}-salt`);
+        localStorage.setItem(`${domain}-options`, JSON.stringify({
+          ...options,
+          registerHash: result,
+        }));
 
         dispatch(receiveRevealCommit());
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => dispatch(revealTxMined()))));
+        const revealCallback = () => {
+          dispatch(revealTxMined());
+          sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+          localStorage.setItem('name', `${domain}.rsk`);
+          localStorage.removeItem(`${domain}-options`);
+        };
+        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => revealCallback)));
       });
   });
+};
+
+export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
+  let options = localStorage.getItem(`${domain}-options`);
+  options = JSON.parse(options);
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  if (!options.registerHash) {
+    return false;
+  }
+
+  const web3 = new Web3(window.ethereum);
+
+  return web3.eth.getTransactionReceipt(options.registerHash)
+    .then((result) => {
+      let intervalId = intId;
+      if (result && result.status) {
+        clearInterval(intervalId);
+        dispatch(revealTxMined());
+        sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
+        localStorage.setItem('name', `${domain}.rsk`);
+        localStorage.removeItem(`${domain}-options`);
+      }
+
+      dispatch(requestRevealCommit());
+      if (!intervalId) {
+        const checkAgain = () => dispatch(checkIfAlreadyRegistered(domain, intervalId));
+        intervalId = setInterval(checkAgain, 5000);
+      }
+    });
 };

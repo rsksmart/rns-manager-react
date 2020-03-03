@@ -12,6 +12,7 @@ import {
   errorLogin,
   errorEnable,
   logOut,
+  closeModal,
 } from './actions';
 
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
@@ -40,10 +41,8 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
       if (error) return resolve(dispatch(errorLogin(error)));
 
       if (address !== result) {
-        if (!noRedirect) {
-          return resolve(dispatch(receiveLogin(name, false)));
-        }
-        return null;
+        localStorage.removeItem('name');
+        return resolve(dispatch(receiveLogin(name, false)));
       }
 
       dispatch(checkResolver(name));
@@ -54,6 +53,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 
       localStorage.setItem('name', name);
 
+      dispatch(closeModal());
       return resolve(dispatch(receiveLogin(name, true)));
     });
   });
@@ -83,6 +83,8 @@ export const start = callback => (dispatch) => {
       })
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
+
+    window.ethereum.on('accountsChanged', () => dispatch(start()));
   }
 };
 
