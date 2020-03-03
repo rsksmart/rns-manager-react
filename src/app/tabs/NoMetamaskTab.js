@@ -4,10 +4,8 @@ import {
   Container, Row, Col, Image, Button,
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { multilanguage } from 'redux-multilanguage';
 import rskWallet from '../../assets/rsk_wallet.png';
-import { changeMyCryptoMetamask } from './user/operations';
 
 const setMyCryptoButton = ({ setMyCrypto, viewMyCrypto, children }) => (
   <Button onClick={() => setMyCrypto(viewMyCrypto)}>{children}</Button>
@@ -19,12 +17,7 @@ setMyCryptoButton.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  setMyCrypto: (viewMyCrypto) => {
-    dispatch(changeMyCryptoMetamask(viewMyCrypto));
-    dispatch(push('/search'));
-  },
-});
+const mapDispatchToProps = () => ({});
 
 const SetMyCryptoButton = connect(null, mapDispatchToProps)(setMyCryptoButton);
 
@@ -41,8 +34,6 @@ const NoMetamaskTab = multilanguage(({ strings }) => (
           <Col>
             <p>{strings.rsk_wallet_needed}</p>
             <Button onClick={() => window.open('https://metamask.io', '_blank')}>{strings.get_metamask}</Button>
-            <span> or </span>
-            <SetMyCryptoButton viewMyCrypto>{strings.use_with_mycrypto}</SetMyCryptoButton>
           </Col>
         </Row>
         <hr />
