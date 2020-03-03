@@ -83,9 +83,9 @@ export const start = callback => (dispatch) => {
       })
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
-  }
 
-  window.ethereum.on('accountsChanged', () => dispatch(start()));
+    window.ethereum.on('accountsChanged', () => dispatch(start()));
+  }
 };
 
 export const logoutManager = () => (dispatch) => {
