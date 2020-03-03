@@ -5,7 +5,6 @@ import strResolver from './stringResolver';
 import resolve from './resolve';
 import search from './search';
 import registrar from './registrar';
-import user from './user';
 import renew from './renew';
 import error from './error';
 
@@ -17,7 +16,6 @@ export default {
   search,
   registrar,
   resolve,
-  user,
   renew,
   error,
 };
