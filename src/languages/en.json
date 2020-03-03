@@ -248,5 +248,7 @@
   "period_in_years": "period in years",
   "auto_address_setup": "Automatic address setup",
   "auto_address_explanation": "If you choose this option, your wallet address will automatically be set as the resolved address of your domain.",
-  "notification_domain_ready_register": "Your domain is ready to be registered"
+  "notification_domain_ready_register": "Your domain is ready to be registered",
+  "advanced": "Advanced",
+  "basic": "Basic"
 }
