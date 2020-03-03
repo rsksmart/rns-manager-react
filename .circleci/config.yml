@@ -6,6 +6,6 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run: npm i -g yarn
+      - run: sudo npm i -g yarn
       - run: yarn
       - run: yarn test
