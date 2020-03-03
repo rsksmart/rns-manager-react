@@ -24,7 +24,7 @@ const NoMatch = () => <p>404! Page not found :(</p>;
 const Routes = (props) => {
   const { networkMatch, walletUnlocked } = props;
 
-  const notLoggedIn = (!window.ethereum) || !networkMatch || !walletUnlocked;
+  const notLoggedIn = !window.ethereum || !networkMatch || !walletUnlocked;
 
   return (
     <Switch>
