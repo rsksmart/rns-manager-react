@@ -35,5 +35,4 @@ export { RenewTab } from './renew';
 export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
-export { default as AdminMyCryptoTab } from './AdminMyCryptoTab';
 export { default as ErrorTab } from './error';
