@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as AdminTabComponent } from './AdminTabComponent';
+export { default as DomainInfoComponent } from './DomainInfoComponent';

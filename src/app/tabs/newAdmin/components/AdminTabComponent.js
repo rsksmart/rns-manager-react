@@ -4,10 +4,12 @@ import { multilanguage } from 'redux-multilanguage';
 import { useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router';
 
 import { AuthTabWrapper } from '../../../auth';
 import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
+import { DomainInfoContainer } from '../containers';
 
 const AdminComponent = (props) => {
   const {
@@ -40,7 +42,7 @@ const AdminComponent = (props) => {
                   to="/newAdmin"
                   className={location === '/newAdmin' ? 'active' : ''}
                 >
-                  Domain Info
+                  {strings.domain_info}
                 </Link>
               </li>
               <li>
@@ -84,8 +86,9 @@ const AdminComponent = (props) => {
             </ul>
           </Col>
           <Col md={8}>
-            <h1>Hello World!</h1>
-            {location}
+            <Switch>
+              <Route exact path="/newAdmin" component={DomainInfoContainer} />
+            </Switch>
           </Col>
         </Row>
       </div>
@@ -98,6 +101,7 @@ AdminComponent.propTypes = {
     admin: propTypes.string.isRequired,
     advanced: propTypes.string.isRequired,
     basic: propTypes.string.isRequired,
+    domain_info: propTypes.string.isRequired,
   }).isRequired,
   advancedView: propTypes.bool.isRequired,
   toggleAdvancedBasic: propTypes.func.isRequired,

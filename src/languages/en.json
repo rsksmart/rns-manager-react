@@ -250,5 +250,6 @@
   "auto_address_explanation": "If you choose this option, your wallet address will automatically be set as the resolved address of your domain.",
   "notification_domain_ready_register": "Your domain is ready to be registered",
   "advanced": "Advanced",
-  "basic": "Basic"
+  "basic": "Basic",
+  "domain_info": "Domain info"
 }
