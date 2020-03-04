@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Switch, Route } from 'react-router';
 
 import { AuthTabWrapper } from '../../../auth';
@@ -12,6 +11,7 @@ import { ToggleContainer } from '../../../containers';
 import {
   AddressesContainer,
   DomainInfoContainer,
+  LeftNavContainer,
   ResolverContainer,
   ReverseContainer,
   SubdomainsContainer,
@@ -22,7 +22,6 @@ const AdminComponent = (props) => {
     strings,
     toggleAdvancedBasic,
     advancedView,
-    location,
   } = props;
 
   const dispatch = useDispatch();
@@ -42,61 +41,15 @@ const AdminComponent = (props) => {
         </Row>
         <Row>
           <Col md={3} className="leftnav">
-            <ul>
-              <li>
-                <Link
-                  to="/newAdmin"
-                  className={location === '/newAdmin' ? 'active' : ''}
-                >
-                  {strings.domain_info}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/newAdmin/addresses"
-                  className={location === '/newAdmin/addresses' ? 'active' : ''}
-                >
-                  {strings.your_addresses}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/newAdmin/subdomains"
-                  className={location === '/newAdmin/subdomains' ? 'active' : ''}
-                >
-                  {strings.subdomains}
-                </Link>
-              </li>
-              {advancedView
-                && (
-                <>
-                  <li>
-                    <Link
-                      to="/newAdmin/resolver"
-                      className={location === '/newAdmin/resolver' ? 'active' : ''}
-                    >
-                      {strings.resolver}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/newAdmin/reverse"
-                      className={location === '/newAdmin/reverse' ? 'active' : ''}
-                    >
-                      Reverse
-                    </Link>
-                  </li>
-                </>
-                )
-              }
-            </ul>
+            <LeftNavContainer />
           </Col>
           <Col md={8}>
             <Switch>
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
-              <Route path="/newAdmin/resolver" component={ResolverContainer} />
-              <Route path="/newAdmin/reverse" component={ReverseContainer} />
+
+              <Route path="/newAdmin/resolver" component={advancedView ? ResolverContainer : DomainInfoContainer} />
+              <Route path="/newAdmin/reverse" component={advancedView ? ReverseContainer : DomainInfoContainer} />
               <Route exact path="/newAdmin" component={DomainInfoContainer} />
             </Switch>
           </Col>
@@ -111,14 +64,9 @@ AdminComponent.propTypes = {
     admin: propTypes.string.isRequired,
     advanced: propTypes.string.isRequired,
     basic: propTypes.string.isRequired,
-    domain_info: propTypes.string.isRequired,
-    resolver: propTypes.string.isRequired,
-    subdomains: propTypes.string.isRequired,
-    your_addresses: propTypes.string.isRequired,
   }).isRequired,
   advancedView: propTypes.bool.isRequired,
   toggleAdvancedBasic: propTypes.func.isRequired,
-  location: propTypes.string.isRequired,
 };
 
 export default multilanguage(AdminComponent);

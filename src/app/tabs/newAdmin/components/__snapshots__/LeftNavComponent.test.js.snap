@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LeftNavComponent matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <HashRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(LeftNavComponent)
+        advancedView={false}
+        location="/newAdmin"
+      >
+        <LeftNavComponent
+          advancedView={false}
+          currentLanguageCode="en"
+          dispatch={[Function]}
+          location="/newAdmin"
+          strings={
+            Object {
+              "admin": "admin",
+              "advanced": "Advanced",
+              "basic": "Basic",
+              "domain_info": "Domain info",
+              "resolver": "resolver",
+              "subdomains": "subdomains",
+              "your_addresses": "Your addresses",
+            }
+          }
+        >
+          <ul>
+            <li>
+              <Link
+                className="active"
+                replace={false}
+                to="/newAdmin"
+              >
+                <a
+                  className="active"
+                  href="#/newAdmin"
+                  onClick={[Function]}
+                >
+                  Domain info
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                className=""
+                replace={false}
+                to="/newAdmin/addresses"
+              >
+                <a
+                  className=""
+                  href="#/newAdmin/addresses"
+                  onClick={[Function]}
+                >
+                  Your addresses
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                className=""
+                replace={false}
+                to="/newAdmin/subdomains"
+              >
+                <a
+                  className=""
+                  href="#/newAdmin/subdomains"
+                  onClick={[Function]}
+                >
+                  subdomains
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </LeftNavComponent>
+      </Connect(LeftNavComponent)>
+    </Router>
+  </HashRouter>
+</Provider>
+`;
