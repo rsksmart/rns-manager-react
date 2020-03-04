@@ -4,15 +4,15 @@ import { Provider } from 'react-redux';
 import mockStore from '../../../../../tests/config/mockStore';
 import en from '../../../../languages/en.json';
 
-import SubdomainsComponent from './SubdomainsComponent';
+import ResolverComponent from './ResolverComponent';
 
 const store = mockStore({
-  subdomains: en.subdomains,
+  resolver: en.resolver,
 });
 
-const component = mount(<Provider store={store}><SubdomainsComponent /></Provider>);
+const component = mount(<Provider store={store}><ResolverComponent /></Provider>);
 
-describe('SubdomainsComponent', () => {
+describe('ResolverComponent', () => {
   it('matches snapshot', () => {
     expect(component).toMatchSnapshot();
   });

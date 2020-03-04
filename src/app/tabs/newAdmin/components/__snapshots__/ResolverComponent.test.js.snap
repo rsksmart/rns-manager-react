@@ -33,7 +33,7 @@ exports[`DomainInfoComponent matches snapshot 1`] = `
 </Provider>
 `;
 
-exports[`SubdomainsComponent matches snapshot 1`] = `
+exports[`ResolverComponent matches snapshot 1`] = `
 <Provider
   store={
     Object {
@@ -46,22 +46,22 @@ exports[`SubdomainsComponent matches snapshot 1`] = `
     }
   }
 >
-  <Connect(SubdomainsComponent)>
-    <SubdomainsComponent
+  <Connect(ResolverComponent)>
+    <ResolverComponent
       currentLanguageCode="en"
       dispatch={[Function]}
       strings={
         Object {
-          "subdomains": "subdomains",
+          "resolver": "resolver",
         }
       }
     >
       <div>
         <h1>
-          subdomains
+          resolver
         </h1>
       </div>
-    </SubdomainsComponent>
-  </Connect(SubdomainsComponent)>
+    </ResolverComponent>
+  </Connect(ResolverComponent)>
 </Provider>
 `;

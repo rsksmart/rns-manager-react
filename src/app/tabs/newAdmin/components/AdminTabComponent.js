@@ -10,8 +10,9 @@ import { AuthTabWrapper } from '../../../auth';
 import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
 import {
-  DomainInfoContainer,
   AddressesContainer,
+  DomainInfoContainer,
+  ResolverContainer,
   SubdomainsContainer,
 } from '../containers';
 
@@ -73,7 +74,7 @@ const AdminComponent = (props) => {
                       to="/newAdmin/resolver"
                       className={location === '/newAdmin/resolver' ? 'active' : ''}
                     >
-                      Resolver
+                      {strings.resolver}
                     </Link>
                   </li>
                   <li>
@@ -91,9 +92,10 @@ const AdminComponent = (props) => {
           </Col>
           <Col md={8}>
             <Switch>
-              <Route exact path="/newAdmin" component={DomainInfoContainer} />
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
+              <Route path="/newAdmin/resolver" component={ResolverContainer} />
+              <Route exact path="/newAdmin" component={DomainInfoContainer} />
             </Switch>
           </Col>
         </Row>
@@ -108,6 +110,7 @@ AdminComponent.propTypes = {
     advanced: propTypes.string.isRequired,
     basic: propTypes.string.isRequired,
     domain_info: propTypes.string.isRequired,
+    resolver: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
   }).isRequired,
