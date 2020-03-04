@@ -9,7 +9,10 @@ import { Switch, Route } from 'react-router';
 import { AuthTabWrapper } from '../../../auth';
 import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
-import { DomainInfoContainer } from '../containers';
+import {
+  DomainInfoContainer,
+  AddressesContainer,
+} from '../containers';
 
 const AdminComponent = (props) => {
   const {
@@ -50,7 +53,7 @@ const AdminComponent = (props) => {
                   to="/newAdmin/addresses"
                   className={location === '/newAdmin/addresses' ? 'active' : ''}
                 >
-                  Your addresses
+                  {strings.your_addresses}
                 </Link>
               </li>
               <li>
@@ -88,6 +91,7 @@ const AdminComponent = (props) => {
           <Col md={8}>
             <Switch>
               <Route exact path="/newAdmin" component={DomainInfoContainer} />
+              <Route path="/newAdmin/addresses" component={AddressesContainer} />
             </Switch>
           </Col>
         </Row>
@@ -102,6 +106,7 @@ AdminComponent.propTypes = {
     advanced: propTypes.string.isRequired,
     basic: propTypes.string.isRequired,
     domain_info: propTypes.string.isRequired,
+    your_addresses: propTypes.string.isRequired,
   }).isRequired,
   advancedView: propTypes.bool.isRequired,
   toggleAdvancedBasic: propTypes.func.isRequired,

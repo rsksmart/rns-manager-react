@@ -251,5 +251,6 @@
   "notification_domain_ready_register": "Your domain is ready to be registered",
   "advanced": "Advanced",
   "basic": "Basic",
-  "domain_info": "Domain info"
+  "domain_info": "Domain info",
+  "your_addresses": "Your addresses"
 }
