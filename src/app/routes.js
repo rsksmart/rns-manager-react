@@ -14,7 +14,6 @@ import {
   MultiChainResolverTab,
   NotificationTab,
   UserTab,
-  AdminMyCryptoTab,
   RenewTab,
   ErrorTab,
   StringResolverTab,
@@ -23,9 +22,9 @@ import {
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { viewMyCrypto, networkMatch, walletUnlocked } = props;
+  const { networkMatch, walletUnlocked } = props;
 
-  const notLoggedIn = (!window.ethereum && !viewMyCrypto) || !networkMatch || !walletUnlocked;
+  const notLoggedIn = !window.ethereum || !networkMatch || !walletUnlocked;
 
   return (
     <Switch>
@@ -36,12 +35,12 @@ const Routes = (props) => {
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
-      <Route path="/user" component={viewMyCrypto ? NoMetamaskTab : UserTab} />
+      <Route path="/user" component={UserTab} />
       <Route path="/registrar" component={RegistrarTab} />
-      <Route path="/admin" component={viewMyCrypto ? AdminMyCryptoTab : AdminTab} />
-      <Route path="/publicResolver" component={viewMyCrypto ? AdminMyCryptoTab : PublicResolverTab} />
-      <Route path="/multiChainResolver" component={viewMyCrypto ? NoMatch : MultiChainResolverTab} />
-      <Route path="/stringResolver" component={viewMyCrypto ? NoMatch : StringResolverTab} />
+      <Route path="/admin" component={AdminTab} />
+      <Route path="/publicResolver" component={PublicResolverTab} />
+      <Route path="/multiChainResolver" component={MultiChainResolverTab} />
+      <Route path="/stringResolver" component={StringResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
       <Route path="/renew" component={RenewTab} />
@@ -56,13 +55,11 @@ Routes.defaultProps = {
 };
 
 Routes.propTypes = {
-  viewMyCrypto: propTypes.bool.isRequired,
   networkMatch: propTypes.bool,
   walletUnlocked: propTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  viewMyCrypto: state.user.viewMyCrypto,
   networkMatch: state.auth.networkMatch,
   walletUnlocked: state.auth.walletUnlocked,
 });
