@@ -61,46 +61,61 @@ exports[`LeftNavComponent matches snapshot 1`] = `
             <li>
               <Link
                 className="active"
-                replace={false}
                 to="/newAdmin"
               >
-                <a
+                <LinkAnchor
                   className="active"
                   href="#/newAdmin"
-                  onClick={[Function]}
+                  navigate={[Function]}
                 >
-                  Domain info
-                </a>
+                  <a
+                    className="active"
+                    href="#/newAdmin"
+                    onClick={[Function]}
+                  >
+                    Domain info
+                  </a>
+                </LinkAnchor>
               </Link>
             </li>
             <li>
               <Link
                 className=""
-                replace={false}
                 to="/newAdmin/addresses"
               >
-                <a
+                <LinkAnchor
                   className=""
                   href="#/newAdmin/addresses"
-                  onClick={[Function]}
+                  navigate={[Function]}
                 >
-                  Your addresses
-                </a>
+                  <a
+                    className=""
+                    href="#/newAdmin/addresses"
+                    onClick={[Function]}
+                  >
+                    Your addresses
+                  </a>
+                </LinkAnchor>
               </Link>
             </li>
             <li>
               <Link
                 className=""
-                replace={false}
                 to="/newAdmin/subdomains"
               >
-                <a
+                <LinkAnchor
                   className=""
                   href="#/newAdmin/subdomains"
-                  onClick={[Function]}
+                  navigate={[Function]}
                 >
-                  subdomains
-                </a>
+                  <a
+                    className=""
+                    href="#/newAdmin/subdomains"
+                    onClick={[Function]}
+                  >
+                    subdomains
+                  </a>
+                </LinkAnchor>
               </Link>
             </li>
           </ul>
