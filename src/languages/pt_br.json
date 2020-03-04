@@ -239,5 +239,6 @@
   "how_long_want_domain": "Por quanto tempo você quer ter seu domínio",
   "period_in_years": "tempo em anos",
   "auto_address_setup": "Configuração automática do endereço",
-  "auto_address_explanation": "Escolher esta opção irá definir automaticamente seu endereço de carteira como endereço resolvido para seu domínio."
+  "auto_address_explanation": "Escolher esta opção irá definir automaticamente seu endereço de carteira como endereço resolvido para seu domínio.",
+  "notification_domain_ready_register": "Seu domínio está pronto para ser registrado"
 }

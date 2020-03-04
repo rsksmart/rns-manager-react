@@ -239,5 +239,6 @@
   "how_long_want_domain": "您想使用该域多长时间",
   "period_in_years": "周期（单位：年）",
   "auto_address_setup": "自动设置地址",
-  "auto_address_explanation": "选择该选项会将您的钱包地址自动设为域的解析地址。"
+  "auto_address_explanation": "选择该选项会将您的钱包地址自动设为域的解析地址。",
+  "notification_domain_ready_register": "您的域名已准备进行注册"
 }
