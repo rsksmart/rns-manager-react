@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DomainInfoComponent matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(SubdomainsComponent)>
+    <SubdomainsComponent
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      strings={
+        Object {
+          "subdomains": "subdomains",
+        }
+      }
+    >
+      <div>
+        <h1>
+          subdomains
+        </h1>
+      </div>
+    </SubdomainsComponent>
+  </Connect(SubdomainsComponent)>
+</Provider>
+`;

@@ -12,6 +12,7 @@ import { ToggleContainer } from '../../../containers';
 import {
   DomainInfoContainer,
   AddressesContainer,
+  SubdomainsContainer,
 } from '../containers';
 
 const AdminComponent = (props) => {
@@ -61,7 +62,7 @@ const AdminComponent = (props) => {
                   to="/newAdmin/subdomains"
                   className={location === '/newAdmin/subdomains' ? 'active' : ''}
                 >
-                  Subdomains
+                  {strings.subdomains}
                 </Link>
               </li>
               {advancedView
@@ -92,6 +93,7 @@ const AdminComponent = (props) => {
             <Switch>
               <Route exact path="/newAdmin" component={DomainInfoContainer} />
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
+              <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
             </Switch>
           </Col>
         </Row>
@@ -106,6 +108,7 @@ AdminComponent.propTypes = {
     advanced: propTypes.string.isRequired,
     basic: propTypes.string.isRequired,
     domain_info: propTypes.string.isRequired,
+    subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
   }).isRequired,
   advancedView: propTypes.bool.isRequired,
