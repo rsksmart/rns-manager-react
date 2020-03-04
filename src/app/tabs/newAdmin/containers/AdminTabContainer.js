@@ -6,6 +6,7 @@ import { toggleBasicAdvancedSwitch } from '../operations';
 const mapStateToProps = state => ({
   advancedView: state.newAdmin.advancedView,
   loadingAdmin: state.newAdmin.loadingAdmin,
+  location: state.router.location.pathname,
 });
 
 const mapDispatchToProps = dispatch => ({
