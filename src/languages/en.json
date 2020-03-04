@@ -252,5 +252,6 @@
   "advanced": "Advanced",
   "basic": "Basic",
   "domain_info": "Domain info",
-  "your_addresses": "Your addresses"
+  "your_addresses": "Your addresses",
+  "reverse": "Reverse"
 }

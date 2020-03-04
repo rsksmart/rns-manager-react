@@ -13,6 +13,7 @@ import {
   AddressesContainer,
   DomainInfoContainer,
   ResolverContainer,
+  ReverseContainer,
   SubdomainsContainer,
 } from '../containers';
 
@@ -95,6 +96,7 @@ const AdminComponent = (props) => {
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
               <Route path="/newAdmin/resolver" component={ResolverContainer} />
+              <Route path="/newAdmin/reverse" component={ReverseContainer} />
               <Route exact path="/newAdmin" component={DomainInfoContainer} />
             </Switch>
           </Col>

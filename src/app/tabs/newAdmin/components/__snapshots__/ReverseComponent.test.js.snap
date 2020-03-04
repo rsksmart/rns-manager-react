@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubdomainsComponent matches snapshot 1`] = `
+exports[`ReverseComponent matches snapshot 1`] = `
 <Provider
   store={
     Object {
@@ -13,22 +13,22 @@ exports[`SubdomainsComponent matches snapshot 1`] = `
     }
   }
 >
-  <Connect(SubdomainsComponent)>
-    <SubdomainsComponent
+  <Connect(ReverseComponent)>
+    <ReverseComponent
       currentLanguageCode="en"
       dispatch={[Function]}
       strings={
         Object {
-          "subdomains": "subdomains",
+          "reverse": "Reverse",
         }
       }
     >
       <div>
         <h1>
-          subdomains
+          Reverse
         </h1>
       </div>
-    </SubdomainsComponent>
-  </Connect(SubdomainsComponent)>
+    </ReverseComponent>
+  </Connect(ReverseComponent)>
 </Provider>
 `;
