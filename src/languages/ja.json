@@ -239,5 +239,6 @@
   "how_long_want_domain": "どのくらいの期間、ドメインが必要ですか",
   "period_in_years": "年単位での期間",
   "auto_address_setup": "自動アドレス設定",
-  "auto_address_explanation": "このオプションを選択すると、ウォレットアドレスがドメインの解決済みアドレスとして自動的に設定されます。"
+  "auto_address_explanation": "このオプションを選択すると、ウォレットアドレスがドメインの解決済みアドレスとして自動的に設定されます。",
+  "notification_domain_ready_register": "ドメインの登録準備が整っています"
 }

@@ -239,5 +239,6 @@
   "how_long_want_domain": "Por cuánto tiempo quiere su dominio",
   "period_in_years": "período en años",
   "auto_address_setup": "Configuración de dirección automática",
-  "auto_address_explanation": "Si elige esta opción, la dirección de su wallet se configurará automáticamente como la dirección resuelta de su dominio."
+  "auto_address_explanation": "Si elige esta opción, la dirección de su wallet se configurará automáticamente como la dirección resuelta de su dominio.",
+  "notification_domain_ready_register": "Su dominio está listo para ser registrado"
 }

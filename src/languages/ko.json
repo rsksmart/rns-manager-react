@@ -239,5 +239,6 @@
   "how_long_want_domain": "원하시는 도메인 보유 기간은 무엇입니까?",
   "period_in_years": "햇수로 원하는 대여 기간",
   "auto_address_setup": "자동 주소 설정",
-  "auto_address_explanation": "이 옵션을 선택하면 여러분의 지갑 주소가 자동으로 도메인의 리졸브 주소가 됩니다."
+  "auto_address_explanation": "이 옵션을 선택하면 여러분의 지갑 주소가 자동으로 도메인의 리졸브 주소가 됩니다.",
+  "notification_domain_ready_register": "귀하의 도메인이 등록될 준비가 되었습니다"
 }
