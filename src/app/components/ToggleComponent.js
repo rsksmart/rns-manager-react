@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import React, { useState } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 
 const ToggleComponent = (props) => {
@@ -7,13 +7,10 @@ const ToggleComponent = (props) => {
     labelLeft,
     labelRight,
     onChange,
-    initialValue,
+    value,
   } = props;
 
-  const [value, setValue] = useState(initialValue);
-
   const handleChange = (changeTo) => {
-    setValue(changeTo);
     onChange(changeTo);
   };
 
@@ -49,14 +46,14 @@ const ToggleComponent = (props) => {
 ToggleComponent.defaultProps = {
   labelLeft: 'leftLabel',
   labelRight: 'rightLabel',
-  initialValue: false,
+  value: false,
 };
 
 ToggleComponent.propTypes = {
   labelLeft: propTypes.string,
   labelRight: propTypes.string,
   onChange: propTypes.func.isRequired,
-  initialValue: propTypes.bool,
+  value: propTypes.bool,
 };
 
 export default ToggleComponent;

@@ -4,7 +4,8 @@ import { toggleBasicAdvancedSwitch } from '../operations';
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
-
+  advancedView: state.newAdmin.advancedView,
+  loadingAdmin: state.newAdmin.loadingAdmin,
 });
 
 const mapDispatchToProps = dispatch => ({

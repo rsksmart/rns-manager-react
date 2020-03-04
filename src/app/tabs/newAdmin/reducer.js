@@ -1,17 +1,14 @@
-import {
-  BASIC_VIEW,
-  TOGGLE_BASIC_ADVANCED,
-} from './types';
+import { SET_VIEW } from './types';
 
 const initialState = {
-  mode: BASIC_VIEW,
+  advancedView: false,
 };
 
 const adminReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_BASIC_ADVANCED: return {
+    case SET_VIEW: return {
       ...state,
-      mode: action.mode,
+      advancedView: action.advancedView,
     };
     default: return state;
   }

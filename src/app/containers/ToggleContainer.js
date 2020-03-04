@@ -4,7 +4,7 @@ import { ToggleComponent } from '../components';
 const mapStateToProps = (_state, ownProps) => ({
   labelLeft: ownProps.labelLeft,
   labelRight: ownProps.labelRight,
-  initialValue: ownProps.initialValue,
+  value: ownProps.value,
 });
 
 const mapDispatchToProps = (_dispatch, ownProps) => ({

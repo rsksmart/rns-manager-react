@@ -2,10 +2,10 @@
 
 exports[`toggleComponent defaults matches snapshot 1`] = `
 <ToggleComponent
-  initialValue={false}
   labelLeft="leftLabel"
   labelRight="rightLabel"
   onChange={[MockFunction]}
+  value={false}
 >
   <div
     className="toggleSwitch"
@@ -44,10 +44,10 @@ exports[`toggleComponent defaults matches snapshot 1`] = `
 
 exports[`toggleComponent toggleSwitch active matches snapshot 1`] = `
 <ToggleComponent
-  initialValue={true}
   labelLeft="leftLabel"
   labelRight="rightLabel"
   onChange={[MockFunction]}
+  value={true}
 >
   <div
     className="toggleSwitch"
