@@ -7,6 +7,7 @@ import search from './search';
 import registrar from './registrar';
 import renew from './renew';
 import error from './error';
+import newAdmin from './newAdmin';
 
 export default {
   admin,
@@ -18,9 +19,11 @@ export default {
   resolve,
   renew,
   error,
+  newAdmin,
 };
 
 export { AdminTab } from './admin';
+export { NewAdminTab } from './newAdmin';
 export { HomeTab } from './home';
 export { NotificationTab } from './notifications';
 export { PublicResolverTab } from './publicResolver';

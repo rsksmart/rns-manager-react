@@ -1,0 +1,48 @@
+.admin {
+  .toggleSwitch {
+    text-align: right;
+  }
+
+  color: $gray;
+  text-align: left;
+
+  .leftnav {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding:0;
+
+      li {
+        font-size: 20px;
+
+        a:first-letter {
+          text-transform: uppercase;
+        }
+
+        a {
+          padding:.1em 0;
+          margin: 0 0 .5em 0;
+          display: inline-block;
+        }
+
+        a:hover {
+          color: $blue;
+        }
+
+        a.active {
+          font-weight: 500 !important;
+          border-bottom:2px solid $blue;
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-size: 20px;
+    color: $blue;
+  }
+
+  h1:first-letter {
+    text-transform: uppercase;
+  }
+}

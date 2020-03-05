@@ -17,6 +17,7 @@ import {
   RenewTab,
   ErrorTab,
   StringResolverTab,
+  NewAdminTab,
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
@@ -38,6 +39,7 @@ const Routes = (props) => {
       <Route path="/user" component={UserTab} />
       <Route path="/registrar" component={RegistrarTab} />
       <Route path="/admin" component={AdminTab} />
+      <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/publicResolver" component={PublicResolverTab} />
       <Route path="/multiChainResolver" component={MultiChainResolverTab} />
       <Route path="/stringResolver" component={StringResolverTab} />
