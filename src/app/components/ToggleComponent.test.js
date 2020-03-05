@@ -33,4 +33,32 @@ describe('toggleComponent', () => {
     expect(component.find('button.left').text()).toEqual('LEFT');
     expect(component.find('button.right').text()).toEqual('RIGHT');
   });
+
+  it('calls the function when switched or clicked', () => {
+    const component = mount(
+      <ToggleComponent labelLeft="LEFT" labelRight="RIGHT" onChange={handleChange} />,
+    );
+
+    expect(handleChange).toBeCalledTimes(0);
+    component.find('#toggleSwitch').simulate('change', { target: { checked: true } });
+    expect(handleChange).toBeCalledTimes(1);
+
+    component.find('button.left').simulate('click');
+    expect(handleChange).toBeCalledTimes(2);
+
+    component.find('button.right').simulate('click');
+    expect(handleChange).toBeCalledTimes(3);
+  });
+
+  it('returns correct value when buttons are clicked', () => {
+    const component = mount(
+      <ToggleComponent onChange={handleChange} />,
+    );
+
+    component.find('button.right').simulate('click');
+    expect(handleChange).toBeCalledWith(true);
+
+    component.find('button.left').simulate('click');
+    expect(handleChange).toBeCalledWith(false);
+  });
 });
