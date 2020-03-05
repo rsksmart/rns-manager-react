@@ -253,5 +253,7 @@
   "basic": "Basic",
   "domain_info": "Domain info",
   "your_addresses": "Your addresses",
-  "reverse": "Reverse"
+  "reverse": "Reverse",
+  "copied": "copied",
+  "copy_text": "Copy text"
 }
