@@ -255,5 +255,6 @@
   "your_addresses": "Your addresses",
   "reverse": "Reverse",
   "copied": "copied",
-  "copy_text": "Copy text"
+  "copy_text": "Copy text",
+  "transfer_warning": "Transfer the ownership of your domain to another address. Please be aware that once you transfer the ownership of your domain you will not be able to access and manage the domain anymore."
 }

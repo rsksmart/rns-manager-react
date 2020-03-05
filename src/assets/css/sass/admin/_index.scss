@@ -1,10 +1,17 @@
 .admin {
+
+  @import 'domainInfo';
+
   .toggleSwitch {
     text-align: right;
   }
 
   color: $gray;
   text-align: left;
+
+  p {
+    font-size: .9em;
+  }
 
   .leftnav {
     ul {
@@ -42,7 +49,12 @@
     color: $blue;
   }
 
-  h1:first-letter {
+  h1:first-letter, h2:first-letter {
     text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 20px;
+    color:$blue;
   }
 }

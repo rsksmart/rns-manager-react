@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { DomainInfoComponent } from '../components';
 
-// eslint-disable-next-line no-unused-vars
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  domain: state.auth.name,
+});
 
-// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({});
 
 export default connect(
