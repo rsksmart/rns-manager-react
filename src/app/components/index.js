@@ -13,3 +13,4 @@ export { default as RegisterProcessComponent } from './RegisterProcessComponent'
 export { default as IndicatorLight } from './IndicatorLight';
 export { default as ChecksumErrorComponent } from './ChecksumErrorComponent';
 export { default as ToggleComponent } from './ToggleComponent';
+export { default as AddressInputComponent } from './AddressInputComponent';

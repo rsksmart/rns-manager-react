@@ -4,6 +4,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../components/CopyButtonComponent';
+import AddressInputContainer from '../../../containers/AddressInputContainer';
 
 const DomainInfoComponent = (props) => {
   const {
@@ -29,6 +30,7 @@ const DomainInfoComponent = (props) => {
         <Col>
           <h2>{strings.transfer}</h2>
           <p>{strings.transfer_warning}</p>
+          <AddressInputContainer />
         </Col>
       </Row>
     </div>
