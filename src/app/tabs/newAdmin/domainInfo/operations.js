@@ -3,19 +3,23 @@ import { keccak_256 as sha3 } from 'js-sha3';
 
 import {
   rskOwner as rskOwnerAddress,
+  rif as rifAddress,
+  renewer as renewerAddress,
 } from '../../../adapters/configAdapter';
 import {
-  rskOwnerAbi,
+  rskOwnerAbi, rifAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import {
   notifyTx, txTypes,
 } from '../../../notifications';
 
+import { getRenewData } from '../../renew/helpers';
+
 import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
   renewDomainIsSubdomain, requestDomainExpirationTime, receiveDomainExpirationTime,
-  errorDomainExpirationTime,
+  errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
 } from './actions';
 
 const web3 = new Web3(window.ethereum);
@@ -60,6 +64,37 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   });
 };
 
+
+export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
+  console.log('renewing!', domain, rifCost, duration);
+
+  dispatch(requestRenewDomain());
+
+  const durationBN = window.web3.toBigNumber(duration);
+  const weiValue = rifCost * (10 ** 18);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const data = getRenewData(domain, durationBN);
+  console.log(data);
+
+  const rif = new web3.eth.Contract(
+    rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
+  );
+
+  return rif
+    .methods
+    .transferAndCall(renewerAddress, weiValue.toString(), data)
+    .send((error, result) => {
+      if (error) {
+        console.log('ERROR!', error);
+        return dispatch(errorRenewDomain(error.message));
+      }
+
+      return dispatch(receiveRenewDomain(result));
+      // return dispatch(notifyTx(result, '', { type: txTypes.RENEW_DOMAIN }));
+    });
+};
 
 export const transferDomainConfirmed = () => (dispatch) => {
   console.log('TRANSFER HAS BEEN COMPLETE!', dispatch);

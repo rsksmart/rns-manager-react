@@ -6,7 +6,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { RentalPeriodContainer } from '../../../registrar/containers';
 
 const RenewDomainComponent = (props) => {
-  const { isRenewOpen, handleClick, strings } = props;
+  const { isRenewOpen, isRenewing, handleRenewClick, strings } = props;
   if (!isRenewOpen) {
     return (<></>);
   }
@@ -18,8 +18,9 @@ const RenewDomainComponent = (props) => {
       </Col>
       <Col md={6}>
         <Button
-          onClick={() => handleClick}
+          onClick={handleRenewClick}
           className="renew"
+          disabled={isRenewing}
         >
           {strings.renew_domain}
         </Button>
@@ -35,7 +36,8 @@ RenewDomainComponent.propTypes = {
     renew_explanation: propTypes.string.isRequired,
   }).isRequired,
   isRenewOpen: propTypes.bool.isRequired,
-  handleClick: propTypes.func.isRequired,
+  isRenewing: propTypes.bool.isRequired,
+  handleRenewClick: propTypes.func.isRequired,
 };
 
 export default multilanguage(RenewDomainComponent);

@@ -13,6 +13,7 @@ import { notifyError, notifyTx, txTypes } from '../../notifications';
 
 export default (domain, tokens, duration) => async (dispatch) => {
   dispatch(requestRenewDomain());
+  console.log('renewing!', domain, tokens, duration);
 
   const durationBN = window.web3.toBigNumber(duration);
   const weiValue = tokens * (10 ** 18);

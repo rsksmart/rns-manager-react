@@ -21,14 +21,14 @@ const RenewButtonComponent = (props) => {
   }
 
   return (
-    <div>
+    <p>
       {strings.expires_on}
       {' '}
       {formatDate(dayMath(expires))}
       <Button onClick={handleClick}>
         {strings.renew}
       </Button>
-    </div>
+    </p>
   );
 };
 

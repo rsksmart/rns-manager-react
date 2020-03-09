@@ -2,6 +2,7 @@ import {
   RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_TRANSFER_DOMAIN,
   RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_ERROR_CLOSE, HANDLE_SUCCESS_CLOSE,
+  REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN,
 } from './types';
 
 const initialState = {
@@ -12,6 +13,8 @@ const initialState = {
   requestingTransfer: false,
   errorMessage: '',
   isError: false,
+  isRenewing: false,
+  renewError: null,
 };
 
 const renewDomain = (state = initialState, action) => {
@@ -61,6 +64,21 @@ const renewDomain = (state = initialState, action) => {
     case TOGGLE_RENEW_PANEL: return {
       ...state,
       isRenewOpen: action.isOpen,
+    };
+
+    case REQUEST_RENEW_DOMAIN: return {
+      ...state,
+      isRenewing: true,
+    };
+    case RECEIVE_RENEW_DOMAIN: return {
+      ...state,
+      isRenewing: false,
+      isRenewOpen: false,
+    };
+    case ERROR_RENEW_DOMAIN: return {
+      ...state,
+      renewError: action.message,
+      isRenewing: false,
     };
     default: return state;
   }

@@ -2,6 +2,7 @@ import {
   REQUEST_TRANSFER_DOMAIN, RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_ERROR_CLOSE,
   HANDLE_SUCCESS_CLOSE, RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME,
   RECIEVE_DOMAIN_EXPIRATION_TIME, ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL,
+  REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN,
 } from './types';
 
 export const requestTransferDomain = () => ({
@@ -46,4 +47,17 @@ export const errorDomainExpirationTime = () => ({
 export const toggleRenew = isRenewOpen => ({
   type: TOGGLE_RENEW_PANEL,
   isOpen: !isRenewOpen,
+});
+
+export const requestRenewDomain = () => ({
+  type: REQUEST_RENEW_DOMAIN,
+});
+
+export const receiveRenewDomain = () => ({
+  type: RECEIVE_RENEW_DOMAIN,
+});
+
+export const errorRenewDomain = message => ({
+  type: ERROR_RENEW_DOMAIN,
+  message,
 });
