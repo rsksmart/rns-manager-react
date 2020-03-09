@@ -8,9 +8,9 @@ exports[`AddressInputComponent opens edit area when edit button is clicked and m
   handleSubmit={[MockFunction]}
   handleSuccessClose={[MockFunction]}
   isError={false}
+  isSuccess={false}
   isWaiting={false}
   label="Label"
-  onSuccess={false}
   strings={
     Object {
       "cancel": "cancel string",
@@ -142,9 +142,9 @@ exports[`AddressInputComponent renders without crashing 1`] = `
   handleSubmit={[MockFunction]}
   handleSuccessClose={[MockFunction]}
   isError={false}
+  isSuccess={false}
   isWaiting={false}
   label="Label"
-  onSuccess={false}
   strings={
     Object {
       "cancel": "cancel string",
@@ -218,9 +218,9 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
   handleSubmit={[MockFunction]}
   handleSuccessClose={[MockFunction]}
   isError={false}
+  isSuccess={false}
   isWaiting={false}
   label="Label"
-  onSuccess={false}
   strings={
     Object {
       "cancel": "cancel string",
@@ -346,26 +346,12 @@ exports[`AddressInputComponent shows waiting div when waiting 1`] = `
     }
   }
   handleErrorClose={[MockFunction]}
-  handleSubmit={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "jesse.rsk",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  handleSubmit={[MockFunction]}
   handleSuccessClose={[MockFunction]}
   isError={false}
+  isSuccess={false}
   isWaiting={true}
   label="Label"
-  onSuccess={false}
   strings={
     Object {
       "cancel": "cancel string",

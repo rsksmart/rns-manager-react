@@ -4,10 +4,11 @@ import { Button } from 'react-bootstrap';
 
 import { validateAddress } from '../validations';
 import { ChecksumErrorContainer } from '../containers';
+import UserErrorComponent from './UserErrorComponent';
+import UserSuccessComponent from './UserSuccessComponent';
 
 import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
-import closeRed from '../../assets/img/close-red.svg';
 import closeBlue from '../../assets/img/close-blue.svg';
 
 const AddressInputComponent = (props) => {
@@ -177,32 +178,20 @@ const AddressInputComponent = (props) => {
       }
       {(isError || isLocalError)
         && (
-          <div className="error">
-            <button
-              type="button"
-              className="close"
-              onClick={handleErrorClose}
-            >
-              <img src={closeRed} alt={strings.close} />
-            </button>
-            <p><strong>{strings.error_title}</strong></p>
-            <p>{isLocalError || strings.error_message}</p>
-          </div>
+          <UserErrorComponent
+            title={strings.error_title}
+            message={isLocalError || strings.error_message}
+            handleCloseClick={() => handleErrorClose}
+          />
         )
       }
       {isSuccess
         && (
-          <div className="success">
-            <button
-              type="button"
-              className="close"
-              onClick={handleSuccessClose}
-            >
-              <img src={closeBlue} alt={strings.close} />
-            </button>
-            <p><strong>{strings.success_title}</strong></p>
-            <p>{strings.success_message}</p>
-          </div>
+          <UserSuccessComponent
+            title={strings.success_title}
+            message={strings.success_message}
+            handleCloseClick={handleSuccessClose}
+          />
         )
       }
     </div>
