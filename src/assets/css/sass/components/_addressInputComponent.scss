@@ -114,38 +114,4 @@
     margin: 1em 0;
     text-align: center;
   }
-
-  div.error {
-    width: 100%;
-    margin: 1em 0;
-    padding: 1em;
-    border: 1px solid $red;
-    background-color: $light-red;
-    text-align: center;
-    position: relative;
-  }
-
-  div.error button, div.success button {
-    background: none;
-    border: none;
-    position: absolute;
-    top: 0;
-    right: 10px;
-    padding: .5em .5em 1em 0;
-  }
-
-  div.success {
-    width: 100%;
-    margin: 1em 0;
-    padding: 1em;
-    text-align: center;
-    position: relative;
-    border: 1px solid $blue;
-    border-radius: 12px;
-
-    strong {
-      font-weight: 500 !important;
-      color: $blue;
-    }
-  }
 }

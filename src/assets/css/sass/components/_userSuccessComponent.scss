@@ -1,0 +1,14 @@
+div.success {
+  width: 100%;
+  margin: 1em 0;
+  padding: 1em;
+  text-align: center;
+  position: relative;
+  border: 1px solid $blue;
+  border-radius: 12px;
+
+  strong {
+    font-weight: 500 !important;
+    color: $blue;
+  }
+}
