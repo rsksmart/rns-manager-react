@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
-import { AddressInputComponent } from '../../../components';
+import { AddressInputComponent } from '../../../../components';
 import { transferDomain } from '../operations';
 import { handleErrorClose, handleSuccessClose } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
-  isWaiting: state.newAdmin.transfer.requestingTransfer,
-  isError: state.newAdmin.transfer.isError,
-  isSuccess: state.newAdmin.transfer.isSuccess,
+  isWaiting: state.newAdmin.domainInfo.requestingTransfer,
+  isError: state.newAdmin.domainInfo.isError,
+  isSuccess: state.newAdmin.domainInfo.isSuccess,
   label: state.auth.name,
   currentAddress: state.auth.address,
   value: state.auth.address,
   strings: {
     ...ownProps.strings,
-    error_message: state.newAdmin.transfer.errorMessage,
+    error_message: state.newAdmin.domainInfo.errorMessage,
   },
 });
 

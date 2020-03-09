@@ -5,7 +5,7 @@ const mapStateToProps = state => ({
   domain: state.auth.name,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

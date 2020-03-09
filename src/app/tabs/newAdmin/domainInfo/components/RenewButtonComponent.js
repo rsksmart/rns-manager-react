@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
 import { checkIfSubdomainAndGetExpirationRemaining } from '../operations';
-import { dayMath, formatDate } from '../helpers';
+import { dayMath, formatDate } from '../../helpers';
 
 const RenewButtonComponent = (props) => {
   const {

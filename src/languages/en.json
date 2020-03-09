@@ -257,5 +257,7 @@
   "copied": "copied",
   "copy_text": "Copy text",
   "transfer_warning": "Transfer the ownership of your domain to another address. Please be aware that once you transfer the ownership of your domain you will not be able to access and manage the domain anymore.",
-  "expires_on": "Expires on"
+  "expires_on": "Expires on",
+  "renew_explanation": "Your wallet will open and you will be asked to confirm the first of two transactions required for renovation.",
+  "renew_domain": "Renew Domain"
 }

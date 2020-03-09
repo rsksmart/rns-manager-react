@@ -10,12 +10,13 @@ import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
 import {
   AddressesContainer,
-  DomainInfoContainer,
   LeftNavContainer,
   ResolverContainer,
   ReverseContainer,
   SubdomainsContainer,
 } from '../containers';
+
+import { DomainInfoContainer } from '../domainInfo/containers';
 
 const AdminComponent = (props) => {
   const {

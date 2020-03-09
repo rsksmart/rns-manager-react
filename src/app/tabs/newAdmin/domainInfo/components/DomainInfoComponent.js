@@ -3,8 +3,10 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
-import CopyButtonComponent from '../../../components/CopyButtonComponent';
-import { TransferAddressContainer, RenewButtonContainer } from '../containers';
+import CopyButtonComponent from '../../../../components/CopyButtonComponent';
+import {
+  TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
+} from '../containers';
 
 const DomainInfoComponent = (props) => {
   const {
@@ -26,6 +28,7 @@ const DomainInfoComponent = (props) => {
           <RenewButtonContainer />
         </Col>
       </Row>
+      <RenewDomainContainer />
       <Row className="break-above">
         <Col>
           <h2>{strings.transfer}</h2>

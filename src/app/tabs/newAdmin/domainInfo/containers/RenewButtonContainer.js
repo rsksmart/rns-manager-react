@@ -4,9 +4,9 @@ import { toggleRenew } from '../actions';
 
 const mapStateToProps = state => ({
   domain: state.auth.storageName,
-  expires: state.newAdmin.renew.expires,
-  isRenewOpen: state.newAdmin.renew.isRenewOpen,
-  checkingExpirationTime: state.newAdmin.renew.checkingExpirationTime,
+  expires: state.newAdmin.domainInfo.expires,
+  isRenewOpen: state.newAdmin.domainInfo.isRenewOpen,
+  checkingExpirationTime: state.newAdmin.domainInfo.checkingExpirationTime,
 });
 
 const mapDispatchToProps = dispatch => ({
