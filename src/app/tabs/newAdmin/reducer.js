@@ -2,7 +2,9 @@ import { combineReducers } from 'redux';
 
 import {
   SET_VIEW, REQUEST_TRANSFER_DOMAIN, RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN,
-  HANDLE_ERROR_CLOSE, HANDLE_SUCCESS_CLOSE, CHECKSUM_ERROR,
+  HANDLE_ERROR_CLOSE, HANDLE_SUCCESS_CLOSE, RENEW_DOMAIN_CHECK_SUBDOMAIN,
+  REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME, ERROR_DOMAIN_EXIPRATION_TIME,
+  TOGGLE_RENEW_PANEL,
 } from './types';
 
 const adminReducerInitialState = {
@@ -23,7 +25,6 @@ const transferDomainInitialState = {
   requestingTransfer: false,
   errorMessage: '',
   isError: false,
-  isChecksumError: false,
 };
 
 const transferDomainReducer = (state = transferDomainInitialState, action) => {
@@ -52,10 +53,40 @@ const transferDomainReducer = (state = transferDomainInitialState, action) => {
       ...state,
       isSuccess: false,
     };
-    case CHECKSUM_ERROR: return {
+    default: return state;
+  }
+};
+
+const renewDomainInitialState = {
+  isSubdomain: false,
+  remaining: 0,
+  checkingExpirationTime: false,
+  isRenewOpen: false,
+};
+
+const renewDomain = (state = renewDomainInitialState, action) => {
+  switch (action.type) {
+    case RENEW_DOMAIN_CHECK_SUBDOMAIN: return {
       ...state,
-      isChecksumError: true,
+      isSubdomain: action.isSubdomain,
     };
+    case REQUEST_DOMAIN_EXPIRATION_TIME: return {
+      ...state,
+      checkingExpirationTime: true,
+    };
+    case RECIEVE_DOMAIN_EXPIRATION_TIME: return {
+      ...state,
+      checkingExpirationTime: false,
+      expires: action.remaining,
+    };
+    case ERROR_DOMAIN_EXIPRATION_TIME: return {
+      ...state,
+      checkingExpirationTime: false,
+    };
+    case TOGGLE_RENEW_PANEL: return {
+      ...state,
+      isRenewOpen: action.isOpen
+    }
     default: return state;
   }
 };
@@ -63,4 +94,5 @@ const transferDomainReducer = (state = transferDomainInitialState, action) => {
 export default combineReducers({
   view: adminReducer,
   transfer: transferDomainReducer,
+  renew: renewDomain,
 });

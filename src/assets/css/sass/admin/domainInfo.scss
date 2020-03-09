@@ -9,5 +9,11 @@
 
   .renew {
     text-align: right;
+
+    button {
+      padding:10px 20px !important;
+      margin-left: 10px;
+      border-radius: 15px;
+    }
   }
 }

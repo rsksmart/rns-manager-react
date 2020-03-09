@@ -2,6 +2,10 @@
 
   @import 'domainInfo';
 
+  button:hover {
+    box-shadow: none !important;
+  }
+
   .toggleSwitch {
     text-align: right;
   }

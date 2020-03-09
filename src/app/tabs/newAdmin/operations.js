@@ -14,6 +14,8 @@ import {
 
 import {
   toggleBasicAdvanced, requestTransferDomain, receiveTransferDomain, errorTransferDomain,
+  renewDomainIsSubdomain, requestDomainExpirationTime, receiveDomainExpirationTime,
+  errorDomainExpirationTime,
 } from './actions';
 
 const web3 = new Web3(window.ethereum);
@@ -24,6 +26,43 @@ const rskOwner = new web3.eth.Contract(
 export const start = () => (dispatch) => {
   const showAdvancedView = localStorage.getItem('adminAdvancedView');
   dispatch(toggleBasicAdvanced(showAdvancedView === 'true'));
+};
+
+export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
+  const labelsAmount = name.split('.').length;
+
+  if (labelsAmount > 2) {
+    return Promise.resolve(dispatch(renewDomainIsSubdomain(true)));
+  }
+
+  const label = name.split('.')[0];
+
+  dispatch(requestDomainExpirationTime());
+
+  return new Promise((resolve) => {
+    const hash = `0x${sha3(label)}`;
+
+    rskOwner.methods.expirationTime(hash).call((error, result) => {
+      if (error) {
+        return dispatch(errorDomainExpirationTime());
+      }
+
+      const expirationTime = result;
+
+      return web3.eth.getBlock('latest').then((currentBlock, timeError) => {
+        if (timeError) {
+          return dispatch(errorDomainExpirationTime());
+        }
+
+        const diff = expirationTime - currentBlock.timestamp;
+
+        // the difference is in seconds, so it is divided by the amount of seconds per day
+        const remainingDays = Math.floor(diff / (60 * 60 * 24));
+
+        return resolve(dispatch(receiveDomainExpirationTime(remainingDays, label)));
+      });
+    });
+  });
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {

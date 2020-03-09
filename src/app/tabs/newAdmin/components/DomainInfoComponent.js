@@ -4,8 +4,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../components/CopyButtonComponent';
-import TransferAddressContainer from '../containers/TransferAddressContainer';
-import { ChecksumErrorComponent } from '../../../components';
+import { TransferAddressContainer, RenewButtonContainer } from '../containers';
 
 const DomainInfoComponent = (props) => {
   const {
@@ -17,14 +16,14 @@ const DomainInfoComponent = (props) => {
     <div className="domainInfo">
       <h1>{strings.domain_info}</h1>
       <Row>
-        <Col md={8}>
+        <Col md={7}>
           <div className="domain">
             {domain}
             <CopyButtonComponent text={domain} />
           </div>
         </Col>
-        <Col md={4} className="renew">
-          RENEW
+        <Col md={5} className="renew">
+          <RenewButtonContainer />
         </Col>
       </Row>
       <Row className="break-above">
