@@ -4,7 +4,8 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../components/CopyButtonComponent';
-import AddressInputContainer from '../../../containers/AddressInputContainer';
+import TransferAddressContainer from '../containers/TransferAddressContainer';
+import { ChecksumErrorComponent } from '../../../components';
 
 const DomainInfoComponent = (props) => {
   const {
@@ -30,7 +31,14 @@ const DomainInfoComponent = (props) => {
         <Col>
           <h2>{strings.transfer}</h2>
           <p>{strings.transfer_warning}</p>
-          <AddressInputContainer />
+          <TransferAddressContainer
+            strings={{
+              value_prefix: strings.owner,
+              submit: strings.transfer,
+              cancel: strings.cancel,
+              error_title: 'Error!',
+            }}
+          />
         </Col>
       </Row>
     </div>
@@ -39,7 +47,9 @@ const DomainInfoComponent = (props) => {
 
 DomainInfoComponent.propTypes = {
   strings: propTypes.shape({
+    cancel: propTypes.string.isRequired,
     domain_info: propTypes.string.isRequired,
+    owner: propTypes.string.isRequired,
     transfer: propTypes.string.isRequired,
     transfer_warning: propTypes.string.isRequired,
   }).isRequired,

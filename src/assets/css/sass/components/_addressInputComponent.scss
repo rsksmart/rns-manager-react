@@ -4,6 +4,10 @@
     margin: 0;
   }
 
+  button:first-letter {
+    text-transform: uppercase;
+  }
+
   button:hover {
     box-shadow: none !important;
   }
@@ -72,6 +76,16 @@
       font-weight: 300 !important;
     }
 
+  }
+
+  div.checksumError {
+    width: 100%;
+    text-align: center;
+    margin: 2em 0;
+
+    span {
+      color: $red;
+    }
   }
 
   div.delete {

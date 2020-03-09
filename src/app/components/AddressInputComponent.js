@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
+import { validateAddress } from '../validations';
+import { ChecksumErrorContainer } from '../containers';
+
 import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
 import closeRed from '../../assets/img/close-red.svg';
@@ -18,12 +21,14 @@ const AddressInputComponent = (props) => {
     handleSuccessClose,
     handleSubmit,
     handleDelete,
-    onSuccess,
+    isSuccess,
     strings,
   } = props;
 
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isChecksumError, setIsChecksumError] = useState(false);
+  const [isLocalError, setIsLocalError] = useState(false);
   const [editText, setEditText] = useState(value);
 
   const handleEditClick = () => {
@@ -43,11 +48,31 @@ const AddressInputComponent = (props) => {
   };
 
   const handleSubmitClick = () => {
-    handleSubmit(value);
+    if (editText.endsWith('.rsk')) {
+      console.log('isRSK address');
+    }
+
+    switch (validateAddress(editText)) {
+      case 'Invalid address':
+        setIsLocalError('Invalid address');
+        return;
+      case 'Invalid checksum':
+        setIsChecksumError(true);
+        return;
+      default:
+    }
+    setIsLocalError(false);
+    handleSubmit(editText);
   };
 
   const handleTextChange = (evt) => {
     setEditText(evt.target.value);
+  };
+
+  const handleChecksumClick = () => {
+    setEditText(editText.toLowerCase());
+    setIsChecksumError(false);
+    handleSubmitClick();
   };
 
   return (
@@ -107,6 +132,17 @@ const AddressInputComponent = (props) => {
         </div>
         )
       }
+      {isChecksumError
+        && (
+          <div className="checksumError">
+            <ChecksumErrorContainer
+              show={isChecksumError}
+              inputValue={editText}
+              handleClick={() => handleChecksumClick()}
+            />
+          </div>
+        )
+      }
       {isDeleting
         && (
           <div className="delete">
@@ -139,7 +175,7 @@ const AddressInputComponent = (props) => {
           </div>
         )
       }
-      {isError
+      {(isError || isLocalError)
         && (
           <div className="error">
             <button
@@ -150,11 +186,11 @@ const AddressInputComponent = (props) => {
               <img src={closeRed} alt={strings.close} />
             </button>
             <p><strong>{strings.error_title}</strong></p>
-            <p>{strings.error_message}</p>
+            <p>{isLocalError || strings.error_message}</p>
           </div>
         )
       }
-      {onSuccess
+      {isSuccess
         && (
           <div className="success">
             <button
@@ -177,7 +213,7 @@ AddressInputComponent.defaultProps = {
   allowDelete: true,
   isError: false,
   isWaiting: false,
-  onSuccess: false,
+  isSuccess: false,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -201,7 +237,7 @@ AddressInputComponent.propTypes = {
   label: propTypes.string.isRequired,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
-  onSuccess: propTypes.bool,
+  isSuccess: propTypes.bool,
   handleErrorClose: propTypes.func.isRequired,
   handleSuccessClose: propTypes.func.isRequired,
   handleSubmit: propTypes.func.isRequired,

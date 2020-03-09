@@ -285,7 +285,7 @@ export const checkIfSubdomainOrTokenOwner = (name, currentAddress) => (dispatch)
 
 export const transferToken = (name, addressToTransfer, sender) => (dispatch) => {
   dispatch(requestTransferDomain());
-
+  console.log(name, addressToTransfer, sender);
   const label = name.split('.')[0];
 
   return new Promise((resolve) => {

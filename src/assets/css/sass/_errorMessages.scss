@@ -1,4 +1,4 @@
-.invalid-feedback {
+.checksumError, .invalid-feedback {
   font-size: 100%;
 
   div.title {
@@ -15,7 +15,7 @@
     margin: 0 .5em;
     content: '?';
     background-color: #E5E5E5;
-    color:#dc3545;
+    color: $red;
     font-weight: 500 !important;
     width: 1.5em;
     height: 1.5em;    

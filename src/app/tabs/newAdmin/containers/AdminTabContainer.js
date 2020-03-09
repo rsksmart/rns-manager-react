@@ -3,7 +3,7 @@ import { AdminTabComponent } from '../components';
 import { toggleBasicAdvancedSwitch } from '../operations';
 
 const mapStateToProps = state => ({
-  advancedView: state.newAdmin.advancedView,
+  advancedView: state.newAdmin.view.advancedView,
 });
 
 const mapDispatchToProps = dispatch => ({
