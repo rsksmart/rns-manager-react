@@ -6,6 +6,7 @@ import { validateAddress } from '../validations';
 import { ChecksumErrorContainer } from '../containers';
 import UserErrorComponent from './UserErrorComponent';
 import UserSuccessComponent from './UserSuccessComponent';
+import UserWaitingComponent from './UserWaitingComponent';
 
 import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
@@ -167,15 +168,7 @@ const AddressInputComponent = (props) => {
           </div>
         )
       }
-      {isWaiting
-        && (
-          <div className="row waiting">
-            <div className="col-md-6 offset-md-2">
-              <p>{strings.waiting}</p>
-            </div>
-          </div>
-        )
-      }
+      {isWaiting && <UserWaitingComponent message={strings.waiting} />}
       {(isError || isLocalError)
         && (
           <UserErrorComponent

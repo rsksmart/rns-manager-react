@@ -3,6 +3,7 @@ import {
   HANDLE_SUCCESS_CLOSE, RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME,
   RECIEVE_DOMAIN_EXPIRATION_TIME, ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
+  CLOSE_SUCCESS_ERROR_MESSAGE,
 } from './types';
 
 export const requestTransferDomain = () => ({
@@ -53,8 +54,9 @@ export const requestRenewDomain = () => ({
   type: REQUEST_RENEW_DOMAIN,
 });
 
-export const receiveRenewDomain = () => ({
+export const receiveRenewDomain = tx => ({
   type: RECEIVE_RENEW_DOMAIN,
+  renewSuccessTx: tx,
 });
 
 export const errorRenewDomain = message => ({
@@ -64,4 +66,8 @@ export const errorRenewDomain = message => ({
 
 export const closeRenewError = () => ({
   type: CLOSE_RENEW_ERROR_MESSAGE,
+});
+
+export const closeRenewSuccess = () => ({
+  type:CLOSE_SUCCESS_ERROR_MESSAGE,
 });

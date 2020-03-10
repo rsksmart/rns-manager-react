@@ -15,16 +15,18 @@ exports[`UserSuccessComponent renders and matches snapshot 1`] = `
 >
   <Connect(UserSuccessComponent)>
     <UserSuccessComponent
+      address=""
       currentLanguageCode="en"
       dispatch={[Function]}
       handleCloseClick={[Function]}
-      message="Error Message"
+      message="Success Message"
       strings={
         Object {
           "close": "Close",
+          "view_explorer": "View it on the explorer",
         }
       }
-      title="Error"
+      title="Success"
     >
       <div
         className="success"
@@ -40,12 +42,18 @@ exports[`UserSuccessComponent renders and matches snapshot 1`] = `
           />
         </button>
         <p>
+          <img
+            alt=""
+            src="mock-image"
+          />
+        </p>
+        <p>
           <strong>
-            Error
+            Success
           </strong>
         </p>
         <p>
-          Error Message
+          Success Message
         </p>
       </div>
     </UserSuccessComponent>

@@ -12,6 +12,7 @@ const DomainInfoComponent = (props) => {
   const {
     strings,
     domain,
+    isSubdomain,
   } = props;
 
   return (
@@ -24,11 +25,15 @@ const DomainInfoComponent = (props) => {
             <CopyButtonComponent text={domain} />
           </div>
         </Col>
-        <Col md={5} className="renew">
-          <RenewButtonContainer />
-        </Col>
+        {!isSubdomain && (
+          <Col md={5} className="renew">
+            <RenewButtonContainer />
+          </Col>
+        )}
       </Row>
       <RenewDomainContainer />
+      {!isSubdomain
+      && (
       <Row className="break-above">
         <Col>
           <h2>{strings.transfer}</h2>
@@ -43,6 +48,7 @@ const DomainInfoComponent = (props) => {
           />
         </Col>
       </Row>
+      )}
     </div>
   );
 };
@@ -56,6 +62,7 @@ DomainInfoComponent.propTypes = {
     transfer_warning: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
+  isSubdomain: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);

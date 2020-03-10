@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserWaitingComponent renders and matches snapshot 1`] = `
+<UserWaitingComponent
+  message="Please Wait!"
+>
+  <div
+    className="row waiting"
+  >
+    <div
+      className="col-md-6 offset-md-3"
+    >
+      <Spinner
+        animation="grow"
+        variant="primary"
+      >
+        <div
+          className="spinner-grow text-primary"
+        />
+      </Spinner>
+      <p>
+        Please Wait!
+      </p>
+    </div>
+  </div>
+</UserWaitingComponent>
+`;

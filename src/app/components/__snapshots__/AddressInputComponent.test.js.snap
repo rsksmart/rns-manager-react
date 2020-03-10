@@ -339,17 +339,29 @@ exports[`AddressInputComponent shows waiting div when waiting 1`] = `
         </button>
       </div>
     </div>
-    <div
-      className="row waiting"
+    <UserWaitingComponent
+      message="waiting text string"
     >
       <div
-        className="col-md-6 offset-md-2"
+        className="row waiting"
       >
-        <p>
-          waiting text string
-        </p>
+        <div
+          className="col-md-6 offset-md-3"
+        >
+          <Spinner
+            animation="grow"
+            variant="primary"
+          >
+            <div
+              className="spinner-grow text-primary"
+            />
+          </Spinner>
+          <p>
+            waiting text string
+          </p>
+        </div>
       </div>
-    </div>
+    </UserWaitingComponent>
   </div>
 </AddressInputComponent>
 `;

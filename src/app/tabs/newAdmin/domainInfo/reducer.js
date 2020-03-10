@@ -3,18 +3,22 @@ import {
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_TRANSFER_DOMAIN,
   RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_ERROR_CLOSE, HANDLE_SUCCESS_CLOSE,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
+  CLOSE_SUCCESS_ERROR_MESSAGE,
 } from './types';
 
 const initialState = {
   isSubdomain: false,
   remaining: 0,
   checkingExpirationTime: false,
+  expires: 0,
   isRenewOpen: false,
   requestingTransfer: false,
   errorMessage: '',
   isError: false,
   isRenewing: false,
   renewError: '',
+  renewSuccess: false,
+  renewSuccessTx: '',
 };
 
 const renewDomain = (state = initialState, action) => {
@@ -74,6 +78,8 @@ const renewDomain = (state = initialState, action) => {
       ...state,
       isRenewing: false,
       isRenewOpen: false,
+      renewSuccess: true,
+      renewSuccessTx: action.renewSuccessTx,
     };
     case ERROR_RENEW_DOMAIN: return {
       ...state,
@@ -83,6 +89,10 @@ const renewDomain = (state = initialState, action) => {
     case CLOSE_RENEW_ERROR_MESSAGE: return {
       ...state,
       renewError: '',
+    };
+    case CLOSE_SUCCESS_ERROR_MESSAGE: return {
+      ...state,
+      renewSuccess: false,
     };
     default: return state;
   }

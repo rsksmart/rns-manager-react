@@ -8,6 +8,7 @@ import en from '../../languages/en.json';
 
 const store = mockStore({
   close: en.close,
+  view_explorer: en.view_explorer,
 });
 
 describe('UserSuccessComponent', () => {
@@ -24,6 +25,16 @@ describe('UserSuccessComponent', () => {
     );
 
     expect(component.find('strong').text()).toEqual('Test Title');
-    expect(component.find('p').at(1).text()).toEqual('Test Message!');
+    expect(component.find('p').at(2).text()).toEqual('Test Message!');
+  });
+
+  it('renders with explorer address', () => {
+    const component = mount(
+      <Provider store={store}>
+        <UserSuccessComponent title="Test Title" message="Test Message!" address="0x12345" />
+      </Provider>,
+    );
+
+    expect(component.find('p.explorer').text()).toEqual(en.view_explorer);
   });
 });

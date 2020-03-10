@@ -15,6 +15,7 @@ import {
 } from '../../../notifications';
 
 import { getRenewData } from '../../renew/helpers';
+import transactionListener from '../../../helpers/transactionListener';
 
 import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
@@ -28,46 +29,44 @@ const rskOwner = new web3.eth.Contract(
 );
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
-  const labelsAmount = name.split('.').length;
-
-  if (labelsAmount > 2) {
-    return Promise.resolve(dispatch(renewDomainIsSubdomain(true)));
+  if (name.split('.').length > 2) {
+    dispatch(renewDomainIsSubdomain(true));
   }
-
-  const label = name.split('.')[0];
 
   dispatch(requestDomainExpirationTime());
 
-  return new Promise((resolve) => {
-    const hash = `0x${sha3(label)}`;
+  const label = name.split('.')[0];
+  const hash = `0x${sha3(label)}`;
 
-    rskOwner.methods.expirationTime(hash).call((error, result) => {
-      if (error) {
+  rskOwner.methods.expirationTime(hash).call((error, result) => {
+    if (error) {
+      dispatch(errorDomainExpirationTime());
+      return;
+    }
+
+    const expirationTime = result;
+
+    web3.eth.getBlock('latest').then((currentBlock, timeError) => {
+      if (timeError) {
         return dispatch(errorDomainExpirationTime());
       }
 
-      const expirationTime = result;
+      const diff = expirationTime - currentBlock.timestamp;
 
-      return web3.eth.getBlock('latest').then((currentBlock, timeError) => {
-        if (timeError) {
-          return dispatch(errorDomainExpirationTime());
-        }
+      // the difference is in seconds, so it is divided by the amount of seconds per day
+      const remainingDays = Math.floor(diff / (60 * 60 * 24));
 
-        const diff = expirationTime - currentBlock.timestamp;
-
-        // the difference is in seconds, so it is divided by the amount of seconds per day
-        const remainingDays = Math.floor(diff / (60 * 60 * 24));
-
-        return resolve(dispatch(receiveDomainExpirationTime(remainingDays, label)));
-      });
+      return dispatch(receiveDomainExpirationTime(remainingDays));
     });
   });
 };
 
+const renewDomainComplete = (result, domain) => (dispatch) => {
+  dispatch(receiveRenewDomain(result));
+  dispatch(checkIfSubdomainAndGetExpirationRemaining(`${domain}.rsk`));
+};
 
 export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
-  console.log('renewing!', domain, rifCost, duration);
-
   dispatch(requestRenewDomain());
 
   const durationBN = window.web3.toBigNumber(duration);
@@ -76,7 +75,6 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   const currentAddress = accounts[0];
 
   const data = getRenewData(domain, durationBN);
-  console.log(data);
 
   const rif = new web3.eth.Contract(
     rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
@@ -87,12 +85,10 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
     .transferAndCall(renewerAddress, weiValue.toString(), data)
     .send((error, result) => {
       if (error) {
-        console.log('ERROR!', error);
         return dispatch(errorRenewDomain(error.message));
       }
 
-      return dispatch(receiveRenewDomain(result));
-      // return dispatch(notifyTx(result, '', { type: txTypes.RENEW_DOMAIN }));
+      return dispatch(transactionListener(result, () => renewDomainComplete(result, domain)));
     });
 };
 

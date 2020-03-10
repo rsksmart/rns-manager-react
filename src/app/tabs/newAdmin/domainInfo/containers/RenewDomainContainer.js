@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { RenewDomainComponent } from '../components';
 import { renewDomain } from '../operations';
-import { closeRenewError } from '../actions';
+import { closeRenewError, closeRenewSuccess } from '../actions';
 
 const mapStateToProps = state => ({
   isRenewOpen: state.newAdmin.domainInfo.isRenewOpen,
@@ -10,11 +10,14 @@ const mapStateToProps = state => ({
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,
   renewError: state.newAdmin.domainInfo.renewError,
+  renewSuccess: state.newAdmin.domainInfo.renewSuccess,
+  renewSuccessTx: state.newAdmin.domainInfo.renewSuccessTx,
 });
 
 const mapDispatchToProps = dispatch => ({
   handleRenewClick: (domain, rifCost, duration) => dispatch(renewDomain(domain, rifCost, duration)),
   closeRenewError: () => dispatch(closeRenewError()),
+  closeSuccess: () => dispatch(closeRenewSuccess()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -25,6 +28,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     stateProps.domain, stateProps.rifCost, stateProps.duration,
   ),
   closeRenewError: () => dispatchProps.closeRenewError(),
+  closeSuccess: () => dispatchProps.closeSuccess(),
 });
 
 export default connect(

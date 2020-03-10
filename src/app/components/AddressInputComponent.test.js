@@ -142,16 +142,4 @@ describe('AddressInputComponent', () => {
     // expect(component.find('button.cancel').text()).toBe('custom cancel string');
     // expect(component.find('button.submit').text()).toBe('custom delete string');
   });
-
-  it('waiting allows cutom text', () => {
-    const localProps = {
-      ...initProps,
-      isWaiting: true,
-      strings: {
-        waiting: 'custom waiting text string',
-      },
-    };
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.waiting').text()).toBe('custom waiting text string');
-  });
 });

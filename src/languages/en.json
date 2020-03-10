@@ -260,5 +260,8 @@
   "expires_on": "Expires on",
   "renew_explanation": "Your wallet will open and you will be asked to confirm the first of two transactions required for renovation.",
   "renew_domain": "Renew Domain",
-  "close": "Close"
+  "close": "Close",
+  "renew_success": "Your domain has been renewed.",
+  "success": "Success",
+  "view_explorer": "View it on the explorer"
 }

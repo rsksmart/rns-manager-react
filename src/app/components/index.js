@@ -14,3 +14,6 @@ export { default as IndicatorLight } from './IndicatorLight';
 export { default as ChecksumErrorComponent } from './ChecksumErrorComponent';
 export { default as ToggleComponent } from './ToggleComponent';
 export { default as AddressInputComponent } from './AddressInputComponent';
+export { default as UserErrorComponent } from './UserErrorComponent';
+export { default as UserSuccessComponent } from './UserSuccessComponent';
+export { default as UserWaitingComponent } from './UserWaitingComponent';
