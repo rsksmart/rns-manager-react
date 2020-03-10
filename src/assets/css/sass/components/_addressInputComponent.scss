@@ -35,9 +35,11 @@
       text-align: right;
     }
 
-    button {
-      border: none;
+    button, button:hover {
+      border: none !important;
       background: $white;
+      margin: 0 !important;
+      padding: 1px 6px !important;
     }
   }
 

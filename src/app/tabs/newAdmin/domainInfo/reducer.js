@@ -1,9 +1,9 @@
 import {
   RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_TRANSFER_DOMAIN,
-  RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_ERROR_CLOSE, HANDLE_SUCCESS_CLOSE,
+  RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_TRANSFER_SUCCESS_CLOSE,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
-  CLOSE_SUCCESS_ERROR_MESSAGE,
+  CLOSE_SUCCESS_ERROR_MESSAGE, HANDLE_TRANSFER_ERROR_CLOSE,
 } from './types';
 
 const initialState = {
@@ -13,6 +13,8 @@ const initialState = {
   expires: 0,
   isRenewOpen: false,
   requestingTransfer: false,
+  isTransferSuccess: false,
+  transferSuccessTx: '',
   errorMessage: '',
   isError: false,
   isRenewing: false,
@@ -30,7 +32,8 @@ const renewDomain = (state = initialState, action) => {
     case RECEIVE_TRANSFER_DOMAIN: return {
       ...state,
       requestingTransfer: false,
-      isSuccess: true,
+      isTransferSuccess: true,
+      transferSuccessTx: action.transferSuccessTx,
     };
     case ERROR_TRANSFER_DOMAIN: return {
       ...state,
@@ -38,14 +41,15 @@ const renewDomain = (state = initialState, action) => {
       isError: true,
       errorMessage: action.errorMessage,
     };
-    case HANDLE_ERROR_CLOSE: return {
+    case HANDLE_TRANSFER_SUCCESS_CLOSE: return {
       ...state,
       isError: false,
       errorMessage: null,
+      isTransferSuccess: false,
     };
-    case HANDLE_SUCCESS_CLOSE: return {
+    case HANDLE_TRANSFER_ERROR_CLOSE: return {
       ...state,
-      isSuccess: false,
+      isError: false,
     };
 
     case RENEW_DOMAIN_CHECK_SUBDOMAIN: return {

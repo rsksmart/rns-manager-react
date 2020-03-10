@@ -92,15 +92,12 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
     });
 };
 
-export const transferDomainConfirmed = () => (dispatch) => {
-  console.log('TRANSFER HAS BEEN COMPLETE!', dispatch);
-  dispatch(receiveTransferDomain());
+export const transferDomainConfirmed = tx => (dispatch) => {
+  dispatch(receiveTransferDomain(tx));
 };
 
 export const transferDomain = (name, addressToTransfer, sender) => (dispatch) => {
   dispatch(requestTransferDomain());
-
-  console.log(name, addressToTransfer, sender);
 
   const label = name.split('.')[0];
 
@@ -113,7 +110,9 @@ export const transferDomain = (name, addressToTransfer, sender) => (dispatch) =>
         if (error) {
           return resolve(dispatch(errorTransferDomain(error.message)));
         }
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.TRANSFER_DOMAIN_TOKEN }, transferDomainConfirmed)));
+
+        return dispatch(transactionListener(result, () => transferDomainConfirmed(result)));
+        // return resolve(dispatch(notifyTx(result, '', { type: txTypes.TRANSFER_DOMAIN_TOKEN }, transferDomainConfirmed)));
       },
     );
   });

@@ -263,5 +263,8 @@
   "close": "Close",
   "renew_success": "Your domain has been renewed.",
   "success": "Success",
-  "view_explorer": "View it on the explorer"
+  "view_explorer": "View it on the explorer",
+  "was_transfered": "was transfered",
+  "register_new_domain": "Register a new domain",
+  "login_another_domain": "Login to another domain"
 }

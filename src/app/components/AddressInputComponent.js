@@ -174,7 +174,7 @@ const AddressInputComponent = (props) => {
           <UserErrorComponent
             title={strings.error_title}
             message={isLocalError || strings.error_message}
-            handleCloseClick={() => handleErrorClose}
+            handleCloseClick={handleErrorClose}
           />
         )
       }
@@ -212,6 +212,8 @@ AddressInputComponent.defaultProps = {
     waiting: 'Waiting text',
   },
   handleDelete: () => {},
+  handleErrorClose: () => {},
+  handleSuccessClose: () => {},
 };
 
 AddressInputComponent.propTypes = {
@@ -220,8 +222,8 @@ AddressInputComponent.propTypes = {
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
-  handleErrorClose: propTypes.func.isRequired,
-  handleSuccessClose: propTypes.func.isRequired,
+  handleErrorClose: propTypes.func,
+  handleSuccessClose: propTypes.func,
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,

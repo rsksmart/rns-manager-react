@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { AddressInputComponent } from '../../../../components';
 import { transferDomain } from '../operations';
-import { handleErrorClose, handleSuccessClose } from '../actions';
+import { handleTransferErrorClose } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
@@ -21,8 +21,7 @@ const mapDispatchToProps = dispatch => ({
   handleSubmit: (
     domain, addressToTransfer, sender,
   ) => dispatch(transferDomain(domain, addressToTransfer, sender)),
-  handleErrorClose: () => dispatch(handleErrorClose()),
-  handleSuccessClose: () => dispatch(handleSuccessClose()),
+  handleTransferErrorClose: () => dispatch(handleTransferErrorClose()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -33,8 +32,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     addressToTransfer.toLowerCase(),
     stateProps.currentAddress.toLowerCase(),
   ),
-  handleErrorClose: () => dispatchProps.handleErrorClose(),
-  handleSuccessClose: () => dispatchProps.handleSuccessClose(),
+  handleErrorClose: () => dispatchProps.handleTransferErrorClose(),
 });
 
 export default connect(

@@ -1,8 +1,9 @@
 import {
-  REQUEST_TRANSFER_DOMAIN, RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_ERROR_CLOSE,
-  HANDLE_SUCCESS_CLOSE, RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME,
-  RECIEVE_DOMAIN_EXPIRATION_TIME, ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL,
-  REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
+  REQUEST_TRANSFER_DOMAIN, RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN,
+  HANDLE_TRANSFER_ERROR_CLOSE, HANDLE_TRANSFER_SUCCESS_CLOSE, RENEW_DOMAIN_CHECK_SUBDOMAIN,
+  REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
+  ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_RENEW_DOMAIN,
+  RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
   CLOSE_SUCCESS_ERROR_MESSAGE,
 } from './types';
 
@@ -10,8 +11,9 @@ export const requestTransferDomain = () => ({
   type: REQUEST_TRANSFER_DOMAIN,
 });
 
-export const receiveTransferDomain = () => ({
+export const receiveTransferDomain = tx => ({
   type: RECEIVE_TRANSFER_DOMAIN,
+  transferSuccessTx: tx,
 });
 
 export const errorTransferDomain = message => ({
@@ -19,12 +21,12 @@ export const errorTransferDomain = message => ({
   errorMessage: message,
 });
 
-export const handleErrorClose = () => ({
-  type: HANDLE_ERROR_CLOSE,
+export const handleTransferErrorClose = () => ({
+  type: HANDLE_TRANSFER_ERROR_CLOSE,
 });
 
-export const handleSuccessClose = () => ({
-  type: HANDLE_SUCCESS_CLOSE,
+export const handleTransferSuccessClose = () => ({
+  type: HANDLE_TRANSFER_SUCCESS_CLOSE,
 });
 
 export const renewDomainIsSubdomain = isSubdomain => ({
@@ -69,5 +71,5 @@ export const closeRenewError = () => ({
 });
 
 export const closeRenewSuccess = () => ({
-  type:CLOSE_SUCCESS_ERROR_MESSAGE,
+  type: CLOSE_SUCCESS_ERROR_MESSAGE,
 });

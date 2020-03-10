@@ -2,10 +2,6 @@
 
   @import 'domainInfo';
 
-  button:hover {
-    box-shadow: none !important;
-  }
-
   .btn-primary:not(:disabled):not(.disabled).active {
     background-color: $light-gray;
     border-color: $gray;
@@ -68,3 +64,5 @@
     color:$blue;
   }
 }
+
+@import 'transferModal';

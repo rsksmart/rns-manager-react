@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
+  TransferSuccessModalContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -13,7 +14,14 @@ const DomainInfoComponent = (props) => {
     strings,
     domain,
     isSubdomain,
+    isTransferSuccess,
   } = props;
+
+  if (isTransferSuccess) {
+    return (
+      <TransferSuccessModalContainer />
+    );
+  }
 
   return (
     <div className="domainInfo">
@@ -63,6 +71,7 @@ DomainInfoComponent.propTypes = {
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
+  isTransferSuccess: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);
