@@ -42,7 +42,7 @@ const UserSuccessComponent = (props) => {
 UserSuccessComponent.defaultProps = {
   title: 'Success',
   message: 'Success Message',
-  handleCloseClick: () => console.log('no'),
+  handleCloseClick: () => {},
   address: '',
 };
 

@@ -34,7 +34,7 @@ const RenewDomainComponent = (props) => {
       <Row>
         <UserWaitingComponent message={strings.wait_transation_confirmed} />
       </Row>
-    )
+    );
   }
 
   if (!isRenewOpen) {

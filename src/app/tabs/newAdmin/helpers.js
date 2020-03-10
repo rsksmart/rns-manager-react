@@ -1,6 +1,6 @@
 export const dayMath = (days, today = new Date()) => {
   const result = new Date(today);
-  return result.setDate(result.getDate() + days);  
+  return result.setDate(result.getDate() + days);
 };
 
 export const formatDate = (date) => {

@@ -51,7 +51,7 @@ const AddressInputComponent = (props) => {
 
   const handleSubmitClick = () => {
     if (editText.endsWith('.rsk')) {
-      console.log('isRSK address');
+      // console.log('isRSK address');
     }
 
     switch (validateAddress(editText)) {

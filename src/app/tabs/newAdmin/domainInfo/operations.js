@@ -10,9 +10,6 @@ import {
   rskOwnerAbi, rifAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-import {
-  notifyTx, txTypes,
-} from '../../../notifications';
 
 import { getRenewData } from '../../renew/helpers';
 import transactionListener from '../../../helpers/transactionListener';
@@ -112,7 +109,6 @@ export const transferDomain = (name, addressToTransfer, sender) => (dispatch) =>
         }
 
         return dispatch(transactionListener(result, () => transferDomainConfirmed(result)));
-        // return resolve(dispatch(notifyTx(result, '', { type: txTypes.TRANSFER_DOMAIN_TOKEN }, transferDomainConfirmed)));
       },
     );
   });
