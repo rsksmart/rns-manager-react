@@ -1,213 +1,139 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AddressInputComponent opens edit area when edit button is clicked and matches snapshot 1`] = `
-<AddressInputComponent
-  allowDelete={true}
-  handleDelete={[MockFunction]}
-  handleErrorClose={[MockFunction]}
-  handleSubmit={[MockFunction]}
-  handleSuccessClose={[MockFunction]}
-  isError={false}
-  isSuccess={false}
-  isWaiting={false}
-  label="Label"
-  strings={
-    Object {
-      "cancel": "cancel string",
-      "delete": "delete string",
-      "delete_confirm_text": "delete confirm text",
-      "edit": "edit text",
-      "edit_placeholder": "placeholder text",
-      "edit_propmt": "edit prompt text",
-      "error_message": "error message text",
-      "error_title": "error title text",
-      "submit": "submit text",
-      "success_message": "success message text",
-      "success_title": "success title text",
-      "value_prefix": "value prefix",
-      "waiting": "waiting text string",
-    }
-  }
-  value="Value"
+<div
+  className="row addressInput"
 >
   <div
-    className="row addressInput"
+    className="row view"
   >
     <div
-      className="row view"
+      className="col-md-3 label"
     >
-      <div
-        className="col-md-3 label"
-      >
-        Label
-      </div>
-      <div
-        className="col-md-7 value"
-      >
-        value prefix: 
-        Value
-      </div>
-      <div
-        className="col-md-2 options"
-      >
-        <button
-          className="edit"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="edit text"
-            src="mock-image"
-          />
-        </button>
-        <button
-          className="delete"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="delete string"
-            src="mock-image"
-          />
-        </button>
-      </div>
+      Label
     </div>
     <div
-      className="row edit"
+      className="col-md-7 value"
     >
-      <div
-        className="col-md-2 editLabel"
+      value prefix: 
+      Value
+    </div>
+    <div
+      className="col-md-2 options"
+    >
+      <button
+        className="edit"
+        onClick={[Function]}
+        type="button"
       >
-        edit prompt text
-      </div>
-      <div
-        className="col-md-6"
-      >
-        <input
-          disabled={false}
-          onChange={[Function]}
-          placeholder="placeholder text"
-          type="text"
-          value="Value"
+        <img
+          alt="edit text"
+          src="mock-image"
         />
-      </div>
-      <div
-        className="col-md-4 buttons"
+      </button>
+      <button
+        className="delete"
+        onClick={[Function]}
+        type="button"
       >
-        <Button
-          active={false}
-          className="cancel"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-          variant="primary"
-        >
-          <button
-            className="cancel btn btn-primary"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            cancel string
-          </button>
-        </Button>
-        <Button
-          active={false}
-          className="submit"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-          variant="primary"
-        >
-          <button
-            className="submit btn btn-primary"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            submit text
-          </button>
-        </Button>
-      </div>
+        <img
+          alt="delete string"
+          src="mock-image"
+        />
+      </button>
     </div>
   </div>
-</AddressInputComponent>
+  <div
+    className="row edit"
+  >
+    <div
+      className="col-md-2 editLabel"
+    >
+      edit prompt text
+    </div>
+    <div
+      className="col-md-6"
+    >
+      <input
+        disabled={false}
+        onChange={[Function]}
+        placeholder="placeholder text"
+        type="text"
+        value="Value"
+      />
+    </div>
+    <div
+      className="col-md-4 buttons"
+    >
+      <Button
+        active={false}
+        className="cancel"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+        variant="primary"
+      >
+        cancel string
+      </Button>
+      <Button
+        active={false}
+        className="submit"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+        variant="primary"
+      >
+        submit text
+      </Button>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`AddressInputComponent renders without crashing 1`] = `
-<AddressInputComponent
-  allowDelete={true}
-  handleDelete={[MockFunction]}
-  handleErrorClose={[MockFunction]}
-  handleSubmit={[MockFunction]}
-  handleSuccessClose={[MockFunction]}
-  isError={false}
-  isSuccess={false}
-  isWaiting={false}
-  label="Label"
-  strings={
-    Object {
-      "cancel": "cancel string",
-      "delete": "delete string",
-      "delete_confirm_text": "delete confirm text",
-      "edit": "edit text",
-      "edit_placeholder": "placeholder text",
-      "edit_propmt": "edit prompt text",
-      "error_message": "error message text",
-      "error_title": "error title text",
-      "submit": "submit text",
-      "success_message": "success message text",
-      "success_title": "success title text",
-      "value_prefix": "value prefix",
-      "waiting": "waiting text string",
-    }
-  }
-  value="Value"
+<div
+  className="row addressInput"
 >
   <div
-    className="row addressInput"
+    className="row view"
   >
     <div
-      className="row view"
+      className="col-md-3 label"
     >
-      <div
-        className="col-md-3 label"
+      Label
+    </div>
+    <div
+      className="col-md-7 value"
+    >
+      value prefix: 
+      Value
+    </div>
+    <div
+      className="col-md-2 options"
+    >
+      <button
+        className="edit"
+        onClick={[Function]}
+        type="button"
       >
-        Label
-      </div>
-      <div
-        className="col-md-7 value"
+        <img
+          alt="edit text"
+          src="mock-image"
+        />
+      </button>
+      <button
+        className="delete"
+        onClick={[Function]}
+        type="button"
       >
-        value prefix: 
-        Value
-      </div>
-      <div
-        className="col-md-2 options"
-      >
-        <button
-          className="edit"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="edit text"
-            src="mock-image"
-          />
-        </button>
-        <button
-          className="delete"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="delete string"
-            src="mock-image"
-          />
-        </button>
-      </div>
+        <img
+          alt="delete string"
+          src="mock-image"
+        />
+      </button>
     </div>
   </div>
-</AddressInputComponent>
+</div>
 `;
 
 exports[`AddressInputComponent shows confirmation window when delete is clicked 1`] = `
