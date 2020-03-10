@@ -102,7 +102,7 @@ class RentalPeriodComponent extends Component {
     );
 
     return (
-      <div>
+      <div className="rentalPeriod">
         <Row>
           <div className="col-md-6">
             {counter}
