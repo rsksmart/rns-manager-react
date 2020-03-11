@@ -1,2 +1,5 @@
-// eslint-disable-next-line import/prefer-default-export
 export const SET_VIEW = 'SET_VIEW';
+export const CHECK_IF_SUBDOMAIN = 'CHECK_IF_SUBDOMAIN';
+export const REQUEST_CHECK_OWNERSHIP = 'REQUEST_CHECK_OWNERSHIP';
+export const RECIEVE_CHECK_OWNERSHIP = 'RECIEVE_CHECK_OWNERSHIP';
+export const ERROR_CHECK_OWNERSHIP = 'ERROR_CHECK_OWNERSHIP';

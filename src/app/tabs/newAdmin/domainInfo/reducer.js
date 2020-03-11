@@ -1,5 +1,5 @@
 import {
-  RENEW_DOMAIN_CHECK_SUBDOMAIN, REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
+  REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_TRANSFER_DOMAIN,
   RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_TRANSFER_SUCCESS_CLOSE,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
@@ -7,7 +7,6 @@ import {
 } from './types';
 
 const initialState = {
-  isSubdomain: false,
   remaining: 0,
   checkingExpirationTime: false,
   expires: 0,
@@ -52,10 +51,6 @@ const renewDomain = (state = initialState, action) => {
       isError: false,
     };
 
-    case RENEW_DOMAIN_CHECK_SUBDOMAIN: return {
-      ...state,
-      isSubdomain: action.isSubdomain,
-    };
     case REQUEST_DOMAIN_EXPIRATION_TIME: return {
       ...state,
       checkingExpirationTime: true,

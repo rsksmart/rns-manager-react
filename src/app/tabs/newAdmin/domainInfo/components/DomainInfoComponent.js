@@ -15,6 +15,7 @@ const DomainInfoComponent = (props) => {
     domain,
     isSubdomain,
     isTransferSuccess,
+    isTokenOwner,
   } = props;
 
   if (isTransferSuccess) {
@@ -40,7 +41,7 @@ const DomainInfoComponent = (props) => {
         )}
       </Row>
       <RenewDomainContainer />
-      {!isSubdomain
+      {(!isSubdomain && isTokenOwner)
       && (
       <Row className="break-above">
         <Col>
@@ -71,6 +72,7 @@ DomainInfoComponent.propTypes = {
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
+  isTokenOwner: propTypes.bool.isRequired,
   isTransferSuccess: propTypes.bool.isRequired,
 };
 

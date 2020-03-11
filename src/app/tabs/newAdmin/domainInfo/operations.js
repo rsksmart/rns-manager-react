@@ -16,7 +16,7 @@ import transactionListener from '../../../helpers/transactionListener';
 
 import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
-  renewDomainIsSubdomain, requestDomainExpirationTime, receiveDomainExpirationTime,
+  requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
 } from './actions';
 
@@ -26,9 +26,6 @@ const rskOwner = new web3.eth.Contract(
 );
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
-  if (name.split('.').length > 2) {
-    dispatch(renewDomainIsSubdomain(true));
-  }
 
   dispatch(requestDomainExpirationTime());
 

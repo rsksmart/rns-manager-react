@@ -23,10 +23,14 @@ const AdminComponent = (props) => {
     strings,
     toggleAdvancedBasic,
     advancedView,
+    domain,
   } = props;
 
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(start()), [dispatch]);
+  if (domain) {
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(start(domain)), [dispatch]);
+  }
+
   return (
     <AuthTabWrapper>
       <div className="admin">
@@ -60,6 +64,10 @@ const AdminComponent = (props) => {
   );
 };
 
+AdminComponent.defaultProps = {
+  domain: '',
+};
+
 AdminComponent.propTypes = {
   strings: propTypes.shape({
     admin: propTypes.string.isRequired,
@@ -68,6 +76,7 @@ AdminComponent.propTypes = {
   }).isRequired,
   advancedView: propTypes.bool.isRequired,
   toggleAdvancedBasic: propTypes.func.isRequired,
+  domain: propTypes.string,
 };
 
 export default multilanguage(AdminComponent);
