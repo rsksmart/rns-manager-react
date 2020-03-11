@@ -3,12 +3,13 @@ import { dayMath, formatDate } from './helpers';
 describe('dayMath', () => {
   it('adds a day to march 5th 2020', () => {
     const result = dayMath(1, new Date(2020, 2, 5, 1));
-    expect(result).toEqual(1583449200000);
+    const theDate = new Date(result).getDate();
+    expect(theDate).toEqual(6);
   });
 
   it('formats 1583449200000 to March 6 2020', () => {
-    const result = formatDate(1583449200000);
-    expect(result).toEqual('6 / Mar / 2020');
+    const result = dayMath(1, new Date(2020, 2, 5, 1));
+    expect(formatDate(result)).toEqual('6 / Mar / 2020');
   });
 
   it('formats January 1st, 2020', () => {
