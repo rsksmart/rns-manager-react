@@ -120,6 +120,11 @@ class AdminTabComponent extends Component {
               <DangerZoneContainer />
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Link to="/newAdmin">Try the new admin!</Link>
+            </Col>
+          </Row>
         </Container>
       </AuthTabWrapper>
     );
