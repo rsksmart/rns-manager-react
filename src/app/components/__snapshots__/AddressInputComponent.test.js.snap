@@ -59,7 +59,7 @@ exports[`AddressInputComponent opens edit area when edit button is clicked and m
         onChange={[Function]}
         placeholder="placeholder text"
         type="text"
-        value="Value"
+        value=""
       />
     </div>
     <div

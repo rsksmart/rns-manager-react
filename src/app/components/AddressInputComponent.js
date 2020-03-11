@@ -31,7 +31,7 @@ const AddressInputComponent = (props) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isChecksumError, setIsChecksumError] = useState(false);
   const [isLocalError, setIsLocalError] = useState(false);
-  const [editText, setEditText] = useState(value);
+  const [editText, setEditText] = useState('');
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -47,6 +47,11 @@ const AddressInputComponent = (props) => {
     setIsDeleting(false);
     setIsEditing(false);
     handleDelete();
+  };
+
+  const handleErrorClick = () => {
+    setIsLocalError('');
+    handleErrorClose();
   };
 
   const handleSubmitClick = () => {
@@ -174,7 +179,7 @@ const AddressInputComponent = (props) => {
           <UserErrorComponent
             title={strings.error_title}
             message={isLocalError || strings.error_message}
-            handleCloseClick={handleErrorClose}
+            handleCloseClick={() => handleErrorClick()}
           />
         )
       }

@@ -11,8 +11,12 @@ const UserWaitingComponent = ({ message }) => (
   </div>
 );
 
+UserWaitingComponent.defaultProps = {
+  message: '',
+};
+
 UserWaitingComponent.propTypes = {
-  message: propTypes.string.isRequired,
+  message: propTypes.string,
 };
 
 export default UserWaitingComponent;

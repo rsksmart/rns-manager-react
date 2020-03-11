@@ -62,6 +62,10 @@ const DomainInfoComponent = (props) => {
   );
 };
 
+DomainInfoComponent.defaultProps = {
+  isTokenOwner: false,
+};
+
 DomainInfoComponent.propTypes = {
   strings: propTypes.shape({
     cancel: propTypes.string.isRequired,
@@ -72,7 +76,7 @@ DomainInfoComponent.propTypes = {
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
-  isTokenOwner: propTypes.bool.isRequired,
+  isTokenOwner: propTypes.bool,
   isTransferSuccess: propTypes.bool.isRequired,
 };
 
