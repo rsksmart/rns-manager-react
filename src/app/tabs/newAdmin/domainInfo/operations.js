@@ -133,7 +133,7 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
 
         return dispatch(transactionListener(result, () => {
           dispatch(start(domain));
-          return resolve(dispatch(receiveFifsMigration(result)));
+          return resolve(dispatch(receiveFifsMigration()));
         }));
       },
     );
