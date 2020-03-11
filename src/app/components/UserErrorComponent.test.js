@@ -26,4 +26,14 @@ describe('UserErrorComponent', () => {
     expect(component.find('strong').text()).toEqual('Test Title');
     expect(component.find('p').at(1).text()).toEqual('Test Message!');
   });
+
+  it('returns blank when visible is false', () => {
+    const component = mount(
+      <Provider store={store}>
+        <UserErrorComponent title="Test Title" message="Test Message!" visible={false} />
+      </Provider>,
+    );
+
+    expect(component.html()).toEqual('');
+  });
 });

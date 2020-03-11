@@ -8,7 +8,12 @@ import blueCheck from '../../assets/img/check-blue.svg';
 const UserSuccessComponent = (props) => {
   const {
     strings, title, message, handleCloseClick, address,
+    visible,
   } = props;
+
+  if (!visible) {
+    return (<></>);
+  }
 
   return (
     <div className="success">
@@ -44,6 +49,7 @@ UserSuccessComponent.defaultProps = {
   message: 'Success Message',
   handleCloseClick: () => {},
   address: '',
+  visible: true,
 };
 
 UserSuccessComponent.propTypes = {
@@ -55,6 +61,7 @@ UserSuccessComponent.propTypes = {
   message: propTypes.string,
   handleCloseClick: propTypes.func,
   address: propTypes.string,
+  visible: propTypes.bool,
 };
 
 export default multilanguage(UserSuccessComponent);

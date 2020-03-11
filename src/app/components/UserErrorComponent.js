@@ -6,8 +6,12 @@ import closeRed from '../../assets/img/close-red.svg';
 
 const UserErrorComponent = (props) => {
   const {
-    title, message, handleCloseClick, strings,
+    title, message, handleCloseClick, strings, visible,
   } = props;
+
+  if (!visible) {
+    return (<></>);
+  }
 
   return (
     <div className="error">
@@ -28,6 +32,7 @@ UserErrorComponent.defaultProps = {
   title: 'Error',
   message: 'Error Message',
   handleCloseClick: () => {},
+  visible: true,
 };
 
 UserErrorComponent.propTypes = {
@@ -37,6 +42,7 @@ UserErrorComponent.propTypes = {
   title: propTypes.string,
   message: propTypes.string,
   handleCloseClick: propTypes.func,
+  visible: propTypes.bool,
 };
 
 export default multilanguage(UserErrorComponent);

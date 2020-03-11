@@ -173,7 +173,12 @@ const AddressInputComponent = (props) => {
           </div>
         )
       }
-      {isWaiting && <UserWaitingComponent message={strings.waiting} />}
+
+      <UserWaitingComponent
+        message={strings.waiting}
+        visible={isWaiting}
+      />
+
       {(isError || isLocalError)
         && (
           <UserErrorComponent
@@ -183,15 +188,13 @@ const AddressInputComponent = (props) => {
           />
         )
       }
-      {isSuccess
-        && (
-          <UserSuccessComponent
-            title={strings.success_title}
-            message={strings.success_message}
-            handleCloseClick={handleSuccessClose}
-          />
-        )
-      }
+
+      <UserSuccessComponent
+        title={strings.success_title}
+        message={strings.success_message}
+        handleCloseClick={handleSuccessClose}
+        visible={isSuccess}
+      />
     </div>
   );
 };

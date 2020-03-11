@@ -25,6 +25,7 @@ exports[`UserErrorComponent renders and matches snapshot 1`] = `
         }
       }
       title="Error"
+      visible={true}
     >
       <div
         className="error"

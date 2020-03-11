@@ -37,4 +37,14 @@ describe('UserSuccessComponent', () => {
 
     expect(component.find('p.explorer').text()).toEqual(en.view_explorer);
   });
+
+  it('returns blank when visible is false', () => {
+    const component = mount(
+      <Provider store={store}>
+        <UserSuccessComponent title="Test Title" message="Test Message!" visible={false} />
+      </Provider>,
+    );
+
+    expect(component.html()).toEqual('');
+  });
 });

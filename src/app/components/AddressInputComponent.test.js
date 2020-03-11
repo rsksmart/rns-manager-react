@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import AddressInputComponent from './AddressInputComponent';
 
@@ -34,61 +34,11 @@ describe('AddressInputComponent', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('opens edit area when edit button is clicked and matches snapshot', () => {
-    const component = shallow(<AddressInputComponent {...initProps} />);
-    component.find('button.edit').simulate('click');
-    expect(component.find('div.edit').length).toBe(1);
-    expect(component).toMatchSnapshot();
-  });
-
-  it('closes the edit area when button or cancel is clicked', () => {
-    const component = mount(<AddressInputComponent {...initProps} />);
-    component.find('button.edit').simulate('click');
-    expect(component.find('div.edit').length).toBe(1);
-
-    // click cancel button:
-    component.find('button.cancel').simulate('click');
-    expect(component.find('div.edit').length).toBe(0);
-
-    // double click edit button:
-    component.find('button.edit').simulate('click').simulate('click');
-    expect(component.find('div.edit').length).toBe(0);
-
-    // click the delete button:
-    component.find('button.delete').simulate('click');
-    expect(component.find('div.edit').length).toBe(0);
-  });
-
   it('shows confirmation window when delete is clicked', () => {
-    const component = mount(<AddressInputComponent {...initProps} />);
+    const component = shallow(<AddressInputComponent {...initProps} />);
     component.find('button.delete').simulate('click');
     expect(component.find('div.delete').length).toBe(1);
     expect(component).toMatchSnapshot();
-  });
-
-  it('closes delete window when cancel or button is clicked', () => {
-    const component = mount(<AddressInputComponent {...initProps} />);
-    component.find('button.delete').simulate('click');
-    expect(component.find('div.delete').length).toBe(1);
-
-    // click cancel button:
-    component.find('button.cancel').simulate('click');
-    expect(component.find('div.delete').length).toBe(0);
-
-    // double click cancel button:
-    component.find('button.delete').simulate('click').simulate('click');
-    expect(component.find('div.delete').length).toBe(0);
-
-    // click edit button:
-    component.find('button.edit').simulate('click');
-    expect(component.find('div.delete').length).toBe(0);
-  });
-
-  it('handles delete function when clicked', () => {
-    const component = mount(<AddressInputComponent {...initProps} />);
-    component.find('button.delete').simulate('click');
-    component.find('button.submit').simulate('click');
-    expect(initProps.handleDelete).toBeCalledTimes(1);
   });
 
   it('delete is not shown when allowDelete is false', () => {
@@ -96,20 +46,8 @@ describe('AddressInputComponent', () => {
       ...initProps,
       allowDelete: false,
     };
-    const component = mount(<AddressInputComponent {...localProps} />);
+    const component = shallow(<AddressInputComponent {...localProps} />);
     expect(component.find('button.delete').length).toBe(0);
-  });
-
-  it('shows waiting div when waiting', () => {
-    const localProps = {
-      ...initProps,
-      isWaiting: true,
-    };
-
-    const component = mount(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.waiting').length).toBe(1);
-
-    expect(component).toMatchSnapshot();
   });
 
   it('start, edit, and delete allow custom text ', () => {
@@ -132,14 +70,10 @@ describe('AddressInputComponent', () => {
     // edit screen
     component.find('button.edit').simulate('click');
     expect(component.find('div.editLabel').text()).toEqual('custom edit prompt text');
-    // expect(component.find('button.cancel').text()).toEqual('custom cancel string');
-    // expect(component.find('button.submit').text()).toEqual('custom submit text');
 
     // delete screen
     component.find('button.delete').simulate('click');
     expect(component.find('div.delete').find('p').first().text())
       .toEqual('custom delete confirm text');
-    // expect(component.find('button.cancel').text()).toBe('custom cancel string');
-    // expect(component.find('button.submit').text()).toBe('custom delete string');
   });
 });

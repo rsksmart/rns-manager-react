@@ -3,6 +3,7 @@
 exports[`UserWaitingComponent renders and matches snapshot 1`] = `
 <UserWaitingComponent
   message="Please Wait!"
+  visible={true}
 >
   <div
     className="row waiting"
