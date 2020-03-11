@@ -10,13 +10,14 @@ import { dayMath, formatDate } from '../../helpers';
 
 const RenewButtonComponent = (props) => {
   const {
-    domain, expires, handleClick, checkingExpirationTime, isRenewOpen, strings,
+    domain, expires, handleClick, checkingExpirationTime, isRenewOpen,
+    expirationRemaining, strings,
   } = props;
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(checkIfSubdomainAndGetExpirationRemaining(domain)), []);
 
-  if (checkingExpirationTime) {
+  if (checkingExpirationTime || expirationRemaining === 0) {
     return (<></>);
   }
 
@@ -37,6 +38,7 @@ RenewButtonComponent.propTypes = {
   expires: propTypes.number.isRequired,
   checkingExpirationTime: propTypes.bool.isRequired,
   isRenewOpen: propTypes.bool.isRequired,
+  expirationRemaining: propTypes.number.isRequired,
   strings: propTypes.shape({
     expires_on: propTypes.string.isRequired,
     renew: propTypes.string.isRequired,

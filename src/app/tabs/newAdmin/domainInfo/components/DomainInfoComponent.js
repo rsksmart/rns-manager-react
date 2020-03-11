@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
-  TransferSuccessModalContainer,
+  TransferSuccessModalContainer, UpgradeContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -58,6 +58,7 @@ const DomainInfoComponent = (props) => {
         </Col>
       </Row>
       )}
+      <UpgradeContainer />
     </div>
   );
 };

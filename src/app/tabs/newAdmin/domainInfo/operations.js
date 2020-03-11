@@ -5,9 +5,10 @@ import {
   rskOwner as rskOwnerAddress,
   rif as rifAddress,
   renewer as renewerAddress,
+  registrar as tokenRegistrarAddress,
 } from '../../../adapters/configAdapter';
 import {
-  rskOwnerAbi, rifAbi,
+  rskOwnerAbi, rifAbi, tokenRegistrarAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
@@ -18,7 +19,10 @@ import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
   requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
+  requestFifsMigration, receiveFifsMigration, errorFifsMigration,
 } from './actions';
+
+import { start } from '../operations';
 
 const web3 = new Web3(window.ethereum);
 const rskOwner = new web3.eth.Contract(
@@ -105,6 +109,32 @@ export const transferDomain = (name, addressToTransfer, sender) => (dispatch) =>
         }
 
         return dispatch(transactionListener(result, () => transferDomainConfirmed(result)));
+      },
+    );
+  });
+};
+
+export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
+  dispatch(requestFifsMigration());
+
+  return new Promise((resolve) => {
+    const label = `0x${sha3(domain.split('.')[0])}`;
+
+    const tokenRegistrar = new web3.eth.Contract(
+      tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
+    );
+
+    tokenRegistrar.methods.transferRegistrars(label).send(
+      { from: address },
+      (error, result) => {
+        if (error) {
+          return dispatch(errorFifsMigration());
+        }
+
+        return dispatch(transactionListener(result, () => {
+          dispatch(start(domain));
+          return resolve(dispatch(receiveFifsMigration(result)));
+        }));
       },
     );
   });

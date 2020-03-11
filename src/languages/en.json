@@ -266,5 +266,8 @@
   "view_explorer": "View it on the explorer",
   "was_transfered": "was transfered",
   "register_new_domain": "Register a new domain",
-  "login_another_domain": "Login to another domain"
+  "login_another_domain": "Login to another domain",
+  "upgrade_domain": "Upgrade domain",
+  "upgrade": "upgrade",
+  "upgrade_domain_explanation": "The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically."
 }

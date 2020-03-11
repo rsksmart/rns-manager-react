@@ -4,7 +4,7 @@ import {
   REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_RENEW_DOMAIN,
   RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
-  CLOSE_SUCCESS_ERROR_MESSAGE,
+  CLOSE_SUCCESS_ERROR_MESSAGE, REQUEST_FIFS_MIGRATION, RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION,
 } from './types';
 
 export const requestTransferDomain = () => ({
@@ -67,4 +67,16 @@ export const closeRenewError = () => ({
 
 export const closeRenewSuccess = () => ({
   type: CLOSE_SUCCESS_ERROR_MESSAGE,
+});
+
+export const requestFifsMigration = () => ({
+  type: REQUEST_FIFS_MIGRATION,
+});
+
+export const receiveFifsMigration = () => ({
+  type: RECEIVE_FIFS_MIGRATION,
+});
+
+export const errorFifsMigration = () => ({
+  type: ERROR_FIFS_MIGRATION,
 });

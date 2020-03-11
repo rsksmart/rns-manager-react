@@ -3,14 +3,18 @@ import { keccak_256 as sha3 } from 'js-sha3';
 
 import {
   rskOwner as rskOwnerAddress,
+  registrar as tokenRegistrarAddress,
 } from '../../adapters/configAdapter';
-import { rskOwnerAbi } from './domainInfo/abis.json';
+import { rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 
 import {
   toggleBasicAdvanced, checkIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
-  errorCheckTokenOwner,
+  errorCheckTokenOwner, requestFifsMigrationStatus, receiveFifsMigrationStatus,
+  errorFifsMigrationStatus,
 } from './actions';
+
+const web3 = new Web3(window.ethereum);
 
 export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
   const labelsAmount = domain.split('.').length;
@@ -27,7 +31,6 @@ export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
 
   const hash = `0x${sha3(label)}`;
 
-  const web3 = new Web3(window.ethereum);
   const rskOwner = new web3.eth.Contract(
     rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
   );
@@ -47,10 +50,33 @@ export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
   });
 };
 
-export const start = domian => (dispatch) => {
+export const checkIfFIFSRegistrar = domain => async (dispatch) => {
+  dispatch(requestFifsMigrationStatus());
+
+  return new Promise((resolve) => {
+    const label = `0x${sha3(domain.split('.')[0])}`;
+
+    const tokenRegistrar = new web3.eth.Contract(
+      tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
+    );
+
+    tokenRegistrar.methods.entries(label).call((error, result) => {
+      if (error) {
+        dispatch(errorFifsMigrationStatus());
+      }
+
+      const deed = result[1];
+
+      return resolve(dispatch(receiveFifsMigrationStatus(deed === '0x0000000000000000000000000000000000000000')));
+    });
+  });
+};
+
+export const start = domain => (dispatch) => {
   const showAdvancedView = localStorage.getItem('adminAdvancedView');
   dispatch(toggleBasicAdvanced(showAdvancedView === 'true'));
-  dispatch(checkIfSubdomainOrTokenOwner(domian));
+  dispatch(checkIfSubdomainOrTokenOwner(domain));
+  dispatch(checkIfFIFSRegistrar(domain));
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {

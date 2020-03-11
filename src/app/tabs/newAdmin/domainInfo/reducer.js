@@ -3,7 +3,8 @@ import {
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_TRANSFER_DOMAIN,
   RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_TRANSFER_SUCCESS_CLOSE,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
-  CLOSE_SUCCESS_ERROR_MESSAGE, HANDLE_TRANSFER_ERROR_CLOSE,
+  CLOSE_SUCCESS_ERROR_MESSAGE, HANDLE_TRANSFER_ERROR_CLOSE, REQUEST_FIFS_MIGRATION,
+  RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION,
 } from './types';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   renewError: '',
   renewSuccess: false,
   renewSuccessTx: '',
+  isMigrating: false,
 };
 
 const renewDomain = (state = initialState, action) => {
@@ -93,6 +95,20 @@ const renewDomain = (state = initialState, action) => {
       ...state,
       renewSuccess: false,
     };
+
+    case REQUEST_FIFS_MIGRATION: return {
+      ...state,
+      isMigrating: true,
+    };
+    case RECEIVE_FIFS_MIGRATION: return {
+      ...state,
+      isMigrating: false,
+    };
+    case ERROR_FIFS_MIGRATION: return {
+      ...state,
+      isMigrating: false,
+    };
+
     default: return state;
   }
 };
