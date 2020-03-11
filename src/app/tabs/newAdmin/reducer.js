@@ -34,7 +34,7 @@ const adminReducer = (state = adminReducerInitialState, action) => {
     case ERROR_CHECK_OWNERSHIP: return {
       ...state,
       checkingOwnership: false,
-    }
+    };
     default: return state;
   }
 };

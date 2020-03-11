@@ -26,7 +26,6 @@ const rskOwner = new web3.eth.Contract(
 );
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
-
   dispatch(requestDomainExpirationTime());
 
   const label = name.split('.')[0];
