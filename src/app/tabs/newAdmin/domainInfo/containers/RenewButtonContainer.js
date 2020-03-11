@@ -7,7 +7,6 @@ const mapStateToProps = state => ({
   expires: state.newAdmin.domainInfo.expires,
   isRenewOpen: state.newAdmin.domainInfo.isRenewOpen,
   checkingExpirationTime: state.newAdmin.domainInfo.checkingExpirationTime,
-  expirationRemaining: state.newAdmin.domainInfo.remaining,
 });
 
 const mapDispatchToProps = dispatch => ({

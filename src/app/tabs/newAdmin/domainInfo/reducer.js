@@ -8,7 +8,6 @@ import {
 } from './types';
 
 const initialState = {
-  remaining: 0,
   checkingExpirationTime: false,
   expires: 0,
   isRenewOpen: false,

@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RenewButtonComponent expect renew section to be open 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(RenewButtonComponent)
+    checkingExpirationTime={false}
+    domain="jesse.rsk"
+    expires={100}
+    handleClick={[MockFunction]}
+    isRenewOpen={true}
+  >
+    <RenewButtonComponent
+      checkingExpirationTime={false}
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      domain="jesse.rsk"
+      expires={100}
+      handleClick={[MockFunction]}
+      isRenewOpen={true}
+      strings={
+        Object {
+          "expires_on": "Expires on",
+          "renew": "renew",
+        }
+      }
+    >
+      <p>
+        Expires on
+         
+        19 / Jun / 2020
+        <Button
+          active={false}
+          className="active"
+          disabled={false}
+          onClick={[MockFunction]}
+          type="button"
+          variant="primary"
+        >
+          <button
+            className="active btn btn-primary"
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            renew
+          </button>
+        </Button>
+      </p>
+    </RenewButtonComponent>
+  </Connect(RenewButtonComponent)>
+</Provider>
+`;
+
+exports[`RenewButtonComponent renders and matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(RenewButtonComponent)
+    checkingExpirationTime={false}
+    domain="jesse.rsk"
+    expires={100}
+    handleClick={[MockFunction]}
+    isRenewOpen={false}
+  >
+    <RenewButtonComponent
+      checkingExpirationTime={false}
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      domain="jesse.rsk"
+      expires={100}
+      handleClick={[MockFunction]}
+      isRenewOpen={false}
+      strings={
+        Object {
+          "expires_on": "Expires on",
+          "renew": "renew",
+        }
+      }
+    >
+      <p>
+        Expires on
+         
+        19 / Jun / 2020
+        <Button
+          active={false}
+          className=""
+          disabled={false}
+          onClick={[MockFunction]}
+          type="button"
+          variant="primary"
+        >
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            renew
+          </button>
+        </Button>
+      </p>
+    </RenewButtonComponent>
+  </Connect(RenewButtonComponent)>
+</Provider>
+`;

@@ -7,7 +7,9 @@ import {
 } from 'react-bootstrap';
 
 const UpgradeComponent = (props) => {
-  const { strings, isFifsMigrated, isMigrating, handleClick } = props;
+  const {
+    strings, isFifsMigrated, isMigrating, handleClick,
+  } = props;
 
   if (isFifsMigrated) {
     return (<></>);
