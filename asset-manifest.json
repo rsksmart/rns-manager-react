@@ -1,0 +1,23 @@
+{
+  "main.css": "/rns-manager-react/static/css/main.2abbd6f5.chunk.css",
+  "main.js": "/rns-manager-react/static/js/main.4809652b.chunk.js",
+  "main.js.map": "/rns-manager-react/static/js/main.4809652b.chunk.js.map",
+  "runtime~main.js": "/rns-manager-react/static/js/runtime~main.4393c63a.js",
+  "runtime~main.js.map": "/rns-manager-react/static/js/runtime~main.4393c63a.js.map",
+  "static/js/2.5a053acc.chunk.js": "/rns-manager-react/static/js/2.5a053acc.chunk.js",
+  "static/js/2.5a053acc.chunk.js.map": "/rns-manager-react/static/js/2.5a053acc.chunk.js.map",
+  "index.html": "/rns-manager-react/index.html",
+  "precache-manifest.ded196a37d0d4a15025ed2a7a80669ca.js": "/rns-manager-react/precache-manifest.ded196a37d0d4a15025ed2a7a80669ca.js",
+  "service-worker.js": "/rns-manager-react/service-worker.js",
+  "static/css/main.2abbd6f5.chunk.css.map": "/rns-manager-react/static/css/main.2abbd6f5.chunk.css.map",
+  "static/media/check-blue.svg": "/rns-manager-react/static/media/check-blue.0c024c39.svg",
+  "static/media/close-blue.svg": "/rns-manager-react/static/media/close-blue.2d03633a.svg",
+  "static/media/close-red.svg": "/rns-manager-react/static/media/close-red.2f491c35.svg",
+  "static/media/copy.svg": "/rns-manager-react/static/media/copy.118758dd.svg",
+  "static/media/edit-active.svg": "/rns-manager-react/static/media/edit-active.cad75a4f.svg",
+  "static/media/edit.svg": "/rns-manager-react/static/media/edit.c5b877ca.svg",
+  "static/media/logo-testnet.svg": "/rns-manager-react/static/media/logo-testnet.9ccedb65.svg",
+  "static/media/logo.svg": "/rns-manager-react/static/media/logo.3a8853ed.svg",
+  "static/media/powered_by_iov.svg": "/rns-manager-react/static/media/powered_by_iov.a6953932.svg",
+  "static/media/rsk_wallet.png": "/rns-manager-react/static/media/rsk_wallet.200a93b5.png"
+}
