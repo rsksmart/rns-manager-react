@@ -61,7 +61,15 @@ ErrorTabComponent.propTypes = {
   walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
-  strings: propTypes.arrayOf(propTypes.string).isRequired,
+  strings: propTypes.shape({
+    no_wallet: propTypes.string.isRequired,
+    rsk_wallet_needed: propTypes.string.isRequired,
+    get_metamask: propTypes.string.isRequired,
+    unlock_wallet: propTypes.string.isRequired,
+    network_mismatch: propTypes.string.isRequired,
+    connect_to_network: propTypes.string.isRequired,
+    current_connected: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
