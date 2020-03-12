@@ -4,11 +4,9 @@ import { multilanguage } from 'redux-multilanguage';
 
 import closeRed from '../../assets/img/close-red.svg';
 
-const UserErrorComponent = (props) => {
-  const {
-    title, message, handleCloseClick, strings, visible,
-  } = props;
-
+const UserErrorComponent = ({
+  title, message, handleCloseClick, strings, visible,
+}) => {
   if (!visible) {
     return (<></>);
   }

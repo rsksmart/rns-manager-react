@@ -11,9 +11,9 @@ export const requestTransferDomain = () => ({
   type: REQUEST_TRANSFER_DOMAIN,
 });
 
-export const receiveTransferDomain = tx => ({
+export const receiveTransferDomain = transferSuccessTx => ({
   type: RECEIVE_TRANSFER_DOMAIN,
-  transferSuccessTx: tx,
+  transferSuccessTx,
 });
 
 export const errorTransferDomain = message => ({
@@ -44,16 +44,16 @@ export const errorDomainExpirationTime = () => ({
 
 export const toggleRenew = isRenewOpen => ({
   type: TOGGLE_RENEW_PANEL,
-  isOpen: !isRenewOpen,
+  isOpen: isRenewOpen,
 });
 
 export const requestRenewDomain = () => ({
   type: REQUEST_RENEW_DOMAIN,
 });
 
-export const receiveRenewDomain = tx => ({
+export const receiveRenewDomain = renewSuccessTx => ({
   type: RECEIVE_RENEW_DOMAIN,
-  renewSuccessTx: tx,
+  renewSuccessTx,
 });
 
 export const errorRenewDomain = message => ({

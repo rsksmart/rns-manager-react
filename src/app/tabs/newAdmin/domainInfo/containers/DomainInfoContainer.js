@@ -8,9 +8,6 @@ const mapStateToProps = state => ({
   isTransferSuccess: state.newAdmin.domainInfo.isTransferSuccess,
 });
 
-const mapDispatchToProps = () => ({});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(DomainInfoComponent);

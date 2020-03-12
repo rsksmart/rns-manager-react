@@ -5,12 +5,10 @@ import { multilanguage } from 'redux-multilanguage';
 import closeBlue from '../../assets/img/close-blue.svg';
 import blueCheck from '../../assets/img/check-blue.svg';
 
-const UserSuccessComponent = (props) => {
-  const {
-    strings, title, message, handleCloseClick, address,
-    visible,
-  } = props;
-
+const UserSuccessComponent = ({
+  strings, title, message, handleCloseClick, address,
+  visible,
+}) => {
   if (!visible) {
     return (<></>);
   }
@@ -32,7 +30,7 @@ const UserSuccessComponent = (props) => {
       {address && (
         <p className="explorer">
           <a
-            href={`${process.env.REACT_APP_BLOCK_EXPLORER}/address/${address}`}
+            href={`${process.env.REACT_APP_BLOCK_EXPLORER}/tx/${address}`}
             target="_blank"
             rel="noopener noreferrer"
           >

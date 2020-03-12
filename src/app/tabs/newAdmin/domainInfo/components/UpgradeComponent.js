@@ -6,11 +6,9 @@ import {
   Row, Col, Button, Spinner,
 } from 'react-bootstrap';
 
-const UpgradeComponent = (props) => {
-  const {
-    strings, isFifsMigrated, isMigrating, handleClick,
-  } = props;
-
+const UpgradeComponent = ({
+  strings, isFifsMigrated, isMigrating, handleClick,
+}) => {
   if (isFifsMigrated) {
     return (<></>);
   }

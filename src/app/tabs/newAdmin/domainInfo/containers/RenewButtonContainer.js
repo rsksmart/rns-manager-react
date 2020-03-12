@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: isRenewOpen => dispatch(toggleRenew(isRenewOpen)),
+  handleClick: isRenewOpen => dispatch(toggleRenew(!isRenewOpen)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

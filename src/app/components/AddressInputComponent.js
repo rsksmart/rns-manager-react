@@ -12,21 +12,19 @@ import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
 import closeBlue from '../../assets/img/close-blue.svg';
 
-const AddressInputComponent = (props) => {
-  const {
-    allowDelete,
-    label,
-    value,
-    isWaiting,
-    isError,
-    handleErrorClose,
-    handleSuccessClose,
-    handleSubmit,
-    handleDelete,
-    isSuccess,
-    strings,
-  } = props;
-
+const AddressInputComponent = ({
+  allowDelete,
+  label,
+  value,
+  isWaiting,
+  isError,
+  handleErrorClose,
+  handleSuccessClose,
+  handleSubmit,
+  handleDelete,
+  isSuccess,
+  strings,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isChecksumError, setIsChecksumError] = useState(false);
@@ -55,10 +53,6 @@ const AddressInputComponent = (props) => {
   };
 
   const handleSubmitClick = () => {
-    if (editText.endsWith('.rsk')) {
-      // console.log('isRSK address');
-    }
-
     switch (validateAddress(editText)) {
       case 'Invalid address':
         setIsLocalError('Invalid address');

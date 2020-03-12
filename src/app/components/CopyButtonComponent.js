@@ -5,8 +5,7 @@ import { Image } from 'react-bootstrap';
 
 import copy from '../../assets/img/copy.svg';
 
-const CopyButtonComponent = (props) => {
-  const { strings, text } = props;
+const CopyButtonComponent = ({ strings, text }) => {
   const [showResponse, setShowResponse] = useState(false);
 
   let copyTextField = null;
