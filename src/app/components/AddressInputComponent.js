@@ -87,12 +87,22 @@ const AddressInputComponent = ({
           {value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
-          <button type="button" onClick={handleEditClick} className="edit">
+          <button
+            type="button"
+            onClick={handleEditClick}
+            className="edit"
+            disabled={isWaiting}
+          >
             <img src={(!isEditing ? edit : editActive)} alt={strings.edit} />
           </button>
           {allowDelete
             && (
-            <button type="button" onClick={handleDeleteClick} className="delete">
+            <button
+              type="button"
+              onClick={handleDeleteClick}
+              className="delete"
+              disabled={isWaiting}
+            >
               <img src={closeBlue} alt={strings.delete} />
             </button>
             )

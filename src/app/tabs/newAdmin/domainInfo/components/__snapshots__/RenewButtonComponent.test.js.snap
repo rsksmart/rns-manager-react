@@ -38,7 +38,7 @@ exports[`RenewButtonComponent expect renew section to be open 1`] = `
       <p>
         Expires on
          
-        19 / Jun / 2020
+        20 / Jun / 2020
         <Button
           active={false}
           className="active"
@@ -100,7 +100,7 @@ exports[`RenewButtonComponent renders and matches snapshot 1`] = `
       <p>
         Expires on
          
-        19 / Jun / 2020
+        20 / Jun / 2020
         <Button
           active={false}
           className=""
