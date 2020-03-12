@@ -71,7 +71,11 @@ class RenewComponent extends Component {
           {' '}
           <code>{domainDisplay}</code>
         </h2>
-        <RentalPeriodContainer />
+        <Row>
+          <div className="col-md-6 offset-md-3">
+            <RentalPeriodContainer />
+          </div>
+        </Row>
         <Row>
           <Col>
             {

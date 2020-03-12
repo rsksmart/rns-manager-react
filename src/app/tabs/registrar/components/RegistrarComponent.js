@@ -125,7 +125,9 @@ class RegistrarComponent extends Component {
           {!committed
             && (
             <div className="requestDomain">
-              <RentalPeriodContainer />
+              <div className="col-md-6 offset-md-3">
+                <RentalPeriodContainer />
+              </div>
               <CommitContainer />
             </div>
             )

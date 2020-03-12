@@ -88,10 +88,10 @@ export const start = callback => (dispatch) => {
   }
 };
 
-export const logoutManager = () => (dispatch) => {
+export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   dispatch(logOut());
-  dispatch(push('/'));
+  dispatch(push(`/${redirect}`));
   dispatch(start());
 };
 
