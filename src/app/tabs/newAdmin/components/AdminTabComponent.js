@@ -13,10 +13,10 @@ import {
   LeftNavContainer,
   ResolverContainer,
   ReverseContainer,
-  SubdomainsContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
+import { SubdomainsContainer } from '../subdomains/containers';
 
 const AdminComponent = (props) => {
   const {

@@ -1,6 +1,7 @@
 .admin {
 
   @import 'domainInfo';
+  @import 'subdomains';
 
   .btn-primary:not(:disabled):not(.disabled).active {
     background-color: $light-gray;
