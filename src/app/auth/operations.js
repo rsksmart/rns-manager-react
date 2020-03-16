@@ -16,8 +16,8 @@ import {
 } from './actions';
 
 export const saveDomainToLocalStorage = (domain) => {
-  let storedDomains = JSON.parse(localStorage.getItem('domains'));
-  if (!storedDomains) storedDomains = [];
+  const storedDomains = localStorage.getItem('domains')
+    ? JSON.parse(localStorage.getItem('domains')) : [];
   if (!storedDomains.includes(domain)) {
     storedDomains.push(domain);
     localStorage.setItem('domains', JSON.stringify(storedDomains));
