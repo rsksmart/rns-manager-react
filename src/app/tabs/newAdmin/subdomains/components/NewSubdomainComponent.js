@@ -5,7 +5,9 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col, Button } from 'react-bootstrap';
 import { validateAddress } from '../../../../validations';
 
-import { UserErrorComponent } from '../../../../components';
+import {
+  UserErrorComponent, UserSuccessComponent, UserWaitingComponent,
+} from '../../../../components';
 import { ChecksumErrorContainer } from '../../../../containers';
 
 const NewSubdomainComponent = ({
@@ -14,12 +16,16 @@ const NewSubdomainComponent = ({
   handleClick,
   errorMessage,
   handleErrorClose,
+  handleSuccessClose,
+  confirmedTx,
+  newRequesting,
+  newWaiting,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
 
   const [subdomain, setSubdomain] = useState('');
-  const [owner, setOwner] = useState('0x3dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A');
+  const [owner, setOwner] = useState('');
 
   const handleOnClick = () => {
     if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
@@ -48,6 +54,13 @@ const NewSubdomainComponent = ({
     handleErrorClose();
   };
 
+  if (confirmedTx !== '' && owner !== '') {
+    setOwner('');
+    setSubdomain('');
+  }
+
+  const disabled = newRequesting || newWaiting;
+
   return (
     <div>
       <Row>
@@ -65,6 +78,7 @@ const NewSubdomainComponent = ({
             value={subdomain}
             onChange={evt => setSubdomain(evt.target.value)}
             className="subdomain"
+            disabled={disabled}
           />
         </Col>
         <Col md={5}>
@@ -83,11 +97,13 @@ const NewSubdomainComponent = ({
             value={owner}
             onChange={evt => setOwner(evt.target.value)}
             className="owner"
+            disabled={disabled}
           />
         </Col>
         <Col>
           <Button
             onClick={handleOnClick}
+            disabled={disabled}
           >
             {strings.create}
           </Button>
@@ -101,9 +117,21 @@ const NewSubdomainComponent = ({
       />
 
       <UserErrorComponent
-        visible={errorMessage || localError}
+        visible={errorMessage !== '' || localError !== ''}
         message={errorMessage || localError}
-        handleCloseClick={handleErrorClick}
+        handleCloseClick={() => handleErrorClick()}
+      />
+
+      <UserSuccessComponent
+        visible={confirmedTx !== ''}
+        message={strings.subdomain_has_been_registered}
+        address={confirmedTx}
+        handleCloseClick={() => handleSuccessClose()}
+      />
+
+      <UserWaitingComponent
+        visible={newWaiting === true}
+        message={strings.wait_transation_confirmed}
       />
     </div>
   );
@@ -118,11 +146,17 @@ NewSubdomainComponent.propTypes = {
     owner: propTypes.string.isRequired,
     create: propTypes.string.isRequired,
     invalid_name: propTypes.string.isRequired,
+    subdomain_has_been_registered: propTypes.string.isRequired,
+    wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
   handleErrorClose: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
+  confirmedTx: propTypes.string.isRequired,
+  handleSuccessClose: propTypes.func.isRequired,
+  newRequesting: propTypes.bool.isRequired,
+  newWaiting: propTypes.bool.isRequired,
 };
 
 export default multilanguage(NewSubdomainComponent);

@@ -23,7 +23,7 @@ const ChecksumErrorComponent = (props) => {
   }
 
   return (
-    <>
+    <div className="checksumError">
       <OverlayTrigger
         key="invalidChecksumOverlay"
         placement="right"
@@ -45,7 +45,7 @@ const ChecksumErrorComponent = (props) => {
           {strings.convert_to_lowercase}
         </Button>
       </p>
-    </>
+    </div>
   );
 };
 

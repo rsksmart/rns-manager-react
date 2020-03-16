@@ -274,5 +274,6 @@
   "type_sudomain": "Type your subdomain name",
   "type_owners_address": "Type owner's address",
   "create": "Create",
-  "my_subdomains": "My subdomains"
+  "my_subdomains": "My subdomains",
+  "subdomain_has_been_registered": "The subdomain has been registered"
 }

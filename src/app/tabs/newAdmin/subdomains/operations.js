@@ -13,7 +13,7 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import transactionListener from '../../../helpers/transactionListener';
 import {
   requestNewSubdomain, receiveNewSubdomain, errorNewSubdomain, addSubdomainToList,
-  clearSubdomainList,
+  clearSubdomainList, waitingNewSubdomainConfirm,
 } from './actions';
 
 const web3 = new Web3(window.ethereum);
@@ -21,8 +21,18 @@ const registry = new web3.eth.Contract(
   rnsAbi, registryAddress, { gasPrice: defaultGasPrice },
 );
 
+export const saveSubdomainToLocalStorage = (domain, subdomain) => {
+  const storedSubdomains = localStorage.getItem('subdomains')
+    ? JSON.parse(localStorage.getItem('subdomains')) : {};
+  if (!storedSubdomains[domain]) {
+    storedSubdomains[domain] = [];
+  }
+  storedSubdomains[domain].push(subdomain);
+  localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
+};
+
+
 export const newSubDomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
-  console.log(parentDomain, subdomain, newOwner);
   dispatch(requestNewSubdomain(subdomain));
 
   const accounts = await window.ethereum.enable();
@@ -39,15 +49,19 @@ export const newSubDomain = (parentDomain, subdomain, newOwner) => async (dispat
           return resolve(dispatch(errorNewSubdomain(error.message)));
         }
 
-        return resolve(transactionListener(result, () => {
-          dispatch(receiveNewSubdomain(subdomain));
-        }));
+        dispatch(waitingNewSubdomainConfirm());
+
+        const transactionConfirmed = () => () => {
+          dispatch(addSubdomainToList(subdomain, newOwner));
+          dispatch(receiveNewSubdomain(result));
+          saveSubdomainToLocalStorage(parentDomain, subdomain);
+        };
+
+        return dispatch(transactionListener(result, () => transactionConfirmed()));
       },
     );
   });
 };
-
-
 
 export const getSubdomainOwner = (domain, subdomain) => (dispatch) => {
   const hash = namehash(`${subdomain}.${domain}`);
