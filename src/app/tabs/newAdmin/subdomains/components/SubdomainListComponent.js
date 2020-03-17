@@ -32,7 +32,6 @@ const SubdomainListComponent = ({ strings, domain, subdomains }) => {
           />
         </div>
       ))}
-
     </div>
   );
 };

@@ -54,6 +54,7 @@ const subdomainReducer = (state = initialState, action) => {
         {
           name: action.subdomain,
           owner: action.owner,
+          isEditing: false,
         },
       ],
     };
