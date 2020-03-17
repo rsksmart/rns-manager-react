@@ -240,5 +240,27 @@
   "period_in_years": "período en años",
   "auto_address_setup": "Configuración de dirección automática",
   "auto_address_explanation": "Si elige esta opción, la dirección de su wallet se configurará automáticamente como la dirección resuelta de su dominio.",
-  "notification_domain_ready_register": "Su dominio está listo para ser registrado"
+  "notification_domain_ready_register": "Su dominio está listo para ser registrado",
+  "advanced": "Avanzado",
+  "basic": "Básico",
+  "domain_info": "Información del dominio",
+  "your_addresses": "Su dirección",
+  "reverse": "Inversa",
+  "copied": "copiado",
+  "copy_text": "Copiar texto",
+  "transfer_warning": "Transferir la titularidad de su dominio a otra dirección. Tenga en cuenta que una vez que transfiera la titularidad de su dominio ya no podrá acceder a él ni administrarlo.",
+  "expires_on": "Vence el",
+  "renew_explanation": "Su wallet se abrirá y se le pedirá que confirme la primera de dos transacciones requeridas para la renovación.",
+  "renew_domain": "Renovar dominio",
+  "close": "Cerrar",
+  "renew_success": "Su dominio ha sido renovado.",
+  "success": "Éxito",
+  "view_explorer": "Verlo en el navegador",
+  "was_transfered": "fue transferido",
+  "register_new_domain": "Registrar un nuevo dominio",
+  "login_another_domain": "Iniciar sesión en otro dominio",
+  "upgrade_domain": "Actualizar el dominio",
+  "upgrade": "actualizar",
+  "upgrade_domain_explanation": "La actualización del dominio ofrece nuevas funcionalidades y renovación dinámica. La actualización requiere una única transacción con su wallet; luego su dominio se actualizará automáticamente."
+
 }
