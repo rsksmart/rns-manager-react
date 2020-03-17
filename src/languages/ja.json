@@ -240,5 +240,27 @@
   "period_in_years": "年単位での期間",
   "auto_address_setup": "自動アドレス設定",
   "auto_address_explanation": "このオプションを選択すると、ウォレットアドレスがドメインの解決済みアドレスとして自動的に設定されます。",
-  "notification_domain_ready_register": "ドメインの登録準備が整っています"
+  "notification_domain_ready_register": "ドメインの登録準備が整っています",
+  "advanced": "アドバンス",
+  "basic": "ベーシック",
+  "domain_info": "ドメイン情報",
+  "your_addresses": "お客様のアドレス",
+  "reverse": "戻す",
+  "copied": "コピー済み",
+  "copy_text": "テキストをコピー",
+  "transfer_warning": "お客様のドメインの所有権を別のアドレスに移譲します。ドメインの所有権を移譲すると、そのドメインにアクセスして管理することができなくなりますのでご注意ください。",
+  "expires_on": "有効期限は",
+  "renew_explanation": "ご使用中のウォレットが開き、修復に必要な2つのトランザクションうちの最初の方を確認するよう求められます。",
+  "renew_domain": "ドメインを更新",
+  "close": "閉じる",
+  "renew_success": "お客様のドメインが更新されました。",
+  "success": "成功",
+  "view_explorer": "エクスプローラで表示",
+  "was_transfered": "は移譲されました",
+  "register_new_domain": "新しいドメインを登録",
+  "login_another_domain": "別のドメインにログイン",
+  "upgrade_domain": "ドメインをアップグレード",
+  "upgrade": "アップグレード",
+  "upgrade_domain_explanation": "ドメインをアップグレードすると、新たな機能を使用できるようになり、ドメインが大幅に修復されます。アップグレードするには、ウォレットを使って1件のトランザクションを実行する必要があります。実行後、ドメインが自動的にアップグレードされます。"
+
 }

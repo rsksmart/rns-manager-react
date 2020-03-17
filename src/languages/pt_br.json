@@ -240,5 +240,27 @@
   "period_in_years": "tempo em anos",
   "auto_address_setup": "Configuração automática do endereço",
   "auto_address_explanation": "Escolher esta opção irá definir automaticamente seu endereço de carteira como endereço resolvido para seu domínio.",
-  "notification_domain_ready_register": "Seu domínio está pronto para ser registrado"
+  "notification_domain_ready_register": "Seu domínio está pronto para ser registrado",
+  "advanced": "Avançado",
+  "basic": "Básico",
+  "domain_info": "Informações do domínio",
+  "your_addresses": "Seus endereços",
+  "reverse": "Inverter",
+  "copied": "copiado",
+  "copy_text": "Copiar texto",
+  "transfer_warning": "Transfira a propriedade do seu domínio para outro endereço. Esteja ciente de que, depois de transferir a propriedade do seu domínio, você não poderá mais acessá-lo, nem o gerenciar.",
+  "expires_on": "Expira em",
+  "renew_explanation": "Sua carteira se abrirá, e lhe será solicitado que confirme a primeira de duas transações exigidas para renovação.",
+  "renew_domain": "Renovar domínio",
+  "close": "Fechar",
+  "renew_success": "Seu domínio foi renovado.",
+  "success": "Sucesso",
+  "view_explorer": "Visualize-o no explorador",
+  "was_transfered": "foi transferido",
+  "register_new_domain": "Registrar um novo domínio",
+  "login_another_domain": "Fazer login para outro domínio",
+  "upgrade_domain": "Atualizar domínio",
+  "upgrade": "atualizar",
+  "upgrade_domain_explanation": "A atualização do domínio oferece novas funcionalidades e renovação dinâmica. A atualização requer uma única transação com sua carteira, e seu domínio será atualizado automaticamente."
+
 }

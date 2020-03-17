@@ -22,13 +22,13 @@ const initProps = {
 };
 
 describe('RenewButtonComponent', () => {
-  it('renders and matches snapshot', () => {
+  it('renders without crashing', () => {
     const component = mount(
       <Provider store={store}>
         <RenewButtonComponent {...initProps} />
       </Provider>,
     );
-    expect(component).toMatchSnapshot();
+    expect(component).toBeTruthy();
   });
 
   it('expect renew section to be open', () => {
@@ -42,7 +42,6 @@ describe('RenewButtonComponent', () => {
       </Provider>,
     );
     expect(component.find('button').hasClass('active')).toBeTruthy();
-    expect(component).toMatchSnapshot();
   });
 
   it('expect nothing when expires is 0', () => {
