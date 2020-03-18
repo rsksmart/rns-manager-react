@@ -3,7 +3,7 @@ import {
   ERROR_NEW_SUBDOMAIN_CLOSE, ADD_SUBDOMAIN_TO_LIST, CLEAR_SUBDOMAIN_LIST,
   SUCCESS_NEW_SUBDOMAIN_CLOSE, WAITING_NEW_SUBDOMAIN_CONFIRM, REQUEST_SET_SUBDOMAIN_OWNER,
   ERROR_SET_SUBDOMAIN_OWNER, WAITING_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
-  RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE,
+  RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE, REMOVE_SUBDOMAIN_FROM_LIST,
 } from './types';
 
 const initialState = {
@@ -19,6 +19,7 @@ const initialState = {
 const subDomainInitialState = {
   name: '',
   owner: '',
+  isActive: true,
   editError: '',
   isEditing: false,
   isWaiting: false,
@@ -80,6 +81,7 @@ const subdomainReducer = (state = initialState, action) => {
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
           isEditing: true,
+          isWaiting: true,
         },
       },
     };
@@ -89,6 +91,7 @@ const subdomainReducer = (state = initialState, action) => {
         ...state.subdomains,
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
+          isEditing: false,
           isWaiting: true,
         },
       },
@@ -124,6 +127,18 @@ const subdomainReducer = (state = initialState, action) => {
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
           editError: action.message,
+          isEditing: false,
+          isWaiting: false,
+        },
+      },
+    };
+
+    case REMOVE_SUBDOMAIN_FROM_LIST: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          isActive: false,
         },
       },
     };

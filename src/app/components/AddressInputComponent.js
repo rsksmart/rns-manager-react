@@ -91,7 +91,8 @@ const AddressInputComponent = ({
           {label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
-          {`${strings.value_prefix}: `}
+          {`${strings.value_prefix}`}
+          {strings.value_prefix ? ': ' : ''}
           {value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>

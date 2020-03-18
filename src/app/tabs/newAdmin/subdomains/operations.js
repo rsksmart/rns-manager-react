@@ -10,6 +10,7 @@ import {
   requestNewSubdomain, receiveNewSubdomain, errorNewSubdomain, addSubdomainToList,
   clearSubdomainList, waitingNewSubdomainConfirm, requestSetSubdomainOwner,
   waitingSetSubdomainOwner, receiveSetSubdomainOwner, errorSetSubdomainOwner,
+  removeSubdomainFromList,
 } from './actions';
 
 const web3 = new Web3(window.ethereum);
@@ -18,13 +19,19 @@ const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, JslibOptions());
 
 // Adding new subdomains:
-export const saveSubdomainToLocalStorage = (domain, subdomain) => {
+export const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
     ? JSON.parse(localStorage.getItem('subdomains')) : {};
   if (!storedSubdomains[domain]) {
     storedSubdomains[domain] = [];
   }
-  storedSubdomains[domain].push(subdomain);
+
+  if (add) {
+    storedSubdomains[domain].push(subdomain);
+  } else {
+    storedSubdomains[domain].pop(subdomain);
+  }
+
   localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
 };
 
@@ -49,7 +56,7 @@ export const registerSubDomain = (parentDomain, subdomain, newOwner) => async (d
       const transactionConfirmed = () => () => {
         dispatch(addSubdomainToList(subdomain, newOwner));
         dispatch(receiveNewSubdomain(result));
-        saveSubdomainToLocalStorage(parentDomain, subdomain);
+        updateSubdomainToLocalStorage(parentDomain, subdomain, true);
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
@@ -71,19 +78,17 @@ export const newSubDomain = (
   parentDomain, subdomain, newOwner, subdomainList,
 ) => async (dispatch) => {
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
-
   if (isAvailable) {
     return dispatch(registerSubDomain(parentDomain, subdomain, newOwner));
   }
 
-  const isInList = subdomainList.filter(sub => sub.name === subdomain).length;
-  if (isInList) {
+  if (subdomainList[subdomain]) {
     // already on the list below
     return dispatch(errorNewSubdomain(`${subdomain} is already registered.`));
   }
 
   // already was registered, but not in localStorage:
-  saveSubdomainToLocalStorage(parentDomain, subdomain);
+  updateSubdomainToLocalStorage(parentDomain, subdomain, true);
   dispatch(getSubdomainOwner(parentDomain, subdomain));
   return dispatch(errorNewSubdomain(`${subdomain} was already registered. It has been added below.`));
 };
@@ -128,9 +133,14 @@ export const setSubdomainOwner = (
 
       dispatch(waitingSetSubdomainOwner(subdomain));
 
-      const transactionConfirmed = () => () => dispatch(
-        receiveSetSubdomainOwner(result, subdomain, newOwner),
-      );
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetSubdomainOwner(result, subdomain, newOwner));
+
+        if (newOwner === '0x0000000000000000000000000000000000000000') {
+          updateSubdomainToLocalStorage(parentDomain, subdomain, false);
+          dispatch(removeSubdomainFromList(subdomain));
+        }
+      };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
     });

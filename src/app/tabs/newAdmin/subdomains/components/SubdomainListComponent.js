@@ -17,6 +17,10 @@ const SubdomainListComponent = ({
       <h3 className="blue">{strings.my_subdomains}</h3>
       {Object.entries(subdomains).map((item) => {
         const subdomain = item[1];
+        if (!subdomain.isActive) {
+          return <></>;
+        }
+
         return (
           <div className="break-below">
             <SubdomainViewContainer
@@ -36,6 +40,9 @@ const SubdomainListComponent = ({
                 edit_placeholder: strings.type_owners_address,
                 success_message: strings.subdomain_owner_set,
                 waiting: strings.wait_transation_confirmed,
+                delete: strings.delete,
+                edit: strings.edit,
+                delete_confirm_text: strings.remove_subdomain_comfirm,
               }}
             />
           </div>
@@ -53,6 +60,9 @@ SubdomainListComponent.propTypes = {
     type_owners_address: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
     subdomain_owner_set: propTypes.string.isRequired,
+    delete: propTypes.string.isRequired,
+    edit: propTypes.string.isRequired,
+    remove_subdomain_comfirm: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   subdomains: propTypes.arrayOf({

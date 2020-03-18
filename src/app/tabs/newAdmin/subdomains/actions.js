@@ -3,7 +3,7 @@ import {
   ERROR_NEW_SUBDOMAIN_CLOSE, ADD_SUBDOMAIN_TO_LIST, CLEAR_SUBDOMAIN_LIST,
   SUCCESS_NEW_SUBDOMAIN_CLOSE, WAITING_NEW_SUBDOMAIN_CONFIRM,
   RECEIVE_SET_SUBDOMAIN_OWNER, REQUEST_SET_SUBDOMAIN_OWNER, WAITING_SET_SUBDOMAIN_OWNER,
-  ERROR_SET_SUBDOMAIN_OWNER, RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE,
+  ERROR_SET_SUBDOMAIN_OWNER, RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE, REMOVE_SUBDOMAIN_FROM_LIST,
 } from './types';
 
 export const requestNewSubdomain = () => ({
@@ -67,5 +67,10 @@ export const errorSetSubdomainOwner = (subdomain, message) => ({
 
 export const successSetSubdomainOwnerClose = subdomain => ({
   type: RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE,
+  subdomain,
+});
+
+export const removeSubdomainFromList = subdomain => ({
+  type: REMOVE_SUBDOMAIN_FROM_LIST,
   subdomain,
 });

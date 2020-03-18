@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => ({
   ),
   handleErrorClose: subdomain => dispatch(errorSetSubdomainOwner(subdomain, '')),
   handleSuccessClose: subdomain => dispatch(successSetSubdomainOwnerClose(subdomain)),
+  handleDelete: (domain, subdomain, currentOwner) => dispatch(
+    setSubdomainOwner(domain, subdomain, '0x0000000000000000000000000000000000000000', currentOwner),
+  ),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -26,6 +29,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ),
   handleErrorClose: () => dispatchProps.handleErrorClose(ownProps.label),
   handleSuccessClose: () => dispatchProps.handleSuccessClose(ownProps.label),
+  handleDelete: () => dispatchProps.handleDelete(stateProps.domain, ownProps.label, ownProps.value),
 });
 
 export default connect(
