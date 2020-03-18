@@ -24,6 +24,8 @@ const AddressInputComponent = ({
   handleDelete,
   isSuccess,
   strings,
+  successTx,
+  reset,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -76,6 +78,12 @@ const AddressInputComponent = ({
     handleSubmitClick();
   };
 
+  if (reset && (isEditing || isDeleting)) {
+    setIsEditing(false);
+    setIsDeleting(false);
+    setEditText('');
+  }
+console.log('success!!!', successTx);
   return (
     <div className="row addressInput">
       <div className="row view">
@@ -197,6 +205,7 @@ const AddressInputComponent = ({
         title={strings.success_title}
         message={strings.success_message}
         handleCloseClick={handleSuccessClose}
+        address={successTx}
         visible={isSuccess}
       />
     </div>
@@ -208,6 +217,8 @@ AddressInputComponent.defaultProps = {
   isError: false,
   isWaiting: false,
   isSuccess: false,
+  reset: false,
+  successTx: '',
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -234,6 +245,8 @@ AddressInputComponent.propTypes = {
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
+  reset: propTypes.bool,
+  successTx: propTypes.string,
   handleErrorClose: propTypes.func,
   handleSuccessClose: propTypes.func,
   handleSubmit: propTypes.func.isRequired,

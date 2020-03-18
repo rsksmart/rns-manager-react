@@ -1,7 +1,9 @@
 import {
   REQUEST_NEW_SUBDOMAIN, RECEIVE_NEW_SUBDOMAIN, ERROR_NEW_SUBDOMAIN,
   ERROR_NEW_SUBDOMAIN_CLOSE, ADD_SUBDOMAIN_TO_LIST, CLEAR_SUBDOMAIN_LIST,
-  SUCCESS_NEW_SUBDOMAIN_CLOSE, WAITING_NEW_SUBDOMAIN_CONFIRM,
+  SUCCESS_NEW_SUBDOMAIN_CLOSE, WAITING_NEW_SUBDOMAIN_CONFIRM, REQUEST_SET_SUBDOMAIN_OWNER,
+  ERROR_SET_SUBDOMAIN_OWNER, WAITING_SET_SUBDOMAIN_OWNER, RECEIVE_SET_SUBDOMAIN_OWNER,
+  RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE,
 } from './types';
 
 const initialState = {
@@ -10,6 +12,18 @@ const initialState = {
   newWaiting: false,
   confirmedTx: '',
   newError: '',
+  editDomain: '',
+  editError: '',
+};
+
+const subDomainInitialState = {
+  name: '',
+  owner: '',
+  editError: '',
+  isEditing: false,
+  isWaiting: false,
+  isSuccess: false,
+  confirmedTx: '',
 };
 
 const subdomainReducer = (state = initialState, action) => {
@@ -49,14 +63,69 @@ const subdomainReducer = (state = initialState, action) => {
     };
     case ADD_SUBDOMAIN_TO_LIST: return {
       ...state,
-      subdomains: [
+      subdomains: {
         ...state.subdomains,
-        {
+        [action.subdomain]: {
+          ...subDomainInitialState,
           name: action.subdomain,
           owner: action.owner,
-          isEditing: false,
         },
-      ],
+      },
+    };
+
+    case REQUEST_SET_SUBDOMAIN_OWNER: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          ...state.subdomains[action.subdomain],
+          isEditing: true,
+        },
+      },
+    };
+    case WAITING_SET_SUBDOMAIN_OWNER: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          ...state.subdomains[action.subdomain],
+          isWaiting: true,
+        },
+      },
+    };
+    case RECEIVE_SET_SUBDOMAIN_OWNER: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          ...state.subdomains[action.subdomain],
+          isWaiting: false,
+          isSuccess: true,
+          confirmedTx: action.confirmedTx,
+          owner: action.newOwner,
+        },
+      },
+    };
+    case RECEIEVE_SET_SUBDOMAIN_SUCCESS_CLOSE: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          ...state.subdomains[action.subdomain],
+          isSuccess: false,
+          confirmedTx: '',
+        },
+      },
+    };
+    case ERROR_SET_SUBDOMAIN_OWNER: return {
+      ...state,
+      subdomains: {
+        ...state.subdomains,
+        [action.subdomain]: {
+          ...state.subdomains[action.subdomain],
+          editError: action.message,
+        },
+      },
     };
     default: return state;
   }

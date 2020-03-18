@@ -82,7 +82,7 @@ const NewSubdomainComponent = ({
           />
         </Col>
         <Col md={5}>
-          <p className="blue">
+          <p className="blue break-above">
             {`.${domain}`}
           </p>
         </Col>

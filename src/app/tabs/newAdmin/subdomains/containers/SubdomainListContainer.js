@@ -4,9 +4,9 @@ import { SubdomainListComponent } from '../components';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   subdomains: state.newAdmin.subdomains.subdomains,
-  strings: {
-    value_prefix: '',
-  },
+  isEditing: state.newAdmin.subdomains.isEditing,
+  editDomain: state.newAdmin.subdomains.editDomain,
+  editError: state.newAdmin.subdomains.editError,
 });
 
 const mapDispatchToProps = dispatch => ({});
