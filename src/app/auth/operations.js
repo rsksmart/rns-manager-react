@@ -15,6 +15,15 @@ import {
   closeModal,
 } from './actions';
 
+export const saveDomainToLocalStorage = (domain) => {
+  const storedDomains = localStorage.getItem('domains')
+    ? JSON.parse(localStorage.getItem('domains')) : [];
+  if (!storedDomains.includes(domain)) {
+    storedDomains.push(domain);
+    localStorage.setItem('domains', JSON.stringify(storedDomains));
+  }
+};
+
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
   dispatch(requestLogin());
 
@@ -52,6 +61,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
       }
 
       localStorage.setItem('name', name);
+      saveDomainToLocalStorage(name);
 
       dispatch(closeModal());
       return resolve(dispatch(receiveLogin(name, true)));
