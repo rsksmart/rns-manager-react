@@ -102,12 +102,12 @@ class RentalPeriodComponent extends Component {
     );
 
     return (
-      <div>
+      <div className="rentalPeriod">
         <Row>
-          <div className="col-md-3 offset-md-3">
+          <div className="col-md-6">
             {counter}
           </div>
-          <div className="col-md-3">
+          <div className="col-md-6">
             {
               getting
                 ? <Spinner animation="grow" variant="primary" />

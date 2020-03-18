@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReverseComponent matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(ReverseComponent)>
+    <ReverseComponent
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      strings={
+        Object {
+          "reverse": "Reverse",
+        }
+      }
+    >
+      <div>
+        <h1>
+          Reverse
+        </h1>
+      </div>
+    </ReverseComponent>
+  </Connect(ReverseComponent)>
+</Provider>
+`;

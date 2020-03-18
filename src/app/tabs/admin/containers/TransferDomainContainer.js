@@ -5,6 +5,8 @@ import { TransferDomainComponent } from '../components';
 const mapStateToProps = state => ({
   name: state.auth.name,
   currentAddress: state.auth.address,
+  isWaiting: state.newAdmin.transfer.requestingTransfer,
+  isError: state.newAdmin.transfer.isError,
   ...state.admin.transferDomain,
 });
 

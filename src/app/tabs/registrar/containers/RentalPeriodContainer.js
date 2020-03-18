@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
   getting: state.registrar.gettingCost,
   committing: state.registrar.committing,
   committed: state.registrar.committed,
-  domain: parse(state.router.location.search).domain,
+  domain: parse(state.router.location.search).domain || state.auth.name,
   hasBalance: state.registrar.hasBalance,
   gettingConversionRate: state.registrar.gettingConversionRate,
   conversionRate: state.registrar.conversionRate,

@@ -8,3 +8,4 @@ export { default as MetamaskFormContainer } from './metamask/MetamaskFormContain
 export { default as LanguageSelectContainer } from './LanguageSelectContainer';
 export { default as IndicatorLight } from './IndicatorLight';
 export { default as ChecksumErrorContainer } from './ChecksumErrorContainer';
+export { default as ToggleContainer } from './ToggleContainer';
