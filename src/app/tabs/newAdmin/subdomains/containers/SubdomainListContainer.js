@@ -9,9 +9,7 @@ const mapStateToProps = state => ({
   editError: state.newAdmin.subdomains.editError,
 });
 
-const mapDispatchToProps = dispatch => ({});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 )(SubdomainListComponent);

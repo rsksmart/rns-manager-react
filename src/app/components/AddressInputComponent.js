@@ -83,7 +83,7 @@ const AddressInputComponent = ({
     setIsDeleting(false);
     setEditText('');
   }
-console.log('success!!!', successTx);
+
   return (
     <div className="row addressInput">
       <div className="row view">

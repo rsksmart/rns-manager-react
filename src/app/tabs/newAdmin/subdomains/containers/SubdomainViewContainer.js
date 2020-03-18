@@ -33,5 +33,3 @@ export default connect(
   mapDispatchToProps,
   mergeProps,
 )(AddressInputComponent);
-
-// 0xEe3D5f22Ea0FF393AeEf5Cf88a81E7d44979633B

@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import mockStore from '../../../../../tests/config/mockStore';
-import en from '../../../../languages/en.json';
+import mockStore from '../../../../../../tests/config/mockStore';
+import en from '../../../../../languages/en.json';
 
 import SubdomainsComponent from './SubdomainsComponent';
 
