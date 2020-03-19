@@ -82,7 +82,7 @@
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
-    "moduleNameMapper": {
+    "moduleNameMapper":{
       "\\.(gif|png|eot|svg)$": "<rootDir>/tests/config/mockImage.js"
     }
   }
