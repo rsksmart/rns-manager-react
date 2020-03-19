@@ -8,7 +8,6 @@
     "connected-react-router": "^6.3.1",
     "env-cmd": "^10.0.1",
     "eth-ens-namehash": "^2.0.8",
-    "gh-pages": "^2.2.0",
     "history": "^4.7.2",
     "js-sha3": "^0.8.0",
     "node-sass": "^4.13.1",
@@ -40,9 +39,7 @@
     "build:mainnet": "env-cmd -f .env.production react-scripts build",
     "test": "jest && eslint src",
     "test:watch": "jest --watch",
-    "lint": "eslint src",
-    "predeploy": "yarn run build:testnet",
-    "deploy": "gh-pages -d build"
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -82,9 +79,8 @@
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
-    "moduleNameMapper": {
+    "moduleNameMapper":{
       "\\.(gif|png|eot|svg)$": "<rootDir>/tests/config/mockImage.js"
     }
-  },
-  "homepage": "http://rnsdomains.github.io/rns-manager-react"
+  }
 }
