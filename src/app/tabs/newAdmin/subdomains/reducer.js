@@ -81,7 +81,6 @@ const subdomainReducer = (state = initialState, action) => {
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
           isEditing: true,
-          isWaiting: true,
         },
       },
     };
@@ -91,7 +90,6 @@ const subdomainReducer = (state = initialState, action) => {
         ...state.subdomains,
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
-          isEditing: false,
           isWaiting: true,
         },
       },
@@ -102,6 +100,7 @@ const subdomainReducer = (state = initialState, action) => {
         ...state.subdomains,
         [action.subdomain]: {
           ...state.subdomains[action.subdomain],
+          isEditing: false,
           isWaiting: false,
           isSuccess: true,
           confirmedTx: action.confirmedTx,

@@ -5,9 +5,10 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col, Button } from 'react-bootstrap';
 import { validateAddress } from '../../../../validations';
 
-import {
-  UserErrorComponent, UserSuccessComponent, UserWaitingComponent,
-} from '../../../../components';
+import UserErrorComponent from '../../../../components/UserErrorComponent';
+import UserSuccessComponent from '../../../../components/UserSuccessComponent';
+import UserWaitingComponent from '../../../../components/UserWaitingComponent';
+
 import { ChecksumErrorContainer } from '../../../../containers';
 
 const NewSubdomainComponent = ({
@@ -20,12 +21,14 @@ const NewSubdomainComponent = ({
   confirmedTx,
   newRequesting,
   newWaiting,
+  initialSubdomain,
+  initialOwner,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
 
-  const [subdomain, setSubdomain] = useState('');
-  const [owner, setOwner] = useState('');
+  const [subdomain, setSubdomain] = useState(initialSubdomain);
+  const [owner, setOwner] = useState(initialOwner);
 
   const handleOnClick = () => {
     if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
@@ -104,6 +107,7 @@ const NewSubdomainComponent = ({
           <Button
             onClick={handleOnClick}
             disabled={disabled}
+            className="create"
           >
             {strings.create}
           </Button>
@@ -137,6 +141,11 @@ const NewSubdomainComponent = ({
   );
 };
 
+NewSubdomainComponent.defaultProps = {
+  initialSubdomain: '',
+  initialOwner: '',
+};
+
 NewSubdomainComponent.propTypes = {
   strings: propTypes.shape({
     admin_your_domain_action_3: propTypes.string.isRequired,
@@ -157,6 +166,8 @@ NewSubdomainComponent.propTypes = {
   handleSuccessClose: propTypes.func.isRequired,
   newRequesting: propTypes.bool.isRequired,
   newWaiting: propTypes.bool.isRequired,
+  initialSubdomain: propTypes.string,
+  initialOwner: propTypes.string,
 };
 
 export default multilanguage(NewSubdomainComponent);
