@@ -26,6 +26,7 @@ exports[`AddressesComponent matches snapshot 1`] = `
       <div>
         <h1>
           Your addresses
+          !!
         </h1>
       </div>
     </AddressesComponent>
