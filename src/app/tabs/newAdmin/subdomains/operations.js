@@ -36,7 +36,7 @@ export const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => 
 };
 
 export const registerSubDomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
-  dispatch(requestNewSubdomain(subdomain));
+  dispatch(requestNewSubdomain());
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
