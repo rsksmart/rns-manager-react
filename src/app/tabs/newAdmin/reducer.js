@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+
+import addresses from './addresses/reducer';
 import domainInfo from './domainInfo/reducer';
 import subdomains from './subdomains/reducer';
 import reverse from './reverse/reducer';
@@ -63,6 +65,7 @@ const adminReducer = (state = adminReducerInitialState, action) => {
 
 export default combineReducers({
   view: adminReducer,
+  addresses,
   domainInfo,
   subdomains,
   reverse,

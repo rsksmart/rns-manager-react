@@ -1,0 +1,24 @@
+[
+  {
+    "name": "RSK",
+    "id": "0x80000089",
+    "validation": "HEX"
+  },
+  {
+    "name": "BTC",
+    "id": "0x80000000"
+  },
+  {
+    "name": "Ethereum",
+    "id": "0x8000003c",
+    "validation": "HEX"
+  },
+  {
+    "name": "LTC",
+    "id": "0x80000002"
+  },
+  {
+    "name": "Bitcoin Cash",
+    "id": "0x80000091"
+  }
+]

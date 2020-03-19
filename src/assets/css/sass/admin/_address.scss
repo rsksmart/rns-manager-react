@@ -1,0 +1,25 @@
+.yourAddress {
+  .addNew {
+    button:not(.close), input, select {
+      display: block;
+      width: 100%;
+    }
+    button:not(.close) {
+      background: $blue;
+      padding: 10px !important;
+      color: $white;
+      border-radius: 15px;
+    }
+    select {
+      color: $gray;
+      padding: 12px 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+    input {
+      border: 1px solid $gray;
+      border-radius: 12px;
+      padding: 10px;
+    }
+  }  
+}
