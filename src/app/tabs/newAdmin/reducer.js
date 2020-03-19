@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import domainInfo from './domainInfo/reducer';
 import subdomains from './subdomains/reducer';
 import reverse from './reverse/reducer';
+import resolver from './resolver/reducer';
 
 import {
   SET_VIEW, CHECK_IF_SUBDOMAIN, REQUEST_CHECK_OWNERSHIP, RECIEVE_CHECK_OWNERSHIP,
@@ -65,4 +66,5 @@ export default combineReducers({
   domainInfo,
   subdomains,
   reverse,
+  resolver,
 });

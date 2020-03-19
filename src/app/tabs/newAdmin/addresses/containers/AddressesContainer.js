@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import { AddressesComponent } from '../components';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  domain: state.auth.name,
+});
 
 const mapDispatchToProps = dispatch => ({});
 
