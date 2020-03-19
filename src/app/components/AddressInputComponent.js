@@ -192,15 +192,12 @@ const AddressInputComponent = ({
         visible={isWaiting}
       />
 
-      {(isError || isLocalError)
-        && (
-          <UserErrorComponent
-            title={strings.error_title}
-            message={isLocalError || strings.error_message}
-            handleCloseClick={() => handleErrorClick()}
-          />
-        )
-      }
+      <UserErrorComponent
+        title={strings.error_title}
+        message={isLocalError || strings.error_message}
+        handleCloseClick={() => handleErrorClick()}
+        visible={isError || isLocalError}
+      />
 
       <UserSuccessComponent
         title={strings.success_title}

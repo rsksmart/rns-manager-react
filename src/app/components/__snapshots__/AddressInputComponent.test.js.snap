@@ -50,6 +50,12 @@ exports[`AddressInputComponent renders without crashing 1`] = `
     message="waiting text string"
     visible={false}
   />
+  <Connect(UserErrorComponent)
+    handleCloseClick={[Function]}
+    message="error message text"
+    title="error title text"
+    visible={false}
+  />
   <Connect(UserSuccessComponent)
     address=""
     handleCloseClick={[MockFunction]}
@@ -137,6 +143,12 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
   </div>
   <UserWaitingComponent
     message="waiting text string"
+    visible={false}
+  />
+  <Connect(UserErrorComponent)
+    handleCloseClick={[Function]}
+    message="error message text"
+    title="error title text"
     visible={false}
   />
   <Connect(UserSuccessComponent)
