@@ -1,6 +1,6 @@
 import {
   RECEIVE_SET_CHAIN_ADDRESS, WAITING_SET_CHAIN_ADDRESS, ERROR_SET_CHAIN_ADDRESS,
-  REQUEST_SET_CHAIN_ADDRESS, CLOSE_SET_CHAIN_ADDRESS,
+  REQUEST_SET_CHAIN_ADDRESS, CLOSE_SET_CHAIN_ADDRESS, RECEIVE_CHAIN_ADDRESS,
 } from './types';
 
 const initialState = {
@@ -10,6 +10,12 @@ const initialState = {
   setIsError: false,
   setSuccessTx: '',
   setError: '',
+  chainAddresses: [],
+};
+
+const chainAddressInitialState = {
+  chainId: '',
+  address: '',
 };
 
 const resolverReducer = (state = initialState, action) => {
@@ -43,6 +49,19 @@ const resolverReducer = (state = initialState, action) => {
       setSuccessTx: '',
       setError: '',
     };
+
+    case RECEIVE_CHAIN_ADDRESS: return {
+      ...state,
+      chainAddresses: {
+        ...state.chainAddresses,
+        [action.chainName]: {
+          ...chainAddressInitialState,
+          address: action.address,
+          chainId: action.chainId,
+        },
+      },
+    };
+
     default: return state;
   }
 };

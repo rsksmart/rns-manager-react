@@ -8,16 +8,18 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
 import {
   requestSetChainAddress, errorSetChainAddress, waitingSetChainAddress,
-  receiveSetChainAddress,
+  receiveSetChainAddress, requestChainAddress, receiveChainAddress,
+  errorChainAddress,
 } from './actions';
 import abi from '../../multiChainResolver/abi.json';
 
 import transactionListener from '../../../helpers/transactionListener';
+import networks from './networks.json';
 
 const web3 = new Web3(window.ethereum);
 const resolver = new web3.eth.Contract(abi, resolverAddress, { gasPrice: defaultGasPrice });
 
-// eslint-disable-next-line import/prefer-default-export
+
 export const setChainAddress = (domain, chainId, address) => async (dispatch) => {
   dispatch(requestSetChainAddress());
 
@@ -37,4 +39,26 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
       return dispatch(transactionListener(result, () => transactionConfirmed()));
     },
   );
+};
+
+export const getChainAddresses = (domain, chainName, chainId) => async (dispatch) => {
+  dispatch(requestChainAddress());
+
+  const hash = namehash(domain);
+
+  return new Promise((resolve) => {
+    resolver.methods.chainAddr(hash, chainId).call((error, result) => {
+      if (error) {
+        return errorChainAddress(error.message);
+      }
+      if (result === '' || result === '0x0000000000000000000000000000000000000000') {
+        return errorChainAddress(`chain address for ${chainName} not set`);
+      }
+      return resolve(dispatch(receiveChainAddress(chainId, chainName, result)));
+    });
+  });
+};
+
+export const getAllChainAddresses = domain => (dispatch) => {
+  networks.map(network => dispatch(getChainAddresses(domain, network.name, network.id)));
 };

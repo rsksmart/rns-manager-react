@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { useDispatch } from 'react-redux';
 import { getDomainResolver } from '../../resolver/operations';
-import { AddNewAddressContainer } from '../containers';
+import { YourAddressesContainer, AddNewAddressContainer } from '../containers';
+import { getAllChainAddresses } from '../operations';
 
-const AddressesComponent = (props) => {
-  const { domain, strings } = props;
-
+const AddressesComponent = ({ domain }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getDomainResolver(domain)), [dispatch]);
+  useEffect(() => dispatch(getAllChainAddresses(domain)), [dispatch]);
 
   return (
     <div className="yourAddress">
@@ -18,9 +18,8 @@ const AddressesComponent = (props) => {
       // if user has multi, nothing to be done
       <br />
       // Other resolver, “you changed your resolver to the string resolver"
-      <h1>{strings.your_addresses}</h1>
-      // your addresses here
 
+      <YourAddressesContainer />
       <AddNewAddressContainer />
     </div>
   );
