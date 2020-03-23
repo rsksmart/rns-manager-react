@@ -8,7 +8,7 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
 import {
   requestSetChainAddress, errorSetChainAddress, waitingSetChainAddress,
-  receiveSetChainAddress, requestChainAddress, receiveChainAddress,
+  requestChainAddress, receiveChainAddress, receiveSetChainAddress,
   errorChainAddress,
 } from './actions';
 import abi from '../../multiChainResolver/abi.json';
@@ -26,7 +26,8 @@ export const getChainNameById = (chainId) => {
 };
 
 export const setChainAddress = (domain, chainId, address) => async (dispatch) => {
-  dispatch(requestSetChainAddress());
+  const chainName = getChainNameById(chainId);
+  dispatch(requestSetChainAddress(chainName));
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -34,15 +35,15 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
 
   resolver.methods.setChainAddr(hash, chainId, address).send(
     { from: currentAddress }, (error, result) => {
-      dispatch(waitingSetChainAddress());
+      dispatch(waitingSetChainAddress(chainName));
       if (error) {
-        return dispatch(errorSetChainAddress(error.message));
+        return dispatch(errorSetChainAddress(chainName, error.message));
       }
+
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress(result));
-        // add address to list:
-        dispatch(receiveChainAddress(chainId, getChainNameById(chainId), address));
+        dispatch(receiveSetChainAddress(chainId, getChainNameById(chainId), address, result));
       };
+
       return dispatch(transactionListener(result, () => transactionConfirmed()));
     },
   );
@@ -56,10 +57,7 @@ export const getChainAddresses = (domain, chainName, chainId) => async (dispatch
   return new Promise((resolve) => {
     resolver.methods.chainAddr(hash, chainId).call((error, result) => {
       if (error) {
-        return errorChainAddress(error.message);
-      }
-      if (result === '' || result === '0x0000000000000000000000000000000000000000') {
-        return errorChainAddress(`chain address for ${chainName} not set`);
+        return errorChainAddress(chainName, error.message);
       }
       return resolve(dispatch(receiveChainAddress(chainId, chainName, result)));
     });
@@ -68,4 +66,10 @@ export const getChainAddresses = (domain, chainName, chainId) => async (dispatch
 
 export const getAllChainAddresses = domain => (dispatch) => {
   networks.map(network => dispatch(getChainAddresses(domain, network.name, network.id)));
+};
+
+export const deleteChainAddress = (domain, chainId) => (dispatch) => {
+  const isHex = networks.filter(net => net.id === chainId)[0].validation === 'HEX';
+  const value = isHex ? '0x0000000000000000000000000000000000000000' : '';
+  dispatch(setChainAddress(domain, chainId, value));
 };

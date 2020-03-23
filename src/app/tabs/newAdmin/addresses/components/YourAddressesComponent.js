@@ -4,26 +4,41 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
 import { ChainAddressEditContainer } from '../containers';
+import networks from '../networks.json';
 
-const YourAddressesComponent = ({ strings, chainAddresses }) => {
-  return (
-    <Row>
-      <Col>
-        <h1>Your Addresses</h1>
-        {Object.entries(chainAddresses).map(address => (
+const YourAddressesComponent = ({ strings, chainAddresses }) => (
+  <Row>
+    <Col>
+      <h1>Your Addresses</h1>
+      {Object.entries(chainAddresses).map((chainAddress) => {
+        if (chainAddress[1].address === '' || chainAddress[1].address === '0x0000000000000000000000000000000000000000') {
+          return (<></>);
+        }
+
+        const chainName = chainAddress[0];
+        const {
+          chainId, address, isEditing, isWaiting, isSuccess, isError, successTx, errorMessage,
+        } = chainAddress[1];
+
+        const validate = networks.filter(net => net.name === chainName)[0].validation === 'HEX';
+
+        return (
           <div className="break-below">
             <ChainAddressEditContainer
-              key={address[0]}
-              label={address[0]}
-              value={address[1].address}
-              isError={false}
-              isWaiting={false}
-              isSuccess={false}
-              successTx={false}
-              reset={false}
+              key={chainName}
+              label={chainName}
+              chainId={chainId}
+              value={address}
+              isError={isError}
+              isEditing={isEditing}
+              isWaiting={isWaiting}
+              isSuccess={isSuccess}
+              successTx={successTx}
+              reset={isSuccess}
+              validation={validate}
               strings={{
                 value_prefix: '',
-                error_message: '',
+                error_message: errorMessage,
                 cancel: strings.cancel,
                 submit: strings.submit,
                 edit_placeholder: '',
@@ -31,18 +46,18 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => {
                 waiting: '',
                 delete: strings.delete,
                 edit: strings.edit,
-                delete_confirm_text: '',
+                delete_confirm_text: strings.delete_chain_confirm,
               }}
             />
           </div>
-        ))}
-      </Col>
-    </Row>
-  );
-};
+        );
+      })}
+    </Col>
+  </Row>
+);
 
 YourAddressesComponent.defaultProps = {
-  chainAddresses: [],
+  chainAddresses: [{}],
 };
 
 YourAddressesComponent.propTypes = {
@@ -51,6 +66,7 @@ YourAddressesComponent.propTypes = {
     submit: propTypes.string.isRequired,
     edit: propTypes.string.isRequired,
     delete: propTypes.string.isRequired,
+    delete_chain_confirm: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.arrayOf({
     chainId: propTypes.string.isRequired,

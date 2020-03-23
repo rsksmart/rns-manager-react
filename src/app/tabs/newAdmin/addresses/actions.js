@@ -4,30 +4,37 @@ import {
   RECEIVE_CHAIN_ADDRESS, ERROR_CHAIN_ADDRESS,
 } from './types';
 
-export const requestSetChainAddress = () => ({
+export const requestSetChainAddress = chainName => ({
   type: REQUEST_SET_CHAIN_ADDRESS,
+  chainName,
 });
 
-export const waitingSetChainAddress = () => ({
+export const waitingSetChainAddress = chainName => ({
   type: WAITING_SET_CHAIN_ADDRESS,
+  chainName,
 });
 
-export const receiveSetChainAddress = resultTx => ({
-  type: RECEIVE_SET_CHAIN_ADDRESS,
-  resultTx,
-});
-
-export const errorSetChainAddress = message => ({
+export const errorSetChainAddress = (chainName, message) => ({
   type: ERROR_SET_CHAIN_ADDRESS,
+  chainName,
   message,
 });
 
-export const closeSetChainAddress = () => ({
+export const closeSetChainAddress = chainName => ({
   type: CLOSE_SET_CHAIN_ADDRESS,
+  chainName,
 });
 
 export const requestChainAddress = () => ({
   type: REQUEST_CHAIN_ADDRESS,
+});
+
+export const receiveSetChainAddress = (chainId, chainName, address, resultTx) => ({
+  type: RECEIVE_SET_CHAIN_ADDRESS,
+  chainId,
+  chainName,
+  address,
+  resultTx,
 });
 
 export const receiveChainAddress = (chainId, chainName, address) => ({
@@ -37,7 +44,8 @@ export const receiveChainAddress = (chainId, chainName, address) => ({
   address,
 });
 
-export const errorChainAddress = message => ({
+export const errorChainAddress = (chainName, message) => ({
   type: ERROR_CHAIN_ADDRESS,
+  chainName,
   message,
 });

@@ -227,8 +227,8 @@ AddressInputComponent.defaultProps = {
   isSuccess: false,
   reset: false,
   successTx: '',
-  validationChainId: '',
   validation: true,
+  validationChainId: process.env.REACT_APP_ENVIRONMENT_ID,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',

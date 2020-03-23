@@ -20,7 +20,7 @@ const AddressesComponent = ({ domain }) => {
       // Other resolver, “you changed your resolver to the string resolver"
 
       <YourAddressesContainer />
-      <AddNewAddressContainer />
+
     </div>
   );
 };
