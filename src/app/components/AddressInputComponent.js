@@ -78,6 +78,11 @@ const AddressInputComponent = ({
     handleSubmitClick();
   };
 
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setIsChecksumError(false);
+  };
+
   if (reset && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
@@ -136,7 +141,7 @@ const AddressInputComponent = ({
           <div className="col-md-4 buttons">
             <Button
               className="cancel"
-              onClick={() => setIsEditing(false)}
+              onClick={() => handleCancelClick()}
               disabled={isWaiting}
             >
               {strings.cancel}
