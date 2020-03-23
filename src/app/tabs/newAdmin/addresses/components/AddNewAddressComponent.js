@@ -18,13 +18,19 @@ const AddNewAddressComponent = ({
   successTx,
   errorMessage,
 }) => {
+  // all available addresses have been set, return before states are set
+  if (networks.length === 0) {
+    return (<></>);
+  }
+
   const [localError, setLocalError] = useState('');
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0].id);
   const [address, setAddress] = useState('');
 
   const handleAddClick = () => {
-    const checkValidation = networks.filter(net => net.id === selectedNetwork)[0];
-    if (checkValidation.validation === 'HEX') {
+    const getNetwork = networks.filter(net => net.id === selectedNetwork)[0];
+    console.log(getNetwork);
+    if (getNetwork && getNetwork.validation === 'HEX') {
       if (validateAddress(address)) {
         return setLocalError(validateAddress(address));
       }

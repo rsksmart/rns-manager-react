@@ -19,6 +19,11 @@ import networks from './networks.json';
 const web3 = new Web3(window.ethereum);
 const resolver = new web3.eth.Contract(abi, resolverAddress, { gasPrice: defaultGasPrice });
 
+// helper function:
+export const getChainNameById = (chainId) => {
+  const network = networks.filter(net => net.id === chainId);
+  return network[0].name;
+};
 
 export const setChainAddress = (domain, chainId, address) => async (dispatch) => {
   dispatch(requestSetChainAddress());
@@ -35,6 +40,8 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
       }
       const transactionConfirmed = () => () => {
         dispatch(receiveSetChainAddress(result));
+        // add address to list:
+        dispatch(receiveChainAddress(chainId, getChainNameById(chainId), address));
       };
       return dispatch(transactionListener(result, () => transactionConfirmed()));
     },
