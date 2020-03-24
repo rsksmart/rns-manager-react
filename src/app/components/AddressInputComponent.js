@@ -26,6 +26,7 @@ const AddressInputComponent = ({
   strings,
   successTx,
   reset,
+  validationChainId,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -55,7 +56,7 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
-    switch (validateAddress(editText)) {
+    switch (validateAddress(editText, validationChainId)) {
       case 'Invalid address':
         setIsLocalError('Invalid address');
         return;
@@ -222,6 +223,7 @@ AddressInputComponent.defaultProps = {
   isSuccess: false,
   reset: false,
   successTx: '',
+  validationChainId: process.env.REACT_APP_ENVIRONMENT_ID,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -255,6 +257,7 @@ AddressInputComponent.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
+  validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };
 
