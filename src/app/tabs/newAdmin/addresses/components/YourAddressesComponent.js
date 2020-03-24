@@ -22,13 +22,14 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
         } = chainAddress[1];
 
         const validate = networks.filter(net => net.name === chainName)[0].validation === 'HEX';
+        const validationNetworkId = networks.filter(net => net.name === chainName)[0].checksum;
 
         return (
           <div className="break-below">
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
-              chainId={chainId}
+              networkId={chainId}
               value={address}
               isError={isError}
               isEditing={isEditing}
@@ -37,6 +38,7 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
               successTx={successTx}
               reset={isSuccess}
               validation={validate}
+              validationChainId={validationNetworkId}
               strings={{
                 value_prefix: '',
                 error_message: errorMessage,

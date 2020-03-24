@@ -7,9 +7,6 @@ const mapStateToProps = state => ({
   gettingResolver: state.newAdmin.resolver.gettingResolver,
 });
 
-const mapDispatchToProps = dispatch => ({});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(AddressesComponent);

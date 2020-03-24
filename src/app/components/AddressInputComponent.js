@@ -180,7 +180,7 @@ const AddressInputComponent = ({
             <p>
               <Button
                 className="cancel"
-                onClick={() => setIsDeleting(false)}
+                onClick={() => { setIsDeleting(false); setIsLocalError(''); }}
                 disabled={isWaiting}
               >
                 {strings.cancel}

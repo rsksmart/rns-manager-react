@@ -11,7 +11,8 @@
   {
     "name": "Ethereum",
     "id": "0x8000003c",
-    "validation": "HEX"
+    "validation": "HEX",
+    "checksum": "1"
   },
   {
     "name": "LTC",

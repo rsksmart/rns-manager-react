@@ -68,8 +68,8 @@ export const getAllChainAddresses = domain => (dispatch) => {
   networks.map(network => dispatch(getChainAddresses(domain, network.name, network.id)));
 };
 
-export const deleteChainAddress = (domain, chainId) => (dispatch) => {
-  const isHex = networks.filter(net => net.id === chainId)[0].validation === 'HEX';
+export const deleteChainAddress = (domain, networkId) => (dispatch) => {
+  const isHex = networks.filter(net => net.id === networkId)[0].validation === 'HEX';
   const value = isHex ? '0x0000000000000000000000000000000000000000' : '';
-  dispatch(setChainAddress(domain, chainId, value));
+  dispatch(setChainAddress(domain, networkId, value));
 };

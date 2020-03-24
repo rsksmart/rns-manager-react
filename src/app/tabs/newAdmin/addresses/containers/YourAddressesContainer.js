@@ -6,9 +6,6 @@ const mapStateToProps = state => ({
   chainAddresses: state.newAdmin.addresses.chainAddresses,
 });
 
-const mapDispatchToProps = dispatch => ({});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(YourAddressesComponent);

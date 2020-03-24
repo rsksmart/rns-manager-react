@@ -41,7 +41,6 @@ export const getDomainResolver = domain => async (dispatch) => {
 };
 
 export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
-  console.log('setDomainResolver', domain, resolverAddress);
   dispatch(requestSetResolver());
 
   const accounts = await window.ethereum.enable();

@@ -5,7 +5,9 @@ import { Row, Col, Button } from 'react-bootstrap';
 
 import { validateAddress } from '../../../../validations';
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
+import { ChecksumErrorContainer } from '../../../../containers';
 import { getChainNameById } from '../operations';
+import allNetworks from '../networks.json';
 
 const AddNewAddressComponent = ({
   strings,
@@ -20,20 +22,34 @@ const AddNewAddressComponent = ({
   }
 
   const [localError, setLocalError] = useState('');
+  const [checksumError, setChecksumError] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0][1].chainId);
   const [address, setAddress] = useState('');
 
   const networkName = getChainNameById(selectedNetwork);
 
   const handleAddClick = () => {
-    const getNetwork = networks.filter(net => net.id === selectedNetwork)[0];
+    const networkInfo = allNetworks.filter(net => net.id === selectedNetwork)[0];
 
-    if (getNetwork && getNetwork.validation === 'HEX') {
-      if (validateAddress(address)) {
-        return setLocalError(validateAddress(address));
+    if (networkInfo.validation && networkInfo.validation === 'HEX') {
+      const validationChainId = allNetworks.filter(net => net.id === selectedNetwork)[0].checksum
+        || process.env.REACT_APP_ENVIRONMENT_ID;
+
+      switch (validateAddress(address, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
+        case 'Invalid address':
+          return setLocalError('Invalid address');
+        case 'Invalid checksum':
+          return setChecksumError(true);
+        default:
       }
     }
     return handleClick(selectedNetwork, address);
+  };
+
+  const handleChecksumClick = (lowerAddress) => {
+    setChecksumError(false);
+    setAddress(lowerAddress);
+    handleClick(selectedNetwork, address);
   };
 
   const handleErrorClose = () => {
@@ -94,6 +110,18 @@ const AddNewAddressComponent = ({
         message={strings.wait_transation_confirmed}
         visible={isWaiting}
       />
+
+      {checksumError
+        && (
+          <div className="checksumError">
+            <ChecksumErrorContainer
+              show={checksumError}
+              inputValue={address}
+              handleClick={handleChecksumClick}
+            />
+          </div>
+        )
+      }
 
     </div>
   );
