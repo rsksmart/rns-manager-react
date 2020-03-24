@@ -81,7 +81,8 @@ const resolverReducer = (state = initialState, action) => {
       chainAddresses: {
         ...state.chainAddresses,
         [action.chainName]: {
-          ...state.chainAddresses[action.chainName],
+          ...chainAddressInitialState,
+          // ...state.chainAddresses[action.chainName],
           address: action.address,
           chainId: action.chainId,
           isSuccess: false,

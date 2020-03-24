@@ -4,19 +4,15 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col, Button } from 'react-bootstrap';
 
 import { validateAddress } from '../../../../validations';
-import { UserErrorComponent, UserWaitingComponent, UserSuccessComponent } from '../../../../components';
+import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
+import { getChainNameById } from '../operations';
 
 const AddNewAddressComponent = ({
   strings,
   networks,
   handleClick,
-  handleMessageClose,
-  isWaiting,
-  isError,
-  isSuccess,
-  isEditing,
-  successTx,
-  errorMessage,
+  handleClose,
+  chainAddresses,
 }) => {
   // all available addresses have been set, return before states are set
   if (networks.length === 0) {
@@ -24,12 +20,14 @@ const AddNewAddressComponent = ({
   }
 
   const [localError, setLocalError] = useState('');
-  const [selectedNetwork, setSelectedNetwork] = useState(networks[0].id);
+  const [selectedNetwork, setSelectedNetwork] = useState(networks[0][1].chainId);
   const [address, setAddress] = useState('');
+
+  const networkName = getChainNameById(selectedNetwork);
 
   const handleAddClick = () => {
     const getNetwork = networks.filter(net => net.id === selectedNetwork)[0];
-    console.log(getNetwork);
+
     if (getNetwork && getNetwork.validation === 'HEX') {
       if (validateAddress(address)) {
         return setLocalError(validateAddress(address));
@@ -40,8 +38,15 @@ const AddNewAddressComponent = ({
 
   const handleErrorClose = () => {
     setLocalError('');
-    handleMessageClose();
+    handleClose(networkName);
   };
+
+  const {
+    isWaiting,
+    isError,
+    isEditing,
+    errorMessage,
+  } = chainAddresses[networkName];
 
   return (
     <div className="break-above addNew">
@@ -58,9 +63,8 @@ const AddNewAddressComponent = ({
             onChange={evt => setSelectedNetwork(evt.target.value)}
             value={selectedNetwork}
           >
-            {
-              networks.map(network => (<option value={network.id}>{network.name}</option>))
-            }
+            {networks.map(chainAddress => (
+              <option value={chainAddress[1].chainId}>{chainAddress[0]}</option>))}
           </select>
         </Col>
         <Col md={7}>
@@ -91,13 +95,18 @@ const AddNewAddressComponent = ({
         visible={isWaiting}
       />
 
-      <UserSuccessComponent
-        visible={isSuccess}
-        address={successTx}
-        handleCloseClick={() => handleMessageClose()}
-      />
     </div>
   );
+};
+
+AddNewAddressComponent.defaultProps = {
+  networks: [],
+  chainAddresses: {
+    isWaiting: false,
+    isError: false,
+    isEditing: false,
+    errorMessage: '',
+  },
 };
 
 AddNewAddressComponent.propTypes = {
@@ -110,15 +119,15 @@ AddNewAddressComponent.propTypes = {
   networks: propTypes.arrayOf({
     name: propTypes.string.isRequired,
     id: propTypes.string.isRequired,
-  }).isRequired,
+  }),
+  chainAddresses: propTypes.shape({
+    isWaiting: propTypes.bool,
+    isError: propTypes.bool,
+    isEditing: propTypes.bool,
+    errorMessage: propTypes.string,
+  }),
   handleClick: propTypes.func.isRequired,
-  handleMessageClose: propTypes.func.isRequired,
-  isWaiting: propTypes.bool.isRequired,
-  isSuccess: propTypes.bool.isRequired,
-  successTx: propTypes.string.isRequired,
-  isError: propTypes.bool.isRequired,
-  isEditing: propTypes.bool.isRequired,
-  errorMessage: propTypes.string.isRequired,
+  handleClose: propTypes.func.isRequired,
 };
 
 export default multilanguage(AddNewAddressComponent);

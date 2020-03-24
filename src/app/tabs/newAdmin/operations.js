@@ -14,6 +14,8 @@ import {
   errorFifsMigrationStatus,
 } from './actions';
 
+import { getDomainResolver } from './resolver/operations';
+
 const web3 = new Web3(window.ethereum);
 
 export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
@@ -77,6 +79,7 @@ export const start = domain => (dispatch) => {
   dispatch(toggleBasicAdvanced(showAdvancedView === 'true'));
   dispatch(checkIfSubdomainOrTokenOwner(domain));
   dispatch(checkIfFIFSRegistrar(domain));
+  dispatch(getDomainResolver(domain));
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {

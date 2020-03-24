@@ -19,8 +19,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  handleSubmit: value => dispatchProps.handleSubmit(stateProps.domain, ownProps.chainId, value),
-  handleDelete: () => dispatchProps.handleDelete(stateProps.domain, ownProps.chainId),
+  handleSubmit: value => dispatchProps.handleSubmit(stateProps.domain, ownProps.networkId, value),
+  handleDelete: () => dispatchProps.handleDelete(stateProps.domain, ownProps.networkId),
   handleErrorClose: () => dispatchProps.handleClose(ownProps.label),
   handleSuccessClose: () => dispatchProps.handleClose(ownProps.label),
 });

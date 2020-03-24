@@ -27,7 +27,7 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
-              chainId={chainId}
+              networkId={chainId}
               value={address}
               isError={isError}
               isEditing={isEditing}
