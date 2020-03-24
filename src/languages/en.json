@@ -282,5 +282,6 @@
   "remove_subdomain_comfirm": "Are you sure you want to remove this subdomain?",
   "purpose_subdomains": "You can create free subdomains for different purposes (personal wallet, gaming, betting...)",
   "Name": "Name",
-  "Owner": "Owner"
+  "Owner": "Owner",
+  "use_the_new_admin_to_transfer": "Use the new admin to transfer domains."
 }
