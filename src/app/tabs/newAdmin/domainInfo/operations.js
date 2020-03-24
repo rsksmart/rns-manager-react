@@ -101,7 +101,7 @@ export const transferDomain = (name, addressToTransfer, sender) => (dispatch) =>
   return new Promise((resolve) => {
     const hash = `0x${sha3(label)}`;
 
-    rskOwner.methods.safeTransferFrom(sender, addressToTransfer, hash).send(
+    rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
       { from: sender },
       (error, result) => {
         if (error) {
