@@ -1,7 +1,9 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
-import { requestResolver, receiveResolver } from './actions';
+import {
+  requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
+} from './actions';
 
 import {
   multiChainResolver as multiChainResolverAddress,
@@ -35,5 +37,26 @@ export const getDomainResolver = domain => async (dispatch) => {
   await rns.contracts.registry.methods.resolver(hash)
     .call((error, result) => {
       dispatch(receiveResolver(result, getResolverNameByAddress(result)));
+    });
+};
+
+export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
+  console.log('setDomainResolver', domain, resolverAddress);
+  dispatch(requestSetResolver());
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  const hash = namehash(domain);
+
+  await rns.compose();
+  await rns.contracts.registry.methods.setResolver(hash, resolverAddress)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorSetResolver(error.message));
+      }
+
+      return dispatch(
+        receiveSetResolver(result, resolverAddress, getResolverNameByAddress(resolverAddress)),
+      );
     });
 };
