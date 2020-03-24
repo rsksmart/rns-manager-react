@@ -23,6 +23,7 @@ const NewSubdomainComponent = ({
   newWaiting,
   initialSubdomain,
   initialOwner,
+  chainId,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
@@ -35,13 +36,13 @@ const NewSubdomainComponent = ({
       return setLocalError(strings.invalid_name);
     }
 
-    switch (validateAddress(owner)) {
+    switch (validateAddress(owner, chainId)) {
       case 'Invalid address':
         return setLocalError('Invalid address');
       case 'Invalid checksum':
         return setChecksumError(true);
       default:
-        return handleClick(subdomain, owner);
+        return handleClick(subdomain, owner.toLowerCase());
     }
   };
 
@@ -71,13 +72,17 @@ const NewSubdomainComponent = ({
           <h3 className="blue caps-first">{strings.admin_your_domain_action_3}</h3>
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <p>{strings.purpose_subdomains}</p>
+        </Col>
+      </Row>
       <Row className="minor-section">
         <Col md={2}>
-          {strings.name}
+          {strings.Name}
         </Col>
         <Col md={5}>
           <input
-            placeholder={strings.type_sudomain}
             value={subdomain}
             onChange={evt => setSubdomain(evt.target.value)}
             className="subdomain"
@@ -92,11 +97,10 @@ const NewSubdomainComponent = ({
       </Row>
       <Row className="minor-section">
         <Col md={2}>
-          {strings.owner}
+          {strings.Owner}
         </Col>
         <Col md={8}>
           <input
-            placeholder={strings.type_owners_address}
             value={owner}
             onChange={evt => setOwner(evt.target.value)}
             className="owner"
@@ -107,7 +111,6 @@ const NewSubdomainComponent = ({
           <Button
             onClick={handleOnClick}
             disabled={disabled}
-            className="create"
           >
             {strings.create}
           </Button>
@@ -157,6 +160,9 @@ NewSubdomainComponent.propTypes = {
     invalid_name: propTypes.string.isRequired,
     subdomain_has_been_registered: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
+    purpose_subdomains: propTypes.string.isRequired,
+    Name: propTypes.string.isRequired,
+    Owner: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
@@ -168,6 +174,7 @@ NewSubdomainComponent.propTypes = {
   newWaiting: propTypes.bool.isRequired,
   initialSubdomain: propTypes.string,
   initialOwner: propTypes.string,
+  chainId: propTypes.string.isRequired,
 };
 
 export default multilanguage(NewSubdomainComponent);

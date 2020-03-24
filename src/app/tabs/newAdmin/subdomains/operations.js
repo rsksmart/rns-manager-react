@@ -3,12 +3,12 @@ import { keccak_256 as sha3 } from 'js-sha3';
 import { hash as namehash } from 'eth-ens-namehash';
 import RNS from '@rsksmart/rns';
 
-import JslibOptions from '../../../adapters/jslibAdapter';
+import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 import transactionListener from '../../../helpers/transactionListener';
 import {
   requestNewSubdomain, receiveNewSubdomain, errorNewSubdomain, addSubdomainToList,
-  clearSubdomainList, waitingNewSubdomainConfirm, requestSetSubdomainOwner,
+  clearSubdomainList, waitingNewSubdomainConfirm,
   waitingSetSubdomainOwner, receiveSetSubdomainOwner, errorSetSubdomainOwner,
   removeSubdomainFromList,
 } from './actions';
@@ -16,10 +16,9 @@ import {
 const web3 = new Web3(window.ethereum);
 
 // JS library:
-const rns = new RNS(web3, JslibOptions());
+const rns = new RNS(web3, getOptions());
 
-// Adding new subdomains:
-export const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
+const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
     ? JSON.parse(localStorage.getItem('subdomains')) : {};
   if (!storedSubdomains[domain]) {
@@ -35,7 +34,7 @@ export const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => 
   localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
 };
 
-export const registerSubDomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
+const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
   dispatch(requestNewSubdomain());
 
   const accounts = await window.ethereum.enable();
@@ -63,7 +62,7 @@ export const registerSubDomain = (parentDomain, subdomain, newOwner) => async (d
     });
 };
 
-export const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
+const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   const hash = namehash(`${subdomain}.${domain}`);
 
   await rns.compose();
@@ -74,27 +73,38 @@ export const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   });
 };
 
-export const newSubDomain = (
+/**
+ * Create a subdomain or add it to the list of subdomains in local storage
+ * if existent.
+ * @param {string} parentDomain the domain to add the subdomain for
+ * @param {string} subdomain label for the subdomain to add
+ * @param {address} newOwner owner to set for the subdomain
+ * @param {Object[]} subdomainList the list of known and stored domains
+ */
+export const newSubdomain = (
   parentDomain, subdomain, newOwner, subdomainList,
 ) => async (dispatch) => {
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubDomain(parentDomain, subdomain, newOwner));
+    return dispatch(registerSubdomain(parentDomain, subdomain, newOwner));
   }
 
   if (subdomainList[subdomain]) {
     // already on the list below
-    return dispatch(errorNewSubdomain(`${subdomain} is already registered.`));
+    return dispatch(errorNewSubdomain(`${subdomain}.${parentDomain} is already registered.`));
   }
 
   // already was registered, but not in localStorage:
   updateSubdomainToLocalStorage(parentDomain, subdomain, true);
   dispatch(getSubdomainOwner(parentDomain, subdomain));
-  return dispatch(errorNewSubdomain(`${subdomain} was already registered. It has been added below.`));
+  return dispatch(errorNewSubdomain(`${subdomain}.${parentDomain} was already registered. It has been added below.`));
 };
 
 
-// Subdomain View list:
+/**
+ * Get all subdomains for a domain in local storage and get all the owners.
+ * @param {string} domain to get the subdomain owners of
+ */
 export const getSubdomainListFromLocalStorage = domain => (dispatch) => {
   dispatch(clearSubdomainList());
 
@@ -109,11 +119,18 @@ export const getSubdomainListFromLocalStorage = domain => (dispatch) => {
   });
 };
 
-// Editing Subdomain owners:
+/**
+ * Change a subdomain's owner if is different from the current,
+ * and remove it from local storage if is transferred to 0x00.
+ * @param {string} parentDomain the domain to change the subdomain owner for
+ * @param {string} subdomain label for the subdomain to change the owner
+ * @param {address} newOwner owner to set for the subdomain
+ * @param {address} currentOwner the current owner
+ */
 export const setSubdomainOwner = (
   parentDomain, subdomain, newOwner, currentOwner,
 ) => async (dispatch) => {
-  dispatch(requestSetSubdomainOwner(subdomain));
+  dispatch(waitingSetSubdomainOwner(subdomain));
 
   if (newOwner === currentOwner) {
     return dispatch(errorSetSubdomainOwner(subdomain, 'The subdomain is already owned by that address'));

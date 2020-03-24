@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { NewSubdomainComponent } from '../components';
-import { newSubDomain } from '../operations';
+import { newSubdomain } from '../operations';
 import { errorNewSubdomainClose, successNewSubdomainClose } from '../actions';
 
 const mapStateToProps = state => ({
@@ -10,10 +10,11 @@ const mapStateToProps = state => ({
   newWaiting: state.newAdmin.subdomains.newWaiting,
   confirmedTx: state.newAdmin.subdomains.confirmedTx,
   subdomains: state.newAdmin.subdomains.subdomains,
+  chainId: state.auth.network,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, subDomain, owner, subdomains) => dispatch(newSubDomain(
+  handleClick: (domain, subDomain, owner, subdomains) => dispatch(newSubdomain(
     domain, subDomain, owner, subdomains,
   )),
   handleErrorClose: () => dispatch(errorNewSubdomainClose()),

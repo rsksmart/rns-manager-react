@@ -279,5 +279,8 @@
   "submit": "Submit",
   "subdomain_owner_set": "Subdomain owner has been set.",
   "delete": "delete",
-  "remove_subdomain_comfirm": "Are you sure you want to remove this subdomain?"
+  "remove_subdomain_comfirm": "Are you sure you want to remove this subdomain?",
+  "purpose_subdomains": "You can create free subdomains for different purposes (personal wallet, gaming, betting...)",
+  "Name": "Name",
+  "Owner": "Owner"
 }

@@ -15,7 +15,9 @@ import closeBlue from '../../assets/img/close-blue.svg';
 const AddressInputComponent = ({
   allowDelete,
   label,
+  labelDisplay,
   value,
+  valueDisplay,
   isWaiting,
   isError,
   handleErrorClose,
@@ -45,8 +47,6 @@ const AddressInputComponent = ({
   };
 
   const confirmDelete = () => {
-    setIsDeleting(false);
-    setIsEditing(false);
     handleDelete();
   };
 
@@ -94,12 +94,12 @@ const AddressInputComponent = ({
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
-          {label}
+          {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
           {`${strings.value_prefix}`}
           {strings.value_prefix ? ': ' : ''}
-          {value}
+          {valueDisplay || value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
@@ -242,11 +242,14 @@ AddressInputComponent.defaultProps = {
   handleDelete: () => {},
   handleErrorClose: () => {},
   handleSuccessClose: () => {},
+  labelDisplay: null,
+  valueDisplay: null,
 };
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
   label: propTypes.string.isRequired,
+  labelDisplay: propTypes.string,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
@@ -257,6 +260,7 @@ AddressInputComponent.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
+  valueDisplay: propTypes.string,
   validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };

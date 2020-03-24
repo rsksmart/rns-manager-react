@@ -7,9 +7,9 @@ const mapStateToProps = state => ({
   isEditing: state.newAdmin.subdomains.isEditing,
   editDomain: state.newAdmin.subdomains.editDomain,
   editError: state.newAdmin.subdomains.editError,
+  chainId: state.auth.network,
 });
 
 export default connect(
   mapStateToProps,
-  null,
 )(SubdomainListComponent);

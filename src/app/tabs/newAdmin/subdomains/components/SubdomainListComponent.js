@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { useDispatch } from 'react-redux';
+import { toChecksumAddress } from 'rskjs-util';
 
 import { SubdomainViewContainer } from '../containers';
 import { getSubdomainListFromLocalStorage } from '../operations';
 
 const SubdomainListComponent = ({
-  strings, domain, subdomains,
+  strings, domain, subdomains, chainId,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getSubdomainListFromLocalStorage(domain)), [dispatch]);
@@ -26,7 +27,9 @@ const SubdomainListComponent = ({
             <SubdomainViewContainer
               key={subdomain.name}
               label={subdomain.name}
+              labelDisplay={`${subdomain.name}.${domain}`}
               value={subdomain.owner}
+              valueDisplay={`${strings.Owner}: ${toChecksumAddress(subdomain.owner, chainId)}`}
               isError={subdomain.editError !== ''}
               isWaiting={subdomain.isWaiting}
               isSuccess={subdomain.isSuccess}
@@ -63,12 +66,14 @@ SubdomainListComponent.propTypes = {
     delete: propTypes.string.isRequired,
     edit: propTypes.string.isRequired,
     remove_subdomain_comfirm: propTypes.string.isRequired,
+    Owner: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   subdomains: propTypes.arrayOf({
     name: propTypes.string.isRequired,
     owner: propTypes.string.isRequired,
   }).isRequired,
+  chainId: propTypes.number.isRequired,
 };
 
 export default multilanguage(SubdomainListComponent);
