@@ -28,6 +28,11 @@ const AddNewAddressComponent = ({
 
   const networkName = getChainNameById(selectedNetwork);
 
+  if (chainAddresses[networkName].isSuccess && address !== '') {
+    setSelectedNetwork(networks[0][1].chainId);
+    setAddress('');
+  }
+
   const handleAddClick = () => {
     const networkInfo = allNetworks.filter(net => net.id === selectedNetwork)[0];
 
@@ -133,6 +138,7 @@ AddNewAddressComponent.defaultProps = {
     isWaiting: false,
     isError: false,
     isEditing: false,
+    isSuccess: false,
     errorMessage: '',
   },
 };
@@ -152,6 +158,7 @@ AddNewAddressComponent.propTypes = {
     isWaiting: propTypes.bool,
     isError: propTypes.bool,
     isEditing: propTypes.bool,
+    isSuccess: propTypes.bool,
     errorMessage: propTypes.string,
   }),
   handleClick: propTypes.func.isRequired,
