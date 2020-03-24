@@ -45,7 +45,7 @@ const resolverReducer = (state = initialState, action) => {
     case CLOSE_MESSAGE: return {
       ...state,
       errorMessage: '',
-    }
+    };
     default: return state;
   }
 };
