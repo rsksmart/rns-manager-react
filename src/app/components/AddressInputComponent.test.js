@@ -12,6 +12,7 @@ describe('AddressInputComponent', () => {
     handleSuccessClose: jest.fn(),
     handleSubmit: jest.fn(),
     handleDelete: jest.fn(),
+    validate: false,
     strings: {
       cancel: 'cancel string',
       delete: 'delete string',

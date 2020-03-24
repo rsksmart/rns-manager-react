@@ -132,17 +132,6 @@ const AddNewAddressComponent = ({
   );
 };
 
-AddNewAddressComponent.defaultProps = {
-  networks: [],
-  chainAddresses: {
-    isWaiting: false,
-    isError: false,
-    isEditing: false,
-    isSuccess: false,
-    errorMessage: '',
-  },
-};
-
 AddNewAddressComponent.propTypes = {
   strings: propTypes.shape({
     add: propTypes.string.isRequired,
@@ -150,17 +139,9 @@ AddNewAddressComponent.propTypes = {
     add_new_chain_address: propTypes.string.isRequired,
     paste_your_address: propTypes.string.isRequired,
   }).isRequired,
-  networks: propTypes.arrayOf({
-    name: propTypes.string.isRequired,
-    id: propTypes.string.isRequired,
-  }),
-  chainAddresses: propTypes.shape({
-    isWaiting: propTypes.bool,
-    isError: propTypes.bool,
-    isEditing: propTypes.bool,
-    isSuccess: propTypes.bool,
-    errorMessage: propTypes.string,
-  }),
+  // eslint-disable-next-line react/forbid-prop-types
+  networks: propTypes.array.isRequired,
+  chainAddresses: propTypes.shape().isRequired,
   handleClick: propTypes.func.isRequired,
   handleClose: propTypes.func.isRequired,
 };

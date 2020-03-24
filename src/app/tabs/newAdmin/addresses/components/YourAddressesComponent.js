@@ -6,7 +6,6 @@ import { Row, Col } from 'react-bootstrap';
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
 
-// eslint-disable-next-line react/prop-types
 const YourAddressesComponent = ({ strings, chainAddresses }) => (
   <Row>
     <Col>
@@ -67,6 +66,7 @@ YourAddressesComponent.propTypes = {
     delete: propTypes.string.isRequired,
     delete_chain_confirm: propTypes.string.isRequired,
   }).isRequired,
+  chainAddresses: propTypes.shape().isRequired,
 };
 
 export default multilanguage(YourAddressesComponent);
