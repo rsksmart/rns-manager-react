@@ -6,7 +6,7 @@ const ReverseComponent = (props) => {
   const { strings } = props;
   return (
     <div>
-      <h1>{strings.reverse}</h1>
+      <h1>{strings.reverse}!!!!!!!!</h1>
     </div>
   );
 };

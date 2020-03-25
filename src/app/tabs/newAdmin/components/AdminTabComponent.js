@@ -12,11 +12,11 @@ import {
   AddressesContainer,
   LeftNavContainer,
   ResolverContainer,
-  ReverseContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
 import { SubdomainsContainer } from '../subdomains/containers';
+import { ReverseContainer } from '../reverse/containers';
 
 const AdminComponent = (props) => {
   const {
