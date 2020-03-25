@@ -66,7 +66,7 @@ SubdomainListComponent.propTypes = {
     delete: propTypes.string.isRequired,
     edit: propTypes.string.isRequired,
     remove_subdomain_comfirm: propTypes.string.isRequired,
-    Owner: propTypes.string.isRequired,
+    owner: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   subdomains: propTypes.arrayOf({
