@@ -29,14 +29,14 @@ const SubdomainListComponent = ({
               label={subdomain.name}
               labelDisplay={`${subdomain.name}.${domain}`}
               value={subdomain.owner}
-              valueDisplay={`${strings.Owner}: ${toChecksumAddress(subdomain.owner, chainId)}`}
+              valueDisplay={toChecksumAddress(subdomain.owner, chainId)}
               isError={subdomain.editError !== ''}
               isWaiting={subdomain.isWaiting}
               isSuccess={subdomain.isSuccess}
               successTx={subdomain.confirmedTx}
               reset={subdomain.isSuccess}
               strings={{
-                value_prefix: '',
+                value_prefix: strings.owner,
                 error_message: subdomain.editError,
                 cancel: strings.cancel,
                 submit: strings.submit,

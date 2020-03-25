@@ -148,8 +148,6 @@ export const setSubdomainOwner = (
         return dispatch(errorSetSubdomainOwner(subdomain, error.message));
       }
 
-      dispatch(waitingSetSubdomainOwner(subdomain));
-
       const transactionConfirmed = () => () => {
         dispatch(receiveSetSubdomainOwner(result, subdomain, newOwner));
 

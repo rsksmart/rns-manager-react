@@ -78,8 +78,8 @@ const NewSubdomainComponent = ({
         </Col>
       </Row>
       <Row className="minor-section">
-        <Col md={2}>
-          {strings.Name}
+        <Col md={2} className="capitalize">
+          {strings.name}
         </Col>
         <Col md={5}>
           <input
@@ -96,8 +96,8 @@ const NewSubdomainComponent = ({
         </Col>
       </Row>
       <Row className="minor-section">
-        <Col md={2}>
-          {strings.Owner}
+        <Col md={2} className="capitalize">
+          {strings.owner}
         </Col>
         <Col md={8}>
           <input
