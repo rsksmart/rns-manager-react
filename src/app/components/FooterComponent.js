@@ -6,6 +6,8 @@ import {
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/powered_by_iov.svg';
 
+import { version } from '../../../package.json';
+
 const FooterComponent = (props) => {
   const { strings } = props;
 
@@ -26,6 +28,7 @@ const FooterComponent = (props) => {
             <Col lg="4">
               <span className="footer-title mb-3">{strings.what_is_rns_title}</span>
               <p className="mb-5">{strings.what_is_rns_text}</p>
+              <p style={{ fontSize: '.8em' }}>{version}</p>
             </Col>
             <Col lg="4" />
             <Col lg="2">
