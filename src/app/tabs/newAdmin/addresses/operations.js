@@ -19,12 +19,21 @@ import networks from './networks.json';
 const web3 = new Web3(window.ethereum);
 const resolver = new web3.eth.Contract(abi, resolverAddress, { gasPrice: defaultGasPrice });
 
-// helper function:
+/**
+ * Helper Function to get the chain name with the ID
+ * @param {chaindId} chaindId the chainId to be looked up
+ */
 export const getChainNameById = (chainId) => {
   const network = networks.filter(net => net.id === chainId);
   return network[0].name;
 };
 
+/**
+ * Set the chain Address for a specific domian
+ * @param {string} domain the domain the address is for
+ * @param {chainId} chainId the chainId to be set
+ * @param {address} address the address for the chainId
+ */
 export const setChainAddress = (domain, chainId, address) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
@@ -49,10 +58,17 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
   );
 };
 
-export const getChainAddresses = (domain, chainName, chainId) => async (dispatch) => {
+
+/**
+ * Get the chain Address for a specific domian
+ * @param {string} domain the domain the address is for
+ * @param {chainId} chainId the chainId requested
+ */
+export const getChainAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
 
   const hash = namehash(domain);
+  const chainName = getChainNameById(chainId);
 
   return new Promise((resolve) => {
     resolver.methods.chainAddr(hash, chainId).call((error, result) => {
@@ -64,12 +80,23 @@ export const getChainAddresses = (domain, chainName, chainId) => async (dispatch
   });
 };
 
+/**
+ * Loops through all of the possible chainIds and calls
+ * getChainAddress
+ * @param {string} domain the domain to get the addresses
+ */
 export const getAllChainAddresses = domain => (dispatch) => {
-  networks.map(network => dispatch(getChainAddresses(domain, network.name, network.id)));
+  networks.map(network => dispatch(getChainAddresses(domain, network.id)));
 };
 
-export const deleteChainAddress = (domain, networkId) => (dispatch) => {
-  const isHex = networks.filter(net => net.id === networkId)[0].validation === 'HEX';
+/**
+ * Decides to set the address value to '' or 0x0 depending on content
+ * type and then passes the value to setChainAddress()
+ * @param {string} domain the domain to get the addresses
+ * @param {chainId} chainId the chainId requested
+ */
+export const deleteChainAddress = (domain, chainId) => (dispatch) => {
+  const isHex = networks.filter(net => net.id === chainId)[0].validation === 'HEX';
   const value = isHex ? '0x0000000000000000000000000000000000000000' : '';
-  dispatch(setChainAddress(domain, networkId, value));
+  dispatch(setChainAddress(domain, chainId, value));
 };

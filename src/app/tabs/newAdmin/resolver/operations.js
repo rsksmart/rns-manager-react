@@ -11,11 +11,15 @@ import {
   stringResolver as stringResolverAddress,
 } from '../../../adapters/configAdapter';
 
-import JslibOptions from '../../../adapters/jslibAdapter';
+import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 const web3 = new Web3(window.ethereum);
-const rns = new RNS(web3, JslibOptions());
+const rns = new RNS(web3, getOptions());
 
+/**
+ * Returns user friendly name based on address
+ * @param {address} address the resolver address
+ */
 export const getResolverNameByAddress = (address) => {
   switch (address.toLowerCase()) {
     case multiChainResolverAddress:
@@ -29,6 +33,10 @@ export const getResolverNameByAddress = (address) => {
   }
 };
 
+/**
+ * Gets the resolver for a specified domain
+ * @param {string} domain the domain to get the resolver address
+ */
 export const getDomainResolver = domain => async (dispatch) => {
   dispatch(requestResolver());
   const hash = namehash(domain);
@@ -40,6 +48,11 @@ export const getDomainResolver = domain => async (dispatch) => {
     });
 };
 
+/**
+ * Sets the resolver for a specified domain
+ * @param {string} domain the domain to set
+ * @param {address} resolverAddress the address to be set
+ */
 export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
   dispatch(requestSetResolver());
 

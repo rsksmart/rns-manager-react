@@ -39,7 +39,7 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
               validation={validate}
               validationChainId={validationNetworkId}
               strings={{
-                value_prefix: '',
+                value_prefix: strings.value,
                 error_message: errorMessage,
                 cancel: strings.cancel,
                 submit: strings.submit,
@@ -65,6 +65,7 @@ YourAddressesComponent.propTypes = {
     edit: propTypes.string.isRequired,
     delete: propTypes.string.isRequired,
     delete_chain_confirm: propTypes.string.isRequired,
+    value: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,
 };
