@@ -81,7 +81,6 @@ const FooterComponent = (props) => {
 
 FooterComponent.propTypes = {
   strings: propTypes.shape().isRequired,
-  version: propTypes.string.isRequired,
 };
 
 export default multilanguage(FooterComponent);
