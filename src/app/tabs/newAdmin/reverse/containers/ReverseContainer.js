@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import { ReverseComponent } from '../components';
 
-// eslint-disable-next-line no-unused-vars
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  reverseValue: state.newAdmin.reverse.value,
+  address: state.auth.address,
+  isRequesting: state.newAdmin.reverse.isRequesting,
+});
 
-// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({});
 
 export default connect(

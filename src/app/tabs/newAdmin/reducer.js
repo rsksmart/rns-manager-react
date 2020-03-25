@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import domainInfo from './domainInfo/reducer';
 import subdomains from './subdomains/reducer';
+import resolver from './resolver/reducer';
+
 import {
   SET_VIEW, CHECK_IF_SUBDOMAIN, REQUEST_CHECK_OWNERSHIP, RECIEVE_CHECK_OWNERSHIP,
   ERROR_CHECK_OWNERSHIP, REQUEST_FIFS_MIGRATION_STATUS, RECEIVE_FIFS_MIGRATION_STATUS,
@@ -62,4 +64,5 @@ export default combineReducers({
   view: adminReducer,
   domainInfo,
   subdomains,
+  reverse,
 });

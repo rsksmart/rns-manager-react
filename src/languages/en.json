@@ -283,5 +283,12 @@
   "purpose_subdomains": "You can create free subdomains for different purposes (personal wallet, gaming, betting...)",
   "Name": "Name",
   "Owner": "Owner",
-  "use_the_new_admin_to_transfer": "Use the new admin to transfer domains."
+  "use_the_new_admin_to_transfer": "Use the new admin to transfer domains.",
+  "add_new_chain_address": "Add new chain address",
+  "paste_your_address": "Paste your address",
+  "add": "Add",
+  "delete_chain_confirm": "Are you sure you want to remove this chain address?",
+  "string_resolver_message": "You can not use this feature because your resolver is set to the string resolver",
+  "migrate": "Migrate",
+  "reverse_explanation": "The Reverse resolution is the procedure to translate an address into a name. It helps to access your address or your domain only knowing one of them after they are associated."
 }
