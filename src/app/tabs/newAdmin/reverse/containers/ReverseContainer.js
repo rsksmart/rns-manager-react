@@ -5,11 +5,11 @@ const mapStateToProps = state => ({
   reverseValue: state.newAdmin.reverse.value,
   address: state.auth.address,
   isRequesting: state.newAdmin.reverse.isRequesting,
+  isWaiting: state.newAdmin.reverse.isWaiting,
+  isError: state.newAdmin.reverse.isError,
+  isSuccess: state.newAdmin.reverse.isSuccess,
+  successTx: state.newAdmin.reverse.successTx,
+  errorMessage: state.newAdmin.reverse.errorMessage,
 });
 
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ReverseComponent);
+export default connect(mapStateToProps)(ReverseComponent);

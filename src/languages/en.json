@@ -290,5 +290,6 @@
   "delete_chain_confirm": "Are you sure you want to remove this chain address?",
   "string_resolver_message": "You can not use this feature because your resolver is set to the string resolver",
   "migrate": "Migrate",
-  "reverse_explanation": "The Reverse resolution is the procedure to translate an address into a name. It helps to access your address or your domain only knowing one of them after they are associated."
+  "reverse_explanation": "The reverse resolution is the procedure to translate an address into a name. It helps to access your address or your domain only knowing one of them after they are associated.",
+  "reverse_success": "The reverse resolution has been set."
 }

@@ -1,24 +1,21 @@
 import { connect } from 'react-redux';
 import { AddressInputComponent } from '../../../../components';
 
-const mapStateToProps = (state, ownProps) => ({
+import { setReverse } from '../operations';
+import { closeMessages } from '../actions';
+
+const mapStateToProps = state => ({
   domain: state.auth.domain,
+  address: state.auth.address,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: value => console.log('submit!', value),
-  handleErrorClose: () => console.log('handleErrorClose'),
-});
-
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...stateProps,
-  handleSubmit: value => dispatchProps.handleSubmit(value),
-  handleErrorClose: () => dispatchProps.handleErrorClose(),
+  handleSubmit: value => dispatch(setReverse(value)),
+  handleErrorClose: () => dispatch(closeMessages()),
+  handleSuccessClose: () => dispatch(closeMessages()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps,
 )(AddressInputComponent);

@@ -7,7 +7,8 @@ import ReverseInputContainer from '../containers/ReverseInputContainer';
 import { getReverse } from '../operations';
 
 const ReverseComponent = ({
-  reverseValue, address, strings, isRequesting,
+  reverseValue, address, strings, isRequesting, isWaiting, isError,
+  errorMessage, isSuccess, successTx,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getReverse(address)), []);
@@ -26,10 +27,17 @@ const ReverseComponent = ({
         label={address}
         allowDelete={false}
         validate={false}
+        isWaiting={isWaiting}
+        isError={isError}
+        reset={isSuccess}
+        isSuccess={isSuccess}
+        successTx={successTx}
         strings={{
           value_prefix: '',
           submit: strings.submit,
           cancel: strings.cancel,
+          error_message: errorMessage,
+          success_message: strings.reverse_success,
         }}
       />
     </div>
@@ -42,10 +50,16 @@ ReverseComponent.propTypes = {
     reverse_explanation: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
+    reverse_success: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
   reverseValue: propTypes.string.isRequired,
   isRequesting: propTypes.bool.isRequired,
+  isError: propTypes.bool.isRequired,
+  errorMessage: propTypes.string.isRequired,
+  successTx: propTypes.string.isRequired,
+  isWaiting: propTypes.bool.isRequired,
+  isSuccess: propTypes.bool.isRequired,
 };
 
 export default multilanguage(ReverseComponent);
