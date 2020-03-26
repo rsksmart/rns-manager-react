@@ -8,6 +8,7 @@ import registrar from './registrar';
 import renew from './renew';
 import error from './error';
 import newAdmin from './newAdmin';
+import faqTab from './faq';
 
 export default {
   admin,
@@ -20,6 +21,7 @@ export default {
   renew,
   error,
   newAdmin,
+  faqTab,
 };
 
 export { AdminTab } from './admin';
@@ -37,3 +39,4 @@ export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { UserTab } from './user';
 export { default as ErrorTab } from './error';
+export { default as FaqTab } from './faq';
