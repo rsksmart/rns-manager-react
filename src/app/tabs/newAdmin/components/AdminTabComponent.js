@@ -13,10 +13,10 @@ import {
   LeftNavContainer,
   ResolverContainer,
   ReverseContainer,
-  SubdomainsContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
+import { SubdomainsContainer } from '../subdomains/containers';
 
 const AdminComponent = (props) => {
   const {
@@ -48,7 +48,7 @@ const AdminComponent = (props) => {
           <Col md={3} className="leftnav">
             <LeftNavContainer />
           </Col>
-          <Col md={8}>
+          <Col md={9}>
             <Switch>
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />

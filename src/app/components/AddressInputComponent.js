@@ -15,7 +15,9 @@ import closeBlue from '../../assets/img/close-blue.svg';
 const AddressInputComponent = ({
   allowDelete,
   label,
+  labelDisplay,
   value,
+  valueDisplay,
   isWaiting,
   isError,
   handleErrorClose,
@@ -24,6 +26,9 @@ const AddressInputComponent = ({
   handleDelete,
   isSuccess,
   strings,
+  successTx,
+  reset,
+  validationChainId,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -42,8 +47,6 @@ const AddressInputComponent = ({
   };
 
   const confirmDelete = () => {
-    setIsDeleting(false);
-    setIsEditing(false);
     handleDelete();
   };
 
@@ -53,7 +56,7 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
-    switch (validateAddress(editText)) {
+    switch (validateAddress(editText, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
       case 'Invalid address':
         setIsLocalError('Invalid address');
         return;
@@ -76,15 +79,27 @@ const AddressInputComponent = ({
     handleSubmitClick();
   };
 
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setIsChecksumError(false);
+  };
+
+  if (reset && (isEditing || isDeleting)) {
+    setIsEditing(false);
+    setIsDeleting(false);
+    setEditText('');
+  }
+
   return (
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
-          {label}
+          {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
-          {`${strings.value_prefix}: `}
-          {value}
+          {`${strings.value_prefix}`}
+          {strings.value_prefix ? ': ' : ''}
+          {valueDisplay || value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
@@ -127,7 +142,7 @@ const AddressInputComponent = ({
           <div className="col-md-4 buttons">
             <Button
               className="cancel"
-              onClick={() => setIsEditing(false)}
+              onClick={() => handleCancelClick()}
               disabled={isWaiting}
             >
               {strings.cancel}
@@ -183,20 +198,18 @@ const AddressInputComponent = ({
         visible={isWaiting}
       />
 
-      {(isError || isLocalError)
-        && (
-          <UserErrorComponent
-            title={strings.error_title}
-            message={isLocalError || strings.error_message}
-            handleCloseClick={() => handleErrorClick()}
-          />
-        )
-      }
+      <UserErrorComponent
+        title={strings.error_title}
+        message={isLocalError || strings.error_message}
+        handleCloseClick={() => handleErrorClick()}
+        visible={isError || isLocalError}
+      />
 
       <UserSuccessComponent
         title={strings.success_title}
         message={strings.success_message}
         handleCloseClick={handleSuccessClose}
+        address={successTx}
         visible={isSuccess}
       />
     </div>
@@ -208,6 +221,9 @@ AddressInputComponent.defaultProps = {
   isError: false,
   isWaiting: false,
   isSuccess: false,
+  reset: false,
+  successTx: '',
+  validationChainId: '',
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -226,19 +242,26 @@ AddressInputComponent.defaultProps = {
   handleDelete: () => {},
   handleErrorClose: () => {},
   handleSuccessClose: () => {},
+  labelDisplay: null,
+  valueDisplay: null,
 };
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
   label: propTypes.string.isRequired,
+  labelDisplay: propTypes.string,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
+  reset: propTypes.bool,
+  successTx: propTypes.string,
   handleErrorClose: propTypes.func,
   handleSuccessClose: propTypes.func,
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
+  valueDisplay: propTypes.string,
+  validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };
 

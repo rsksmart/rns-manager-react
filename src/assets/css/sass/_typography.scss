@@ -42,3 +42,7 @@ p.explanation {
   font-size: .8em !important;
   color: $gray;
 }
+
+.caps-first:first-letter {
+  text-transform: uppercase;
+}

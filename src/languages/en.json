@@ -270,5 +270,17 @@
   "upgrade_domain": "Upgrade domain",
   "upgrade": "upgrade",
   "upgrade_domain_explanation": "The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically.",
-  "faq": "Frequently Asked Questions"
+  "faq": "Frequently Asked Questions",
+  "type_sudomain": "Type your subdomain name",
+  "type_owners_address": "Type owner's address",
+  "create": "Create",
+  "my_subdomains": "My subdomains",
+  "subdomain_has_been_registered": "The subdomain has been registered",
+  "submit": "Submit",
+  "subdomain_owner_set": "Subdomain owner has been set.",
+  "delete": "delete",
+  "remove_subdomain_comfirm": "Are you sure you want to remove this subdomain?",
+  "purpose_subdomains": "You can create free subdomains for different purposes (personal wallet, gaming, betting...)",
+  "Name": "Name",
+  "Owner": "Owner"
 }
