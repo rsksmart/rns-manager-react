@@ -24,6 +24,7 @@ const ReverseComponent = ({
 
       <ReverseInputContainer
         value={reverseValue}
+        valueDisplay={reverseValue || strings.not_set}
         label={address}
         allowDelete={false}
         validate={false}
@@ -38,6 +39,7 @@ const ReverseComponent = ({
           cancel: strings.cancel,
           error_message: errorMessage,
           success_message: strings.reverse_success,
+          edit_propmt: strings.domain,
         }}
       />
     </div>
@@ -51,6 +53,8 @@ ReverseComponent.propTypes = {
     submit: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
     reverse_success: propTypes.string.isRequired,
+    not_set: propTypes.string.isRequired,
+    domain: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
   reverseValue: propTypes.string.isRequired,

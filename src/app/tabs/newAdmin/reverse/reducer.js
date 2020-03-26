@@ -1,7 +1,7 @@
 import {
   REQUEST_REVERSE_RESOLVER, RECEIVE_REVERSE_RESOLVER, REQUEST_SET_REVERSE_RESOLVER,
   WAITING_SET_REVERSE_RESOLVER, RECEIVE_SET_REVERSE_RESOLVER, ERROR_SET_REVERSE_RESOLVER,
-  CLOSE_SET_REVERSE_RESOLVER,
+  CLOSE_SET_REVERSE_RESOLVER, ERROR_REVERSE_RESOLVER,
 } from './types';
 
 const initialState = {
@@ -24,6 +24,12 @@ const renewDomain = (state = initialState, action) => {
       value: action.value,
       isRequesting: false,
     };
+    case ERROR_REVERSE_RESOLVER: return {
+      ...state,
+      value: '',
+      isRequesting: false,
+    };
+
     case REQUEST_SET_REVERSE_RESOLVER: return {
       ...state,
     };
