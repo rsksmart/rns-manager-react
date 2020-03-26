@@ -18,6 +18,7 @@ import {
   ErrorTab,
   StringResolverTab,
   NewAdminTab,
+  FaqTab,
 } from './tabs';
 
 const NoMatch = () => <p>404! Page not found :(</p>;
@@ -33,6 +34,7 @@ const Routes = (props) => {
       <Route path="/setup" component={SetUpTab} />
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
+      <Route path="/faq" component={FaqTab} />
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
