@@ -19,9 +19,8 @@ const ReverseComponent = ({
 
   return (
     <div>
-      <h1>{strings.reverse}</h1>
       <p>{strings.reverse_explanation}</p>
-
+      <h2>{strings.set_reverse}</h2>
       <ReverseInputContainer
         value={reverseValue}
         valueDisplay={reverseValue || strings.not_set}
