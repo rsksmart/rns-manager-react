@@ -111,10 +111,10 @@ export const getSubdomainListFromLocalStorage = domain => (dispatch) => {
   const storedSubdomains = JSON.parse(localStorage.getItem('subdomains'));
 
   if (!storedSubdomains || !storedSubdomains[domain]) {
-    return null;
+    return;
   }
 
-  return storedSubdomains[domain].forEach((subdomain) => {
+  storedSubdomains[domain].forEach((subdomain) => {
     dispatch(getSubdomainOwner(domain, subdomain));
   });
 };
