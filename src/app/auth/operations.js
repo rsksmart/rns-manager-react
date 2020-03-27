@@ -1,6 +1,12 @@
+import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { push } from 'connected-react-router';
-import { rns as registryAddress } from '../adapters/configAdapter';
+import {
+  rns as registryAddress,
+  rskOwner as rskOwnerAddress,
+  registrar as auctionRegistrarAddress,
+} from '../adapters/configAdapter';
+import { rskNode } from '../adapters/nodeAdapter';
 import { checkResolver } from '../notifications';
 
 import {
@@ -14,6 +20,12 @@ import {
   logOut,
   closeModal,
 } from './actions';
+import {
+  rskOwnerAbi,
+  auctionRegistrarAbi,
+  deedRegistrarAbi,
+} from '../tabs/search/abis.json';
+import { registryAbi } from './abis.json';
 
 export const saveDomainToLocalStorage = (domain) => {
   const storedDomains = localStorage.getItem('domains')
@@ -24,49 +36,92 @@ export const saveDomainToLocalStorage = (domain) => {
   }
 };
 
+const successfulLogin = (name, noRedirect) => (dispatch) => {
+  dispatch(checkResolver(name));
+
+  if (!noRedirect) {
+    dispatch(push('/admin'));
+  }
+
+  localStorage.setItem('name', name);
+  saveDomainToLocalStorage(name);
+
+  dispatch(closeModal());
+  return dispatch(receiveLogin(name, true));
+};
+
+const failedLogin = name => (dispatch) => {
+  localStorage.removeItem('name');
+  return dispatch(receiveLogin(name, false));
+};
+
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
+  if (!address) return null;
+
   dispatch(requestLogin());
 
-  const registry = window.web3.eth.contract([
-    {
-      constant: true,
-      inputs: [
-        { name: 'node', type: 'bytes32' },
-      ],
-      name: 'owner',
-      outputs: [
-        { name: '', type: 'address' },
-      ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-  ]).at(registryAddress);
+  const web3 = new Web3(rskNode);
 
-  const hash = namehash(name);
+  const registry = new web3.eth.Contract(registryAbi, registryAddress);
+  const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
+  const auctionRegistrar = new web3.eth.Contract(
+    auctionRegistrarAbi,
+    auctionRegistrarAddress,
+  );
 
-  return new Promise((resolve) => {
-    registry.owner(hash, (error, result) => {
-      if (error) return resolve(dispatch(errorLogin(error)));
+  const node = namehash(name);
 
-      if (address !== result) {
-        localStorage.removeItem('name');
-        return resolve(dispatch(receiveLogin(name, false)));
+  // get rns registry owner
+  return registry.methods.owner(node).call()
+    .then((registryOwner) => {
+      if (address === registryOwner) {
+        // can perform registry operations, success
+        return dispatch(successfulLogin(name, noRedirect));
       }
 
-      dispatch(checkResolver(name));
+      const labels = name.split('.');
 
-      if (!noRedirect) {
-        dispatch(push('/admin'));
+      if (labels.length !== 2 || labels[1] !== 'rsk') {
+        // is not a domain or is not a .rsk domain, fail
+        return dispatch(failedLogin(name));
       }
 
-      localStorage.setItem('name', name);
-      saveDomainToLocalStorage(name);
+      const label = web3.utils.sha3(labels[0]);
 
-      dispatch(closeModal());
-      return resolve(dispatch(receiveLogin(name, true)));
-    });
-  });
+      return rskOwner.methods.available(label).call()
+        .then((available) => {
+          if (available) {
+            // it has no owner, fail
+            return dispatch(failedLogin(name));
+          }
+
+          // it is not available, get the owner in the auction registrar or
+          // the token registrar
+          return auctionRegistrar.methods.entries(label).call()
+            .then((entry) => {
+              if (entry[0] === '2') {
+                // owned in the auction registrar
+                const deedContract = new web3.eth.Contract(deedRegistrarAbi, entry[1]);
+                return deedContract.methods.owner().call();
+              }
+
+              // owned in rsk registrar
+              return rskOwner.methods.ownerOf(label).call();
+            })
+            .then((owner) => {
+              if (owner.toLowerCase() === address.toLowerCase()) {
+                // success
+                return dispatch(successfulLogin(name, noRedirect));
+              }
+
+              // fail
+              return dispatch(failedLogin(name));
+            })
+            .catch(error => dispatch(errorLogin(error)));
+        })
+        .catch(error => dispatch(errorLogin(error)));
+    })
+    .catch(error => dispatch(errorLogin(error)));
 };
 
 export const start = callback => (dispatch) => {
