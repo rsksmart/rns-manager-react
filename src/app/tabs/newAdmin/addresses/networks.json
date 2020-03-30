@@ -2,24 +2,29 @@
   {
     "name": "RSK",
     "id": "0x80000089",
-    "validation": "HEX"
+    "validation": "HEX",
+    "icon": "/assets/icons/icon_rsk.png"
   },
   {
     "name": "BTC",
-    "id": "0x80000000"
+    "id": "0x80000000",
+    "icon": "/assets/icons/icon_btc.png"
   },
   {
     "name": "Ethereum",
     "id": "0x8000003c",
     "validation": "HEX",
-    "checksum": "1"
+    "checksum": "1",
+    "icon": "/assets/icons/icon_eth.png"
   },
   {
     "name": "LTC",
-    "id": "0x80000002"
+    "id": "0x80000002",
+    "icon": "/assets/icons/icon_ltc.png"
   },
   {
     "name": "Bitcoin Cash",
-    "id": "0x80000091"
+    "id": "0x80000091",
+    "icon": "/assets/icons/icon_bitconcash.png"
   }
 ]

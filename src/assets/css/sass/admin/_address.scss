@@ -22,6 +22,15 @@
       padding: 10px;
     }
   }
+
+  .addressInput {
+    .label {
+      text-align: left !important;
+      img {
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 .btn-primary.migrate {

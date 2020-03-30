@@ -20,14 +20,14 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
           chainId, address, isEditing, isWaiting, isSuccess, isError, successTx, errorMessage,
         } = chainAddress[1];
 
-        const validate = networks.filter(net => net.name === chainName)[0].validation === 'HEX';
-        const validationNetworkId = networks.filter(net => net.name === chainName)[0].checksum;
+        const network = networks.filter(net => net.name === chainName)[0];
 
         return (
           <div className="break-below">
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
+              labelIcon={network.icon}
               networkId={chainId}
               value={address}
               isError={isError}
@@ -36,8 +36,8 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
               isSuccess={isSuccess}
               successTx={successTx}
               reset={isSuccess}
-              validation={validate}
-              validationChainId={validationNetworkId}
+              validationChainId={network.checksum}
+              validation={network.validate === 'HEX'}
               strings={{
                 value_prefix: strings.value,
                 error_message: errorMessage,
@@ -45,7 +45,7 @@ const YourAddressesComponent = ({ strings, chainAddresses }) => (
                 submit: strings.submit,
                 edit_placeholder: '',
                 success_message: '',
-                waiting: '',
+                waiting: strings.wait_transation_confirmed,
                 delete: strings.delete,
                 edit: strings.edit,
                 delete_confirm_text: strings.delete_chain_confirm,
@@ -66,6 +66,7 @@ YourAddressesComponent.propTypes = {
     delete: propTypes.string.isRequired,
     delete_chain_confirm: propTypes.string.isRequired,
     value: propTypes.string.isRequired,
+    wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,
 };

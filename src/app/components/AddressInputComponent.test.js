@@ -77,4 +77,16 @@ describe('AddressInputComponent', () => {
     expect(component.find('div.delete').find('p').first().text())
       .toEqual('custom delete confirm text');
   });
+
+  it('dispalys an icon correctly', () => {
+    const localProps = {
+      ...initProps,
+      label: 'rsk',
+      labelIcon: '/assets/icons/icon_rsk.png',
+    };
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    const image = component.find('div.label').find('img');
+    expect(image.props().src).toEqual('/assets/icons/icon_rsk.png');
+    expect(image.props().alt).toEqual('rsk');
+  });
 });

@@ -16,6 +16,7 @@ const AddressInputComponent = ({
   allowDelete,
   label,
   labelDisplay,
+  labelIcon,
   value,
   valueDisplay,
   isWaiting,
@@ -97,6 +98,7 @@ const AddressInputComponent = ({
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
+          {labelIcon && <img src={labelIcon} alt={labelDisplay || label} />}
           {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
@@ -249,12 +251,14 @@ AddressInputComponent.defaultProps = {
   handleSuccessClose: () => {},
   labelDisplay: null,
   valueDisplay: null,
+  labelIcon: null,
 };
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
   label: propTypes.string.isRequired,
   labelDisplay: propTypes.string,
+  labelIcon: propTypes.string,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
