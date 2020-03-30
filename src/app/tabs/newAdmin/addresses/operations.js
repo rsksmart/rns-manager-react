@@ -12,13 +12,18 @@ import {
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
   errorChainAddress,
 } from './actions';
-import abi from '../../multiChainResolver/abi.json';
+import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
 
 const web3 = new Web3(window.ethereum);
-const resolver = new web3.eth.Contract(abi, resolverAddress, { gasPrice: defaultGasPrice });
+const multichainResolver = new web3.eth.Contract(
+  multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+);
+const publicResolver = new web3.eth.Contract(
+  publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
+);
 
 /**
  * Helper Function to get the chain name with the ID
@@ -43,7 +48,8 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  resolver.methods.setChainAddr(hash, chainId, address).send(
+  //@todo
+  multichainResolver.methods.setChainAddr(hash, chainId, address).send(
     { from: currentAddress }, (error, result) => {
       dispatch(waitingSetChainAddress(chainName));
       if (error) {
@@ -72,7 +78,8 @@ export const getChainAddresses = (domain, chainId) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
 
   return new Promise((resolve) => {
-    resolver.methods.chainAddr(hash, chainId).call((error, result) => {
+    //@todo
+    multichainResolver.methods.chainAddr(hash, chainId).call((error, result) => {
       if (error) {
         return errorChainAddress(chainName, error.message);
       }
@@ -86,7 +93,8 @@ export const getChainAddresses = (domain, chainId) => async (dispatch) => {
  * getChainAddress
  * @param {string} domain the domain to get the addresses
  */
-export const getAllChainAddresses = domain => (dispatch) => {
+export const getAllChainAddresses = (domain, resolver) => (dispatch) => {
+  console.log('getting addresses on ', resolver);
   networks.map(network => dispatch(getChainAddresses(domain, network.id)));
 };
 

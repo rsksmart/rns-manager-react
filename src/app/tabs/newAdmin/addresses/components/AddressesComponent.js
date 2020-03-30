@@ -5,31 +5,28 @@ import { useDispatch } from 'react-redux';
 
 import { YourAddressesContainer, AddNewAddressContainer, MigrateToMultiResolverContainer } from '../containers';
 import { getAllChainAddresses } from '../operations';
-import {
-  publicResolver as publicResolverAddress,
-  stringResolver as stringResolverAddress,
-} from '../../../../adapters/configAdapter';
+
+import { PUBLIC_RESOLVER, STRING_RESOLVER } from '../../resolver/types';
 
 const AddressesComponent = ({
-  domain, resolverAddr, gettingResolver, strings,
+  domain, resolverName, gettingResolver, strings,
 }) => {
   if (gettingResolver) {
     return (<></>);
   }
 
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(getAllChainAddresses(domain)), [dispatch]);
-  const resolver = resolverAddr.toLowerCase();
-
-  if (resolver === stringResolverAddress) {
-    return <p>{strings.string_resolver_message}</p>
+  if (resolverName === STRING_RESOLVER) {
+    return <p>{strings.string_resolver_message}</p>;
   }
+
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getAllChainAddresses(domain, resolverName)), [dispatch]);
 
   return (
     <div className="yourAddress">
       <YourAddressesContainer />
       <AddNewAddressContainer />
-      {resolver === publicResolverAddress && <MigrateToMultiResolverContainer />}
+      {resolverName === PUBLIC_RESOLVER && <MigrateToMultiResolverContainer />}
     </div>
   );
 };
@@ -40,7 +37,7 @@ AddressesComponent.propTypes = {
     string_resolver_message: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
-  resolverAddr: propTypes.string.isRequired,
+  resolverName: propTypes.string.isRequired,
   gettingResolver: propTypes.bool.isRequired,
 };
 

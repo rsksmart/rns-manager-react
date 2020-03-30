@@ -16,6 +16,10 @@ import transactionListener from '../../../helpers/transactionListener';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
+import {
+  MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
+} from './types';
+
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
 
@@ -23,16 +27,16 @@ const rns = new RNS(web3, getOptions());
  * Returns user friendly name based on address
  * @param {address} address the resolver address
  */
-export const getResolverNameByAddress = (address) => {
-  switch (address.toLowerCase()) {
+export const getResolverNameByAddress = (resolverAddr) => {
+  switch (resolverAddr.toLowerCase()) {
     case multiChainResolverAddress:
-      return 'MultiChain Resolver';
+      return MULTICHAIN_RESOLVER;
     case publicResolverAddress:
-      return 'RSK Address Resolver';
+      return PUBLIC_RESOLVER;
     case stringResolverAddress:
-      return 'String Resolver';
+      return STRING_RESOLVER;
     default:
-      return 'Custom Resolver';
+      return UNKNOWN_RESOLVER;
   }
 };
 

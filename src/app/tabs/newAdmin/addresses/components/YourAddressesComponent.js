@@ -5,11 +5,16 @@ import { Row, Col } from 'react-bootstrap';
 
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
+import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
-const YourAddressesComponent = ({ strings, chainAddresses }) => (
+const YourAddressesComponent = ({ strings, chainAddresses, resolver }) => (
   <Row>
     <Col>
-      <h1>Your Addresses</h1>
+      <h1>
+        {strings.your_addresses}
+        {resolver === MULTICHAIN_RESOLVER && ` - ${strings.multichain}`}
+      </h1>
+      <p>{strings.your_addresses_explanation}</p>
       {Object.entries(chainAddresses).map((chainAddress) => {
         if (chainAddress[1].address === '' || chainAddress[1].address === '0x0000000000000000000000000000000000000000') {
           return (<></>);
@@ -67,8 +72,12 @@ YourAddressesComponent.propTypes = {
     delete_chain_confirm: propTypes.string.isRequired,
     value: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
+    your_addresses: propTypes.string.isRequired,
+    your_addresses_explanation: propTypes.string.isRequired,
+    multichain: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,
+  resolver: propTypes.string.isRequired,
 };
 
 export default multilanguage(YourAddressesComponent);

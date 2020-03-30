@@ -3,7 +3,7 @@ import { AddressesComponent } from '../components';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
-  resolverAddr: state.newAdmin.resolver.resolverAddr,
+  resolverName: state.newAdmin.resolver.resolverName,
   gettingResolver: state.newAdmin.resolver.gettingResolver,
 });
 
