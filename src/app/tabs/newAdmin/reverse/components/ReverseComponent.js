@@ -32,6 +32,7 @@ const ReverseComponent = ({
         reset={isSuccess}
         isSuccess={isSuccess}
         successTx={successTx}
+        validation={false}
         strings={{
           value_prefix: '',
           submit: strings.submit,
@@ -47,7 +48,7 @@ const ReverseComponent = ({
 
 ReverseComponent.propTypes = {
   strings: propTypes.shape({
-    reverse: propTypes.string.isRequired,
+    set_reverse: propTypes.string.isRequired,
     reverse_explanation: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
