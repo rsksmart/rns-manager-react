@@ -7,12 +7,12 @@ import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
 import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
-const YourAddressesComponent = ({ strings, chainAddresses, resolver }) => (
+const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
   <Row>
     <Col>
       <h1>
         {strings.your_addresses}
-        {resolver === MULTICHAIN_RESOLVER && ` - ${strings.multichain}`}
+        {resolverName === MULTICHAIN_RESOLVER && ` - ${strings.multichain}`}
       </h1>
       <p>{strings.your_addresses_explanation}</p>
       {Object.entries(chainAddresses).map((chainAddress) => {
@@ -77,7 +77,7 @@ YourAddressesComponent.propTypes = {
     multichain: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,
-  resolver: propTypes.string.isRequired,
+  resolverName: propTypes.string.isRequired,
 };
 
 export default multilanguage(YourAddressesComponent);

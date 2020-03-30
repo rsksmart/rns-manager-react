@@ -1,7 +1,7 @@
 import {
   REQUEST_SET_CHAIN_ADDRESS, ERROR_SET_CHAIN_ADDRESS, RECEIVE_SET_CHAIN_ADDRESS,
   WAITING_SET_CHAIN_ADDRESS, CLOSE_SET_CHAIN_ADDRESS, REQUEST_CHAIN_ADDRESS,
-  RECEIVE_CHAIN_ADDRESS, ERROR_CHAIN_ADDRESS,
+  RECEIVE_CHAIN_ADDRESS, ERROR_CHAIN_ADDRESS, CLEAR_ADDRESSES,
 } from './types';
 
 export const requestSetChainAddress = chainName => ({
@@ -48,4 +48,8 @@ export const errorChainAddress = (chainName, message) => ({
   type: ERROR_CHAIN_ADDRESS,
   chainName,
   message,
+});
+
+export const clearAddresses = () => ({
+  type: CLEAR_ADDRESSES,
 });

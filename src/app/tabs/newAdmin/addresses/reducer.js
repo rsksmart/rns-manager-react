@@ -1,6 +1,7 @@
 import {
   WAITING_SET_CHAIN_ADDRESS, ERROR_SET_CHAIN_ADDRESS, RECEIVE_SET_CHAIN_ADDRESS,
   REQUEST_SET_CHAIN_ADDRESS, CLOSE_SET_CHAIN_ADDRESS, RECEIVE_CHAIN_ADDRESS,
+  CLEAR_ADDRESSES,
 } from './types';
 
 const initialState = {
@@ -103,6 +104,10 @@ const resolverReducer = (state = initialState, action) => {
           errorMessage: '',
         },
       },
+    };
+    case CLEAR_ADDRESSES: return {
+      ...state,
+      chainAddresses: [],
     };
     default: return state;
   }

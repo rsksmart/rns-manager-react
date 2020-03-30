@@ -4,7 +4,7 @@ import { YourAddressesComponent } from '../components';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   chainAddresses: state.newAdmin.addresses.chainAddresses,
-  resolver: state.newAdmin.resolver.resolverName,
+  resolverName: state.newAdmin.resolver.resolverName,
 });
 
 export default connect(

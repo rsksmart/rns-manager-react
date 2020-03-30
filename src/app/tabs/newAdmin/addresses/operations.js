@@ -10,12 +10,14 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import {
   requestSetChainAddress, errorSetChainAddress, waitingSetChainAddress,
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
-  errorChainAddress,
+  errorChainAddress, clearAddresses,
 } from './actions';
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
+import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER } from '../resolver/types';
+
 
 const web3 = new Web3(window.ethereum);
 const multichainResolver = new web3.eth.Contract(
@@ -65,20 +67,36 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
   );
 };
 
+/**
+ * Get the RSK resolved address using the Public Resolver
+ * @param {string} domain the domain the address is for
+ */
+export const getPublicChainAddresses = domain => async (dispatch) => {
+  dispatch(requestChainAddress());
+  const hash = namehash(domain);
+
+  return new Promise((resolve) => {
+    publicResolver.methods.content(hash).call((error, result) => {
+      if (error) {
+        return errorChainAddress('RSK', error.message);
+      }
+      return resolve(dispatch(receiveChainAddress('0x80000089', 'RSK', result)));
+    });
+  });
+};
 
 /**
- * Get the chain Address for a specific domian
+ * Get the chain Address for a specific domian using the MultiChain Resolver
  * @param {string} domain the domain the address is for
  * @param {chainId} chainId the chainId requested
  */
-export const getChainAddresses = (domain, chainId) => async (dispatch) => {
+export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
 
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
 
   return new Promise((resolve) => {
-    //@todo
     multichainResolver.methods.chainAddr(hash, chainId).call((error, result) => {
       if (error) {
         return errorChainAddress(chainName, error.message);
@@ -89,13 +107,24 @@ export const getChainAddresses = (domain, chainId) => async (dispatch) => {
 };
 
 /**
- * Loops through all of the possible chainIds and calls
- * getChainAddress
+ * Gets chain addresses if the resolver is set to public or multichain.
+ * In the case of multichain, it loops through all of the possible chainIds
+ * and calls getChainAddress
  * @param {string} domain the domain to get the addresses
+ * @param {const} resolverName the name of the resolver for the domain
  */
-export const getAllChainAddresses = (domain, resolver) => (dispatch) => {
-  console.log('getting addresses on ', resolver);
-  networks.map(network => dispatch(getChainAddresses(domain, network.id)));
+export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
+  dispatch(clearAddresses());
+  switch (resolverName) {
+    case PUBLIC_RESOLVER:
+      dispatch(getPublicChainAddresses(domain));
+      break;
+    case MULTICHAIN_RESOLVER:
+      networks.map(network => dispatch(getMultiChainAddresses(domain, network.id)));
+      break;
+    default:
+      // string resolver or unknown/custom resolver
+  }
 };
 
 /**

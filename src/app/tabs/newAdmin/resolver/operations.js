@@ -5,6 +5,7 @@ import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver,
 } from './actions';
+import { getAllChainAddresses } from '../addresses/operations';
 
 import {
   multiChainResolver as multiChainResolverAddress,
@@ -76,9 +77,11 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
       }
 
       const transactionConfirmed = () => () => {
+        const resolverName = getResolverNameByAddress(resolverAddress);
         dispatch(receiveSetResolver(
-          result, resolverAddress, getResolverNameByAddress(resolverAddress),
+          result, resolverAddress, resolverName,
         ));
+        dispatch(getAllChainAddresses(domain, resolverName));
         sendBrowserNotification(domain, 'migration_complete');
       };
 
