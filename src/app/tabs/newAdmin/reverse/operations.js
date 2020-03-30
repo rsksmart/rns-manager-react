@@ -9,6 +9,7 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { reverseAbi, nameResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
+import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 import {
   requestResolver, receiveResolver, requestSetReverseResolver, waitingSetReverseResolver,
@@ -61,7 +62,13 @@ export const setReverse = value => async (dispatch) => {
       }
 
       dispatch(waitingSetReverseResolver());
-      return dispatch(transactionListener(result, () => receieveSetReverseResolver(value, result)));
+
+      const transactionConfirmed = () => () => {
+        sendBrowserNotification('RSK Manager', 'reverse_success');
+        dispatch(receieveSetReverseResolver(value, result));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
     },
   );
 };
