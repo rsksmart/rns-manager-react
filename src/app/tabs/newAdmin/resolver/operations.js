@@ -3,6 +3,7 @@ import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
+  waitingSetResolver,
 } from './actions';
 
 import {
@@ -11,7 +12,9 @@ import {
   stringResolver as stringResolverAddress,
 } from '../../../adapters/configAdapter';
 
+import transactionListener from '../../../helpers/transactionListener';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
+import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -63,12 +66,20 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
   await rns.compose();
   await rns.contracts.registry.methods.setResolver(hash, resolverAddress)
     .send({ from: currentAddress }, (error, result) => {
+      dispatch(waitingSetResolver());
       if (error) {
         return dispatch(errorSetResolver(error.message));
       }
 
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetResolver(
+          result, resolverAddress, getResolverNameByAddress(resolverAddress),
+        ));
+        sendBrowserNotification(domain, 'migration_complete');
+      };
+
       return dispatch(
-        receiveSetResolver(result, resolverAddress, getResolverNameByAddress(resolverAddress)),
+        transactionListener(result, () => transactionConfirmed()),
       );
     });
 };

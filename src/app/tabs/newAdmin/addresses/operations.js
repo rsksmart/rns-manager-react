@@ -2,7 +2,8 @@ import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 
 import {
-  multiChainResolver as resolverAddress,
+  multiChainResolver as multiChainResolverAddress,
+  publicResolver as publicResolverAddress,
 } from '../../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 

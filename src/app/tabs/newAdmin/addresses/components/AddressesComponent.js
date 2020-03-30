@@ -19,25 +19,19 @@ const AddressesComponent = ({
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(getAllChainAddresses(domain)), [dispatch]);
+  const resolver = resolverAddr.toLowerCase();
 
-  switch (resolverAddr.toLowerCase()) {
-    case publicResolverAddress: return (
-      <MigrateToMultiResolverContainer />
-    );
-
-    case stringResolverAddress: return (
-      <p>
-        {strings.string_resolver_message}
-      </p>
-    );
-
-    default: return (
-      <div className="yourAddress">
-        <YourAddressesContainer />
-        <AddNewAddressContainer />
-      </div>
-    );
+  if (resolver === stringResolverAddress) {
+    return <p>{strings.string_resolver_message}</p>
   }
+
+  return (
+    <div className="yourAddress">
+      <YourAddressesContainer />
+      <AddNewAddressContainer />
+      {resolver === publicResolverAddress && <MigrateToMultiResolverContainer />}
+    </div>
+  );
 };
 
 AddressesComponent.propTypes = {

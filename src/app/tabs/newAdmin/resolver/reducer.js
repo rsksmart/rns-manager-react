@@ -1,11 +1,12 @@
 import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
-  ERROR_SET_RESOLVER, CLOSE_MESSAGE,
+  ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE,
 } from './types';
 
 const initialState = {
   resolverAddr: '',
   resolverName: '',
+  isEditing: false,
   isWaiting: false,
   gettingResolver: false,
   successTx: '',
@@ -27,6 +28,10 @@ const resolverReducer = (state = initialState, action) => {
 
     case REQUEST_SET_RESOLVER: return {
       ...state,
+      isEditing: true,
+    };
+    case WAITING_SET_RESOLVER: return {
+      ...state,
       isWaiting: true,
     };
     case RECEIVE_SET_RESOLVER: return {
@@ -35,10 +40,12 @@ const resolverReducer = (state = initialState, action) => {
       resolverAddr: action.resolverAddr,
       resolverName: action.resolverName,
       successTx: action.successTx,
+      isEditing: false,
       isWaiting: false,
     };
     case ERROR_SET_RESOLVER: return {
       ...state,
+      isEditing: false,
       isWaiting: false,
       errorMessage: action.message,
     };

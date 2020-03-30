@@ -7,6 +7,7 @@ import { closeMessage } from '../../resolver/actions';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   isWaiting: state.newAdmin.resolver.isWaiting,
+  isEditing: state.newAdmin.resolver.isEditing,
   errorMessage: state.newAdmin.resolver.errorMessage,
 });
 
