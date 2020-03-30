@@ -37,12 +37,40 @@ export const getChainNameById = (chainId) => {
 };
 
 /**
- * Set the chain Address for a specific domian
- * @param {string} domain the domain the address is for
- * @param {chainId} chainId the chainId to be set
- * @param {address} address the address for the chainId
+ * Sets the RSK resolution when using the public resolver
+ * @param {*} domain to set the address for
+ * @param {*} address to resolve to
  */
-export const setChainAddress = (domain, chainId, address) => async (dispatch) => {
+const setPublicAddress = (domain, address) => async (dispatch) => {
+  console.log('setting RSK public address for', domain, address);
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  const hash = namehash(domain);
+
+  publicResolver.methods.setAddr(hash, address).send(
+    { from: currentAddress }, (error, result) => {
+      dispatch(waitingSetChainAddress('RSK'));
+      if (error) {
+        return dispatch(errorSetChainAddress('RSK', error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    },
+  );
+};
+
+/**
+ * Sets an address in the multichain resolver
+ * @param {*} domain to set the address for
+ * @param {*} chainId that is assoicated with the address
+ * @param {*} address the address or valud to set for the chainId
+ */
+const setMultiChainAddress = (domain, chainId, address) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
 
@@ -50,7 +78,6 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  //@todo
   multichainResolver.methods.setChainAddr(hash, chainId, address).send(
     { from: currentAddress }, (error, result) => {
       dispatch(waitingSetChainAddress(chainName));
@@ -67,6 +94,26 @@ export const setChainAddress = (domain, chainId, address) => async (dispatch) =>
   );
 };
 
+
+/**
+ * Selects the correct resolver set function based one resolverName
+ * @param {string} domain the domain the address is for
+ * @param {chainId} chainId the chainId to be set
+ * @param {address} address the address for the chainId
+ */
+export const setChainAddress = (domain, chainId, address, resolverName) => async (dispatch) => {
+  switch (resolverName) {
+    case PUBLIC_RESOLVER:
+      dispatch(setPublicAddress(domain, address));
+      break;
+    case MULTICHAIN_RESOLVER:
+      dispatch(setMultiChainAddress(domain, chainId, address));
+      break;
+    default:
+      // string resolver or unknown/custom resolver
+  }
+};
+
 /**
  * Get the RSK resolved address using the Public Resolver
  * @param {string} domain the domain the address is for
@@ -76,7 +123,7 @@ export const getPublicChainAddresses = domain => async (dispatch) => {
   const hash = namehash(domain);
 
   return new Promise((resolve) => {
-    publicResolver.methods.content(hash).call((error, result) => {
+    publicResolver.methods.addr(hash).call((error, result) => {
       if (error) {
         return errorChainAddress('RSK', error.message);
       }

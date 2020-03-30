@@ -13,14 +13,15 @@ const networksFilter = networks => Object.entries(networks).filter(
 const mapStateToProps = state => ({
   domain: state.auth.name,
   resolver: state.newAdmin.resolver.resolverAddr,
+  resolverName: state.newAdmin.resolver.resolverName,
   networks: networksFilter(state.newAdmin.addresses.chainAddresses),
   chainAddresses: state.newAdmin.addresses.chainAddresses,
   targetAddress: state.newAdmin.addresses.targetAddress,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, networkId, address) => dispatch(
-    setChainAddress(domain, networkId, address),
+  handleClick: (domain, networkId, address, resolverName) => dispatch(
+    setChainAddress(domain, networkId, address, resolverName),
   ),
   handleClose: chainName => dispatch(closeSetChainAddress(chainName)),
 });
@@ -30,7 +31,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   handleClick: (networkId, address) => dispatchProps.handleClick(
-    stateProps.domain, networkId, address,
+    stateProps.domain, networkId, address, stateProps.resolverName,
   ),
   handleClose: chainName => dispatchProps.handleClose(chainName),
 });
