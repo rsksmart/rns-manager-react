@@ -68,7 +68,9 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   await rns.compose();
   await rns.contracts.registry.methods.owner(hash).call((error, result) => {
     if (!error) {
-      dispatch(addSubdomainToList(subdomain, result));
+      if (result !== '0x0000000000000000000000000000000000000000') {
+        dispatch(addSubdomainToList(subdomain, result));
+      }
     }
   });
 };
