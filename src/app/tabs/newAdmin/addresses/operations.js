@@ -10,13 +10,14 @@ import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import {
   requestSetChainAddress, errorSetChainAddress, waitingSetChainAddress,
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
-  errorChainAddress, clearAddresses,
+  errorChainAddress, clearAddresses, closeSetChainAddress,
 } from './actions';
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER } from '../resolver/types';
+import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 
 const web3 = new Web3(window.ethereum);
@@ -38,12 +39,10 @@ export const getChainNameById = (chainId) => {
 
 /**
  * Sets the RSK resolution when using the public resolver
- * @param {*} domain to set the address for
- * @param {*} address to resolve to
+ * @param {string} domain to set the address for
+ * @param {address} address to resolve to
  */
-const setPublicAddress = (domain, address) => async (dispatch) => {
-  console.log('setting RSK public address for', domain, address);
-
+const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
@@ -56,7 +55,7 @@ const setPublicAddress = (domain, address) => async (dispatch) => {
       }
 
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result));
+        dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result, isNew));
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
@@ -70,7 +69,7 @@ const setPublicAddress = (domain, address) => async (dispatch) => {
  * @param {*} chainId that is assoicated with the address
  * @param {*} address the address or valud to set for the chainId
  */
-const setMultiChainAddress = (domain, chainId, address) => async (dispatch) => {
+const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
 
@@ -86,7 +85,17 @@ const setMultiChainAddress = (domain, chainId, address) => async (dispatch) => {
       }
 
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress(chainId, getChainNameById(chainId), address, result));
+        dispatch(receiveSetChainAddress(
+          chainId, getChainNameById(chainId), address, result, isNew,
+        ));
+
+        // if deleting, close the error message programatically
+        if (address === '' || address === '0x0000000000000000000000000000000000000000') {
+          dispatch(closeSetChainAddress(chainName));
+          sendBrowserNotification(domain, 'chain_address_removed');
+        } else {
+          sendBrowserNotification(domain, 'chain_address_updated');
+        }
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
@@ -100,14 +109,17 @@ const setMultiChainAddress = (domain, chainId, address) => async (dispatch) => {
  * @param {string} domain the domain the address is for
  * @param {chainId} chainId the chainId to be set
  * @param {address} address the address for the chainId
+ * @param {type} resolverName which resolver to use
  */
-export const setChainAddress = (domain, chainId, address, resolverName) => async (dispatch) => {
+export const setChainAddress = (
+  domain, chainId, address, resolverName, isNew,
+) => async (dispatch) => {
   switch (resolverName) {
     case PUBLIC_RESOLVER:
-      dispatch(setPublicAddress(domain, address));
+      dispatch(setPublicAddress(domain, address, isNew));
       break;
     case MULTICHAIN_RESOLVER:
-      dispatch(setMultiChainAddress(domain, chainId, address));
+      dispatch(setMultiChainAddress(domain, chainId, address, isNew));
       break;
     default:
       // string resolver or unknown/custom resolver
@@ -158,7 +170,7 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
  * In the case of multichain, it loops through all of the possible chainIds
  * and calls getChainAddress
  * @param {string} domain the domain to get the addresses
- * @param {const} resolverName the name of the resolver for the domain
+ * @param {type} resolverName which resolver to use
  */
 export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
   dispatch(clearAddresses());
@@ -175,13 +187,24 @@ export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
 };
 
 /**
- * Decides to set the address value to '' or 0x0 depending on content
+ * Chooses which resolver to use and then sets the value to '' or 0x0 depending on content
  * type and then passes the value to setChainAddress()
  * @param {string} domain the domain to get the addresses
  * @param {chainId} chainId the chainId requested
+ * @param {type} resolverName which resolver to use
  */
-export const deleteChainAddress = (domain, chainId) => (dispatch) => {
+export const deleteChainAddress = (domain, chainId, resolverName) => (dispatch) => {
   const isHex = networks.filter(net => net.id === chainId)[0].validation === 'HEX';
   const value = isHex ? '0x0000000000000000000000000000000000000000' : '';
-  dispatch(setChainAddress(domain, chainId, value));
+
+  switch (resolverName) {
+    case PUBLIC_RESOLVER:
+      dispatch(setPublicAddress(domain, value));
+      break;
+    case MULTICHAIN_RESOLVER:
+      dispatch(setMultiChainAddress(domain, chainId, value));
+      break;
+    default:
+      // string resolver or unknown/custom resolver
+  }
 };

@@ -301,5 +301,7 @@
   "migrate_to_multi_resolver": "The multichain addresses offer domain compatibility with different blockchains. The activation requires a single transaction with your wallet then the multichain addresses will be ready to use.",
   "migration_complete": "Successfully migrated to the multichain resolver.",
   "your_addresses_explanation": "Your domain can be used in different blockchains. Add your addresses for each of the blockchains you want to use.",
-  "multichain": "Multichain"
+  "multichain": "Multichain",
+  "chain_address_removed": "Chain address removed",
+  "chain_address_updated": "Chain address updated"
 }

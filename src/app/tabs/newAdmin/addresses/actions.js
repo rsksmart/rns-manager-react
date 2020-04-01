@@ -29,12 +29,13 @@ export const requestChainAddress = () => ({
   type: REQUEST_CHAIN_ADDRESS,
 });
 
-export const receiveSetChainAddress = (chainId, chainName, address, resultTx) => ({
+export const receiveSetChainAddress = (chainId, chainName, address, resultTx, isNew) => ({
   type: RECEIVE_SET_CHAIN_ADDRESS,
   chainId,
   chainName,
   address,
   resultTx,
+  isNew,
 });
 
 export const receiveChainAddress = (chainId, chainName, address) => ({

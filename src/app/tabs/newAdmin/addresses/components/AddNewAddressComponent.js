@@ -15,6 +15,7 @@ const AddNewAddressComponent = ({
   handleClick,
   handleClose,
   chainAddresses,
+  newSuccess,
 }) => {
   // all available addresses have been set, return before states are set
   if (networks.length === 0) {
@@ -25,17 +26,19 @@ const AddNewAddressComponent = ({
   const [checksumError, setChecksumError] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0][1].chainId);
   const [address, setAddress] = useState('');
+  const [localReset, setLocalRest] = useState(false);
 
   const networkName = getChainNameById(selectedNetwork);
 
-  if (chainAddresses[networkName].isSuccess && address !== '') {
+  // reset the state and select new network when newSuccess is finished
+  if (newSuccess && !localReset) {
     setSelectedNetwork(networks[0][1].chainId);
     setAddress('');
+    setLocalRest(true);
   }
 
   const handleAddClick = () => {
     const networkInfo = allNetworks.filter(net => net.id === selectedNetwork)[0];
-
     if (networkInfo.validation && networkInfo.validation === 'HEX') {
       const validationChainId = allNetworks.filter(net => net.id === selectedNetwork)[0].checksum
         || process.env.REACT_APP_ENVIRONMENT_ID;
@@ -48,12 +51,15 @@ const AddNewAddressComponent = ({
         default:
       }
     }
-    return handleClick(selectedNetwork, address);
+    handleClick(selectedNetwork, address);
+    setLocalRest(false);
+    return true;
   };
 
   const handleChecksumClick = (lowerAddress) => {
     setChecksumError(false);
     setAddress(lowerAddress);
+    setLocalRest(false);
     handleClick(selectedNetwork, address);
   };
 
@@ -92,6 +98,7 @@ const AddNewAddressComponent = ({
           <input
             placeholder={strings.paste_your_address}
             onChange={evt => setAddress(evt.target.value)}
+            value={address}
             disabled={isEditing}
           />
         </Col>
@@ -144,6 +151,7 @@ AddNewAddressComponent.propTypes = {
   chainAddresses: propTypes.shape().isRequired,
   handleClick: propTypes.func.isRequired,
   handleClose: propTypes.func.isRequired,
+  newSuccess: propTypes.bool.isRequired,
 };
 
 export default multilanguage(AddNewAddressComponent);

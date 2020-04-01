@@ -17,11 +17,12 @@ const mapStateToProps = state => ({
   networks: networksFilter(state.newAdmin.addresses.chainAddresses),
   chainAddresses: state.newAdmin.addresses.chainAddresses,
   targetAddress: state.newAdmin.addresses.targetAddress,
+  newSuccess: state.newAdmin.addresses.newChainSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
   handleClick: (domain, networkId, address, resolverName) => dispatch(
-    setChainAddress(domain, networkId, address, resolverName),
+    setChainAddress(domain, networkId, address, resolverName, true),
   ),
   handleClose: chainName => dispatch(closeSetChainAddress(chainName)),
 });

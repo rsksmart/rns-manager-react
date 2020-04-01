@@ -10,44 +10,42 @@ import { UserErrorComponent, UserWaitingComponent } from '../../../../components
 
 const MigrateToMultiResolverComponent = ({
   strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick,
-}) => {
-  return (
-    <>
-      <Row className="break-above">
-        <Col>
-          <h3 className="blue">
-            {strings.multi_chain_addresses}
-          </h3>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={10}>
-          <p>{strings.migrate_to_multi_resolver}</p>
-        </Col>
-        <Col md={2}>
-          <Button
-            onClick={handleClick}
-            className="migrate"
-            disabled={isEditing}
-          >
-            {strings.migrate}
-          </Button>
-        </Col>
-      </Row>
-      <Row>
-        <UserWaitingComponent
-          message={strings.wait_transation_confirmed}
-          visible={isWaiting}
-        />
-        <UserErrorComponent
-          message={errorMessage}
-          handleCloseClick={handleCloseClick}
-          visible={errorMessage !== ''}
-        />
-      </Row>
-    </>
-  );
-};
+}) => (
+  <>
+    <Row className="break-above">
+      <Col>
+        <h3 className="blue">
+          {strings.multi_chain_addresses}
+        </h3>
+      </Col>
+    </Row>
+    <Row>
+      <Col md={10}>
+        <p>{strings.migrate_to_multi_resolver}</p>
+      </Col>
+      <Col md={2}>
+        <Button
+          onClick={handleClick}
+          className="migrate"
+          disabled={isEditing}
+        >
+          {strings.migrate}
+        </Button>
+      </Col>
+    </Row>
+    <Row>
+      <UserWaitingComponent
+        message={strings.wait_transation_confirmed}
+        visible={isWaiting}
+      />
+      <UserErrorComponent
+        message={errorMessage}
+        handleCloseClick={handleCloseClick}
+        visible={errorMessage !== ''}
+      />
+    </Row>
+  </>
+);
 
 MigrateToMultiResolverComponent.propTypes = {
   strings: propTypes.shape({

@@ -14,7 +14,9 @@ const mapDispatchToProps = dispatch => ({
   handleSubmit: (domain, chainId, value, resolverName) => dispatch(
     setChainAddress(domain, chainId, value, resolverName),
   ),
-  handleDelete: (domain, chainId) => dispatch(deleteChainAddress(domain, chainId)),
+  handleDelete: (domain, chainId, resolverName) => dispatch(
+    deleteChainAddress(domain, chainId, resolverName),
+  ),
   handleClose: chainName => dispatch(closeSetChainAddress(chainName)),
 });
 
@@ -25,7 +27,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   handleSubmit: value => dispatchProps.handleSubmit(
     stateProps.domain, ownProps.networkId, value, stateProps.resolverName,
   ),
-  handleDelete: () => dispatchProps.handleDelete(stateProps.domain, ownProps.networkId),
+  handleDelete: () => dispatchProps.handleDelete(
+    stateProps.domain, ownProps.networkId, stateProps.resolverName,
+  ),
   handleErrorClose: () => dispatchProps.handleClose(ownProps.label),
   handleSuccessClose: () => dispatchProps.handleClose(ownProps.label),
 });

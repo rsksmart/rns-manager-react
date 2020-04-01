@@ -6,7 +6,7 @@
     "icon": "/assets/icons/icon_rsk.png"
   },
   {
-    "name": "BTC",
+    "name": "Bitcoin",
     "id": "0x80000000",
     "icon": "/assets/icons/icon_btc.png"
   },
@@ -18,7 +18,7 @@
     "icon": "/assets/icons/icon_eth.png"
   },
   {
-    "name": "LTC",
+    "name": "Litecoin",
     "id": "0x80000002",
     "icon": "/assets/icons/icon_ltc.png"
   },

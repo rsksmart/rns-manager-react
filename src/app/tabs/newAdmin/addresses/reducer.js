@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   newChainAddress: '',
+  newChainSuccess: false,
   chainAddresses: [],
 };
 
@@ -25,6 +26,7 @@ const resolverReducer = (state = initialState, action) => {
     case REQUEST_SET_CHAIN_ADDRESS: return {
       ...state,
       newChainAddress: action.chainName,
+      newChainSuccess: false,
       chainAddresses: {
         ...state.chainAddresses,
         [action.chainName]: {
@@ -62,6 +64,8 @@ const resolverReducer = (state = initialState, action) => {
     // to be used when editing:
     case RECEIVE_SET_CHAIN_ADDRESS: return {
       ...state,
+      newChainAddress: '',
+      newChainSuccess: action.isNew,
       chainAddresses: {
         ...state.chainAddresses,
         [action.chainName]: {
