@@ -29,6 +29,7 @@ const AddressInputComponent = ({
   successTx,
   reset,
   validationChainId,
+  validation,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -56,17 +57,19 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
+    if (!validation) {
+      return handleSubmit(editText);
+    }
+
     switch (validateAddress(editText, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
       case 'Invalid address':
-        setIsLocalError('Invalid address');
-        return;
+        return setIsLocalError('Invalid address');
       case 'Invalid checksum':
-        setIsChecksumError(true);
-        return;
+        return setIsChecksumError(true);
       default:
     }
     setIsLocalError(false);
-    handleSubmit(editText);
+    return handleSubmit(editText);
   };
 
   const handleTextChange = (evt) => {
@@ -97,8 +100,9 @@ const AddressInputComponent = ({
           {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
-          {`${strings.value_prefix}`}
-          {strings.value_prefix ? ': ' : ''}
+          {strings.value_prefix
+            && <span className="value-prefix">{`${strings.value_prefix}: `}</span>
+          }
           {valueDisplay || value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
@@ -224,6 +228,7 @@ AddressInputComponent.defaultProps = {
   reset: false,
   successTx: '',
   validationChainId: '',
+  validation: true,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -254,6 +259,7 @@ AddressInputComponent.propTypes = {
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
   reset: propTypes.bool,
+  validation: propTypes.bool,
   successTx: propTypes.string,
   handleErrorClose: propTypes.func,
   handleSuccessClose: propTypes.func,

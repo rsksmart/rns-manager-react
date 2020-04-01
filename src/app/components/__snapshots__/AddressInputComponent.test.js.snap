@@ -15,8 +15,11 @@ exports[`AddressInputComponent renders without crashing 1`] = `
     <div
       className="col-md-7 value"
     >
-      value prefix
-      : 
+      <span
+        className="value-prefix"
+      >
+        value prefix: 
+      </span>
       Value
     </div>
     <div
@@ -81,8 +84,11 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
     <div
       className="col-md-7 value"
     >
-      value prefix
-      : 
+      <span
+        className="value-prefix"
+      >
+        value prefix: 
+      </span>
       Value
     </div>
     <div
