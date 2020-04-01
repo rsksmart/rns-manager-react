@@ -13,6 +13,8 @@ import {
   removeSubdomainFromList,
 } from './actions';
 
+import { sendBrowserNotification } from '../../../browerNotifications/operations';
+
 const web3 = new Web3(window.ethereum);
 
 // JS library:
@@ -56,6 +58,7 @@ const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch
         dispatch(addSubdomainToList(subdomain, newOwner));
         dispatch(receiveNewSubdomain(result));
         updateSubdomainToLocalStorage(parentDomain, subdomain, true);
+        sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
@@ -68,7 +71,9 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   await rns.compose();
   await rns.contracts.registry.methods.owner(hash).call((error, result) => {
     if (!error) {
-      dispatch(addSubdomainToList(subdomain, result));
+      if (result !== '0x0000000000000000000000000000000000000000') {
+        dispatch(addSubdomainToList(subdomain, result));
+      }
     }
   });
 };
@@ -152,8 +157,11 @@ export const setSubdomainOwner = (
         dispatch(receiveSetSubdomainOwner(result, subdomain, newOwner));
 
         if (newOwner === '0x0000000000000000000000000000000000000000') {
+          sendBrowserNotification(`${subdomain}.${parentDomain}`, 'remove_subdomain');
           updateSubdomainToLocalStorage(parentDomain, subdomain, false);
           dispatch(removeSubdomainFromList(subdomain));
+        } else {
+          sendBrowserNotification(`${subdomain}.${parentDomain}`, 'update_subdomain');
         }
       };
 
