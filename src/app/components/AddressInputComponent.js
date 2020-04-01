@@ -70,6 +70,7 @@ const AddressInputComponent = ({
       default:
     }
     setIsLocalError(false);
+    setIsChecksumError(false);
     return handleSubmit(editText);
   };
 

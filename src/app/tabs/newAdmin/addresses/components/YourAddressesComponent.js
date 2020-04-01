@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
+import { toChecksumAddress } from 'rskjs-util';
 
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
@@ -26,6 +27,8 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
         } = chainAddress[1];
 
         const network = networks.filter(net => net.name === chainName)[0];
+        const isHex = network.validation === 'HEX';
+        const networkChainId = (chainName === 'RSK') ? process.env.REACT_APP_ENVIRONMENT_ID : network.checksum;
 
         return (
           <div className="break-below">
@@ -35,14 +38,15 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
               labelIcon={network.icon}
               networkId={chainId}
               value={address}
+              valueDisplay={isHex ? toChecksumAddress(address, networkChainId) : address}
               isError={isError}
               isEditing={isEditing}
               isWaiting={isWaiting}
               isSuccess={isSuccess}
               successTx={successTx}
               reset={isSuccess}
-              validationChainId={network.checksum}
-              validation={network.validate === 'HEX'}
+              validationChainId={networkChainId}
+              validation={isHex}
               strings={{
                 value_prefix: strings.value,
                 error_message: errorMessage,
