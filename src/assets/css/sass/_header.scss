@@ -1,54 +1,74 @@
-.indicator {
-  margin-left: 10px;
-  padding-right: 12px !important;
-  span {
-    position: relative;
-    margin-left: 5px;
-    padding-left: 3px;
+.navbar-expand-md {
+  background-color: #008FF7;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 16px 0;
+
+  .indicator {
+    margin-left: 50px;
+    padding-right: 12px !important;
+    border: 1px solid #fff;
+    color: #fff;
+    opacity: 1 !important;
+    span {
+      position: relative;
+      margin-left: 8px;
+      padding-left: 3px;
+    }
+    span::before {
+      position: absolute;
+      right: 98%;
+      top: 45%;
+      transform: translate(-5px, -50%);
+      content: "";
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #40d512;
+    }
   }
-  span::before {
-    position: absolute;
-    right: 98%;
-    top: 50%;
-    transform: translate(-5px, -50%);
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #40d512;
+
+  .indicator.network-error {
+    span::before {
+      background-color:#dc3545;
+    }
   }
-}
 
-.indicator.btn-outline-warning {
-  color: #000000;
-  span::before {
-    background-color: #ffc107;
+  .navbar-nav .nav-link {
+    color: #ffffff;
   }
-}
 
-a:hover .indicator.btn-outline-warning {
-  color: #a07800;
-}
-
-.indicator.btn-outline-danger {
-  span::before {
-    background-color:#dc3545;
+  .navbar-nav .nav-link:hover {
+    font-weight: normal;
+    color: #fff;
   }
-}
 
-.nav-link.btn {
-  background: none;
-  border: none;
-  border-radius: 0;
-  font-weight: 300 !important;
-  font-size: 16px;
-}
+  .nav-link.btn {
+    background: none;
+    border: none;
+    border-radius: 0;
+    font-weight: 300 !important;
+    font-size: 16px;
+  }
 
-.nav-link.btn:hover, .nav-link.btn:active {
-  color: #000000 !important;
-  background: none !important;
-  border:none;
-  box-shadow: none;
-  font-weight: 500 !important;
+  .nav-link.btn:hover, .nav-link.btn:active {
+    color: #000000 !important;
+    background: none !important;
+    border:none;
+    box-shadow: none;
+    font-weight: 500 !important;
+  }
+
+  // language button
+  .btn-primary:hover:not([disabled]) {
+    background: none !important;
+    border: none !important;
+    color: #ffffff;
+  }
+
+  // start/login button
+  .btn-primary:not([disabled]).start, .btn-primary.start:hover:not([disabled])  {
+    border: 1px solid #ffffff !important;
+  }
+
 }

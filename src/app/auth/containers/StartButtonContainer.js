@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(showModal());
     dispatch(start());
   },
-  user: () => dispatch(push('/user')),
+  user: () => dispatch(push('/admin')),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

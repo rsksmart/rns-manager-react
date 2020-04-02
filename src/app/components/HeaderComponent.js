@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-  Navbar, Nav, Form, Container, Image, Button,
+  Navbar, Nav, Form, Container, Image,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
@@ -14,15 +14,13 @@ import { LanguageSelectContainer, IndicatorLight } from '../containers';
 const HeaderComponent = (props) => {
   const {
     strings,
-    isLoggedIn,
     network,
-    logOut,
   } = props;
 
   return (
     <Navbar
       expand="md"
-      className="navbar-expand-md navbar-light bg-light fixed-top"
+      className="navbar-expand-md navbar-dark fixed-top"
     >
       <Container>
         <Link to="/" className="navbar-brand">
@@ -41,33 +39,11 @@ const HeaderComponent = (props) => {
                 {strings.search}
               </Link>
             </Nav.Item>
-            <Nav.Item key={strings.resolve}>
-              <Link to="/resolve" className="nav-link" title={strings.resolve}>
-                {strings.resolve}
-              </Link>
-            </Nav.Item>
-            {
-              isLoggedIn
-              && (
-                <>
-                  <Nav.Item key={strings.admin}>
-                    <Link className="nav-link" to="/admin">
-                      {strings.admin}
-                    </Link>
-                  </Nav.Item>
-                  <Nav.Item key={strings.log_out}>
-                    <Button className="nav-link" onClick={logOut}>
-                      {strings.log_out}
-                    </Button>
-                  </Nav.Item>
-                </>
-              )
-            }
           </Nav>
           <Form onSubmit={e => e.preventDefault()} inline>
             <LanguageSelectContainer />
-            <StartButton />
           </Form>
+          <StartButton />
         </Navbar.Collapse>
       </Container>
     </Navbar>

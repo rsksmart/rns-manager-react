@@ -28,9 +28,6 @@ body {
     padding: 2rem 1rem 0.5rem;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, 1);
-}
 
 .logo {
     width: 100px;

@@ -10,10 +10,12 @@ const StartButtonComponent = (props) => {
     strings, open, user, isOwner, domain, address,
   } = props;
 
+  const className = 'start my-2 my-sm-0';
+
   if (!address) {
     return (
       <Nav.Item key={strings.start}>
-        <Button className="my-2 my-sm-0" onClick={open}>
+        <Button className={className} onClick={open}>
           {strings.start}
         </Button>
       </Nav.Item>
@@ -23,7 +25,7 @@ const StartButtonComponent = (props) => {
   if (domain && isOwner) {
     return (
       <Nav.Item key={domain}>
-        <Button className="my-2 my-sm-0" onClick={user}>
+        <Button className={className} onClick={user}>
           {domain}
         </Button>
       </Nav.Item>
@@ -32,7 +34,7 @@ const StartButtonComponent = (props) => {
 
   return (
     <Nav.Item key={strings.log_in}>
-      <Button className="my-2 my-sm-0" onClick={open}>
+      <Button className={className} onClick={open}>
         {strings.log_in}
       </Button>
     </Nav.Item>

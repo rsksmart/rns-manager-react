@@ -15,18 +15,18 @@ const IndicatorLight = (props) => {
     walletUnlocked,
   } = props;
 
-  let className = 'btn-outline-success';
+  let className = '';
   let popup = strings.connected_successful;
   let networkString = networkSelector(network);
 
   if (!hasMetamask) {
-    className = 'btn-outline-warning';
+    className = 'network-error';
     popup = strings.no_wallet;
   } else if (!walletUnlocked) {
-    className = 'btn-outline-warning';
+    className = 'network-error';
     popup = strings.unlock_wallet;
   } else if (!networkMatch) {
-    className = 'btn-outline-danger';
+    className = 'network-error';
     popup = `${strings.connect_to_network} ${networkSelector(network)}`;
     networkString = strings.unknown_network;
   }

@@ -3,8 +3,8 @@
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 49" style="enable-background:new 0 0 100 49;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#121212;}
-	.st1{fill:#4E8AFA;}
+	.st0{fill:#FFF;}
+	.st1{fill:#FFF;}
 </style>
 <g>
 	<g>
@@ -39,7 +39,7 @@
 			</g>
 		</g>
 	</g>
-	<g>
+	<g class="st0">
 		<path d="M57.04,48.03h-0.73v-5.52h-2.06v-0.65h4.85v0.65h-2.06V48.03z"/>
 		<path d="M62.93,46.72l0.59,0.22c-0.28,0.73-1.15,1.27-2.07,1.27c-1.38,0-2.38-1.02-2.38-2.43c0-1.35,0.98-2.33,2.34-2.33
 			c1.35,0,2.32,0.99,2.32,2.34c0,0.08,0,0.17-0.01,0.26l-3.97-0.01c0.1,0.93,0.78,1.57,1.65,1.57

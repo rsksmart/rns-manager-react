@@ -6,12 +6,6 @@
  /* BODY */
  body{font-family: 'Rubik', sans-serif; color:#000000; font-weight:300;font-size:16px; padding-top:150px;}
 
- /* NAV*/
- .navbar{padding: 2rem 1rem 0.5rem;}
- .navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, 1);
-}
-
  .logo{width:100px; height:auto;}
 
  .bg-light {
