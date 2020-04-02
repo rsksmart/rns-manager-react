@@ -303,5 +303,6 @@
   "your_addresses_explanation": "Your domain can be used in different blockchains. Add your addresses for each of the blockchains you want to use.",
   "multichain": "Multichain",
   "chain_address_removed": "Chain address removed",
-  "chain_address_updated": "Chain address updated"
+  "chain_address_updated": "Chain address updated",
+  "custom_resolver_message": "This feature will not work because you are using a custom resolver."
 }
