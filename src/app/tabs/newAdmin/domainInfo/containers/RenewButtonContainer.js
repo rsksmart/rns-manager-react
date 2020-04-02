@@ -3,7 +3,6 @@ import { RenewButtonComponent } from '../components';
 import { toggleRenew } from '../actions';
 
 const mapStateToProps = state => ({
-  domain: state.auth.storageName,
   expires: state.newAdmin.domainInfo.expires,
   isRenewOpen: state.newAdmin.domainInfo.isRenewOpen,
   checkingExpirationTime: state.newAdmin.domainInfo.checkingExpirationTime,

@@ -14,6 +14,7 @@ import {
   errorFifsMigrationStatus,
 } from './actions';
 
+import { checkIfSubdomainAndGetExpirationRemaining } from './domainInfo/operations';
 import { getDomainResolver } from './resolver/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -80,6 +81,7 @@ export const start = domain => (dispatch) => {
   dispatch(checkIfSubdomainOrTokenOwner(domain));
   dispatch(checkIfFIFSRegistrar(domain));
   dispatch(getDomainResolver(domain));
+  dispatch(checkIfSubdomainAndGetExpirationRemaining(domain));
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {
