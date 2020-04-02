@@ -3,74 +3,88 @@ import propTypes from 'prop-types';
 import {
   Container, Image, Col, Row,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/img/powered_by_iov.svg';
+import logo from '../../assets/img/logo-footer.svg';
 
 import { version } from '../../../package.json';
 
 const FooterComponent = (props) => {
   const { strings } = props;
 
+  const linkProps = {
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  };
+
   return (
     <footer>
       <div className="footer-top">
         <Container>
           <Row>
-            <Col lg={12}>
-              <Image
-                style={{ zIndex: 100 }}
-                className="img-fluid powered_by"
-                src={logo}
-              />
+            <Col lg="3">
+              <Image src={logo} alt="RSK Logo" />
+            </Col>
+            <Col lg="2">
+              <h2>RIF</h2>
+              <ul>
+                <li>
+                  <a href="https://developers.rsk.co/rif/" {...linkProps}>{strings.services}</a>
+                </li>
+                <li>
+                  <a href="https://www.rsk.co/Whitepapers/RSK-White-Paper-Updated.pdf" {...linkProps}>
+                    {strings.whitepaper}
+                  </a>
+                </li>
+                <li>
+                  <a href="https://developers.rsk.co/rif/token/" {...linkProps}>{strings.rif_token}</a>
+                </li>
+              </ul>
+            </Col>
+            <Col lg="3">
+              <h2>{strings.home_title}</h2>
+              <ul>
+                <li>
+                  <a href="https://www.rsk.co/development-roadmap" {...linkProps}>{strings.roadmap}</a>
+                </li>
+                <li><Link to="/faq">FAQ</Link></li>
+                <li>
+                  <a href="https://www.iovlabs.org/contact.html" {...linkProps}>{strings.contact}</a>
+                </li>
+              </ul>
+            </Col>
+            <Col lg="2">
+              <h2>{strings.developers}</h2>
+              <ul>
+                <li>
+                  <a href="https://www.rsk.co/Whitepapers/RSK-White-Paper-Updated.pdf" {...linkProps}>
+                    {strings.whitepaper}
+                  </a>
+                </li>
+                <li><a href="https://developers.rsk.co/" {...linkProps}>{strings.docs}</a></li>
+                <li>
+                  <a href="https://github.com/rnsdomains/" {...linkProps}>Github</a>
+                </li>
+              </ul>
+            </Col>
+            <Col lg="2">
+              <h2>{strings.privacy}</h2>
+              <ul>
+                <li>
+                  <a href="https://rsk.co/privacy-policy.html" {...linkProps}>{strings.privacy_policy}</a>
+                </li>
+                <li>
+                  <a href="https://rsk.co/terms-conditions.html" {...linkProps}>{strings.terms}</a>
+                </li>
+              </ul>
             </Col>
           </Row>
           <Row>
-            <Col lg="4">
-              <span className="footer-title mb-3">{strings.what_is_rns_title}</span>
-              <p className="mb-5">{strings.what_is_rns_text}</p>
-              <p style={{ fontSize: '.8em' }}>{version}</p>
-            </Col>
-            <Col lg="4" />
-            <Col lg="2">
-              <span className="footer-title mb-3">{strings.develop}</span>
-              <a
-                href="https://developers.rsk.co/rif/rns/libs/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.libs}
-              </a>
-              <a
-                href="https://developers.rsk.co/rif/rns/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.docs}
-              </a>
-              <a
-                href="https://github.com/rnsdomains"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.github}
-              </a>
-            </Col>
-            <Col lg="2">
-              <span className="footer-title mb-3">{strings.learn}</span>
-              <a
-                href="https://docs.rifos.org/rif-whitepaper-en.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.rif_white_paper}
-              </a>
-              <a
-                href="https://docs.rifos.org/rif-directory-protocol-en.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.rns_white_paper}
-              </a>
+            <Col>
+              <p style={{ fontSize: '.8em' }}>
+                Copyright © 2020 RSK Labs. All rights reserved.
+                {` ${version}`}
+              </p>
             </Col>
           </Row>
         </Container>

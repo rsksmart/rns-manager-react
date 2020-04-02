@@ -53,7 +53,7 @@ describe('LeftNavComponent', () => {
     );
 
     expect(component.find('a.active').text()).toEqual('subdomains');
-    expect(component.find('li').length).toBe(3);
+    expect(component.find('li').length).toBe(4);
   });
 
   it('sets home as active when resolver is passed, but advancedView is false.', () => {
@@ -66,5 +66,18 @@ describe('LeftNavComponent', () => {
     );
 
     expect(component.find('a.active').text()).toEqual('Domain info');
+  });
+
+  it('fires logout when clicked', () => {
+    const component = mount(
+      <Provider store={store}>
+        <HashRouter>
+          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} logOut={logOut} />
+        </HashRouter>
+      </Provider>,
+    );
+
+    component.find('button').simulate('click');
+    expect(logOut).toBeCalled();
   });
 });

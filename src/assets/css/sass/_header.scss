@@ -60,6 +60,9 @@
   }
 
   // language button
+  .btn-primary {
+    font-weight: 300 !important;
+  }
   .btn-primary:hover:not([disabled]) {
     background: none !important;
     border: none !important;

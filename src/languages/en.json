@@ -308,5 +308,14 @@
   "activate": "Activate",
   "domain_addresses": "Domain Addresses",
   "public_resolver_explanation": "Your domain is associated to a RSK address by default. You can change it to another RSK address.",
-  "change": "Change"
+  "change": "Change",
+  "services": "Services",
+  "whitepaper": "Whitepaper",
+  "rif_token": "RIF Token",
+  "roadmap": "Roadmap",
+  "contact": "Contact",
+  "developers": "Developers",
+  "privacy": "Privacy",
+  "privacy_policy": "Privacy Policy",
+  "terms": "Terms & Conditions"
 }

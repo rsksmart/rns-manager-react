@@ -121,6 +121,14 @@ exports[`LeftNavComponent matches snapshot 1`] = `
                 </LinkAnchor>
               </Link>
             </li>
+            <li>
+              <button
+                onClick={[MockFunction]}
+                type="button"
+              >
+                log out
+              </button>
+            </li>
           </ul>
         </LeftNavComponent>
       </Connect(LeftNavComponent)>

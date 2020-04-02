@@ -56,14 +56,14 @@ const LeftNavComponent = (props) => {
               Reverse
             </Link>
           </li>
-          <li>
-            <button type="button" onClick={logOut}>
-              {strings.log_out}
-            </button>
-          </li>
         </>
         )
       }
+      <li>
+        <button type="button" onClick={logOut}>
+          {strings.log_out}
+        </button>
+      </li>
     </ul>
   );
 };
