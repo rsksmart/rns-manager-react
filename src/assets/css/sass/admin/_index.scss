@@ -34,20 +34,29 @@
           text-transform: uppercase;
         }
 
-        a {
+        a, button {
           padding:.1em 0;
           margin: 0 0 .5em 0;
           display: inline-block;
         }
 
-        a:hover {
+        a:hover, button:hover {
           color: $blue;
+          font-weight: 400 !important;
         }
 
         a.active {
           font-weight: 500 !important;
           border-bottom:2px solid $blue;
         }
+      }
+
+      li button {
+        text-transform: capitalize;
+        border: none;
+        background: none;
+        color: $blue;
+        font-weight: 300 !important;
       }
     }
   }

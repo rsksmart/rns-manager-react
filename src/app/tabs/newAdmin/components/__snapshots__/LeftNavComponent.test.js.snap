@@ -39,18 +39,21 @@ exports[`LeftNavComponent matches snapshot 1`] = `
       <Connect(LeftNavComponent)
         advancedView={false}
         location="/newAdmin"
+        logOut={[MockFunction]}
       >
         <LeftNavComponent
           advancedView={false}
           currentLanguageCode="en"
           dispatch={[Function]}
           location="/newAdmin"
+          logOut={[MockFunction]}
           strings={
             Object {
               "admin": "admin",
               "advanced": "Advanced",
               "basic": "Basic",
               "domain_info": "Domain info",
+              "log_out": "log out",
               "resolver": "resolver",
               "subdomains": "subdomains",
               "your_addresses": "Your addresses",

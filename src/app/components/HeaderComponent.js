@@ -52,9 +52,7 @@ const HeaderComponent = (props) => {
 
 HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
-  isLoggedIn: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
-  logOut: propTypes.func.isRequired,
 };
 
 export default multilanguage(HeaderComponent);

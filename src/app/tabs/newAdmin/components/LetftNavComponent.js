@@ -4,7 +4,10 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const LeftNavComponent = (props) => {
-  const { strings, advancedView, location } = props;
+  const {
+    strings, advancedView, location, logOut,
+  } = props;
+
   const isHome = location === '/newAdmin'
     || (!advancedView && (location === '/newAdmin/resolver' || location === '/newAdmin/reverse'));
 
@@ -53,6 +56,11 @@ const LeftNavComponent = (props) => {
               Reverse
             </Link>
           </li>
+          <li>
+            <button type="button" onClick={logOut}>
+              {strings.log_out}
+            </button>
+          </li>
         </>
         )
       }
@@ -69,9 +77,11 @@ LeftNavComponent.propTypes = {
     resolver: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
+    log_out: propTypes.string.isRequired,
   }).isRequired,
   location: propTypes.string.isRequired,
   advancedView: propTypes.bool.isRequired,
+  logOut: propTypes.func.isRequired,
 };
 
 export default multilanguage(LeftNavComponent);

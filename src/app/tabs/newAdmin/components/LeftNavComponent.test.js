@@ -15,14 +15,17 @@ const store = mockStore({
   resolver: en.resolver,
   subdomains: en.subdomains,
   your_addresses: en.your_addresses,
+  log_out: en.log_out,
 });
+
+const logOut = jest.fn();
 
 describe('LeftNavComponent', () => {
   it('matches snapshot', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin" advancedView={false} />
+          <LeftNavComponent location="/newAdmin" advancedView={false} logOut={logOut} />
         </HashRouter>
       </Provider>,
     );
@@ -33,18 +36,18 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView logOut={logOut} />
         </HashRouter>
       </Provider>,
     );
-    expect(component.find('li').length).toBe(5);
+    expect(component.find('li').length).toBe(6);
   });
 
   it('sets correct item active when passed', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} logOut={logOut} />
         </HashRouter>
       </Provider>,
     );
@@ -57,7 +60,7 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} />
+          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} logOut={logOut} />
         </HashRouter>
       </Provider>,
     );
