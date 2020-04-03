@@ -6,16 +6,18 @@ import { toChecksumAddress } from 'rskjs-util';
 
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
-import { MULTICHAIN_RESOLVER } from '../../resolver/types';
+import { MULTICHAIN_RESOLVER, PUBLIC_RESOLVER } from '../../resolver/types';
 
 const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
   <Row>
     <Col>
       <h1>
-        {strings.your_addresses}
-        {resolverName === MULTICHAIN_RESOLVER && ` - ${strings.multichain}`}
+        {strings.domain_addresses}
       </h1>
-      <p>{strings.your_addresses_explanation}</p>
+      <p>
+        {resolverName === PUBLIC_RESOLVER && strings.public_resolver_explanation}
+        {resolverName === MULTICHAIN_RESOLVER && strings.your_addresses_explanation}
+      </p>
       {Object.entries(chainAddresses).map((chainAddress) => {
         if (chainAddress[1].address === '' || chainAddress[1].address === '0x0000000000000000000000000000000000000000') {
           return (<></>);
@@ -28,7 +30,7 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
 
         const network = networks.filter(net => net.name === chainName)[0];
         const isHex = network.validation === 'HEX';
-        const networkChainId = (chainName === 'RSK') ? process.env.REACT_APP_ENVIRONMENT_ID : network.checksum;
+        const networkChainId = chainName === 'RSK' ? process.env.REACT_APP_ENVIRONMENT_ID : null;
 
         return (
           <div className="break-below">
@@ -51,7 +53,7 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
                 value_prefix: strings.value,
                 error_message: errorMessage,
                 cancel: strings.cancel,
-                submit: strings.submit,
+                submit: strings.change,
                 edit_placeholder: '',
                 success_message: '',
                 waiting: strings.wait_transation_confirmed,
@@ -70,14 +72,15 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
 YourAddressesComponent.propTypes = {
   strings: propTypes.shape({
     cancel: propTypes.string.isRequired,
-    submit: propTypes.string.isRequired,
+    change: propTypes.string.isRequired,
     edit: propTypes.string.isRequired,
     delete: propTypes.string.isRequired,
     delete_chain_confirm: propTypes.string.isRequired,
     value: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
-    your_addresses: propTypes.string.isRequired,
+    domain_addresses: propTypes.string.isRequired,
     your_addresses_explanation: propTypes.string.isRequired,
+    public_resolver_explanation: propTypes.string.isRequired,
     multichain: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,

@@ -29,7 +29,7 @@ const MigrateToMultiResolverComponent = ({
           className="migrate"
           disabled={isEditing}
         >
-          {strings.migrate}
+          {strings.activate}
         </Button>
       </Col>
     </Row>
@@ -51,7 +51,7 @@ MigrateToMultiResolverComponent.propTypes = {
   strings: propTypes.shape({
     multi_chain_addresses: propTypes.string.isRequired,
     migrate_to_multi_resolver: propTypes.string.isRequired,
-    migrate: propTypes.string.isRequired,
+    activate: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   isWaiting: propTypes.bool.isRequired,

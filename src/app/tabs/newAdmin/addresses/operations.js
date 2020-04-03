@@ -134,14 +134,9 @@ export const getPublicChainAddresses = domain => async (dispatch) => {
   dispatch(requestChainAddress());
   const hash = namehash(domain);
 
-  return new Promise((resolve) => {
-    publicResolver.methods.addr(hash).call((error, result) => {
-      if (error) {
-        return errorChainAddress('RSK', error.message);
-      }
-      return resolve(dispatch(receiveChainAddress('0x80000089', 'RSK', result)));
-    });
-  });
+  return publicResolver.methods.addr(hash).call()
+    .then(addr => dispatch(receiveChainAddress('0x80000089', 'RSK', addr)))
+    .catch(error => dispatch(errorChainAddress('RSK', error.message)));
 };
 
 /**
@@ -155,14 +150,9 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
 
-  return new Promise((resolve) => {
-    multichainResolver.methods.chainAddr(hash, chainId).call((error, result) => {
-      if (error) {
-        return errorChainAddress(chainName, error.message);
-      }
-      return resolve(dispatch(receiveChainAddress(chainId, chainName, result)));
-    });
-  });
+  return multichainResolver.methods.chainAddr(hash, chainId).call()
+    .then(addr => dispatch(receiveChainAddress(chainId, chainName, addr)))
+    .catch(error => dispatch(errorChainAddress(chainName, error.message)));
 };
 
 /**

@@ -14,7 +14,6 @@
     "name": "Ethereum",
     "id": "0x8000003c",
     "validation": "HEX",
-    "checksum": "1",
     "icon": "/assets/icons/icon_eth.png"
   },
   {

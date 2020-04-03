@@ -29,6 +29,7 @@ const resolverReducer = (state = initialState, action) => {
     case REQUEST_SET_RESOLVER: return {
       ...state,
       isEditing: true,
+      errorMessage: '',
     };
     case WAITING_SET_RESOLVER: return {
       ...state,

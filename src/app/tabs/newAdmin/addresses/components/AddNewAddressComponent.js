@@ -39,11 +39,11 @@ const AddNewAddressComponent = ({
 
   const handleAddClick = () => {
     const networkInfo = allNetworks.filter(net => net.id === selectedNetwork)[0];
-    if (networkInfo.validation && networkInfo.validation === 'HEX') {
-      const validationChainId = allNetworks.filter(net => net.id === selectedNetwork)[0].checksum
-        || process.env.REACT_APP_ENVIRONMENT_ID;
 
-      switch (validateAddress(address, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
+    if (networkInfo.validation && networkInfo.validation === 'HEX') {
+      const validationChainId = networkInfo.name === 'RSK' ? process.env.REACT_APP_ENVIRONMENT_ID : null;
+
+      switch (validateAddress(address, validationChainId)) {
         case 'Invalid address':
           return setLocalError('Invalid address');
         case 'Invalid checksum':
@@ -51,6 +51,7 @@ const AddNewAddressComponent = ({
         default:
       }
     }
+
     handleClick(selectedNetwork, address);
     setLocalRest(false);
     return true;
@@ -79,9 +80,9 @@ const AddNewAddressComponent = ({
     <div className="break-above addNew">
       <Row>
         <Col>
-          <h2 className="gray normal-size">
+          <h3 className="gray normal-size">
             {strings.add_new_chain_address}
-          </h2>
+          </h3>
         </Col>
       </Row>
       <Row>
@@ -106,6 +107,7 @@ const AddNewAddressComponent = ({
           <Button
             onClick={handleAddClick}
             disabled={isEditing}
+            className="add"
           >
             {strings.add}
           </Button>
@@ -125,13 +127,11 @@ const AddNewAddressComponent = ({
 
       {checksumError
         && (
-          <div className="checksumError">
-            <ChecksumErrorContainer
-              show={checksumError}
-              inputValue={address}
-              handleClick={handleChecksumClick}
-            />
-          </div>
+          <ChecksumErrorContainer
+            show={checksumError}
+            inputValue={address}
+            handleClick={handleChecksumClick}
+          />
         )
       }
 

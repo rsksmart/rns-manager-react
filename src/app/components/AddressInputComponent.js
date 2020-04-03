@@ -62,7 +62,11 @@ const AddressInputComponent = ({
       return handleSubmit(editText);
     }
 
-    switch (validateAddress(editText, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
+    if (editText.toLowerCase() === value.toLowerCase()) {
+      return setIsLocalError('Value is the same.');
+    }
+
+    switch (validateAddress(editText, validationChainId)) {
       case 'Invalid address':
         return setIsLocalError('Invalid address');
       case 'Invalid checksum':
@@ -81,7 +85,7 @@ const AddressInputComponent = ({
   const handleChecksumClick = () => {
     setEditText(editText.toLowerCase());
     setIsChecksumError(false);
-    handleSubmitClick();
+    return handleSubmit(editText);
   };
 
   const handleCancelClick = () => {
@@ -167,13 +171,11 @@ const AddressInputComponent = ({
       }
       {isChecksumError
         && (
-          <div className="checksumError">
-            <ChecksumErrorContainer
-              show={isChecksumError}
-              inputValue={editText}
-              handleClick={() => handleChecksumClick()}
-            />
-          </div>
+          <ChecksumErrorContainer
+            show={isChecksumError}
+            inputValue={editText}
+            handleClick={() => handleChecksumClick()}
+          />
         )
       }
       {isDeleting
@@ -231,7 +233,7 @@ AddressInputComponent.defaultProps = {
   reset: false,
   successTx: '',
   validation: true,
-  validationChainId: process.env.REACT_APP_ENVIRONMENT_ID,
+  validationChainId: null,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',

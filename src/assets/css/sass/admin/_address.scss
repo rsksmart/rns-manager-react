@@ -1,10 +1,10 @@
 .yourAddress {
   .addNew {
-    button:not(.close), input, select {
+    button.add, input, select {
       display: block;
       width: 100%;
     }
-    button:not(.close) {
+    button.add {
       background: $blue;
       padding: 10px !important;
       color: $white;

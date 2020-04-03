@@ -25,6 +25,10 @@ h1.blue, h2.blue, h3.blue, h4.blue, p.blue, span.blue {
   color: $blue;
 }
 
+h2.gray, h3.gray, h4.gray {
+  color: $gray;
+}
+
 p {
   color: $gray;
   font-weight: 400 !important;

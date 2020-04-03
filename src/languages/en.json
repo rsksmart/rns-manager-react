@@ -304,5 +304,9 @@
   "multichain": "Multichain",
   "chain_address_removed": "Chain address removed",
   "chain_address_updated": "Chain address updated",
-  "custom_resolver_message": "This feature will not work because you are using a custom resolver."
+  "custom_resolver_message": "This feature will not work because you are using a custom resolver.",
+  "activate": "Activate",
+  "domain_addresses": "Domain Addresses",
+  "public_resolver_explanation": "Your domain is associated to a RSK address by default. You can change it to another RSK address.",
+  "change": "Change"
 }
