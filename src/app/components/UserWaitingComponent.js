@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Spinner } from 'react-bootstrap';
+import { Loader } from 'rimble-ui';
 
 const UserWaitingComponent = ({ message, visible }) => {
   if (!visible) {
@@ -10,7 +10,7 @@ const UserWaitingComponent = ({ message, visible }) => {
   return (
     <div className="row waiting">
       <div className="col-md-6 offset-md-3">
-        <Spinner animation="grow" variant="primary" />
+        <Loader color="#008FF7" size="80px" className="loader-center" />
         <p>{message}</p>
       </div>
     </div>
