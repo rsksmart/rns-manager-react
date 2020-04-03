@@ -73,5 +73,19 @@
   .btn-primary:not([disabled]).start, .btn-primary.start:hover:not([disabled])  {
     border: 1px solid #ffffff !important;
   }
+}
 
+// mobile styles
+@media (max-width: 767.98px) {
+  .navbar-brand {
+    margin-left: 10px;
+  }
+
+  .indicator {
+    margin-left: 0 !important;
+  }
+
+  .nav-link {
+    padding-left: 15px !important;
+  }
 }

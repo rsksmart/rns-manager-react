@@ -77,7 +77,7 @@ describe('LeftNavComponent', () => {
       </Provider>,
     );
 
-    component.find('button').simulate('click');
+    component.find('button').at(1).simulate('click');
     expect(logOut).toBeCalled();
   });
 });

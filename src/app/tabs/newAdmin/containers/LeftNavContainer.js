@@ -5,6 +5,7 @@ import { logoutManager } from '../../../auth/operations';
 const mapStateToProps = state => ({
   advancedView: state.newAdmin.view.advancedView,
   location: state.router.location.pathname,
+  domain: state.auth.name,
 });
 
 const mapDispatchToProps = dispatch => ({

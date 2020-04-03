@@ -39,11 +39,13 @@ const HeaderComponent = (props) => {
                 {strings.search}
               </Link>
             </Nav.Item>
+
+            <Form onSubmit={e => e.preventDefault()} inline>
+              <LanguageSelectContainer />
+            </Form>
+
+            <StartButton />
           </Nav>
-          <Form onSubmit={e => e.preventDefault()} inline>
-            <LanguageSelectContainer />
-          </Form>
-          <StartButton />
         </Navbar.Collapse>
       </Container>
     </Navbar>
