@@ -18,7 +18,10 @@ const App = ({ strings, history, multiChainNotification }) => (
   <ConnectedRouter history={history}>
     <React.Fragment>
       <HeaderContainer />
-      <Container style={{ textAlign: 'center' }}>
+      <Container
+        style={{ textAlign: 'center' }}
+        className={(window.location.pathname === '/') ? 'home' : 'page'}
+      >
         {
           multiChainNotification
           && (

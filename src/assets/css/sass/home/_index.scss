@@ -1,7 +1,28 @@
-.home {
+@import 'searchBox';
 
-  .search {
+.home {
+  max-width: 100%;
+  padding: 0;
+
+  .search.container {
+    max-width: 100%;
+    text-align: center;
     background-color: $blue;
+
+    .row {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    h1, p {
+      color: #ffffff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 500 !important;
+    }
   }
 
   .developer {
