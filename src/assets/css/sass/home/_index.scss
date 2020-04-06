@@ -8,6 +8,10 @@
     max-width: 100%;
     text-align: center;
     background-color: $blue;
+    background-image: url('/assets/img/home/bottom-background.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
 
     .row {
       padding-top: 50px;
@@ -38,15 +42,19 @@
       width: 100%
     }
 
-    .col-md-3 {
-      border: 1px solid red;
+    .col-md-2 {
       text-align: center;
 
-      .button {
-        img {
-          display: block;
-          margin: 0 auto 15px auto;
-        }
+      button {
+        display: block;
+        width: 100%;
+        padding: 15px 0 !important;
+        border-radius: 15px !important;
+      }
+
+      img, span {
+        display: block;
+        margin: 0 auto 15px auto;
       }
 
     }

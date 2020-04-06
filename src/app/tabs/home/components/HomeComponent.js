@@ -54,7 +54,7 @@ export default multilanguage((props) => {
         <Row className="developer break-above">
           <Row>
             <div className="col-md-8 offset-md-2">
-              <h2>
+              <h2 className="break-below">
                 {strings.are_you_developer}
               </h2>
               <p className="lead blue">
@@ -62,29 +62,29 @@ export default multilanguage((props) => {
               </p>
             </div>
           </Row>
-          <Row>
+          <Row className="major-section">
             <div className="col-md-2 offset-md-2">
-              <Button>
+              <Button variant="outline-primary">
                 <img src={book} alt={strings.read_documentation} />
-                {strings.read_documentation}
+                <span>{strings.read_documentation}</span>
               </Button>
             </div>
             <div className="col-md-2">
-              <Button>
+              <Button variant="outline-primary">
                 <img src={github} alt={strings.collaborate_github} />
-                {strings.collaborate_github}
+                <span>{strings.collaborate_github}</span>
               </Button>
             </div>
             <div className="col-md-2">
-              <Button>
+              <Button variant="outline-primary">
                 <img src={integrate} alt={strings.integrate_rns} />
-                {strings.integrate_rns}
+                <span>{strings.integrate_rns}</span>
               </Button>
             </div>
             <div className="col-md-2">
-              <Button>
+              <Button variant="outline-primary">
                 <img src={ask} alt={strings.ask_question} />
-                {strings.ask_question}
+                <span>{strings.ask_question}</span>
               </Button>
             </div>
           </Row>
