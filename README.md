@@ -50,7 +50,7 @@ yarn start:mainnet
 For RSK Testnet
 
 ```
-yarn strart:testnet
+yarn start:testnet
 ```
 
 ## Run tests
