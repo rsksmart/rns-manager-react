@@ -1,64 +1,82 @@
 import React from 'react';
 import {
-  Container, Row, Col, Card,
+  Button, Row, Col,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import { GetDomainStateContainer } from '../../../containers';
-import { ResolveAddressContainer } from '../containers';
+
+import easeOfUse from '../../../../assets/img/home/ease-of-use.png';
+import interoperability from '../../../../assets/img/home/interoperability.png';
+import costEffective from '../../../../assets/img/home/cost-effective.png';
+import book from '../../../../assets/img/home/book.svg';
+import github from '../../../../assets/img/home/github.svg';
+import integrate from '../../../../assets/img/home/integrate.svg';
+import ask from '../../../../assets/img/home/ask.svg';
+
 
 export default multilanguage((props) => {
   const { strings } = props;
 
   return (
-    <Row center={1}>
-      <Col lg={{ span: 10, offset: 1 }} md={12}>
-        <Container>
-          <Row>
-            <Col>
-              <h1 className="text-center main-title-box"><b>{strings.home_title}</b></h1>
-            </Col>
-          </Row>
-          <Row>
-            <Col><h2 className="text-center">{strings.home_subtitle}</h2></Col>
-          </Row>
-          <Row>
-            <Col>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.register_your_domain}</Card.Title>
-                  <GetDomainStateContainer />
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ padding: 10 }} md={6} xs={12}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.resolve_a_domain}</Card.Title>
-                  <ResolveAddressContainer />
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col style={{ padding: 10 }} md={6} xs={12}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{strings.admin_your_domain_title}</Card.Title>
-                  <p>
-                    {strings.admin_your_domain_action_1}
-                    <br />
-                    {strings.admin_your_domain_action_2}
-                    <br />
-                    {strings.admin_your_domain_action_3}
-                  </p>
-                  <Link className="card-link" to="/admin" rel="noopener noreferrer">{strings.admin}</Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </Col>
+    <Row className="home">
+      <Row className="search">
+        <h1>{strings.get_your_domain}</h1>
+      </Row>
+      <Row className="white break-below">
+        <Col md={4}>
+          <img src={easeOfUse} alt={strings.ease_of_use} />
+          <h2>{strings.ease_of_use}</h2>
+          <p>{strings.ease_of_use_explanation}</p>
+        </Col>
+        <Col md={4}>
+          <img src={interoperability} alt={strings.interoperability} />
+          <h2>{strings.interoperability}</h2>
+          <p>{strings.interoperability_explanation}</p>
+        </Col>
+        <Col md={4}>
+          <img src={costEffective} alt={strings.cost_effective} />
+          <h2>{strings.cost_effective}</h2>
+          <p>{strings.cose_effective_explanation}</p>
+        </Col>
+      </Row>
+      <Row className="developer break-above">
+        <Row>
+          <div className="col-md-8 offset-md-2">
+            <h2>
+              {strings.are_you_developer}
+            </h2>
+            <p className="intro blue">
+              {strings.are_you_developer_explanation}
+            </p>
+          </div>
+        </Row>
+        <Row>
+          <div className="col-md-2 offset-md-2">
+            <Button>
+              <img src={book} alt={strings.read_documentation} />
+              {strings.read_documentation}
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button>
+              <img src={github} alt={strings.collaborate_github} />
+              {strings.collaborate_github}
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button>
+              <img src={integrate} alt={strings.integrate_rns} />
+              {strings.integrate_rns}
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button>
+              <img src={ask} alt={strings.ask_question} />
+              {strings.ask_question}
+            </Button>
+          </div>
+        </Row>
+      </Row>
     </Row>
   );
 });

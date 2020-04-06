@@ -317,5 +317,18 @@
   "developers": "Developers",
   "privacy": "Privacy",
   "privacy_policy": "Privacy Policy",
-  "terms": "Terms & Conditions"
+  "terms": "Terms & Conditions",
+  "get_your_domain": "Get your domain , forget your address",
+  "ease_of_use": "Ease of use",
+  "ease_of_use_explanation": "RIF Name Service (RNS) enables the use of human readable names for blockchain addresses helping users to receive transactions in personalized domains. RNS domains are seamlessly integrated across RIF Services (Payments, Storage, Communications...).",
+  "interoperability": "Interoperability",
+  "interoperability_explanation": "RNS provides the first multi blockchain naming service available for all major blockchains such as Bitcoin, Ethereum and Litecoin among others. In addition, RNS is built on top of RSK, thus it inherits Bitcoin's decentralized nature and security.",
+  "cost_effective": "Cost effective",
+  "cose_effective_explanation": "RNS provides the first multi blockchain naming service available for all major blockchains such as Bitcoin, Ethereum and Litecoin among others. In addition, RNS is built on top of RSK, thus it inherits Bitcoin's decentralized nature and security.",
+  "are_you_developer": "Are you a developer?",
+  "are_you_developer_explanation": "RNS is an open source project which aims to facilitate collaboration and delivers a service with traditional programming language libraries to integrate with different solutions. ",
+  "read_documentation": "Read documentation",
+  "collaborate_github": "Collaborate on Github",
+  "integrate_rns": "Integrate with RNS",
+  "ask_question": "Ask us a question"
 }

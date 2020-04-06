@@ -4,6 +4,8 @@
   @import 'subdomains';
   @import 'address';
 
+  margin-top: 75px;
+  
   .btn-primary:not(:disabled):not(.disabled).active {
     background-color: $light-gray;
     border-color: $gray;
