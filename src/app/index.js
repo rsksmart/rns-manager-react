@@ -18,7 +18,7 @@ const App = ({ strings, history, multiChainNotification }) => (
   <ConnectedRouter history={history}>
     <React.Fragment>
       <HeaderContainer />
-      <Container style={{ marginTop: '20px' }}>
+      <Container style={{ textAlign: 'center' }}>
         {
           multiChainNotification
           && (
@@ -30,17 +30,7 @@ const App = ({ strings, history, multiChainNotification }) => (
           </Alert>
           )
         }
-        <Row>
-          <Col>
-            <Container style={{ textAlign: 'center' }}>
-              <Row>
-                <Col>
-                  {<Routes />}
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-        </Row>
+        <Routes />
         <Row>
           <Col>
             <Notifications />
