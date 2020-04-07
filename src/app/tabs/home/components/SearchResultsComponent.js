@@ -1,14 +1,103 @@
 import React from 'react';
 import { multilanguage } from 'redux-multilanguage';
+import propTypes from 'prop-types';
+import { Loader } from 'rimble-ui';
 
-import { Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 
-const SearchResultsComponent = ({ strings }) => {
+const SearchResultsComponent = ({
+  strings, domain, available, isSearching,
+}) => {
+  if (domain === '') {
+    return <></>;
+  }
+
+  if (isSearching) {
+    return (
+      <Loader color="#008FF7" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
+    );
+  }
+
+  if (!available) {
+    return (
+      <div className="results">
+        <Row className="break-above">
+          <div className="col-md-8 offset-md-2">
+            <h2 className="blue">{strings.results}</h2>
+          </div>
+        </Row>
+        <Row>
+          <div className="col-md-8 offset-md-2">
+            <Row className="searchResults notAvailable">
+              <Col md={6}>
+                <h3>{`${domain}.rsk`}</h3>
+              </Col>
+              <Col md={3}>
+                <p className="status">{strings.domain_not_available}</p>
+              </Col>
+              <Col md={3}>
+                <p className="searchAnother">{strings.search_for_another}</p>
+              </Col>
+            </Row>
+          </div>
+        </Row>
+      </div>
+    );
+  }
+
   return (
-    <Row className="resultsBox">
-      RESULTS
-    </Row>
+    <div className="results">
+      <Row className="break-above">
+        <div className="col-md-8 offset-md-2">
+          <h2 className="blue">{strings.results}</h2>
+        </div>
+      </Row>
+      <Row>
+        <div className="col-md-8 offset-md-2">
+          <Row className="searchResults available">
+            <Col md={4}>
+              <h3>{`${domain}.rsk`}</h3>
+            </Col>
+            <Col md={2}>
+              <p className="status blue">{strings.available}</p>
+            </Col>
+            <Col md={4}>
+              <p className="cost">
+                <span className="rifPrice">2 rif</span>
+                <span className="year">
+                  {' / '}
+                  {strings.year}
+                </span>
+              </p>
+            </Col>
+            <Col md={2}>
+              <Link
+                className="button"
+                to={`/registrar?domain=${domain}`}
+              >
+                {strings.register}
+              </Link>
+            </Col>
+          </Row>
+        </div>
+      </Row>
+    </div>
   );
+};
+
+SearchResultsComponent.propTypes = {
+  strings: propTypes.shape({
+    results: propTypes.string.isRequired,
+    available: propTypes.string.isRequired,
+    domain_not_available: propTypes.string.isRequired,
+    register: propTypes.string.isRequired,
+    search_for_another: propTypes.string.isRequired,
+    year: propTypes.string.isRequired,
+  }).isRequired,
+  domain: propTypes.string.isRequired,
+  available: propTypes.bool.isRequired,
+  isSearching: propTypes.bool.isRequired,
 };
 
 export default multilanguage(SearchResultsComponent);

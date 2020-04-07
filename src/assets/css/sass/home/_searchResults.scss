@@ -1,0 +1,74 @@
+.results {
+  h2 {
+    text-align: left;
+    font-weight: 500 !important;
+    font-size: 30px;
+  }
+
+  .searchResults {
+    border: 1px solid $gray;
+    border-radius: 12px;
+    padding: 25px 0 20px 0;
+    margin-bottom: 50px;
+
+    h3 {
+      text-align: left;
+      margin: 10px 0 0 15px;
+      padding: 0;
+    }
+    
+    p {
+      font-size: 20px;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    p.blue {
+      margin-top: 10px;
+    }
+
+    p.searchAnother {
+      font-size: 12px;
+      margin-top: -6px;
+    }
+
+    p.cost {
+      margin-top: -6px;
+      span.rifPrice {
+        font-size: 36px;
+        font-weight: 500 !important;
+      }
+
+      span.year {
+        font-size: 24px;
+      }
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 0;
+      background-color: $blue;
+      color: $white;
+      border-radius: 15px;
+      padding: 10px 20px;
+      border: 1px solid $blue;
+    }
+
+
+    a.button:hover {
+      font-weight: 300 !important;
+      color: $blue;
+      background-color: $white;
+    }
+  }
+
+  .searchResults.notAvailable {
+    h3 {
+      margin-top: 0;
+    }
+
+    p.status {
+      color: $red;
+    }
+  }
+}
