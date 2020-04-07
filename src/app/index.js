@@ -1,8 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {
-  Container, Row, Col, Alert,
-} from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { ConnectedRouter } from 'connected-react-router';
 import { multilanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
@@ -18,25 +16,20 @@ const App = ({ strings, history, multiChainNotification }) => (
   <ConnectedRouter history={history}>
     <React.Fragment>
       <HeaderContainer />
-      <Container
-        style={{ textAlign: 'center' }}
-        className={(window.location.pathname === '/') ? 'home' : 'page'}
-      >
-        {
-          multiChainNotification
-          && (
-          <Alert variant="info" dismissible onClose={() => localStorage.setItem('multichain_resolver_dissimised', 1)}>
-            <Alert.Heading>{strings.migrate_multichain_resolver_title}</Alert.Heading>
-            {strings.migrate_multichain_resolver_message}
-            <hr />
-            <Link to={`/admin?action=resolver&defaultValue=${multiChainResolver}`} className="btn btn-primary">migrate</Link>
-          </Alert>
-          )
-        }
-        <Routes />
-        <Notifications />
-        <AuthModal />
-      </Container>
+      {
+        multiChainNotification
+        && (
+        <Alert variant="info" dismissible onClose={() => localStorage.setItem('multichain_resolver_dissimised', 1)}>
+          <Alert.Heading>{strings.migrate_multichain_resolver_title}</Alert.Heading>
+          {strings.migrate_multichain_resolver_message}
+          <hr />
+          <Link to={`/admin?action=resolver&defaultValue=${multiChainResolver}`} className="btn btn-primary">migrate</Link>
+        </Alert>
+        )
+      }
+      <Routes />
+      <Notifications />
+      <AuthModal />
       <FooterContainer />
     </React.Fragment>
   </ConnectedRouter>

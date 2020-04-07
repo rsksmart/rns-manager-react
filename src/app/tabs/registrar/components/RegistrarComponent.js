@@ -113,7 +113,7 @@ class RegistrarComponent extends Component {
       const domainDisplay = `${domain}.rsk`;
 
       elementToRender = (
-        <div className="register">
+        <div className="register page row">
           <h1 className="sub-heading">
             {strings.registering}
             {': '}

@@ -7,7 +7,7 @@ import { StartButton } from '..';
 const AuthTabComponent = ({ strings, isLoggedIn, children }) => {
   if (!isLoggedIn) {
     return (
-      <Container>
+      <Container className="page">
         <Row>
           <Col>
             <p>{strings.please_log_in}</p>
@@ -18,7 +18,7 @@ const AuthTabComponent = ({ strings, isLoggedIn, children }) => {
     );
   }
 
-  return children;
+  return <Container className="page" style={{ textAlign: 'center' }}>{children}</Container>;
 };
 
 AuthTabComponent.propTypes = {

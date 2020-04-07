@@ -127,7 +127,7 @@ class DomainStateComponent extends Component {
     );
 
     return (
-      <Container>
+      <Container className="page">
         <Row>
           <Col lg={12} className="text-center main-title-box">
             <h1>
