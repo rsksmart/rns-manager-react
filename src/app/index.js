@@ -34,11 +34,7 @@ const App = ({ strings, history, multiChainNotification }) => (
           )
         }
         <Routes />
-        <Row>
-          <Col>
-            <Notifications />
-          </Col>
-        </Row>
+        <Notifications />
         <AuthModal />
       </Container>
       <FooterContainer />

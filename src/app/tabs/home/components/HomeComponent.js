@@ -3,7 +3,7 @@ import {
   Container, Button, Row, Col,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { SearchBoxContainer } from '../containers';
+import { SearchBoxContainer, SearchResultsContainer } from '../containers';
 
 import easeOfUse from '../../../../assets/img/home/ease-of-use.png';
 import interoperability from '../../../../assets/img/home/interoperability.png';
@@ -14,25 +14,24 @@ import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 
 
-export default multilanguage((props) => {
-  const { strings } = props;
-
+export default multilanguage(({ strings }) => {
   return (
     <>
       <Container className="search">
         <Container>
-          <Row className="major-section">
+          <Row>
             <div className="col-md-8 offset-md-2">
               <h1>{strings.get_your_domain}</h1>
               <p className="lead">{strings.home_explanation}</p>
-
               <SearchBoxContainer />
             </div>
           </Row>
         </Container>
       </Container>
+      <div className="spacer">&nbsp;</div>
 
       <Container>
+        <SearchResultsContainer />
         <Row className="white break-below">
           <Col md={4}>
             <img src={easeOfUse} alt={strings.ease_of_use} />
