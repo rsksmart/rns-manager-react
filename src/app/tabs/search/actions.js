@@ -4,8 +4,9 @@ import {
   REQUEST_DOMAIN_COST, RECEIVE_DOMAIN_COST,
 } from './types';
 
-export const requestDomainState = () => ({
+export const requestDomainState = domain => ({
   type: REQUEST_DOMAIN_STATE,
+  domain,
 });
 
 export const receiveDomainState = available => ({

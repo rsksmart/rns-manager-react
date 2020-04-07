@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import SearchResultsComponent from '../components/SearchResultsComponent';
 
-const mapDispatchToProps = dispatch => ({
-  domain: 'jesse',
-  available: true,
-  isSearching: true,
+const mapStateToProps = state => ({
+  domain: state.search.domain,
+  available: !state.search.owned,
+  blocked: state.search.blocked,
+  isSearching: state.search.domainStateLoading,
+  rifCost: state.search.rifCost,
 });
 
 export default connect(
+  mapStateToProps,
   null,
-  mapDispatchToProps,
 )(SearchResultsComponent);

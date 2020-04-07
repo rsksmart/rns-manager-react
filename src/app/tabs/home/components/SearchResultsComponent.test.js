@@ -16,12 +16,12 @@ const store = mockStore({
   year: en.year,
 });
 
-describe('AddressInputComponent', () => {
+describe('SearchResultsComponent', () => {
   it('renders and matches snapshot when available', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <SearchResultsComponent domain="foobar" available isSearching={false} />
+          <SearchResultsComponent domain="foobar" available isSearching={false} rifCost="6" />
         </HashRouter>
       </Provider>,
     );
@@ -30,6 +30,7 @@ describe('AddressInputComponent', () => {
 
     expect(component.find('h3').text()).toBe('foobar.rsk');
     expect(component.find('.status').text()).toBe('available');
+    expect(component.find('p.cost').text()).toBe('6 rif / year');
     expect(component.find('a.button').props().href).toBe('#/registrar?domain=foobar');
   });
 
@@ -37,7 +38,7 @@ describe('AddressInputComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <SearchResultsComponent domain="foobar" available={false} isSearching={false} />
+          <SearchResultsComponent domain="foobar" available={false} isSearching={false} rifCost="2" />
         </HashRouter>
       </Provider>,
     );
@@ -46,5 +47,17 @@ describe('AddressInputComponent', () => {
 
     expect(component.find('h3').text()).toBe('foobar.rsk');
     expect(component.find('.status').text()).toBe('not available');
+  });
+
+  it('displays nothing when no domain is provided', () => {
+    const component = mount(
+      <Provider store={store}>
+        <HashRouter>
+          <SearchResultsComponent available={false} isSearching={false} rifCost="2" />
+        </HashRouter>
+      </Provider>,
+    );
+
+    expect(component.html()).toBeFalsy();
   });
 });

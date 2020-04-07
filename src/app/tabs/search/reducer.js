@@ -5,6 +5,7 @@ import {
 
 // TODO: check initial state
 const initialState = {
+  domain: undefined,
   owned: undefined,
   owner: undefined,
   domainStateLoading: false,
@@ -19,6 +20,7 @@ const searchReducer = (state = initialState, action) => {
     case REQUEST_DOMAIN_STATE: {
       return {
         ...state,
+        domain: action.domain,
         domainStateLoading: true,
       };
     }

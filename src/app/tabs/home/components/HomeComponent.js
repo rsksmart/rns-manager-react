@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {
   Container, Button, Row, Col,
 } from 'react-bootstrap';
@@ -13,82 +14,100 @@ import github from '../../../../assets/img/home/github.svg';
 import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 
-
-export default multilanguage(({ strings }) => {
-  return (
-    <>
-      <Container className="search">
-        <Container>
-          <Row>
-            <div className="col-md-8 offset-md-2">
-              <h1>{strings.get_your_domain}</h1>
-              <p className="lead">{strings.home_explanation}</p>
-              <SearchBoxContainer />
-            </div>
-          </Row>
-        </Container>
-      </Container>
-      <div className="spacer">&nbsp;</div>
-
+const HomeComponent = ({ strings }) => (
+  <>
+    <Container className="search">
       <Container>
-        <SearchResultsContainer />
-        <Row className="white break-below">
-          <Col md={4}>
-            <img src={easeOfUse} alt={strings.ease_of_use} />
-            <h2>{strings.ease_of_use}</h2>
-            <p>{strings.ease_of_use_explanation}</p>
-          </Col>
-          <Col md={4}>
-            <img src={interoperability} alt={strings.interoperability} />
-            <h2>{strings.interoperability}</h2>
-            <p>{strings.interoperability_explanation}</p>
-          </Col>
-          <Col md={4}>
-            <img src={costEffective} alt={strings.cost_effective} />
-            <h2>{strings.cost_effective}</h2>
-            <p>{strings.cose_effective_explanation}</p>
-          </Col>
-        </Row>
-
-        <Row className="developer break-above">
-          <Row>
-            <div className="col-md-8 offset-md-2">
-              <h2 className="break-below">
-                {strings.are_you_developer}
-              </h2>
-              <p className="lead blue">
-                {strings.are_you_developer_explanation}
-              </p>
-            </div>
-          </Row>
-          <Row className="major-section">
-            <div className="col-md-2 offset-md-2">
-              <Button variant="outline-primary">
-                <img src={book} alt={strings.read_documentation} />
-                <span>{strings.read_documentation}</span>
-              </Button>
-            </div>
-            <div className="col-md-2">
-              <Button variant="outline-primary">
-                <img src={github} alt={strings.collaborate_github} />
-                <span>{strings.collaborate_github}</span>
-              </Button>
-            </div>
-            <div className="col-md-2">
-              <Button variant="outline-primary">
-                <img src={integrate} alt={strings.integrate_rns} />
-                <span>{strings.integrate_rns}</span>
-              </Button>
-            </div>
-            <div className="col-md-2">
-              <Button variant="outline-primary">
-                <img src={ask} alt={strings.ask_question} />
-                <span>{strings.ask_question}</span>
-              </Button>
-            </div>
-          </Row>
+        <Row>
+          <div className="col-md-8 offset-md-2">
+            <h1>{strings.get_your_domain}</h1>
+            <p className="lead">{strings.home_explanation}</p>
+            <SearchBoxContainer />
+          </div>
         </Row>
       </Container>
-    </>
-  );
-});
+    </Container>
+    <div className="spacer">&nbsp;</div>
+
+    <Container>
+      <SearchResultsContainer />
+      <Row className="white break-below">
+        <Col md={4}>
+          <img src={easeOfUse} alt={strings.ease_of_use} />
+          <h2>{strings.ease_of_use}</h2>
+          <p>{strings.ease_of_use_explanation}</p>
+        </Col>
+        <Col md={4}>
+          <img src={interoperability} alt={strings.interoperability} />
+          <h2>{strings.interoperability}</h2>
+          <p>{strings.interoperability_explanation}</p>
+        </Col>
+        <Col md={4}>
+          <img src={costEffective} alt={strings.cost_effective} />
+          <h2>{strings.cost_effective}</h2>
+          <p>{strings.cose_effective_explanation}</p>
+        </Col>
+      </Row>
+
+      <Row className="developer break-above">
+        <Row>
+          <div className="col-md-8 offset-md-2">
+            <h2 className="break-below">
+              {strings.are_you_developer}
+            </h2>
+            <p className="lead blue">
+              {strings.are_you_developer_explanation}
+            </p>
+          </div>
+        </Row>
+        <Row className="major-section">
+          <div className="col-md-2 offset-md-2">
+            <Button variant="outline-primary">
+              <img src={book} alt={strings.read_documentation} />
+              <span>{strings.read_documentation}</span>
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button variant="outline-primary">
+              <img src={github} alt={strings.collaborate_github} />
+              <span>{strings.collaborate_github}</span>
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button variant="outline-primary">
+              <img src={integrate} alt={strings.integrate_rns} />
+              <span>{strings.integrate_rns}</span>
+            </Button>
+          </div>
+          <div className="col-md-2">
+            <Button variant="outline-primary">
+              <img src={ask} alt={strings.ask_question} />
+              <span>{strings.ask_question}</span>
+            </Button>
+          </div>
+        </Row>
+      </Row>
+    </Container>
+  </>
+);
+
+HomeComponent.propTypes = {
+  strings: propTypes.shape({
+    get_your_domain: propTypes.string.isRequired,
+    home_explanation: propTypes.string.isRequired,
+    interoperability: propTypes.string.isRequired,
+    interoperability_explanation: propTypes.string.isRequired,
+    ease_of_use: propTypes.string.isRequired,
+    ease_of_use_explanation: propTypes.string.isRequired,
+    cost_effective: propTypes.string.isRequired,
+    cose_effective_explanation: propTypes.string.isRequired,
+    are_you_developer: propTypes.string.isRequired,
+    are_you_developer_explanation: propTypes.string.isRequired,
+    read_documentation: propTypes.string.isRequired,
+    collaborate_github: propTypes.string.isRequired,
+    integrate_rns: propTypes.string.isRequired,
+    ask_question: propTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default multilanguage(HomeComponent);

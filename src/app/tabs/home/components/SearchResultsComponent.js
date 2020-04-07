@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
 const SearchResultsComponent = ({
-  strings, domain, available, isSearching,
+  strings, domain, available, blocked, isSearching, rifCost,
 }) => {
-  if (domain === '') {
+  if (!domain) {
     return <></>;
   }
 
@@ -19,7 +19,7 @@ const SearchResultsComponent = ({
     );
   }
 
-  if (!available) {
+  if (!available || blocked) {
     return (
       <div className="results">
         <Row className="break-above">
@@ -64,7 +64,10 @@ const SearchResultsComponent = ({
             </Col>
             <Col md={4}>
               <p className="cost">
-                <span className="rifPrice">2 rif</span>
+                <span className="rifPrice">
+                  {rifCost}
+                  {' rif'}
+                </span>
                 <span className="year">
                   {' / '}
                   {strings.year}
@@ -86,6 +89,11 @@ const SearchResultsComponent = ({
   );
 };
 
+SearchResultsComponent.defaultProps = {
+  domain: undefined,
+  rifCost: '',
+};
+
 SearchResultsComponent.propTypes = {
   strings: propTypes.shape({
     results: propTypes.string.isRequired,
@@ -95,9 +103,11 @@ SearchResultsComponent.propTypes = {
     search_for_another: propTypes.string.isRequired,
     year: propTypes.string.isRequired,
   }).isRequired,
-  domain: propTypes.string.isRequired,
+  domain: propTypes.string,
   available: propTypes.bool.isRequired,
   isSearching: propTypes.bool.isRequired,
+  rifCost: propTypes.string,
+  blocked: propTypes.bool.isRequired,
 };
 
 export default multilanguage(SearchResultsComponent);
