@@ -15,7 +15,7 @@ import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 
 const HomeComponent = ({ strings }) => (
-  <>
+  <div className="home">
     <Container className="search">
       <Container>
         <Row>
@@ -88,7 +88,7 @@ const HomeComponent = ({ strings }) => (
         </Row>
       </Row>
     </Container>
-  </>
+  </div>
 );
 
 HomeComponent.propTypes = {
