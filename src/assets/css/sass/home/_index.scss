@@ -36,10 +36,11 @@
   .developer {
     h2 {
       font-weight: 700 !important;
+      text-align: center;
     }
     
-    p.intro {
-      font-size: 20px;
+    p.lead {
+      text-align: center;
     }
 
     .row {
