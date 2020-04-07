@@ -16,12 +16,21 @@ const store = mockStore({
   year: en.year,
 });
 
+const handleClick = jest.fn();
+
 describe('SearchResultsComponent', () => {
   it('renders and matches snapshot when available', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <SearchResultsComponent domain="foobar" available isSearching={false} rifCost="6" />
+          <SearchResultsComponent
+            domain="foobar"
+            available
+            isSearching={false}
+            blocked={false}
+            rifCost="6"
+            handleClick={handleClick}
+          />
         </HashRouter>
       </Provider>,
     );
@@ -31,14 +40,20 @@ describe('SearchResultsComponent', () => {
     expect(component.find('h3').text()).toBe('foobar.rsk');
     expect(component.find('.status').text()).toBe('available');
     expect(component.find('p.cost').text()).toBe('6 rif / year');
-    expect(component.find('a.button').props().href).toBe('#/registrar?domain=foobar');
   });
 
   it('renders and matches snapshot when not available', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <SearchResultsComponent domain="foobar" available={false} isSearching={false} rifCost="2" />
+          <SearchResultsComponent
+            domain="foobar"
+            available={false}
+            blocked={false}
+            isSearching={false}
+            rifCost="2"
+            handleClick={handleClick}
+          />
         </HashRouter>
       </Provider>,
     );
@@ -53,7 +68,13 @@ describe('SearchResultsComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <SearchResultsComponent available={false} isSearching={false} rifCost="2" />
+          <SearchResultsComponent
+            available={false}
+            blocked={false}
+            isSearching={false}
+            rifCost="2"
+            handleClick={handleClick}
+          />
         </HashRouter>
       </Provider>,
     );

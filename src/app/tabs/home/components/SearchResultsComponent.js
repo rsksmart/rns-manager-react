@@ -3,11 +3,10 @@ import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import { Loader } from 'rimble-ui';
 
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 
 const SearchResultsComponent = ({
-  strings, domain, available, blocked, isSearching, rifCost,
+  strings, domain, available, blocked, isSearching, rifCost, handleClick,
 }) => {
   if (!domain) {
     return <></>;
@@ -75,12 +74,12 @@ const SearchResultsComponent = ({
               </p>
             </Col>
             <Col md={2}>
-              <Link
-                className="button"
-                to={`/registrar?domain=${domain}`}
+              <Button
+                className="register"
+                onClick={handleClick}
               >
                 {strings.register}
-              </Link>
+              </Button>
             </Col>
           </Row>
         </div>
@@ -108,6 +107,7 @@ SearchResultsComponent.propTypes = {
   isSearching: propTypes.bool.isRequired,
   rifCost: propTypes.string,
   blocked: propTypes.bool.isRequired,
+  handleClick: propTypes.func.isRequired,
 };
 
 export default multilanguage(SearchResultsComponent);

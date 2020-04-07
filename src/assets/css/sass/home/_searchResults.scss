@@ -44,21 +44,21 @@
       }
     }
 
-    a.button {
+    button {
       display: inline-block;
       margin-top: 0;
       background-color: $blue;
       color: $white;
       border-radius: 15px;
-      padding: 10px 20px;
+      padding: 10px 20px !important;
       border: 1px solid $blue;
     }
 
 
-    a.button:hover {
-      font-weight: 300 !important;
+    button:hover {
       color: $blue;
       background-color: $white;
+      border: 1px solid $blue !important;
     }
   }
 
