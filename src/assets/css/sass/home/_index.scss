@@ -30,7 +30,13 @@
     background-image: url('/assets/img/home/bottom-background.svg');
     background-position: bottom !important;
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: cover;
+  }
+
+  .white {
+    * {text-align: center;}
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   .developer {
