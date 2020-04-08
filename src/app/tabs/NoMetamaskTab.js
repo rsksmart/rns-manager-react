@@ -10,7 +10,7 @@ import rskWallet from '../../assets/rsk_wallet.png';
 const NoMetamaskTab = multilanguage(({ strings }) => (
   <Row>
     <Col>
-      <Container>
+      <Container className="page">
         <Row>
           <Col>
             <Image src={rskWallet} alt="rsk_wallet" fluid style={{ height: 300 }} />
