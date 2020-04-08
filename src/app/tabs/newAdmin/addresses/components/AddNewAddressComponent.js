@@ -81,7 +81,7 @@ const AddNewAddressComponent = ({
       <Row>
         <Col>
           <h3 className="gray normal-size">
-            {strings.add_new_chain_address}
+            {strings.add_new_address}
           </h3>
         </Col>
       </Row>
@@ -143,7 +143,7 @@ AddNewAddressComponent.propTypes = {
   strings: propTypes.shape({
     add: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
-    add_new_chain_address: propTypes.string.isRequired,
+    add_new_address: propTypes.string.isRequired,
     paste_your_address: propTypes.string.isRequired,
   }).isRequired,
   // eslint-disable-next-line react/forbid-prop-types

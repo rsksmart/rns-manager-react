@@ -116,7 +116,7 @@ export const setChainAddress = (
 ) => async (dispatch) => {
   switch (resolverName) {
     case PUBLIC_RESOLVER:
-      dispatch(setPublicAddress(domain, address, isNew));
+      dispatch(setPublicAddress(domain, address.toLowerCase(), isNew));
       break;
     case MULTICHAIN_RESOLVER:
       dispatch(setMultiChainAddress(domain, chainId, address, isNew));
