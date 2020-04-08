@@ -27,12 +27,28 @@ import {
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
 
-export const saveDomainToLocalStorage = (domain) => {
-  const storedDomains = localStorage.getItem('domains')
-    ? JSON.parse(localStorage.getItem('domains')) : [];
-  if (!storedDomains.includes(domain)) {
-    storedDomains.push(domain);
-    localStorage.setItem('domains', JSON.stringify(storedDomains));
+export const saveDomainToLocalStorage = async (domain) => {
+  // eslint-disable-next-line prefer-const
+  let storedDomains = localStorage.getItem('storedDomains')
+    ? JSON.parse(localStorage.getItem('storedDomains')) : {};
+
+  // environment:
+  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+    storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
+  }
+
+  const accounts = await window.ethereum.enable();
+  const newDomain = {
+    domain,
+    owner: accounts[0],
+  };
+
+  if (
+    storedDomains[process.env.REACT_APP_ENVIRONMENT].length === 0
+    || storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain === domain).length < 1
+  ) {
+    storedDomains[process.env.REACT_APP_ENVIRONMENT].push(newDomain);
+    localStorage.setItem('storedDomains', JSON.stringify(storedDomains));
   }
 };
 
