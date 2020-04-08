@@ -284,7 +284,7 @@
   "Name": "Name",
   "Owner": "Owner",
   "use_the_new_admin_to_transfer": "Use the new admin to transfer domains.",
-  "add_new_chain_address": "Add new chain address",
+  "add_new_address": "Add new address",
   "paste_your_address": "Paste your address",
   "add": "Add",
   "delete_chain_confirm": "Are you sure you want to remove this chain address?",
@@ -296,5 +296,17 @@
   "domain": "Domain",
   "register_subdomain": "The subdomain has been created.",
   "update_subdomain": "The subdomain's address has been updated.",
-  "remove_subdomain": "The subdomain has been removed."
+  "remove_subdomain": "The subdomain has been removed.",
+  "multi_chain_addresses": "Multi chain addresses",
+  "migrate_to_multi_resolver": "The multichain addresses offer domain compatibility with different blockchains. The activation requires a single transaction with your wallet then the multichain addresses will be ready to use.",
+  "migration_complete": "Successfully migrated to the multichain resolver.",
+  "your_addresses_explanation": "Your domain can be used in different blockchains. Add your addresses for each of the blockchains you want to use.",
+  "multichain": "Multichain",
+  "chain_address_removed": "Chain address removed",
+  "chain_address_updated": "Chain address updated",
+  "custom_resolver_message": "This feature will not work because you are using a custom resolver.",
+  "activate": "Activate",
+  "domain_addresses": "Domain Addresses",
+  "public_resolver_explanation": "Your domain is associated to a RSK address by default. You can change it to another RSK address.",
+  "change": "Change"
 }

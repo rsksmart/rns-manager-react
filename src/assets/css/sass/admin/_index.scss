@@ -2,6 +2,7 @@
 
   @import 'domainInfo';
   @import 'subdomains';
+  @import 'address';
 
   .btn-primary:not(:disabled):not(.disabled).active {
     background-color: $light-gray;

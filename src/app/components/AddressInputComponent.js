@@ -16,6 +16,7 @@ const AddressInputComponent = ({
   allowDelete,
   label,
   labelDisplay,
+  labelIcon,
   value,
   valueDisplay,
   isWaiting,
@@ -61,7 +62,11 @@ const AddressInputComponent = ({
       return handleSubmit(editText);
     }
 
-    switch (validateAddress(editText, validationChainId || process.env.REACT_APP_ENVIRONMENT_ID)) {
+    if (editText.toLowerCase() === value.toLowerCase()) {
+      return setIsLocalError('Value is the same.');
+    }
+
+    switch (validateAddress(editText, validationChainId)) {
       case 'Invalid address':
         return setIsLocalError('Invalid address');
       case 'Invalid checksum':
@@ -69,6 +74,7 @@ const AddressInputComponent = ({
       default:
     }
     setIsLocalError(false);
+    setIsChecksumError(false);
     return handleSubmit(editText);
   };
 
@@ -79,7 +85,7 @@ const AddressInputComponent = ({
   const handleChecksumClick = () => {
     setEditText(editText.toLowerCase());
     setIsChecksumError(false);
-    handleSubmitClick();
+    return handleSubmit(editText);
   };
 
   const handleCancelClick = () => {
@@ -97,6 +103,7 @@ const AddressInputComponent = ({
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
+          {labelIcon && <img src={labelIcon} alt={labelDisplay || label} />}
           {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
@@ -164,13 +171,11 @@ const AddressInputComponent = ({
       }
       {isChecksumError
         && (
-          <div className="checksumError">
-            <ChecksumErrorContainer
-              show={isChecksumError}
-              inputValue={editText}
-              handleClick={() => handleChecksumClick()}
-            />
-          </div>
+          <ChecksumErrorContainer
+            show={isChecksumError}
+            inputValue={editText}
+            handleClick={() => handleChecksumClick()}
+          />
         )
       }
       {isDeleting
@@ -180,7 +185,7 @@ const AddressInputComponent = ({
             <p>
               <Button
                 className="cancel"
-                onClick={() => setIsDeleting(false)}
+                onClick={() => { setIsDeleting(false); setIsLocalError(''); }}
                 disabled={isWaiting}
               >
                 {strings.cancel}
@@ -227,8 +232,8 @@ AddressInputComponent.defaultProps = {
   isSuccess: false,
   reset: false,
   successTx: '',
-  validationChainId: '',
   validation: true,
+  validationChainId: null,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -249,12 +254,14 @@ AddressInputComponent.defaultProps = {
   handleSuccessClose: () => {},
   labelDisplay: null,
   valueDisplay: null,
+  labelIcon: null,
 };
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
   label: propTypes.string.isRequired,
   labelDisplay: propTypes.string,
+  labelIcon: propTypes.string,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,

@@ -23,3 +23,13 @@
     border-radius: 1em;
   }
 }
+
+div.checksumError {
+  width: 100%;
+  text-align: center;
+  margin: 2em 0;
+
+  span {
+    color: $red;
+  }
+}

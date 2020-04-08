@@ -22,8 +22,6 @@ import {
   requestFifsMigration, receiveFifsMigration, errorFifsMigration,
 } from './actions';
 
-import { start } from '../operations';
-
 const web3 = new Web3(window.ethereum);
 const rskOwner = new web3.eth.Contract(
   rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
@@ -131,10 +129,9 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
           return dispatch(errorFifsMigration());
         }
 
-        return dispatch(transactionListener(result, () => {
-          dispatch(start(domain));
-          return resolve(dispatch(receiveFifsMigration()));
-        }));
+        return dispatch(transactionListener(result, () => resolve(
+          dispatch(receiveFifsMigration()),
+        )));
       },
     );
   });
