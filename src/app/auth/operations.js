@@ -68,6 +68,7 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
 
 const failedLogin = () => (dispatch) => {
   localStorage.removeItem('name');
+  dispatch(push('/'));
   return dispatch(errorLogin());
 };
 

@@ -28,8 +28,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleLogin: (domain, address) => dispatch(authenticate(domain, address)),
-  handleSwitchLogin: (domain, address) => {
+  handleLogin: (domain, address) => {
     dispatch(logOut());
     dispatch(authenticate(domain, address));
   },
@@ -40,7 +39,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   handleLogin: domain => dispatchProps.handleLogin(domain, stateProps.address),
-  handleSwitchLogin: domain => dispatchProps.handleSwitchLogin(domain, stateProps.address),
   handleLogOut: () => dispatchProps.handleLogOut(),
 });
 

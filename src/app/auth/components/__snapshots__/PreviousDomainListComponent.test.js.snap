@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PreviousDomainListComponent renders without crashing 1`] = `
+<div
+  className="switch"
+>
+  <button
+    className="switchButton"
+    onClick={[Function]}
+    type="button"
+  >
+    foobar.rsk
+  </button>
+  <button
+    className="switchButton"
+    onClick={[Function]}
+    type="button"
+  >
+    barfoo.rsk
+  </button>
+</div>
+`;
