@@ -41,9 +41,10 @@ export const receiveLogin = (name, isOwner) => ({
   isOwner,
 });
 
-export const errorLogin = message => ({
+export const errorLogin = (message, domain) => ({
   type: types.ERROR_LOGIN,
   message,
+  domain,
 });
 
 export const logOut = () => ({

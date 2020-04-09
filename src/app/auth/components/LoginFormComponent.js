@@ -4,9 +4,9 @@ import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
 const LoginFormComponent = ({
-  strings, authError, handleLogin, showLoginInitState,
+  strings, authError, handleLogin, showLoginInitState, domainInputInitialState,
 }) => {
-  const [domainInput, setDomainInput] = useState('');
+  const [domainInput, setDomainInput] = useState(domainInputInitialState);
   const [localError, setLocalError] = useState('');
   const [showLogin, setShowLogin] = useState(showLoginInitState);
 
@@ -73,6 +73,7 @@ LoginFormComponent.propTypes = {
   authError: propTypes.bool.isRequired,
   handleLogin: propTypes.func.isRequired,
   showLoginInitState: propTypes.bool.isRequired,
+  domainInputInitialState: propTypes.string.isRequired,
 };
 
 export default multilanguage(LoginFormComponent);

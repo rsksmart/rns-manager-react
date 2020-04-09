@@ -4,8 +4,8 @@ import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
 import PreviousDomainListComponent from './PreviousDomainListComponent';
-import { CurrentAccountContainer } from '../containers';
-import LoginFormComponent from './LoginFormComponent';
+import { CurrentAccountContainer, LoginFormContainer } from '../containers';
+
 
 const LoginDropDownComponent = ({
   strings, name, handleLogin, isOwner, authError, previousDomains,
@@ -38,10 +38,10 @@ const LoginDropDownComponent = ({
             switchLoginClick={handleLoginClick}
           />
 
-          <LoginFormComponent
+          <LoginFormContainer
             authError={authError}
             handleLogin={handleLoginClick}
-            showLoginInitState={previousDomains.length === 0 || authError !== ''}
+            showLoginInitState={previousDomains.length === 0 || authError}
           />
         </div>
       )}

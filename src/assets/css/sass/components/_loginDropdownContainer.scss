@@ -15,13 +15,14 @@
       padding: 10px 15px;
       border-bottom: 1px solid $light-gray;;
 
-      a.switchButton {
+      button.switchButton {
         font-size: 14px;
         border-bottom: 0 !important;
+        background-position: 150px 15px;
       }
     }
 
-    a.switchButton, button.switchButton {
+    button.switchButton {
       display: block;
       width: 100%;
       padding: 10px 0;
@@ -39,6 +40,8 @@
 
     button.switchButton:hover {
       border: none !important;
+      color: $gray;
+      font-weight: 500 !important;
     }
 
 

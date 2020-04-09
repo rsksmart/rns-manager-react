@@ -9,6 +9,7 @@ const initialState = {
   address: null,
   authenticating: false,
   authError: false,
+  authErrorDomain: '',
   name: null,
   storageName: localStorage.getItem('name'),
   isOwner: false,
@@ -60,6 +61,7 @@ export default (state = initialState, action) => {
       authenticating: true,
       authError: false,
       name: null,
+      authErrorDomain: '',
     };
     case types.RECEIVE_LOGIN: return {
       ...state,
@@ -77,6 +79,7 @@ export default (state = initialState, action) => {
       name: null,
       showPopUp: true,
       message: action.message,
+      authErrorDomain: action.domain,
     };
     case types.LOG_OUT: return {
       ...state,

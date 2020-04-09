@@ -92,10 +92,10 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
   return dispatch(receiveLogin(name, true));
 };
 
-const failedLogin = () => (dispatch) => {
+const failedLogin = name => (dispatch) => {
   localStorage.removeItem('name');
   dispatch(push('/'));
-  return dispatch(errorLogin());
+  return dispatch(errorLogin('failed login', name));
 };
 
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
