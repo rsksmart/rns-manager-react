@@ -56,24 +56,21 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
           <div
             className="current"
           >
-            <Link
+            <Button
+              active={false}
               className="switchButton"
-              to="/newAdmin"
+              disabled={false}
+              type="button"
+              variant="primary"
             >
-              <LinkAnchor
-                className="switchButton"
-                href="#/newAdmin"
-                navigate={[Function]}
+              <button
+                className="switchButton btn btn-primary"
+                disabled={false}
+                type="button"
               >
-                <a
-                  className="switchButton"
-                  href="#/newAdmin"
-                  onClick={[Function]}
-                >
-                  foobar.rsk
-                </a>
-              </LinkAnchor>
-            </Link>
+                foobar.rsk
+              </button>
+            </Button>
             <Button
               active={false}
               disabled={false}

@@ -18,14 +18,12 @@ const store = mockStore({
   log_out: en.log_out,
 });
 
-const logOut = jest.fn();
-
 describe('LeftNavComponent', () => {
   it('matches snapshot', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin" advancedView={false} logOut={logOut} />
+          <LeftNavComponent location="/newAdmin" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
@@ -36,48 +34,35 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView logOut={logOut} />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
-    expect(component.find('li').length).toBe(6);
+    expect(component.find('li').length).toBe(5);
   });
 
   it('sets correct item active when passed', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} logOut={logOut} />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
 
     expect(component.find('a.active').text()).toEqual('subdomains');
-    expect(component.find('li').length).toBe(4);
+    expect(component.find('li').length).toBe(3);
   });
 
   it('sets home as active when resolver is passed, but advancedView is false.', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} logOut={logOut} />
+          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
 
     expect(component.find('a.active').text()).toEqual('Domain info');
-  });
-
-  it('fires logout when clicked', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} logOut={logOut} />
-        </HashRouter>
-      </Provider>,
-    );
-
-    component.find('button').at(1).simulate('click');
-    expect(logOut).toBeCalled();
   });
 });

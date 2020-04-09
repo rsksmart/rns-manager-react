@@ -30,7 +30,7 @@ describe('CurrentAccountComponent', () => {
 
     expect(component).toMatchSnapshot();
 
-    expect(component.find('a').text()).toBe('foobar.rsk');
-    expect(component.find('button').text()).toBe(en.log_out);
+    expect(component.find('button').at(0).text()).toBe('foobar.rsk');
+    expect(component.find('button').at(1).text()).toBe(en.log_out);
   });
 });

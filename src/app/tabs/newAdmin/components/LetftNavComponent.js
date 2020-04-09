@@ -6,7 +6,7 @@ import { Navbar } from 'react-bootstrap';
 
 const LeftNavComponent = (props) => {
   const {
-    strings, advancedView, location, domain, logOut,
+    strings, advancedView, location, domain,
   } = props;
 
   const isHome = location === '/newAdmin'
@@ -64,11 +64,6 @@ const LeftNavComponent = (props) => {
             </>
             )
           }
-          <li>
-            <button type="button" onClick={logOut}>
-              {strings.log_out}
-            </button>
-          </li>
         </ul>
       </Navbar.Collapse>
     </Navbar>
@@ -84,11 +79,9 @@ LeftNavComponent.propTypes = {
     resolver: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
-    log_out: propTypes.string.isRequired,
   }).isRequired,
   location: propTypes.string.isRequired,
   advancedView: propTypes.bool.isRequired,
-  logOut: propTypes.func.isRequired,
   domain: propTypes.string.isRequired,
 };
 

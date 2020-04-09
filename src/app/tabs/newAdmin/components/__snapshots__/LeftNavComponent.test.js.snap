@@ -38,15 +38,15 @@ exports[`LeftNavComponent matches snapshot 1`] = `
     >
       <Connect(LeftNavComponent)
         advancedView={false}
+        domain="foobar.rsk"
         location="/newAdmin"
-        logOut={[MockFunction]}
       >
         <LeftNavComponent
           advancedView={false}
           currentLanguageCode="en"
           dispatch={[Function]}
+          domain="foobar.rsk"
           location="/newAdmin"
-          logOut={[MockFunction]}
           strings={
             Object {
               "admin": "admin",
@@ -72,7 +72,9 @@ exports[`LeftNavComponent matches snapshot 1`] = `
               <NavbarBrand>
                 <span
                   className="navbar-brand"
-                />
+                >
+                  foobar.rsk
+                </span>
               </NavbarBrand>
               <NavbarToggle
                 aria-controls="basic-navbar-nav"
@@ -186,14 +188,6 @@ exports[`LeftNavComponent matches snapshot 1`] = `
                               </a>
                             </LinkAnchor>
                           </Link>
-                        </li>
-                        <li>
-                          <button
-                            onClick={[MockFunction]}
-                            type="button"
-                          >
-                            log out
-                          </button>
                         </li>
                       </ul>
                     </div>

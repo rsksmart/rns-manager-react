@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { LeftNavComponent } from '../components';
-import { logoutManager } from '../../../auth/operations';
 
 const mapStateToProps = state => ({
   advancedView: state.newAdmin.view.advancedView,
@@ -8,11 +7,7 @@ const mapStateToProps = state => ({
   domain: state.auth.name,
 });
 
-const mapDispatchToProps = dispatch => ({
-  logOut: () => dispatch(logoutManager()),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 )(LeftNavComponent);
