@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { LoginDropdownComponent } from '../components';
 
-import { logOut } from '../actions';
-import { authenticate, logoutManager } from '../operations';
+import { togglePopUp, logOut } from '../actions';
+import { authenticate, logoutManager, removeDomainToLocalStorage } from '../operations';
 
 const getStoredDomains = (address, current) => {
   if (!localStorage.getItem('storedDomains')) {
@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
   address: state.auth.address,
   isOwner: state.auth.isOwner,
   authError: state.auth.authError,
+  showPopUp: state.auth.showPopUp,
   previousDomains: getStoredDomains(state.auth.address, state.auth.name),
 });
 
@@ -32,14 +33,19 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logOut());
     dispatch(authenticate(domain, address));
   },
-  handleLogOut: () => dispatch(logoutManager()),
+  handleLogOut: (domain) => {
+    removeDomainToLocalStorage(domain);
+    dispatch(logoutManager());
+  },
+  toggleShowPopUp: newState => dispatch(togglePopUp(newState)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   handleLogin: domain => dispatchProps.handleLogin(domain, stateProps.address),
-  handleLogOut: () => dispatchProps.handleLogOut(),
+  handleLogOut: () => dispatchProps.handleLogOut(stateProps.name),
+  toggleShowPopUp: () => dispatchProps.toggleShowPopUp(!stateProps.showPopUp),
 });
 
 export default connect(

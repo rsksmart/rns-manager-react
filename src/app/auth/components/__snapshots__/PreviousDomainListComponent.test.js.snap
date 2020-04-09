@@ -6,6 +6,7 @@ exports[`PreviousDomainListComponent renders without crashing 1`] = `
 >
   <button
     className="switchButton"
+    key="foobar.rsk"
     onClick={[Function]}
     type="button"
   >
@@ -13,6 +14,7 @@ exports[`PreviousDomainListComponent renders without crashing 1`] = `
   </button>
   <button
     className="switchButton"
+    key="barfoo.rsk"
     onClick={[Function]}
     type="button"
   >

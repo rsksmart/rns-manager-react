@@ -27,6 +27,10 @@ import {
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
 
+/**
+ * Save Domain into Local Storage to be used with login popup.
+ * @param {string} domain to save into localStrage
+ */
 export const saveDomainToLocalStorage = async (domain) => {
   // eslint-disable-next-line prefer-const
   let storedDomains = localStorage.getItem('storedDomains')
@@ -50,6 +54,28 @@ export const saveDomainToLocalStorage = async (domain) => {
     storedDomains[process.env.REACT_APP_ENVIRONMENT].push(newDomain);
     localStorage.setItem('storedDomains', JSON.stringify(storedDomains));
   }
+};
+
+/**
+ * Removes domain that was saved in LocalStorage
+ * @param {string} domain to be removed from local storage
+ */
+export const removeDomainToLocalStorage = (domain) => {
+  const storedDomains = localStorage.getItem('storedDomains')
+    ? JSON.parse(localStorage.getItem('storedDomains')) : {};
+
+  // does the environment exist? this should not happen:
+  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+    return;
+  }
+
+  const newEnv = storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain !== domain);
+  const newStoredDomains = {
+    ...storedDomains,
+    [process.env.REACT_APP_ENVIRONMENT]: newEnv,
+  };
+
+  localStorage.setItem('storedDomains', JSON.stringify(newStoredDomains));
 };
 
 const successfulLogin = (name, noRedirect) => (dispatch) => {

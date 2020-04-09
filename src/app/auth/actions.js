@@ -49,3 +49,8 @@ export const errorLogin = message => ({
 export const logOut = () => ({
   type: types.LOG_OUT,
 });
+
+export const togglePopUp = show => ({
+  type: types.TOGGLE_POPUP,
+  show,
+});

@@ -14,6 +14,7 @@ const initialState = {
   isOwner: false,
   network: null,
   networkMatch: false,
+  showPopUp: false,
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +65,7 @@ export default (state = initialState, action) => {
       ...state,
       authenticating: false,
       authError: false,
+      showPopUp: false,
       name: action.name,
       storageName: action.name,
       isOwner: action.isOwner,
@@ -73,6 +75,7 @@ export default (state = initialState, action) => {
       authenticating: false,
       authError: true,
       name: null,
+      showPopUp: true,
       message: action.message,
     };
     case types.LOG_OUT: return {
@@ -81,6 +84,11 @@ export default (state = initialState, action) => {
       isOwner: false,
       authError: false,
       authenticating: false,
+      showPopUp: false,
+    };
+    case types.TOGGLE_POPUP: return {
+      ...state,
+      showPopUp: action.show,
     };
     default: return state;
   }

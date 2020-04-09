@@ -4,18 +4,40 @@ import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
 const LoginFormComponent = ({
-  strings, authError, handleLogin,
+  strings, authError, handleLogin, showLoginInitState,
 }) => {
   const [domainInput, setDomainInput] = useState('');
+  const [localError, setLocalError] = useState('');
+  const [showLogin, setShowLogin] = useState(showLoginInitState);
 
   const handleLoginClick = () => {
     if (domainInput === '') {
       return;
     }
-console.log(domainInput);
+
+    if (domainInput.match('[^a-z0-9.]') !== null) {
+      setLocalError(strings.invalid_name);
+      return;
+    }
+
     const appendRsk = domainInput.endsWith('.rks') ? domainInput : `${domainInput}.rsk`;
     handleLogin(appendRsk);
+    setLocalError('');
   };
+
+  if (!showLogin) {
+    return (
+      <div className="loginForm">
+        <Button
+          className="showLogin"
+          onClick={() => setShowLogin(true)}
+        >
+          {'+ '}
+          {strings.add_account}
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="loginForm">
@@ -32,7 +54,10 @@ console.log(domainInput);
       >
         {strings.enter}
       </Button>
-      {authError && <p className="error">{strings.not_domains_owner_message}</p>}
+      {(localError === '' && authError)
+        && <p className="error">{strings.not_domains_owner_message}</p>
+      }
+      {localError && <p className="error">{localError}</p>}
     </div>
   );
 };
@@ -42,9 +67,12 @@ LoginFormComponent.propTypes = {
     not_domains_owner_message: propTypes.string.isRequired,
     enter: propTypes.string.isRequired,
     your_domain: propTypes.string.isRequired,
+    add_account: propTypes.string.isRequired,
+    invalid_name: propTypes.string.isRequired,
   }).isRequired,
   authError: propTypes.bool.isRequired,
   handleLogin: propTypes.func.isRequired,
+  showLoginInitState: propTypes.bool.isRequired,
 };
 
 export default multilanguage(LoginFormComponent);

@@ -6,6 +6,7 @@ const PreviousDomainListComponent = ({ previousDomains, switchLoginClick }) => {
     <div className="switch">
       {previousDomains.map(addr => (
         <button
+          key={addr.domain}
           type="button"
           className="switchButton"
           onClick={() => switchLoginClick(addr.domain)}

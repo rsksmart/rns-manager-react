@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
@@ -9,13 +9,11 @@ import LoginFormComponent from './LoginFormComponent';
 
 const LoginDropDownComponent = ({
   strings, name, handleLogin, handleLogOut, isOwner, authError, previousDomains,
+  showPopUp, toggleShowPopUp,
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
   const isLoggedIn = ((name !== '' && name !== null) && isOwner);
 
   const handleLoginClick = (domain) => {
-    setIsOpen(false);
     handleLogin(domain);
   };
 
@@ -23,11 +21,12 @@ const LoginDropDownComponent = ({
     <div className="loginDropdown nav-item">
       <Button
         className="start"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleShowPopUp}
       >
         {isLoggedIn ? name : strings.login}
       </Button>
-      {isOpen
+
+      {showPopUp
       && (
         <div className="popup">
           {isLoggedIn && (
@@ -45,6 +44,7 @@ const LoginDropDownComponent = ({
           <LoginFormComponent
             authError={authError}
             handleLogin={handleLoginClick}
+            showLoginInitState={previousDomains.length === 0 || authError !== ''}
           />
         </div>
       )}
@@ -69,6 +69,8 @@ LoginDropDownComponent.propTypes = {
   handleLogOut: propTypes.func.isRequired,
   isOwner: propTypes.bool.isRequired,
   authError: propTypes.bool.isRequired,
+  showPopUp: propTypes.bool.isRequired,
+  toggleShowPopUp: propTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   previousDomains: propTypes.array.isRequired,
 };
