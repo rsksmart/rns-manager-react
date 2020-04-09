@@ -28,7 +28,7 @@ describe('SearchResultsComponent', () => {
             available
             isSearching={false}
             blocked={false}
-            rifCost="6"
+            rifCost={6}
             handleClick={handleClick}
           />
         </HashRouter>
@@ -51,7 +51,7 @@ describe('SearchResultsComponent', () => {
             available={false}
             blocked={false}
             isSearching={false}
-            rifCost="2"
+            rifCost={2}
             handleClick={handleClick}
           />
         </HashRouter>
@@ -72,7 +72,7 @@ describe('SearchResultsComponent', () => {
             available={false}
             blocked={false}
             isSearching={false}
-            rifCost="2"
+            rifCost={2}
             handleClick={handleClick}
           />
         </HashRouter>

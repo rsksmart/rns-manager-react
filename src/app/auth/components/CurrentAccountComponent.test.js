@@ -13,16 +13,14 @@ const store = mockStore({
 
 describe('CurrentAccountComponent', () => {
   it('renders and matches snapshot', () => {
-    const handleLogOut = jest.fn();
-    const switchLoginClick = jest.fn();
-
     const component = mount(
       <Provider store={store}>
         <HashRouter>
           <CurrentAccountComponent
             name="foobar.rsk"
-            handleLogOut={handleLogOut}
-            switchLoginClick={switchLoginClick}
+            handleLogOut={jest.fn()}
+            switchLoginClick={jest.fn()}
+            handleCurrentClick={jest.fn()}
           />
         </HashRouter>
       </Provider>,

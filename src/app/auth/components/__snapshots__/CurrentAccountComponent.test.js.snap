@@ -37,6 +37,7 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
       }
     >
       <Connect(CurrentAccountComponet)
+        handleCurrentClick={[MockFunction]}
         handleLogOut={[MockFunction]}
         name="foobar.rsk"
         switchLoginClick={[MockFunction]}
@@ -44,6 +45,7 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
         <CurrentAccountComponet
           currentLanguageCode="en"
           dispatch={[Function]}
+          handleCurrentClick={[MockFunction]}
           handleLogOut={[MockFunction]}
           name="foobar.rsk"
           strings={
@@ -60,12 +62,14 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
               active={false}
               className="switchButton"
               disabled={false}
+              onClick={[MockFunction]}
               type="button"
               variant="primary"
             >
               <button
                 className="switchButton btn btn-primary"
                 disabled={false}
+                onClick={[MockFunction]}
                 type="button"
               >
                 foobar.rsk

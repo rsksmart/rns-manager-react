@@ -42,7 +42,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
         domain="foobar"
         handleClick={[MockFunction]}
         isSearching={false}
-        rifCost="6"
+        rifCost={6}
       >
         <SearchResultsComponent
           available={true}
@@ -52,7 +52,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
           domain="foobar"
           handleClick={[MockFunction]}
           isSearching={false}
-          rifCost="6"
+          rifCost={6}
           strings={
             Object {
               "available": "available",
@@ -229,7 +229,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
         domain="foobar"
         handleClick={[MockFunction]}
         isSearching={false}
-        rifCost="2"
+        rifCost={2}
       >
         <SearchResultsComponent
           available={false}
@@ -239,7 +239,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
           domain="foobar"
           handleClick={[MockFunction]}
           isSearching={false}
-          rifCost="2"
+          rifCost={2}
           strings={
             Object {
               "available": "available",
