@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+
 import { LoginDropdownComponent } from '../components';
 
 import { togglePopUp, logOut } from '../actions';
@@ -30,8 +32,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleLogin: (domain, address) => {
+    dispatch(push('/newAdmin'));
     dispatch(logOut());
-    dispatch(authenticate(domain, address));
+    dispatch(authenticate(domain, address, true));
   },
   toggleShowPopUp: newState => dispatch(togglePopUp(newState)),
 });
