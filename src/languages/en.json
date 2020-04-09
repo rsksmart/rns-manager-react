@@ -336,5 +336,7 @@
   "results": "Results",
   "available": "available",
   "search_for_another": "Please search another domain",
-  "year": "year"
+  "year": "year",
+  "your_domain": "Your domain",
+  "enter": "Enter"
 }

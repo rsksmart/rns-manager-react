@@ -56,7 +56,7 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
   dispatch(checkResolver(name));
 
   if (!noRedirect) {
-    dispatch(push('/admin'));
+    dispatch(push('/newAdmin'));
   }
 
   localStorage.setItem('name', name);
@@ -66,9 +66,9 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
   return dispatch(receiveLogin(name, true));
 };
 
-const failedLogin = name => (dispatch) => {
+const failedLogin = () => (dispatch) => {
   localStorage.removeItem('name');
-  return dispatch(receiveLogin(name, false));
+  return dispatch(errorLogin());
 };
 
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
@@ -173,7 +173,6 @@ export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
-  dispatch(start());
 };
 
 export const autoLogin = domain => async (dispatch) => {

@@ -8,7 +8,7 @@ const initialState = {
   enableError: null,
   address: null,
   authenticating: false,
-  authError: null,
+  authError: false,
   name: null,
   storageName: localStorage.getItem('name'),
   isOwner: false,
@@ -57,13 +57,13 @@ export default (state = initialState, action) => {
     case types.REQUEST_LOGIN: return {
       ...state,
       authenticating: true,
-      authError: null,
+      authError: false,
       name: null,
     };
     case types.RECEIVE_LOGIN: return {
       ...state,
       authenticating: false,
-      authError: null,
+      authError: false,
       name: action.name,
       storageName: action.name,
       isOwner: action.isOwner,
@@ -71,11 +71,16 @@ export default (state = initialState, action) => {
     case types.ERROR_LOGIN: return {
       ...state,
       authenticating: false,
-      authError: action.message,
+      authError: true,
       name: null,
+      message: action.message,
     };
     case types.LOG_OUT: return {
-      ...initialState,
+      ...state,
+      name: null,
+      isOwner: false,
+      authError: false,
+      authenticating: false,
     };
     default: return state;
   }
