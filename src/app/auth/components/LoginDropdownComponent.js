@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-
 import { Button } from 'react-bootstrap';
+
+import PreviousDomainListComponent from './PreviousDomainListComponent';
 
 const LoginDropDownComponent = ({
   strings, name, handleLogin, handleSwitchLogin, handleLogOut, isOwner, authError, previousDomains,
@@ -40,7 +41,13 @@ const LoginDropDownComponent = ({
           {isLoggedIn
           && (
             <div className="current">
-              <h3>{name}</h3>
+              <button
+                type="button"
+                className="switchButton"
+                onClick={() => switchLoginClick(name)}
+              >
+                {name}
+              </button>
               <Button
                 variant="outline-primary"
                 onClick={handleLogOut}
@@ -50,16 +57,10 @@ const LoginDropDownComponent = ({
             </div>
           )}
 
-          <div className="switch">
-            {previousDomains.map(addr => (
-              <button
-                type="button"
-                onClick={() => switchLoginClick(addr.domain)}
-              >
-                {addr.domain}
-              </button>
-            ))}
-          </div>
+          <PreviousDomainListComponent
+            previousDomains={previousDomains}
+            switchLoginClick={switchLoginClick}
+          />
 
           <div className="loginForm">
             <h3>{strings.your_domain}</h3>

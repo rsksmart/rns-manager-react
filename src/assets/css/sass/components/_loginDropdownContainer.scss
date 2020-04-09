@@ -3,6 +3,7 @@
 
   .popup {
     position: absolute;
+    width: 200px;
     left: -50px;
     top: 50px;
     background-color: $white;
@@ -14,28 +15,32 @@
       padding: 10px 15px;
       border-bottom: 1px solid $light-gray;;
 
-      h3 {
+      button.switchButton {
         font-size: 14px;
+        border-bottom: 0 !important;
       }
     }
 
-    .switch {
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px 0;
-        background-color: $white;
-        border-top: none;
-        border-right: none;
-        border-left: none;
-        border-bottom:1px solid $light-gray;
-        background-image: url('/assets/img/caret.svg');
-        background-repeat: no-repeat;
-        background-position: 165px 15px;
-        color: $gray;
-        font-size: 14px;
-      }
+    button.switchButton {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      background-color: $white;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-bottom:1px solid $light-gray;
+      background-image: url('/assets/img/caret.svg');
+      background-repeat: no-repeat;
+      background-position: 165px 15px;
+      color: $gray;
+      font-size: 14px;
     }
+
+    button.switchButton:hover {
+      border: none !important;
+    }
+
 
     .loginForm {
       text-align: center;

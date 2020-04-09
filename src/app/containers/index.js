@@ -9,4 +9,3 @@ export { default as LanguageSelectContainer } from './LanguageSelectContainer';
 export { default as IndicatorLight } from './IndicatorLight';
 export { default as ChecksumErrorContainer } from './ChecksumErrorContainer';
 export { default as ToggleContainer } from './ToggleContainer';
-export { default as LoginDropdownContainer } from './LoginDropdownContainer';

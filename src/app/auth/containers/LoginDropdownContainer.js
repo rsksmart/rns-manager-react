@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { LoginDropdownComponent } from '../components';
 
-import { logOut } from '../auth/actions';
-import { authenticate, logoutManager } from '../auth/operations';
+import { logOut } from '../actions';
+import { authenticate, logoutManager } from '../operations';
 
 const getStoredDomains = (address, current) => {
   if (!localStorage.getItem('storedDomains')) {
@@ -30,7 +30,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleLogin: (domain, address) => dispatch(authenticate(domain, address)),
   handleSwitchLogin: (domain, address) => {
-    console.log('handling the switch', domain, address);
     dispatch(logOut());
     dispatch(authenticate(domain, address));
   },

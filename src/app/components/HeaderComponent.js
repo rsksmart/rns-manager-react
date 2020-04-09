@@ -8,8 +8,8 @@ import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
 import logotest from '../../assets/img/logo-testnet.svg';
 import { StartButton } from '../auth';
-import { LanguageSelectContainer, IndicatorLight, LoginDropdownContainer } from '../containers';
-
+import { LanguageSelectContainer, IndicatorLight } from '../containers';
+import { LoginDropdownContainer } from '../auth/containers';
 
 const HeaderComponent = (props) => {
   const {
