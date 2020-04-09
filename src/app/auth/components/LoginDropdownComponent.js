@@ -4,11 +4,11 @@ import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
 import PreviousDomainListComponent from './PreviousDomainListComponent';
-import CurrentAccountComponent from './CurrentAccountComponent';
+import { CurrentAccountContainer } from '../containers';
 import LoginFormComponent from './LoginFormComponent';
 
 const LoginDropDownComponent = ({
-  strings, name, handleLogin, handleLogOut, isOwner, authError, previousDomains,
+  strings, name, handleLogin, isOwner, authError, previousDomains,
   showPopUp, toggleShowPopUp,
 }) => {
   const isLoggedIn = ((name !== '' && name !== null) && isOwner);
@@ -30,10 +30,7 @@ const LoginDropDownComponent = ({
       && (
         <div className="popup">
           {isLoggedIn && (
-            <CurrentAccountComponent
-              name={name}
-              handleLogOut={handleLogOut}
-            />
+            <CurrentAccountContainer />
           )}
 
           <PreviousDomainListComponent
@@ -66,7 +63,6 @@ LoginDropDownComponent.propTypes = {
   }).isRequired,
   name: propTypes.string,
   handleLogin: propTypes.func.isRequired,
-  handleLogOut: propTypes.func.isRequired,
   isOwner: propTypes.bool.isRequired,
   authError: propTypes.bool.isRequired,
   showPopUp: propTypes.bool.isRequired,

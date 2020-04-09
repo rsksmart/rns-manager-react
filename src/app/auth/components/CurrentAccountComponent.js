@@ -1,20 +1,19 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 
 const CurrentAccountComponet = ({
-  strings, name, handleLogOut,
+  strings, name, handleLogOut, handleCurrentClick,
 }) => (
   <div className="current">
-    <Link
-      to="/newAdmin"
+    <Button
       className="switchButton"
+      onClick={handleCurrentClick}
     >
       {name}
-    </Link>
+    </Button>
     <Button
       variant="outline-primary"
       onClick={handleLogOut}
@@ -30,6 +29,7 @@ CurrentAccountComponet.propTypes = {
   }).isRequired,
   name: propTypes.string.isRequired,
   handleLogOut: propTypes.func.isRequired,
+  handleCurrentClick: propTypes.func.isRequired,
 };
 
 export default multilanguage(CurrentAccountComponet);

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { LoginDropdownComponent } from '../components';
 
 import { togglePopUp, logOut } from '../actions';
-import { authenticate, logoutManager, removeDomainToLocalStorage } from '../operations';
+import { authenticate } from '../operations';
 
 const getStoredDomains = (address, current) => {
   if (!localStorage.getItem('storedDomains')) {
@@ -32,10 +32,6 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: (domain, address) => {
     dispatch(logOut());
     dispatch(authenticate(domain, address));
-  },
-  handleLogOut: (domain) => {
-    removeDomainToLocalStorage(domain);
-    dispatch(logoutManager());
   },
   toggleShowPopUp: newState => dispatch(togglePopUp(newState)),
 });
