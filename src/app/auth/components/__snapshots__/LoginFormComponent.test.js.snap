@@ -15,6 +15,7 @@ exports[`LoginDropdownComponent matches snapshot when open 1`] = `
 >
   <Connect(LoginFormComponent)
     authError={false}
+    domainInputInitialState=""
     handleLogin={[MockFunction]}
     showLoginInitState={true}
   >
@@ -22,12 +23,14 @@ exports[`LoginDropdownComponent matches snapshot when open 1`] = `
       authError={false}
       currentLanguageCode="en"
       dispatch={[Function]}
+      domainInputInitialState=""
       handleLogin={[MockFunction]}
       showLoginInitState={true}
       strings={
         Object {
           "add_account": "Add account",
           "enter": "Enter",
+          "invalid_name": "Invalid name. Must be lower case characters and/or numbers",
           "not_domains_owner_message": "log out",
           "your_domain": "Your domain",
         }
@@ -39,33 +42,37 @@ exports[`LoginDropdownComponent matches snapshot when open 1`] = `
         <h3>
           Your domain
         </h3>
-        <div
-          className="rskinput"
+        <form
+          onSubmit={[Function]}
         >
-          <input
-            onChange={[Function]}
-            value=""
-          />
-          <span>
-            .rsk
-          </span>
-        </div>
-        <Button
-          active={false}
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-          variant="primary"
-        >
-          <button
-            className="btn btn-primary"
+          <div
+            className="rskinput"
+          >
+            <input
+              onChange={[Function]}
+              value=""
+            />
+            <span>
+              .rsk
+            </span>
+          </div>
+          <Button
+            active={false}
             disabled={false}
             onClick={[Function]}
             type="button"
+            variant="primary"
           >
-            Enter
-          </button>
-        </Button>
+            <button
+              className="btn btn-primary"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Enter
+            </button>
+          </Button>
+        </form>
       </div>
     </LoginFormComponent>
   </Connect(LoginFormComponent)>
@@ -87,6 +94,7 @@ exports[`LoginDropdownComponent renders and matches snapshot when closed 1`] = `
 >
   <Connect(LoginFormComponent)
     authError={false}
+    domainInputInitialState=""
     handleLogin={[MockFunction]}
     showLoginInitState={false}
   >
@@ -94,12 +102,14 @@ exports[`LoginDropdownComponent renders and matches snapshot when closed 1`] = `
       authError={false}
       currentLanguageCode="en"
       dispatch={[Function]}
+      domainInputInitialState=""
       handleLogin={[MockFunction]}
       showLoginInitState={false}
       strings={
         Object {
           "add_account": "Add account",
           "enter": "Enter",
+          "invalid_name": "Invalid name. Must be lower case characters and/or numbers",
           "not_domains_owner_message": "log out",
           "your_domain": "Your domain",
         }

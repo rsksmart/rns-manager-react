@@ -67,8 +67,10 @@ LoginDropDownComponent.propTypes = {
   authError: propTypes.bool.isRequired,
   showPopUp: propTypes.bool.isRequired,
   toggleShowPopUp: propTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  previousDomains: propTypes.array.isRequired,
+  previousDomains: propTypes.arrayOf(propTypes.shape({
+    domain: propTypes.string,
+    owner: propTypes.string,
+  })).isRequired,
 };
 
 export default multilanguage(LoginDropDownComponent);

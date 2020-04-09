@@ -63,6 +63,11 @@
         border-radius: 15px !important;
       }
 
+      button:hover {
+        background-color: $light-gray;
+        color: $blue;
+      }
+
       img, span {
         display: block;
         margin: 0 auto 15px auto;

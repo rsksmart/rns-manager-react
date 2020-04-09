@@ -12,6 +12,7 @@ const LoginFormComponent = ({
 
   const handleLoginClick = () => {
     if (domainInput === '') {
+      setLocalError('');
       return;
     }
 
@@ -20,7 +21,7 @@ const LoginFormComponent = ({
       return;
     }
 
-    const appendRsk = domainInput.endsWith('.rks') ? domainInput : `${domainInput}.rsk`;
+    const appendRsk = domainInput.endsWith('.rsk') ? domainInput : `${domainInput}.rsk`;
     handleLogin(appendRsk);
     setLocalError('');
   };
@@ -42,18 +43,20 @@ const LoginFormComponent = ({
   return (
     <div className="loginForm">
       <h3>{strings.your_domain}</h3>
-      <div className="rskinput">
-        <input
-          value={domainInput}
-          onChange={evt => setDomainInput(evt.target.value)}
-        />
-        <span>.rsk</span>
-      </div>
-      <Button
-        onClick={handleLoginClick}
-      >
-        {strings.enter}
-      </Button>
+      <form onSubmit={handleLoginClick}>
+        <div className="rskinput">
+          <input
+            value={domainInput}
+            onChange={evt => setDomainInput(evt.target.value)}
+          />
+          <span>.rsk</span>
+        </div>
+        <Button
+          onClick={handleLoginClick}
+        >
+          {strings.enter}
+        </Button>
+      </form>
       {(localError === '' && authError)
         && <p className="error">{strings.not_domains_owner_message}</p>
       }

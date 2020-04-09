@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { LoginFormComponent } from '../components';
 
 const mapStateToProps = state => ({
-  domainInputInitialState: state.auth.authErrorDomain,
+  domainInputInitialState: state.auth.authErrorDomain.replace('.rsk', ''),
 });
 
 export default connect(

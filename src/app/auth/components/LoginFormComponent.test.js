@@ -11,6 +11,7 @@ const store = mockStore({
   enter: en.enter,
   your_domain: en.your_domain,
   add_account: en.add_account,
+  invalid_name: en.invalid_name,
 });
 
 describe('LoginDropdownComponent', () => {
@@ -21,6 +22,7 @@ describe('LoginDropdownComponent', () => {
           authError={false}
           showLoginInitState={false}
           handleLogin={jest.fn()}
+          domainInputInitialState=""
         />
       </Provider>,
     );
@@ -37,6 +39,7 @@ describe('LoginDropdownComponent', () => {
           authError={false}
           showLoginInitState
           handleLogin={jest.fn()}
+          domainInputInitialState=""
         />
       </Provider>,
     );
