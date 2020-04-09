@@ -41,7 +41,7 @@ const LoginDropDownComponent = ({
           <LoginFormContainer
             authError={authError}
             handleLogin={handleLoginClick}
-            showLoginInitState={previousDomains.length === 0 || authError}
+            showLoginInitState={(!isLoggedIn && previousDomains.length === 0) || authError}
           />
         </div>
       )}

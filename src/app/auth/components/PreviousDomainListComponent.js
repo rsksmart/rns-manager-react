@@ -15,13 +15,8 @@ const PreviousDomainListComponent = ({ previousDomains, switchLoginClick }) => (
     ))}
   </div>
 );
-/*
-PreviousDomainListComponent.defaultProps = {
-  previousDomains: [],
-};
-*/
+
 PreviousDomainListComponent.propTypes = {
-  /* previousDomains: propTypes.array.isRequired, */
   previousDomains: propTypes.arrayOf(propTypes.shape({
     domain: propTypes.string,
     owner: propTypes.string,
