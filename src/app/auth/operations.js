@@ -124,7 +124,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 
       const labels = name.split('.');
 
-      if (labels.length !== 2 || labels[1] !== 'rsk') {
+      if (labels.length === 1 || labels[labels.length - 1] !== 'rsk') {
         // is not a domain or is not a .rsk domain, fail
         return dispatch(failedLogin(name));
       }
