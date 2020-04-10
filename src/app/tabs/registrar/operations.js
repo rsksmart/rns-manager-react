@@ -48,9 +48,11 @@ export const getConversionRate = () => async (dispatch) => {
   dispatch(requestConversionRate());
 
   return new Promise((resolve) => {
-    fetch('https://api.coinmarketcap.com/v1/ticker/rif-token/')
+    fetch('https://rskgasstation.azurewebsites.net/converter/cmc')
       .then(res => res.json())
-      .then(data => resolve(dispatch(recieveConversionRate(parseFloat(data[0].price_usd)))))
+      .then(data => resolve(dispatch(
+        recieveConversionRate(parseFloat(data.data[3701].quote.USD.price)),
+      )))
       .catch(() => dispatch(errorConversionRate()));
   });
 };
