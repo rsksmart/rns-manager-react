@@ -32,7 +32,7 @@ const FooterComponent = (props) => {
                   <a href="https://developers.rsk.co/rif/" {...linkProps}>{strings.services}</a>
                 </li>
                 <li>
-                  <a href="https://www.rsk.co/Whitepapers/RSK-White-Paper-Updated.pdf" {...linkProps}>
+                  <a href="https://www.rifos.org/assets/whitepapers/rif-whitepaper-en.pdf" {...linkProps}>
                     {strings.whitepaper}
                   </a>
                 </li>
@@ -45,11 +45,11 @@ const FooterComponent = (props) => {
               <h2>{strings.home_title}</h2>
               <ul>
                 <li>
-                  <a href="https://www.rsk.co/development-roadmap" {...linkProps}>{strings.roadmap}</a>
+                  <a href="https://www.rifos.org/directory#roadmap" {...linkProps}>{strings.roadmap}</a>
                 </li>
                 <li><Link to="/faq">FAQ</Link></li>
                 <li>
-                  <a href="https://www.iovlabs.org/contact.html" {...linkProps}>{strings.contact}</a>
+                  <a href="https://gitter.im/rsksmart/rif-name-service" {...linkProps}>{strings.contact}</a>
                 </li>
               </ul>
             </Col>
@@ -57,11 +57,11 @@ const FooterComponent = (props) => {
               <h2>{strings.developers}</h2>
               <ul>
                 <li>
-                  <a href="https://www.rsk.co/Whitepapers/RSK-White-Paper-Updated.pdf" {...linkProps}>
+                  <a href="https://www.rifos.org/nameservice/assets/rns-specs/rif-directory-protocol-en.pdf" {...linkProps}>
                     {strings.whitepaper}
                   </a>
                 </li>
-                <li><a href="https://developers.rsk.co/" {...linkProps}>{strings.docs}</a></li>
+                <li><a href="https://developers.rsk.co/rif/rns" {...linkProps}>{strings.docs}</a></li>
                 <li>
                   <a href="https://github.com/rnsdomains/" {...linkProps}>Github</a>
                 </li>
@@ -71,10 +71,10 @@ const FooterComponent = (props) => {
               <h2>{strings.privacy}</h2>
               <ul>
                 <li>
-                  <a href="https://rsk.co/privacy-policy.html" {...linkProps}>{strings.privacy_policy}</a>
+                  <a href="https://www.rifos.org/privacy-policy" {...linkProps}>{strings.privacy_policy}</a>
                 </li>
                 <li>
-                  <a href="https://rsk.co/terms-conditions.html" {...linkProps}>{strings.terms}</a>
+                  <a href="https://www.rifos.org/terms-conditions" {...linkProps}>{strings.terms}</a>
                 </li>
               </ul>
             </Col>

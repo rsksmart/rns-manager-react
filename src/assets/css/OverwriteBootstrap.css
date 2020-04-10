@@ -216,13 +216,6 @@ a:hover {
     padding: 3px 15px!important;
 }
 
-.btn:focus,
-.btn:active {
-    border-color: transparent!important;
-    outline: none !important;
-    box-shadow: none;
-}
-
 .btn-primary {
     color: #FFFFFF;
     background-color: #008CFF;

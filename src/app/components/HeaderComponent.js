@@ -34,7 +34,7 @@ const HeaderComponent = (props) => {
         <Navbar.Collapse className>
           <Nav className="ml-auto">
             <Nav.Item key={strings.search}>
-              <Link to="/search" className="nav-link" title={strings.search}>
+              <Link to="/" className="nav-link" title={strings.search}>
                 {strings.search}
               </Link>
             </Nav.Item>

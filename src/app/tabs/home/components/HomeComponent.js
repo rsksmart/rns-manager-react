@@ -6,9 +6,9 @@ import {
 import { multilanguage } from 'redux-multilanguage';
 import { SearchBoxContainer, SearchResultsContainer } from '../containers';
 
-import easeOfUse from '../../../../assets/img/home/ease-of-use.png';
-import interoperability from '../../../../assets/img/home/interoperability.png';
-import costEffective from '../../../../assets/img/home/cost-effective.png';
+import easeOfUse from '../../../../assets/img/home/ease-of-use.svg';
+import interoperability from '../../../../assets/img/home/interoperability.svg';
+import costEffective from '../../../../assets/img/home/cost-effective.svg';
 import book from '../../../../assets/img/home/book.svg';
 import github from '../../../../assets/img/home/github.svg';
 import integrate from '../../../../assets/img/home/integrate.svg';
@@ -33,17 +33,23 @@ const HomeComponent = ({ strings }) => (
       <SearchResultsContainer />
       <Row className="white break-below">
         <Col md={4}>
-          <img src={easeOfUse} alt={strings.ease_of_use} />
+          <div className="imageWraper">
+            <img src={easeOfUse} alt={strings.ease_of_use} />
+          </div>
           <h2>{strings.ease_of_use}</h2>
           <p>{strings.ease_of_use_explanation}</p>
         </Col>
         <Col md={4}>
-          <img src={interoperability} alt={strings.interoperability} />
+          <div className="imageWraper">
+            <img src={interoperability} alt={strings.interoperability} />
+          </div>
           <h2>{strings.interoperability}</h2>
           <p>{strings.interoperability_explanation}</p>
         </Col>
         <Col md={4}>
-          <img src={costEffective} alt={strings.cost_effective} />
+          <div className="imageWraper">
+            <img src={costEffective} alt={strings.cost_effective} />
+          </div>
           <h2>{strings.cost_effective}</h2>
           <p>{strings.cose_effective_explanation}</p>
         </Col>
@@ -62,28 +68,48 @@ const HomeComponent = ({ strings }) => (
         </Row>
         <Row className="major-section">
           <div className="col-md-2 offset-md-2">
-            <Button variant="outline-primary">
+            <a
+              className="btn btn-outline-primary"
+              href="https://developers.rsk.co/rif/rns"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={book} alt={strings.read_documentation} />
               <span>{strings.read_documentation}</span>
-            </Button>
+            </a>
           </div>
           <div className="col-md-2">
-            <Button variant="outline-primary">
+            <a
+              className="btn btn-outline-primary"
+              href="https://github.com/rnsdomains"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={github} alt={strings.collaborate_github} />
               <span>{strings.collaborate_github}</span>
-            </Button>
+            </a>
           </div>
           <div className="col-md-2">
-            <Button variant="outline-primary">
+            <a
+              className="btn btn-outline-primary"
+              href="https://developers.rsk.co/rif/rns/integrate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={integrate} alt={strings.integrate_rns} />
               <span>{strings.integrate_rns}</span>
-            </Button>
+            </a>
           </div>
           <div className="col-md-2">
-            <Button variant="outline-primary">
+            <a
+              className="btn btn-outline-primary"
+              href="https://gitter.im/rsksmart/rif-name-service"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={ask} alt={strings.ask_question} />
               <span>{strings.ask_question}</span>
-            </Button>
+            </a>
           </div>
         </Row>
       </Row>

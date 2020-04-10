@@ -25,7 +25,7 @@ exports[`SearchBoxComponent renders and matches snapshot 1`] = `
           "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon",
           "invalid_name": "Invalid name. Must be lower case characters and/or numbers",
           "search": "search",
-          "search_placeholder": "Write your desired domain name",
+          "search_placeholder": "Find your domain",
         }
       }
     >
@@ -41,7 +41,7 @@ exports[`SearchBoxComponent renders and matches snapshot 1`] = `
           >
             <input
               onChange={[Function]}
-              placeholder="Write your desired domain name"
+              placeholder="Find your domain"
               value=""
             />
             <span
