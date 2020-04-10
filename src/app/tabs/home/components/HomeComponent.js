@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-  Container, Button, Row, Col,
+  Container, Row, Col,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { SearchBoxContainer, SearchResultsContainer } from '../containers';
