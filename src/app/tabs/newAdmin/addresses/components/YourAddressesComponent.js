@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
-import { toChecksumAddress } from 'rskjs-util';
 
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
@@ -40,7 +39,6 @@ const YourAddressesComponent = ({ strings, chainAddresses, resolverName }) => (
               labelIcon={network.icon}
               networkId={chainId}
               value={address}
-              valueDisplay={isHex ? toChecksumAddress(address, networkChainId) : address}
               isError={isError}
               isEditing={isEditing}
               isWaiting={isWaiting}
