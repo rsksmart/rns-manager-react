@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  Button,
+  Button, Container, Row, Col,
 } from 'react-bootstrap';
 
 import rskWallet from '../../../assets/rsk_wallet.png';
@@ -14,41 +14,53 @@ const ErrorTabComponent = ({
 }) => {
   if (!hasMetamask) {
     return (
-      <div>
-        <img src={rskWallet} alt="rsk_wallet" width="250px" />
-        <h2>{strings.no_wallet}</h2>
-        <p>{strings.rsk_wallet_needed}</p>
-        <Button onClick={() => window.open('https://metamask.io', '_blank')}>
-          {strings.get_metamask}
-        </Button>
-      </div>
+      <Container className="page">
+        <Row style={{ textAlign: 'center', marginTop: '50px' }}>
+          <Col>
+            <img src={rskWallet} alt="rsk_wallet" width="250px" />
+            <h2>{strings.no_wallet}</h2>
+            <p>{strings.rsk_wallet_needed}</p>
+            <Button onClick={() => window.open('https://metamask.io', '_blank')}>
+              {strings.get_metamask}
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
   if (!walletUnlocked) {
     return (
-      <div>
-        <img src={rskWallet} alt="rsk_wallet" width="250px" />
-        <h2>{strings.unlock_wallet}</h2>
-      </div>
+      <Container className="page">
+        <Row style={{ textAlign: 'center', marginTop: '50px' }}>
+          <Col>
+            <img src={rskWallet} alt="rsk_wallet" width="250px" />
+            <h2>{strings.unlock_wallet}</h2>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
   return (
-    <div>
-      <img src={rskWallet} alt="rsk_wallet" width="250px" />
-      <h2>{strings.network_mismatch}</h2>
-      <p>
-        {strings.connect_to_network}
-        {' '}
-        <strong>
-          {envNetwork}
-        </strong>
-      </p>
+    <Container className="page">
+      <Row style={{ textAlign: 'center', marginTop: '50px' }}>
+        <Col>
+          <img src={rskWallet} alt="rsk_wallet" width="250px" />
+          <h2>{strings.network_mismatch}</h2>
+          <p>
+            {strings.connect_to_network}
+            {' '}
+            <strong>
+              {envNetwork}
+            </strong>
+          </p>
 
-      <p>
-        {`${strings.current_connected} ${walletNetwork}`}
-      </p>
-    </div>
+          <p>
+            {`${strings.current_connected} ${walletNetwork}`}
+          </p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

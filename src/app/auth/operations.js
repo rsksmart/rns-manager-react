@@ -27,20 +27,62 @@ import {
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
 
-export const saveDomainToLocalStorage = (domain) => {
-  const storedDomains = localStorage.getItem('domains')
-    ? JSON.parse(localStorage.getItem('domains')) : [];
-  if (!storedDomains.includes(domain)) {
-    storedDomains.push(domain);
-    localStorage.setItem('domains', JSON.stringify(storedDomains));
+/**
+ * Save Domain into Local Storage to be used with login popup.
+ * @param {string} domain to save into localStrage
+ */
+export const saveDomainToLocalStorage = async (domain) => {
+  // eslint-disable-next-line prefer-const
+  let storedDomains = localStorage.getItem('storedDomains')
+    ? JSON.parse(localStorage.getItem('storedDomains')) : {};
+
+  // environment:
+  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+    storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
   }
+
+  const accounts = await window.ethereum.enable();
+  const newDomain = {
+    domain,
+    owner: accounts[0],
+  };
+
+  if (
+    storedDomains[process.env.REACT_APP_ENVIRONMENT].length === 0
+    || storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain === domain).length < 1
+  ) {
+    storedDomains[process.env.REACT_APP_ENVIRONMENT].push(newDomain);
+    localStorage.setItem('storedDomains', JSON.stringify(storedDomains));
+  }
+};
+
+/**
+ * Removes domain that was saved in LocalStorage
+ * @param {string} domain to be removed from local storage
+ */
+export const removeDomainToLocalStorage = (domain) => {
+  const storedDomains = localStorage.getItem('storedDomains')
+    ? JSON.parse(localStorage.getItem('storedDomains')) : {};
+
+  // does the environment exist? this should not happen:
+  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+    return;
+  }
+
+  const newEnv = storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain !== domain);
+  const newStoredDomains = {
+    ...storedDomains,
+    [process.env.REACT_APP_ENVIRONMENT]: newEnv,
+  };
+
+  localStorage.setItem('storedDomains', JSON.stringify(newStoredDomains));
 };
 
 const successfulLogin = (name, noRedirect) => (dispatch) => {
   dispatch(checkResolver(name));
 
   if (!noRedirect) {
-    dispatch(push('/admin'));
+    dispatch(push('/newAdmin'));
   }
 
   localStorage.setItem('name', name);
@@ -52,7 +94,8 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
 
 const failedLogin = name => (dispatch) => {
   localStorage.removeItem('name');
-  return dispatch(receiveLogin(name, false));
+  dispatch(push('/'));
+  return dispatch(errorLogin('failed login', name));
 };
 
 export const authenticate = (name, address, noRedirect) => (dispatch) => {
@@ -81,7 +124,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 
       const labels = name.split('.');
 
-      if (labels.length !== 2 || labels[1] !== 'rsk') {
+      if (labels.length === 1 || labels[labels.length - 1] !== 'rsk') {
         // is not a domain or is not a .rsk domain, fail
         return dispatch(failedLogin(name));
       }
@@ -157,7 +200,6 @@ export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
-  dispatch(start());
 };
 
 export const autoLogin = domain => async (dispatch) => {

@@ -8,12 +8,14 @@ const initialState = {
   enableError: null,
   address: null,
   authenticating: false,
-  authError: null,
+  authError: false,
+  authErrorDomain: '',
   name: null,
   storageName: localStorage.getItem('name'),
   isOwner: false,
   network: null,
   networkMatch: false,
+  showPopUp: false,
 };
 
 export default (state = initialState, action) => {
@@ -57,13 +59,15 @@ export default (state = initialState, action) => {
     case types.REQUEST_LOGIN: return {
       ...state,
       authenticating: true,
-      authError: null,
+      authError: false,
       name: null,
+      authErrorDomain: '',
     };
     case types.RECEIVE_LOGIN: return {
       ...state,
       authenticating: false,
-      authError: null,
+      authError: false,
+      showPopUp: false,
       name: action.name,
       storageName: action.name,
       isOwner: action.isOwner,
@@ -71,11 +75,23 @@ export default (state = initialState, action) => {
     case types.ERROR_LOGIN: return {
       ...state,
       authenticating: false,
-      authError: action.message,
+      authError: true,
       name: null,
+      showPopUp: true,
+      message: action.message,
+      authErrorDomain: action.domain,
     };
     case types.LOG_OUT: return {
-      ...initialState,
+      ...state,
+      name: null,
+      isOwner: false,
+      authError: false,
+      authenticating: false,
+      showPopUp: false,
+    };
+    case types.TOGGLE_POPUP: return {
+      ...state,
+      showPopUp: action.show,
     };
     default: return state;
   }

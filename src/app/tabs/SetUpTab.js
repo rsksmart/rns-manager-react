@@ -13,7 +13,7 @@ const SetUpTab = multilanguage(({ strings }) => {
   const networkName = networkSelector(networkId);
 
   return (
-    <Container>
+    <Container className="page">
       <Row className="setup">
         <Col style={{ textAlign: 'left' }}>
           <h2>{strings.setup_title}</h2>

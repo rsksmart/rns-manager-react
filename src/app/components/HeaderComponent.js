@@ -1,28 +1,25 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-  Navbar, Nav, Form, Container, Image, Button,
+  Navbar, Nav, Form, Container, Image,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
 import logotest from '../../assets/img/logo-testnet.svg';
-import { StartButton } from '../auth';
 import { LanguageSelectContainer, IndicatorLight } from '../containers';
-
+import { LoginDropdownContainer } from '../auth/containers';
 
 const HeaderComponent = (props) => {
   const {
     strings,
-    isLoggedIn,
     network,
-    logOut,
   } = props;
 
   return (
     <Navbar
       expand="md"
-      className="navbar-expand-md navbar-light bg-light fixed-top"
+      className="navbar-expand-md navbar-dark fixed-top"
     >
       <Container>
         <Link to="/" className="navbar-brand">
@@ -37,37 +34,17 @@ const HeaderComponent = (props) => {
         <Navbar.Collapse className>
           <Nav className="ml-auto">
             <Nav.Item key={strings.search}>
-              <Link to="/search" className="nav-link" title={strings.search}>
+              <Link to="/" className="nav-link" title={strings.search}>
                 {strings.search}
               </Link>
             </Nav.Item>
-            <Nav.Item key={strings.resolve}>
-              <Link to="/resolve" className="nav-link" title={strings.resolve}>
-                {strings.resolve}
-              </Link>
-            </Nav.Item>
-            {
-              isLoggedIn
-              && (
-                <>
-                  <Nav.Item key={strings.admin}>
-                    <Link className="nav-link" to="/admin">
-                      {strings.admin}
-                    </Link>
-                  </Nav.Item>
-                  <Nav.Item key={strings.log_out}>
-                    <Button className="nav-link" onClick={logOut}>
-                      {strings.log_out}
-                    </Button>
-                  </Nav.Item>
-                </>
-              )
-            }
+
+            <Form onSubmit={e => e.preventDefault()} inline>
+              <LanguageSelectContainer />
+            </Form>
+
+            <LoginDropdownContainer />
           </Nav>
-          <Form onSubmit={e => e.preventDefault()} inline>
-            <LanguageSelectContainer />
-            <StartButton />
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -76,9 +53,7 @@ const HeaderComponent = (props) => {
 
 HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
-  isLoggedIn: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
-  logOut: propTypes.func.isRequired,
 };
 
 export default multilanguage(HeaderComponent);
