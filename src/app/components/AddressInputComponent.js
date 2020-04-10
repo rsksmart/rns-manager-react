@@ -19,7 +19,6 @@ const AddressInputComponent = ({
   labelDisplay,
   labelIcon,
   value,
-  valueDisplay,
   isWaiting,
   isError,
   handleErrorClose,
@@ -254,7 +253,6 @@ AddressInputComponent.defaultProps = {
   handleErrorClose: () => {},
   handleSuccessClose: () => {},
   labelDisplay: null,
-  valueDisplay: null,
   labelIcon: null,
 };
 
@@ -274,7 +272,6 @@ AddressInputComponent.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
-  valueDisplay: propTypes.string,
   validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };

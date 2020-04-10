@@ -29,7 +29,6 @@ const SubdomainListComponent = ({
               label={subdomain.name}
               labelDisplay={`${subdomain.name}.${domain}`}
               value={subdomain.owner}
-              valueDisplay={toChecksumAddress(subdomain.owner, chainId)}
               isError={subdomain.editError !== ''}
               isWaiting={subdomain.isWaiting}
               isSuccess={subdomain.isSuccess}
