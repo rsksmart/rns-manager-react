@@ -117,7 +117,7 @@ describe('AddressInputComponent', () => {
     const localProps = {
       ...checksumInitialProps,
       value: '0xee3d5f22ea0ff393aeef5cf88a81e7d44979633b',
-      validationChainId: 31,
+      validationChainId: '31',
     };
 
     const component = shallow(<AddressInputComponent {...localProps} />);
@@ -130,7 +130,7 @@ describe('AddressInputComponent', () => {
     const localProps = {
       ...checksumInitialProps,
       value: '0x5215d879f378c902e6cc0cb9ace0240ac7a863e7',
-      validationChainId: 30,
+      validationChainId: '30',
     };
 
     const component = shallow(<AddressInputComponent {...localProps} />);
