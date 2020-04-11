@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { useDispatch } from 'react-redux';
-import { toChecksumAddress } from 'rskjs-util';
 
 import { SubdomainViewContainer } from '../containers';
 import { getSubdomainListFromLocalStorage } from '../operations';
@@ -29,12 +28,13 @@ const SubdomainListComponent = ({
               label={subdomain.name}
               labelDisplay={`${subdomain.name}.${domain}`}
               value={subdomain.owner}
-              valueDisplay={toChecksumAddress(subdomain.owner, chainId)}
               isError={subdomain.editError !== ''}
               isWaiting={subdomain.isWaiting}
               isSuccess={subdomain.isSuccess}
               successTx={subdomain.confirmedTx}
               reset={subdomain.isSuccess}
+              validation
+              validationChainId={chainId}
               strings={{
                 value_prefix: strings.owner,
                 error_message: subdomain.editError,

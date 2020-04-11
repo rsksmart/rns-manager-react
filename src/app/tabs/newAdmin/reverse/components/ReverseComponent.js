@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
+import { toChecksumAddress } from 'rskjs-util';
+
 import ReverseInputContainer from '../containers/ReverseInputContainer';
 import { getReverse } from '../operations';
 
 const ReverseComponent = ({
   reverseValue, address, strings, isRequesting, isWaiting, isError,
-  errorMessage, isSuccess, successTx,
+  errorMessage, isSuccess, successTx, chainId,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getReverse(address)), []);
@@ -18,13 +19,12 @@ const ReverseComponent = ({
   }
 
   return (
-    <div>
+    <div className="reverse">
       <p>{strings.reverse_explanation}</p>
       <h2>{strings.set_reverse}</h2>
       <ReverseInputContainer
         value={reverseValue}
-        valueDisplay={reverseValue || strings.not_set}
-        label={address}
+        label={toChecksumAddress(address, chainId)}
         allowDelete={false}
         validate={false}
         isWaiting={isWaiting}
@@ -59,6 +59,7 @@ ReverseComponent.propTypes = {
     wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
+  chainId: propTypes.string.isRequired,
   reverseValue: propTypes.string.isRequired,
   isRequesting: propTypes.bool.isRequired,
   isError: propTypes.bool.isRequired,

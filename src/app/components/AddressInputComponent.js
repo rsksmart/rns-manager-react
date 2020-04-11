@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { toChecksumAddress } from 'rskjs-util';
 
 import { validateAddress } from '../validations';
 import { ChecksumErrorContainer } from '../containers';
@@ -18,7 +19,6 @@ const AddressInputComponent = ({
   labelDisplay,
   labelIcon,
   value,
-  valueDisplay,
   isWaiting,
   isError,
   handleErrorClose,
@@ -110,7 +110,7 @@ const AddressInputComponent = ({
           {strings.value_prefix
             && <span className="value-prefix">{`${strings.value_prefix}: `}</span>
           }
-          {valueDisplay || value}
+          {validation ? toChecksumAddress(value, validationChainId) : value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
@@ -253,7 +253,6 @@ AddressInputComponent.defaultProps = {
   handleErrorClose: () => {},
   handleSuccessClose: () => {},
   labelDisplay: null,
-  valueDisplay: null,
   labelIcon: null,
 };
 
@@ -273,7 +272,6 @@ AddressInputComponent.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
-  valueDisplay: propTypes.string,
   validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };

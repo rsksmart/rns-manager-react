@@ -11,6 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
   label: state.auth.name,
   currentAddress: state.auth.address,
   value: state.auth.address,
+  validate: true,
+  validationChainId: state.auth.network,
   strings: {
     ...ownProps.strings,
     error_message: state.newAdmin.domainInfo.errorMessage,
