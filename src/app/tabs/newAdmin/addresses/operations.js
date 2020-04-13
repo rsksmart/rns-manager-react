@@ -19,7 +19,6 @@ import networks from './networks.json';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER } from '../resolver/types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
-
 const web3 = new Web3(window.ethereum);
 const multichainResolver = new web3.eth.Contract(
   multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
@@ -149,6 +148,12 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
 
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
+
+  if (chainId === '0x80000089') {
+    return multichainResolver.methods.addr(hash).call()
+      .then(addr => dispatch(receiveChainAddress('0x80000089', 'RSK', addr)))
+      .catch(error => dispatch(errorChainAddress('RSK', error.message)));
+  }
 
   return multichainResolver.methods.chainAddr(hash, chainId).call()
     .then(addr => dispatch(receiveChainAddress(chainId, chainName, addr)))
