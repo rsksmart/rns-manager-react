@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c503ad6313a3eced021d",
-    "url": "/rns-manager-react/static/css/main.75f8d4eb.chunk.css"
+    "revision": "d65253cc4829e90053ad",
+    "url": "/rns-manager-react/static/css/main.a71a13b2.chunk.css"
   },
   {
-    "revision": "c503ad6313a3eced021d",
-    "url": "/rns-manager-react/static/js/main.c503ad63.chunk.js"
+    "revision": "d65253cc4829e90053ad",
+    "url": "/rns-manager-react/static/js/main.d65253cc.chunk.js"
   },
   {
     "revision": "4393c63a30a01e8ac420",
@@ -56,16 +56,16 @@ self.__precacheManifest = [
     "url": "/rns-manager-react/static/media/copy.118758dd.svg"
   },
   {
-    "revision": "1094f8f74798a1422b1648870bdd3f8e",
-    "url": "/rns-manager-react/static/media/ease-of-use.1094f8f7.png"
+    "revision": "c53eb791f01703af4998aed7842c64db",
+    "url": "/rns-manager-react/static/media/ease-of-use.c53eb791.svg"
   },
   {
-    "revision": "465afb837c93161ef31b8853551f56d9",
-    "url": "/rns-manager-react/static/media/interoperability.465afb83.png"
+    "revision": "d756e42b5ebc265962f9453364cd4e5b",
+    "url": "/rns-manager-react/static/media/interoperability.d756e42b.svg"
   },
   {
-    "revision": "90dfb5ab12769ea937113d1d9d716350",
-    "url": "/rns-manager-react/static/media/cost-effective.90dfb5ab.png"
+    "revision": "64bf504ddb77bcc45f71b142819f9300",
+    "url": "/rns-manager-react/static/media/cost-effective.64bf504d.svg"
   },
   {
     "revision": "6eb993db8a4ff476e31e9bb5d8b3e925",
@@ -88,7 +88,7 @@ self.__precacheManifest = [
     "url": "/rns-manager-react/static/media/gray-arch.2b0a7f2d.svg"
   },
   {
-    "revision": "22d138fabc809c7176209502f4afd486",
+    "revision": "fa4e894a3530047528b94602a74708e2",
     "url": "/rns-manager-react/index.html"
   }
 ];
