@@ -342,5 +342,8 @@
   "add_account": "Add account",
   "years": "years",
   "registration_waiting": "Wait for aproximately two minutes: the waiting period is required to securely request your domain. Please do not close this tab until the process has finished.",
-  "your_domain_has_been_registered": "Your domain has been registered"
+  "your_domain_has_been_registered": "Your domain has been registered",
+  "records": "Records",
+  "set_resolver": "Set resolver",
+  "set_resolver_explanation": "The records pair the wallet address in the blockchain with your domain. Different types of records can be added to ensure the connection between the address and the domain. These records allow you to change information in blockchain associated with your domain."
 }
