@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 
-import { Row, Button } from 'react-bootstrap';
+import { Form, Row, Button } from 'react-bootstrap';
 import { isValidName } from '../../../validations';
 
 const SearchBoxComponent = ({ handleClick, strings }) => {
@@ -29,9 +29,14 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
     handleClick(search);
   };
 
+  const handleSearchEnter = (e) => {
+    e.preventDefault();
+    handleSearchClick();
+  };
+
   return (
     <>
-      <Row className="searchBox">
+      <Form onSubmit={handleSearchEnter} className="searchBox row">
         <div className="col-md-7 offset-md-1 searchInput">
           <input
             placeholder={strings.search_placeholder}
@@ -47,7 +52,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
             {strings.search}
           </Button>
         </div>
-      </Row>
+      </Form>
       {error
       && (
         <Row className="errorMessage">
