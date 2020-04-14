@@ -136,4 +136,15 @@ describe('AddressInputComponent', () => {
     const component = shallow(<AddressInputComponent {...localProps} />);
     expect(component.find('div.value').text()).toBe(rskMainnetChecksum);
   });
+
+  it('renders when validation but no value', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '',
+      validationChainId: '30',
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    expect(component.find('div.value').text()).toBe('');
+  });
 });

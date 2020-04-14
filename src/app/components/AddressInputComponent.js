@@ -93,6 +93,14 @@ const AddressInputComponent = ({
     setIsChecksumError(false);
   };
 
+  const formatValue = () => {
+    if (value === '') {
+      return value;
+    }
+
+    return validation ? toChecksumAddress(value, validationChainId) : value;
+  };
+
   if (reset && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
@@ -110,7 +118,7 @@ const AddressInputComponent = ({
           {strings.value_prefix
             && <span className="value-prefix">{`${strings.value_prefix}: `}</span>
           }
-          {validation ? toChecksumAddress(value, validationChainId) : value}
+          {formatValue()}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
