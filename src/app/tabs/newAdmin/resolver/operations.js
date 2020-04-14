@@ -82,7 +82,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
           result, resolverAddress, resolverName,
         ));
         dispatch(getAllChainAddresses(domain, resolverName));
-        sendBrowserNotification(domain, 'migration_complete');
+        sendBrowserNotification(domain, 'resolver_set_success');
       };
 
       return dispatch(

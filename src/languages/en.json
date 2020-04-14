@@ -344,6 +344,10 @@
   "registration_waiting": "Wait for aproximately two minutes: the waiting period is required to securely request your domain. Please do not close this tab until the process has finished.",
   "your_domain_has_been_registered": "Your domain has been registered",
   "records": "Records",
+  "records_explanation": "The records pair the wallet address in the blockchain with your domain. Different types of records can be added to ensure the connection between the address and the domain. These records allow you to change information in blockchain associated with your domain.",
   "set_resolver": "Set resolver",
-  "set_resolver_explanation": "The records pair the wallet address in the blockchain with your domain. Different types of records can be added to ensure the connection between the address and the domain. These records allow you to change information in blockchain associated with your domain."
+  "set_resolver_explanation": "The Resolver is a Smart Contract responsible for the process of translating names into addresses. You can select a public resolver or a custom resolver.",
+  "resolver_set_success": "Successfully set the resolver",
+  "multichain_resolver": "Multichain Resolver",
+  "custom_resolver": "Custom Resolver"
 }
