@@ -1,4 +1,19 @@
 .resolver {
+  .records {
+    .addressInput {
+      .label {
+        text-align: left;
+      }
+      .value {
+        margin-left: -50px;
+        overflow-x: visible;
+      }
+      .options {
+        margin-left: 50px;
+      }
+    }
+  }
+
   .setResolver {
     .label {
       text-transform: capitalize;

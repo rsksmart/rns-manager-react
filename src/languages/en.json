@@ -349,5 +349,6 @@
   "set_resolver_explanation": "The Resolver is a Smart Contract responsible for the process of translating names into addresses. You can select a public resolver or a custom resolver.",
   "resolver_set_success": "Successfully set the resolver",
   "multichain_resolver": "Multichain Resolver",
-  "custom_resolver": "Custom Resolver"
+  "custom_resolver": "Custom Resolver",
+  "delete_content_confirm": "Are you sure you want to remove the content?"
 }

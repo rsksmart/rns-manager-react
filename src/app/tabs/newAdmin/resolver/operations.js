@@ -1,9 +1,12 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
+import { validateBytes32 } from '../../../validations';
+
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
-  waitingSetResolver,
+  waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
+  receiveSetContent, errorSetContent,
 } from './actions';
 import { getAllChainAddresses } from '../addresses/operations';
 
@@ -12,6 +15,7 @@ import {
   publicResolver as publicResolverAddress,
   stringResolver as stringResolverAddress,
 } from '../../../adapters/configAdapter';
+import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
 import transactionListener from '../../../helpers/transactionListener';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -19,7 +23,10 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
+  CONTENT_HASH, CONTENT_HASH_BLANK,
 } from './types';
+
+import { resolverAbi } from './abis.json';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -89,4 +96,57 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
         transactionListener(result, () => transactionConfirmed()),
       );
     });
+};
+
+/**
+ * Get the content hash from the given resolver
+ * @param {address} resolverAddress to be queried
+ * @param {string} domain
+ */
+export const getContentHash = (resolverAddress, domain) => (dispatch) => {
+  dispatch(requestContent(CONTENT_HASH));
+
+  const resolver = new web3.eth.Contract(
+    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  const hash = namehash(domain);
+
+  resolver.methods.content(hash).call()
+    .then(value => dispatch(
+      receiveContent(CONTENT_HASH, (value === CONTENT_HASH_BLANK) ? '' : value),
+    ))
+    .catch(error => dispatch(errorContent(CONTENT_HASH, error)));
+};
+
+export const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
+  dispatch(requestSetContent(CONTENT_HASH));
+
+  // validation
+  if (validateBytes32(value)) {
+    return dispatch(errorSetContent(CONTENT_HASH, validateBytes32(value)));
+  }
+
+  const resolver = new web3.eth.Contract(
+    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  resolver.methods.setContent(namehash(domain), value).send(
+    { from: currentAddress }, (error, result) => {
+      // dispatch(waitingSetContent(CONTENT_HASH));
+
+      if (error) {
+        return dispatch(errorSetContent(CONTENT_HASH, error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetContent(CONTENT_HASH, result, value));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    },
+  );
 };
