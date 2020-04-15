@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AddressInputContainer from '../../../../components/AddressInputComponent';
-import { setContentHash } from '../operations';
+import { setContent } from '../operations';
 import { closeSetMessage } from '../actions';
 import { CONTENT_HASH, CONTENT_HASH_BLANK } from '../types';
 
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setContentHash: (resolverAddress, domain, value) => dispatch(
-    setContentHash(resolverAddress, domain, value),
+    setContent(CONTENT_HASH, resolverAddress, domain, value),
   ),
   handleErrorClose: () => dispatch(closeSetMessage(CONTENT_HASH)),
   handleSuccessClose: () => dispatch(closeSetMessage(CONTENT_HASH)),

@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewRecordComponent renders and matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(NewRecordComponent)
+    content={
+      Array [
+        Array [
+          "CONTENT_HASH",
+          Object {
+            "errorMessage": "",
+            "isRequesting": false,
+            "isWaiting": false,
+            "successTx": "",
+            "value": "",
+          },
+        ],
+      ]
+    }
+    handleCloseMessage={[MockFunction]}
+    handleSubmit={[MockFunction]}
+  >
+    <NewRecordComponent
+      content={
+        Array [
+          Array [
+            "CONTENT_HASH",
+            Object {
+              "errorMessage": "",
+              "isRequesting": false,
+              "isWaiting": false,
+              "successTx": "",
+              "value": "",
+            },
+          ],
+        ]
+      }
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      handleCloseMessage={[MockFunction]}
+      handleSubmit={[MockFunction]}
+      strings={
+        Object {
+          "add": "Add",
+          "add_records": "Add records",
+          "close": "Close",
+          "content_hash": "Content Hash",
+          "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
+        }
+      }
+    >
+      <div
+        className="major-section add-records"
+      >
+        <h3>
+          Add records
+        </h3>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-3"
+          >
+            <select
+              disabled={false}
+              onChange={[Function]}
+              value="CONTENT_HASH"
+            >
+              <option
+                key="CONTENT_HASH"
+                value="CONTENT_HASH"
+              >
+                Content Hash
+              </option>
+            </select>
+          </div>
+          <div
+            className="col-md-7"
+          >
+            <input
+              disabled={false}
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            className="col-md-2"
+          >
+            <Button
+              active={false}
+              className="add"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+              variant="primary"
+            >
+              <button
+                className="add btn btn-primary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Add
+              </button>
+            </Button>
+          </div>
+        </div>
+        <UserWaitingComponent
+          message="Wait until the transaction is confirmed. It will take less than a minute."
+          visible={false}
+        />
+        <Connect(UserErrorComponent)
+          handleCloseClick={[Function]}
+          message=""
+          visible={false}
+        >
+          <UserErrorComponent
+            currentLanguageCode="en"
+            dispatch={[Function]}
+            handleCloseClick={[Function]}
+            message=""
+            strings={
+              Object {
+                "add": "Add",
+                "add_records": "Add records",
+                "close": "Close",
+                "content_hash": "Content Hash",
+                "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
+              }
+            }
+            title="Error"
+            visible={false}
+          />
+        </Connect(UserErrorComponent)>
+      </div>
+    </NewRecordComponent>
+  </Connect(NewRecordComponent)>
+</Provider>
+`;

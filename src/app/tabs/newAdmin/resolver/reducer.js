@@ -95,6 +95,7 @@ const resolverReducer = (state = initialState, action) => {
         [action.contentType]: {
           ...state.content[action.contentType],
           isWaiting: true,
+          errorMessage: '',
         },
       },
     };

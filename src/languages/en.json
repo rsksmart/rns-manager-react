@@ -352,5 +352,6 @@
   "custom_resolver": "Custom Resolver",
   "delete_content_confirm": "Are you sure you want to remove the content?",
   "content_updated": "The content has been updated.",
-  "content_hash": "Content Hash"
+  "content_hash": "Content Hash",
+  "add_records": "Add records"
 }

@@ -57,12 +57,15 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
-    if (!validation) {
-      return handleSubmit(editText);
-    }
-
     if (editText.toLowerCase() === value.toLowerCase()) {
       return setIsLocalError('Value is the same.');
+    }
+
+    setIsLocalError(false);
+    setIsChecksumError(false);
+
+    if (!validation) {
+      return handleSubmit(editText);
     }
 
     switch (validateAddress(editText, validationChainId)) {
@@ -72,8 +75,6 @@ const AddressInputComponent = ({
         return setIsChecksumError(true);
       default:
     }
-    setIsLocalError(false);
-    setIsChecksumError(false);
     return handleSubmit(editText);
   };
 
@@ -237,7 +238,6 @@ AddressInputComponent.defaultProps = {
   isError: false,
   isWaiting: false,
   isSuccess: false,
-  reset: false,
   successTx: '',
   validation: true,
   validationChainId: null,

@@ -125,7 +125,7 @@ export const getContentHash = (resolverAddress, domain) => (dispatch) => {
  * @param {string} domain to be associated with the data
  * @param {bytes32} value to be set
  */
-export const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
+const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
 
   // validation
@@ -157,7 +157,20 @@ export const setContentHash = (resolverAddress, domain, value) => async (dispatc
   );
 };
 
-
+/**
+ * Function to handle content type when setting. This will be expanded as more
+ * content types are supported. Currently, CONTENT_HASH is the only content type
+ * @param {const} contentType
+ * @param {address} resolverAddress address of the resolver
+ * @param {string} domain domain the content is associated with
+ * @param {string} value value of the content
+ */
+export const setContent = (contentType, resolverAddress, domain, value) => (dispatch) => {
+  if (contentType === CONTENT_HASH) {
+    dispatch(setContentHash(resolverAddress, domain, value));
+  }
+};
+/*
 export const supportedInterfaces = resolverAddress => async (dispatch) => {
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
@@ -171,3 +184,4 @@ export const supportedInterfaces = resolverAddress => async (dispatch) => {
       }
     });
 };
+*/

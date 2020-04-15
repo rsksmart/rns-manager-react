@@ -47,7 +47,7 @@ ResolverComponent.propTypes = {
     content_updated: propTypes.string.isRequired,
   }).isRequired,
   start: propTypes.func.isRequired,
-  content: propTypes.array.isRequired,
+  content: propTypes.shape.isRequired,
 };
 
 export default multilanguage(ResolverComponent);

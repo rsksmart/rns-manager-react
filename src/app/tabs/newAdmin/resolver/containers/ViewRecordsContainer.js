@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ViewRecordsComponent } from '../components';
-import { supportedInterfaces, getContentHash } from '../operations';
+import { getContentHash } from '../operations';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,

@@ -4,7 +4,7 @@ import { multilanguage } from 'redux-multilanguage';
 
 import { UserWaitingComponent } from '../../../../components';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER } from '../types';
-import { SetResolverContainer, ViewRecordsContainer } from '../containers';
+import { SetResolverContainer, ViewRecordsContainer, NewRecordContainer } from '../containers';
 
 const ResolverComponent = ({
   strings, gettingResolver, resolverName,
@@ -25,6 +25,7 @@ const ResolverComponent = ({
   return (
     <div className="resolver">
       <ViewRecordsContainer />
+      <NewRecordContainer />
 
       <div className="setResolver">
         <h2>{strings.set_resolver}</h2>
@@ -40,7 +41,7 @@ const ResolverComponent = ({
       </div>
     </div>
   );
-}
+};
 
 ResolverComponent.propTypes = {
   strings: propTypes.shape({
