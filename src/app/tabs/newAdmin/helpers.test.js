@@ -1,4 +1,4 @@
-import { dayMath, formatDate } from './helpers';
+import { dayMath, formatDate, truncateString } from './helpers';
 
 describe('dayMath', () => {
   it('adds a day to march 5th 2020', () => {
@@ -20,5 +20,15 @@ describe('dayMath', () => {
   it('formats March 5th, 2020', () => {
     const result = formatDate(new Date(2020, 2, 5));
     expect(result).toEqual('5 / Mar / 2020');
+  });
+
+  it('truncates address correct', () => {
+    expect(truncateString('0x91Bbf6C133C19CeC7B540bf8bd5e0Bfd031e9D90'))
+      .toEqual('0x91Bb...1e9D90');
+  });
+
+  it('truncates bytes correct', () => {
+    expect(truncateString('0x793e39cd00000000000000000000000064a436ae831c1672ae81f674cab8b677'))
+      .toEqual('0x793e...b8b677');
   });
 });
