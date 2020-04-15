@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ViewRecordsComponent } from '../components';
-import { getContentHash } from '../operations';
+import { supportedInterfaces, getContentHash } from '../operations';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  // start: (resolverAddress, domain) => dispatch(supportedInterfaces(resolverAddress)),
   start: (resolverAddress, domain) => dispatch(getContentHash(resolverAddress, domain)),
 });
 

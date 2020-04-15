@@ -16,7 +16,7 @@ const ResolverComponent = ({ strings, start, content }) => {
           return (
             <EditContentContainer
               key={item[0]}
-              label={item[0]}
+              label={strings[item[0].toLowerCase()]}
               value={item[1].value}
               validation={false}
               strings={{
@@ -24,6 +24,7 @@ const ResolverComponent = ({ strings, start, content }) => {
                 cancel: strings.cancel,
                 delete: strings.delete,
                 delete_confirm_text: strings.delete_content_confirm,
+                success_message: strings.content_updated,
               }}
             />
           );
@@ -36,12 +37,14 @@ const ResolverComponent = ({ strings, start, content }) => {
 
 ResolverComponent.propTypes = {
   strings: propTypes.shape({
+    content_hash: propTypes.string.isRequired,
     records: propTypes.string.isRequired,
     records_explanation: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
     delete: propTypes.string.isRequired,
     delete_content_confirm: propTypes.string.isRequired,
+    content_updated: propTypes.string.isRequired,
   }).isRequired,
   start: propTypes.func.isRequired,
   content: propTypes.array.isRequired,

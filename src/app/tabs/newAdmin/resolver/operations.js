@@ -26,7 +26,7 @@ import {
   CONTENT_HASH, CONTENT_HASH_BLANK,
 } from './types';
 
-import { resolverAbi } from './abis.json';
+import { resolverAbi, abstractResolverAbi } from './abis.json';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -119,6 +119,12 @@ export const getContentHash = (resolverAddress, domain) => (dispatch) => {
     .catch(error => dispatch(errorContent(CONTENT_HASH, error)));
 };
 
+/**
+ * Sets the ContentHash for the domain
+ * @param {address} resolverAddress address of the Resolver used
+ * @param {string} domain to be associated with the data
+ * @param {bytes32} value to be set
+ */
 export const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
 
@@ -134,19 +140,34 @@ export const setContentHash = (resolverAddress, domain, value) => async (dispatc
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
-  resolver.methods.setContent(namehash(domain), value).send(
+  return resolver.methods.setContent(namehash(domain), value).send(
     { from: currentAddress }, (error, result) => {
-      // dispatch(waitingSetContent(CONTENT_HASH));
-
       if (error) {
         return dispatch(errorSetContent(CONTENT_HASH, error.message));
       }
 
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetContent(CONTENT_HASH, result, value));
+        dispatch(receiveSetContent(
+          CONTENT_HASH, result, (value === CONTENT_HASH_BLANK) ? '' : value,
+        ));
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
     },
   );
+};
+
+
+export const supportedInterfaces = resolverAddress => async (dispatch) => {
+  const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
+
+  abstractResolver.methods
+    .supportsInterface('0x2dff6941').call().then((supportsInterface) => {
+      if (supportsInterface) {
+        console.log('supports Interfacae 0x2dff6941', supportsInterface);
+        // return dispatch(actions.receiveSupportedInterface(resolverInterface.name));
+      } else {
+        console.log('does not support 0x2dff6941 :(', supportsInterface);
+      }
+    });
 };

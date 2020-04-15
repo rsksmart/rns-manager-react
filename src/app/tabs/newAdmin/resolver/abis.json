@@ -39,5 +39,20 @@
       "stateMutability":"nonpayable",
       "type":"function"
    }
+  ],
+  "abstractResolverAbi": [
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "interfaceID", "type": "bytes4" }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        { "name": "", "type": "bool" }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    }
   ]
 }

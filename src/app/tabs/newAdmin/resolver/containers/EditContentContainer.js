@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
   allowDelete: true,
   isSuccess: state.newAdmin.resolver.content[CONTENT_HASH].successTx !== '',
   successTx: state.newAdmin.resolver.content[CONTENT_HASH].successTx,
-  reset: state.newAdmin.resolver.content[CONTENT_HASH].successTx !== '',
   isWaiting: state.newAdmin.resolver.content[CONTENT_HASH].isWaiting,
   isError: state.newAdmin.resolver.content[CONTENT_HASH].errorMessage !== '',
   errorMessage: state.newAdmin.resolver.content[CONTENT_HASH].errorMessage,

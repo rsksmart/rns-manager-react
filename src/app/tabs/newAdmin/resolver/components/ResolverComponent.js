@@ -19,7 +19,7 @@ const ResolverComponent = ({
   };
 
   if (gettingResolver) {
-    return <UserWaitingComponent />
+    return <UserWaitingComponent />;
   }
 
   return (

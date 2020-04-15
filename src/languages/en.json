@@ -350,5 +350,7 @@
   "resolver_set_success": "Successfully set the resolver",
   "multichain_resolver": "Multichain Resolver",
   "custom_resolver": "Custom Resolver",
-  "delete_content_confirm": "Are you sure you want to remove the content?"
+  "delete_content_confirm": "Are you sure you want to remove the content?",
+  "content_updated": "The content has been updated.",
+  "content_hash": "Content Hash"
 }

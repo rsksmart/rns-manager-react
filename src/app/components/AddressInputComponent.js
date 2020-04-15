@@ -28,7 +28,6 @@ const AddressInputComponent = ({
   isSuccess,
   strings,
   successTx,
-  reset,
   validationChainId,
   validation,
 }) => {
@@ -101,7 +100,7 @@ const AddressInputComponent = ({
     return validation ? toChecksumAddress(value, validationChainId) : value;
   };
 
-  if (reset && (isEditing || isDeleting)) {
+  if (isSuccess && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
     setEditText('');
@@ -272,7 +271,6 @@ AddressInputComponent.propTypes = {
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
-  reset: propTypes.bool,
   validation: propTypes.bool,
   successTx: propTypes.string,
   handleErrorClose: propTypes.func,
