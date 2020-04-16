@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Container, Row, Col, Spinner, Button, Form, OverlayTrigger, Tooltip,
+  Container, Row, Col, Spinner, Button,
 } from 'react-bootstrap';
 
 class CommitComponent extends Component {
@@ -18,36 +18,10 @@ class CommitComponent extends Component {
       doCommitment,
       committed,
       hasBalance,
-      setupAddr,
-      toggleSetupAddr,
     } = this.props;
 
     return (
       <Container>
-        <Row className="major-section fifsRegistration">
-          <Col>
-            <Form.Check
-              type="switch"
-              id="setup-addr-switch"
-              label={strings.auto_address_setup}
-              checked={setupAddr}
-              onChange={toggleSetupAddr}
-            />
-            <OverlayTrigger
-              key="fifsExplanation"
-              placement="right"
-              overlay={(
-                <Tooltip id="tooltip-status">
-                  {strings.auto_address_explanation}
-                </Tooltip>
-              )}
-            >
-              <div className="overlay-helper">
-                ?
-              </div>
-            </OverlayTrigger>
-          </Col>
-        </Row>
         <Row>
           <div className="col-md-4 offset-md-4">
             <p className="explanation">{strings.process_step_1_explanation}</p>
@@ -83,12 +57,10 @@ CommitComponent.propTypes = {
     auto_address_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
-  toggleSetupAddr: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
   hasBalance: propTypes.bool.isRequired,
-  setupAddr: propTypes.bool.isRequired,
 };
 
 export default multilanguage(CommitComponent);
