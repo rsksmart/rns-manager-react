@@ -88,7 +88,7 @@ NewRecordComponent.propTypes = {
   strings: propTypes.shape({
     add: propTypes.string.isRequired,
     add_records: propTypes.string.isRequired,
-    content_hash: propTypes.string.isRequired,
+    content_bytes: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
   content: propTypes.array.isRequired,

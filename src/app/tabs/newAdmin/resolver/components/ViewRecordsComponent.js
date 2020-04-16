@@ -37,7 +37,7 @@ const ResolverComponent = ({ strings, start, content }) => {
 
 ResolverComponent.propTypes = {
   strings: propTypes.shape({
-    content_hash: propTypes.string.isRequired,
+    content_bytes: propTypes.string.isRequired,
     records: propTypes.string.isRequired,
     records_explanation: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,

@@ -17,7 +17,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
     content={
       Array [
         Array [
-          "CONTENT_HASH",
+          "CONTENT_BYTES",
           Object {
             "errorMessage": "",
             "isRequesting": false,
@@ -35,7 +35,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
       content={
         Array [
           Array [
-            "CONTENT_HASH",
+            "CONTENT_BYTES",
             Object {
               "errorMessage": "",
               "isRequesting": false,
@@ -55,7 +55,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
           "add": "Add",
           "add_records": "Add records",
           "close": "Close",
-          "content_hash": "Content Hash",
+          "content_bytes": "Content bytes",
           "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
         }
       }
@@ -75,13 +75,13 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
             <select
               disabled={false}
               onChange={[Function]}
-              value="CONTENT_HASH"
+              value="CONTENT_BYTES"
             >
               <option
-                key="CONTENT_HASH"
-                value="CONTENT_HASH"
+                key="CONTENT_BYTES"
+                value="CONTENT_BYTES"
               >
-                Content Hash
+                Content bytes
               </option>
             </select>
           </div>
@@ -135,7 +135,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
                 "add": "Add",
                 "add_records": "Add records",
                 "close": "Close",
-                "content_hash": "Content Hash",
+                "content_bytes": "Content bytes",
                 "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
               }
             }

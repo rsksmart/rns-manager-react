@@ -9,14 +9,14 @@ import NewRecordComponent from './NewRecordComponent';
 const store = mockStore({
   add: en.add,
   add_records: en.add_records,
-  content_hash: en.content_hash,
+  content_bytes: en.content_bytes,
   wait_transation_confirmed: en.wait_transation_confirmed,
   close: en.close,
 });
 
 const initProps = {
   content: [[
-    'CONTENT_HASH',
+    'CONTENT_BYTES',
     {
       value: '',
       isRequesting: false,
@@ -38,7 +38,7 @@ describe('NewRecordComponent', () => {
     );
     expect(component).toMatchSnapshot();
 
-    expect(component.find('option').props().value).toBe('CONTENT_HASH');
+    expect(component.find('option').props().value).toBe('CONTENT_BYTES');
   });
 
   it('handles interaction', () => {
@@ -56,7 +56,7 @@ describe('NewRecordComponent', () => {
 
     component.find('input').simulate('change', { target: { value: 'foo' } });
     component.find('button').at(0).simulate('click');
-    expect(handleSubmit).toHaveBeenCalledWith('CONTENT_HASH', 'foo');
+    expect(handleSubmit).toHaveBeenCalledWith('CONTENT_BYTES', 'foo');
   });
 
   it('shows and handles errors', () => {
@@ -64,7 +64,7 @@ describe('NewRecordComponent', () => {
     const localProps = {
       ...initProps,
       content: [[
-        'CONTENT_HASH',
+        'CONTENT_BYTES',
         {
           value: '',
           isRequesting: false,

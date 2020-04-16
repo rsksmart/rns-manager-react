@@ -23,10 +23,11 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
-  CONTENT_HASH, CONTENT_HASH_BLANK,
+  CONTENT_BYTES, CONTENT_BYTES_BLANK,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
+import { interfaces } from './supportedInterfaces.json';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -104,7 +105,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  * @param {string} domain
  */
 export const getContentHash = (resolverAddress, domain) => (dispatch) => {
-  dispatch(requestContent(CONTENT_HASH));
+  dispatch(requestContent(CONTENT_BYTES));
 
   const resolver = new web3.eth.Contract(
     resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
@@ -114,9 +115,9 @@ export const getContentHash = (resolverAddress, domain) => (dispatch) => {
 
   resolver.methods.content(hash).call()
     .then(value => dispatch(
-      receiveContent(CONTENT_HASH, (value === CONTENT_HASH_BLANK) ? '' : value),
+      receiveContent(CONTENT_BYTES, (value === CONTENT_BYTES_BLANK) ? '' : value),
     ))
-    .catch(error => dispatch(errorContent(CONTENT_HASH, error)));
+    .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
 
 /**
@@ -126,11 +127,11 @@ export const getContentHash = (resolverAddress, domain) => (dispatch) => {
  * @param {bytes32} value to be set
  */
 const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
-  dispatch(requestSetContent(CONTENT_HASH));
+  dispatch(requestSetContent(CONTENT_BYTES));
 
   // validation
   if (validateBytes32(value)) {
-    return dispatch(errorSetContent(CONTENT_HASH, validateBytes32(value)));
+    return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
 
   const resolver = new web3.eth.Contract(
@@ -143,12 +144,12 @@ const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
   return resolver.methods.setContent(namehash(domain), value).send(
     { from: currentAddress }, (error, result) => {
       if (error) {
-        return dispatch(errorSetContent(CONTENT_HASH, error.message));
+        return dispatch(errorSetContent(CONTENT_BYTES, error.message));
       }
 
       const transactionConfirmed = () => () => {
         dispatch(receiveSetContent(
-          CONTENT_HASH, result, (value === CONTENT_HASH_BLANK) ? '' : value,
+          CONTENT_BYTES, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
         ));
       };
 
@@ -159,29 +160,35 @@ const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
 
 /**
  * Function to handle content type when setting. This will be expanded as more
- * content types are supported. Currently, CONTENT_HASH is the only content type
+ * content types are supported. Currently, CONTENT_BYTES is the only content type
  * @param {const} contentType
  * @param {address} resolverAddress address of the resolver
  * @param {string} domain domain the content is associated with
  * @param {string} value value of the content
  */
 export const setContent = (contentType, resolverAddress, domain, value) => (dispatch) => {
-  if (contentType === CONTENT_HASH) {
+  if (contentType === CONTENT_BYTES) {
     dispatch(setContentHash(resolverAddress, domain, value));
   }
 };
-/*
-export const supportedInterfaces = resolverAddress => async (dispatch) => {
+
+/**
+ * Loops through manager's supported interfaces and checks if resolver also supports them.
+ * Currently, CONTENT_BYTES is the only content type supported.
+ * @param {address} resolverAddress
+ * @param {string} domain
+ */
+export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
-  abstractResolver.methods
-    .supportsInterface('0x2dff6941').call().then((supportsInterface) => {
-      if (supportsInterface) {
-        console.log('supports Interfacae 0x2dff6941', supportsInterface);
-        // return dispatch(actions.receiveSupportedInterface(resolverInterface.name));
-      } else {
-        console.log('does not support 0x2dff6941 :(', supportsInterface);
-      }
-    });
+  // loop throgh supported interfaces and if CONTENT_BYTES
+  interfaces.forEach((i) => {
+    abstractResolver.methods
+      .supportsInterface(i.interfaceId).call()
+      .then((supportsInterface) => {
+        if (supportsInterface && i.name === CONTENT_BYTES) {
+          dispatch(getContentHash(resolverAddress, domain));
+        }
+      });
+  });
 };
-*/
