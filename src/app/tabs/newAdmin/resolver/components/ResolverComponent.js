@@ -36,6 +36,7 @@ const ResolverComponent = ({
             value_prefix: '',
             cancel: strings.cancel,
             submit: strings.set,
+            edit_placeholder: strings.new_resolver_address,
           }}
         />
       </div>
@@ -54,6 +55,7 @@ ResolverComponent.propTypes = {
     multichain_resolver: propTypes.string.isRequired,
     string_resolver: propTypes.string.isRequired,
     custom_resolver: propTypes.string.isRequired,
+    new_resolver_address: propTypes.string.isRequired,
   }).isRequired,
   gettingResolver: propTypes.bool.isRequired,
   resolverName: propTypes.string.isRequired,

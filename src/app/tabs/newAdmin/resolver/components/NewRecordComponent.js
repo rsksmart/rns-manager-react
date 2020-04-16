@@ -91,7 +91,8 @@ NewRecordComponent.propTypes = {
     content_bytes: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
-  content: propTypes.shape().isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  content: propTypes.array.isRequired,
   handleSubmit: propTypes.func.isRequired,
   handleCloseMessage: propTypes.func.isRequired,
 };

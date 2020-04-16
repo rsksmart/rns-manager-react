@@ -353,5 +353,7 @@
   "delete_content_confirm": "Are you sure you want to remove the content?",
   "content_updated": "The content has been updated.",
   "content_bytes": "Content bytes",
-  "add_records": "Add records"
+  "add_records": "Add records",
+  "new_resolver_address": "New resolver address",
+  "record_set": "Record set"
 }

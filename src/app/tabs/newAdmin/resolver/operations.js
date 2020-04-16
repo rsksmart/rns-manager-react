@@ -176,6 +176,7 @@ const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => 
         dispatch(receiveSetContent(
           CONTENT_BYTES, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
         ));
+        sendBrowserNotification(domain, 'record_set');
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
