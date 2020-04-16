@@ -23,6 +23,8 @@ describe('register reducer', () => {
     gettingConversionRate: false,
     conversionRate: null,
     setupAddr: true,
+    successTx: '',
+    errorMessage: '',
   };
 
   it('should return the initial state', () => {
@@ -106,6 +108,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         committing: true,
+        errorMessage: '',
       });
   });
 
@@ -159,6 +162,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         committing: true,
+        errorMessage: '',
       });
 
     expect(
@@ -203,6 +207,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         committing: true,
+        errorMessage: '',
       });
 
     expect(
@@ -225,6 +230,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         revealing: true,
+        errorMessage: '',
       });
   });
 
@@ -247,6 +253,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         revealing: true,
+        errorMessage: '',
       });
 
     expect(
@@ -269,6 +276,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         revealing: true,
+        errorMessage: '',
       });
 
     expect(
@@ -315,6 +323,7 @@ describe('register reducer', () => {
     )
       .toEqual({
         revealing: true,
+        errorMessage: '',
       });
 
     expect(

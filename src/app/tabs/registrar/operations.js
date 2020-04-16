@@ -13,7 +13,8 @@ import {
   rif as rifAddress,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
-import { notifyError, notifyTx, txTypes } from '../../notifications';
+import transactionListener from '../../helpers/transactionListener';
+import { notifyError } from '../../notifications';
 import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
@@ -57,6 +58,13 @@ export const getConversionRate = () => async (dispatch) => {
   });
 };
 
+/**
+ * Commit to registering a domain, first step
+ * @param {string} domain domain to be registered
+ * @param {number} duration amount of time in years to register
+ * @param {number} rifCost the cost for the duration
+ * @param {bool} setupAddr should the domain setup the resolution for RSK
+ */
 export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
@@ -81,12 +89,13 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
       .methods
       .makeCommitment(`0x${sha3(domain)}`, currentAddress, salt)
       .call((error, hashCommit) => {
-        if (error) return resolve(dispatch(notifyError(error.message)));
+        if (error) {
+          return resolve(dispatch(errorRegistrarCommit(error.message)));
+        }
 
         return registrar.methods.commit(hashCommit).send((_error, result) => {
           if (_error) {
-            dispatch(errorRegistrarCommit());
-            return resolve(dispatch(notifyError(_error.message)));
+            return dispatch(errorRegistrarCommit(_error.message));
           }
 
           localStorage.setItem(`${domain}-options`, JSON.stringify({
@@ -97,10 +106,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
           }));
 
           dispatch(receiveCommitRegistrar(hashCommit));
-
-          const confirmedCallBack = () => { dispatch(commitTxMined()); };
-
-          return resolve(dispatch(notifyTx(result, '', { type: txTypes.REGISTRAR_COMMIT }, () => confirmedCallBack)));
+          return dispatch(transactionListener(result, () => dispatch(commitTxMined())));
         });
       });
   });
@@ -205,8 +211,7 @@ export const revealCommit = domain => async (dispatch) => {
       .transferAndCall(fifsAddress, weiValue.toString(), data)
       .send((error, result) => {
         if (error) {
-          dispatch(errorRevealCommit());
-          return resolve(dispatch(notifyError(error.message)));
+          return dispatch(errorRevealCommit(error.message));
         }
 
         localStorage.setItem(`${domain}-options`, JSON.stringify({
@@ -214,14 +219,15 @@ export const revealCommit = domain => async (dispatch) => {
           registerHash: result,
         }));
 
-        const revealCallback = () => {
+        const revealCallback = () => () => {
           dispatch(receiveRevealCommit());
-          dispatch(revealTxMined());
+          dispatch(revealTxMined(result));
           sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
           localStorage.setItem('name', `${domain}.rsk`);
           localStorage.removeItem(`${domain}-options`);
         };
-        return resolve(dispatch(notifyTx(result, '', { type: txTypes.REVEAL_COMMIT }, () => revealCallback)));
+
+        return resolve(dispatch(transactionListener(result, () => revealCallback())));
       });
   });
 };

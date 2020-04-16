@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
 import { checkIfAlreadyRegistered } from '../operations';
+import { closeErrorMessage } from '../actions';
 
 const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain,
@@ -16,11 +17,13 @@ const mapStateToProps = state => ({
   waiting: state.registrar.waiting,
   canReveal: state.registrar.canReveal,
   revealConfirmed: state.registrar.revealConfirmed,
+  errorMessage: state.registrar.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
   checkIfAlreadyRegistered: domain => dispatch(checkIfAlreadyRegistered(domain)),
+  handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 
 export default connect(

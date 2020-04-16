@@ -8,6 +8,7 @@ import {
 } from '../containers';
 import { isValidName } from '../../../validations';
 import { StartButtonContainer } from '../../../auth/containers';
+import UserErrorComponent from '../../../components/UserErrorComponent';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -67,7 +68,8 @@ class RegistrarComponent extends Component {
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
-      committed, waiting, canReveal, revealConfirmed, walletAddress,
+      committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
+      handleCloseClick,
     } = this.props;
     const { invalid } = this.state;
 
@@ -152,6 +154,12 @@ class RegistrarComponent extends Component {
               <AutoLoginComponent />
             )
           }
+
+          <UserErrorComponent
+            visible={errorMessage !== ''}
+            message={errorMessage}
+            handleCloseClick={handleCloseClick}
+          />
         </Container>
       );
     }
@@ -188,6 +196,8 @@ RegistrarComponent.propTypes = {
   canReveal: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool.isRequired,
   checkIfAlreadyRegistered: propTypes.func.isRequired,
+  errorMessage: propTypes.string.isRequired,
+  handleCloseClick: propTypes.func.isRequired,
 };
 
 RegistrarComponent.defaultProps = {
