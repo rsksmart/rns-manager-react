@@ -2,7 +2,7 @@ import {
   REQUEST_RESOLVER, RECEIVE_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
-  ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
+  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT,
 } from './types';
 
 export const requestResolver = () => ({
@@ -77,4 +77,8 @@ export const errorSetContent = (contentType, message) => ({
 export const closeSetMessage = contentType => ({
   type: CLOSE_SET_CONTENT,
   contentType,
+});
+
+export const clearAllContent = () => ({
+  type: CLEAR_ALL_CONTENT,
 });

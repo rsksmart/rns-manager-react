@@ -1,10 +1,25 @@
 import { connect } from 'react-redux';
+import { multiChainResolver, publicResolver } from '../../../../adapters/configAdapter';
+
 import AddressInputContainer from '../../../../components/AddressInputComponent';
 import { setDomainResolver } from '../operations';
 import { closeMessage } from '../actions';
 
+const getSuggestions = (resolver) => {
+  const resolvers = [
+    {
+      name: 'Public Resolver',
+      value: publicResolver,
+    },
+    {
+      name: 'Multichain Resolver',
+      value: multiChainResolver,
+    },
+  ];
 
-// eslint-disable-next-line no-unused-vars
+  return resolvers.filter(item => item.value.toLowerCase() !== resolver.toLowerCase());
+};
+
 const mapStateToProps = state => ({
   domain: state.auth.name,
   validation: true,
@@ -17,9 +32,9 @@ const mapStateToProps = state => ({
   errorMessage: state.newAdmin.resolver.errorMessage,
   isSuccess: state.newAdmin.resolver.successTx !== '',
   address: state.newAdmin.resolver.successTx,
+  suggestions: getSuggestions(state.newAdmin.resolver.resolverAddr),
 });
 
-// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (domain, value) => dispatch(setDomainResolver(domain, value)),
   handleErrorClose: () => dispatch(closeMessage()),

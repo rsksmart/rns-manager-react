@@ -91,7 +91,7 @@ NewRecordComponent.propTypes = {
     content_bytes: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
   }).isRequired,
-  content: propTypes.array.isRequired,
+  content: propTypes.shape().isRequired,
   handleSubmit: propTypes.func.isRequired,
   handleCloseMessage: propTypes.func.isRequired,
 };

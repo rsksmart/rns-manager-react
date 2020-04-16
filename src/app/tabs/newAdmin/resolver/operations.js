@@ -6,7 +6,7 @@ import { validateBytes32 } from '../../../validations';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
-  receiveSetContent, errorSetContent,
+  receiveSetContent, errorSetContent, clearAllContent,
 } from './actions';
 import { getAllChainAddresses } from '../addresses/operations';
 
@@ -64,6 +64,51 @@ export const getDomainResolver = domain => async (dispatch) => {
     });
 };
 
+
+/**
+ * Get the content Bytes from the given resolver
+ * @param {address} resolverAddress to be queried
+ * @param {string} domain
+ */
+export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
+  dispatch(requestContent(CONTENT_BYTES));
+
+  const resolver = new web3.eth.Contract(
+    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  const hash = namehash(domain);
+
+  resolver.methods.content(hash).call()
+    .then(value => dispatch(
+      receiveContent(CONTENT_BYTES, (value === CONTENT_BYTES_BLANK) ? '' : value),
+    ))
+    .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
+};
+
+/**
+ * Loops through manager's supported interfaces and checks if resolver also supports them.
+ * Currently, CONTENT_BYTES is the only content type supported.
+ * @param {address} resolverAddress
+ * @param {string} domain
+ */
+export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
+  dispatch(clearAllContent());
+  const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
+
+  // loop throgh supported interfaces and if CONTENT_BYTES
+  interfaces.forEach((i) => {
+    abstractResolver.methods
+      .supportsInterface(i.interfaceId).call()
+      .then((supportsInterface) => {
+        if (supportsInterface && i.name === CONTENT_BYTES) {
+          dispatch(getContentBytes(resolverAddress, domain));
+        }
+      });
+  });
+};
+
+
 /**
  * Sets the resolver for a specified domain
  * @param {string} domain the domain to set
@@ -90,6 +135,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
           result, resolverAddress, resolverName,
         ));
         dispatch(getAllChainAddresses(domain, resolverName));
+        dispatch(supportedInterfaces(resolverAddress, domain));
         sendBrowserNotification(domain, 'resolver_set_success');
       };
 
@@ -100,33 +146,12 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
 };
 
 /**
- * Get the content hash from the given resolver
- * @param {address} resolverAddress to be queried
- * @param {string} domain
- */
-export const getContentHash = (resolverAddress, domain) => (dispatch) => {
-  dispatch(requestContent(CONTENT_BYTES));
-
-  const resolver = new web3.eth.Contract(
-    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
-  );
-
-  const hash = namehash(domain);
-
-  resolver.methods.content(hash).call()
-    .then(value => dispatch(
-      receiveContent(CONTENT_BYTES, (value === CONTENT_BYTES_BLANK) ? '' : value),
-    ))
-    .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
-};
-
-/**
- * Sets the ContentHash for the domain
+ * Sets the ContentBytes for the domain
  * @param {address} resolverAddress address of the Resolver used
  * @param {string} domain to be associated with the data
  * @param {bytes32} value to be set
  */
-const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
+const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_BYTES));
 
   // validation
@@ -168,27 +193,6 @@ const setContentHash = (resolverAddress, domain, value) => async (dispatch) => {
  */
 export const setContent = (contentType, resolverAddress, domain, value) => (dispatch) => {
   if (contentType === CONTENT_BYTES) {
-    dispatch(setContentHash(resolverAddress, domain, value));
+    dispatch(setContentBytes(resolverAddress, domain, value));
   }
-};
-
-/**
- * Loops through manager's supported interfaces and checks if resolver also supports them.
- * Currently, CONTENT_BYTES is the only content type supported.
- * @param {address} resolverAddress
- * @param {string} domain
- */
-export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
-  const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
-
-  // loop throgh supported interfaces and if CONTENT_BYTES
-  interfaces.forEach((i) => {
-    abstractResolver.methods
-      .supportsInterface(i.interfaceId).call()
-      .then((supportsInterface) => {
-        if (supportsInterface && i.name === CONTENT_BYTES) {
-          dispatch(getContentHash(resolverAddress, domain));
-        }
-      });
-  });
 };

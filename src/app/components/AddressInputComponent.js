@@ -30,6 +30,7 @@ const AddressInputComponent = ({
   successTx,
   validationChainId,
   validation,
+  suggestions,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -174,18 +175,28 @@ const AddressInputComponent = ({
               {strings.submit}
             </Button>
           </div>
+          <ul className="suggestions">
+            {suggestions.map(item => (
+              <li key={item.value}>
+                <button
+                  type="button"
+                  onClick={() => setEditText(item.value)}
+                >
+                  {item.name}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
         )
       }
-      {isChecksumError
-        && (
-          <ChecksumErrorContainer
-            show={isChecksumError}
-            inputValue={editText}
-            handleClick={() => handleChecksumClick()}
-          />
-        )
-      }
+
+      <ChecksumErrorContainer
+        show={isChecksumError}
+        inputValue={editText}
+        handleClick={() => handleChecksumClick()}
+      />
+
       {isDeleting
         && (
           <div className="delete">
@@ -261,6 +272,7 @@ AddressInputComponent.defaultProps = {
   handleSuccessClose: () => {},
   labelDisplay: null,
   labelIcon: null,
+  suggestions: [],
 };
 
 AddressInputComponent.propTypes = {
@@ -280,6 +292,10 @@ AddressInputComponent.propTypes = {
   value: propTypes.string.isRequired,
   validationChainId: propTypes.string,
   strings: propTypes.shape(),
+  suggestions: propTypes.arrayOf(propTypes.shape({
+    name: propTypes.string,
+    value: propTypes.value,
+  })),
 };
 
 export default AddressInputComponent;

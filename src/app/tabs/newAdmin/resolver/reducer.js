@@ -2,7 +2,7 @@ import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
-  RECEIVE_SET_CONTENT,
+  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT,
 } from './types';
 
 const initialState = {
@@ -132,6 +132,11 @@ const resolverReducer = (state = initialState, action) => {
           successTx: '',
         },
       },
+    };
+
+    case CLEAR_ALL_CONTENT: return {
+      ...state,
+      content: [],
     };
     default: return state;
   }
