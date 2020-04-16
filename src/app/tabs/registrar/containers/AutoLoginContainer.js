@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetRegistrarState());
   },
   handleRegisterNewClick: () => {
-    dispatch(push('/search'));
+    dispatch(push('/'));
     dispatch(resetRegistrarState());
   },
 });

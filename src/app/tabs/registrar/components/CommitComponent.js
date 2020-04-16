@@ -48,6 +48,11 @@ class CommitComponent extends Component {
             </OverlayTrigger>
           </Col>
         </Row>
+        <Row>
+          <div className="col-md-4 offset-md-4">
+            <p className="explanation">{strings.process_step_1_explanation}</p>
+          </div>
+        </Row>
         <Row className="major-section">
           <Col>
             {
@@ -64,11 +69,6 @@ class CommitComponent extends Component {
                 )
             }
           </Col>
-        </Row>
-        <Row>
-          <div className="col-md-6 offset-md-3">
-            <p className="explanation">{strings.process_step_1_explanation}</p>
-          </div>
         </Row>
       </Container>
     );

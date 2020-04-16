@@ -214,8 +214,8 @@ export const revealCommit = domain => async (dispatch) => {
           registerHash: result,
         }));
 
-        dispatch(receiveRevealCommit());
         const revealCallback = () => {
+          dispatch(receiveRevealCommit());
           dispatch(revealTxMined());
           sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
           localStorage.setItem('name', `${domain}.rsk`);

@@ -78,8 +78,7 @@ class RentalPeriodComponent extends Component {
             <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
           </InputGroup.Append>
         </InputGroup>
-        <p>{strings.period_in_years}</p>
-        <p className="blue">{strings.discount}</p>
+        <p>{strings.years}</p>
       </div>
     );
 
@@ -98,6 +97,7 @@ class RentalPeriodComponent extends Component {
             {(!gettingConversionRate && conversionRate) && <>{`$${usdAmount} USD`}</> }
           </p>
         </div>
+        <p className="blue">{strings.discount}</p>
       </div>
     );
 
@@ -137,7 +137,7 @@ class RentalPeriodComponent extends Component {
 
 RentalPeriodComponent.propTypes = {
   strings: propTypes.shape({
-    period_in_years: propTypes.string.isRequired,
+    years: propTypes.string.isRequired,
     discount: propTypes.string.isRequired,
     price: propTypes.string.isRequired,
     how_long_want_domain: propTypes.string.isRequired,

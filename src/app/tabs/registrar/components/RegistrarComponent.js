@@ -89,26 +89,28 @@ class RegistrarComponent extends Component {
       } else {
         const isOwner = walletAddress === owner.toLowerCase();
         elementToRender = (
-          <Card>
-            <Card.Header>{strings.owned}</Card.Header>
-            <Card.Body>
-              <p>
-                <strong>
-                  {strings.owner}
-                  {': '}
-                </strong>
-                {owner}
-              </p>
-              <p>
-                {isOwner && <StartButtonContainer />}
-                {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
-              </p>
-            </Card.Body>
-          </Card>
+          <Container className="page">
+            <Card>
+              <Card.Header>{strings.owned}</Card.Header>
+              <Card.Body>
+                <p>
+                  <strong>
+                    {strings.owner}
+                    {': '}
+                  </strong>
+                  {owner}
+                </p>
+                <p>
+                  {isOwner && <StartButtonContainer />}
+                  {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
+                </p>
+              </Card.Body>
+            </Card>
+          </Container>
         );
       }
     } else if (blocked) {
-      elementToRender = <h4>{strings.blocked_domain}</h4>;
+      elementToRender = <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
     } else {
       const domainDisplay = `${domain}.rsk`;
 
@@ -119,6 +121,7 @@ class RegistrarComponent extends Component {
               <h1 className="sub-heading">
                 {strings.registering}
                 {': '}
+                <br />
                 <span className="domain">{domainDisplay}</span>
               </h1>
             </div>
