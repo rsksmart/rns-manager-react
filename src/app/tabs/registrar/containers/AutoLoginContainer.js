@@ -5,7 +5,9 @@ import { resetRegistrarState } from '../actions';
 
 import { autoLogin } from '../../../auth/operations';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  successTx: state.registrar.successTx,
+});
 
 const mapDispatchToProps = dispatch => ({
   handleManageClick: () => {
@@ -14,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetRegistrarState());
   },
   handleRegisterNewClick: () => {
-    dispatch(push('/search'));
+    dispatch(push('/'));
     dispatch(resetRegistrarState());
   },
 });

@@ -5,7 +5,7 @@ import {
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
-  TOGGLE_SETUP_ADDRESS,
+  TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -29,8 +29,9 @@ export const receiveCommitRegistrar = (hash, commitConfirmed) => ({
   commitConfirmed,
 });
 
-export const errorRegistrarCommit = () => ({
+export const errorRegistrarCommit = message => ({
   type: ERROR_REGISTRAR_COMMIT,
+  message,
 });
 
 export const requestRevealCommit = () => ({
@@ -41,8 +42,9 @@ export const receiveRevealCommit = () => ({
   type: RECEIVE_REGISTRAR_REVEAL_COMMIT,
 });
 
-export const errorRevealCommit = () => ({
+export const errorRevealCommit = message => ({
   type: ERROR_REGISTRAR_REVEAL_COMMIT,
+  message,
 });
 
 export const receiveCanRevealCommit = canReveal => ({
@@ -58,8 +60,9 @@ export const commitTxMined = () => ({
   type: REGISTRAR_COMMIT_CONFIRMED,
 });
 
-export const revealTxMined = () => ({
+export const revealTxMined = successTx => ({
   type: REVEAL_COMMIT_CONFIRMED,
+  successTx,
 });
 
 export const resetRegistrarState = () => ({
@@ -82,4 +85,8 @@ export const errorConversionRate = () => ({
 export const toggleSetupAddr = setupAddr => ({
   type: TOGGLE_SETUP_ADDRESS,
   setupAddr: !setupAddr,
+});
+
+export const closeErrorMessage = () => ({
+  type: CLOSE_REGISTRATION_ERROR,
 });

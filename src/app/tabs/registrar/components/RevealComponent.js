@@ -2,12 +2,13 @@ import React from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Row, Button, Spinner,
+  Row, Button,
 } from 'react-bootstrap';
+import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 const RevealComponent = (props) => {
   const {
-    strings, revealCommit, revealing, domain, revealed, revealConfirmed,
+    strings, revealCommit, revealing, domain,
   } = props;
 
   return (
@@ -25,32 +26,26 @@ const RevealComponent = (props) => {
         </div>
       </Row>
       <Row>
-        <div className="col-md-4 offset-md-4">
-          {revealing || (revealed && !revealConfirmed)
-            ? <Spinner animation="grow" variant="primary" className="major-section" />
-            : (
-              <Button
-                disabled={revealing}
-                onClick={revealCommit}
-                className="minor-section"
-              >
-                {strings.register_domain}
-              </Button>
-            )
-        }
-        </div>
-      </Row>
-      <Row className="large-break-above">
-        <div className="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
-          <p>{strings.wait_transation_confirmed}</p>
-        </div>
+        <UserWaitingComponent
+          message={strings.wait_transation_confirmed}
+          visible={revealing}
+        />
+
+        {!revealing
+        && (
+          <div className="col-md-4 offset-md-4">
+            <Button
+              disabled={revealing}
+              onClick={revealCommit}
+              className="minor-section"
+            >
+              {strings.register_domain}
+            </Button>
+          </div>
+        )}
       </Row>
     </>
   );
-};
-
-RevealComponent.defaultProps = {
-  revealConfirmed: false,
 };
 
 RevealComponent.propTypes = {
@@ -64,8 +59,6 @@ RevealComponent.propTypes = {
   }).isRequired,
   revealCommit: propTypes.func.isRequired,
   revealing: propTypes.bool.isRequired,
-  revealConfirmed: propTypes.bool,
-  revealed: propTypes.bool.isRequired,
   domain: propTypes.string.isRequired,
 };
 
