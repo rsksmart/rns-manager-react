@@ -1,24 +1,8 @@
 import { connect } from 'react-redux';
-import { multiChainResolver, publicResolver } from '../../../../adapters/configAdapter';
 
 import AddressInputContainer from '../../../../components/AddressInputComponent';
 import { setDomainResolver } from '../operations';
 import { closeMessage } from '../actions';
-
-const getSuggestions = (resolver) => {
-  const resolvers = [
-    {
-      name: 'Public Resolver',
-      value: publicResolver,
-    },
-    {
-      name: 'Multichain Resolver',
-      value: multiChainResolver,
-    },
-  ];
-
-  return resolvers.filter(item => item.value.toLowerCase() !== resolver.toLowerCase());
-};
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -32,7 +16,6 @@ const mapStateToProps = state => ({
   errorMessage: state.newAdmin.resolver.errorMessage,
   isSuccess: state.newAdmin.resolver.successTx !== '',
   address: state.newAdmin.resolver.successTx,
-  suggestions: getSuggestions(state.newAdmin.resolver.resolverAddr),
 });
 
 const mapDispatchToProps = dispatch => ({
