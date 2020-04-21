@@ -72,7 +72,7 @@ class RegistrarComponent extends Component {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
       committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
-      handleCloseClick, language
+      handleCloseClick, language,
     } = this.props;
     const { invalid } = this.state;
 

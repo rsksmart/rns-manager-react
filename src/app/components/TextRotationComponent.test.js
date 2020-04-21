@@ -22,7 +22,7 @@ describe('TextRotationComponent', () => {
   it('renders, places correct content with bold and matches snapshot', () => {
     const component = mount(<TextRotationComponent {...initProps} />);
 
-    expect(component.find('h3').text()).toBe('the heading');
+    expect(component.find('h3').text()).toBe('the heading...');
     expect(component.find('p').at(0).html()).toBe('<p>hello <strong>world</strong>.</p>');
     expect(component.find('a').text()).toBe('click');
 

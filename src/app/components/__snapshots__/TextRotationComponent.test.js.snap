@@ -48,7 +48,7 @@ exports[`TextRotationComponent renders, places correct content with bold and mat
     <h3
       className="blue"
     >
-      the heading
+      the heading...
     </h3>
     <p
       dangerouslySetInnerHTML={
