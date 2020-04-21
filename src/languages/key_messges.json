@@ -1,2354 +1,1570 @@
 [
   {
     "id": "rns-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "You can $integrate your application with RNS$ using the open-source libraries.",
-          "link_label": "Read the integration guidelines"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "You can $integrate your application with RNS$ using the open-source libraries.",
+      "link_label": "Read the integration guidelines"
+    },
     "link": "https://developers.rsk.co/rif/rns/integrate"
   },
   {
     "id": "rns-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "After registering your domain, you can create as many subdomains as you want to.",
-          "link_label": "How to create subdomains"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "After registering your domain, you can create as many subdomains as you want to.",
+      "link_label": "How to create subdomains"
+    },
     "link": ""
   },
   {
     "id": "rns-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "You can use your RNS domain for different cryptocurrencies.",
-          "link_label": "How to set your addresses"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "You can use your RNS domain for different cryptocurrencies.",
+      "link_label": "How to set your addresses"
+    },
     "link": ""
   },
   {
     "id": "rns-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "After registering your domain, you are able to extend the expiration time whenever you need to.",
-          "link_label": "How to extend expiration time"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "After registering your domain, you are able to extend the expiration time whenever you need to.",
+      "link_label": "How to extend expiration time"
+    },
     "link": ""
   },
   {
     "id": "rns-04",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Name Service is based on protocol specifications that allow applications use the service in a correct way.",
-          "link_label": "Read RNS specifications"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Name Service is based on protocol specifications that allow applications use the service in a correct way.",
+      "link_label": "Read RNS specifications"
+    },
     "link": "https://developers.rsk.co/rif/rns/specs"
   },
   {
     "id": "rns-05",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Name Service is developed over the RSK smart contract platform named, thus ensuring security and permissionless control of domains.",
-          "link_label": "Read about RNS architecture"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Name Service is developed over the RSK smart contract platform named, thus ensuring security and permissionless control of domains.",
+      "link_label": "Read about RNS architecture"
+    },
     "link": "https://developers.rsk.co/rif/rns/architecture"
   },
   {
     "id": "rd-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Directory is developing $Verifiable Credential$ (VCs), removing the identity providers from the central role.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Directory is developing $Verifiable Credential$ (VCs), removing the identity providers from the central role.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Directory enables a $Decentralized Identity$ (DID) giving individuals control of their identity attributes.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Directory enables a $Decentralized Identity$ (DID) giving individuals control of their identity attributes.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Trustless $login services$ are a key component of the RIF Directory protocol.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Trustless $login services$ are a key component of the RIF Directory protocol.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "$Single sign on$ (SSO) allows users to browse in an app without re-entering login credentials. RIF is developing blockchain based authentication services.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "$Single sign on$ (SSO) allows users to browse in an app without re-entering login credentials. RIF is developing blockchain based authentication services.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-04",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "You no longer have to give up control of personal information to dozens of databases each time you want to access new goods and services with RIF $Self-sovereign identities$ (SSI).",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "You no longer have to give up control of personal information to dozens of databases each time you want to access new goods and services with RIF $Self-sovereign identities$ (SSI).",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-05",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Directory protocol standards are built ensuring $data portability$, thus promoting interoperability.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Directory protocol standards are built ensuring $data portability$, thus promoting interoperability.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-06",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF allows building communities where members can rate each other in order to build trust through $reputation$.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF allows building communities where members can rate each other in order to build trust through $reputation$.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-07",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Directory team is building $Zero Knowledge Proof credentials$ (ZKP credentials). This allows party to prove that he/she is credited of something without transmitting this credential.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Directory team is building $Zero Knowledge Proof credentials$ (ZKP credentials). This allows party to prove that he/she is credited of something without transmitting this credential.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-08",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Pains of loosing keys will be solved by $key management$ providers powered by RIF.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Pains of loosing keys will be solved by $key management$ providers powered by RIF.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-09",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Let your friends or family be able to use the $social recovery$ functionality to recover your funds.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Let your friends or family be able to use the $social recovery$ functionality to recover your funds.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rd-10",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "$Data monetization$ is the process of using data to increase revenue. RIF Directory will provide incentives for data sharing.",
-          "link_label": "Read about RIF Directory"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "$Data monetization$ is the process of using data to increase revenue. RIF Directory will provide incentives for data sharing.",
+      "link_label": "Read about RIF Directory"
+    },
     "link": "https://www.rifos.org/directory"
   },
   {
     "id": "rp-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Payments is a protocol for scalable crypto payments solutions.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Payments is a protocol for scalable crypto payments solutions.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "$Lumino payment network$ allows high number of transactions per second, low fees and fast confirmation times.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "$Lumino payment network$ allows high number of transactions per second, low fees and fast confirmation times.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Lumino network $invoicing$ feature allows to request for payments to other parities, including payment expiration date, amount and the type of asset accepted.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Lumino network $invoicing$ feature allows to request for payments to other parities, including payment expiration date, amount and the type of asset accepted.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Lumino team designed a $light client$ node enabling users to connect to the network from their browsers and mobile phones.",
-          "link_label": "Read RIF Payments light client docs"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Lumino team designed a $light client$ node enabling users to connect to the network from their browsers and mobile phones.",
+      "link_label": "Read RIF Payments light client docs"
+    },
     "link": "https://developers.rsk.co/rif/lumino/light-client/"
   },
   {
     "id": "rp-04",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Lumino $network hubs$ enable instant payments all over the world.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Lumino $network hubs$ enable instant payments all over the world.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-05",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The $watchtowers$ provide the RIF Lumino network of an extra security layer, ensuring that all network participants remain reliable.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The $watchtowers$ provide the RIF Lumino network of an extra security layer, ensuring that all network participants remain reliable.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-06",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "With RIF Payments you will be able to perform $cross network payments$ with high level of security and portability.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "With RIF Payments you will be able to perform $cross network payments$ with high level of security and portability.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rp-07",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Payments $cross tokens payments$ protocol is designed to allow paying with any desired asset for a service.",
-          "link_label": "Read about RIF Payments"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Payments $cross tokens payments$ protocol is designed to allow paying with any desired asset for a service.",
+      "link_label": "Read about RIF Payments"
+    },
     "link": "https://www.rifos.org/payments"
   },
   {
     "id": "rs-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The $RIF Storage$ protocol is all you need for your decentralised usecases. It is censorship resistant, permissionless, anonymous and fault tolerant.",
-          "link_label": "Read about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The $RIF Storage$ protocol is all you need for your decentralised usecases. It is censorship resistant, permissionless, anonymous and fault tolerant.",
+      "link_label": "Read about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rs-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The integration of RIF Storage services and RIF Name Service allows users to browse sites inside the $decentralized web$.",
-          "link_label": "Read about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The integration of RIF Storage services and RIF Name Service allows users to browse sites inside the $decentralized web$.",
+      "link_label": "Read about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rs-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Use the $RIF Storage libraries$ to connect to different decentralized storage providers.",
-          "link_label": "Read RIF Storage docs"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Use the $RIF Storage libraries$ to connect to different decentralized storage providers.",
+      "link_label": "Read RIF Storage docs"
+    },
     "link": "https://developers.rsk.co/rif/storage/"
   },
   {
     "id": "rs-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Storage allows to connect to $IPFS and Swarm$ storage providers seamlessly.",
-          "link_label": "Read about RIF Storage architecture"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Storage allows to connect to $IPFS and Swarm$ storage providers seamlessly.",
+      "link_label": "Read about RIF Storage architecture"
+    },
     "link": "https://developers.rsk.co/rif/storage/architecture"
   },
   {
     "id": "rs-04",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Use the public RIF Storage gateways to connect to the incentivised Swarm test network.",
-          "link_label": "Use the RIF Storage to connect to Swarm"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Use the public RIF Storage gateways to connect to the incentivised Swarm test network.",
+      "link_label": "Use the RIF Storage to connect to Swarm"
+    },
     "link": "https://swarm.rifgateways.org/"
   },
   {
     "id": "rs-05",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF Storage persistent storage service offers unique decentralized solution for data replication and persistence.",
-          "link_label": "Read more about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF Storage persistent storage service offers unique decentralized solution for data replication and persistence.",
+      "link_label": "Read more about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rs-06",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "With the SWAP protocol $bandwidth incentives$ you can soon earn RIF tokens when providing your unused storage to the network.",
-          "link_label": "Read more about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "With the SWAP protocol $bandwidth incentives$ you can soon earn RIF tokens when providing your unused storage to the network.",
+      "link_label": "Read more about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rs-07",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The $RIF Storage incentives$ a motivation to success on long term storage services, putting up security deposits.",
-          "link_label": "Read more about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The $RIF Storage incentives$ a motivation to success on long term storage services, putting up security deposits.",
+      "link_label": "Read more about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rs-08",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The architecture of the RIF Storage will provide secure simple and effective ways to $monitor published files$ in different services.",
-          "link_label": "Read about RIF Storage architecture"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The architecture of the RIF Storage will provide secure simple and effective ways to $monitor published files$ in different services.",
+      "link_label": "Read about RIF Storage architecture"
+    },
     "link": "https://developers.rsk.co/rif/storage/architecture"
   },
   {
     "id": "rs-09",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The infrastructure required to build solutions beyond RIF Storage services is dynamically managed with the $spawning nodes$ feature.",
-          "link_label": "Read more about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The infrastructure required to build solutions beyond RIF Storage services is dynamically managed with the $spawning nodes$ feature.",
+      "link_label": "Read more about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rg-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "$RIF Gateways$ protocols allow bidirectional data transfers between the blockchain and the outside world.",
-          "link_label": "Read more about RIF Gateways"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "$RIF Gateways$ protocols allow bidirectional data transfers between the blockchain and the outside world.",
+      "link_label": "Read more about RIF Gateways"
+    },
     "link": "https://www.rifos.org/gateways"
   },
   {
     "id": "rg-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Gateways is providing $oracle services$ that permit blockchain applications to collect information from external sources.",
-          "link_label": "Read more about RIF Gateways"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Gateways is providing $oracle services$ that permit blockchain applications to collect information from external sources.",
+      "link_label": "Read more about RIF Gateways"
+    },
     "link": "https://www.rifos.org/gateways"
   },
   {
     "id": "rg-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Gateways $triggers technology$ defines a standardized way to consume blockchain events and trigger actions in external systems.",
-          "link_label": "Read more about RIF Gateways"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Gateways $triggers technology$ defines a standardized way to consume blockchain events and trigger actions in external systems.",
+      "link_label": "Read more about RIF Gateways"
+    },
     "link": "https://www.rifos.org/gateways"
   },
   {
     "id": "rg-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "Keeping your decentralized application synchronized with real-world events is easier with RIF Gateways.",
-          "link_label": "Read more about RIF Gateways"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "Keeping your decentralized application synchronized with real-world events is easier with RIF Gateways.",
+      "link_label": "Read more about RIF Gateways"
+    },
     "link": "https://www.rifos.org/gateways"
   },
   {
     "id": "rc-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Communications allows parties in a $peer-to-peer$ network to discover each other and establish secure communication channels, with assured anonymity, confidentiality, integrity and authenticity.",
-          "link_label": "Read more about RIF Communications"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Communications allows parties in a $peer-to-peer$ network to discover each other and establish secure communication channels, with assured anonymity, confidentiality, integrity and authenticity.",
+      "link_label": "Read more about RIF Communications"
+    },
     "link": "https://www.rifos.org/communications"
   },
   {
     "id": "rc-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Communications is a network of nodes connected through $forwarding Kademlia protocol$.",
-          "link_label": "Read more about RIF Communications"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Communications is a network of nodes connected through $forwarding Kademlia protocol$.",
+      "link_label": "Read more about RIF Communications"
+    },
     "link": "https://www.rifos.org/communications"
   },
   {
     "id": "rc-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The $RIF Communications$ solution is all you need to add anonymous decentralized communication functionality to your decentralized application.",
-          "link_label": "Read about RIF Storage"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The $RIF Communications$ solution is all you need to add anonymous decentralized communication functionality to your decentralized application.",
+      "link_label": "Read about RIF Storage"
+    },
     "link": "https://www.rifos.org/storage"
   },
   {
     "id": "rm-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "$RIF Marketplace$ allows service providers and consumers to meet and engage in a secure and efficient way.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "$RIF Marketplace$ allows service providers and consumers to meet and engage in a secure and efficient way.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rm-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Marketplace inherits the benefits of a $fully decentralized market$: security transparency, censorship resistance, immutability, and self-owned reputation.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Marketplace inherits the benefits of a $fully decentralized market$: security transparency, censorship resistance, immutability, and self-owned reputation.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rm-02",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Marketplace provides $staking, slashing, and dispute resolution mechanisms$ to ensure all parties fulfill their obligations.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Marketplace provides $staking, slashing, and dispute resolution mechanisms$ to ensure all parties fulfill their obligations.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rm-03",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Marketplace will allow to $sell RIF Name Service domains$ in a secure and trustless manner.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Marketplace will allow to $sell RIF Name Service domains$ in a secure and trustless manner.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rm-04",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF Marketplace allows Service Providers and Consumers to meet and engage in a secure and efficient way.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF Marketplace allows Service Providers and Consumers to meet and engage in a secure and efficient way.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rt-00",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "RIF is building $meta-transaction services$ allowing dApps or apps users to create transactions without gas.",
-          "link_label": "Read more about RIF"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "RIF is building $meta-transaction services$ allowing dApps or apps users to create transactions without gas.",
+      "link_label": "Read more about RIF"
+    },
     "link": "https://www.rifos.org/marketplace"
   },
   {
     "id": "rt-01",
-    "languages": [
-      {
-        "es_uy": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ja": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ko": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "pt_br": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "ru": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "zh_cn": {
-          "content": "",
-          "link_label": ""
-        }
-      },
-      {
-        "en": {
-          "content": "The RIF unified explorer will allow to access and manage all RIF services from a unique place.",
-          "link_label": "Read more about RIF Marketplace"
-        }
-      }
-    ],
+    "es_uy": {
+      "content": "",
+      "link_label": ""
+    },
+    "ja": {
+      "content": "",
+      "link_label": ""
+    },
+    "ko": {
+      "content": "",
+      "link_label": ""
+    },
+    "pt_br": {
+      "content": "",
+      "link_label": ""
+    },
+    "ru": {
+      "content": "",
+      "link_label": ""
+    },
+    "zh_cn": {
+      "content": "",
+      "link_label": ""
+    },
+    "en": {
+      "content": "The RIF unified explorer will allow to access and manage all RIF services from a unique place.",
+      "link_label": "Read more about RIF Marketplace"
+    },
     "link": "https://www.rifos.org/marketplace"
   }
 ]
