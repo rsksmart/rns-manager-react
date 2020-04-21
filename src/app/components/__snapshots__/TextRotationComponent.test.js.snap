@@ -50,22 +50,14 @@ exports[`TextRotationComponent renders, places correct content with bold and mat
     >
       the heading...
     </h3>
-    <p
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "hello <strong>world</strong>.",
-        }
-      }
-    />
     <p>
-      <a
-        href="https://developers.rsk.co/rif/rns/integrate"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        click
-      </a>
+      hello 
+      <strong>
+        world
+      </strong>
+      .
     </p>
+    <p />
   </div>
 </TextRotationComponent>
 `;

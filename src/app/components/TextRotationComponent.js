@@ -18,10 +18,17 @@ const TextRotationComponent = ({
     return () => clearTimeout(timer);
   }, [counter]);
 
-  const singleMessage = messages[counter];
-  const content = singleMessage[language].content.replace('$', '<strong>').replace('$', '</strong>');
-  // eslint-disable-next-line react/no-danger
-  const contentParagraph = <p dangerouslySetInnerHTML={{ __html: content }} />;
+  const singleMessage = messages[counter][language];
+  const contentArray = singleMessage.content.split('$');
+  const contentParagraph = contentArray.length === 1
+    ? singleMessage.content
+    : (
+      <p>
+        {contentArray[0]}
+        <strong>{contentArray[1]}</strong>
+        {contentArray[2]}
+      </p>
+    );
 
   return (
     <div className="text-rotation">
@@ -34,7 +41,7 @@ const TextRotationComponent = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            {singleMessage[language].link_label}
+            {singleMessage.link_label}
           </a>
         )}
       </p>
@@ -49,7 +56,7 @@ TextRotationComponent.defaultProps = {
 TextRotationComponent.propTypes = {
   language: propTypes.string.isRequired,
   heading: propTypes.string.isRequired,
-  messages: propTypes.shape({}).isRequired,
+  messages: propTypes.arrayOf(propTypes.shape()).isRequired,
   timer: propTypes.number,
 };
 
