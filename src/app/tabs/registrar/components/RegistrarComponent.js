@@ -9,6 +9,9 @@ import {
 import { isValidName } from '../../../validations';
 import { StartButtonContainer } from '../../../auth/containers';
 import UserErrorComponent from '../../../components/UserErrorComponent';
+import { shuffle } from '../helpers';
+import TextRotationComponent from '../../../components/TextRotationComponent';
+import keyMessages from '../../../../languages/key_messges.json';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -69,7 +72,7 @@ class RegistrarComponent extends Component {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
       committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
-      handleCloseClick,
+      handleCloseClick, language
     } = this.props;
     const { invalid } = this.state;
 
@@ -141,7 +144,17 @@ class RegistrarComponent extends Component {
             )
           }
 
-          {waiting && <LoadingContainer />}
+          {waiting && (
+          <>
+            <LoadingContainer />
+            <TextRotationComponent
+              messages={shuffle(keyMessages)}
+              language={language}
+              heading={strings.did_you_know}
+              timer="6000"
+            />
+          </>
+          )}
 
           {(canReveal && !revealConfirmed)
             && (
@@ -182,6 +195,7 @@ RegistrarComponent.propTypes = {
     request_domain: propTypes.string.isRequired,
     register_domain: propTypes.string.isRequired,
     login: propTypes.string.isRequired,
+    did_you_know: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
@@ -198,6 +212,7 @@ RegistrarComponent.propTypes = {
   checkIfAlreadyRegistered: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
+  language: propTypes.string.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

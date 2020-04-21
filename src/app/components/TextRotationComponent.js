@@ -5,16 +5,17 @@ const TextRotationComponent = ({
   heading, language, messages, timer,
 }) => {
   const [counter, setCounter] = useState(0);
+  const updateCounter = () => {
+    // eslint-disable-next-line react/prop-types
+    const next = counter === (messages.length - 1) ? 0 : counter + 1;
+    setCounter(next);
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // eslint-disable-next-line react/prop-types
-      const next = counter === (messages.length - 1) ? 0 : counter + 1;
-      setCounter(next);
-    }, timer);
-    return () => {
-      clearInterval(interval);
-    };
+    setTimeout(() => {
+      updateCounter();
+    }, 6000);
+    return () => clearTimeout(timer);
   }, [counter]);
 
   const singleMessage = messages[counter];
@@ -24,7 +25,7 @@ const TextRotationComponent = ({
 
   return (
     <div className="text-rotation">
-      <h3 className="blue">{heading}</h3>
+      <h3 className="blue">{`${heading}...`}</h3>
       {contentParagraph}
       <p>
         {singleMessage.link && (
