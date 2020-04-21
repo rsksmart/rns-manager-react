@@ -1,0 +1,296 @@
+[
+  {
+    "id": "rns-00",
+    "content": "You can $integrate your application with RNS$ using the open-source libraries.",
+    "link": "https://developers.rsk.co/rif/rns/integrate",
+    "link_label": "Read the integration guidelines"
+  },
+  {
+    "id": "rns-01",
+    "content": "After registering your domain, you can create as many subdomains as you want to.",
+    "link": "",
+    "link_label": "How to create subdomains"
+  },
+  {
+    "id": "rns-02",
+    "content": "You can use your RNS domain for different cryptocurrencies.",
+    "link": "",
+    "link_label": "How to set your addresses"
+  },
+  {
+    "id": "rns-03",
+    "content": "After registering your domain, you are able to extend the expiration time whenever you need to.",
+    "link": "",
+    "link_label": "How to extend expiration time"
+  },
+  {
+    "id": "rns-04",
+    "content": "The RIF Name Service is based on protocol specifications that allow applications use the service in a correct way.",
+    "link": "https://developers.rsk.co/rif/rns/specs",
+    "link_label": "Read RNS specifications"
+  },
+  {
+    "id": "rns-05",
+    "content": "The RIF Name Service is developed over the RSK smart contract platform named, thus ensuring security and permissionless control of domains.",
+    "link": "https://developers.rsk.co/rif/rns/architecture",
+    "link_label": "Read about RNS architecture"
+  },
+  {
+    "id": "rd-00",
+    "content": "RIF Directory is developing $Verifiable Credential$ (VCs), removing the identity providers from the central role.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-01",
+    "content": "RIF Directory enables a $Decentralized Identity$ (DID) giving individuals control of their identity attributes.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-02",
+    "content": "Trustless $login services$ are a key component of the RIF Directory protocol.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-03",
+    "content": "$Single sign on$ (SSO) allows users to browse in an app without re-entering login credentials. RIF is developing blockchain based authentication services.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-04",
+    "content": "You no longer have to give up control of personal information to dozens of databases each time you want to access new goods and services with RIF $Self-sovereign identities$ (SSI).",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-05",
+    "content": "RIF Directory protocol standards are built ensuring $data portability$, thus promoting interoperability.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-06",
+    "content": "RIF allows building communities where members can rate each other in order to build trust through $reputation$.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-07",
+    "content": "The RIF Directory team is building $Zero Knowledge Proof credentials$ (ZKP credentials). This allows party to prove that he/she is credited of something without transmitting this credential.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-08",
+    "content": "Pains of loosing keys will be solved by $key management$ providers powered by RIF.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-09",
+    "content": "Let your friends or family be able to use the $social recovery$ functionality to recover your funds.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rd-10",
+    "content": "$Data monetization$ is the process of using data to increase revenue. RIF Directory will provide incentives for data sharing.",
+    "link": "https://www.rifos.org/directory",
+    "link_label": "Read about RIF Directory"
+  },
+  {
+    "id": "rp-00",
+    "content": "RIF Payments is a protocol for scalable crypto payments solutions.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-01",
+    "content": "$Lumino payment network$ allows high number of transactions per second, low fees and fast confirmation times.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-02",
+    "content": "The RIF Lumino network $invoicing$ feature allows to request for payments to other parities, including payment expiration date, amount and the type of asset accepted.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-03",
+    "content": "RIF Lumino team designed a $light client$ node enabling users to connect to the network from their browsers and mobile phones.",
+    "link": "https://developers.rsk.co/rif/lumino/light-client/",
+    "link_label": "Read RIF Payments light client docs"
+  },
+  {
+    "id": "rp-04",
+    "content": "RIF Lumino $network hubs$ enable instant payments all over the world.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-05",
+    "content": "The $watchtowers$ provide the RIF Lumino network of an extra security layer, ensuring that all network participants remain reliable.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-06",
+    "content": "With RIF Payments you will be able to perform $cross network payments$ with high level of security and portability.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rp-07",
+    "content": "The RIF Payments $cross tokens payments$ protocol is designed to allow paying with any desired asset for a service.",
+    "link": "https://www.rifos.org/payments",
+    "link_label": "Read about RIF Payments"
+  },
+  {
+    "id": "rs-00",
+    "content": "THe $RIF Storage$ protocol is all you need for your decentralised usecases. It is censorship resistant, permissionless, anonymous and fault tolerant.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read about RIF Storage"
+  },
+  {
+    "id": "rs-01",
+    "content": "The integration of RIF Storage services and RIF Name Service allows users to browse sites inside the $decentralized web$.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read about RIF Storage"
+  },
+  {
+    "id": "rs-02",
+    "content": "Use the $RIF Storage libraries$ to connect to different decentralized storage providers.",
+    "link": "https://developers.rsk.co/rif/storage/",
+    "link_label": "Read RIF Storage docs"
+  },
+  {
+    "id": "rs-03",
+    "content": "RIF Storage allows to connect to $IPFS and Swarm$ storage providers seamlessly.",
+    "link": "https://developers.rsk.co/rif/storage/architecture",
+    "link_label": "Read about RIF Storage architecture"
+  },
+  {
+    "id": "rs-04",
+    "content": "Use the public RIF Storage gateways to connect to the incentivised Swarm test network.",
+    "link": "https://swarm.rifgateways.org/",
+    "link_label": "Use the RIF Storage to connect to Swarm"
+  },
+  {
+    "id": "rs-05",
+    "content": "The RIF Storage persistent storage service offers unique decentralized solution for data replication and persistence.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read more about RIF Storage"
+  },
+  {
+    "id": "rs-06",
+    "content": "With the SWAP protocol $bandwidth incentives$ you can soon earn RIF tokens when providing your unused storage to the network.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read more about RIF Storage"
+  },
+  {
+    "id": "rs-07",
+    "content": "The $RIF Storage incentives$ a motivation to success on long term storage services, putting up security deposits.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read more about RIF Storage"
+  },
+  {
+    "id": "rs-08",
+    "content": "The architecture of the RIF Storage will provide secure simple and effective ways to $monitor published files$ in different services.",
+    "link": "https://developers.rsk.co/rif/storage/architecture",
+    "link_label": "Read about RIF Storage architecture"
+  },
+  {
+    "id": "rs-09",
+    "content": "The infrastructure required to build solutions beyond RIF Storage services is dynamically managed with the $spawning nodes$ feature.",
+    "link": "https://www.rifos.org/storage",
+    "link_label": "Read more about RIF Storage"
+  },
+  {
+    "id": "rg-00",
+    "content": "$RIF Gateways$ protocols allow bidirectional data transfers between the blockchain and the outside world.",
+    "link": "https://www.rifos.org/gateways",
+    "link_label": "Read more about RIF Gateways"
+  },
+  {
+    "id": "rg-01",
+    "content": "RIF Gateways is providing $oracle services$ that permit blockchain applications to collect information from external sources.",
+    "link": "https://www.rifos.org/gateways",
+    "link_label": "Read more about RIF Gateways"
+  },
+  {
+    "id": "rg-02",
+    "content": "RIF Gateways $triggers technology$ defines a standardized way to consume blockchain events and trigger actions in external systems.",
+    "link": "https://www.rifos.org/gateways",
+    "link_label": "Read more about RIF Gateways"
+  },
+  {
+    "id": "rg-03",
+    "content": "Keeping your decentralized application synchronized with real-world events is easier with RIF Gateways.",
+    "link": "https://www.rifos.org/gateways",
+    "link_label": "Read more about RIF Gateways"
+  },
+  {
+    "id": "rc-00",
+    "content": "RIF Communications allows parties in a $peer-to-peer$ network to discover each other and establish secure communication channels, with assured anonymity, confidentiality, integrity and authenticity.",
+    "link": "https://www.rifos.org/communications",
+    "link_label": "Read more about RIF Communications"
+  },
+  {
+    "id": "rc-01",
+    "content": "RIF Communications is a network of nodes connected through $forwarding Kademlia protocol$.",
+    "link": "https://www.rifos.org/communications",
+    "link_label": "Read more about RIF Communications"
+  },
+  {
+     "id": "rc-02",
+     "content": "The $RIF Communications$ solution is all you need to add anonymous decentralized communication functionality to your decentralized application.",
+     "link": "https://www.rifos.org/storage",
+     "link_label": "Read about RIF Storage"
+   },
+  {
+    "id": "rm-00",
+    "content": "$RIF Marketplace$ allows service providers and consumers to meet and engage in a secure and efficient way.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  },
+  {
+    "id": "rm-01",
+    "content": "RIF Marketplace inherits the benefits of a $fully decentralized market$: security transparency, censorship resistance, immutability, and self-owned reputation.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  },
+  {
+    "id": "rm-02",
+    "content": "RIF Marketplace provides $staking, slashing, and dispute resolution mechanisms$ to ensure all parties fulfill their obligations.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  },
+  {
+    "id": "rm-03",
+    "content": "RIF Marketplace will allow to $sell RIF Name Service domains$ in a secure and trustless manner.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  },
+  {
+    "id": "rm-04",
+    "content": "RIF Marketplace allows Service Providers and Consumers to meet and engage in a secure and efficient way.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  },
+  {
+    "id": "rt-01",
+    "content": "RIF is building $meta-transaction services$ allowing dApps or apps users to create transactions without gas.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF"
+  },
+  {
+    "id": "rt-02",
+    "content": "The RIF unified explorer will allow to access and manage all RIF services from a unique place.",
+    "link": "https://www.rifos.org/marketplace",
+    "link_label": "Read more about RIF Marketplace"
+  }
+]
