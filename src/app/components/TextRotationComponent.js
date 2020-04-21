@@ -8,6 +8,7 @@ const TextRotationComponent = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
+      // eslint-disable-next-line react/prop-types
       const next = counter === (messages.length - 1) ? 0 : counter + 1;
       setCounter(next);
     }, timer);
@@ -47,7 +48,7 @@ TextRotationComponent.defaultProps = {
 TextRotationComponent.propTypes = {
   language: propTypes.string.isRequired,
   heading: propTypes.string.isRequired,
-  messages: propTypes.shape().isRequired,
+  messages: propTypes.shape({}).isRequired,
   timer: propTypes.number,
 };
 
