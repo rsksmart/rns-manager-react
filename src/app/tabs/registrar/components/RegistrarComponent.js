@@ -153,6 +153,15 @@ class RegistrarComponent extends Component {
               heading={strings.did_you_know}
               timer="6000"
             />
+            <p>
+              <a
+                href="https://hackmd.io/@ilanolkies/rns-user-guide"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {strings.download_guide}
+              </a>
+            </p>
           </>
           )}
 
@@ -196,6 +205,7 @@ RegistrarComponent.propTypes = {
     register_domain: propTypes.string.isRequired,
     login: propTypes.string.isRequired,
     did_you_know: propTypes.string.isRequired,
+    download_guide: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,

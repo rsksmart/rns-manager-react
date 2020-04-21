@@ -355,5 +355,6 @@
   "content_bytes": "Content bytes",
   "add_records": "Add records",
   "new_resolver_address": "New resolver address",
-  "record_set": "Record set"
+  "record_set": "Record set",
+  "download_guide": "Download RIF Name Services user guide"
 }
