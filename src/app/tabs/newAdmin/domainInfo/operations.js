@@ -155,17 +155,19 @@ export const setDomainOwner = (domain, address) => async (dispatch) => {
   console.log('setting', domain, label, address, currentAddress);
 
   await rns.compose();
-  await rns.contracts.registry.methods.setOwner(label, address.toLowerCase())
+  await rns.contracts.registry.methods.setOwner(label, address)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetDomainOwner(error.message));
       }
 
-      return dispatch(transactionListener(result, () => {
+      const transactionConfirmed = () => () => {
         dispatch(receiveRegistryOwner(
           address, address.toLowerCase() === currentAddress.toLowerCase(),
         ));
         dispatch(receiveSetDomainOwner(address, result));
-      }));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
     });
 };

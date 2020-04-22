@@ -7,7 +7,6 @@ const mapStateToProps = state => ({
   isTokenOwner: state.newAdmin.view.isTokenOwner,
   isTransferSuccess: state.newAdmin.domainInfo.isTransferSuccess,
   advancedView: state.newAdmin.view.advancedView,
-  domainOwner: state.newAdmin.view.registryOwner,
   checkingRegistryOwner: state.newAdmin.view.checkingRegistryOwner,
 });
 

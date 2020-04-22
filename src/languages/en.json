@@ -358,6 +358,6 @@
   "record_set": "Record set",
   "download_guide": "Download RIF Name Services user guide",
   "set_controller": "Set controller",
-  "set_controller_explanation": "The control of the domain can be set to any address' owner. The controller will manage the domain but he do not have the ownership.",
+  "set_controller_explanation": "The control of the domain can be set to any address' owner. The controller will manage the domain but will not have the ownership.",
   "controller": "controller"
 }

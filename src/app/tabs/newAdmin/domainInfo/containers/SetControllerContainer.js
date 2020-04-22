@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps.strings,
     error_message: state.newAdmin.domainInfo.domainOwnerError,
   },
+  validationChainId: state.auth.network,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   handleSubmit: value => dispatchProps.handleSubmit(stateProps.label, value),
   handleErrorClose: () => dispatchProps.handleClose(),
+  handleSuccessClose: () => dispatchProps.handleClose(),
 });
 
 export default connect(

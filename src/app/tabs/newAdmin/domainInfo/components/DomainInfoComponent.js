@@ -6,7 +6,8 @@ import { Row, Col } from 'react-bootstrap';
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
-  TransferSuccessModalContainer, UpgradeContainer, SetControllerContainer,
+  TransferSuccessModalContainer, UpgradeContainer,
+  DomainOwnerContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -62,20 +63,7 @@ const DomainInfoComponent = (props) => {
       )}
       <UpgradeContainer />
       {(advancedView && !checkingRegistryOwner) && (
-        <Row className="break-above">
-          <Col>
-            <h2>{strings.set_controller}</h2>
-            <p>{strings.set_controller_explanation}</p>
-            <SetControllerContainer
-              strings={{
-                value_prefix: strings.controller,
-                submit: strings.submit,
-                cancel: strings.cancel,
-                error_title: 'Error!',
-              }}
-            />
-          </Col>
-        </Row>
+        <DomainOwnerContainer />
       )}
     </div>
   );
@@ -92,10 +80,6 @@ DomainInfoComponent.propTypes = {
     owner: propTypes.string.isRequired,
     transfer: propTypes.string.isRequired,
     transfer_warning: propTypes.string.isRequired,
-    set_controller: propTypes.string.isRequired,
-    set_controller_explanation: propTypes.string.isRequired,
-    controller: propTypes.string.isRequired,
-    submit: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
