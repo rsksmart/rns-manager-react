@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
-  TransferSuccessModalContainer, UpgradeContainer,
+  TransferSuccessModalContainer, UpgradeContainer, SetControllerContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -16,6 +16,8 @@ const DomainInfoComponent = (props) => {
     isSubdomain,
     isTransferSuccess,
     isTokenOwner,
+    advancedView,
+    checkingRegistryOwner,
   } = props;
 
   if (isTransferSuccess) {
@@ -59,6 +61,22 @@ const DomainInfoComponent = (props) => {
       </Row>
       )}
       <UpgradeContainer />
+      {(advancedView && !checkingRegistryOwner) && (
+        <Row className="break-above">
+          <Col>
+            <h2>{strings.set_controller}</h2>
+            <p>{strings.set_controller_explanation}</p>
+            <SetControllerContainer
+              strings={{
+                value_prefix: strings.controller,
+                submit: strings.submit,
+                cancel: strings.cancel,
+                error_title: 'Error!',
+              }}
+            />
+          </Col>
+        </Row>
+      )}
     </div>
   );
 };
@@ -74,11 +92,17 @@ DomainInfoComponent.propTypes = {
     owner: propTypes.string.isRequired,
     transfer: propTypes.string.isRequired,
     transfer_warning: propTypes.string.isRequired,
+    set_controller: propTypes.string.isRequired,
+    set_controller_explanation: propTypes.string.isRequired,
+    controller: propTypes.string.isRequired,
+    submit: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
   isTokenOwner: propTypes.bool,
   isTransferSuccess: propTypes.bool.isRequired,
+  advancedView: propTypes.bool.isRequired,
+  checkingRegistryOwner: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);

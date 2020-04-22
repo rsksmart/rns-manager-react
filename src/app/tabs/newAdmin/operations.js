@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import RNS from '@rsksmart/rns';
+import { hash as namehash } from 'eth-ens-namehash';
 
 import {
   rskOwner as rskOwnerAddress,
@@ -7,17 +9,19 @@ import {
 } from '../../adapters/configAdapter';
 import { rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
+import { getOptions } from '../../adapters/RNSLibAdapter';
 
 import {
   toggleBasicAdvanced, checkIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
   errorCheckTokenOwner, requestFifsMigrationStatus, receiveFifsMigrationStatus,
-  errorFifsMigrationStatus,
+  errorFifsMigrationStatus, requestRegistryOwner, receiveRegistryOwner, errorRegistryOwner,
 } from './actions';
 
 import { checkIfSubdomainAndGetExpirationRemaining } from './domainInfo/operations';
 import { getDomainResolver } from './resolver/operations';
 
 const web3 = new Web3(window.ethereum);
+const rns = new RNS(web3, getOptions());
 
 export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
   const labelsAmount = domain.split('.').length;
@@ -53,6 +57,24 @@ export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
   });
 };
 
+export const checkIfRegistryOwner = domain => async (dispatch) => {
+  const label = namehash(domain);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  dispatch(requestRegistryOwner());
+  await rns.compose();
+  await rns.contracts.registry.methods.owner(label)
+    .call((error, result) => {
+      if (error) {
+        return dispatch(errorRegistryOwner(error.message));
+      }
+      return dispatch(receiveRegistryOwner(
+        result, result.toLowerCase() === currentAddress.toLowerCase(),
+      ));
+    });
+};
+
 export const checkIfFIFSRegistrar = domain => async (dispatch) => {
   dispatch(requestFifsMigrationStatus());
 
@@ -82,6 +104,7 @@ export const start = domain => (dispatch) => {
   dispatch(checkIfFIFSRegistrar(domain));
   dispatch(getDomainResolver(domain));
   dispatch(checkIfSubdomainAndGetExpirationRemaining(domain));
+  dispatch(checkIfRegistryOwner(domain));
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {

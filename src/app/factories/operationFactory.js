@@ -19,6 +19,7 @@ export const set = (request, receive, txType, action, callback) => (name, value,
 
   const hash = namehash(name);
 
+  console.log(name, hash, value, sender);
   return new Promise((resolve) => {
     action(hash, value).send(
       { from: sender },

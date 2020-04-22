@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import RNS from '@rsksmart/rns';
+import { hash as namehash } from 'eth-ens-namehash';
 
 import {
   rskOwner as rskOwnerAddress,
@@ -11,6 +13,7 @@ import {
   rskOwnerAbi, rifAbi, tokenRegistrarAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
+import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 import { getRenewData } from '../../renew/helpers';
 import transactionListener from '../../../helpers/transactionListener';
@@ -19,10 +22,15 @@ import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
   requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
-  requestFifsMigration, receiveFifsMigration, errorFifsMigration,
+  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetDomainOwner,
+  errorSetDomainOwner, receiveSetDomainOwner,
 } from './actions';
 
+import { receiveRegistryOwner } from '../actions';
+
 const web3 = new Web3(window.ethereum);
+const rns = new RNS(web3, getOptions());
+
 const rskOwner = new web3.eth.Contract(
   rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
 );
@@ -135,4 +143,29 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
       },
     );
   });
+};
+
+export const setDomainOwner = (domain, address) => async (dispatch) => {
+  dispatch(requestSetDomainOwner(domain));
+
+  const label = namehash(domain);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0].toLowerCase();
+
+  console.log('setting', domain, label, address, currentAddress);
+
+  await rns.compose();
+  await rns.contracts.registry.methods.setOwner(label, address.toLowerCase())
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorSetDomainOwner(error.message));
+      }
+
+      return dispatch(transactionListener(result, () => {
+        dispatch(receiveRegistryOwner(
+          address, address.toLowerCase() === currentAddress.toLowerCase(),
+        ));
+        dispatch(receiveSetDomainOwner(address, result));
+      }));
+    });
 };
