@@ -1,0 +1,16 @@
+{
+  "interfaces": [
+    {
+      "name": "CONTENT_BYTES",
+      "interfaceId": "0x2dff6941",
+      "type": "bytes4",
+      "notes": "multichain resolver interfaceId"
+    },
+    {
+      "name": "CONTENT_BYTES",
+      "interfaceId": "0xd8389dc5",
+      "type": "bytes4",
+      "notes": "public resolver interfaceId"
+    }
+  ]
+}
