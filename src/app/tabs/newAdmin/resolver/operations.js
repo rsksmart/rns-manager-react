@@ -37,7 +37,7 @@ const rns = new RNS(web3, getOptions());
  * @param {address} address the resolver address
  */
 export const getResolverNameByAddress = (resolverAddr) => {
-  switch (resolverAddr.toLowerCase()) {
+  switch (resolverAddr) {
     case multiChainResolverAddress:
       return MULTICHAIN_RESOLVER;
     case publicResolverAddress:
@@ -117,12 +117,14 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
 export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
   dispatch(requestSetResolver());
 
+  const lowerResolverAddress = resolverAddress.toLowerCase();
+
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
   await rns.compose();
-  await rns.contracts.registry.methods.setResolver(hash, resolverAddress)
+  await rns.contracts.registry.methods.setResolver(hash, lowerResolverAddress)
     .send({ from: currentAddress }, (error, result) => {
       dispatch(waitingSetResolver());
       if (error) {
@@ -130,12 +132,12 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
       }
 
       const transactionConfirmed = () => () => {
-        const resolverName = getResolverNameByAddress(resolverAddress);
+        const resolverName = getResolverNameByAddress(lowerResolverAddress);
         dispatch(receiveSetResolver(
-          result, resolverAddress, resolverName,
+          result, lowerResolverAddress, resolverName,
         ));
         dispatch(getAllChainAddresses(domain, resolverName));
-        dispatch(supportedInterfaces(resolverAddress, domain));
+        dispatch(supportedInterfaces(lowerResolverAddress, domain));
         sendBrowserNotification(domain, 'resolver_set_success');
       };
 
