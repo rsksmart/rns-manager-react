@@ -37,7 +37,7 @@ const rns = new RNS(web3, getOptions());
  * @param {address} address the resolver address
  */
 export const getResolverNameByAddress = (resolverAddr) => {
-  switch (resolverAddr) {
+  switch (resolverAddr.toLowerCase()) {
     case multiChainResolverAddress:
       return MULTICHAIN_RESOLVER;
     case publicResolverAddress:
