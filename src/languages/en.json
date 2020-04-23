@@ -359,5 +359,7 @@
   "download_guide": "Download RIF Name Services user guide",
   "set_controller": "Set controller",
   "set_controller_explanation": "The control of the domain can be set to any address' owner. The controller will manage the domain but will not have the ownership.",
-  "controller": "controller"
+  "controller": "controller",
+  "reclaim_domain": "Reclaim Domain",
+  "reclaim_domain_explanation": "You are not set as the domain owner. This could be because it was transferred to you or because you set it to someone else. To set it back to you, you need to reclaim the domain."
 }

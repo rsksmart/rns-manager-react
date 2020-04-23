@@ -6,7 +6,8 @@ import {
   RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
   CLOSE_SUCCESS_ERROR_MESSAGE, REQUEST_FIFS_MIGRATION, RECEIVE_FIFS_MIGRATION,
   ERROR_FIFS_MIGRATION, REQUEST_SET_DOMAIN_OWNER, RECEIVE_SET_DOMAIN_OWNER,
-  ERROR_SET_DOMAIN_OWNER, CLOSE_SET_DOMAIN_OWNER,
+  ERROR_SET_DOMAIN_OWNER, CLOSE_SET_DOMAIN_OWNER, REQUEST_RECLAIM_DOMAIN,
+  ERROR_RECLAIM_DOMAIN, RECEIVE_RECLAIM_DOMAIN,
 } from './types';
 
 export const requestTransferDomain = () => ({
@@ -101,4 +102,19 @@ export const receiveSetDomainOwner = (owner, successTx) => ({
 
 export const closeSetDomainOwner = () => ({
   type: CLOSE_SET_DOMAIN_OWNER,
+});
+
+export const requestReclaimDomain = domain => ({
+  type: REQUEST_RECLAIM_DOMAIN,
+  domain,
+});
+
+export const errorReclaimDomain = message => ({
+  type: ERROR_RECLAIM_DOMAIN,
+  message,
+});
+
+export const receiveReclaimDomain = successTx => ({
+  type: RECEIVE_RECLAIM_DOMAIN,
+  successTx,
 });

@@ -23,7 +23,8 @@ import {
   requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
   requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetDomainOwner,
-  errorSetDomainOwner, receiveSetDomainOwner,
+  errorSetDomainOwner, receiveSetDomainOwner, requestReclaimDomain, errorReclaimDomain,
+  receiveReclaimDomain,
 } from './actions';
 
 import { receiveRegistryOwner } from '../actions';
@@ -145,14 +146,18 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
   });
 };
 
+/**
+ * Set's Domain Owner to a different address
+ * aka "Set Controller" in the UI
+ * @param {string} domain that should be set
+ * @param {address} address new address to set owner to
+ */
 export const setDomainOwner = (domain, address) => async (dispatch) => {
   dispatch(requestSetDomainOwner(domain));
 
   const label = namehash(domain);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0].toLowerCase();
-
-  console.log('setting', domain, label, address, currentAddress);
 
   await rns.compose();
   await rns.contracts.registry.methods.setOwner(label, address)
@@ -166,6 +171,33 @@ export const setDomainOwner = (domain, address) => async (dispatch) => {
           address, address.toLowerCase() === currentAddress.toLowerCase(),
         ));
         dispatch(receiveSetDomainOwner(address, result));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    });
+};
+
+/**
+ * Reclaim the domain if you are the token registrar but not the domain owner
+ * Uses users currentAddress
+ * @param {string} domain to be reclaimed
+ */
+export const reclaimDomain = domain => async (dispatch) => {
+  dispatch(requestReclaimDomain(domain));
+
+  const label = namehash(domain);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0].toLowerCase();
+
+  rskOwner.methods.reclaim(label, currentAddress)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorReclaimDomain(error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveRegistryOwner(currentAddress, true));
+        dispatch(receiveReclaimDomain(result));
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
