@@ -21,6 +21,7 @@ const adminReducerInitialState = {
   checkingRegistryOwner: false,
   registryOwner: '',
   isRegistryOwner: false,
+  isTokenOwner: false,
 };
 
 const adminReducer = (state = adminReducerInitialState, action) => {

@@ -7,6 +7,7 @@ const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
   label: state.auth.name,
   value: state.newAdmin.view.registryOwner,
+  isRegistryOwner: state.newAdmin.view.isRegistryOwner,
   isError: state.newAdmin.domainInfo.domainOwnerError !== '',
   isWaiting: state.newAdmin.domainInfo.isSettingDomainOwner,
   isSuccess: state.newAdmin.domainInfo.domainOwnerSuccessTx !== '',

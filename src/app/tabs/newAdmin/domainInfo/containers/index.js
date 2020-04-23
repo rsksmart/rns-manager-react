@@ -4,5 +4,5 @@ export { default as RenewButtonContainer } from './RenewButtonContainer';
 export { default as RenewDomainContainer } from './RenewDomainContainer';
 export { default as TransferSuccessModalContainer } from './TransferSuccessModalContainer';
 export { default as UpgradeContainer } from './UpgradeContainer';
-export { default as DomainOwnerContainer } from './DomainOwnerContainer';
+export { default as SetControllerViewContainer } from './SetControllerViewContainer';
 export { default as SetControllerContainer } from './SetControllerContainer';

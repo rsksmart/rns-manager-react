@@ -5,11 +5,12 @@ import { Row, Col } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
+import { ReclaimContainer } from '../../containers';
 
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
   TransferSuccessModalContainer, UpgradeContainer,
-  DomainOwnerContainer,
+  SetControllerViewContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -21,6 +22,7 @@ const DomainInfoComponent = (props) => {
     isTokenOwner,
     checkingRegistryOwner,
     checkingOwnership,
+    isRegistryOwner,
   } = props;
 
   if (isTransferSuccess) {
@@ -68,7 +70,8 @@ const DomainInfoComponent = (props) => {
       </Row>
       )}
       <UpgradeContainer />
-      <DomainOwnerContainer />
+      <SetControllerViewContainer />
+      {!isRegistryOwner && <ReclaimContainer />}
     </div>
   );
 };
@@ -91,6 +94,7 @@ DomainInfoComponent.propTypes = {
   isTransferSuccess: propTypes.bool.isRequired,
   checkingRegistryOwner: propTypes.bool.isRequired,
   checkingOwnership: propTypes.bool.isRequired,
+  isRegistryOwner: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);
