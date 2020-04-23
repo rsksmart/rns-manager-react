@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
   canReveal: state.registrar.canReveal,
   revealConfirmed: state.registrar.revealConfirmed,
   errorMessage: state.registrar.errorMessage,
+  language: state.multilanguage.currentLanguageCode,
 });
 
 const mapDispatchToProps = dispatch => ({

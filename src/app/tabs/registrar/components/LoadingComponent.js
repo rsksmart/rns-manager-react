@@ -38,14 +38,6 @@ class LoadingComponent extends Component {
             <p className="major-section">
               {strings.registration_waiting}
             </p>
-
-            <h3 className="blue major-section">
-              {strings.did_you_know}
-              ...
-            </h3>
-            <p className="lead minor-section">
-              {strings.tip1}
-            </p>
           </Col>
         </Row>
       </div>
@@ -57,8 +49,6 @@ LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
   strings: propTypes.shape({
     registration_waiting: propTypes.string.isRequired,
-    did_you_know: propTypes.string.isRequired,
-    tip1: propTypes.string.isRequired,
     domain_requested: propTypes.string.isRequired,
   }).isRequired,
 });

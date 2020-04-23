@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextRotationComponent renders, places correct content with bold and matches snapshot 1`] = `
+<TextRotationComponent
+  heading="the heading"
+  language="en"
+  messages={
+    Array [
+      Object {
+        "en": Object {
+          "content": "hello $world$.",
+          "link_label": "click",
+        },
+        "es_uy": Object {
+          "content": "",
+          "link_label": "",
+        },
+        "id": "rns-00",
+        "ja": Object {
+          "content": "",
+          "link_label": "",
+        },
+        "ko": Object {
+          "content": "",
+          "link_label": "",
+        },
+        "link": "https://developers.rsk.co/",
+        "pt_br": Object {
+          "content": "",
+          "link_label": "",
+        },
+        "ru": Object {
+          "content": "",
+          "link_label": "",
+        },
+        "zh_cn": Object {
+          "content": "",
+          "link_label": "",
+        },
+      },
+    ]
+  }
+  timer={10000}
+>
+  <div
+    className="text-rotation"
+  >
+    <h3
+      className="blue"
+    >
+      the heading...
+    </h3>
+    <p>
+      hello 
+      <strong>
+        world
+      </strong>
+      .
+      <br />
+      <a
+        href="https://developers.rsk.co/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        click
+      </a>
+    </p>
+  </div>
+</TextRotationComponent>
+`;

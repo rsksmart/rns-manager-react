@@ -72,3 +72,16 @@ export const getAddrRegisterData = (name, owner, secret, duration, addr) => {
 
   return `${dataSignature}${dataOwner}${dataSecret}${dataDuration}${dataAddr}${dataName}`;
 };
+
+/**
+ * Shuffles an array
+ * @param {array} array to be shuffled
+ */
+export const shuffle = (array) => {
+  if (array.length === 0) {
+    return array;
+  }
+
+  const returnArray = array.sort(() => Math.random() - 0.5);
+  return returnArray;
+};
