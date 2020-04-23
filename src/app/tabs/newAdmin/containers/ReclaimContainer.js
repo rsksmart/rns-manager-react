@@ -6,9 +6,9 @@ import { closeSetDomainOwner } from '../domainInfo/actions';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   checkingRegistryOwner: state.newAdmin.view.checkingRegistryOwner,
-  isError: state.newAdmin.domainInfo.domainOwnerError !== '',
-  errorMessage: state.newAdmin.domainInfo.domainOwnerError,
-  isSettingDomainOwner: state.newAdmin.domainInfo.isSettingDomainOwner,
+  isError: state.newAdmin.domainInfo.registryOwnerError !== '',
+  errorMessage: state.newAdmin.domainInfo.registryOwnerError,
+  isSettingRegistryOwner: state.newAdmin.domainInfo.isSettingRegistryOwner,
   advancedView: state.newAdmin.view.advancedView,
 });
 

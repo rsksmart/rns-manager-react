@@ -147,12 +147,12 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
 };
 
 /**
- * Set's Domain Owner to a different address
+ * Set RNS Registry owner to a different address
  * aka "Set Controller" in the UI
  * @param {string} domain that should be set
  * @param {address} address new address to set owner to
  */
-export const setDomainOwner = (domain, address) => async (dispatch) => {
+export const setRegistryOwner = (domain, address) => async (dispatch) => {
   dispatch(requestSetDomainOwner(domain));
 
   const label = namehash(domain);
@@ -178,8 +178,7 @@ export const setDomainOwner = (domain, address) => async (dispatch) => {
 };
 
 /**
- * Reclaim the domain
- * Uses users currentAddress
+ * Reclaim the domain from the RNS registry if you are the token holder
  * @param {string} domain to be reclaimed
  */
 export const reclaimDomain = domain => async (dispatch) => {

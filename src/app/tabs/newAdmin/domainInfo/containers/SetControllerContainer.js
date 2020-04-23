@@ -1,26 +1,26 @@
 import { connect } from 'react-redux';
 import { AddressInputComponent } from '../../../../components';
 import { closeSetDomainOwner } from '../actions';
-import { setDomainOwner } from '../operations';
+import { setRegistryOwner } from '../operations';
 
 const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
   label: state.auth.name,
   value: state.newAdmin.view.registryOwner,
   isRegistryOwner: state.newAdmin.view.isRegistryOwner,
-  isError: state.newAdmin.domainInfo.domainOwnerError !== '',
-  isWaiting: state.newAdmin.domainInfo.isSettingDomainOwner,
-  isSuccess: state.newAdmin.domainInfo.domainOwnerSuccessTx !== '',
-  address: state.newAdmin.domainInfo.domainOwnerSuccessTx,
+  isError: state.newAdmin.domainInfo.registryOwnerError !== '',
+  isWaiting: state.newAdmin.domainInfo.isSettingregistryOwner,
+  isSuccess: state.newAdmin.domainInfo.registryOwnerSuccessTx !== '',
+  address: state.newAdmin.domainInfo.registryOwnerSuccessTx,
   strings: {
     ...ownProps.strings,
-    error_message: state.newAdmin.domainInfo.domainOwnerError,
+    error_message: state.newAdmin.domainInfo.registryOwnerError,
   },
   validationChainId: state.auth.network,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (domain, value) => dispatch(setDomainOwner(domain, value.toLowerCase())),
+  handleSubmit: (domain, value) => dispatch(setRegistryOwner(domain, value.toLowerCase())),
   handleClose: () => dispatch(closeSetDomainOwner()),
 });
 

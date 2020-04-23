@@ -6,7 +6,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { UserWaitingComponent, UserErrorComponent } from '../../../components';
 
 const ReclaimComponent = ({
-  strings, reclaimDomain, isError, errorMessage, handleCloseClick, isSettingDomainOwner,
+  strings, reclaimDomain, isError, errorMessage, handleCloseClick, isSettingRegistryOwner,
 }) => (
   <div className="major-section">
     <Row>
@@ -21,7 +21,7 @@ const ReclaimComponent = ({
       <Col md={3}>
         <p>
           <Button
-            disabled={isSettingDomainOwner}
+            disabled={isSettingRegistryOwner}
             onClick={() => reclaimDomain()}
           >
             Reclaim Domain
@@ -34,7 +34,7 @@ const ReclaimComponent = ({
       message={errorMessage}
       handleCloseClick={handleCloseClick}
     />
-    <UserWaitingComponent visible={isSettingDomainOwner} />
+    <UserWaitingComponent visible={isSettingRegistryOwner} />
   </div>
 );
 
@@ -52,7 +52,7 @@ ReclaimComponent.propTypes = {
   isError: propTypes.bool.isRequired,
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
-  isSettingDomainOwner: propTypes.bool.isRequired,
+  isSettingRegistryOwner: propTypes.bool.isRequired,
 };
 
 export default multilanguage(ReclaimComponent);

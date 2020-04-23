@@ -4,9 +4,9 @@ import {
   RECEIVE_TRANSFER_DOMAIN, ERROR_TRANSFER_DOMAIN, HANDLE_TRANSFER_SUCCESS_CLOSE,
   REQUEST_RENEW_DOMAIN, RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
   CLOSE_SUCCESS_ERROR_MESSAGE, HANDLE_TRANSFER_ERROR_CLOSE, REQUEST_FIFS_MIGRATION,
-  RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION, RECEIVE_SET_DOMAIN_OWNER,
-  REQUEST_SET_DOMAIN_OWNER, ERROR_SET_DOMAIN_OWNER, CLOSE_SET_DOMAIN_OWNER, REQUEST_RECLAIM_DOMAIN,
-  ERROR_RECLAIM_DOMAIN,
+  RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION, RECEIVE_SET_REGISTRY_OWNER,
+  REQUEST_SET_REGISTRY_OWNER, ERROR_SET_REGISTRY_OWNER, CLOSE_SET_REGISTRY_OWNER,
+  REQUEST_RECLAIM_DOMAIN, ERROR_RECLAIM_DOMAIN,
 } from './types';
 
 const initialState = {
@@ -24,9 +24,9 @@ const initialState = {
   renewSuccessTx: '',
   isMigrating: false,
 
-  isSettingDomainOwner: false,
-  domainOwnerSuccessTx: '',
-  domainOwnerError: '',
+  isSettingRegistryOwner: false,
+  registryOwnerSuccessTx: '',
+  registryOwnerError: '',
 };
 
 const renewDomain = (state = initialState, action) => {
@@ -114,33 +114,34 @@ const renewDomain = (state = initialState, action) => {
       isMigrating: false,
     };
 
-    case REQUEST_SET_DOMAIN_OWNER: return {
+    case REQUEST_SET_REGISTRY_OWNER: return {
       ...state,
-      isSettingDomainOwner: true,
+      isSettingRegistryOwner: true,
     };
-    case ERROR_SET_DOMAIN_OWNER: return {
+    case ERROR_SET_REGISTRY_OWNER: return {
       ...state,
-      isSettingDomainOwner: false,
-      domainOwnerError: action.message,
+      isSettingRegistryOwner: false,
+      registryOwnerError: action.message,
     };
-    case RECEIVE_SET_DOMAIN_OWNER: return {
+    case RECEIVE_SET_REGISTRY_OWNER: return {
       ...state,
-      isSettingDomainOwner: false,
-      domainOwnerSuccessTx: action.successTx,
+      isSettingRegistryOwner: false,
+      registryOwnerSuccessTx: action.successTx,
     };
-    case CLOSE_SET_DOMAIN_OWNER: return {
+    case CLOSE_SET_REGISTRY_OWNER: return {
       ...state,
-      domainOwnerSuccessTx: '',
-      domainOwnerError: '',
+      registryOwnerSuccessTx: '',
+      registryOwnerError: '',
     };
+
     case REQUEST_RECLAIM_DOMAIN: return {
       ...state,
-      isSettingDomainOwner: true,
+      isSettingRegistryOwner: true,
     };
     case ERROR_RECLAIM_DOMAIN: return {
       ...state,
-      isSettingDomainOwner: false,
-      domainOwnerError: action.message,
+      isSettingRegistryOwner: false,
+      registryOwnerError: action.message,
     };
 
     default: return state;
