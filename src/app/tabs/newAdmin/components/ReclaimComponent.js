@@ -7,11 +7,12 @@ import { UserWaitingComponent, UserErrorComponent } from '../../../components';
 
 const ReclaimComponent = ({
   strings, reclaimDomain, isError, errorMessage, handleCloseClick, isSettingRegistryOwner,
+  isDomainInfo,
 }) => (
-  <div className="major-section">
+  <div className="reclaim major-section">
     <Row>
       <Col>
-        <h2>{strings.reclaim_domain}</h2>
+        <h2>{isDomainInfo ? strings.missing_features : strings.please_reclaim_domain}</h2>
       </Col>
     </Row>
     <Row>
@@ -38,6 +39,10 @@ const ReclaimComponent = ({
   </div>
 );
 
+ReclaimComponent.defaultProps = {
+  isDomainInfo: false,
+};
+
 ReclaimComponent.propTypes = {
   strings: propTypes.shape({
     set_controller: propTypes.string.isRequired,
@@ -45,6 +50,8 @@ ReclaimComponent.propTypes = {
     controller: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,
+    missing_features: propTypes.string.isRequired,
+    please_reclaim_domain: propTypes.string.isRequired,
     reclaim_domain: propTypes.string.isRequired,
     reclaim_domain_explanation: propTypes.string.isRequired,
   }).isRequired,
@@ -53,6 +60,7 @@ ReclaimComponent.propTypes = {
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   isSettingRegistryOwner: propTypes.bool.isRequired,
+  isDomainInfo: propTypes.bool,
 };
 
 export default multilanguage(ReclaimComponent);

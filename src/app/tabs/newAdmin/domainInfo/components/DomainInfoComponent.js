@@ -71,7 +71,7 @@ const DomainInfoComponent = (props) => {
       )}
       <UpgradeContainer />
       <SetControllerViewContainer />
-      {!isRegistryOwner && <ReclaimContainer />}
+      {!isRegistryOwner && <ReclaimContainer isDomainInfo />}
     </div>
   );
 };

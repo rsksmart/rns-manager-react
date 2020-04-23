@@ -38,6 +38,13 @@
     font-size: 20px;
     color:$blue;
   }
+
+  .reclaim {
+    button {
+      border-radius: 15px;
+      padding:10px 20px !important;
+    }
+  }
 }
 
 @import 'transferModal';
