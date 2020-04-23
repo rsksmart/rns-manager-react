@@ -184,7 +184,7 @@ export const setRegistryOwner = (domain, address) => async (dispatch) => {
 export const reclaimDomain = domain => async (dispatch) => {
   dispatch(requestReclaimDomain(domain));
 
-  const label = namehash(domain);
+  const label = `0x${sha3(domain.split('.')[0])}`;
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0].toLowerCase();
 
