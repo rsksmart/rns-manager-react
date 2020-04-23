@@ -78,17 +78,10 @@ export const getAddrRegisterData = (name, owner, secret, duration, addr) => {
  * @param {array} array to be shuffled
  */
 export const shuffle = (array) => {
-  let counter = array.length;
-  const returnAray = [];
-
-  while (counter > 0) {
-    const index = Math.floor(Math.random() * counter);
-    counter -= 1;
-
-    const temp = array[counter];
-    returnAray[counter] = array[index];
-    returnAray[index] = temp;
+  if (array.length === 0) {
+    return array;
   }
 
-  return returnAray;
+  const returnArray = array.sort(() => Math.random() - 0.5);
+  return returnArray;
 };

@@ -23,26 +23,29 @@ const TextRotationComponent = ({
   const contentParagraph = contentArray.length === 1
     ? singleMessage.content
     : (
-      <p>
+      <>
         {contentArray[0]}
         <strong>{contentArray[1]}</strong>
         {contentArray[2]}
-      </p>
+      </>
     );
 
   return (
     <div className="text-rotation">
       <h3 className="blue">{`${heading}...`}</h3>
-      {contentParagraph}
       <p>
-        {singleMessage.link && (
-          <a
-            href={singleMessage.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {singleMessage.link_label}
-          </a>
+        {contentParagraph}
+        {messages[counter].link !== '' && (
+          <>
+            <br />
+            <a
+              href={messages[counter].link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {singleMessage.link_label}
+            </a>
+          </>
         )}
       </p>
     </div>

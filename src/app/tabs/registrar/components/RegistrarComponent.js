@@ -151,9 +151,9 @@ class RegistrarComponent extends Component {
               messages={shuffle(keyMessages)}
               language={language}
               heading={strings.did_you_know}
-              timer="6000"
+              timer={6000}
             />
-            <p>
+            <p style={{ marginTop: '50px' }}>
               <a
                 href="https://hackmd.io/@ilanolkies/rns-user-guide"
                 target="_blank"

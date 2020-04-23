@@ -24,7 +24,7 @@ exports[`TextRotationComponent renders, places correct content with bold and mat
           "content": "",
           "link_label": "",
         },
-        "link": "https://developers.rsk.co/rif/rns/integrate",
+        "link": "https://developers.rsk.co/",
         "pt_br": Object {
           "content": "",
           "link_label": "",
@@ -56,8 +56,15 @@ exports[`TextRotationComponent renders, places correct content with bold and mat
         world
       </strong>
       .
+      <br />
+      <a
+        href="https://developers.rsk.co/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        click
+      </a>
     </p>
-    <p />
   </div>
 </TextRotationComponent>
 `;

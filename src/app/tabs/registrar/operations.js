@@ -137,7 +137,10 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
         ...options,
         notificationReady: true,
       }));
-      return dispatch(receiveCanRevealCommit(canReveal));
+      if (canReveal) {
+        return dispatch(receiveCanRevealCommit(canReveal));
+      }
+      return null;
     });
   });
 };
