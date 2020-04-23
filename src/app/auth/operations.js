@@ -117,7 +117,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
   // get rns registry owner
   return registry.methods.owner(node).call()
     .then((registryOwner) => {
-      if (address === registryOwner) {
+      if (address.toLowerCase() === registryOwner.toLowerCase()) {
         // can perform registry operations, success
         return dispatch(successfulLogin(name, noRedirect));
       }
