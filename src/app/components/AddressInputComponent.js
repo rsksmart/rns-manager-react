@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { toChecksumAddress } from 'rskjs-util';
 
 import { validateAddress } from '../validations';
 import { ChecksumErrorContainer } from '../containers';
@@ -15,6 +16,8 @@ import closeBlue from '../../assets/img/close-blue.svg';
 const AddressInputComponent = ({
   allowDelete,
   label,
+  labelDisplay,
+  labelIcon,
   value,
   isWaiting,
   isError,
@@ -24,6 +27,10 @@ const AddressInputComponent = ({
   handleDelete,
   isSuccess,
   strings,
+  successTx,
+  reset,
+  validationChainId,
+  validation,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -42,8 +49,6 @@ const AddressInputComponent = ({
   };
 
   const confirmDelete = () => {
-    setIsDeleting(false);
-    setIsEditing(false);
     handleDelete();
   };
 
@@ -53,17 +58,24 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
-    switch (validateAddress(editText)) {
+    if (!validation) {
+      return handleSubmit(editText);
+    }
+
+    if (editText.toLowerCase() === value.toLowerCase()) {
+      return setIsLocalError('Value is the same.');
+    }
+
+    switch (validateAddress(editText, validationChainId)) {
       case 'Invalid address':
-        setIsLocalError('Invalid address');
-        return;
+        return setIsLocalError('Invalid address');
       case 'Invalid checksum':
-        setIsChecksumError(true);
-        return;
+        return setIsChecksumError(true);
       default:
     }
     setIsLocalError(false);
-    handleSubmit(editText);
+    setIsChecksumError(false);
+    return handleSubmit(editText);
   };
 
   const handleTextChange = (evt) => {
@@ -73,18 +85,32 @@ const AddressInputComponent = ({
   const handleChecksumClick = () => {
     setEditText(editText.toLowerCase());
     setIsChecksumError(false);
-    handleSubmitClick();
+    return handleSubmit(editText);
   };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setIsChecksumError(false);
+  };
+
+  if (reset && (isEditing || isDeleting)) {
+    setIsEditing(false);
+    setIsDeleting(false);
+    setEditText('');
+  }
 
   return (
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
-          {label}
+          {labelIcon && <img src={labelIcon} alt={labelDisplay || label} />}
+          {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
-          {`${strings.value_prefix}: `}
-          {value}
+          {strings.value_prefix
+            && <span className="value-prefix">{`${strings.value_prefix}: `}</span>
+          }
+          {validation ? toChecksumAddress(value, validationChainId) : value}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
@@ -127,7 +153,7 @@ const AddressInputComponent = ({
           <div className="col-md-4 buttons">
             <Button
               className="cancel"
-              onClick={() => setIsEditing(false)}
+              onClick={() => handleCancelClick()}
               disabled={isWaiting}
             >
               {strings.cancel}
@@ -145,13 +171,11 @@ const AddressInputComponent = ({
       }
       {isChecksumError
         && (
-          <div className="checksumError">
-            <ChecksumErrorContainer
-              show={isChecksumError}
-              inputValue={editText}
-              handleClick={() => handleChecksumClick()}
-            />
-          </div>
+          <ChecksumErrorContainer
+            show={isChecksumError}
+            inputValue={editText}
+            handleClick={() => handleChecksumClick()}
+          />
         )
       }
       {isDeleting
@@ -161,7 +185,7 @@ const AddressInputComponent = ({
             <p>
               <Button
                 className="cancel"
-                onClick={() => setIsDeleting(false)}
+                onClick={() => { setIsDeleting(false); setIsLocalError(''); }}
                 disabled={isWaiting}
               >
                 {strings.cancel}
@@ -183,20 +207,18 @@ const AddressInputComponent = ({
         visible={isWaiting}
       />
 
-      {(isError || isLocalError)
-        && (
-          <UserErrorComponent
-            title={strings.error_title}
-            message={isLocalError || strings.error_message}
-            handleCloseClick={() => handleErrorClick()}
-          />
-        )
-      }
+      <UserErrorComponent
+        title={strings.error_title}
+        message={isLocalError || strings.error_message}
+        handleCloseClick={() => handleErrorClick()}
+        visible={isError || isLocalError}
+      />
 
       <UserSuccessComponent
         title={strings.success_title}
         message={strings.success_message}
         handleCloseClick={handleSuccessClose}
+        address={successTx}
         visible={isSuccess}
       />
     </div>
@@ -208,6 +230,10 @@ AddressInputComponent.defaultProps = {
   isError: false,
   isWaiting: false,
   isSuccess: false,
+  reset: false,
+  successTx: '',
+  validation: true,
+  validationChainId: null,
   strings: {
     cancel: 'Cancel',
     delete: 'Delete',
@@ -226,19 +252,27 @@ AddressInputComponent.defaultProps = {
   handleDelete: () => {},
   handleErrorClose: () => {},
   handleSuccessClose: () => {},
+  labelDisplay: null,
+  labelIcon: null,
 };
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
   label: propTypes.string.isRequired,
+  labelDisplay: propTypes.string,
+  labelIcon: propTypes.string,
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
+  reset: propTypes.bool,
+  validation: propTypes.bool,
+  successTx: propTypes.string,
   handleErrorClose: propTypes.func,
   handleSuccessClose: propTypes.func,
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
+  validationChainId: propTypes.string,
   strings: propTypes.shape(),
 };
 

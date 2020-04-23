@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link } from 'react-router-dom';
-import { Card, Spinner } from 'react-bootstrap';
+import { Container, Card, Spinner } from 'react-bootstrap';
 import {
   RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
@@ -113,18 +113,21 @@ class RegistrarComponent extends Component {
       const domainDisplay = `${domain}.rsk`;
 
       elementToRender = (
-        <div className="register">
-          <h1 className="sub-heading">
-            {strings.registering}
-            {': '}
-            <span className="domain">{domainDisplay}</span>
-          </h1>
-
+        <Container className="register page">
+          <div className="row">
+            <div className="col-md-12">
+              <h1 className="sub-heading">
+                {strings.registering}
+                {': '}
+                <span className="domain">{domainDisplay}</span>
+              </h1>
+            </div>
+          </div>
           {this.stepsMenu()}
 
           {!committed
             && (
-            <div className="requestDomain">
+            <div className="requestDomain row">
               <div className="col-md-6 offset-md-3">
                 <RentalPeriodContainer />
               </div>
@@ -146,8 +149,7 @@ class RegistrarComponent extends Component {
               <AutoLoginComponent />
             )
           }
-
-        </div>
+        </Container>
       );
     }
 

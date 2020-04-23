@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux';
+
+import addresses from './addresses/reducer';
 import domainInfo from './domainInfo/reducer';
+import subdomains from './subdomains/reducer';
+import reverse from './reverse/reducer';
+import resolver from './resolver/reducer';
+
 import {
   SET_VIEW, CHECK_IF_SUBDOMAIN, REQUEST_CHECK_OWNERSHIP, RECIEVE_CHECK_OWNERSHIP,
   ERROR_CHECK_OWNERSHIP, REQUEST_FIFS_MIGRATION_STATUS, RECEIVE_FIFS_MIGRATION_STATUS,
@@ -59,5 +65,9 @@ const adminReducer = (state = adminReducerInitialState, action) => {
 
 export default combineReducers({
   view: adminReducer,
+  addresses,
   domainInfo,
+  subdomains,
+  reverse,
+  resolver,
 });

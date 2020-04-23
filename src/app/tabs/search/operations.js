@@ -24,7 +24,7 @@ export default domain => (dispatch) => {
     return dispatch(receiveDomainState(''));
   }
 
-  dispatch(requestDomainState());
+  dispatch(requestDomainState(domain));
 
   const web3 = new Web3(rskNode);
 

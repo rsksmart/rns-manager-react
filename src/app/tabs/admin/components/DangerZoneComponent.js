@@ -4,7 +4,6 @@ import propTypes from 'prop-types';
 import {
   Button, Container, Spinner,
 } from 'react-bootstrap';
-import { TransferDomainContainer } from '../containers';
 
 class DangerZoneComponent extends Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class DangerZoneComponent extends Component {
 
   render() {
     const {
-      isSubdomain, isTokenOwner, checking,
+      isSubdomain, isTokenOwner, checking, strings,
     } = this.props;
 
     const { showTransferDomainContainer } = this.state;
@@ -42,7 +41,7 @@ class DangerZoneComponent extends Component {
           <Button variant="danger" onClick={this.changeShowTransferDomainContainer}>{showTransferDomainContainer ? 'Hide' : 'Danger Zone'}</Button>
           {
             showTransferDomainContainer
-            && <TransferDomainContainer />
+            && <p>{strings.use_the_new_admin_to_transfer}</p>
           }
           <hr />
         </Container>
@@ -60,6 +59,7 @@ DangerZoneComponent.defaultProps = {
 DangerZoneComponent.propTypes = {
   strings: propTypes.shape({
     transfer_domain: propTypes.string.isRequired,
+    use_the_new_admin_to_transfer: propTypes.string.isRequired,
   }).isRequired,
   checkIfSubdomainOrTokenOwner: propTypes.func.isRequired,
   isSubdomain: propTypes.bool,

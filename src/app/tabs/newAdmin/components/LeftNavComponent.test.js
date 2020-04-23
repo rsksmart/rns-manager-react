@@ -15,6 +15,7 @@ const store = mockStore({
   resolver: en.resolver,
   subdomains: en.subdomains,
   your_addresses: en.your_addresses,
+  log_out: en.log_out,
 });
 
 describe('LeftNavComponent', () => {
@@ -22,7 +23,7 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin" advancedView={false} />
+          <LeftNavComponent location="/newAdmin" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
@@ -33,7 +34,7 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
@@ -44,7 +45,7 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} />
+          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );
@@ -57,7 +58,7 @@ describe('LeftNavComponent', () => {
     const component = mount(
       <Provider store={store}>
         <HashRouter>
-          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} />
+          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} domain="foobar.rsk" />
         </HashRouter>
       </Provider>,
     );

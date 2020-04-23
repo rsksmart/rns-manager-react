@@ -1,5 +1,6 @@
 .checksumError, .invalid-feedback {
   font-size: 100%;
+  text-align: center;
 
   div.title {
     font-weight: 500 !important;
@@ -20,5 +21,15 @@
     width: 1.5em;
     height: 1.5em;    
     border-radius: 1em;
+  }
+}
+
+div.checksumError {
+  width: 100%;
+  text-align: center;
+  margin: 2em 0;
+
+  span {
+    color: $red;
   }
 }

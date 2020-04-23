@@ -14,7 +14,7 @@ const renderResolutions = (supportedInterfaces) => {
   const hasName = supportedInterfaces.indexOf('name') > -1;
 
   return (
-    <Container>
+    <Container className="page">
       <Row>
         {
           hasAddr && (
@@ -118,7 +118,7 @@ class ResolveComponent extends Component {
     }
 
     return (
-      <Container>
+      <Container className="page">
         <Row>
           <Col>
             <Form onSubmit={this.onResolve}>

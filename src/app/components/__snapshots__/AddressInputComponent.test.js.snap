@@ -15,7 +15,11 @@ exports[`AddressInputComponent renders without crashing 1`] = `
     <div
       className="col-md-7 value"
     >
-      value prefix: 
+      <span
+        className="value-prefix"
+      >
+        value prefix: 
+      </span>
       Value
     </div>
     <div
@@ -49,7 +53,14 @@ exports[`AddressInputComponent renders without crashing 1`] = `
     message="waiting text string"
     visible={false}
   />
+  <Connect(UserErrorComponent)
+    handleCloseClick={[Function]}
+    message="error message text"
+    title="error title text"
+    visible={false}
+  />
   <Connect(UserSuccessComponent)
+    address=""
     handleCloseClick={[MockFunction]}
     message="success message text"
     title="success title text"
@@ -73,7 +84,11 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
     <div
       className="col-md-7 value"
     >
-      value prefix: 
+      <span
+        className="value-prefix"
+      >
+        value prefix: 
+      </span>
       Value
     </div>
     <div
@@ -136,7 +151,14 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
     message="waiting text string"
     visible={false}
   />
+  <Connect(UserErrorComponent)
+    handleCloseClick={[Function]}
+    message="error message text"
+    title="error title text"
+    visible={false}
+  />
   <Connect(UserSuccessComponent)
+    address=""
     handleCloseClick={[MockFunction]}
     message="success message text"
     title="success title text"

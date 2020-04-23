@@ -10,7 +10,7 @@ body {
     color: #000000;
     font-weight: 300;
     font-size: 16px;
-    padding-top: 150px;
+    padding-top: 66px;
 }
 
 .row {
@@ -28,9 +28,6 @@ body {
     padding: 2rem 1rem 0.5rem;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, 1);
-}
 
 .logo {
     width: 100px;
@@ -250,99 +247,6 @@ body {
     position: relative;
     top: 2px;
 }
-
-
-
-
-
-/*footer*/
-
-footer,
-footer a,
-footer p {
-    color: #FFFFFF;
-    font-size: 14px;
-}
-
-footer a {
-    display: block;
-    font-size: 16px;
-}
-
-footer a:hover {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-footer p {
-    line-height: 22px;
-}
-
-footer p,
-footer a {
-    margin-bottom: 0.2rem;
-}
-
-footer .footer-top {
-    background: #008CFF;
-    padding: 50px 0;
-}
-
-footer .footer-top .col-lg-4 {
-    padding-right: 80px;
-}
-
-footer::before {
-    content: '';
-    width: 100%;
-    height: 200px;
-    background: url(../img/blue_shape.png);
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: block;
-    position: relative;
-    top: 125px;
-}
-
-.powered_by {
-    width: 250px;
-    height: auto;
-    margin-bottom: 30px;
-}
-
-.footer-title {
-    font-weight: 700;
-    font-size: 16px;
-    display: block;
-}
-
-footer .form-control-reverse {
-    color: #FFFFFF;
-    font-size: 14px;
-}
-
-footer .form-control-reverse::-webkit-input-placeholder {
-    font-size: 14px;
-}
-
-footer .form-control-reverse:-ms-input-placeholder {
-    font-size: 14px;
-}
-
-footer .form-control-reverse::placeholder {
-    font-size: 14px;
-}
-
-.custom-mt-1 {
-    margin-top: 21px;
-}
-
-.custom-mt-2 {
-    margin-top: 5px;
-}
-
 
 /*  DARK    */
 

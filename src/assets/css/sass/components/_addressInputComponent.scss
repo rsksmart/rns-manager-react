@@ -31,6 +31,10 @@
       text-align: center;
     }
 
+    .value-prefix {
+      text-transform: capitalize;
+    }
+
     .options {
       text-align: right;
     }
@@ -80,16 +84,6 @@
       font-weight: 300 !important;
     }
 
-  }
-
-  div.checksumError {
-    width: 100%;
-    text-align: center;
-    margin: 2em 0;
-
-    span {
-      color: $red;
-    }
   }
 
   div.delete {
