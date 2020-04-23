@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   isError: state.newAdmin.domainInfo.domainOwnerError !== '',
   errorMessage: state.newAdmin.domainInfo.domainOwnerError,
   isSettingDomainOwner: state.newAdmin.domainInfo.isSettingDomainOwner,
+  advancedView: state.newAdmin.view.advancedView,
 });
 
 const mapDispatchToProps = dispatch => ({

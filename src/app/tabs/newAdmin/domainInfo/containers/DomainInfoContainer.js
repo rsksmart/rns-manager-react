@@ -6,8 +6,8 @@ const mapStateToProps = state => ({
   isSubdomain: state.newAdmin.view.isSubdomain,
   isTokenOwner: state.newAdmin.view.isTokenOwner,
   isTransferSuccess: state.newAdmin.domainInfo.isTransferSuccess,
-  advancedView: state.newAdmin.view.advancedView,
   checkingRegistryOwner: state.newAdmin.view.checkingRegistryOwner,
+  checkingOwnership: state.newAdmin.view.checkingRegistryOwner,
 });
 
 export default connect(

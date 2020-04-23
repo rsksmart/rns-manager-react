@@ -178,7 +178,7 @@ export const setDomainOwner = (domain, address) => async (dispatch) => {
 };
 
 /**
- * Reclaim the domain if you are the token registrar but not the domain owner
+ * Reclaim the domain
  * Uses users currentAddress
  * @param {string} domain to be reclaimed
  */

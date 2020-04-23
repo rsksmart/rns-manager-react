@@ -8,8 +8,9 @@ import { UserWaitingComponent, UserErrorComponent } from '../../../../components
 const DomainInfoComponent = ({
   strings, isRegistryOwner, registryOwner, domain, reclaimDomain,
   isError, errorMessage, handleCloseClick, isSettingDomainOwner,
+  advancedView,
 }) => {
-  if (isRegistryOwner) {
+  if (isRegistryOwner && advancedView) {
     return (
       <Row className="break-above">
         <Col>
@@ -28,52 +29,56 @@ const DomainInfoComponent = ({
     );
   }
 
-  return (
-    <div className="major-section">
-      <Row>
-        <Col>
-          <h2>{strings.reclaim_domain}</h2>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={9}>
-          <p>{strings.reclaim_domain_explanation}</p>
-        </Col>
-        <Col md={3}>
-          <p>
-            <Button
-              disabled={isSettingDomainOwner}
-              onClick={() => reclaimDomain()}
-            >
-              Reclaim Domain
-            </Button>
-          </p>
-        </Col>
-      </Row>
-      <UserErrorComponent
-        visible={isError}
-        message={errorMessage}
-        handleCloseClick={handleCloseClick}
-      />
-      <UserWaitingComponent visible={isSettingDomainOwner} />
-      <Row>
-        <Col md={12}>
-          <h2 className="break-above">{strings.controller}</h2>
-          <div className="row addressInput">
-            <div className="row view">
-              <div className="col-md-3 label">
-                {domain}
-              </div>
-              <div className="col-md-8 value">
-                <span className="value-prefix">controller: </span>
-                {registryOwner}
+  if (!isRegistryOwner) {
+    return (
+      <div className="major-section">
+        <Row>
+          <Col>
+            <h2>{strings.reclaim_domain}</h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={9}>
+            <p>{strings.reclaim_domain_explanation}</p>
+          </Col>
+          <Col md={3}>
+            <p>
+              <Button
+                disabled={isSettingDomainOwner}
+                onClick={() => reclaimDomain()}
+              >
+                Reclaim Domain
+              </Button>
+            </p>
+          </Col>
+        </Row>
+        <UserErrorComponent
+          visible={isError}
+          message={errorMessage}
+          handleCloseClick={handleCloseClick}
+        />
+        <UserWaitingComponent visible={isSettingDomainOwner} />
+        <Row>
+          <Col md={12}>
+            <h2 className="break-above">{strings.controller}</h2>
+            <div className="row addressInput">
+              <div className="row view">
+                <div className="col-md-3 label">
+                  {domain}
+                </div>
+                <div className="col-md-8 value">
+                  <span className="value-prefix">controller: </span>
+                  {registryOwner}
+                </div>
               </div>
             </div>
-          </div>
-        </Col>
-      </Row>
-    </div>
-  );
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+
+  return <></>;
 };
 
 DomainInfoComponent.propTypes = {
@@ -94,6 +99,7 @@ DomainInfoComponent.propTypes = {
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   isSettingDomainOwner: propTypes.bool.isRequired,
+  advancedView: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);
