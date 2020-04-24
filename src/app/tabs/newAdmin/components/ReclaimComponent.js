@@ -7,7 +7,7 @@ import { UserWaitingComponent, UserErrorComponent } from '../../../components';
 
 const ReclaimComponent = ({
   strings, reclaimDomain, isError, errorMessage, handleCloseClick, isSettingRegistryOwner,
-  isDomainInfo,
+  isDomainInfo, domain, registryOwner,
 }) => (
   <div className="reclaim major-section">
     <Row>
@@ -36,6 +36,26 @@ const ReclaimComponent = ({
       handleCloseClick={handleCloseClick}
     />
     <UserWaitingComponent visible={isSettingRegistryOwner} />
+
+    {(isDomainInfo && !isSettingRegistryOwner) && (
+    <>
+      <h2>{strings.controller}</h2>
+      <Row className="addressInput">
+        <div className="view row">
+          <Col md={3} className="label">
+            {domain}
+          </Col>
+          <Col md={9} className="value">
+            <span className="value-prefix">
+              {strings.controller}
+              :
+            </span>
+            {registryOwner}
+          </Col>
+        </div>
+      </Row>
+    </>
+    )}
   </div>
 );
 
@@ -61,6 +81,8 @@ ReclaimComponent.propTypes = {
   handleCloseClick: propTypes.func.isRequired,
   isSettingRegistryOwner: propTypes.bool.isRequired,
   isDomainInfo: propTypes.bool,
+  domain: propTypes.string.isRequired,
+  registryOwner: propTypes.string.isRequired,
 };
 
 export default multilanguage(ReclaimComponent);

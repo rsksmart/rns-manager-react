@@ -362,6 +362,8 @@
   "controller": "controller",
   "reclaim_domain": "Reclaim Domain",
   "please_reclaim_domain": "Please reclaim your domain to access these features",
-  "missing_features": "You are missing some features",
-  "reclaim_domain_explanation": "You will not be able to take advantage of some features in the manager, because you are not set as the registry owner. This could be because the domain was transferred to you or because you set it to someone else. To set it back to your address, please reclaim the domain."
+  "missing_features": "The controller is set to a different address",
+  "reclaim_domain_explanation": "You will not be able to take advantage of some features in the manager, because you are not set as the controller. This could be because the domain was transferred to you or because you set it to someone else. To set it back to your address, please click the reclaim domain button.",
+  "set_controller_success": "The controller has been set.",
+  "new_controller": "New controller"
 }

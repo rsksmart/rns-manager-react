@@ -8,6 +8,8 @@ import { Switch, Route } from 'react-router';
 import { AuthTabWrapper } from '../../../auth';
 import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
+import UserWaitingComponent from '../../../components/UserWaitingComponent';
+
 import {
   LeftNavContainer, ReclaimContainer,
 } from '../containers';
@@ -24,7 +26,12 @@ const AdminComponent = ({
   advancedView,
   domain,
   isRegistryOwner,
+  enabling,
 }) => {
+  if (enabling) {
+    return <UserWaitingComponent />;
+  }
+
   if (domain) {
     const dispatch = useDispatch();
     useEffect(() => dispatch(start(domain)), [dispatch]);
@@ -81,6 +88,7 @@ AdminComponent.propTypes = {
   toggleAdvancedBasic: propTypes.func.isRequired,
   domain: propTypes.string,
   isRegistryOwner: propTypes.bool.isRequired,
+  enabling: propTypes.bool.isRequired,
 };
 
 export default multilanguage(AdminComponent);

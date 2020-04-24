@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AddressInputComponent } from '../../../../components';
-import { closeSetDomainOwner } from '../actions';
+import { closeSetRegistryOwner } from '../actions';
 import { setRegistryOwner } from '../operations';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
   value: state.newAdmin.view.registryOwner,
   isRegistryOwner: state.newAdmin.view.isRegistryOwner,
   isError: state.newAdmin.domainInfo.registryOwnerError !== '',
-  isWaiting: state.newAdmin.domainInfo.isSettingregistryOwner,
+  isWaiting: state.newAdmin.domainInfo.isSettingRegistryOwner,
   isSuccess: state.newAdmin.domainInfo.registryOwnerSuccessTx !== '',
   address: state.newAdmin.domainInfo.registryOwnerSuccessTx,
   strings: {
@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (domain, value) => dispatch(setRegistryOwner(domain, value.toLowerCase())),
-  handleClose: () => dispatch(closeSetDomainOwner()),
+  handleClose: () => dispatch(closeSetRegistryOwner()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

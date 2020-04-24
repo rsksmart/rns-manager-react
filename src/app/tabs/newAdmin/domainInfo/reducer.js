@@ -6,7 +6,7 @@ import {
   CLOSE_SUCCESS_ERROR_MESSAGE, HANDLE_TRANSFER_ERROR_CLOSE, REQUEST_FIFS_MIGRATION,
   RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION, RECEIVE_SET_REGISTRY_OWNER,
   REQUEST_SET_REGISTRY_OWNER, ERROR_SET_REGISTRY_OWNER, CLOSE_SET_REGISTRY_OWNER,
-  REQUEST_RECLAIM_DOMAIN, ERROR_RECLAIM_DOMAIN,
+  REQUEST_RECLAIM_DOMAIN, ERROR_RECLAIM_DOMAIN, RECEIVE_RECLAIM_DOMAIN,
 } from './types';
 
 const initialState = {
@@ -117,6 +117,8 @@ const renewDomain = (state = initialState, action) => {
     case REQUEST_SET_REGISTRY_OWNER: return {
       ...state,
       isSettingRegistryOwner: true,
+      registryOwnerError: '',
+      registryOwnerSuccessTx: '',
     };
     case ERROR_SET_REGISTRY_OWNER: return {
       ...state,
@@ -137,11 +139,17 @@ const renewDomain = (state = initialState, action) => {
     case REQUEST_RECLAIM_DOMAIN: return {
       ...state,
       isSettingRegistryOwner: true,
+      registryOwnerError: '',
     };
     case ERROR_RECLAIM_DOMAIN: return {
       ...state,
       isSettingRegistryOwner: false,
       registryOwnerError: action.message,
+    };
+    case RECEIVE_RECLAIM_DOMAIN: return {
+      ...state,
+      isSettingRegistryOwner: false,
+      registryOwnerSuccessTx: '',
     };
 
     default: return state;

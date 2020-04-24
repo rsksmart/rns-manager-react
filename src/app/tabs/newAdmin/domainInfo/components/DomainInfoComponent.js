@@ -52,7 +52,7 @@ const DomainInfoComponent = (props) => {
         )}
       </Row>
       <RenewDomainContainer />
-      {(!isSubdomain && isTokenOwner)
+      {(isTokenOwner && !isSubdomain)
       && (
       <Row className="break-above">
         <Col>
@@ -70,8 +70,8 @@ const DomainInfoComponent = (props) => {
       </Row>
       )}
       <UpgradeContainer />
-      <SetControllerViewContainer />
-      {!isRegistryOwner && <ReclaimContainer isDomainInfo />}
+      {(isTokenOwner && !isSubdomain) && <SetControllerViewContainer />}
+      {(!isRegistryOwner && !isSubdomain) && <ReclaimContainer isDomainInfo />}
     </div>
   );
 };

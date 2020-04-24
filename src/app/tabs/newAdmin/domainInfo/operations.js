@@ -22,8 +22,8 @@ import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
   requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
-  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetDomainOwner,
-  errorSetDomainOwner, receiveSetDomainOwner, requestReclaimDomain, errorReclaimDomain,
+  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetRegistryOwner,
+  errorSetRegistryOwner, receiveSetRegistryOwner, requestReclaimDomain, errorReclaimDomain,
   receiveReclaimDomain,
 } from './actions';
 
@@ -153,7 +153,7 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
  * @param {address} address new address to set owner to
  */
 export const setRegistryOwner = (domain, address) => async (dispatch) => {
-  dispatch(requestSetDomainOwner(domain));
+  dispatch(requestSetRegistryOwner(domain));
 
   const label = namehash(domain);
   const accounts = await window.ethereum.enable();
@@ -163,14 +163,16 @@ export const setRegistryOwner = (domain, address) => async (dispatch) => {
   await rns.contracts.registry.methods.setOwner(label, address)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
-        return dispatch(errorSetDomainOwner(error.message));
+        return dispatch(errorSetRegistryOwner(error.message));
       }
 
       const transactionConfirmed = () => () => {
         dispatch(receiveRegistryOwner(
           address, address.toLowerCase() === currentAddress.toLowerCase(),
         ));
-        dispatch(receiveSetDomainOwner(address, result));
+
+        dispatch(receiveSetRegistryOwner(address, result));
+        dispatch(receiveRegistryOwner(address, false));
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));

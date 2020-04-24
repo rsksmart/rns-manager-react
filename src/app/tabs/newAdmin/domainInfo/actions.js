@@ -84,23 +84,23 @@ export const errorFifsMigration = () => ({
   type: ERROR_FIFS_MIGRATION,
 });
 
-export const requestSetDomainOwner = domain => ({
+export const requestSetRegistryOwner = domain => ({
   type: REQUEST_SET_REGISTRY_OWNER,
   domain,
 });
 
-export const errorSetDomainOwner = message => ({
+export const errorSetRegistryOwner = message => ({
   type: ERROR_SET_REGISTRY_OWNER,
   message,
 });
 
-export const receiveSetDomainOwner = (owner, successTx) => ({
+export const receiveSetRegistryOwner = (owner, successTx) => ({
   type: RECEIVE_SET_REGISTRY_OWNER,
   owner,
   successTx,
 });
 
-export const closeSetDomainOwner = () => ({
+export const closeSetRegistryOwner = () => ({
   type: CLOSE_SET_REGISTRY_OWNER,
 });
 

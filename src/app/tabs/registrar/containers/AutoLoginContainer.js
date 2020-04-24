@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleManageClick: () => {
-    dispatch(push('/admin'));
+    dispatch(push('/newAdmin'));
     dispatch(autoLogin(localStorage.getItem('name')));
     dispatch(resetRegistrarState());
   },

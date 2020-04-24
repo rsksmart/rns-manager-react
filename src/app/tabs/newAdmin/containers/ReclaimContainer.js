@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { ReclaimComponent } from '../components';
 import { reclaimDomain } from '../domainInfo/operations';
-import { closeSetDomainOwner } from '../domainInfo/actions';
+import { closeSetRegistryOwner } from '../domainInfo/actions';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -10,11 +10,12 @@ const mapStateToProps = state => ({
   errorMessage: state.newAdmin.domainInfo.registryOwnerError,
   isSettingRegistryOwner: state.newAdmin.domainInfo.isSettingRegistryOwner,
   advancedView: state.newAdmin.view.advancedView,
+  registryOwner: state.newAdmin.view.registryOwner,
 });
 
 const mapDispatchToProps = dispatch => ({
   reclaimDomain: domain => dispatch(reclaimDomain(domain)),
-  handleCloseClick: () => dispatch(closeSetDomainOwner()),
+  handleCloseClick: () => dispatch(closeSetRegistryOwner()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
