@@ -1,15 +1,14 @@
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
-import multilanguage from '../../../multilanguageReducer';
 import searchReducer from '../../search/reducer';
 import searchOperation from '../../search/operations';
 
 import SearchBoxContainer from './SearchBoxContainer';
 
+import configureStore from '../../../../../tests/config/configureStore';
+/*
 const rootReducer = () => combineReducers({
   search: searchReducer,
   multilanguage,
@@ -24,20 +23,22 @@ const configureStore = (prelodedState) => {
   );
   return store;
 };
-
+*/
 describe('searchBoxContainer', () => {
+  const storeSetup = { search: searchReducer };
+
   it('gets correct environment varialbe', () => {
     expect(process.env.REACT_APP_ENVIRONMENT).toEqual('test');
   });
 
   it('has default state', () => {
-    const store = configureStore();
+    const store = configureStore(storeSetup);
     expect(store.getState().search.domain).toBeFalsy();
     expect(store.getState().requestingOwner).toBeFalsy();
   });
 
   it('handles handleClick function and sets domain in reducer', () => {
-    const store = configureStore();
+    const store = configureStore(storeSetup);
     const component = mount(
       <Provider store={store}>
         <SearchBoxContainer />
@@ -52,7 +53,7 @@ describe('searchBoxContainer', () => {
   });
 
   it('searches for the domain via handleClick opperations', () => {
-    const store = configureStore();
+    const store = configureStore(storeSetup);
     return store.dispatch(searchOperation('jesse'))
       .then(() => {
         const searchState = store.getState().search;
