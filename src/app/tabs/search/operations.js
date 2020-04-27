@@ -45,7 +45,7 @@ export default domain => (dispatch) => {
           auctionRegistrarAddress,
         );
 
-        auctionRegistrar.methods.entries(hash).call()
+        return auctionRegistrar.methods.entries(hash).call()
           .then((results) => {
             if (results[0] === '2') {
               const deedContract = new web3.eth.Contract(deedRegistrarAbi, results[1]);
