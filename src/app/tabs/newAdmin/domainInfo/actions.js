@@ -4,7 +4,10 @@ import {
   REQUEST_DOMAIN_EXPIRATION_TIME, RECIEVE_DOMAIN_EXPIRATION_TIME,
   ERROR_DOMAIN_EXIPRATION_TIME, TOGGLE_RENEW_PANEL, REQUEST_RENEW_DOMAIN,
   RECEIVE_RENEW_DOMAIN, ERROR_RENEW_DOMAIN, CLOSE_RENEW_ERROR_MESSAGE,
-  CLOSE_SUCCESS_ERROR_MESSAGE, REQUEST_FIFS_MIGRATION, RECEIVE_FIFS_MIGRATION, ERROR_FIFS_MIGRATION,
+  CLOSE_SUCCESS_ERROR_MESSAGE, REQUEST_FIFS_MIGRATION, RECEIVE_FIFS_MIGRATION,
+  ERROR_FIFS_MIGRATION, REQUEST_SET_REGISTRY_OWNER, RECEIVE_SET_REGISTRY_OWNER,
+  ERROR_SET_REGISTRY_OWNER, CLOSE_SET_REGISTRY_OWNER, REQUEST_RECLAIM_DOMAIN,
+  ERROR_RECLAIM_DOMAIN, RECEIVE_RECLAIM_DOMAIN,
 } from './types';
 
 export const requestTransferDomain = () => ({
@@ -79,4 +82,39 @@ export const receiveFifsMigration = () => ({
 
 export const errorFifsMigration = () => ({
   type: ERROR_FIFS_MIGRATION,
+});
+
+export const requestSetRegistryOwner = domain => ({
+  type: REQUEST_SET_REGISTRY_OWNER,
+  domain,
+});
+
+export const errorSetRegistryOwner = message => ({
+  type: ERROR_SET_REGISTRY_OWNER,
+  message,
+});
+
+export const receiveSetRegistryOwner = (owner, successTx) => ({
+  type: RECEIVE_SET_REGISTRY_OWNER,
+  owner,
+  successTx,
+});
+
+export const closeSetRegistryOwner = () => ({
+  type: CLOSE_SET_REGISTRY_OWNER,
+});
+
+export const requestReclaimDomain = domain => ({
+  type: REQUEST_RECLAIM_DOMAIN,
+  domain,
+});
+
+export const errorReclaimDomain = message => ({
+  type: ERROR_RECLAIM_DOMAIN,
+  message,
+});
+
+export const receiveReclaimDomain = successTx => ({
+  type: RECEIVE_RECLAIM_DOMAIN,
+  successTx,
 });

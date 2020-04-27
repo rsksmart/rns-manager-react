@@ -8,8 +8,10 @@ import { Switch, Route } from 'react-router';
 import { AuthTabWrapper } from '../../../auth';
 import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
+import UserWaitingComponent from '../../../components/UserWaitingComponent';
+
 import {
-  LeftNavContainer,
+  LeftNavContainer, ReclaimContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
@@ -18,13 +20,17 @@ import { ReverseContainer } from '../reverse/containers';
 import { AddressesContainer } from '../addresses/containers';
 import { ResolverContainer } from '../resolver/containers';
 
-const AdminComponent = (props) => {
-  const {
-    strings,
-    toggleAdvancedBasic,
-    advancedView,
-    domain,
-  } = props;
+const AdminComponent = ({
+  strings,
+  toggleAdvancedBasic,
+  advancedView,
+  domain,
+  isRegistryOwner,
+  enabling,
+}) => {
+  if (enabling) {
+    return <UserWaitingComponent />;
+  }
 
   if (domain) {
     const dispatch = useDispatch();
@@ -50,12 +56,16 @@ const AdminComponent = (props) => {
           </Col>
           <Col md={9}>
             <Switch>
+              <Route exact path="/newAdmin" component={DomainInfoContainer} />
+              <Route path="/newAdmin/reverse" component={advancedView ? ReverseContainer : DomainInfoContainer} />
+
+              {
+                !isRegistryOwner && <Route component={ReclaimContainer} />
+              }
+
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
-
               <Route path="/newAdmin/resolver" component={advancedView ? ResolverContainer : DomainInfoContainer} />
-              <Route path="/newAdmin/reverse" component={advancedView ? ReverseContainer : DomainInfoContainer} />
-              <Route exact path="/newAdmin" component={DomainInfoContainer} />
             </Switch>
           </Col>
         </Row>
@@ -77,6 +87,8 @@ AdminComponent.propTypes = {
   advancedView: propTypes.bool.isRequired,
   toggleAdvancedBasic: propTypes.func.isRequired,
   domain: propTypes.string,
+  isRegistryOwner: propTypes.bool.isRequired,
+  enabling: propTypes.bool.isRequired,
 };
 
 export default multilanguage(AdminComponent);

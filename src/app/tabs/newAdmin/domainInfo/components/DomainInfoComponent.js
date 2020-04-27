@@ -4,9 +4,13 @@ import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
+import UserWaitingComponent from '../../../../components/UserWaitingComponent';
+import { ReclaimContainer } from '../../containers';
+
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
   TransferSuccessModalContainer, UpgradeContainer,
+  SetControllerViewContainer,
 } from '../containers';
 
 const DomainInfoComponent = (props) => {
@@ -16,12 +20,19 @@ const DomainInfoComponent = (props) => {
     isSubdomain,
     isTransferSuccess,
     isTokenOwner,
+    checkingRegistryOwner,
+    checkingOwnership,
+    isRegistryOwner,
   } = props;
 
   if (isTransferSuccess) {
     return (
       <TransferSuccessModalContainer />
     );
+  }
+
+  if (checkingRegistryOwner || checkingOwnership) {
+    return <UserWaitingComponent visible />;
   }
 
   return (
@@ -41,7 +52,7 @@ const DomainInfoComponent = (props) => {
         )}
       </Row>
       <RenewDomainContainer />
-      {(!isSubdomain && isTokenOwner)
+      {(isTokenOwner && !isSubdomain)
       && (
       <Row className="break-above">
         <Col>
@@ -59,6 +70,8 @@ const DomainInfoComponent = (props) => {
       </Row>
       )}
       <UpgradeContainer />
+      {(isTokenOwner && !isSubdomain) && <SetControllerViewContainer />}
+      {(!isRegistryOwner && !isSubdomain) && <ReclaimContainer isDomainInfo />}
     </div>
   );
 };
@@ -79,6 +92,9 @@ DomainInfoComponent.propTypes = {
   isSubdomain: propTypes.bool.isRequired,
   isTokenOwner: propTypes.bool,
   isTransferSuccess: propTypes.bool.isRequired,
+  checkingRegistryOwner: propTypes.bool.isRequired,
+  checkingOwnership: propTypes.bool.isRequired,
+  isRegistryOwner: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);
