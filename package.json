@@ -84,6 +84,10 @@
     },
     "moduleNameMapper":{
       "\\.(gif|png|eot|svg)$": "<rootDir>/tests/config/mockImage.js"
-    }
+    },
+    "verbose": false,
+    "setupFiles": [
+      "<rootDir>/tests/setEnvVars.js"
+    ]
   }
 }
