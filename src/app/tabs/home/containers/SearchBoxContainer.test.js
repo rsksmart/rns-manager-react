@@ -7,23 +7,8 @@ import searchOperation from '../../search/operations';
 
 import SearchBoxContainer from './SearchBoxContainer';
 
-import configureStore from '../../../../../tests/config/configureStore';
-/*
-const rootReducer = () => combineReducers({
-  search: searchReducer,
-  multilanguage,
-});
+import multiLanguageStore from '../../../../../tests/config/multiLanguageStore';
 
-const middleware = [thunk];
-const configureStore = (prelodedState) => {
-  const store = createStore(
-    rootReducer(),
-    prelodedState,
-    applyMiddleware(...middleware),
-  );
-  return store;
-};
-*/
 describe('searchBoxContainer', () => {
   const storeSetup = { search: searchReducer };
 
@@ -32,13 +17,13 @@ describe('searchBoxContainer', () => {
   });
 
   it('has default state', () => {
-    const store = configureStore(storeSetup);
+    const store = multiLanguageStore(storeSetup);
     expect(store.getState().search.domain).toBeFalsy();
     expect(store.getState().requestingOwner).toBeFalsy();
   });
 
   it('handles handleClick function and sets domain in reducer', () => {
-    const store = configureStore(storeSetup);
+    const store = multiLanguageStore(storeSetup);
     const component = mount(
       <Provider store={store}>
         <SearchBoxContainer />
@@ -53,14 +38,15 @@ describe('searchBoxContainer', () => {
   });
 
   it('searches for the domain via handleClick opperations', () => {
-    const store = configureStore(storeSetup);
+    const store = multiLanguageStore(storeSetup);
+    console.log('setting up man!');
     return store.dispatch(searchOperation('jesse'))
       .then(() => {
         const searchState = store.getState().search;
 
         expect(searchState.domain).toEqual('jesse');
         expect(searchState.requestingOwner).toBeFalsy();
-        expect(searchState.owner).toBe('0x3Dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A');
+        expect(searchState.owner).toBe('asd');
         expect(searchState.owned).toBeTruthy();
       });
   });
