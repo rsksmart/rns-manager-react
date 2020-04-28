@@ -4,7 +4,7 @@ import multilanguage from '../../src/app/multilanguageReducer';
 
 const middleware = [thunk];
 
-export const configureStore = (initReducers, prelodedState) => createStore(
+const multiLanguageStore = (initReducers, prelodedState) => createStore(
   combineReducers({
     ...initReducers,
     multilanguage,
@@ -13,4 +13,4 @@ export const configureStore = (initReducers, prelodedState) => createStore(
   applyMiddleware(...middleware),
 );
 
-export default configureStore;
+export default multiLanguageStore;
