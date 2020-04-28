@@ -4,7 +4,7 @@ import {
 } from './types';
 
 // TODO: check initial state
-const initialState = {
+export const initialState = {
   domain: undefined,
   owned: undefined,
   owner: undefined,
@@ -67,12 +67,7 @@ const searchReducer = (state = initialState, action) => {
     }
     case CLEAR_DOMAIN_STATE: {
       return {
-        ...state,
-        domain: undefined,
-        owned: undefined,
-        owner: undefined,
-        domainStateLoading: false,
-        blocked: undefined,
+        ...initialState,
       };
     }
     default: return state;

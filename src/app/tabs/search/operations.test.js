@@ -5,12 +5,12 @@ import searchOperation from './operations';
 import multiLanguageStore from '../../../../tests/config/multiLanguageStore';
 
 describe('searchBoxContainer', () => {
-  let store;
   beforeEach(() => {
-    store = multiLanguageStore({ search: searchReducer });
+    jest.setTimeout(10000);
   });
 
   it('searches for the domain that is taken ', () => {
+    const store = multiLanguageStore({ search: searchReducer });
     return store.dispatch(searchOperation('jesse'))
       .then(() => {
         const searchState = store.getState().search;
@@ -31,6 +31,7 @@ describe('searchBoxContainer', () => {
   });
   */
   it('searches for a domain that is available', () => {
+    const store = multiLanguageStore({ search: searchReducer });
     return store.dispatch(searchOperation('foobar984590456'))
       .then(() => {
         const searchState = store.getState().search;
@@ -41,6 +42,7 @@ describe('searchBoxContainer', () => {
   });
 
   it('searches for a blocked domain', () => {
+    const store = multiLanguageStore({ search: searchReducer });
     return store.dispatch(searchOperation('foo'))
       .then(() => {
         const searchState = store.getState().search;
