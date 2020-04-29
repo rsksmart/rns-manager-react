@@ -13,10 +13,14 @@ describe('set up RSK environment, contracts, etc', () => {
   let web3;
   let accounts;
   let rnsAddr;
+  let provider;
 
   beforeAll(async () => {
-    // setup blockchain and get account list
-    const provider = ganache.provider();
+    // set up provider, assign it to process environment variable
+    provider = ganache.provider();
+    process.env.REACT_APP_NODE = provider;
+
+    // setup web3 and get account list
     web3 = new Web3(provider);
     accounts = await web3.eth.getAccounts();
 
@@ -24,10 +28,19 @@ describe('set up RSK environment, contracts, etc', () => {
     // have up to 60 seconds to complete
     const suite = await RNSSuite(provider, ['alice', 'bob', 'charlie'], ['david', 'eve', 'frank']);
 
+    // set addresses to be used lower
     rnsAddr = {
       rskOwner: suite.rskOwner.options.address,
       rns: suite.rns.options.address,
     };
+
+    // set addresses to be used later
+    const addresses = {
+      rskOwner: suite.rskOwner.options.address,
+      fifsRegistrar: suite.fifsRegistrar.options.address,
+      publicResolver: suite.rns.options.publicResolver,
+    };
+    process.env.REACT_APP_GANACHE_ADDRESSES = JSON.stringify(addresses);
   }, 60000);
 
   beforeEach(() => {
@@ -36,7 +49,8 @@ describe('set up RSK environment, contracts, etc', () => {
   });
 
   afterAll(() => {
-    // console.log('after all!');
+    // clean up provider
+    provider.stop();
   });
 
   it('gets the block number after RNS suite is deployed', async () => {
