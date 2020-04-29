@@ -12,7 +12,7 @@ const ONE = ONE_HUNDREAD / 100;
 describe('set up RSK environment, contracts, etc', () => {
   let web3;
   let accounts;
-  let rnsAddr;
+  let addresses;
   let provider;
 
   beforeAll(async () => {
@@ -28,19 +28,12 @@ describe('set up RSK environment, contracts, etc', () => {
     // have up to 60 seconds to complete
     const suite = await RNSSuite(provider, ['alice', 'bob', 'charlie'], ['david', 'eve', 'frank']);
 
-    // set addresses to be used lower
-    rnsAddr = {
-      rskOwner: suite.rskOwner.options.address,
-      rns: suite.rns.options.address,
-    };
-
     // set addresses to be used later
-    const addresses = {
+    addresses = {
       rskOwner: suite.rskOwner.options.address,
       fifsRegistrar: suite.fifsRegistrar.options.address,
       publicResolver: suite.rns.options.publicResolver,
     };
-    process.env.REACT_APP_GANACHE_ADDRESSES = JSON.stringify(addresses);
   }, 60000);
 
   beforeEach(() => {
@@ -82,7 +75,7 @@ describe('set up RSK environment, contracts, etc', () => {
   });
 
   it('it should show the domain david as unavailable', async () => {
-    const rskOwner = new web3.eth.Contract(rskOwnerAbi, rnsAddr.rskOwner);
+    const rskOwner = new web3.eth.Contract(rskOwnerAbi, addresses.rskOwner);
     const hash = `0x${sha3('david')}`;
 
     return rskOwner.methods.available(hash).call()
@@ -92,7 +85,7 @@ describe('set up RSK environment, contracts, etc', () => {
   });
 
   it('it should show the domain foobar as available', async () => {
-    const rskOwner = new web3.eth.Contract(rskOwnerAbi, rnsAddr.rskOwner);
+    const rskOwner = new web3.eth.Contract(rskOwnerAbi, addresses.rskOwner);
     const hash = `0x${sha3('foobar')}`;
 
     return rskOwner.methods.available(hash).call()
