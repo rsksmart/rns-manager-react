@@ -5,10 +5,6 @@ import searchOperation from './operations';
 import multiLanguageStore from '../../../../tests/config/multiLanguageStore';
 
 describe('searchBoxContainer', () => {
-  beforeEach(() => {
-    jest.setTimeout(10000);
-  });
-
   it('searches for the domain that is taken ', () => {
     const store = multiLanguageStore({ search: searchReducer });
     return store.dispatch(searchOperation('jesse'))
