@@ -12,7 +12,9 @@ import {
   waitingSetSubdomainOwner, receiveSetSubdomainOwner, errorSetSubdomainOwner,
   removeSubdomainFromList,
 } from './actions';
+import { ERROR_RESOLVE_NAME } from '../../resolve/types';
 
+import { resolveAddr } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -37,8 +39,6 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
 };
 
 const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
-  dispatch(requestNewSubdomain());
-
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
@@ -89,9 +89,19 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
 export const newSubdomain = (
   parentDomain, subdomain, newOwner, subdomainList,
 ) => async (dispatch) => {
+  dispatch(requestNewSubdomain());
+
+  // get address if it ends with .rsk
+  const newAddress = await newOwner.endsWith('.rsk')
+    ? await dispatch(resolveAddr(newOwner, null, errorNewSubdomain())) : newOwner;
+
+  if (newAddress === ERROR_RESOLVE_NAME) {
+    return dispatch(errorNewSubdomain(`Could not resolve domain ${newOwner}`));
+  }
+
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubdomain(parentDomain, subdomain, newOwner));
+    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress));
   }
 
   if (subdomainList[subdomain]) {
