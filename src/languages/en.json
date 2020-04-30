@@ -365,5 +365,8 @@
   "missing_features": "The controller is set to a different address",
   "reclaim_domain_explanation": "You are likely to see this message for two reasons: you received a domain that was transferred, or you gave control of your domain to another account. To recover full control of the domain click on 'Reclaim Domain'.",
   "set_controller_success": "The controller has been set.",
-  "new_controller": "New controller"
+  "new_controller": "New controller",
+  "address_placeholder": "Type owner's address or RSK domain",
+  "subdomain_name": "Type your subdomain name",
+  "resolve_not_set": "Could not resolve domain"
 }

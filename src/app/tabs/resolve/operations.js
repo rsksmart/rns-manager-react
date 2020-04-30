@@ -1,10 +1,34 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
+import RNS from '@rsksmart/rns';
 import * as actions from './actions';
 import { rskNode } from '../../adapters/nodeAdapter';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
 import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
+import { getOptions } from '../../adapters/RNSLibAdapter';
+import { ERROR_RESOLVE_NAME } from './types';
+
+/**
+ * Resolves a domain name using the js library
+ * @param {string} domain to resolve
+ * @param {bytes4} chainId to search, set as null if RKS to search both multichain and public
+ */
+export const resolveAddr = (domain, chainId = null) => async (dispatch) => {
+  const web3 = new Web3(window.ethereum);
+  const rns = new RNS(web3, getOptions());
+
+  dispatch(actions.requestAddr());
+  return rns.addr(domain, chainId)
+    .then((response) => {
+      dispatch(actions.receiveAddr(response));
+      return response;
+    })
+    .catch((error) => {
+      dispatch(actions.errorResolve(error));
+      return ERROR_RESOLVE_NAME;
+    });
+};
 
 export const identifyInterfaces = domain => (dispatch) => {
   if (!domain) {

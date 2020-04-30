@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rns": "^1.4.0",
+    "@rsksmart/rns": "^1.5.0",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.3.1",
     "env-cmd": "^10.0.1",
