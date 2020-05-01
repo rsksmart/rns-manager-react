@@ -12,30 +12,30 @@ exports[`TextRotationComponent renders, places correct content with bold and mat
           "link_label": "click",
         },
         "es_uy": Object {
-          "content": "",
-          "link_label": "",
+          "content": "Puede $integrar su aplicación con RNS $utilizando las bibliotecas de código abierto.",
+          "link_label": "Lea las pautas de integración",
         },
         "id": "rns-00",
         "ja": Object {
-          "content": "",
-          "link_label": "",
+          "content": "オープンソース・ライブラリを使用して、$アプリケーションをRNSと統合$できます。",
+          "link_label": "統合ガイドラインを読む",
         },
         "ko": Object {
-          "content": "",
-          "link_label": "",
+          "content": "오픈 소스 라이브러리를 통해 $나의 애플리케이션과 RNS를 통합$할 수 있습니다.",
+          "link_label": "통합 지침 읽기",
         },
         "link": "https://developers.rsk.co/",
         "pt_br": Object {
-          "content": "",
-          "link_label": "",
+          "content": "Você pode $integrar seu aplicativo ao RNS$ usando as bibliotecas de código aberto.",
+          "link_label": "Leia as diretrizes de integração",
         },
         "ru": Object {
-          "content": "",
-          "link_label": "",
+          "content": "Вы можете $интегрировать свое приложение с RNS$, используя библиотеки с открытым исходным кодом.",
+          "link_label": "Ознакомиться с рекомендациями по интеграции",
         },
         "zh_cn": Object {
-          "content": "",
-          "link_label": "",
+          "content": "您可以$使用开源代码库来与 RNS$ 整合您的应用程序。",
+          "link_label": "参阅集成指南",
         },
       },
     ]
