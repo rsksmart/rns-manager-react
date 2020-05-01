@@ -1,6 +1,8 @@
 import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
-  ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE,
+  ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
+  RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
+  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT,
 } from './types';
 
 const initialState = {
@@ -9,6 +11,15 @@ const initialState = {
   isEditing: false,
   isWaiting: false,
   gettingResolver: false,
+  successTx: '',
+  errorMessage: '',
+  content: [],
+};
+
+const contentInititalState = {
+  value: '',
+  isRequesting: false,
+  isWaiting: false,
   successTx: '',
   errorMessage: '',
 };
@@ -53,6 +64,79 @@ const resolverReducer = (state = initialState, action) => {
     case CLOSE_MESSAGE: return {
       ...state,
       errorMessage: '',
+      successTx: '',
+    };
+
+    case REQUEST_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...contentInititalState,
+          isRequesting: true,
+        },
+      },
+    };
+    case RECEIVE_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...state.content[action.contentType],
+          isRequesting: false,
+          value: action.value,
+        },
+      },
+    };
+    case REQUEST_SET_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...state.content[action.contentType],
+          isWaiting: true,
+          errorMessage: '',
+        },
+      },
+    };
+    case RECEIVE_SET_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...state.content[action.contentType],
+          isWaiting: false,
+          value: action.value,
+          successTx: action.successTx,
+        },
+      },
+    };
+    case ERROR_SET_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...state.content[action.contentType],
+          isWaiting: false,
+          errorMessage: action.message,
+        },
+      },
+    };
+    case CLOSE_SET_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          ...state.content[action.contentType],
+          errorMessage: '',
+          successTx: '',
+        },
+      },
+    };
+
+    case CLEAR_ALL_CONTENT: return {
+      ...state,
+      content: [],
     };
     default: return state;
   }

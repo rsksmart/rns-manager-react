@@ -12,6 +12,7 @@ import {
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
   errorChainAddress, clearAddresses, closeSetChainAddress,
 } from './actions';
+
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';

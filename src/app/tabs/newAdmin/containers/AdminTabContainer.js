@@ -4,7 +4,9 @@ import { toggleBasicAdvancedSwitch } from '../operations';
 
 const mapStateToProps = state => ({
   advancedView: state.newAdmin.view.advancedView,
+  isRegistryOwner: state.newAdmin.view.isRegistryOwner,
   domain: state.auth.name,
+  enabling: state.auth.enabling,
 });
 
 const mapDispatchToProps = dispatch => ({

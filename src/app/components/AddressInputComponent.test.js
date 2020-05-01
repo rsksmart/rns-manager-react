@@ -136,4 +136,39 @@ describe('AddressInputComponent', () => {
     const component = shallow(<AddressInputComponent {...localProps} />);
     expect(component.find('div.value').text()).toBe(rskMainnetChecksum);
   });
+
+  it('renders when validation but no value', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '',
+      validationChainId: '30',
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    expect(component.find('div.value').text()).toBe('');
+  });
+
+  it('displays suggested items', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '',
+      validationChainId: '30',
+      suggestions: [
+        {
+          title: 'suggested item',
+          value: '0x123456789',
+        },
+        {
+          title: 'suggested item 2',
+          value: '0x987654321',
+        },
+      ],
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.edit').simulate('click');
+
+    const ul = component.find('ul.suggestions');
+    expect(ul.children().length).toBe(2);
+  });
 });

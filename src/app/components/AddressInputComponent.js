@@ -28,9 +28,9 @@ const AddressInputComponent = ({
   isSuccess,
   strings,
   successTx,
-  reset,
   validationChainId,
   validation,
+  suggestions,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -58,12 +58,15 @@ const AddressInputComponent = ({
   };
 
   const handleSubmitClick = () => {
-    if (!validation) {
-      return handleSubmit(editText);
-    }
-
     if (editText.toLowerCase() === value.toLowerCase()) {
       return setIsLocalError('Value is the same.');
+    }
+
+    setIsLocalError(false);
+    setIsChecksumError(false);
+
+    if (!validation) {
+      return handleSubmit(editText);
     }
 
     switch (validateAddress(editText, validationChainId)) {
@@ -73,8 +76,6 @@ const AddressInputComponent = ({
         return setIsChecksumError(true);
       default:
     }
-    setIsLocalError(false);
-    setIsChecksumError(false);
     return handleSubmit(editText);
   };
 
@@ -93,7 +94,15 @@ const AddressInputComponent = ({
     setIsChecksumError(false);
   };
 
-  if (reset && (isEditing || isDeleting)) {
+  const formatValue = () => {
+    if (value === '') {
+      return value;
+    }
+
+    return validation ? toChecksumAddress(value, validationChainId) : value;
+  };
+
+  if (isSuccess && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
     setEditText('');
@@ -110,7 +119,7 @@ const AddressInputComponent = ({
           {strings.value_prefix
             && <span className="value-prefix">{`${strings.value_prefix}: `}</span>
           }
-          {validation ? toChecksumAddress(value, validationChainId) : value}
+          {formatValue()}
         </div>
         <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
           <button
@@ -166,18 +175,28 @@ const AddressInputComponent = ({
               {strings.submit}
             </Button>
           </div>
+          <ul className="suggestions">
+            {suggestions.map(item => (
+              <li key={item.value}>
+                <button
+                  type="button"
+                  onClick={() => setEditText(item.value)}
+                >
+                  {item.name}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
         )
       }
-      {isChecksumError
-        && (
-          <ChecksumErrorContainer
-            show={isChecksumError}
-            inputValue={editText}
-            handleClick={() => handleChecksumClick()}
-          />
-        )
-      }
+
+      <ChecksumErrorContainer
+        show={isChecksumError}
+        inputValue={editText}
+        handleClick={() => handleChecksumClick()}
+      />
+
       {isDeleting
         && (
           <div className="delete">
@@ -230,7 +249,6 @@ AddressInputComponent.defaultProps = {
   isError: false,
   isWaiting: false,
   isSuccess: false,
-  reset: false,
   successTx: '',
   validation: true,
   validationChainId: null,
@@ -254,6 +272,7 @@ AddressInputComponent.defaultProps = {
   handleSuccessClose: () => {},
   labelDisplay: null,
   labelIcon: null,
+  suggestions: [],
 };
 
 AddressInputComponent.propTypes = {
@@ -264,7 +283,6 @@ AddressInputComponent.propTypes = {
   isError: propTypes.bool,
   isWaiting: propTypes.bool,
   isSuccess: propTypes.bool,
-  reset: propTypes.bool,
   validation: propTypes.bool,
   successTx: propTypes.string,
   handleErrorClose: propTypes.func,
@@ -274,6 +292,10 @@ AddressInputComponent.propTypes = {
   value: propTypes.string.isRequired,
   validationChainId: propTypes.string,
   strings: propTypes.shape(),
+  suggestions: propTypes.arrayOf(propTypes.shape({
+    name: propTypes.string,
+    value: propTypes.value,
+  })),
 };
 
 export default AddressInputComponent;

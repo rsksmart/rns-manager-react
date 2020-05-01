@@ -1,6 +1,8 @@
 import {
   REQUEST_RESOLVER, RECEIVE_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
-  ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE,
+  ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
+  RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
+  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT,
 } from './types';
 
 export const requestResolver = () => ({
@@ -35,4 +37,48 @@ export const errorSetResolver = message => ({
 
 export const closeMessage = () => ({
   type: CLOSE_MESSAGE,
+});
+
+export const requestContent = contentType => ({
+  type: REQUEST_CONTENT,
+  contentType,
+});
+
+export const receiveContent = (contentType, value) => ({
+  type: RECEIVE_CONTENT,
+  contentType,
+  value,
+});
+
+export const errorContent = (contentType, message) => ({
+  type: ERROR_CONTENT,
+  contentType,
+  message,
+});
+
+export const requestSetContent = contentType => ({
+  type: REQUEST_SET_CONTENT,
+  contentType,
+});
+
+export const receiveSetContent = (contentType, successTx, value) => ({
+  type: RECEIVE_SET_CONTENT,
+  contentType,
+  successTx,
+  value,
+});
+
+export const errorSetContent = (contentType, message) => ({
+  type: ERROR_SET_CONTENT,
+  contentType,
+  message,
+});
+
+export const closeSetMessage = contentType => ({
+  type: CLOSE_SET_CONTENT,
+  contentType,
+});
+
+export const clearAllContent = () => ({
+  type: CLEAR_ALL_CONTENT,
 });

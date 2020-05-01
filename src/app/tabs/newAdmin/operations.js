@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import RNS from '@rsksmart/rns';
+import { hash as namehash } from 'eth-ens-namehash';
 
 import {
   rskOwner as rskOwnerAddress,
@@ -7,25 +9,25 @@ import {
 } from '../../adapters/configAdapter';
 import { rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
+import { getOptions } from '../../adapters/RNSLibAdapter';
 
 import {
   toggleBasicAdvanced, checkIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
   errorCheckTokenOwner, requestFifsMigrationStatus, receiveFifsMigrationStatus,
-  errorFifsMigrationStatus,
+  errorFifsMigrationStatus, requestRegistryOwner, receiveRegistryOwner, errorRegistryOwner,
 } from './actions';
 
 import { checkIfSubdomainAndGetExpirationRemaining } from './domainInfo/operations';
 import { getDomainResolver } from './resolver/operations';
 
 const web3 = new Web3(window.ethereum);
+const rns = new RNS(web3, getOptions());
 
-export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
-  const labelsAmount = domain.split('.').length;
-
-  if (labelsAmount > 2) {
-    dispatch(checkIfSubdomain(true));
-  }
-
+/**
+ * Checks if the wallet's account is the RSK Token owner
+ * @param {string} domain to check
+ */
+export const checkIfTokenOwner = domain => async (dispatch) => {
   const label = domain.split('.')[0];
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -53,6 +55,32 @@ export const checkIfSubdomainOrTokenOwner = domain => async (dispatch) => {
   });
 };
 
+/**
+ * Checks if the wallet's account is the RNS Registry Owner
+ * @param {string} domain to check
+ */
+export const checkIfRegistryOwner = domain => async (dispatch) => {
+  const label = namehash(domain);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  dispatch(requestRegistryOwner());
+  await rns.compose();
+  await rns.contracts.registry.methods.owner(label)
+    .call((error, result) => {
+      if (error) {
+        return dispatch(errorRegistryOwner(error.message));
+      }
+      return dispatch(receiveRegistryOwner(
+        result, result.toLowerCase() === currentAddress.toLowerCase(),
+      ));
+    });
+};
+
+/**
+ * Checkis if the domain was registered using the FIFS registrar
+ * @param {string} domain to check
+ */
 export const checkIfFIFSRegistrar = domain => async (dispatch) => {
   dispatch(requestFifsMigrationStatus());
 
@@ -75,13 +103,22 @@ export const checkIfFIFSRegistrar = domain => async (dispatch) => {
   });
 };
 
+/**
+ * The Admin's initial start method
+ * @param {*} domain that is currently logged in
+ */
 export const start = domain => (dispatch) => {
   const showAdvancedView = localStorage.getItem('adminAdvancedView');
   dispatch(toggleBasicAdvanced(showAdvancedView === 'true'));
-  dispatch(checkIfSubdomainOrTokenOwner(domain));
+
+  const labelsAmount = domain.split('.').length;
+  dispatch(checkIfSubdomain(labelsAmount > 2));
+
+  dispatch(checkIfTokenOwner(domain));
   dispatch(checkIfFIFSRegistrar(domain));
   dispatch(getDomainResolver(domain));
   dispatch(checkIfSubdomainAndGetExpirationRemaining(domain));
+  dispatch(checkIfRegistryOwner(domain));
 };
 
 export const toggleBasicAdvancedSwitch = showAdvancedView => (dispatch) => {

@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import RNS from '@rsksmart/rns';
+import { hash as namehash } from 'eth-ens-namehash';
 
 import {
   rskOwner as rskOwnerAddress,
@@ -11,6 +13,7 @@ import {
   rskOwnerAbi, rifAbi, tokenRegistrarAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
+import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 import { getRenewData } from '../../renew/helpers';
 import transactionListener from '../../../helpers/transactionListener';
@@ -19,10 +22,16 @@ import {
   requestTransferDomain, receiveTransferDomain, errorTransferDomain,
   requestDomainExpirationTime, receiveDomainExpirationTime,
   errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
-  requestFifsMigration, receiveFifsMigration, errorFifsMigration,
+  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetRegistryOwner,
+  errorSetRegistryOwner, receiveSetRegistryOwner, requestReclaimDomain, errorReclaimDomain,
+  receiveReclaimDomain,
 } from './actions';
 
+import { receiveRegistryOwner } from '../actions';
+
 const web3 = new Web3(window.ethereum);
+const rns = new RNS(web3, getOptions());
+
 const rskOwner = new web3.eth.Contract(
   rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
 );
@@ -135,4 +144,63 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
       },
     );
   });
+};
+
+/**
+ * Set RNS Registry owner to a different address
+ * aka "Set Controller" in the UI
+ * @param {string} domain that should be set
+ * @param {address} address new address to set owner to
+ */
+export const setRegistryOwner = (domain, address) => async (dispatch) => {
+  dispatch(requestSetRegistryOwner(domain));
+
+  const label = namehash(domain);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0].toLowerCase();
+
+  await rns.compose();
+  await rns.contracts.registry.methods.setOwner(label, address)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorSetRegistryOwner(error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveRegistryOwner(
+          address, address.toLowerCase() === currentAddress.toLowerCase(),
+        ));
+
+        dispatch(receiveSetRegistryOwner(address, result));
+        dispatch(receiveRegistryOwner(address, false));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    });
+};
+
+/**
+ * Reclaim the domain from the RNS registry if you are the token holder
+ * @param {string} domain to be reclaimed
+ */
+export const reclaimDomain = domain => async (dispatch) => {
+  dispatch(requestReclaimDomain(domain));
+
+  const label = `0x${sha3(domain.split('.')[0])}`;
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0].toLowerCase();
+
+  rskOwner.methods.reclaim(label, currentAddress)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorReclaimDomain(error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveRegistryOwner(currentAddress, true));
+        dispatch(receiveReclaimDomain(result));
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    });
 };

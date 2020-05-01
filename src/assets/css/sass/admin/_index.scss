@@ -4,6 +4,7 @@
   @import 'subdomains';
   @import 'address';
   @import 'reverse';
+  @import 'resolver';
 
   margin-top: 75px;
   
@@ -36,6 +37,13 @@
   h2 {
     font-size: 20px;
     color:$blue;
+  }
+
+  .reclaim {
+    button {
+      border-radius: 15px;
+      padding:10px 20px !important;
+    }
   }
 }
 
