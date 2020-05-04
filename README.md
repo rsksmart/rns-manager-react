@@ -55,6 +55,8 @@ yarn start:testnet
 
 ## Run tests
 
+The testing suite will first install the RNS suite on a local blockchain before running. To make sure this works properly, start Ganache, and set the URL and port in `/tests/setEnvVars.js`.
+
 Run the linter and unit tests:
 
 ```
