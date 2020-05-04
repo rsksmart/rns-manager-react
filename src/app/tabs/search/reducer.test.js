@@ -51,6 +51,7 @@ describe('search reducer', () => {
     ).toEqual({
       owned: true,
       domainStateLoading: false,
+      requestingOwner: false,
       blocked: false,
     });
   });
@@ -64,6 +65,7 @@ describe('search reducer', () => {
     ).toEqual({
       owned: true,
       domainStateLoading: false,
+      requestingOwner: false,
       blocked: false,
     });
   });
@@ -77,6 +79,7 @@ describe('search reducer', () => {
     ).toEqual({
       owned: false,
       domainStateLoading: false,
+      requestingOwner: false,
       blocked: false,
     });
   });
@@ -102,6 +105,7 @@ describe('search reducer', () => {
     ).toEqual({
       owned: false,
       domainStateLoading: false,
+      requestingOwner: false,
       blocked: false,
     });
   });
@@ -171,6 +175,7 @@ describe('search reducer', () => {
     ).toEqual({
       owned: true,
       domainStateLoading: false,
+      requestingOwner: false,
       blocked: false,
     });
 

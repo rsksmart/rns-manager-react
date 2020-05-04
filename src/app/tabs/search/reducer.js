@@ -29,6 +29,7 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         owned: action.owned,
         domainStateLoading: false,
+        requestingOwner: false,
         blocked: false,
       };
     }
