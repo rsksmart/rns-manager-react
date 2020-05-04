@@ -4,7 +4,10 @@ jobs:
     working_directory: ~/tmp
     docker:
       - image: circleci/node:12
+      - image: trufflesuite/ganache-cli
+        command: ganache-cli --deterministic
     steps:
       - checkout
       - run: yarn
+      - run: node ./.circleci/rnsSuite.js
       - run: yarn test
