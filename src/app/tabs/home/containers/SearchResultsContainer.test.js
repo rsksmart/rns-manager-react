@@ -28,6 +28,9 @@ describe('searchResultsContainer', () => {
     );
 
     expect(wrapper.find('h3').text()).toBe('foobar.rsk');
+    expect(wrapper.find('span.rifPrice').text()).toBe('4 rif');
+    expect(wrapper.find('p.status').text()).toBe('available');
+
     wrapper.find('button').simulate('click');
 
     expect(store.getState().search).toEqual(initialState);
