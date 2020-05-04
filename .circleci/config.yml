@@ -9,5 +9,5 @@ jobs:
     steps:
       - checkout
       - run: yarn
-      - run: node ./tests/config/rnsSuite.js
+      - run: node ./tests/setupRnsSuite.js
       - run: yarn test

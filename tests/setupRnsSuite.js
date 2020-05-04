@@ -5,6 +5,9 @@ const fs = require('fs');
 const blockchainUrl = 'http://127.0.0.1:7545';
 // const blockchainUrl = 'http://0.0.0.0:8545';
 
+// eslint-disable-next-line no-console
+console.log(`Setting up RNS suite on ${blockchainUrl}`);
+
 RNSSuite(
   blockchainUrl,
   ['alice', 'bob', 'charlie'],
