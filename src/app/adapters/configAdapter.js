@@ -1,6 +1,7 @@
 import Production from '../../config/contracts.json';
 import Testnet from '../../config/contracts.testnet.json';
 import Local from '../../config/contracts.local.json';
+import Testing from '../../config/contracts.circleci.json';
 
 const env = process.env.REACT_APP_ENVIRONMENT
   ? process.env.REACT_APP_ENVIRONMENT : 'production';
@@ -11,6 +12,8 @@ const returnValue = (name) => {
       return Testnet[name];
     case 'local':
       return Local[name];
+    case 'testing':
+      return Testing[name];
     case 'production':
     default:
       return Production[name];

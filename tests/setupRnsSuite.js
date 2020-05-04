@@ -5,7 +5,7 @@ const fs = require('fs');
 const blockchainUrl = process.env.CIRCLECI ? 'http://0.0.0.0:8545' : 'http://127.0.0.1:8545';
 
 // eslint-disable-next-line no-console
-console.log(`Setting up RNS suite on ${blockchainUrl} : ${process.env.CIRCLECI}`);
+console.log(`Setting up RNS suite on ${blockchainUrl}`);
 
 RNSSuite(
   blockchainUrl,
@@ -13,22 +13,22 @@ RNSSuite(
   ['david', 'eve', 'frank'],
 ).then((suite) => {
   const contracts = {
-    rns: suite.rns.options.address,
-    reverseRegistrar: suite.reverseRegistrar.options.address,
-    publicResolver: suite.publicResolver.options.address,
-    nameResolver: suite.nameResolver.options.address,
-    multiChainResolver: suite.multiChainResolver.options.address,
-    rif: suite.rif.options.address,
-    fifsRegistrar: suite.fifsRegistrar.options.address,
-    fifsAddrRegistrar: suite.fifsAddrRegistrar.options.address,
-    rskOwner: suite.rskOwner.options.address,
-    renewer: suite.renewer.options.address,
+    rns: suite.rns.options.address.toLowerCase(),
+    reverseRegistrar: suite.reverseRegistrar.options.address.toLowerCase(),
+    publicResolver: suite.publicResolver.options.address.toLowerCase(),
+    nameResolver: suite.nameResolver.options.address.toLowerCase(),
+    multiChainResolver: suite.multiChainResolver.options.address.toLowerCase(),
+    rif: suite.rif.options.address.toLowerCase(),
+    fifsRegistrar: suite.fifsRegistrar.options.address.toLowerCase(),
+    fifsAddrRegistrar: suite.fifsAddrRegistrar.options.address.toLowerCase(),
+    rskOwner: suite.rskOwner.options.address.toLowerCase(),
+    renewer: suite.renewer.options.address.toLowerCase(),
   };
 
   // write a contracts to a local file to be called in a bit:
   const stream = fs.createWriteStream('./src/config/contracts.circleci.json');
   stream.once('open', () => {
-    stream.write(JSON.stringify(contracts).toLowerCase());
+    stream.write(JSON.stringify(contracts));
     stream.end();
   });
 });

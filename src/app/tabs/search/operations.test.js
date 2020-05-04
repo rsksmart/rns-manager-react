@@ -11,25 +11,23 @@ describe('searchBoxContainer', () => {
 
   it('searches for the domain that is taken ', () => {
     const store = multiLanguageStore({ search: searchReducer });
-    return store.dispatch(searchOperation('jesse'))
+    return store.dispatch(searchOperation('alice'))
       .then(() => {
         const searchState = store.getState().search;
-        expect(searchState.domain).toEqual('jesse');
-        expect(searchState.requestingOwner).toBeFalsy();
-        expect(searchState.owner).toBe('0x3Dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A');
+        expect(searchState.domain).toEqual('alice');
         expect(searchState.owned).toBeTruthy();
       });
   });
-  /*
+
   it('searches for the domain that is taken with the auction registry', () => {
-    return store.dispatch(searchOperation('bitcoin'))
+    const store = multiLanguageStore({ search: searchReducer });
+    return store.dispatch(searchOperation('david'))
       .then(() => {
         const searchState = store.getState().search;
-        expect(searchState.requestingOwner).toBeFalsy();
         expect(searchState.owned).toBeTruthy();
       });
   });
-  */
+
   it('searches for a domain that is available', () => {
     const store = multiLanguageStore({ search: searchReducer });
     return store.dispatch(searchOperation('foobar984590456'))
