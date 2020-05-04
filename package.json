@@ -5,6 +5,7 @@
   "dependencies": {
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rns": "^1.4.0",
+    "@rsksmart/rns-suite": "^1.0.4",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.3.1",
     "env-cmd": "^10.0.1",
@@ -82,7 +83,7 @@
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
-    "moduleNameMapper":{
+    "moduleNameMapper": {
       "\\.(gif|png|eot|svg)$": "<rootDir>/tests/config/mockImage.js"
     },
     "verbose": false,

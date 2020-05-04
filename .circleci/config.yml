@@ -9,5 +9,5 @@ jobs:
     steps:
       - checkout
       - run: yarn
-      - run: node ./.circleci/rnsSuite.js
+      - run: node ./tests/config/rnsSuite.js
       - run: yarn test
