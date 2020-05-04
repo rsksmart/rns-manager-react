@@ -28,7 +28,7 @@ RNSSuite(
   };
 
   // write a contracts to a local file to be called in a bit:
-  const stream = fs.createWriteStream('./src/config/contracts.circleci.json');
+  const stream = fs.createWriteStream('./src/config/contracts.testing.json');
   stream.once('open', () => {
     stream.write(JSON.stringify(contracts));
     stream.end();
