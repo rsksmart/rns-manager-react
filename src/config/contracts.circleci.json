@@ -1,1 +1,14 @@
-{"rns":"0xf6663c05d693b80057d6a7d9ce68f777e356650d","reverseRegistrar":"0x6a8db48ca2cbf03dd5d9d4d6517a440630acf487","publicResolver":"0x4e0585719f720a6363ebfcb1a0f5dd2b0eb1b661","nameResolver":"0x8507ceebae3bb62ac44d3362448a2e2517068126","multiChainResolver":"0x04ff4ed951229268b240eb37af782dad006510d4","rif":"0x625da57679846178b1211dbd72b25f3e07987e29","fifsRegistrar":"0xf6d4a57eeda04f1313c09cee98f6a2271e873343","fifsAddrRegistrar":"0xad4cb11e2fc5b953b47fd5d630cd40cf4ee359c1","rskOwner":"0x3a850a3f923721f2452463fe493c42fc94a2b7a3","renewer":"0x579d31ebb08ac27206dc865feccfce72d0b391fd"}
+{
+  "rns": "",
+  "registrar": "",
+  "reverseRegistrar": "",
+  "publicResolver": "",
+  "nameResolver": "",
+  "multiChainResolver": "",
+  "rif": "",
+  "fifsRegistrar": "",
+  "fifsAddrRegistrar": "",
+  "rskOwner": "",
+  "renewer": "",
+  "stringResolver": ""
+}
