@@ -15,6 +15,7 @@ RNSSuite(
 ).then((suite) => {
   const contracts = {
     rns: suite.rns.options.address.toLowerCase(),
+    registrar: suite.auctionRegistrar.options.address.toLowerCase(),
     reverseRegistrar: suite.reverseRegistrar.options.address.toLowerCase(),
     publicResolver: suite.publicResolver.options.address.toLowerCase(),
     nameResolver: suite.nameResolver.options.address.toLowerCase(),

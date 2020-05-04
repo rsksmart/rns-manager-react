@@ -15,7 +15,9 @@ describe('searchBoxContainer', () => {
       .then(() => {
         const searchState = store.getState().search;
         expect(searchState.domain).toEqual('alice');
+        expect(searchState.requestingOwner).toBeFalsy();
         expect(searchState.owned).toBeTruthy();
+        expect(searchState.owner).toBeTruthy();
       });
   });
 
@@ -25,6 +27,7 @@ describe('searchBoxContainer', () => {
       .then(() => {
         const searchState = store.getState().search;
         expect(searchState.owned).toBeTruthy();
+        expect(searchState.requestingOwner).toBeFalsy();
       });
   });
 
