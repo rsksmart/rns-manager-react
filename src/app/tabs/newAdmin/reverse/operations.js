@@ -1,12 +1,13 @@
 import Web3 from 'web3';
-import { hash as namehash } from 'eth-ens-namehash';
+import RNS from '@rsksmart/rns';
+
+import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 import {
   reverseRegistrar as reverseRegistryAddress,
-  nameResolver as nameResolverAddress,
 } from '../../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-import { reverseAbi, nameResolverAbi } from './abis.json';
+import { reverseAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
@@ -18,13 +19,10 @@ import {
 
 
 const web3 = new Web3(window.ethereum);
+const rns = new RNS(web3, getOptions());
 
 const reverseRegistry = new web3.eth.Contract(
   reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
-);
-
-const nameResolver = new web3.eth.Contract(
-  nameResolverAbi, nameResolverAddress, { gasPrice: defaultGasPrice },
 );
 
 /**
@@ -34,15 +32,15 @@ const nameResolver = new web3.eth.Contract(
 export const getReverse = address => (dispatch) => {
   dispatch(requestResolver());
 
-  const name = `${address.toLowerCase().slice(2)}.addr.reverse`;
-  const hash = namehash(name);
-
-  nameResolver.methods.name(hash).call((error, nameResolution) => {
-    if (error) {
-      return dispatch(errorResolver(error.message));
-    }
-    return dispatch(receiveResolver(nameResolution));
-  });
+  rns.reverse(address.toLowerCase())
+    .then((response) => {
+      dispatch(receiveResolver(response));
+      return response;
+    })
+    .catch((error) => {
+      dispatch(errorResolver(error.message));
+      return null;
+    });
 };
 
 /**
