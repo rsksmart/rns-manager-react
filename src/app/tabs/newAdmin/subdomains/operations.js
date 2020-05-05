@@ -95,10 +95,10 @@ export const newSubdomain = (
 
   // get address if it ends with .rsk
   const newAddress = await newOwner.endsWith('.rsk')
-    ? await dispatch(resolveDomain(newOwner, null, errorNewSubdomain())) : newOwner;
+    ? await dispatch(resolveDomain(newOwner, null, errorNewSubdomain, null)) : newOwner;
 
-  if (newAddress === ERROR_RESOLVE_NAME) {
-    return dispatch(errorNewSubdomain(`Could not resolve domain ${newOwner}`));
+  if (!newAddress) {
+    return null;
   }
 
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
@@ -151,14 +151,15 @@ export const setSubdomainOwner = (
 
   // get address if it ends with .rsk
   const newAddress = await newOwner.endsWith('.rsk')
-    ? await dispatch(resolveDomain(newOwner, null, errorNewSubdomain())) : newOwner;
+    ? await dispatch(resolveDomain(
+      newOwner,
+      null,
+      () => errorSetSubdomainOwner(subdomain, ERROR_RESOLVE_NAME),
+      currentOwner,
+    )) : newOwner;
 
-  if (newAddress === ERROR_RESOLVE_NAME) {
-    return dispatch(errorSetSubdomainOwner(subdomain, `Could not resolve domain ${newOwner}`));
-  }
-
-  if (newAddress.toLowerCase() === currentOwner.toLowerCase()) {
-    return dispatch(errorSetSubdomainOwner(subdomain, 'The subdomain is already owned by that address'));
+  if (!newAddress) {
+    return;
   }
 
   const accounts = await window.ethereum.enable();
@@ -167,7 +168,7 @@ export const setSubdomainOwner = (
   const node = namehash(parentDomain);
 
   await rns.compose();
-  return rns.contracts.registry.methods.setSubnodeOwner(node, label, newAddress)
+  rns.contracts.registry.methods.setSubnodeOwner(node, label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetSubdomainOwner(subdomain, error.message));

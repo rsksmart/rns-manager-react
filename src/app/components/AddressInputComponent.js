@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { toChecksumAddress } from 'rskjs-util';
 
+import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
 import { validateAddress } from '../validations';
 import { ChecksumErrorContainer } from '../containers';
 import UserErrorComponent from './UserErrorComponent';
@@ -60,7 +61,7 @@ const AddressInputComponent = ({
 
   const handleSubmitClick = () => {
     if (editText.toLowerCase() === value.toLowerCase()) {
-      return setIsLocalError('Value is the same.');
+      return setIsLocalError(ERROR_SAME_VALUE);
     }
 
     setIsLocalError(false);

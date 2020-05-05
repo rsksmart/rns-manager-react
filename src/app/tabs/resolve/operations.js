@@ -8,25 +8,36 @@ import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
 import { getOptions } from '../../adapters/RNSLibAdapter';
 import { ERROR_RESOLVE_NAME } from './types';
+import { ERROR_SAME_VALUE } from '../newAdmin/types';
 
 /**
  * Resolves a domain name using the js library
  * @param {string} domain to resolve
  * @param {bytes4} chainId to search, set as null if RKS to search both multichain and public
+ * @param {function} errorFunction the function to dispatch if there is an error
+ * @param {string} value the value to check the resolution against to see if they match
  */
-export const resolveDomain = (domain, chainId = null) => async (dispatch) => {
+export const resolveDomain = (
+  domain, chainId = null, errorFunction = null, value = null,
+) => async (dispatch) => {
   const web3 = new Web3(window.ethereum);
   const rns = new RNS(web3, getOptions());
 
   dispatch(actions.requestAddr());
   return rns.addr(domain, chainId)
     .then((response) => {
+      if (response.toLowerCase() === value.toLowerCase()) {
+        dispatch(errorFunction(ERROR_SAME_VALUE));
+        return false;
+      }
+
       dispatch(actions.receiveAddr(response));
       return response;
     })
     .catch((error) => {
       dispatch(actions.errorResolve(error));
-      return ERROR_RESOLVE_NAME;
+      dispatch(errorFunction(ERROR_RESOLVE_NAME));
+      return false;
     });
 };
 
