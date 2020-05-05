@@ -4,18 +4,27 @@
       display: block;
       width: 100%;
     }
+
     button.add {
       background: $blue;
       padding: 10px !important;
       color: $white;
       border-radius: 15px;
     }
+
     select {
+      -webkit-appearance:none;
+      text-align: left;
       color: $gray;
-      padding: 12px 10px;
+      padding: 10px 10px;
+      border: 1px solid $gray;
       border-radius: 5px;
-      text-align: center;
+      background-image: url('/assets/img/caret-down.svg');
+      background-position: right 15px center;
+      background-repeat: no-repeat;
+      background-size: 12px 8px;
     }
+
     input {
       border: 1px solid $gray;
       border-radius: 12px;
