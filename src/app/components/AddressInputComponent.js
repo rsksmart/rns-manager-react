@@ -15,6 +15,7 @@ import closeBlue from '../../assets/img/close-blue.svg';
 
 const AddressInputComponent = ({
   allowDelete,
+  allowRsk,
   label,
   labelDisplay,
   labelIcon,
@@ -64,6 +65,10 @@ const AddressInputComponent = ({
 
     setIsLocalError(false);
     setIsChecksumError(false);
+
+    if (allowRsk && editText.endsWith('.rsk')) {
+      return handleSubmit(editText);
+    }
 
     if (!validation) {
       return handleSubmit(editText);
@@ -246,6 +251,7 @@ const AddressInputComponent = ({
 
 AddressInputComponent.defaultProps = {
   allowDelete: true,
+  allowRsk: false,
   isError: false,
   isWaiting: false,
   isSuccess: false,
@@ -277,6 +283,7 @@ AddressInputComponent.defaultProps = {
 
 AddressInputComponent.propTypes = {
   allowDelete: propTypes.bool,
+  allowRsk: propTypes.bool,
   label: propTypes.string.isRequired,
   labelDisplay: propTypes.string,
   labelIcon: propTypes.string,
