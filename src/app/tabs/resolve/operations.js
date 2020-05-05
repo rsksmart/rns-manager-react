@@ -14,7 +14,7 @@ import { ERROR_RESOLVE_NAME } from './types';
  * @param {string} domain to resolve
  * @param {bytes4} chainId to search, set as null if RKS to search both multichain and public
  */
-export const resolveAddr = (domain, chainId = null) => async (dispatch) => {
+export const resolveDomain = (domain, chainId = null) => async (dispatch) => {
   const web3 = new Web3(window.ethereum);
   const rns = new RNS(web3, getOptions());
 
