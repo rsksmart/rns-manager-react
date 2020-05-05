@@ -24,9 +24,10 @@ export const resolveDomain = (
   const rns = new RNS(web3, getOptions());
 
   dispatch(actions.requestAddr());
+
   return rns.addr(domain, chainId)
     .then((response) => {
-      if (response.toLowerCase() === value.toLowerCase()) {
+      if (value && (response.toLowerCase() === value.toLowerCase())) {
         dispatch(errorFunction(ERROR_SAME_VALUE));
         return false;
       }
