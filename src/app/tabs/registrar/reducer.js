@@ -5,6 +5,7 @@ import {
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS, ERROR_CONVERSION_RATE,
+  CLOSE_REGISTRATION_ERROR,
 } from './types';
 
 const initialState = {
@@ -22,6 +23,8 @@ const initialState = {
   gettingConversionRate: false,
   conversionRate: null,
   setupAddr: true,
+  errorMessage: '',
+  successTx: '',
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -39,6 +42,7 @@ const registrar = (state = initialState, action) => {
     case REQUEST_REGISTRAR_COMMIT: return {
       ...state,
       committing: true,
+      errorMessage: '',
     };
     case RECEIVE_REGISTRAR_COMMIT: return {
       ...state,
@@ -52,10 +56,12 @@ const registrar = (state = initialState, action) => {
       ...state,
       committing: false,
       committed: false,
+      errorMessage: action.message,
     };
     case REQUEST_REGISTRAR_REVEAL_COMMIT: return {
       ...state,
       revealing: true,
+      errorMessage: '',
     };
     case RECEIVE_REGISTRAR_REVEAL_COMMIT: return {
       ...state,
@@ -66,6 +72,7 @@ const registrar = (state = initialState, action) => {
       ...state,
       revealing: false,
       revealed: false,
+      errorMessage: action.message,
     };
     case RECEIVE_CAN_REVEAL_COMMIT: return {
       ...state,
@@ -79,6 +86,7 @@ const registrar = (state = initialState, action) => {
     case REVEAL_COMMIT_CONFIRMED: return {
       ...state,
       revealConfirmed: true,
+      successTx: action.successTx,
     };
     case OPTIONS_NOT_FOUND: return {
       ...state,
@@ -100,6 +108,10 @@ const registrar = (state = initialState, action) => {
     case TOGGLE_SETUP_ADDRESS: return {
       ...state,
       setupAddr: action.setupAddr,
+    };
+    case CLOSE_REGISTRATION_ERROR: return {
+      ...state,
+      errorMessage: '',
     };
     case RESET_REGISTRAR_STATE:
       return initialState;

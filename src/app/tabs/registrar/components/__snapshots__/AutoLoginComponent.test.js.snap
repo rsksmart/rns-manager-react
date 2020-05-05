@@ -16,6 +16,7 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
   <Connect(AutoLoginComponent)
     handleManageClick={[MockFunction]}
     handleRegisterNewClick={[MockFunction]}
+    successTx="0x123456879..."
   >
     <AutoLoginComponent
       currentLanguageCode="en"
@@ -25,41 +26,78 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
       strings={
         Object {
           "admin_domain": "Admin my domain",
+          "close": "Close",
           "log_in": "log in",
           "register_another_domain": "Register another domain",
+          "view_explorer": "View it on the explorer",
+          "your_domain_has_been_registered": "Your domain has been registered",
         }
       }
+      successTx="0x123456879..."
     >
-      <ForwardRef
-        noGutters={false}
+      <Connect(UserSuccessComponent)
+        address="0x123456879..."
+        message=""
+        title="Your domain has been registered"
       >
-        <div
-          className="row"
+        <UserSuccessComponent
+          address="0x123456879..."
+          currentLanguageCode="en"
+          dispatch={[Function]}
+          handleCloseClick={[Function]}
+          message=""
+          strings={
+            Object {
+              "admin_domain": "Admin my domain",
+              "close": "Close",
+              "log_in": "log in",
+              "register_another_domain": "Register another domain",
+              "view_explorer": "View it on the explorer",
+              "your_domain_has_been_registered": "Your domain has been registered",
+            }
+          }
+          title="Your domain has been registered"
+          visible={true}
         >
           <div
-            className="col-md-4 offset-md-4"
+            className="success"
           >
-            <svg
-              fill="none"
-              height="23"
-              viewBox="0 0 37 23"
-              width="37"
-              xmlns="http://www.w3.org/2000/svg"
+            <button
+              className="close"
+              onClick={[Function]}
+              type="button"
             >
-              <path
-                d="M1 10.5L12.5 21L36 1"
-                stroke="#008FF7"
-                strokeWidth="2"
+              <img
+                alt="Close"
+                src="mock-image"
               />
-            </svg>
-            <h2
-              className="blue small break-above"
+            </button>
+            <p>
+              <img
+                alt=""
+                src="mock-image"
+              />
+            </p>
+            <p>
+              <strong>
+                Your domain has been registered
+              </strong>
+            </p>
+            <p />
+            <p
+              className="explorer"
             >
-              Your domain has been registered
-            </h2>
+              <a
+                href="undefined/tx/0x123456879..."
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View it on the explorer
+              </a>
+            </p>
           </div>
-        </div>
-      </ForwardRef>
+        </UserSuccessComponent>
+      </Connect(UserSuccessComponent)>
       <ForwardRef
         className="major-section"
         noGutters={false}
@@ -72,13 +110,14 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
           >
             <Button
               active={false}
+              block={true}
               disabled={false}
               onClick={[MockFunction]}
               type="button"
               variant="primary"
             >
               <button
-                className="btn btn-primary"
+                className="btn btn-primary btn-block"
                 disabled={false}
                 onClick={[MockFunction]}
                 type="button"
@@ -92,13 +131,14 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
           >
             <Button
               active={false}
+              block={true}
               disabled={false}
               onClick={[MockFunction]}
               type="button"
               variant="primary"
             >
               <button
-                className="btn btn-primary"
+                className="btn btn-primary btn-block"
                 disabled={false}
                 onClick={[MockFunction]}
                 type="button"

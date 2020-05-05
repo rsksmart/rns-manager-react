@@ -1,0 +1,1570 @@
+[
+  {
+    "id": "rns-00",
+    "es_uy": {
+      "content": "Puede $integrar su aplicación con RNS $utilizando las bibliotecas de código abierto.",
+      "link_label": "Lea las pautas de integración"
+    },
+    "ja": {
+      "content": "オープンソース・ライブラリを使用して、$アプリケーションをRNSと統合$できます。",
+      "link_label": "統合ガイドラインを読む"
+    },
+    "ko": {
+      "content": "오픈 소스 라이브러리를 통해 $나의 애플리케이션과 RNS를 통합$할 수 있습니다.",
+      "link_label": "통합 지침 읽기"
+    },
+    "pt_br": {
+      "content": "Você pode $integrar seu aplicativo ao RNS$ usando as bibliotecas de código aberto.",
+      "link_label": "Leia as diretrizes de integração"
+    },
+    "ru": {
+      "content": "Вы можете $интегрировать свое приложение с RNS$, используя библиотеки с открытым исходным кодом.",
+      "link_label": "Ознакомиться с рекомендациями по интеграции"
+    },
+    "zh_cn": {
+      "content": "您可以$使用开源代码库来与 RNS$ 整合您的应用程序。",
+      "link_label": "参阅集成指南"
+    },
+    "en": {
+      "content": "You can $integrate your application with RNS$ using the open-source libraries.",
+      "link_label": "Read the integration guidelines"
+    },
+    "link": "https://developers.rsk.co/rif/rns/integrate"
+  },
+  {
+    "id": "rns-01",
+    "es_uy": {
+      "content": "Después de registrar su dominio, puede crear tantos subdominios como desee.",
+      "link_label": "Cómo crear subdominios"
+    },
+    "ja": {
+      "content": "ドメイン登録が完了すると、必要な数のサブドメインを作成できます。",
+      "link_label": "サブドメインを作成する方法"
+    },
+    "ko": {
+      "content": "도메인을 등록하고 난 후에는 원하는 만큼 많은 서브도메인을 생성할 수 있습니다.",
+      "link_label": "서브도메인 생성하는 법"
+    },
+    "pt_br": {
+      "content": "Após registrar seu domínio, você pode criar quantos subdomínios desejar.",
+      "link_label": "Como criar subdomínios"
+    },
+    "ru": {
+      "content": "После регистрации собственного домена вы можете создать любое количество поддоменов.",
+      "link_label": "Как создать поддомен"
+    },
+    "zh_cn": {
+      "content": "注册您的域名后，您可以根据需要创建多个子域。",
+      "link_label": "如何创建子域"
+    },
+    "en": {
+      "content": "After registering your domain, you can create as many subdomains as you want to.",
+      "link_label": "How to create subdomains"
+    },
+    "link": ""
+  },
+  {
+    "id": "rns-02",
+    "es_uy": {
+      "content": "Puede usar su dominio RNS para diferentes criptomonedas.",
+      "link_label": "Cómo configurar sus direcciones"
+    },
+    "ja": {
+      "content": "様々な仮想通貨に対してRNSドメインを使用できます。",
+      "link_label": "アドレスの設定方法"
+    },
+    "ko": {
+      "content": "여러 암호화폐에 RNS 도메인을 사용할 수 있습니다.",
+      "link_label": "주소 설정하는 법"
+    },
+    "pt_br": {
+      "content": "Você pode usar seu domínio RNS para diferentes criptomoedas.",
+      "link_label": "Como definir seus endereços"
+    },
+    "ru": {
+      "content": "Вы можете использовать свой домен RNS для разных криптовалют.",
+      "link_label": "Как задать собственные адреса"
+    },
+    "zh_cn": {
+      "content": "您可以对不同的加密货币使用您的 RNS 域。",
+      "link_label": "如何设定您的地址"
+    },
+    "en": {
+      "content": "You can use your RNS domain for different cryptocurrencies.",
+      "link_label": "How to set your addresses"
+    },
+    "link": ""
+  },
+  {
+    "id": "rns-03",
+    "es_uy": {
+      "content": "Después de registrar su dominio, puede extender la hora de vencimiento siempre que lo necesite.",
+      "link_label": "Cómo extender la hora de vencimiento"
+    },
+    "ja": {
+      "content": "ドメインの登録が完了すると、必要な時にいつでも有効期限を延長できます。",
+      "link_label": "有効期限を延長する方法"
+    },
+    "ko": {
+      "content": "도메인을 등록하고 난 후에는 원할 때마다 만료 기간을 연장할 수 있습니다.",
+      "link_label": "만료 기간 연장법"
+    },
+    "pt_br": {
+      "content": "Após registrar seu domínio, você poderá estender o tempo de expiração sempre que precisar.",
+      "link_label": "Como estender o tempo de expiração"
+    },
+    "ru": {
+      "content": "После регистрации домена вы можете в любое время продлить срок его действия.",
+      "link_label": "Как продлить срок действия домена"
+    },
+    "zh_cn": {
+      "content": "在注册您的域名后，您即可依需求申请展延到期时间。",
+      "link_label": "如何展延到期时间"
+    },
+    "en": {
+      "content": "After registering your domain, you are able to extend the expiration time whenever you need to.",
+      "link_label": "How to extend expiration time"
+    },
+    "link": ""
+  },
+  {
+    "id": "rns-04",
+    "es_uy": {
+      "content": "El Servicio de nombres RIF se basa en especificaciones de protocolo que permiten que las aplicaciones utilicen el servicio de forma correcta.",
+      "link_label": "Lea las especificaciones de RNS"
+    },
+    "ja": {
+      "content": "RIFネームサービスは、アプリケーションが正しい方法でサービスを使用できるようにするプロトコル仕様に基づ いています。",
+      "link_label": "RNS仕様について読む"
+    },
+    "ko": {
+      "content": "RIF 네임 서비스는 애플리케이션이 서비스를 올바르게 사용할 수 있게 하는 프로토콜 사양에 기반합니다.",
+      "link_label": "RNS 사양 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Name Services é baseado em especificações de protocolo que permitem que os aplicativos usem o serviço de maneira correta.",
+      "link_label": "Leia as especificações RNS"
+    },
+    "ru": {
+      "content": "Служба RIF Name Service основана на спецификациях протокола, которые позволяют приложениям правильно использовать эту службу.",
+      "link_label": "Ознакомиться со спецификациями RNS"
+    },
+    "zh_cn": {
+      "content": "RIF 名称服务以协议规格为基础，许可应用程序以正确方式使用服务。",
+      "link_label": "参阅 RNS 规格"
+    },
+    "en": {
+      "content": "The RIF Name Service is based on protocol specifications that allow applications use the service in a correct way.",
+      "link_label": "Read RNS specifications"
+    },
+    "link": "https://developers.rsk.co/rif/rns/specs"
+  },
+  {
+    "id": "rns-05",
+    "es_uy": {
+      "content": "El Servicio de nombres RIF se desarrolla sobre la plataforma de smart contract de RSK nombrada, lo que garantiza la seguridad y el control sin permiso de los dominios.",
+      "link_label": "Lea sobre la arquitectura RNS"
+    },
+    "ja": {
+      "content": "RIFネームサービスは、指定されたRSKスマートコントラクトプラットフォームを介して開発されているため、ドメインのセキュリティと権限のない制御が保証されます。",
+      "link_label": "RNSアーキテクチャについて読む"
+    },
+    "ko": {
+      "content": "RIF 네임 서비스는 RSK 스마트 컨트랙트 플랫폼 위에 구축되어 도메인의 보안과 허가가 필요 없는 통제권을 보장합니다.",
+      "link_label": "RNS 아키텍처 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Name Services é desenvolvido sobre a plataforma de contrato inteligente RSK denominada, garantindo segurança e controle sem permissão de domínios.",
+      "link_label": "Leia sobre a arquitetura RNS"
+    },
+    "ru": {
+      "content": "Служба RIF Name Service разработана на основе платформы смарт-контрактов RSK, что обеспечивает безопасность и свободный контроль доменов.",
+      "link_label": "Описание архитектуры RNS"
+    },
+    "zh_cn": {
+      "content": "RIF 名称服务是以命名的 RSK 智能合约平台所开发，可确保安全性与未经许可域名控制。",
+      "link_label": "参阅 RNS 架构"
+    },
+    "en": {
+      "content": "The RIF Name Service is developed over the RSK smart contract platform named, thus ensuring security and permissionless control of domains.",
+      "link_label": "Read about RNS architecture"
+    },
+    "link": "https://developers.rsk.co/rif/rns/architecture"
+  },
+  {
+    "id": "rd-00",
+    "es_uy": {
+      "content": "El Directorio RIF está desarrollando la $Credencial verificable$ (VC), eliminando a los proveedores de identidad de la función central.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIFディレクトリは$検証可能認証情報$（VC）を開発しており、IDプロバイダをその中心的役割から除外しています。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF 디렉토리는 $검증 가능한 자격증명$ (VCs)을 개발하여 신원 인증기관이 중심 역할을 하지 못하도록 합니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Directory está desenvolvendo $Credencial Verificável$ (VCs), removendo os provedores de identidade da função central.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Протокол RIF Directory поддерживает использование $проверяемых учетных данных$ (VC), отодвигая на второй план поставщиков идентификационной информации.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "RIF 目录正在开发$可验证的凭证$ (VCs)，移除中央角色的标识提供程序。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "RIF Directory is developing $Verifiable Credential$ (VCs), removing the identity providers from the central role.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-01",
+    "es_uy": {
+      "content": "El Directorio RIF permite una $Identidad descentralizada $(DID) que les da a los individuos el control de sus atributos de identidad.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIFディレクトリにより、ID属性を個人で制御できる$分散型ID$（DID）が可能になります。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF 디렉토리는 $분산형 신원인증$ (DID)을 활성화해 개인에게 자신의 신원 특성에 대한 통제권을 부여합니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Directory permite uma $Identidade Descentralizada$ (DID), fornecendo aos indivíduos o controle de seus atributos de identidade.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Протокол RIF Directory позволяет использовать принцип $децентрализованной идентичности$ (DID), передавая людям контроль над собственными атрибутами идентификационной информации.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "RIF 目录启用$去中心化身份$ (DID)，为其身份属性提供个别控制。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "RIF Directory enables a $Decentralized Identity$ (DID) giving individuals control of their identity attributes.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-02",
+    "es_uy": {
+      "content": "Los $servicios de inicio de sesión$ sin confianza son un componente clave del protocolo de Directorio RIF.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "トラストレス・$ログインサービス$は、RIFディレクトリプロトコルの主要構成要素です。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "무신뢰 기반(Trustless) $로그인 서비스$는 RIF 디렉토리 프로토콜의 주요 구성 요소입니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "$Serviços de login$ confiáveis ​​são um componente-chave do protocolo RIF Directory.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Не требующие доверия $службы входа в систему$ являются ключевым компонентом протокола RIF Directory.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "无信任的$登入服务$是 RIF 目录协议的重要元件。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "Trustless $login services$ are a key component of the RIF Directory protocol.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-03",
+    "es_uy": {
+      "content": "$El inicio de sesión único $(SSO) permite a los usuarios navegar en una aplicación sin tener que volver a ingresar las credenciales de inicio de sesión. RIF está desarrollando servicios de autenticación basados en blockchain.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "$シングルサインオン$（SSO）を使用することで、ユーザーはログイン認証情報を再入力せずにアプリを閲覧できます。RIFは、ブロックチェーンベースの認証サービスを開発しています。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "사용자는 $단일 로그인$ (SSO)을 통해 로그인 정보를 다시 입력하지 않고도 앱을 브라우징 할 수 있습니다. RIF는 블록체인 기반 인증 서비스를 개발하고 있습니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "$O logon único$ (SSO) permite que os usuários naveguem em um aplicativo sem redigitar as credenciais de login. A RIF está desenvolvendo serviços de autenticação baseados em blockchain.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "$Система единого входа$ (SSO) позволяет пользователям просматривать приложение без повторного ввода учетных данных. RIF разрабатывает службы аутентификации на основе блокчейна.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "$单点登录$ (SSO) 可允许用户在应用程序中浏览时，不需要重新输入登入凭证。RIF 正在开发基于区块链的验证服务。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "$Single sign on$ (SSO) allows users to browse in an app without re-entering login credentials. RIF is developing blockchain based authentication services.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-04",
+    "es_uy": {
+      "content": "Ya no tiene que ceder el control de la información personal a docenas de bases de datos cada vez que desea acceder a nuevos bienes y servicios con $identidades autosoberanas RIF $(SSI).",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIF$自己主権型アイデンティティ$（SSI）により新商品を購入したりサービスを利用する際に個人情報を多くのデータベースに提供する必要がなくなりました。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF $자주적 신원$ (SSI)과 함께라면 이제 새로운 상품과 서비스를 이용하고 싶을 때마다 여러 데이터베이스에 개인 정보 통제권을 내주지 않아도 됩니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Você não precisa mais abrir mão do controle de informações pessoais para dezenas de bancos de dados sempre que quiser acessar novos produtos e serviços com RIF $Identidades autosoberanas$ (SSI).",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Благодаря $самоуправляемым идентификационным данным RIF$ (SSI) пользователям больше не придется предоставлять доступ к личной информации в десятках разных баз данных при каждой покупке новых товаров и услуг.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "通过 RIF$身份自主权$ (SSI)，当您每次希望访问新商品与服务时，您将不再需要放弃个人信息控制权给许多资料库。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "You no longer have to give up control of personal information to dozens of databases each time you want to access new goods and services with RIF $Self-sovereign identities$ (SSI).",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-05",
+    "es_uy": {
+      "content": "Los estándares de protocolo de directorio RIF se crean para garantizar $la portabilidad de los datos$, promoviendo así la interoperabilidad.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIFディレクトリロトコル標準は、$データポータビリティ$を確保するように構築されているため、相互運用性を向上させます。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF 디렉토리 프로토콜 기준은 $데이터 이동성$을 보장하도록 설계되어 상호 운용성을 장려합니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Os padrões do protocolo RIF Directory são criados, garantindo a $portabilidade de dados$, promovendo a interoperabilidade.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Стандарты протокола RIF Directory призваны обеспечить $переносимость данных$, повышая их функциональную совместимость.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "RIF 目录协议标准的创建旨在确保$数据迁移$，进而促进协同工作能力。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "RIF Directory protocol standards are built ensuring $data portability$, thus promoting interoperability.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-06",
+    "es_uy": {
+      "content": "RIF permite construir comunidades donde los miembros pueden calificarse entre sí para generar confianza por medio de la $reputación$.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIFにより、$評判$を通じて信頼を築くためにメンバーがお互いを評価できるコミュニティの構築が可能になります。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF는 $평판$을 통한 신뢰를 구축하고자 회원들이 서로를 평가하는 커뮤니티를 구축할 수 있게 합니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF permite a construção de comunidades em que os membros podem avaliar um ao outro para desenvolver confiança através da $reputação$.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Система RIF позволяет создавать сообщества, в которых участники могут оценивать друг друга, повышая уровень доверия к себе с помощью $репутации$.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "RIF 允许建置成员可互相评分的社群，以通过$声誉$建立信任度。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "RIF allows building communities where members can rate each other in order to build trust through $reputation$.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-07",
+    "es_uy": {
+      "content": "El equipo de Directorio RIF está creando $credenciales de prueba de conocimiento cero $(credenciales ZKP). Esto permite a la parte demostrar que se le acredita algo sin transmitir esta credencial.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "RIFディレクトリチームは、$ゼロ知識証明認証情報$（ZKP認証情報）を構築しています。これにより、当事者は、この認証情報を送信せずに自らの信頼性を証明することができます。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF 디렉토리 팀은 $영지식 증명 크리덴셜$ (ZKP credentials)을 구축하고 있습니다. 이에 따라 당사자는 크리덴셜을 전송하지 않고도 본인 인 증을 할 수 있습니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "A equipe do RIF Directory está criando $Zero credenciais à prova de conhecimento$ (credenciais ZKP). Isso permite que a parte prove que recebe crédito de algo sem transmitir essa credencial.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Команда RIF Directory создает $учетные данные с доказательством нулевого раскрытия конфиденциальных сведений$ (учетные данные ZKP). Это позволяет человеку подтвердить правильность своих учетных данных без их передачи.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "RIF 目录团队正在建置$零知识证明凭证$（Zero Knowledge Proofs，缩写 ZKP 凭证）。这可让一方不需要传输此凭证就能证明其在某件事项上信用度。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "The RIF Directory team is building $Zero Knowledge Proof credentials$ (ZKP credentials). This allows party to prove that he/she is credited of something without transmitting this credential.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-08",
+    "es_uy": {
+      "content": "Las dificultades por la pérdida de claves serán resueltas por proveedores de $administración de claves$ con tecnología RIF.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "キーを失ってしまう問題は、RIF搭載の$キー管理$プロバイダによって解決されます。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "RIF가 제공하는 $키 관리$ 공급자로 키를 분실하는 어려움을 해결할 수 있습니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Os problemas de perda de chaves serão resolvidos pelos provedores de $gerenciamento de chaves$ com tecnologia RIF.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Решением проблем с потерей ключей будут заниматься службы $управления ключами защиты$, работающие в RIF.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "遗失金钥的麻烦将在 RIF 驱动的$密钥管理$提供商的协助下得到解决。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "Pains of loosing keys will be solved by $key management$ providers powered by RIF.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-09",
+    "es_uy": {
+      "content": "Deje que sus amigos o familiares puedan usar la función de $recuperación social$ para recuperar sus fondos.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "お友達やご家族が$ソーシャルリカバリ$機能を使って資金を回収できるようにしましょう。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "친구나 가족들이 $소셜 리커버리 기능$으로 자금을 회수할 수 있도록 해보세요.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Permita que seus amigos ou familiares possam usar a funcionalidade $recuperação social$ para recuperar seus fundos.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "Ваши друзья или родственники смогут использовать функцию $социального восстановления$ для возврата средств.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "让您的朋友或家人能够使用$社交恢复$功能，恢复您的基金。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "Let your friends or family be able to use the $social recovery$ functionality to recover your funds.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rd-10",
+    "es_uy": {
+      "content": "$La monetización de datos $es el proceso de usar datos para aumentar los ingresos. El directorio RIF proporcionará incentivos por compartir datos.",
+      "link_label": "Lea acerca del Directorio RIF"
+    },
+    "ja": {
+      "content": "$データ・マネタイゼーション$は、データを使用して収益を増加させるプロセスです。RIFディレクトリは、データ共有に対するインセンティブを提 供します。",
+      "link_label": "RIFディレクトリについて読む"
+    },
+    "ko": {
+      "content": "$데이터 수익화(Data monetization)$는 데이터를 이용해 수익을 늘리는 과정입니다. RIF 디렉토리는 데이터 공유에 대한 인센티브를 제공할 것 입니다.",
+      "link_label": "RIF 디렉토리 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "$Monetização de dados$ é o processo de usar dados para aumentar a receita. O RIF Directory fornecerá incentivos para o compartilhamento de dados.",
+      "link_label": "Leia sobre o RIF Directory"
+    },
+    "ru": {
+      "content": "$Монетизация данных$ — это процесс использования данных для получения дохода. Использование RIF Directory стимулирует обмен данными.",
+      "link_label": "Описание протокола RIF Directory"
+    },
+    "zh_cn": {
+      "content": "$数据货币化$是使用数据提升收益的过程。RIF 目录将会提供数据共享的奖励机制。",
+      "link_label": "参阅 RIF 目录"
+    },
+    "en": {
+      "content": "$Data monetization$ is the process of using data to increase revenue. RIF Directory will provide incentives for data sharing.",
+      "link_label": "Read about RIF Directory"
+    },
+    "link": "https://www.rifos.org/directory"
+  },
+  {
+    "id": "rp-00",
+    "es_uy": {
+      "content": "Pagos RIF es un protocolo para soluciones de criptopagos escalables.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "RIF決済は、拡張可能な仮想決済ソリューション用のプロトコルです。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "RIF 결제는 확장성 암호화폐 결제 솔루션을 위한 프로토콜입니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Payments é um protocolo para soluções escaláveis ​​de pagamentos criptográficos.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "RIF Payments — это протокол масштабируемых решений для криптографических платежей.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "RIF支付是一种可扩展的加密货币付款解决方案协议。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "RIF Payments is a protocol for scalable crypto payments solutions.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-01",
+    "es_uy": {
+      "content": "$La red de pago de Lumino $permite un gran número de transacciones por segundo, tarifas bajas y tiempos de confirmación rápidos.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "$Lumino決済ネットワーク$では、1秒毎のトランザクション回数が多く、手数料が低く、また、確認時間が早くなっています。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "$Lumino 결제 네트워크$를 이용하면 보다 높아진 초당 거래량과 낮은 수수료, 그리고 빠른 확인 시간을 달성할 수 있습니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "$Rede de pagamento Lumino $ permite um alto número de transações por segundo, taxas baixas e tempos de confirmação rápidos.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "$Платежная сеть Lumino$ поддерживает большое количество транзакций в секунду, низкие комиссии и быстрое подтверждение операций.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "$Lumino 支付网络$允许大量的每秒交易量、低廉费用与快速的确认时间。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "$Lumino payment network$ allows high number of transactions per second, low fees and fast confirmation times.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-02",
+    "es_uy": {
+      "content": "La función de $facturación$ de la red RIF Lumino permite solicitar pagos a otras paridades, incluida la fecha de vencimiento del pago, el monto y el tipo de activo aceptado.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "RIF Luminoネットワークの$請求$機能を使用することで、決済有効期限、金額、受け入れ可能な資産の種類など、他の当事者に対して決済をリクエストできます。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "RIF Lumino 네트워크 $인보이스$ 기능을 이용하면 결제 만기일, 결제 금액, 수락하는 자산 유형 등을 설정하고 다른 이에게 결제를 요청할 수  있습니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O recurso de $faturamento$ da rede RIF Lumino permite solicitar pagamentos a outras paridades, incluindo a data de vencimento do pagamento, o valor e o tipo de ativo aceito.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "Функция $выставления счетов$ в сети RIF Lumino позволяет запрашивать платежи другим пользователям, включая информацию о дате окончания срока платежа, сумме и типе полученного актива.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "RIF Lumino 网络的$发票签发$功能允许向其他方请求支付，包括支付截止日期、金额与接受的资产类型。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "The RIF Lumino network $invoicing$ feature allows to request for payments to other parities, including payment expiration date, amount and the type of asset accepted.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-03",
+    "es_uy": {
+      "content": "El equipo de RIF Lumino diseñó un nodo de $cliente ligero$ que permite a los usuarios conectarse a la red desde sus navegadores y teléfonos móviles.",
+      "link_label": "Lea los documentos de Pagos RIF de clientes ligeros"
+    },
+    "ja": {
+      "content": "RIF Luminoチームは、ユーザーがブラウザや携帯電話からネットワークに接続できるようにする$ライトクライアント$ノードを設計しました。",
+      "link_label": "RIF決済ライトクライアントについての文書を読む"
+    },
+    "ko": {
+      "content": "RIF Lumino 팀은 사용자가 브라우저와 휴대폰으로 네트워크에 연결할 수 있게 하는 $라이트 클라이언트$ 노드를 설계하였습니다.",
+      "link_label": "RIF 결제 라이트 클라이언트 문서 읽기"
+    },
+    "pt_br": {
+      "content": "A equipe do RIF Lumino projetou um nó $light client$, permitindo que os usuários se conectem à rede a partir de seus navegadores e telefones celulares.",
+      "link_label": "Leia a documentação do RIF Payments light client"
+    },
+    "ru": {
+      "content": "Команда RIF Lumino создала узел для $тонких клиентов$, который позволяет пользователям подключаться к сети с помощью веб-браузеров и мобильных телефонов.",
+      "link_label": "Ознакомиться с документами RIF Payments для тонких клиентов"
+    },
+    "zh_cn": {
+      "content": "RIF Lumino 团队设计了$轻客户端$节点，让用户从其浏览器与行动电话连接至网络。",
+      "link_label": "参阅 RIF 支付轻客户端文档"
+    },
+    "en": {
+      "content": "RIF Lumino team designed a $light client$ node enabling users to connect to the network from their browsers and mobile phones.",
+      "link_label": "Read RIF Payments light client docs"
+    },
+    "link": "https://developers.rsk.co/rif/lumino/light-client/"
+  },
+  {
+    "id": "rp-04",
+    "es_uy": {
+      "content": "Los $centros de red$ RIF Lumino permiten pagos instantáneos en todo el mundo.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "RIF Lumino$ネットワークハブ$により、世界中で即時決済が可能になります。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "RIF Lumino $네트워크 허브$를 이용하면 전 세계에서 즉각적인 결제가 가능합니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Os $hubs de rede$ do RIF Lumino permitem pagamentos instantâneos em todo o mundo.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "$Сетевые концентраторы$ RIF Lumino позволяют проводить мгновенные платежи по всему миру.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "RIF Lumino$网络枢纽$能在全世界启动立即支付。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "RIF Lumino $network hubs$ enable instant payments all over the world.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-05",
+    "es_uy": {
+      "content": "Las $torres de vigilancia$ proporcionan a la red RIF Lumino una capa de seguridad adicional, garantizando que todos los participantes de la red sigan siendo confiables.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "$WatchTower$は、追加のセキュリティレイヤのRIF Luminoネットワークを提供し、すべてのネットワーク参加者の信頼性を維持します。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "$watchtowers$는 모든 네트워크 참여자가 신뢰도를 유지하고 있음을 보장하여 RIF Lumino 네트워크 보안을 한층 강화합니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "As $torres de observação$ fornecem à rede RIF Lumino uma camada extra de segurança, garantindo que todos os participantes da rede permaneçam confiáveis.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "$Системы контроля$ обеспечивают дополнительный уровень безопасности сети RIF Lumino, гарантируя защиту всех операций участников сети.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "$瞭望塔$提供 RIF Lumino 网络额外的安全层，确保所有网络参与者保持可靠度。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "The $watchtowers$ provide the RIF Lumino network of an extra security layer, ensuring that all network participants remain reliable.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-06",
+    "es_uy": {
+      "content": "Con pagos RIF podrá realizar $pagos a través de la red$ con un alto nivel de seguridad y portabilidad.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "RIF決済を使用することで、高度なセキュリティとポータビリティを備えた$クロスネットワーク決済$を実行できます。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "RIF 결제와 함께라면 높은 수준의 보안과 이동성을 유지하며 $네트워크 간의 결제$를 수행할 수 있습니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "Com o RIF Payments, você poderá realizar $pagamentos entre redes$ com alto nível de segurança e portabilidade.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "Протокол RIF Payments позволяет проводить $межсетевые платежи$ с высоким уровнем безопасности и мобильности.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "有了 RIF 支付，您将可以执行$跨网络支付$，同时享有高级别的安全性与可携性。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "With RIF Payments you will be able to perform $cross network payments$ with high level of security and portability.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rp-07",
+    "es_uy": {
+      "content": "El protocolo de $pagos de tokens cruzados$ de Pagos RIF está diseñado para permitir el pago de un servicio con cualquier activo deseado.",
+      "link_label": "Lea acerca de Pagos RIF"
+    },
+    "ja": {
+      "content": "RIF決済$クロストークン決済$プロトコルは、サービスに対してあらゆる資産で決済を行えるように設計されています。",
+      "link_label": "RIF決済について読む"
+    },
+    "ko": {
+      "content": "RIF 결제의 $크로스 토큰 결제$ 프로토콜은 원하는 자산을 선택해 서비스 비용을 결제할 수 있도록 설계되었습니다.",
+      "link_label": "RIF 결제 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O protocolo de pagamentos RIF Payments $cross tokens$ foi desenvolvido para permitir o pagamento com qualquer ativo desejado para um serviço.",
+      "link_label": "Saiba mais sobre o RIF Payments"
+    },
+    "ru": {
+      "content": "Протокол RIF Payments для $платежей с обменом токенов$ позволяет оплатить услуги с помощью любых активов.",
+      "link_label": "Описание протокола RIF Payments"
+    },
+    "zh_cn": {
+      "content": "RIF 支付$跨代币支付$协议旨在允许使用任何所需资产来支付服务费用。",
+      "link_label": "参阅 RIF 支付"
+    },
+    "en": {
+      "content": "The RIF Payments $cross tokens payments$ protocol is designed to allow paying with any desired asset for a service.",
+      "link_label": "Read about RIF Payments"
+    },
+    "link": "https://www.rifos.org/payments"
+  },
+  {
+    "id": "rs-00",
+    "es_uy": {
+      "content": "El protocolo de $Almacenamiento RIF$ es todo lo que necesita para sus casos de uso descentralizado. Es resistente a la censura, no requiere permiso, es anónimo y tolerante a fallas.",
+      "link_label": "Lea acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "$分散型ユースケース$には、RIFストレージプロトコルさえあれば対応できます。RIFストレージプロトコルは、検閲耐性、自由参加型、匿名、および耐障害性を備えています。",
+      "link_label": "RIFストレージについて読む"
+    },
+    "ko": {
+      "content": "$RIF 저장소$ 프로토콜은 분산형 사용례에 필요한 모든 것을 제공합니다. 이 프로토콜은 검열 저항적이고, 허가가 필요 없으며, 익명을 유지하 고 오류를 방지합니다.",
+      "link_label": "RIF 저장소 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O protocolo $RIF Storage$ é tudo o que você precisa para seus casos de uso descentralizados. É resistente à censura, sem permissão, anônimo e tolerante a falhas.",
+      "link_label": "Leia sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "Протокол $RIF Storage$ — это все, что вам необходимо для децентрализованной работы. Он защищен от цензуры, свободен от ограничений, анонимен и устойчив к ошибкам.",
+      "link_label": "Описание протокола RIF Storage"
+    },
+    "zh_cn": {
+      "content": "$RIF 存储$协议是您的去中心化使用案例所需的一切。它具有抗审查性、无需许可、匿名和容错等特性。",
+      "link_label": "参阅 RIF 存储"
+    },
+    "en": {
+      "content": "The $RIF Storage$ protocol is all you need for your decentralised usecases. It is censorship resistant, permissionless, anonymous and fault tolerant.",
+      "link_label": "Read about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rs-01",
+    "es_uy": {
+      "content": "La integración de los Servicios de Almacenamiento RIF y el Servicio de nombres RIF permite a los usuarios navegar por sitios dentro de la $web descentralizada$.",
+      "link_label": "Lea acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "RIFストレージサービスとRIFネームサービスの統合により、ユーザーは$分散型ウェブ$内のサイトを閲覧できます。",
+      "link_label": "RIFストレージについて読む"
+    },
+    "ko": {
+      "content": "사용자는 RIF 저장소 서비스와 RIF 네임 서비스의 통합으로 $분산형 웹$ 내의 사이트를 둘러볼 수 있습니다.",
+      "link_label": "RIF 저장소 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "A integração dos serviços RIF Storage e RIF Name Service permite que os usuários naveguem em sites dentro da $web descentralizada$.",
+      "link_label": "Leia sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "Интеграция протокола RIF Storage и службы RIF Name Service позволяет пользователям просматривать сайты, находясь в $децентрализованной сети$.",
+      "link_label": "Описание протокола RIF Storage"
+    },
+    "zh_cn": {
+      "content": "RIF 存储服务与 RIF 名称服务的整合让用户能在$去中心化互联网$（Decentralized Web）中浏览网站。",
+      "link_label": "参阅 RIF 存储"
+    },
+    "en": {
+      "content": "The integration of RIF Storage services and RIF Name Service allows users to browse sites inside the $decentralized web$.",
+      "link_label": "Read about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rs-02",
+    "es_uy": {
+      "content": "Use las $bibliotecas de Almacenamiento RIF$ para conectarse con diferentes proveedores de almacenamiento descentralizado.",
+      "link_label": "Leer documentos de Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "$RIFストレージライブラリ$を使用して、様々な分散型ストレージプロバイダに接続します。",
+      "link_label": "RIFストレージについての文書を読む"
+    },
+    "ko": {
+      "content": "$RIF 저장소 라이브러리$를 이용하면 다양한 분산형 저장소 제공자와 소통할 수 있습니다.",
+      "link_label": "RIF 저장소 문서 읽기"
+    },
+    "pt_br": {
+      "content": "Use as $bibliotecas do RIF Storage$ para conectar-se a diferentes provedores de armazenamento descentralizado.",
+      "link_label": "Leia os documentos do RIF Storage"
+    },
+    "ru": {
+      "content": "Используйте $библиотеки RIF Storage$ для подключения к разным поставщикам услуг децентрализованного хранения данных.",
+      "link_label": "Ознакомиться с документацией RIF Storage"
+    },
+    "zh_cn": {
+      "content": "使用$ RIF 存储代码库$连接至不同的去中心化存储提供商。",
+      "link_label": "参阅 RIF 存储文档"
+    },
+    "en": {
+      "content": "Use the $RIF Storage libraries$ to connect to different decentralized storage providers.",
+      "link_label": "Read RIF Storage docs"
+    },
+    "link": "https://developers.rsk.co/rif/storage/"
+  },
+  {
+    "id": "rs-03",
+    "es_uy": {
+      "content": "El Almacenamiento RIF le permite conectarse a $proveedores de almacenamiento IPFS y Swarm$ sin problemas.",
+      "link_label": "Lea acerca de la arquitectura de Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "RIFストレージにより、$IPFSおよびSwarm$ストレージプロバイダにシームレスに接続できます。",
+      "link_label": "RIFストレージアーキテクチャについて読む"
+    },
+    "ko": {
+      "content": "RIF 저장소를 이용하면 $IPFS와 Swarm$ 저장소 제공자들과 매끄럽게 소통할 수 있습니다.",
+      "link_label": "RIF 저장소 아키텍처 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "O RIF Storage permite conectar-se a provedores de armazenamento $IPFS e Swarm$ sem problemas.",
+      "link_label": "Leia sobre a arquitetura do RIF Storage"
+    },
+    "ru": {
+      "content": "Протокол RIF Storage позволяет поставщикам услуг хранения данных беспрепятственно подключаться к $IPFS и Swarm$.",
+      "link_label": "Описание архитектуры службы RIF Storage"
+    },
+    "zh_cn": {
+      "content": "RIF 存储允许无缝连接至$ IPFS 与 Swarm $存储提供商。",
+      "link_label": "参阅 RIF 存储架构"
+    },
+    "en": {
+      "content": "RIF Storage allows to connect to $IPFS and Swarm$ storage providers seamlessly.",
+      "link_label": "Read about RIF Storage architecture"
+    },
+    "link": "https://developers.rsk.co/rif/storage/architecture"
+  },
+  {
+    "id": "rs-04",
+    "es_uy": {
+      "content": "Use las puertas de enlace de Almacenamiento RIF públicas para conectarse a la red de prueba de Swarm incentivada.",
+      "link_label": "Use el almacenamiento RIF para conectarse a Swarm"
+    },
+    "ja": {
+      "content": "パブリックRIFストレージゲートウェイを使用して、インセンティブ型Swarmテストネットワークに接続します。",
+      "link_label": "RIFストレージを使用してSwarmに接続する"
+    },
+    "ko": {
+      "content": "공개 RIF 저장소 게이트웨이를 사용하면 인센티브화된 Swarm 테스트 네트워크에 연결할 수 있습니다.",
+      "link_label": "RIF 저장소로 Swarm에 연결하기"
+    },
+    "pt_br": {
+      "content": "Use os gateways RIF Storage públicos para conectar-se à rede de teste incentivada do Swarm.",
+      "link_label": "Use o RIF Storage para conectar-se ao Swarm"
+    },
+    "ru": {
+      "content": "Используйте общедоступные шлюзы RIF Storage для подключения к тестовой сети Swarm, которая работает без ограничений.",
+      "link_label": "Используйте RIF Storage для подключения к Swarm"
+    },
+    "zh_cn": {
+      "content": "使用公开的 RIF 存储网关连接至受激励的 Swarm 测试网络。",
+      "link_label": "使用 RIF 存储连接至 Swarm"
+    },
+    "en": {
+      "content": "Use the public RIF Storage gateways to connect to the incentivised Swarm test network.",
+      "link_label": "Use the RIF Storage to connect to Swarm"
+    },
+    "link": "https://swarm.rifgateways.org/"
+  },
+  {
+    "id": "rs-05",
+    "es_uy": {
+      "content": "El servicio de almacenamiento persistente del Almacenamiento RIF ofrece una solución descentralizada única para la replicación y persistencia de datos.",
+      "link_label": "Más información acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "RIFストレージの持続性ストレージサービスは、データの複製と持続性に対する独自の分散型ソリューションを提供します。",
+      "link_label": "RIFストレージについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 저장소의 영구 저장 서비스는 데이터 복제와 유지를 위한 고유한 분산형 솔루션을 제공합니다.",
+      "link_label": "RIF 저장소 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O serviço de armazenamento persistente do RIF Storage oferece uma solução descentralizada exclusiva para replicação e persistência de dados.",
+      "link_label": "Saiba mais sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "Служба хранения данных RIF Storage предлагает уникальное децентрализованное решение для копирования и сохранения данных.",
+      "link_label": "Подробнее о службе RIF Storage"
+    },
+    "zh_cn": {
+      "content": "RIF 存储一贯的存储服务为数据复制与持久性提供了唯一的去中心化解决方案。",
+      "link_label": "深入了解 RIF 存储"
+    },
+    "en": {
+      "content": "The RIF Storage persistent storage service offers unique decentralized solution for data replication and persistence.",
+      "link_label": "Read more about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rs-06",
+    "es_uy": {
+      "content": "Con los $incentivos de ancho de banda$ del protocolo SWAP, puede ganar RIF tokens pronto al proporcionar su almacenamiento no utilizado a la red.",
+      "link_label": "Más información acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "SWAPプロトコル$帯域幅インセンティブ$により、未使用のストレージをネットワークに提供することですぐにRIFトークンを獲得できます。",
+      "link_label": "RIFストレージについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "SWAP 프로토콜의 $대역폭 인센티브$를 사용하면 사용하지 않는 저장 공간을 네트워크에 제공하고 RIF Token을 벌 수 있습니다.",
+      "link_label": "RIF 저장소 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "Com os $incentivos à largura de banda$ do protocolo SWAP, você poderá ganhar em breve RIF tokens ao fornecer seu armazenamento não utilizado à rede.",
+      "link_label": "Saiba mais sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "Система поощрений $пропускной способности$ протокола SWAP позволяет зарабатывать токены RIF Token за предоставление доступа к неиспользуемому хранилищу данных.",
+      "link_label": "Подробнее о службе RIF Storage"
+    },
+    "zh_cn": {
+      "content": "藉着 SWAP 协议$带宽激励措施$，在向网络提供未使用的存储时，您可以快速获得 RIF 代币。",
+      "link_label": "深入了解 RIF 存储"
+    },
+    "en": {
+      "content": "With the SWAP protocol $bandwidth incentives$ you can soon earn RIF tokens when providing your unused storage to the network.",
+      "link_label": "Read more about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rs-07",
+    "es_uy": {
+      "content": "El $Almacenamiento RIF incentiva$ una motivación para el éxito en los servicios de almacenamiento a largo plazo, implementando depósitos de seguridad.",
+      "link_label": "Más información acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "$RIFストレージ$は、保証金を置くことで長期ストレージサービスの成功への動機を刺激ます。",
+      "link_label": "RIFストレージについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "$RIF 저장소는 인센티브로서$ 보증금을 지정하도록 하여 장기 저장소 서비스를 성공에 이르게 합니다.",
+      "link_label": "RIF 저장소 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O $RIF Storage incentiva$ uma motivação para o sucesso em serviços de armazenamento de longo prazo, colocando depósitos de segurança.",
+      "link_label": "Saiba mais sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "$Система стимулирования RIF Storage$ поощряет оказание услуг долгосрочного хранения и внесение гарантийных депозитов.",
+      "link_label": "Подробнее о службе RIF Storage"
+    },
+    "zh_cn": {
+      "content": "$RIF 存储激励$长期存储服务的成功动力，搭建安全存储。",
+      "link_label": "深入了解 RIF 存储"
+    },
+    "en": {
+      "content": "The $RIF Storage incentives$ a motivation to success on long term storage services, putting up security deposits.",
+      "link_label": "Read more about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rs-08",
+    "es_uy": {
+      "content": "La arquitectura del Almacenamiento RIF proporcionará formas seguras, simples y efectivas para $monitorear los archivos publicados $en diferentes servicios.",
+      "link_label": "Lea acerca de la arquitectura de Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "RIFストレージアーキテクチャは、様々なサービスで$公開されたファイルを監視$するための安全でシンプル、かつ効果的な方法を提供します。",
+      "link_label": "RIFストレージアーキテクチャについて読む"
+    },
+    "ko": {
+      "content": "RIF 저장소 아키텍처는 여러 서비스 내에 $게시된 파일을 모니터링$할 수 있는 간단하고 효과적이며 안전한 방법을 제공합니다.",
+      "link_label": "RIF 저장소 아키텍처 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "A arquitetura do RIF Storage fornecerá maneiras seguras simples e eficazes de $monitorar arquivos publicados$ em diferentes serviços.",
+      "link_label": "Leia sobre a arquitetura do RIF Storage"
+    },
+    "ru": {
+      "content": "Архитектура RIF Storage включает простые, безопасные и эффективные инструменты для $контроля опубликованных файлов$ в различных службах.",
+      "link_label": "Описание архитектуры службы RIF Storage"
+    },
+    "zh_cn": {
+      "content": "RIF 存储的架构将提供简单有效的安全方式，在不同的服务中$监控发布的档案$。",
+      "link_label": "参阅 RIF 存储架构"
+    },
+    "en": {
+      "content": "The architecture of the RIF Storage will provide secure simple and effective ways to $monitor published files$ in different services.",
+      "link_label": "Read about RIF Storage architecture"
+    },
+    "link": "https://developers.rsk.co/rif/storage/architecture"
+  },
+  {
+    "id": "rs-09",
+    "es_uy": {
+      "content": "La infraestructura requerida para construir soluciones más allá de los servicios de Almacenamiento RIF se administra de forma dinámica con la función de $nodos de lanzamiento$.",
+      "link_label": "Más información acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "RIFストレージサービス以外のソリューションを構築するために必要なインフラストラクチャは、$スポーニングノード$機能によって動的に管理され ます。",
+      "link_label": "RIFストレージについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 저장소 서비스를 넘어서는 솔루션 구축에 필요한 인프라는 $spawn 노드$ 기능으로 동적으로 관리됩니다.",
+      "link_label": "RIF 저장소 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "A infraestrutura necessária para criar soluções além dos serviços RIF Storage é gerenciada dinamicamente com o recurso de $nós geradores$.",
+      "link_label": "Saiba mais sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "Инфраструктура, необходимая для создания решений помимо службы RIF Storage, динамически управляется с помощью $создаваемых узлов$.",
+      "link_label": "Подробнее о службе RIF Storage"
+    },
+    "zh_cn": {
+      "content": "在 RIF 存储服务已外建构解决方案所需的基础架构，受到$生成节点$功能的动态管理。",
+      "link_label": "深入了解 RIF 存储"
+    },
+    "en": {
+      "content": "The infrastructure required to build solutions beyond RIF Storage services is dynamically managed with the $spawning nodes$ feature.",
+      "link_label": "Read more about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rg-00",
+    "es_uy": {
+      "content": "Los protocolos de las $Puertas de enlace RIF$ permiten transferencias de datos bidireccionales entre blockchain y el mundo exterior.",
+      "link_label": "Más información acerca de Puertas de enlace RIF"
+    },
+    "ja": {
+      "content": "$RIFゲートウェイ$プロトコルにより、ブロックチェーンと実世界との間の双方向データ転送が可能になります。",
+      "link_label": "RIFゲートウェイについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "$RIF 게이트웨이$ 프로토콜을 사용하면 블록체인과 외부 세계 간의 양방향 데이터 전송이 가능합니다.",
+      "link_label": "RIF 게이트웨이 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "Os protocolos $RIF Gateways$ permitem transferências bidirecionais de dados entre o blockchain e o mundo exterior.",
+      "link_label": "Saiba mais sobre o RIF Gateways"
+    },
+    "ru": {
+      "content": "Протоколы $RIF Gateways$ позволяют проводить двунаправленную передачу данных между блокчейном и внешним миром.",
+      "link_label": "Подробнее о протоколе RIF Gateways"
+    },
+    "zh_cn": {
+      "content": "$RIF 网关$协议允许在区块链与外界之间双向传输数据。",
+      "link_label": "深入了解 RIF 网关"
+    },
+    "en": {
+      "content": "$RIF Gateways$ protocols allow bidirectional data transfers between the blockchain and the outside world.",
+      "link_label": "Read more about RIF Gateways"
+    },
+    "link": "https://www.rifos.org/gateways"
+  },
+  {
+    "id": "rg-01",
+    "es_uy": {
+      "content": "Las Puertas de enlace RIF proporcionan $servicios Oracle$ que permiten que las aplicaciones blockchain recopilen información de fuentes externas.",
+      "link_label": "Más información acerca de Puertas de enlace RIF"
+    },
+    "ja": {
+      "content": "RIFゲートウェイは、ブロックチェーン・アプリケーションが外部ソースから情報を収集できるようにするための$Oracleサービス$を提供しています 。",
+      "link_label": "RIFゲートウェイについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 게이트웨이는 블록체인 애플리케이션이 외부 출처에서 정보를 수집할 수 있게 하는 $오라클 서비스$를 제공합니다.",
+      "link_label": "RIF 게이트웨이 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Gateways está fornecendo $serviços oracle$ que permitem que aplicativos de blockchain coletem informações de fontes externas.",
+      "link_label": "Saiba mais sobre o RIF Gateways"
+    },
+    "ru": {
+      "content": "Протоколы RIF Gateways включают службы $оракулов$, которые позволяют блокчейн-приложениям получать информацию из внешних источников.",
+      "link_label": "Подробнее о протоколе RIF Gateways"
+    },
+    "zh_cn": {
+      "content": "RIF 网关提供$ oracle 服务$，允许区块链应用程序从外部来源中收集信息。",
+      "link_label": "深入了解 RIF 网关"
+    },
+    "en": {
+      "content": "RIF Gateways is providing $oracle services$ that permit blockchain applications to collect information from external sources.",
+      "link_label": "Read more about RIF Gateways"
+    },
+    "link": "https://www.rifos.org/gateways"
+  },
+  {
+    "id": "rg-02",
+    "es_uy": {
+      "content": "La $tecnología de disparadores$ de las Puertas de enlace RIF define una forma estandarizada de consumir eventos blockchain y desencadenar acciones en sistemas externos.",
+      "link_label": "Más información acerca de Puertas de enlace RIF"
+    },
+    "ja": {
+      "content": "RIFゲートウェイ$トリガ技術$は、ブロックチェーンイベントを消費し、外部システムでアクションをトリガーするための標準化された方法を定義し ます。",
+      "link_label": "RIFゲートウェイについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 게이트웨이 $트리거 기술$은 블록체인 이벤트를 소비하고 외부 시스템의 동작을 트리거할 수 있는 표준화된 방법을 정의합니다.",
+      "link_label": "RIF 게이트웨이 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "A $tecnologia que aciona$ o RIF Gateways define uma maneira padronizada de consumir eventos de blockchain e acionar ações em sistemas externos.",
+      "link_label": "Saiba mais sobre o RIF Gateways"
+    },
+    "ru": {
+      "content": "Технология триггеров $RIF Gateways$ определяет стандартный способ использования событий блокчейна и запуска действий во внешних системах.",
+      "link_label": "Подробнее о протоколе RIF Gateways"
+    },
+    "zh_cn": {
+      "content": "RIF 网关的$触发技术$定义了标准化的方式消耗区块链事件并触发外部系统中的操作。",
+      "link_label": "深入了解 RIF 网关"
+    },
+    "en": {
+      "content": "RIF Gateways $triggers technology$ defines a standardized way to consume blockchain events and trigger actions in external systems.",
+      "link_label": "Read more about RIF Gateways"
+    },
+    "link": "https://www.rifos.org/gateways"
+  },
+  {
+    "id": "rg-03",
+    "es_uy": {
+      "content": "Mantener su aplicación descentralizada sincronizada con eventos del mundo real es más fácil con las Puertas de enlace RIF.",
+      "link_label": "Más información acerca de Puertas de enlace RIF"
+    },
+    "ja": {
+      "content": "RIFゲートウェイを使用することで、分散型アプリケーションを実世界のイベントと同期させることが容易になります。",
+      "link_label": "RIFゲートウェイについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 게이트웨이를 사용하면 실시간 이벤트와 분산형 애플리케이션의 동기화 유지가 더 쉬워집니다.",
+      "link_label": "RIF 게이트웨이 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "Manter seu aplicativo descentralizado sincronizado com eventos do mundo real é mais fácil com o RIF Gateways.",
+      "link_label": "Saiba mais sobre o RIF Gateways"
+    },
+    "ru": {
+      "content": "RIF Gateways упрощает синхронизацию децентрализованного приложения с реальными событиями.",
+      "link_label": "Подробнее о протоколе RIF Gateways"
+    },
+    "zh_cn": {
+      "content": "通过 RIF 网关，可以更容易地保持您的去中心化应用程序与真实事件同步。",
+      "link_label": "深入了解 RIF 网关"
+    },
+    "en": {
+      "content": "Keeping your decentralized application synchronized with real-world events is easier with RIF Gateways.",
+      "link_label": "Read more about RIF Gateways"
+    },
+    "link": "https://www.rifos.org/gateways"
+  },
+  {
+    "id": "rc-00",
+    "es_uy": {
+      "content": "Comunicaciones RIF permite que las partes de una red $P2P$ se descubran mutuamente y establezcan canales de comunicación segura, con anonimato, confidencialidad, integridad y autenticidad.",
+      "link_label": "Más información acerca de las Comunicaciones RIF"
+    },
+    "ja": {
+      "content": "RIF コミュニケーションを使用すると、$ピアツーピア$ネットワークの関係者が相互的に発見でき、匿名性、機密性、整合性、信頼性が確証された安全な通信チャネルを確立することができます。",
+      "link_label": "RIF通信についてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 커뮤니케이션은 사람들이 $피어-투-피어$ 네트워크에서 서로를 발견하고 익명성, 기밀성, 정확성과 신뢰도를 보장하면서 안전한 커뮤니케이션 채널을 구축할 수 있게 합니다.",
+      "link_label": "RIF 커뮤니케이션 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Communications permite que as partes de uma rede $peer-to-peer$ se descubram e estabeleçam canais de comunicação seguros, com garantias de anonimato, confidencialidade, integridade e autenticidade.",
+      "link_label": "Saiba mais sobre o RIF Communications"
+    },
+    "ru": {
+      "content": "RIF Communications позволяет пользователям $одноранговой$ сети находить друг друга и устанавливать безопасные каналы связи с гарантией анонимности, конфиденциальности, целостности данных и проверки подлинности.",
+      "link_label": "Подробнее о службе RIF Communications"
+    },
+    "zh": {
+      "content": "RIF 通信允许$对等$网络中的各方发现彼此并建立安全的通信通道，并确保匿名性、机密性、完整性和真实性。",
+      "link_label": "深入了解 RIF 通信"
+    },
+    "en": {
+      "content": "RIF Communications allows parties in a $peer-to-peer$ network to discover each other and establish secure communication channels, with assured anonymity, confidentiality, integrity and authenticity.",
+      "link_label": "Read more about RIF Communications"
+    },
+    "link": "https://www.rifos.org/communications"
+  },
+  {
+    "id": "rc-01",
+    "es_uy": {
+      "content": "Comunicaciones RIF es una red de nodos conectados a través del $protocolo de reenvío de Kademlia$.",
+      "link_label": "Más información acerca de las Comunicaciones RIF"
+    },
+    "ja": {
+      "content": "RIF通信は、$Kademliaプロトコルを転送$することにより接続されたノードのネットワークです。",
+      "link_label": "RIF通信についてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 커뮤니케이션은 $Kademlia 프로토콜을 포워딩$하여 연결된 노드 네트워크입니다.",
+      "link_label": "RIF 커뮤니케이션 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Communications é uma rede de nós conectados através do $encaminhamento do protocolo Kademlia$.",
+      "link_label": "Saiba mais sobre o RIF Communications"
+    },
+    "ru": {
+      "content": "RIF Communications — это сеть узлов, соединенных через $протокол переадресации Kademlia$.",
+      "link_label": "Подробнее о службе RIF Communications"
+    },
+    "zh": {
+      "content": "RIF 通信是一种节点网络，通过$转发 Kademlia 协议$来连结。",
+      "link_label": "深入了解 RIF 通信"
+    },
+    "en": {
+      "content": "RIF Communications is a network of nodes connected through $forwarding Kademlia protocol$.",
+      "link_label": "Read more about RIF Communications"
+    },
+    "link": "https://www.rifos.org/communications"
+  },
+  {
+    "id": "rc-02",
+    "es_uy": {
+      "content": "La solución de $Comunicaciones RIF$ es todo lo que necesita para agregar una función de comunicación anónima descentralizada a su aplicación descentralizada.",
+      "link_label": "Lea acerca del Almacenamiento RIF"
+    },
+    "ja": {
+      "content": "$RIF通信$ソリューションさえあれば、分散型アプリケーションに匿名の分散型通信機能を追加することができます。",
+      "link_label": "RIFストレージについて読む"
+    },
+    "ko": {
+      "content": "$RIF 커뮤니케이션$ 솔루션은 분산형 애플리케이션에 분산형 익명 커뮤니케이션 기능을 추가하는 데 필요한 모든 것을 제공합니다.",
+      "link_label": "RIF 저장소 관련 내용 읽기"
+    },
+    "pt_br": {
+      "content": "A solução $RIF Communications$ é tudo o que você precisa para adicionar uma funcionalidade de comunicação descentralizada anônima ao seu aplicativo descentralizado.",
+      "link_label": "Leia sobre o RIF Storage"
+    },
+    "ru": {
+      "content": "$RIF Communications$ — это все, что вам необходимо для добавления анонимных децентрализованных коммуникаций в свое децентрализованное приложение.",
+      "link_label": "Описание протокола RIF Storage"
+    },
+    "zh": {
+      "content": "$RIF 通信$解决方案符合您所需的一切，添加匿名去中心化通信功能到您的去中心化应用程序内。",
+      "link_label": "参阅 RIF 存储"
+    },
+    "en": {
+      "content": "The $RIF Communications$ solution is all you need to add anonymous decentralized communication functionality to your decentralized application.",
+      "link_label": "Read about RIF Storage"
+    },
+    "link": "https://www.rifos.org/storage"
+  },
+  {
+    "id": "rm-00",
+    "es_uy": {
+      "content": "$RIF Marketplace $permite que los proveedores de servicios y los consumidores se reúnan y participen de manera segura y eficiente.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "$RIFマーケットプレイス$により、サービスプロバイダと消費者は、安全かつ効率的な方法で出会い、参加することができます。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "서비스 제공자와 소비자는 $RIF 마켓플레이스$를 통해 안전하고 효율적으로 만나고 소통할 수 있습니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O $RIF Marketplace$ permite que prestadores de serviços e consumidores se encontrem e se conectem de maneira segura e eficiente.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "$RIF Marketplace$ позволяет поставщикам услуг и потребителям безопасно и эффективно встречаться и взаимодействовать друг с другом.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "$RIF 市场$允许服务提供商与消费者以安全有效的方式会面并交易。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "$RIF Marketplace$ allows service providers and consumers to meet and engage in a secure and efficient way.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rm-01",
+    "es_uy": {
+      "content": "RIF Marketplace hereda los beneficios de un $mercado totalmente descentralizado$: transparencia de seguridad, resistencia a la censura, inmutabilidad y reputación propia.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "RIFマーケットプレイスは、$完全分散型市場$の利点を継承しています。利点として挙げられるのは、セキュリティの透明性、耐検閲性、不変性、お よび自らに対する評判です。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 마켓플레이스는 보안 투명성, 검열 저항성, 불변성, 그리고 자주적 평판이라는 $완전 분산형 마켓$의 혜택을 계승합니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Marketplace herda os benefícios de um $mercado totalmente descentralizado$: transparência de segurança, resistência à censura, imutabilidade e reputação própria.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "RIF Marketplace обладает такими преимуществами $полностью децентрализованного рынка$, как прозрачность в вопросах безопасности, защита от цензуры, надежность и использование репутации.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "RIF 市场继承了$完整去中心化市场$的优势：安全透明性、抗审查性、稳定性与自有声誉。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "RIF Marketplace inherits the benefits of a $fully decentralized market$: security transparency, censorship resistance, immutability, and self-owned reputation.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rm-02",
+    "es_uy": {
+      "content": "RIF Marketplace ofrece mecanismos de $participación, corte y resolución de disputas $para garantizar que todas las partes cumplan con sus obligaciones.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "RIFマーケットプレイスは、すべての当事者が自らの義務を確実に遂行できるよう、$ステーキング、スラッシング、および問題解決メカニズム$を提 供します。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 마켓플레이스는 $담보 걸기, 슬래싱, 그리고 분쟁 해결 메커니즘$을 제공해 모든 당사자가 의무를 다하게 합니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Marketplace fornece $mecanismos de classificação, corte e resolução de disputas$ para garantir que todas as partes cumpram suas obrigações.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "RIF Marketplace включает $механизмы размещения средств и разрешения споров$, которые обеспечивают выполнение обязательств всеми сторонами.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "RIF 市场提供$抵押、削减与争议解决机制$，确保各方遵守其责任。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "RIF Marketplace provides $staking, slashing, and dispute resolution mechanisms$ to ensure all parties fulfill their obligations.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rm-03",
+    "es_uy": {
+      "content": "RIF Marketplace permitirá $vender dominios del Servicio de nombres RIF $de manera segura y sin confianza.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "RIFマーケットプレイスにより、安全かつトラストレスな方法で$RIFネームサービスドメインを販売$できるようになります。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 마켓플레이스를 이용하면 안전한 무신뢰 기반(trustless) 방식으로 $RIF 네임 서비스 도메인을 판매$할 수 있습니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Marketplace permitirá $vender domínios do RIF Name Service$ de maneira segura e sem confiança.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "RIF Marketplace позволяет с помощью безопасной и надежной процедуры $продавать домены службы RIF Name Service$.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "RIF 市场将允许以安全与无信任方式$贩售 RIF 名称服务网域$。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "RIF Marketplace will allow to $sell RIF Name Service domains$ in a secure and trustless manner.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rm-04",
+    "es_uy": {
+      "content": "RIF Marketplace permite que los proveedores de servicios y los consumidores se reúnan y participen de manera segura y eficiente.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "RIFマーケットプレイスにより、サービスプロバイダと消費者は、安全かつ効率的な方法で出会い、参加することができます。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "서비스 제공자와 소비자는 RIF 마켓플레이스를 통해 안전하고 효율적으로 만나고 소통할 수 있습니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF Marketplace permite que prestadores de serviços e consumidores se encontrem e se conectem de uma maneira segura e eficiente.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "RIF Marketplace позволяет поставщикам услуг и потребителям безопасно и эффективно встречаться и взаимодействовать друг с другом.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "RIF 市场允许服务提供商与消费者以安全有效的方式会面并交易。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "RIF Marketplace allows Service Providers and Consumers to meet and engage in a secure and efficient way.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rt-00",
+    "es_uy": {
+      "content": "RIF está creando $servicios de $metatransacciones que permiten a los usuarios de dapps o aplicaciones crear transacciones sin gas.",
+      "link_label": "Más información sobre RIF"
+    },
+    "ja": {
+      "content": "RIFは、dAppsまたはアプリのユーザーがガスなしでトランザクションを作成できるようにする$メタトランザクション・サービス$を構築しています。",
+      "link_label": "RIFについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF는 dApp이나 앱 사용자가 가스 없이 거래를 생성할 수 있도록 $메타 거래 서비스$를 구축하고 있습니다.",
+      "link_label": "RIF 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O RIF está desenvolvendo $serviços de meta-transação$, permitindo que os usuários de dApps ou aplicativos criem transações sem gás.",
+      "link_label": "Saiba mais sobre o RIF"
+    },
+    "ru": {
+      "content": "RIF создает $службы мета-транзакций$, которые позволяют пользователям приложений или dApps создавать транзакции без газа.",
+      "link_label": "Подробнее о RIF"
+    },
+    "zh": {
+      "content": "RIF 正在建置$元交易服务$，允许去中心化应用程序或应用程序使用者，在无矿工费的情况下创建交易。",
+      "link_label": "深入了解 RIF"
+    },
+    "en": {
+      "content": "RIF is building $meta-transaction services$ allowing dApps or apps users to create transactions without gas.",
+      "link_label": "Read more about RIF"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  },
+  {
+    "id": "rt-01",
+    "es_uy": {
+      "content": "El explorador unificado de RIF permitirá acceder y administrar todos los servicios RIF desde un lugar único.",
+      "link_label": "Más información acerca de RIF Marketplace"
+    },
+    "ja": {
+      "content": "RIF統合型エクスプローラにより、固有の場所からすべてのRIFサービスを利用および管理できるようになります。",
+      "link_label": "RIFマーケットプレイスについてさらに詳しく読む"
+    },
+    "ko": {
+      "content": "RIF 통합 익스플로러를 이용하면 고유한 공간에서 모든 RIF 서비스를 이용하고 관리할 수 있습니다.",
+      "link_label": "RIF 마켓플레이스 관련 내용 더 보기"
+    },
+    "pt_br": {
+      "content": "O explorador unificado RIF permitirá acessar e gerenciar todos os serviços RIF desde um local único.",
+      "link_label": "Saiba mais sobre o RIF Marketplace"
+    },
+    "ru": {
+      "content": "Единый проводник RIF позволяет получить доступ ко всем услугам RIF и управлять ими из единого центра.",
+      "link_label": "Подробнее о RIF Marketplace"
+    },
+    "zh": {
+      "content": "RIF 统一浏览器将允许从唯一的位置访问并管理所有 RIF 服务。",
+      "link_label": "深入了解 RIF 市场"
+    },
+    "en": {
+      "content": "The RIF unified explorer will allow to access and manage all RIF services from a unique place.",
+      "link_label": "Read more about RIF Marketplace"
+    },
+    "link": "https://www.rifos.org/marketplace"
+  }
+]

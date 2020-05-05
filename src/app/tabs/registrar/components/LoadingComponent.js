@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { Loader } from 'rimble-ui';
 
 class LoadingComponent extends Component {
   constructor(props) {
@@ -33,19 +34,9 @@ class LoadingComponent extends Component {
       <div className="waiting">
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
-            <Spinner animation="border" variant="primary" className="break-below" />
-            <p>
-              {strings.wait_for_two_minutes}
-              <br />
-              {strings.wait_period_reason}
-            </p>
-
-            <h3 className="blue major-section">
-              {strings.did_you_know}
-              ...
-            </h3>
-            <p className="lead minor-section">
-              {strings.tip1}
+            <Loader color="#008FF7" size="80px" className="loader-center" />
+            <p className="major-section">
+              {strings.registration_waiting}
             </p>
           </Col>
         </Row>
@@ -57,10 +48,7 @@ class LoadingComponent extends Component {
 LoadingComponent.propTypes = ({
   checkCanReveal: propTypes.func.isRequired,
   strings: propTypes.shape({
-    wait_for_two_minutes: propTypes.string.isRequired,
-    wait_period_reason: propTypes.string.isRequired,
-    did_you_know: propTypes.string.isRequired,
-    tip1: propTypes.string.isRequired,
+    registration_waiting: propTypes.string.isRequired,
     domain_requested: propTypes.string.isRequired,
   }).isRequired,
 });

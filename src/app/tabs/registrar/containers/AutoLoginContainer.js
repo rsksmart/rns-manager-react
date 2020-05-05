@@ -5,16 +5,18 @@ import { resetRegistrarState } from '../actions';
 
 import { autoLogin } from '../../../auth/operations';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  successTx: state.registrar.successTx,
+});
 
 const mapDispatchToProps = dispatch => ({
   handleManageClick: () => {
-    dispatch(push('/admin'));
+    dispatch(push('/newAdmin'));
     dispatch(autoLogin(localStorage.getItem('name')));
     dispatch(resetRegistrarState());
   },
   handleRegisterNewClick: () => {
-    dispatch(push('/search'));
+    dispatch(push('/'));
     dispatch(resetRegistrarState());
   },
 });

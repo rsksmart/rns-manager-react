@@ -1,6 +1,6 @@
 {
   "name": "rns-manager-react",
-  "version": "2.0.0-beta.14",
+  "version": "2.0.0-beta.15",
   "private": true,
   "dependencies": {
     "@githubprimer/octicons-react": "^8.5.0",

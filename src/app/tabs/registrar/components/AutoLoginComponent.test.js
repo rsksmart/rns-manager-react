@@ -10,6 +10,9 @@ const store = mockStore({
   log_in: en.log_in,
   admin_domain: en.admin_domain,
   register_another_domain: en.register_another_domain,
+  your_domain_has_been_registered: en.your_domain_has_been_registered,
+  view_explorer: en.view_explorer,
+  close: en.close,
 });
 
 const handleAdminClick = jest.fn();
@@ -20,6 +23,7 @@ const component = mount(
     <AutoLoginComponent
       handleManageClick={handleAdminClick}
       handleRegisterNewClick={handleRegisterNewClick}
+      successTx="0x123456879..."
     />
   </Provider>,
 );

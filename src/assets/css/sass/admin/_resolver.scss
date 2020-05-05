@@ -1,0 +1,50 @@
+.resolver {
+  .add-records {
+    select {
+      display: block;
+      width: 100%;
+      color: $gray;
+      padding: 12px 10px;
+      border-radius: 5px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      border: 1px solid $gray;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    button.add {
+      display: block;
+      width: 100%;
+      background: $blue;
+      padding: 10px !important;
+      color: $white;
+      border-radius: 15px;
+    }
+  }
+  .records {
+    .addressInput {
+      .label {
+        text-align: left;
+      }
+
+      .value {
+        margin-left: -50px;
+        overflow-x: visible;
+      }
+
+      .options {
+        margin-left: 50px;
+      }
+    }
+  }
+
+  .setResolver {
+    .label {
+      text-transform: capitalize;
+    }
+  }
+}

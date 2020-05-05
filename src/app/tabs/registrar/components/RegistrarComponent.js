@@ -8,6 +8,10 @@ import {
 } from '../containers';
 import { isValidName } from '../../../validations';
 import { StartButtonContainer } from '../../../auth/containers';
+import UserErrorComponent from '../../../components/UserErrorComponent';
+import { shuffle } from '../helpers';
+import TextRotationComponent from '../../../components/TextRotationComponent';
+import keyMessages from '../../../../languages/key_messges.json';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -67,7 +71,8 @@ class RegistrarComponent extends Component {
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
-      committed, waiting, canReveal, revealConfirmed, walletAddress,
+      committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
+      handleCloseClick, language,
     } = this.props;
     const { invalid } = this.state;
 
@@ -89,26 +94,28 @@ class RegistrarComponent extends Component {
       } else {
         const isOwner = walletAddress === owner.toLowerCase();
         elementToRender = (
-          <Card>
-            <Card.Header>{strings.owned}</Card.Header>
-            <Card.Body>
-              <p>
-                <strong>
-                  {strings.owner}
-                  {': '}
-                </strong>
-                {owner}
-              </p>
-              <p>
-                {isOwner && <StartButtonContainer />}
-                {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
-              </p>
-            </Card.Body>
-          </Card>
+          <Container className="page">
+            <Card>
+              <Card.Header>{strings.owned}</Card.Header>
+              <Card.Body>
+                <p>
+                  <strong>
+                    {strings.owner}
+                    {': '}
+                  </strong>
+                  {owner}
+                </p>
+                <p>
+                  {isOwner && <StartButtonContainer />}
+                  {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
+                </p>
+              </Card.Body>
+            </Card>
+          </Container>
         );
       }
     } else if (blocked) {
-      elementToRender = <h4>{strings.blocked_domain}</h4>;
+      elementToRender = <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
     } else {
       const domainDisplay = `${domain}.rsk`;
 
@@ -119,6 +126,7 @@ class RegistrarComponent extends Component {
               <h1 className="sub-heading">
                 {strings.registering}
                 {': '}
+                <br />
                 <span className="domain">{domainDisplay}</span>
               </h1>
             </div>
@@ -136,7 +144,26 @@ class RegistrarComponent extends Component {
             )
           }
 
-          {waiting && <LoadingContainer />}
+          {waiting && (
+          <>
+            <LoadingContainer />
+            <TextRotationComponent
+              messages={shuffle(keyMessages)}
+              language={language}
+              heading={strings.did_you_know}
+              timer={6000}
+            />
+            <p style={{ marginTop: '50px' }}>
+              <a
+                href="https://hackmd.io/@ilanolkies/rns-user-guide"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {strings.download_guide}
+              </a>
+            </p>
+          </>
+          )}
 
           {(canReveal && !revealConfirmed)
             && (
@@ -149,6 +176,12 @@ class RegistrarComponent extends Component {
               <AutoLoginComponent />
             )
           }
+
+          <UserErrorComponent
+            visible={errorMessage !== ''}
+            message={errorMessage}
+            handleCloseClick={handleCloseClick}
+          />
         </Container>
       );
     }
@@ -171,6 +204,8 @@ RegistrarComponent.propTypes = {
     request_domain: propTypes.string.isRequired,
     register_domain: propTypes.string.isRequired,
     login: propTypes.string.isRequired,
+    did_you_know: propTypes.string.isRequired,
+    download_guide: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   domainStateLoading: propTypes.bool.isRequired,
@@ -185,6 +220,9 @@ RegistrarComponent.propTypes = {
   canReveal: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool.isRequired,
   checkIfAlreadyRegistered: propTypes.func.isRequired,
+  errorMessage: propTypes.string.isRequired,
+  handleCloseClick: propTypes.func.isRequired,
+  language: propTypes.string.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

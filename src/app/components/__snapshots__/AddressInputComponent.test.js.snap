@@ -49,6 +49,11 @@ exports[`AddressInputComponent renders without crashing 1`] = `
       </button>
     </div>
   </div>
+  <Connect(Connect(ChecksumErrorComponent))
+    handleClick={[Function]}
+    inputValue=""
+    show={false}
+  />
   <UserWaitingComponent
     message="waiting text string"
     visible={false}
@@ -118,6 +123,11 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
       </button>
     </div>
   </div>
+  <Connect(Connect(ChecksumErrorComponent))
+    handleClick={[Function]}
+    inputValue=""
+    show={false}
+  />
   <div
     className="delete"
   >
