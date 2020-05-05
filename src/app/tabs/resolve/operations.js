@@ -27,6 +27,7 @@ export const resolveDomain = (
 
   return rns.addr(domain, chainId)
     .then((response) => {
+      // if the value is the same as the resolved domain
       if (value && (response.toLowerCase() === value.toLowerCase())) {
         dispatch(errorFunction(ERROR_SAME_VALUE));
         return false;

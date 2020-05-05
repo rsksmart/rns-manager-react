@@ -64,6 +64,7 @@ const DomainInfoComponent = (props) => {
               submit: strings.transfer,
               cancel: strings.cancel,
               error_title: 'Error!',
+              edit_placeholder: strings.address_placeholder,
             }}
           />
         </Col>
@@ -87,6 +88,7 @@ DomainInfoComponent.propTypes = {
     owner: propTypes.string.isRequired,
     transfer: propTypes.string.isRequired,
     transfer_warning: propTypes.string.isRequired,
+    address_placeholder: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
