@@ -101,8 +101,16 @@ export const transferDomainConfirmed = tx => (dispatch) => {
   dispatch(receiveTransferDomain(tx));
 };
 
-export const transferDomain = (name, addressToTransfer, sender) => (dispatch) => {
+export const transferDomain = (name, address, sender) => async (dispatch) => {
   dispatch(requestTransferDomain());
+
+  // get address if it ends with .rsk
+  const addressToTransfer = await address.endsWith('.rsk')
+    ? await dispatch(resolveDomain(address, null, errorTransferDomain, sender)) : address;
+
+  if (!addressToTransfer) {
+    return false;
+  }
 
   const label = name.split('.')[0];
 
@@ -169,7 +177,7 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
   const currentAddress = accounts[0].toLowerCase();
 
   await rns.compose();
-  await rns.contracts.registry.methods.setOwner(label, newAddress)
+  return rns.contracts.registry.methods.setOwner(label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetRegistryOwner(error.message));

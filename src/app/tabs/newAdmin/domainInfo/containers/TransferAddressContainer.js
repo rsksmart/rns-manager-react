@@ -5,6 +5,7 @@ import { handleTransferErrorClose } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
+  allowRsk: true,
   isWaiting: state.newAdmin.domainInfo.requestingTransfer,
   isError: state.newAdmin.domainInfo.isError,
   isSuccess: state.newAdmin.domainInfo.isSuccess,
