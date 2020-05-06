@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
-import { Row, Col, Button } from 'react-bootstrap';
+import {
+  Form, Row, Col, Button,
+} from 'react-bootstrap';
 import { validateAddress } from '../../../../validations';
 
 import UserErrorComponent from '../../../../components/UserErrorComponent';
@@ -24,12 +26,14 @@ const NewSubdomainComponent = ({
   initialSubdomain,
   initialOwner,
   chainId,
+  advancedView,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
 
   const [subdomain, setSubdomain] = useState(initialSubdomain);
   const [owner, setOwner] = useState(initialOwner);
+  const [setupRsk, setSetupRsk] = useState(true);
 
   const handleOnClick = () => {
     if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
@@ -37,7 +41,7 @@ const NewSubdomainComponent = ({
     }
 
     if (owner.endsWith('.rsk')) {
-      return handleClick(subdomain, owner.toLowerCase());
+      return handleClick(subdomain, owner.toLowerCase(), setupRsk);
     }
 
     switch (validateAddress(owner, chainId)) {
@@ -46,7 +50,7 @@ const NewSubdomainComponent = ({
       case 'Invalid checksum':
         return setChecksumError(true);
       default:
-        return handleClick(subdomain, owner.toLowerCase());
+        return handleClick(subdomain, owner.toLowerCase(), setupRsk);
     }
   };
 
@@ -122,6 +126,19 @@ const NewSubdomainComponent = ({
           </Button>
         </Col>
       </Row>
+      {advancedView && (
+        <Row>
+          <Col className="col-md-5 offset-md-5" style={{ textAlign: 'right' }}>
+            <Form.Check
+              type="switch"
+              id="setup-addr-switch"
+              label={strings.set_subdomain_rsk}
+              checked={setupRsk}
+              onChange={() => setSetupRsk(!setupRsk)}
+            />
+          </Col>
+        </Row>
+      )}
 
       <ChecksumErrorContainer
         show={checksumError}
@@ -171,6 +188,7 @@ NewSubdomainComponent.propTypes = {
     Owner: propTypes.string.isRequired,
     subdomain_name: propTypes.string.isRequired,
     address_placeholder: propTypes.string.isRequired,
+    set_subdomain_rsk: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
@@ -183,6 +201,7 @@ NewSubdomainComponent.propTypes = {
   initialSubdomain: propTypes.string,
   initialOwner: propTypes.string,
   chainId: propTypes.string.isRequired,
+  advancedView: propTypes.bool.isRequired,
 };
 
 export default multilanguage(NewSubdomainComponent);
