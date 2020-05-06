@@ -16,6 +16,10 @@
 
   .toggleSwitch {
     text-align: right;
+
+    button:hover {
+      border: none !important;
+    }
   }
 
   color: $gray;

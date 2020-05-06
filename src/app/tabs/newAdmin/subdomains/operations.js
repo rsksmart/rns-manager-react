@@ -14,7 +14,6 @@ import {
 } from './actions';
 
 import { EMPTY } from './types';
-import { ERROR_RESOLVE_NAME } from '../../resolve/types';
 
 import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
@@ -154,7 +153,7 @@ export const setSubdomainOwner = (
     ? await dispatch(resolveDomain(
       newOwner,
       null,
-      () => errorSetSubdomainOwner(subdomain, ERROR_RESOLVE_NAME),
+      response => errorSetSubdomainOwner(subdomain, response),
       currentOwner,
     )) : newOwner;
 
