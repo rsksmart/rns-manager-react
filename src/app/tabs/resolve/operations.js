@@ -34,7 +34,7 @@ export const resolveDomain = (
       }
 
       dispatch(actions.receiveAddr(response));
-      return response;
+      return response.toLowerCase();
     })
     .catch((error) => {
       dispatch(actions.errorResolve(error));
