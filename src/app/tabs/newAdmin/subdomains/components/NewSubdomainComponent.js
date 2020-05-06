@@ -35,7 +35,9 @@ const NewSubdomainComponent = ({
   const [owner, setOwner] = useState(initialOwner);
   const [setupRsk, setSetupRsk] = useState(true);
 
-  const handleOnClick = () => {
+  const handleOnClick = (e) => {
+    e.preventDefault();
+
     if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
       return setLocalError(strings.invalid_name);
     }
@@ -74,7 +76,7 @@ const NewSubdomainComponent = ({
   const disabled = newRequesting || newWaiting;
 
   return (
-    <div>
+    <Form onSubmit={handleOnClick}>
       <Row>
         <Col>
           <h3 className="blue caps-first">{strings.admin_your_domain_action_3}</h3>
@@ -118,12 +120,13 @@ const NewSubdomainComponent = ({
           />
         </Col>
         <Col>
-          <Button
-            onClick={handleOnClick}
+          <button
             disabled={disabled}
+            className="btn btn-primary"
+            type="submit"
           >
             {strings.create}
-          </Button>
+          </button>
         </Col>
       </Row>
       {advancedView && (
@@ -163,7 +166,7 @@ const NewSubdomainComponent = ({
         visible={newWaiting === true}
         message={strings.wait_transation_confirmed}
       />
-    </div>
+    </Form>
   );
 };
 
