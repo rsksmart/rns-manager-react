@@ -3,12 +3,6 @@ import RNS from '@rsksmart/rns';
 
 import { getOptions } from '../../../adapters/RNSLibAdapter';
 
-import {
-  reverseRegistrar as reverseRegistryAddress,
-} from '../../../adapters/configAdapter';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-import { reverseAbi } from './abis.json';
-
 import transactionListener from '../../../helpers/transactionListener';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
@@ -20,10 +14,6 @@ import {
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
-
-const reverseRegistry = new web3.eth.Contract(
-  reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
-);
 
 /**
  * Get reverse value when given an address
@@ -48,25 +38,17 @@ export const getReverse = address => (dispatch) => {
  * @param {string} value value to be set
  */
 export const setReverse = value => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
-  const currentAddress = accounts[0];
-
   dispatch(requestSetReverseResolver());
-
-  reverseRegistry.methods.setName(value).send(
-    { from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetReverseResolver(error.message));
-      }
-
+  rns.setReverse(value)
+    .then((result) => {
       dispatch(waitingSetReverseResolver());
 
       const transactionConfirmed = () => () => {
         sendBrowserNotification('RSK Manager', 'reverse_success');
-        dispatch(receieveSetReverseResolver(value, result));
+        dispatch(receieveSetReverseResolver(value, result.transactionHash));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
-    },
-  );
+      return dispatch(transactionListener(result.transactionHash, () => transactionConfirmed()));
+    })
+    .catch(error => dispatch(errorSetReverseResolver(error.message)));
 };
