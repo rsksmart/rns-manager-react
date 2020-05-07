@@ -132,17 +132,30 @@ const NewSubdomainComponent = ({
         </Col>
       </Row>
       {advancedView && (
-        <Row>
-          <Col className="col-md-5 offset-md-5" style={{ textAlign: 'right' }}>
+        <>
+          <Row>
+            <Col className="col-md-10 offset-md-2">
+              <Form.Check
+                type="switch"
+                id="setup-addr-switch"
+                label={strings.set_subdomain_rsk}
+                checked={setupRsk}
+                onChange={() => setSetupRsk(!setupRsk)}
+              />
+            </Col>
+          </Row>
+          <Row>
+          <Col className="col-md-10 offset-md-2">
             <Form.Check
               type="switch"
               id="setup-addr-switch"
-              label={strings.set_subdomain_rsk}
+              label={strings.set_subdomain_rsk_other}
               checked={setupRsk}
               onChange={() => setSetupRsk(!setupRsk)}
             />
           </Col>
         </Row>
+      </>
       )}
 
       <Row>
@@ -216,6 +229,7 @@ NewSubdomainComponent.propTypes = {
     suggestion: propTypes.string.isRequired,
     your_address: propTypes.string.isRequired,
     set_subdomain_rsk: propTypes.string.isRequired,
+    set_subdomain_rsk_other: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   address: propTypes.string.isRequired,

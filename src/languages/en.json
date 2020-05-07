@@ -402,5 +402,6 @@
   "contracts_not_set": "Contracts Not Set",
   "domain_expired": "Your domain has expired",
   "search_for_domain": "Register it again",
-  "set_subdomain_rsk": "Set the RSK resolution automatically"
+  "set_subdomain_rsk": "Set the RSK address automatically to the owner. This will be two transactions.",
+  "set_subdomain_rsk_other": "Set the RSK address to a different owner. This will result in three transactions."
 }
