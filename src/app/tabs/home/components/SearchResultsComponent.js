@@ -12,7 +12,7 @@ const SearchResultsComponent = ({
     return <></>;
   }
 
-  if (isSearching || rifCost === 0) {
+  if (isSearching || (rifCost === 0 && available)) {
     return (
       <Loader color="#008FF7" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
     );
@@ -90,6 +90,7 @@ const SearchResultsComponent = ({
 
 SearchResultsComponent.defaultProps = {
   domain: undefined,
+  blocked: undefined,
 };
 
 SearchResultsComponent.propTypes = {
@@ -105,7 +106,7 @@ SearchResultsComponent.propTypes = {
   available: propTypes.bool.isRequired,
   isSearching: propTypes.bool.isRequired,
   rifCost: propTypes.number.isRequired,
-  blocked: propTypes.bool.isRequired,
+  blocked: propTypes.bool,
   handleClick: propTypes.func.isRequired,
 };
 

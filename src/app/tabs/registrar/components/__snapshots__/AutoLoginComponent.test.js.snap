@@ -88,7 +88,7 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
               className="explorer"
             >
               <a
-                href="undefined/tx/0x123456879..."
+                href="https://explorer.testnet.rsk.co/tx/0x123456879..."
                 rel="noopener noreferrer"
                 target="_blank"
               >
