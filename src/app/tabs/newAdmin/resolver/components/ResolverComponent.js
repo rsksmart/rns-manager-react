@@ -5,6 +5,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { UserWaitingComponent } from '../../../../components';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER } from '../types';
 import { SetResolverContainer, ViewRecordsContainer, NewRecordContainer } from '../containers';
+import { multiChainResolver } from '../../../../adapters/configAdapter';
 
 const ResolverComponent = ({
   strings, gettingResolver, resolverName,
@@ -32,6 +33,12 @@ const ResolverComponent = ({
         <p>{strings.set_resolver_explanation}</p>
         <SetResolverContainer
           label={getResolverStringName()}
+          suggestions={[
+            {
+              name: strings.default_resolver,
+              value: multiChainResolver,
+            },
+          ]}
           strings={{
             value_prefix: '',
             cancel: strings.cancel,
@@ -57,6 +64,8 @@ ResolverComponent.propTypes = {
     string_resolver: propTypes.string.isRequired,
     custom_resolver: propTypes.string.isRequired,
     new_resolver_address: propTypes.string.isRequired,
+    suggestions: propTypes.string.isRequired,
+    default_resolver: propTypes.string.isRequired,
   }).isRequired,
   gettingResolver: propTypes.bool.isRequired,
   resolverName: propTypes.string.isRequired,
