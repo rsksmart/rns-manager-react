@@ -37,6 +37,7 @@ const ResolverComponent = ({
             cancel: strings.cancel,
             submit: strings.set,
             edit_placeholder: strings.new_resolver_address,
+            suggestions: strings.suggestions,
           }}
         />
       </div>
