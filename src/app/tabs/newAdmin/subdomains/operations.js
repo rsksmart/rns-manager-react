@@ -50,51 +50,14 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
 
   contract
     .then((result) => {
-      console.log('finished', result);
       dispatch(addSubdomainToList(subdomain, owner));
       dispatch(receiveNewSubdomain(result));
       updateSubdomainToLocalStorage(parentDomain, subdomain, true);
       sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
     })
     .catch((error) => {
-      console.log('error', error);
-      console.log(error.message);
       dispatch(errorNewSubdomain(error.message));
     });
-
-  /*
-  const accounts = await window.ethereum.enable();
-  const currentAddress = accounts[0];
-
-  const label = `0x${sha3(subdomain)}`;
-  const node = namehash(parentDomain);
-
-  await rns.compose();
-  await rns.contracts.registry.methods.setSubnodeOwner(node, label, newOwner)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorNewSubdomain(error.message));
-      }
-
-      dispatch(waitingNewSubdomainConfirm());
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(addSubdomainToList(listenerParams.subdomain, listenerParams.newOwner));
-        listenerDispatch(receiveNewSubdomain(listenerParams.resultTx));
-        updateSubdomainToLocalStorage(listenerParams.parentDomain, listenerParams.subdomain, true);
-        sendBrowserNotification(`${listenerParams.subdomain}.${listenerParams.parentDomain}`, 'register_subdomain');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { subdomain, newOwner, parentDomain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorNewSubdomain(listenerParams.errorReason),
-        ),
-      ));
-    });
-  */
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
