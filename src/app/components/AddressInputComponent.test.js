@@ -27,6 +27,7 @@ describe('AddressInputComponent', () => {
       success_message: 'success message text',
       value_prefix: 'value prefix',
       waiting: 'waiting text string',
+      suggestions: 'suggestions',
     },
   };
 
@@ -148,6 +149,18 @@ describe('AddressInputComponent', () => {
     expect(component.find('div.value').text()).toBe('');
   });
 
+  it('does not show suggested row when there are no suggestions', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '',
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.edit').simulate('click');
+
+    expect(component.find('ul.suggestions').length).toBe(0);
+  });
+
   it('displays suggested items', () => {
     const localProps = {
       ...checksumInitialProps,
@@ -169,6 +182,7 @@ describe('AddressInputComponent', () => {
     component.find('button.edit').simulate('click');
 
     const ul = component.find('ul.suggestions');
-    expect(ul.children().length).toBe(2);
+    expect(ul.children().length).toBe(3);
+    expect(ul.find('li.title').text()).toBe('suggestions:');
   });
 });

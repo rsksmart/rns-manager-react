@@ -89,7 +89,10 @@
       margin: 0;
       padding: 0;
       list-style-type: none;
-      text-align: center;
+
+      li.title {
+        color: $gray;
+      }
 
       li {
         display: inline-block;
@@ -105,6 +108,7 @@
         button:hover {
           border: none !important;
           font-weight: 400 !important;
+          color: $gray;
         }
       }
     }

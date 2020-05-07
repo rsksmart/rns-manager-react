@@ -181,18 +181,26 @@ const AddressInputComponent = ({
               {strings.submit}
             </Button>
           </div>
-          <ul className="suggestions">
-            {suggestions.map(item => (
-              <li key={item.value}>
-                <button
-                  type="button"
-                  onClick={() => setEditText(item.value)}
-                >
-                  {item.name}
-                </button>
+          {(suggestions && suggestions.length > 0) && (
+          <div className="col-md-8 offset-md-2">
+            <ul className="suggestions">
+              <li className="title">
+                {strings.suggestions}
+                :
               </li>
-            ))}
-          </ul>
+              {suggestions.map(item => (
+                <li key={item.value}>
+                  <button
+                    type="button"
+                    onClick={() => setEditText(item.value)}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          )}
         </div>
         )
       }
@@ -273,6 +281,7 @@ AddressInputComponent.defaultProps = {
     success_message: 'Success Message',
     value_prefix: 'Owner',
     waiting: 'Waiting text',
+    suggestions: '',
   },
   handleDelete: () => {},
   handleErrorClose: () => {},
