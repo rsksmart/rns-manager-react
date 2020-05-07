@@ -108,6 +108,10 @@ const AddressInputComponent = ({
     return validation ? toChecksumAddress(value, validationChainId) : value;
   };
 
+  const filtersuggestions = () => suggestions.filter(
+    item => item.value.toLowerCase() !== value.toLowerCase(),
+  );
+
   if (isSuccess && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
@@ -181,14 +185,14 @@ const AddressInputComponent = ({
               {strings.submit}
             </Button>
           </div>
-          {(suggestions && suggestions.length > 0) && (
+          {(suggestions && filtersuggestions().length !== 0) && (
           <div className="col-md-8 offset-md-2">
             <ul className="suggestions">
               <li className="title">
                 {strings.suggestions}
                 :
               </li>
-              {suggestions.map(item => (
+              {filtersuggestions().map(item => (
                 <li key={item.value}>
                   <button
                     type="button"

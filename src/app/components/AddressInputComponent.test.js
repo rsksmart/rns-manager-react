@@ -168,11 +168,11 @@ describe('AddressInputComponent', () => {
       validationChainId: '30',
       suggestions: [
         {
-          title: 'suggested item',
+          name: 'suggested item',
           value: '0x123456789',
         },
         {
-          title: 'suggested item 2',
+          name: 'suggested item 2',
           value: '0x987654321',
         },
       ],
@@ -184,5 +184,32 @@ describe('AddressInputComponent', () => {
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(3);
     expect(ul.find('li.title').text()).toBe('suggestions:');
+    expect(ul.find('li').at(1).text()).toBe('suggested item');
+    expect(ul.find('li').at(2).text()).toBe('suggested item 2');
+  });
+
+  it('does not display suggested items when item is the value', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '0x123456789',
+      suggestions: [
+        {
+          name: 'suggested item',
+          value: '0x123456789',
+        },
+        {
+          name: 'suggested item 2',
+          value: '0x987654321',
+        },
+      ],
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.edit').simulate('click');
+
+    const ul = component.find('ul.suggestions');
+    expect(ul.children().length).toBe(2);
+    expect(ul.find('li.title').text()).toBe('suggestions:');
+    expect(ul.find('li').at(1).text()).toBe('suggested item 2');
   });
 });
