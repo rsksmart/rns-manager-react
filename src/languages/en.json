@@ -373,5 +373,6 @@
   "same_value": "Input is the same as the value",
   "resolve_placeholder": "Type in a domain or an address",
   "no_resolution": "No resolution",
-  "suggestions": "Suggestions"
+  "suggestions": "Suggestions",
+  "type_domain": "Type your rsk domain"
 }
