@@ -2246,7 +2246,7 @@
   resolved "https://registry.yarnpkg.com/@rsksmart/rns-registry/-/rns-registry-1.0.2.tgz#303ed0e0332a3e320a7419b7a646419caea059c2"
   integrity sha512-ZAKGm8o5o3wTdcwwP4LKcblvXYvfEUhWwgqsKUgyhmLO79fRGqeSqA1WF5SnAXV42fkVpBGrWwoKXyPwTtkulw==
 
-"@rsksmart/rns-resolver@^1.0.1", "@rsksmart/rns-resolver@^1.0.2":
+"@rsksmart/rns-resolver@^1.0.0", "@rsksmart/rns-resolver@^1.0.1", "@rsksmart/rns-resolver@^1.0.2":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@rsksmart/rns-resolver/-/rns-resolver-1.0.3.tgz#5ae08dbb0d3ae190ebbb49fca252b9ad33c7ba73"
   integrity sha512-8yHSWAjxOUkKVo3j62tkW+VS2lxGJjgb9vWC0ozY8x2gBXdh12LwHH68Z+NlXtB7a3bsuU8kJKZUa2kIgvdEnQ==
@@ -2262,7 +2262,7 @@
     "@openzeppelin/contracts" "^2.4.0"
     "@rsksmart/rns-registry" "^1.0.0"
 
-"@rsksmart/rns-rskregistrar@^1.2.1":
+"@rsksmart/rns-rskregistrar@^1.2.0", "@rsksmart/rns-rskregistrar@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@rsksmart/rns-rskregistrar/-/rns-rskregistrar-1.2.1.tgz#7ba681b90da74350e11cb110cffea56626321ed0"
   integrity sha512-Xt8YvvbzjojJOTF9eX6uQ1io1XG0+k81O3DRtDDHJRILNeUfgYwaJEOk0Lbrz9NYC/BV4tpfHh8lF3OY2AktcA==
@@ -2274,6 +2274,22 @@
     "@rsksmart/rns-registry" "^1.0.0"
     "@rsksmart/rns-resolver" "^1.0.1"
     "@truffle/hdwallet-provider" "^1.0.33"
+
+"@rsksmart/rns-suite@^1.0.4":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rns-suite/-/rns-suite-1.0.5.tgz#83b1bb40123c3ca24abb0431805e07c5794e0c97"
+  integrity sha512-e81AgHm06HdhLYXh1rO5Q2Ypl33KTIzl43cIWRyFAkUWa+ZMu3Wd5y7PKh0u/ROXSodbs1H0px/kFVy9DSWpqw==
+  dependencies:
+    "@rsksmart/erc677" "^1.0.1"
+    "@rsksmart/rns-auction-registrar" "^1.0.1"
+    "@rsksmart/rns-registry" "^1.0.0"
+    "@rsksmart/rns-resolver" "^1.0.0"
+    "@rsksmart/rns-reverse" "^1.0.0"
+    "@rsksmart/rns-rskregistrar" "^1.2.0"
+    chalk "^4.0.0"
+    figlet "^1.3.0"
+    truffle "^5.1.17"
+    web3 "^1.2.6"
 
 "@rsksmart/rns@^1.6.0":
   version "1.6.0"
@@ -3030,6 +3046,14 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
+
+ansi-styles@^4.1.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.2.1.tgz#90ae75c424d008d2624c5bf29ead3177ebfcf359"
+  integrity sha512-9VGjrMsG1vePxcSweQsN20KY/c4zN0h9fLjqAbwbPfahM3t+NL+M9HC8xeXG2I8pX5NoamTGNuomEUFI7fcUjA==
+  dependencies:
+    "@types/color-name" "^1.1.1"
+    color-convert "^2.0.1"
 
 any-promise@1.3.0, any-promise@^1.3.0:
   version "1.3.0"
@@ -8416,7 +8440,7 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
+iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
@@ -15263,6 +15287,15 @@ truffle@^5.0.5:
     mocha "5.2.0"
     original-require "1.0.1"
 
+truffle@^5.1.17:
+  version "5.1.24"
+  resolved "https://registry.yarnpkg.com/truffle/-/truffle-5.1.24.tgz#2e7afc28b1748f2b44f2da351b3605744f3546e4"
+  integrity sha512-2TAidfvwZD3cCBVM8cgyU7hAUR7NTSkKnBzsasdIIwCOGZ1+IqG/pALSuATjeeHbo4tqzjvs3Nau2U1yo5wDAw==
+  dependencies:
+    app-module-path "^2.2.0"
+    mocha "5.2.0"
+    original-require "1.0.1"
+
 tryer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
@@ -15753,6 +15786,16 @@ web3-bzz@1.2.6:
     "@types/node" "^10.12.18"
     got "9.6.0"
     swarm-js "0.1.39"
+    underscore "1.9.1"
+
+web3-bzz@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/web3-bzz/-/web3-bzz-1.2.7.tgz#aa0f3d162f0777a5f35367dc5b70012dd1e129d0"
+  integrity sha512-iTIWBR+Z+Bn09WprtKm46LmyNOasg2lUn++AjXkBTB8UNxlUybxtza84yl2ETTZUs0zuFzdSSAEgbjhygG+9oA==
+  dependencies:
+    "@types/node" "^10.12.18"
+    got "9.6.0"
+    swarm-js "^0.1.40"
     underscore "1.9.1"
 
 web3-core-helpers@1.2.1:
@@ -16351,7 +16394,7 @@ web3-eth@1.2.6:
     web3-net "1.2.6"
     web3-utils "1.2.6"
 
-web3-eth@^1.2.6:
+web3-eth@1.2.7, web3-eth@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/web3-eth/-/web3-eth-1.2.7.tgz#9427daefd3641200679c2946f77fc184dbfb5b4c"
   integrity sha512-ljLd0oB4IjWkzFGVan4HkYhJXhSXgn9iaSaxdJixKGntZPgWMJfxeA+uLwTrlxrWzhvy4f+39WnT7wCh5e9TGg==
@@ -16565,6 +16608,16 @@ web3-shh@1.2.6:
     web3-core-method "1.2.6"
     web3-core-subscriptions "1.2.6"
     web3-net "1.2.6"
+
+web3-shh@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/web3-shh/-/web3-shh-1.2.7.tgz#5382c7bc2f39539eb2841c4576d23ade25720461"
+  integrity sha512-f6PAgcpG0ZAo98KqCmeHoDEx5qzm3d5plet18DkT4U6WIeYowKdec8vZaLPRR7c2XreXFJ2gQf45CB7oqR7U/w==
+  dependencies:
+    web3-core "1.2.7"
+    web3-core-method "1.2.7"
+    web3-core-subscriptions "1.2.7"
+    web3-net "1.2.7"
 
 web3-utils@1.2.1:
   version "1.2.1"
