@@ -39,7 +39,30 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
 };
 
-const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
+const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => async (dispatch) => {
+  console.log('creating new subdomain', parentDomain, subdomain, owner, setupResolution);
+
+  const contract = setupResolution
+    ? rns.subdomains.create(parentDomain, subdomain, owner, owner)
+    : rns.subdomains.create(parentDomain, subdomain, owner);
+
+  dispatch(waitingNewSubdomainConfirm());
+
+  contract
+    .then((result) => {
+      console.log('finished', result);
+      dispatch(addSubdomainToList(subdomain, owner));
+      dispatch(receiveNewSubdomain(result));
+      updateSubdomainToLocalStorage(parentDomain, subdomain, true);
+      sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
+    })
+    .catch((error) => {
+      console.log('error', error);
+      console.log(error.message);
+      dispatch(errorNewSubdomain(error.message));
+    });
+
+  /*
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
@@ -71,6 +94,7 @@ const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch
         ),
       ));
     });
+  */
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
@@ -95,7 +119,7 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
  * @param {Object[]} subdomainList the list of known and stored domains
  */
 export const newSubdomain = (
-  parentDomain, subdomain, newOwner, subdomainList,
+  parentDomain, subdomain, newOwner, subdomainList, setupResolution,
 ) => async (dispatch) => {
   dispatch(requestNewSubdomain());
 
@@ -109,7 +133,7 @@ export const newSubdomain = (
 
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress));
+    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress, setupResolution));
   }
 
   if (subdomainList[subdomain]) {

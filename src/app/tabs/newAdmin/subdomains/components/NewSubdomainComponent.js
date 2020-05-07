@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
 import {
-  Form, Row, Col, Button,
+  Form, Row, Col,
 } from 'react-bootstrap';
 import { validateAddress } from '../../../../validations';
 
