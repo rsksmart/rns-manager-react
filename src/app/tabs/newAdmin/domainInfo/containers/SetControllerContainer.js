@@ -5,6 +5,7 @@ import { setRegistryOwner } from '../operations';
 
 const mapStateToProps = (state, ownProps) => ({
   allowDelete: false,
+  allowRsk: true,
   label: state.auth.name,
   value: state.newAdmin.view.registryOwner,
   isRegistryOwner: state.newAdmin.view.isRegistryOwner,
@@ -20,14 +21,16 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (domain, value) => dispatch(setRegistryOwner(domain, value.toLowerCase())),
+  handleSubmit: (domain, value, currentValue) => dispatch(setRegistryOwner(
+    domain, value.toLowerCase(), currentValue.toLowerCase(),
+  )),
   handleClose: () => dispatch(closeSetRegistryOwner()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  handleSubmit: value => dispatchProps.handleSubmit(stateProps.label, value),
+  handleSubmit: value => dispatchProps.handleSubmit(stateProps.label, value, stateProps.value),
   handleErrorClose: () => dispatchProps.handleClose(),
   handleSuccessClose: () => dispatchProps.handleClose(),
 });

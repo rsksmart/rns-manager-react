@@ -22,7 +22,7 @@ const DomainInfoComponent = ({
               error_title: 'Error!',
               success_title: strings.success,
               success_message: strings.set_controller_success,
-              edit_placeholder: strings.new_controller,
+              edit_placeholder: strings.controller_placeholder,
             }}
           />
         </Col>
@@ -44,7 +44,7 @@ DomainInfoComponent.propTypes = {
     reclaim_domain_explanation: propTypes.string.isRequired,
     set_controller_success: propTypes.string.isRequired,
     success: propTypes.string.isRequired,
-    new_controller: propTypes.string.isRequired,
+    controller_placeholder: propTypes.string.isRequired,
   }).isRequired,
   isRegistryOwner: propTypes.bool.isRequired,
   advancedView: propTypes.bool.isRequired,
