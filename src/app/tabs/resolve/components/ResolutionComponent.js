@@ -9,7 +9,7 @@ import {
 } from '../../../components';
 
 const ResolutionComponent = ({
-  error, loading, value, chainId, strings,
+  error, loading, value, strings,
 }) => {
   if (error) {
     return <UserErrorComponent message={error} />;
@@ -19,14 +19,13 @@ const ResolutionComponent = ({
     return <UserWaitingComponent />;
   }
 
-  if (!value && !chainId) {
+  if (!value) {
     return <div>{strings.no_resolution}</div>;
   }
 
   return (
     <Row>
       <Col md={{ span: 10, offset: 1 }} sm={12}>
-        <h3>{chainId}</h3>
         <Card className="break-below">
           <Image
             src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${value}&choe=UTF-8`}
@@ -44,7 +43,6 @@ ResolutionComponent.propTypes = {
   error: propTypes.string,
   loading: propTypes.bool.isRequired,
   value: propTypes.string,
-  chainId: propTypes.string.isRequired,
   strings: propTypes.shape({
     no_resolution: propTypes.string.isRequired,
   }).isRequired,

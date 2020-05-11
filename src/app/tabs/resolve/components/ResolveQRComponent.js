@@ -19,7 +19,7 @@ class ResolveAddr extends Component {
       <Container>
         <Row>
           <Col>
-            <h2 style={{textAlign: 'center'}}>
+            <h2 style={{ textAlign: 'center' }}>
               {(title === 'RSK') ? strings.rsk_address : strings.reverse}
             </h2>
           </Col>

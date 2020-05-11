@@ -49,8 +49,6 @@ export const identifyInterfaces = domain => (dispatch) => {
     return dispatch(actions.receiveResolve(''));
   }
 
-  console.log('identifing', domain);
-
   dispatch(actions.requestResolve());
 
   const hash = namehash(domain);
@@ -137,12 +135,6 @@ export const name = (resolverAddress, address) => (dispatch) => {
 };
 
 export const searchAddressOrDomain = input => (dispatch) => {
-  // returns null if valid, returns string if not valid
-  if (isValidAddress(input)) {
-    const domain = `${input.replace('0x', '')}.addr.reverse`;
-    console.log('an address', domain);
-    return dispatch(identifyInterfaces(domain));
-  }
-  console.log('a domain!', input);
-  return dispatch(identifyInterfaces(input));
+  const value = isValidAddress(input) ? `${input.replace('0x', '')}.addr.reverse` : input;
+  return dispatch(identifyInterfaces(value));
 };
