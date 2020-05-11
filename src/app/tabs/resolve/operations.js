@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
+import { isValidAddress } from 'rskjs-util';
 import RNS from '@rsksmart/rns';
 import * as actions from './actions';
 import { rskNode } from '../../adapters/nodeAdapter';
@@ -47,6 +48,8 @@ export const identifyInterfaces = domain => (dispatch) => {
   if (!domain) {
     return dispatch(actions.receiveResolve(''));
   }
+
+  console.log('identifing', domain);
 
   dispatch(actions.requestResolve());
 
@@ -121,14 +124,25 @@ export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
 
 export const name = (resolverAddress, address) => (dispatch) => {
   dispatch(actions.requestName());
-
   const web3 = new Web3(rskNode);
 
   const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
 
-  const hash = namehash(address);
+  const value = isValidAddress(address) ? `${address.replace('0x', '')}.addr.reverse` : address;
+  const hash = namehash(value);
 
   return nameResolver.methods.name(hash).call().then((nameResolution) => {
     dispatch(actions.receiveName(nameResolution));
   }).catch(error => dispatch(actions.errorName(error.message)));
+};
+
+export const searchAddressOrDomain = input => (dispatch) => {
+  // returns null if valid, returns string if not valid
+  if (isValidAddress(input)) {
+    const domain = `${input.replace('0x', '')}.addr.reverse`;
+    console.log('an address', domain);
+    return dispatch(identifyInterfaces(domain));
+  }
+  console.log('a domain!', input);
+  return dispatch(identifyInterfaces(input));
 };

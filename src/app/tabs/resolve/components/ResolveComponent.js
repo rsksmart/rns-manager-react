@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import { isValidAddress } from 'rskjs-util';
 import {
   Container, Row, Col, Form, Button, Alert,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { isValidDomain, validateAddress } from '../../../validations';
+import { isValidDomain } from '../../../validations';
 import { ResolveAddrContainer, ResolveChainAddrContainer, ResolveNameContainer } from '../containers';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
@@ -28,7 +29,7 @@ const renderResolutions = (supportedInterfaces) => {
       <Row>
         {
           hasName && (
-            <Col>
+            <Col md={{ span: 6, offset: 3 }}>
               <ResolveNameContainer />
             </Col>
           )
@@ -96,7 +97,7 @@ class ResolveComponent extends Component {
 
   validate() {
     const { value } = this.state;
-    const isValid = isValidDomain(value) || validateAddress(value.toLowerCase());
+    const isValid = isValidDomain(value) || isValidAddress(value.toLowerCase());
     this.setState({ isValid });
     return isValid;
   }
