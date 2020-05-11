@@ -45,6 +45,9 @@ const FooterComponent = (props) => {
               <h2>{strings.home_title}</h2>
               <ul>
                 <li>
+                  <Link to="/resolve">{strings.resolve}</Link>
+                </li>
+                <li>
                   <a href="https://www.rifos.org/directory#roadmap" {...linkProps}>{strings.roadmap}</a>
                 </li>
                 <li><Link to="/faq">FAQ</Link></li>
