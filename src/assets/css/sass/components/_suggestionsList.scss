@@ -1,0 +1,28 @@
+ul.suggestions {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li.title {
+    color: $gray;
+  }
+
+  li {
+    display: inline-block;
+
+    button {
+      background: none !important;
+      border: none !important;
+      color: $blue !important;
+      cursor: pointer !important;
+      width: auto !important;
+    }
+
+    button:hover {
+      border: none !important;
+      font-weight: 400 !important;
+      color: $gray;
+    }
+  }
+}

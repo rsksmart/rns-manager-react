@@ -5,6 +5,7 @@ import { errorNewSubdomainClose, successNewSubdomainClose } from '../actions';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
+  address: state.auth.address,
   errorMessage: state.newAdmin.subdomains.newError,
   newRequesting: state.newAdmin.subdomains.newRequesting,
   newWaiting: state.newAdmin.subdomains.newWaiting,

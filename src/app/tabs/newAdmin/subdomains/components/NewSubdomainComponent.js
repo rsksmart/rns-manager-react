@@ -10,10 +10,12 @@ import UserSuccessComponent from '../../../../components/UserSuccessComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 
 import { ChecksumErrorContainer } from '../../../../containers';
+import { truncateString } from '../../helpers';
 
 const NewSubdomainComponent = ({
   strings,
   domain,
+  address,
   handleClick,
   errorMessage,
   handleErrorClose,
@@ -100,7 +102,7 @@ const NewSubdomainComponent = ({
           </p>
         </Col>
       </Row>
-      <Row className="minor-section">
+      <Row>
         <Col md={2} className="capitalize">
           {strings.owner}
         </Col>
@@ -121,6 +123,26 @@ const NewSubdomainComponent = ({
             {strings.create}
           </Button>
         </Col>
+      </Row>
+
+      <Row>
+        <div className="col-md-8 offset-md-2">
+          <ul className="suggestions">
+            <li className="title">
+              {strings.suggestions}
+              :
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => setOwner(address)}
+                className="capitalize"
+              >
+                {`${strings.your_address} (${truncateString(address)})`}
+              </button>
+            </li>
+          </ul>
+        </div>
       </Row>
 
       <ChecksumErrorContainer
@@ -171,8 +193,11 @@ NewSubdomainComponent.propTypes = {
     Owner: propTypes.string.isRequired,
     subdomain_name: propTypes.string.isRequired,
     address_placeholder: propTypes.string.isRequired,
+    suggestions: propTypes.string.isRequired,
+    your_address: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
+  address: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
   handleErrorClose: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,

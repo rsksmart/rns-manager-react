@@ -7,6 +7,8 @@ import { validateAddress } from '../../../../validations';
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
 import { ChecksumErrorContainer } from '../../../../containers';
 import { getChainNameById } from '../operations';
+import { truncateString } from '../../helpers';
+
 import allNetworks from '../networks.json';
 
 const AddNewAddressComponent = ({
@@ -16,6 +18,7 @@ const AddNewAddressComponent = ({
   handleClose,
   chainAddresses,
   newSuccess,
+  yourAddress,
 }) => {
   // all available addresses have been set, return before states are set
   if (networks.length === 0) {
@@ -114,6 +117,28 @@ const AddNewAddressComponent = ({
         </Col>
       </Row>
 
+      {selectedNetwork === '0x80000089' && (
+      <Row className="break-above">
+        <div className="col-md-8 offset-md-3">
+          <ul className="suggestions">
+            <li className="title">
+              {strings.suggestions}
+              :
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => setAddress(yourAddress)}
+                className="capitalize"
+              >
+                {`${strings.your_address} (${truncateString(yourAddress)})`}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </Row>
+      )}
+
       <UserErrorComponent
         message={errorMessage || localError}
         visible={isError || (localError !== '')}
@@ -145,6 +170,8 @@ AddNewAddressComponent.propTypes = {
     wait_transation_confirmed: propTypes.string.isRequired,
     add_new_address: propTypes.string.isRequired,
     paste_your_address: propTypes.string.isRequired,
+    suggestions: propTypes.string.isRequired,
+    your_address: propTypes.string.isRequired,
   }).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   networks: propTypes.array.isRequired,
@@ -152,6 +179,7 @@ AddNewAddressComponent.propTypes = {
   handleClick: propTypes.func.isRequired,
   handleClose: propTypes.func.isRequired,
   newSuccess: propTypes.bool.isRequired,
+  yourAddress: propTypes.bool.isRequired,
 };
 
 export default multilanguage(AddNewAddressComponent);
