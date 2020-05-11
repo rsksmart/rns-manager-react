@@ -20,7 +20,7 @@ const renderResolutions = (supportedInterfaces) => {
         {
           hasAddr && (
             <Col lg={hasChainAddr ? 6 : { span: 6, offset: 3 }}>
-              <ResolveAddrContainer />
+              <ResolveAddrContainer title="RSK" />
             </Col>
           )
         }
@@ -30,7 +30,7 @@ const renderResolutions = (supportedInterfaces) => {
         {
           hasName && (
             <Col md={{ span: 6, offset: 3 }}>
-              <ResolveNameContainer />
+              <ResolveNameContainer title="NAME" />
             </Col>
           )
         }
