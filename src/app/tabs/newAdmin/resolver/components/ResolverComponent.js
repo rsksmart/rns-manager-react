@@ -44,7 +44,7 @@ const ResolverComponent = ({
             cancel: strings.cancel,
             submit: strings.set,
             edit_placeholder: strings.new_resolver_address,
-            suggestions: strings.suggestions,
+            suggestion: strings.suggestion,
           }}
         />
       </div>
@@ -64,7 +64,7 @@ ResolverComponent.propTypes = {
     string_resolver: propTypes.string.isRequired,
     custom_resolver: propTypes.string.isRequired,
     new_resolver_address: propTypes.string.isRequired,
-    suggestions: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
     default_resolver: propTypes.string.isRequired,
   }).isRequired,
   gettingResolver: propTypes.bool.isRequired,

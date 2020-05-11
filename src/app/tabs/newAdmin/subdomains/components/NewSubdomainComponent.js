@@ -129,7 +129,7 @@ const NewSubdomainComponent = ({
         <div className="col-md-8 offset-md-2">
           <ul className="suggestions">
             <li className="title">
-              {strings.suggestions}
+              {strings.suggestion}
               :
             </li>
             <li>
@@ -193,7 +193,7 @@ NewSubdomainComponent.propTypes = {
     Owner: propTypes.string.isRequired,
     subdomain_name: propTypes.string.isRequired,
     address_placeholder: propTypes.string.isRequired,
-    suggestions: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
     your_address: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,

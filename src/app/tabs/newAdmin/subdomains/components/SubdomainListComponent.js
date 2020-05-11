@@ -51,7 +51,7 @@ const SubdomainListComponent = ({
                 delete: strings.delete,
                 edit: strings.edit,
                 delete_confirm_text: strings.remove_subdomain_comfirm,
-                suggestions: strings.suggestions,
+                suggestion: strings.suggestion,
               }}
             />
           </div>
@@ -73,7 +73,7 @@ SubdomainListComponent.propTypes = {
     edit: propTypes.string.isRequired,
     remove_subdomain_comfirm: propTypes.string.isRequired,
     owner: propTypes.string.isRequired,
-    suggestions: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
     your_address: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,

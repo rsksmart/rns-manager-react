@@ -68,7 +68,7 @@ const YourAddressesComponent = ({
                 edit: strings.edit,
                 delete_confirm_text: strings.delete_chain_confirm,
                 edit_propmt: strings.new_value,
-                suggestions: strings.suggestions,
+                suggestion: strings.suggestion,
               }}
             />
           </div>
@@ -93,7 +93,7 @@ YourAddressesComponent.propTypes = {
     multichain: propTypes.string.isRequired,
     paste_your_address: propTypes.string.isRequired,
     your_address: propTypes.string.isRequired,
-    suggestions: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
     new_value: propTypes.string.isRequired,
   }).isRequired,
   chainAddresses: propTypes.shape().isRequired,

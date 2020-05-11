@@ -45,7 +45,7 @@ const ReverseComponent = ({
           success_message: strings.reverse_success,
           edit_propmt: strings.domain,
           waiting: strings.wait_transation_confirmed,
-          suggestions: `${strings.suggestions}`,
+          suggestion: `${strings.suggestion}`,
           edit_placeholder: strings.type_domain,
         }}
       />
@@ -63,7 +63,7 @@ ReverseComponent.propTypes = {
     not_set: propTypes.string.isRequired,
     domain: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
-    suggestions: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
     type_domain: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,

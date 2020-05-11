@@ -374,6 +374,7 @@
   "resolve_placeholder": "Type in a domain or an address",
   "no_resolution": "No resolution",
   "suggestions": "Suggestions",
+  "suggestion": "Suggestion",
   "type_domain": "Type your rsk domain",
   "your_address": "your address",
   "default_resolver": "Default Resolver",

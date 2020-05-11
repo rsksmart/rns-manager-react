@@ -189,7 +189,7 @@ const AddressInputComponent = ({
           <div className="col-md-8 offset-md-2">
             <ul className="suggestions">
               <li className="title">
-                {strings.suggestions}
+                {strings.suggestion}
                 :
               </li>
               {filtersuggestions().map(item => (
@@ -285,7 +285,7 @@ AddressInputComponent.defaultProps = {
     success_message: 'Success Message',
     value_prefix: 'Owner',
     waiting: 'Waiting text',
-    suggestions: '',
+    suggestion: '',
   },
   handleDelete: () => {},
   handleErrorClose: () => {},

@@ -27,7 +27,7 @@ describe('AddressInputComponent', () => {
       success_message: 'success message text',
       value_prefix: 'value prefix',
       waiting: 'waiting text string',
-      suggestions: 'suggestions',
+      suggestion: 'suggestion',
     },
   };
 
@@ -183,7 +183,7 @@ describe('AddressInputComponent', () => {
 
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(3);
-    expect(ul.find('li.title').text()).toBe('suggestions:');
+    expect(ul.find('li.title').text()).toBe('suggestion:');
     expect(ul.find('li').at(1).text()).toBe('suggested item');
     expect(ul.find('li').at(2).text()).toBe('suggested item 2');
   });
@@ -209,7 +209,7 @@ describe('AddressInputComponent', () => {
 
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(2);
-    expect(ul.find('li.title').text()).toBe('suggestions:');
+    expect(ul.find('li.title').text()).toBe('suggestion:');
     expect(ul.find('li').at(1).text()).toBe('suggested item 2');
   });
 });
