@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 
 import { SubdomainViewContainer } from '../containers';
 import { getSubdomainListFromLocalStorage } from '../operations';
+import { truncateString } from '../../helpers';
 
 const SubdomainListComponent = ({
-  strings, domain, subdomains, chainId,
+  strings, domain, subdomains, chainId, address,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getSubdomainListFromLocalStorage(domain)), [dispatch]);
@@ -35,6 +36,10 @@ const SubdomainListComponent = ({
               reset={subdomain.isSuccess}
               validation
               validationChainId={chainId}
+              suggestions={[{
+                name: `${strings.your_address} (${truncateString(address)})`,
+                value: address,
+              }]}
               strings={{
                 value_prefix: strings.owner,
                 error_message: subdomain.editError,
@@ -46,6 +51,7 @@ const SubdomainListComponent = ({
                 delete: strings.delete,
                 edit: strings.edit,
                 delete_confirm_text: strings.remove_subdomain_comfirm,
+                suggestions: strings.suggestions,
               }}
             />
           </div>
@@ -67,6 +73,8 @@ SubdomainListComponent.propTypes = {
     edit: propTypes.string.isRequired,
     remove_subdomain_comfirm: propTypes.string.isRequired,
     owner: propTypes.string.isRequired,
+    suggestions: propTypes.string.isRequired,
+    your_address: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   subdomains: propTypes.arrayOf({
@@ -74,6 +82,7 @@ SubdomainListComponent.propTypes = {
     owner: propTypes.string.isRequired,
   }).isRequired,
   chainId: propTypes.number.isRequired,
+  address: propTypes.string.isRequired,
 };
 
 export default multilanguage(SubdomainListComponent);

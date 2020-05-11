@@ -376,5 +376,6 @@
   "suggestions": "Suggestions",
   "type_domain": "Type your rsk domain",
   "your_address": "your address",
-  "default_resolver": "Default Resolver"
+  "default_resolver": "Default Resolver",
+  "new_value": "New Value"
 }
