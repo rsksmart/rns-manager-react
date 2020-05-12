@@ -3,27 +3,110 @@
     "name": "RSK",
     "id": "0x80000089",
     "validation": "HEX",
-    "icon": "/assets/icons/icon_rsk.png"
+    "icon": "icon_rsk.png",
+    "symbol": "RSK"
+  },
+  {
+    "name": "Atomic Coin",
+    "id": "0x80000076",
+    "icon": "icon_atomic.png",
+    "symbol": "ATOM"
+  },
+  {
+    "name": "Binance Coin",
+    "id": "0x800002ca",
+    "icon": "icon_binance_coin.png",
+    "symbol": "BNB"
   },
   {
     "name": "Bitcoin",
     "id": "0x80000000",
-    "icon": "/assets/icons/icon_btc.png"
+    "icon": "icon_btc.png",
+    "symbol": "BTC"
+  },
+  {
+    "name": "Bitcoin Cash",
+    "id": "0x80000091",
+    "icon": "icon_bitconcash.png",
+    "symbol": "BCH"
+  },
+  {
+    "name": "Dash",
+    "id": "0x80000005",
+    "icon": "icon_dash.png",
+    "symbol": "DASH"
+  },
+  {
+    "name": "Dogecoin",
+    "id": "0x80000003",
+    "icon": "icon_dogecoin.png",
+    "symbol": "DOGE"
   },
   {
     "name": "Ethereum",
     "id": "0x8000003c",
     "validation": "HEX",
-    "icon": "/assets/icons/icon_eth.png"
+    "icon": "icon_eth.png",
+    "symbol": "ETH"
+  },
+  {
+    "name": "Ethereum Classic",
+    "id": "0x8000003d",
+    "icon": "ethereum_classic.png",
+    "symbol": "ETC"
+  },
+  {
+    "name": "EOS",
+    "id": "0x800000c2",
+    "icon": "icon_eos.png",
+    "symbol": "EOS"
+  },
+  {
+    "name": "Kusama",
+    "id": "0x800001b2",
+    "icon": "icon_kusama.png",
+    "symbol": "KSM"
   },
   {
     "name": "Litecoin",
     "id": "0x80000002",
-    "icon": "/assets/icons/icon_ltc.png"
+    "icon": "icon_ltc.png",
+    "symbol": "LTC"
   },
   {
-    "name": "Bitcoin Cash",
-    "id": "0x80000091",
-    "icon": "/assets/icons/icon_bitconcash.png"
+    "name": "MonaCoin",
+    "id": "0x80000016",
+    "icon": "icon_monacoin.png",
+    "symbol": "MONA"
+  },
+  {
+    "name": "NEM",
+    "id": "0x8000002b",
+    "icon": "icon_nem.png",
+    "symbol": "XEM"
+  },
+  {
+    "name": "Ripple",
+    "id": "0x80000090",
+    "icon": "icon_xrp.png",
+    "symbol": "XRP"
+  },
+  {
+    "name": "Stellar",
+    "id": "0x80000094",
+    "icon": "icon_stellar.png",
+    "symbol": "XLM"
+  },
+  {
+    "name": "Tron",
+    "id": "0x800000c3",
+    "icon": "icon_tron.png",
+    "symbol": ""
+  },
+  {
+    "name": "xDai",
+    "id": "0x800002bc",
+    "icon": "icon_xdai.svg",
+    "symbol": "XDAI"
   }
 ]

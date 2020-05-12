@@ -44,7 +44,7 @@ const YourAddressesComponent = ({
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
-              labelIcon={network.icon}
+              labelIcon={`../../assets/icons/${network.icon}`}
               networkId={chainId}
               value={address}
               isError={isError}
