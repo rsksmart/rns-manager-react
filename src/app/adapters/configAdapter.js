@@ -32,3 +32,4 @@ export const fifsAddrRegistrar = returnValue('fifsAddrRegistrar');
 export const rskOwner = returnValue('rskOwner');
 export const renewer = returnValue('renewer');
 export const stringResolver = returnValue('stringResolver');
+export const definitiveResolver = returnValue('definitiveResolver');

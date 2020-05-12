@@ -17,7 +17,7 @@ import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
-import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER } from '../resolver/types';
+import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../resolver/types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -103,6 +103,10 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   );
 };
 
+const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatch) => {
+  //todo!
+  console.log('DEFINITIVE_RESOLVER', domain, chainId, address, isNew);
+};
 
 /**
  * Selects the correct resolver set function based one resolverName
@@ -120,6 +124,9 @@ export const setChainAddress = (
       break;
     case MULTICHAIN_RESOLVER:
       dispatch(setMultiChainAddress(domain, chainId, address, isNew));
+      break;
+    case DEFINITIVE_RESOLVER:
+      dispatch(setDefinitiveAddress(domain, chainId, address, isNew));
       break;
     default:
       // string resolver or unknown/custom resolver
@@ -161,6 +168,13 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
     .catch(error => dispatch(errorChainAddress(chainName, error.message)));
 };
 
+export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
+  dispatch(requestChainAddress());
+  const chainName = getChainNameById(chainId);
+  //@todo
+  dispatch(receiveChainAddress(chainId, chainName, ''));
+};
+
 /**
  * Gets chain addresses if the resolver is set to public or multichain.
  * In the case of multichain, it loops through all of the possible chainIds
@@ -176,6 +190,9 @@ export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
       break;
     case MULTICHAIN_RESOLVER:
       networks.map(network => dispatch(getMultiChainAddresses(domain, network.id)));
+      break;
+    case DEFINITIVE_RESOLVER:
+      networks.map(network => dispatch(getMultiCoinAddresses(domain, network.id)));
       break;
     default:
       // string resolver or unknown/custom resolver

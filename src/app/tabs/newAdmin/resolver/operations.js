@@ -14,6 +14,7 @@ import {
   multiChainResolver as multiChainResolverAddress,
   publicResolver as publicResolverAddress,
   stringResolver as stringResolverAddress,
+  definitiveResolver as definitiveResolverAddress,
 } from '../../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
@@ -23,7 +24,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
-  CONTENT_BYTES, CONTENT_BYTES_BLANK,
+  CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -44,6 +45,8 @@ export const getResolverNameByAddress = (resolverAddr) => {
       return PUBLIC_RESOLVER;
     case stringResolverAddress:
       return STRING_RESOLVER;
+    case definitiveResolverAddress:
+      return DEFINITIVE_RESOLVER;
     default:
       return UNKNOWN_RESOLVER;
   }

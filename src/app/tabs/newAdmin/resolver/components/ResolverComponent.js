@@ -3,7 +3,9 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
 import { UserWaitingComponent } from '../../../../components';
-import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER } from '../types';
+import {
+  PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER, DEFINITIVE_RESOLVER,
+} from '../types';
 import { SetResolverContainer, ViewRecordsContainer, NewRecordContainer } from '../containers';
 import { multiChainResolver } from '../../../../adapters/configAdapter';
 
@@ -15,6 +17,7 @@ const ResolverComponent = ({
       case PUBLIC_RESOLVER: return strings.public_resolver;
       case MULTICHAIN_RESOLVER: return strings.multichain_resolver;
       case STRING_RESOLVER: return strings.string_resolver;
+      case DEFINITIVE_RESOLVER: return 'Definitive Resolver';
       default: return strings.custom_resolver;
     }
   };
