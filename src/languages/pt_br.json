@@ -250,7 +250,7 @@
   "copy_text": "Copiar texto",
   "transfer_warning": "Transfira a propriedade do seu domínio para outro endereço. Esteja ciente de que, depois de transferir a propriedade do seu domínio, você não poderá mais acessá-lo, nem o gerenciar.",
   "expires_on": "Expira em",
-  "renew_explanation": "Sua carteira se abrirá, e lhe será solicitado que confirme a primeira de duas transações exigidas para renovação.",
+  "renew_explanation": "Sua carteira será aberta, e você será solicitado a confirmar a transação.",
   "renew_domain": "Renovar domínio",
   "close": "Fechar",
   "renew_success": "Seu domínio foi renovado.",
@@ -366,5 +366,18 @@
   "missing_features": "O controlador é definido para um endereço diferente",
   "reclaim_domain_explanation": "É provável que você veja esta mensagem por dois motivos: você recebeu um domínio que foi transferido ou deu o controle do seu domínio para outra conta. Para recuperar o controle total do domínio, clique em 'Recuperar domínio'.",
   "set_controller_success": "O controlador foi definido.",
-  "new_controller": "Novo controlador"
+  "new_controller": "Novo controlador",
+  "address_placeholder": "Digite o endereço do novo proprietário ou o domínio RSK",
+  "subdomain_name": "Digite o nome do seu subdomínio",
+  "resolve_not_set": "Não foi possível resolver o domínio",
+  "controller_placeholder": "Digite o endereço do novo controlador ou o domínio RSK",
+  "same_value": "A entrada é igual ao valor",
+  "set_subdomain_rsk": "Defina o endereço RSK automaticamente para o proprietário.",
+  "set_subdomain_rsk_other": "Defina o endereço RSK para um proprietário diferente.",
+  "confirm_two_transactions": "Você precisará confirmar duas transações",
+  "confirm_three_transactions": "Você precisará confirmar três transações",
+  "suggestion": "Sugestão",
+  "type_domain": "Digite seu domínio rsk",
+  "your_address": "seu endereço",
+  "default_resolver": "Default Resolver"
 }

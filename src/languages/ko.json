@@ -250,7 +250,7 @@
   "copy_text": "텍스트 복사",
   "transfer_warning": "귀하의 도메인 소유권을 다른 주소로 이전. 귀하의 도메인 소유권을 이전하면 더 이상 도메인 접속 및 관리를 할 수 없습니다.",
   "expires_on": "만료일",
-  "renew_explanation": "월렛이 열리고 리노베이션에 필요한 두 거래 중 첫 번째 거래를 확인하라는 메시지가 나타납니다.",
+  "renew_explanation": "월렛이 열리고 거래를 확인하라는 메시지가 나타납니다.",
   "renew_domain": "도메인 갱신",
   "close": "닫기",
   "renew_success": "귀하의 도메인이 갱신되었습니다.",
@@ -366,5 +366,18 @@
   "missing_features": "컨트롤러가 다른 주소로 설정되어 있습니다",
   "reclaim_domain_explanation": "이 메시지가 표시되는 이유는 다음 두 가지 일 가능성이 높습니다. 하나는 이전된 도메인을 받은 경우이고, 다른 하나는 도메인의 통제권을 다른 계정에 부여한 경우입니다. 도메인의 완전 통제권을 되찾으려면 “도메인 되찾기”를 클릭하십시오.",
   "set_controller_success": "컨트롤러가 설정되었습니다.",
-  "new_controller": "신규 컨트롤러"
+  "new_controller": "신규 컨트롤러",
+  "address_placeholder": "신규 소유자의 주소나 RSK 도메인을 입력하세요",
+  "subdomain_name": "서브도메인 이름을 입력하세요",
+  "resolve_not_set": "도메인 확인 실패",
+  "controller_placeholder": "새로운 컨트롤러의 주소나 RSK 도메인을 입력하세요",
+  "same_value": "입력 값이 해당 값과 같습니다",
+  "set_subdomain_rsk": "RSK 주소를 자동으로 소유자로 지정합니다.",
+  "set_subdomain_rsk_other": "RSK 주소를 다른 소유자로 지정합니다.",
+  "confirm_two_transactions": "두 개의 거래를 확인해야 합니다",
+  "confirm_three_transactions": "세 개의 거래를 확인해야 합니다",
+  "suggestion": "제안",
+  "type_domain": "귀하의 rsk 도메인을 입력하십시오",
+  "your_address": "내 주소",
+  "default_resolver": "default resolver"
 }
