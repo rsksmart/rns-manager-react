@@ -22,4 +22,10 @@
   .capitalize {
     text-transform: capitalize;
   }
+
+  input::-webkit-input-placeholder {
+    text-align: center;
+    color: #E5E5E5;
+    font-size: .9em;
+  }
 }

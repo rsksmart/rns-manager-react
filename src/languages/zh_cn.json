@@ -250,7 +250,7 @@
   "copy_text": "复制文本",
   "transfer_warning": "您的域所有权将转让到另一个地址。请注意一旦所有权被转让您将无法再进入或管理域。",
   "expires_on": "到期日",
-  "renew_explanation": "将打开您的钱包，并要求您确认所续订的两笔交易中的第一笔。",
+  "renew_explanation": "将打开您的钱包，并要求您确认交易。",
   "renew_domain": "续订域",
   "close": "关闭",
   "renew_success": "您的域已续订。",
@@ -366,5 +366,18 @@
   "missing_features": "控制者已设定为不同地址",
   "reclaim_domain_explanation": "您可能因两个原因而看到此讯息：您收到转让的域名，或是您将您的域控制权转让给了另一个帐户。若要恢复网域的完整控制权，请点击”Reclaim Domain”（回收域名）。",
   "set_controller_success": "已设定控制者。",
-  "new_controller": "新控制者"
+  "new_controller": "新控制者",
+  "address_placeholder": "输入新所有者的地址或 RSK 域",
+  "subdomain_name": "输入您的子域名称",
+  "resolve_not_set": "无法解析域",
+  "controller_placeholder": "输入新控制者的地址或 RSK 域",
+  "same_value": "输入与值相同",
+  "set_subdomain_rsk": "将 RSK 地址自动设置为所有者。",
+  "set_subdomain_rsk_other": "将 RSK 地址设置为另一个所有者。",
+  "confirm_two_transactions": "您需要确认两笔交易",
+  "confirm_three_transactions": "您需要确认三笔交易",
+  "suggestion": "建议",
+  "type_domain": "输入您的 rsk 域",
+  "your_address": "您的地址",
+  "default_resolver": "预设解析器"
 }

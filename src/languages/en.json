@@ -258,7 +258,7 @@
   "copy_text": "Copy text",
   "transfer_warning": "Transfer the ownership of your domain to another address. Please be aware that once you transfer the ownership of your domain you will not be able to access and manage the domain anymore.",
   "expires_on": "Expires on",
-  "renew_explanation": "Your wallet will open and you will be asked to confirm the first of two transactions required for renovation.",
+  "renew_explanation": "Your wallet will open and you will be asked to confirm the transaction.",
   "renew_domain": "Renew Domain",
   "close": "Close",
   "renew_success": "Your domain has been renewed.",
@@ -365,5 +365,10 @@
   "missing_features": "The controller is set to a different address",
   "reclaim_domain_explanation": "You are likely to see this message for two reasons: you received a domain that was transferred, or you gave control of your domain to another account. To recover full control of the domain click on 'Reclaim Domain'.",
   "set_controller_success": "The controller has been set.",
-  "new_controller": "New controller"
+  "new_controller": "New controller",
+  "address_placeholder": "Type the new owner's address or RSK domain",
+  "subdomain_name": "Type your subdomain name",
+  "resolve_not_set": "Could not resolve domain",
+  "controller_placeholder": "Type the new controller's address or RSK domain",
+  "same_value": "Input is the same as the value"
 }

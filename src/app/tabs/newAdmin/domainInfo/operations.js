@@ -28,6 +28,7 @@ import {
 } from './actions';
 
 import { receiveRegistryOwner } from '../actions';
+import { resolveDomain } from '../../resolve/operations';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -100,8 +101,16 @@ export const transferDomainConfirmed = tx => (dispatch) => {
   dispatch(receiveTransferDomain(tx));
 };
 
-export const transferDomain = (name, addressToTransfer, sender) => (dispatch) => {
+export const transferDomain = (name, address, sender) => async (dispatch) => {
   dispatch(requestTransferDomain());
+
+  // get address if it ends with .rsk
+  const addressToTransfer = await address.endsWith('.rsk')
+    ? await dispatch(resolveDomain(address, null, errorTransferDomain, sender)) : address;
+
+  if (!addressToTransfer) {
+    return false;
+  }
 
   const label = name.split('.')[0];
 
@@ -152,15 +161,23 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
  * @param {string} domain that should be set
  * @param {address} address new address to set owner to
  */
-export const setRegistryOwner = (domain, address) => async (dispatch) => {
+export const setRegistryOwner = (domain, address, currentValue) => async (dispatch) => {
   dispatch(requestSetRegistryOwner(domain));
+
+  // get address if it ends with .rsk
+  const newAddress = await address.endsWith('.rsk')
+    ? await dispatch(resolveDomain(address, null, errorSetRegistryOwner, currentValue)) : address;
+
+  if (!newAddress) {
+    return false;
+  }
 
   const label = namehash(domain);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0].toLowerCase();
 
   await rns.compose();
-  await rns.contracts.registry.methods.setOwner(label, address)
+  return rns.contracts.registry.methods.setOwner(label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetRegistryOwner(error.message));
@@ -168,11 +185,11 @@ export const setRegistryOwner = (domain, address) => async (dispatch) => {
 
       const transactionConfirmed = () => () => {
         dispatch(receiveRegistryOwner(
-          address, address.toLowerCase() === currentAddress.toLowerCase(),
+          newAddress, newAddress.toLowerCase() === currentAddress.toLowerCase(),
         ));
 
-        dispatch(receiveSetRegistryOwner(address, result));
-        dispatch(receiveRegistryOwner(address, false));
+        dispatch(receiveSetRegistryOwner(newAddress, result));
+        dispatch(receiveRegistryOwner(newAddress, false));
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));

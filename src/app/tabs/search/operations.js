@@ -45,7 +45,7 @@ export default domain => (dispatch) => {
           auctionRegistrarAddress,
         );
 
-        auctionRegistrar.methods.entries(hash).call()
+        return auctionRegistrar.methods.entries(hash).call()
           .then((results) => {
             if (results[0] === '2') {
               const deedContract = new web3.eth.Contract(deedRegistrarAbi, results[1]);
@@ -66,14 +66,13 @@ export default domain => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-      registrar.methods.price(domain, 0, 1).call()
+      return registrar.methods.price(domain, 0, 1).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
           dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));
+          dispatch(receiveDomainState(available));
         })
         .catch(error => dispatch(notifyError(error.message)));
-
-      return dispatch(receiveDomainState(available));
     })
     .catch(error => dispatch(notifyError(error.message)));
 };

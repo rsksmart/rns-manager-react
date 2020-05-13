@@ -250,7 +250,7 @@
   "copy_text": "テキストをコピー",
   "transfer_warning": "お客様のドメインの所有権を別のアドレスに移譲します。ドメインの所有権を移譲すると、そのドメインにアクセスして管理することができなくなりますのでご注意ください。",
   "expires_on": "有効期限は",
-  "renew_explanation": "ご使用中のウォレットが開き、修復に必要な2つのトランザクションうちの最初の方を確認するよう求められます。",
+  "renew_explanation": "ご使用中のウォレットが開き、トランザクションを確認するよう求められます。",
   "renew_domain": "ドメインを更新",
   "close": "閉じる",
   "renew_success": "お客様のドメインが更新されました。",
@@ -366,5 +366,18 @@
   "missing_features": "コントローラが別のアドレスに設定されています",
   "reclaim_domain_explanation": "このメッセージは、次の2つの理由で表示される可能性があります：移行されたドメインを受け取った場合、またはドメインコントロール権を別のアカウントに付与した場合。ドメインの完全なコントロールを取り戻すには、「ドメインを再利用する」をクリックします。",
   "set_controller_success": "コントローラが設定されました。",
-  "new_controller": "新規コントローラ"
+  "new_controller": "新規コントローラ",
+  "address_placeholder": "新規所有者のアドレスまたはRSKドメインを入力してください",
+  "subdomain_name": "サブドメイン名を入力してください",
+  "resolve_not_set": "ドメインを照合できませんでした",
+  "controller_placeholder": "新規コントローラのアドレスまたはRSKドメインを入力してください",
+  "same_value": "入力は値と同じです",
+  "set_subdomain_rsk": "RSKアドレスを自動的に所有者に設定してください。",
+  "set_subdomain_rsk_other": "RSKアドレスを別の所有者に設定してください。",
+  "confirm_two_transactions": "2つのトランザクションを確認する必要があります",
+  "confirm_three_transactions": "3つのトランザクションを確認する必要があります",
+  "suggestion": "提案",
+  "type_domain": "RSKドメインを入力してください",
+  "your_address": "お客様のアドレス",
+  "default_resolver": "Default Resolver"
 }

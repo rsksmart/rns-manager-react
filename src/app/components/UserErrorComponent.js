@@ -2,6 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
+import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
+import { ERROR_RESOLVE_NAME } from '../tabs/resolve/types';
+
 import closeRed from '../../assets/img/close-red.svg';
 
 const UserErrorComponent = ({
@@ -10,6 +13,14 @@ const UserErrorComponent = ({
   if (!visible) {
     return (<></>);
   }
+
+  const formatMessage = () => {
+    switch (message) {
+      case ERROR_SAME_VALUE: return strings.same_value;
+      case ERROR_RESOLVE_NAME: return strings.resolve_not_set;
+      default: return message;
+    }
+  };
 
   return (
     <div className="error">
@@ -21,7 +32,7 @@ const UserErrorComponent = ({
         <img src={closeRed} alt={strings.close} />
       </button>
       <p><strong>{title}</strong></p>
-      <p>{message}</p>
+      <p>{formatMessage()}</p>
     </div>
   );
 };
@@ -36,6 +47,8 @@ UserErrorComponent.defaultProps = {
 UserErrorComponent.propTypes = {
   strings: propTypes.shape({
     close: propTypes.string.isRequired,
+    same_value: propTypes.string.isRequired,
+    resolve_not_set: propTypes.string.isRequired,
   }).isRequired,
   title: propTypes.string,
   message: propTypes.string,

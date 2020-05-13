@@ -13,6 +13,9 @@ import {
   removeSubdomainFromList,
 } from './actions';
 
+import { EMPTY } from './types';
+
+import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -37,8 +40,6 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
 };
 
 const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
-  dispatch(requestNewSubdomain());
-
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
@@ -71,7 +72,7 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   await rns.compose();
   await rns.contracts.registry.methods.owner(hash).call((error, result) => {
     if (!error) {
-      if (result !== '0x0000000000000000000000000000000000000000') {
+      if (result !== EMPTY) {
         dispatch(addSubdomainToList(subdomain, result));
       }
     }
@@ -89,9 +90,19 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
 export const newSubdomain = (
   parentDomain, subdomain, newOwner, subdomainList,
 ) => async (dispatch) => {
+  dispatch(requestNewSubdomain());
+
+  // get address if it ends with .rsk
+  const newAddress = await newOwner.endsWith('.rsk')
+    ? await dispatch(resolveDomain(newOwner, null, errorNewSubdomain, null)) : newOwner;
+
+  if (!newAddress) {
+    return null;
+  }
+
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubdomain(parentDomain, subdomain, newOwner));
+    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress));
   }
 
   if (subdomainList[subdomain]) {
@@ -137,8 +148,17 @@ export const setSubdomainOwner = (
 ) => async (dispatch) => {
   dispatch(waitingSetSubdomainOwner(subdomain));
 
-  if (newOwner === currentOwner) {
-    return dispatch(errorSetSubdomainOwner(subdomain, 'The subdomain is already owned by that address'));
+  // get address if it ends with .rsk
+  const newAddress = await newOwner.endsWith('.rsk')
+    ? await dispatch(resolveDomain(
+      newOwner,
+      null,
+      response => errorSetSubdomainOwner(subdomain, response),
+      currentOwner,
+    )) : newOwner;
+
+  if (!newAddress) {
+    return;
   }
 
   const accounts = await window.ethereum.enable();
@@ -147,16 +167,16 @@ export const setSubdomainOwner = (
   const node = namehash(parentDomain);
 
   await rns.compose();
-  return rns.contracts.registry.methods.setSubnodeOwner(node, label, newOwner)
+  rns.contracts.registry.methods.setSubnodeOwner(node, label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetSubdomainOwner(subdomain, error.message));
       }
 
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetSubdomainOwner(result, subdomain, newOwner));
+        dispatch(receiveSetSubdomainOwner(result, subdomain, newAddress));
 
-        if (newOwner === '0x0000000000000000000000000000000000000000') {
+        if (newAddress === EMPTY) {
           sendBrowserNotification(`${subdomain}.${parentDomain}`, 'remove_subdomain');
           updateSubdomainToLocalStorage(parentDomain, subdomain, false);
           dispatch(removeSubdomainFromList(subdomain));

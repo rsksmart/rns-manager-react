@@ -36,6 +36,10 @@ const NewSubdomainComponent = ({
       return setLocalError(strings.invalid_name);
     }
 
+    if (owner.endsWith('.rsk')) {
+      return handleClick(subdomain, owner.toLowerCase());
+    }
+
     switch (validateAddress(owner, chainId)) {
       case 'Invalid address':
         return setLocalError('Invalid address');
@@ -87,6 +91,7 @@ const NewSubdomainComponent = ({
             onChange={evt => setSubdomain(evt.target.value)}
             className="subdomain"
             disabled={disabled}
+            placeholder={strings.subdomain_name}
           />
         </Col>
         <Col md={5}>
@@ -105,6 +110,7 @@ const NewSubdomainComponent = ({
             onChange={evt => setOwner(evt.target.value)}
             className="owner"
             disabled={disabled}
+            placeholder={strings.address_placeholder}
           />
         </Col>
         <Col>
@@ -163,6 +169,8 @@ NewSubdomainComponent.propTypes = {
     purpose_subdomains: propTypes.string.isRequired,
     Name: propTypes.string.isRequired,
     Owner: propTypes.string.isRequired,
+    subdomain_name: propTypes.string.isRequired,
+    address_placeholder: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
