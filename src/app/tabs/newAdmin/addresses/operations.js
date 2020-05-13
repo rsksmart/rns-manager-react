@@ -1,9 +1,11 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
+import { formatsByName } from '@ensdomains/address-encoder';
 
 import {
   multiChainResolver as multiChainResolverAddress,
   publicResolver as publicResolverAddress,
+  definitiveResolver as definitiveResolverAddress,
 } from '../../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
@@ -14,10 +16,12 @@ import {
 } from './actions';
 
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
+import { definitiveResolverAbi } from '../resolver/definitiveAbis.json';
 
 import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../resolver/types';
+import { ADDRESS_ENCODING_ERROR } from './types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -27,6 +31,9 @@ const multichainResolver = new web3.eth.Contract(
 const publicResolver = new web3.eth.Contract(
   publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
 );
+const definitiveResolver = new web3.eth.Contract(
+  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+);
 
 /**
  * Helper Function to get the chain name with the ID
@@ -35,6 +42,11 @@ const publicResolver = new web3.eth.Contract(
 export const getChainNameById = (chainId) => {
   const network = networks.filter(net => net.id === chainId);
   return network[0].name;
+};
+
+export const getSymbolById = (chainId) => {
+  const network = networks.filter(net => net.id === chainId);
+  return network[0].symbol;
 };
 
 /**
@@ -104,8 +116,49 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
 };
 
 const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatch) => {
-  //todo!
+  const chainName = getChainNameById(chainId);
+  const chainSymbol = getSymbolById(chainId);
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  dispatch(requestSetChainAddress(chainName));
+
+  console.log(chainName, chainSymbol, chainId);
   console.log('DEFINITIVE_RESOLVER', domain, chainId, address, isNew);
+  console.log('domain hash:', namehash(domain));
+
+  // encode value:
+  let encodeValue;
+  try {
+    encodeValue = formatsByName[chainSymbol].decoder(address);
+  } catch (error) {
+    return dispatch(errorSetChainAddress(chainName, ADDRESS_ENCODING_ERROR));
+  }
+
+  // @todo : insert into the blockchain!
+  definitiveResolver.methods.setAddr(namehash(domain), chainId, encodeValue)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorSetChainAddress(chainName, error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetChainAddress(
+          chainId, getChainNameById(chainId), address, '0xnull', isNew,
+        ));
+        /*
+        // if deleting, close the error message programatically
+        if (address === '' || address === '0x0000000000000000000000000000000000000000') {
+          dispatch(closeSetChainAddress(chainName));
+          sendBrowserNotification(domain, 'chain_address_removed');
+        } else {
+          sendBrowserNotification(domain, 'chain_address_updated');
+        }
+        */
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    });
 };
 
 /**
@@ -170,9 +223,25 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
 
 export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
+  const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
-  //@todo
-  dispatch(receiveChainAddress(chainId, chainName, ''));
+  const chainSymbol = getSymbolById(chainId);
+
+  return definitiveResolver.methods.addr(hash, chainId).call()
+    .then((addr) => {
+      if (!addr) {
+        return dispatch(receiveChainAddress(chainId, chainName, ''));
+      }
+
+      // eslint-disable-next-line no-buffer-constructor
+      const dataBuffer = new Buffer(addr.replace('0x', ''), 'hex');
+      return dispatch(receiveChainAddress(
+        chainId,
+        chainName,
+        formatsByName[chainSymbol].encoder(dataBuffer),
+      ));
+    })
+    .catch(error => dispatch(errorChainAddress(chainName, error.message)));
 };
 
 /**
