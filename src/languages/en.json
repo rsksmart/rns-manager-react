@@ -383,5 +383,8 @@
   "my_rsk_domain": "My RSK domain",
   "email": "Email",
   "link": "Link",
-  "whatsapp": "WhatsApp"
+  "whatsapp": "WhatsApp",
+  "coin_address_added": "Coin address added",
+  "coin_address_updated": "Coin address updated",
+  "coin_address_removed": "Coin address removed"
 }

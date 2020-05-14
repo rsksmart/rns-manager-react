@@ -7,12 +7,6 @@
     "symbol": "RSK"
   },
   {
-    "name": "Atomic Coin",
-    "id": "0x80000076",
-    "icon": "icon_atomic.png",
-    "symbol": "ATOM"
-  },
-  {
     "name": "Binance Coin",
     "id": "0x800002ca",
     "icon": "icon_binance_coin.png",
@@ -30,6 +24,12 @@
     "icon": "icon_bitconcash.png",
     "symbol": "BCH"
   },
+  {
+    "name": "Cosmos (ATOM)",
+    "id": "0x80000076",
+    "icon": "icon_atomic.png",
+    "symbol": "ATOM"
+  },  
   {
     "name": "Dash",
     "id": "0x80000005",
@@ -86,22 +86,16 @@
     "symbol": "XEM"
   },
   {
-    "name": "Ripple",
-    "id": "0x80000090",
-    "icon": "icon_xrp.png",
-    "symbol": "XRP"
-  },
-  {
     "name": "Stellar",
     "id": "0x80000094",
     "icon": "icon_stellar.png",
     "symbol": "XLM"
   },
   {
-    "name": "Tron",
-    "id": "0x800000c3",
-    "icon": "icon_tron.png",
-    "symbol": ""
+    "name": "XRP",
+    "id": "0x80000090",
+    "icon": "icon_xrp.png",
+    "symbol": "XRP"
   },
   {
     "name": "xDai",
