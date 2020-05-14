@@ -22,6 +22,7 @@ import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../resolver/types';
 import { ADDRESS_ENCODING_ERROR } from './types';
+import { EMPTY_ADDRESS } from '../types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
@@ -102,7 +103,7 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
         ));
 
         // if deleting, close the error message programatically
-        if (address === '' || address === '0x0000000000000000000000000000000000000000') {
+        if (address === '' || address === EMPTY_ADDRESS) {
           dispatch(closeSetChainAddress(chainName));
           sendBrowserNotification(domain, 'chain_address_removed');
         } else {
@@ -148,7 +149,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
         ));
         /*
         // if deleting, close the error message programatically
-        if (address === '' || address === '0x0000000000000000000000000000000000000000') {
+        if (address === '' || address === EMPTY_ADDRESS) {
           dispatch(closeSetChainAddress(chainName));
           sendBrowserNotification(domain, 'chain_address_removed');
         } else {
@@ -277,7 +278,7 @@ export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
  */
 export const deleteChainAddress = (domain, chainId, resolverName) => (dispatch) => {
   const isHex = networks.filter(net => net.id === chainId)[0].validation === 'HEX';
-  const value = isHex ? '0x0000000000000000000000000000000000000000' : '';
+  const value = isHex ? EMPTY_ADDRESS : '';
 
   switch (resolverName) {
     case PUBLIC_RESOLVER:
