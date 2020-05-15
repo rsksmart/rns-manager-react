@@ -4,103 +4,103 @@
     "id": "0x80000089",
     "validation": "HEX",
     "icon": "icon_rsk.png",
-    "symbol": "RSK"
+    "index": 137
   },
   {
     "name": "Binance Coin",
     "id": "0x800002ca",
     "icon": "icon_binance_coin.png",
-    "symbol": "BNB"
+    "index": 714
   },
   {
     "name": "Bitcoin",
     "id": "0x80000000",
     "icon": "icon_btc.png",
-    "symbol": "BTC"
+    "index": 0
   },
   {
     "name": "Bitcoin Cash",
     "id": "0x80000091",
     "icon": "icon_bitconcash.png",
-    "symbol": "BCH"
+    "index": 145
   },
   {
     "name": "Cosmos (ATOM)",
     "id": "0x80000076",
     "icon": "icon_atomic.png",
-    "symbol": "ATOM"
+    "index": 118
   },  
   {
     "name": "Dash",
     "id": "0x80000005",
     "icon": "icon_dash.png",
-    "symbol": "DASH"
+    "index": 5
   },
   {
     "name": "Dogecoin",
     "id": "0x80000003",
     "icon": "icon_dogecoin.png",
-    "symbol": "DOGE"
+    "index": 5
   },
   {
     "name": "Ethereum",
     "id": "0x8000003c",
     "validation": "HEX",
     "icon": "icon_eth.png",
-    "symbol": "ETH"
+    "index": 60
   },
   {
     "name": "Ethereum Classic",
     "id": "0x8000003d",
     "icon": "ethereum_classic.png",
-    "symbol": "ETC"
+    "index": 61
   },
   {
     "name": "EOS",
     "id": "0x800000c2",
     "icon": "icon_eos.png",
-    "symbol": "EOS"
+    "index": 194
   },
   {
     "name": "Kusama",
     "id": "0x800001b2",
     "icon": "icon_kusama.png",
-    "symbol": "KSM"
+    "index": 434
   },
   {
     "name": "Litecoin",
     "id": "0x80000002",
     "icon": "icon_ltc.png",
-    "symbol": "LTC"
+    "index": 2
   },
   {
     "name": "MonaCoin",
     "id": "0x80000016",
     "icon": "icon_monacoin.png",
-    "symbol": "MONA"
+    "index": 22
   },
   {
     "name": "NEM",
     "id": "0x8000002b",
     "icon": "icon_nem.png",
-    "symbol": "XEM"
+    "index": 43
   },
   {
     "name": "Stellar",
     "id": "0x80000094",
     "icon": "icon_stellar.png",
-    "symbol": "XLM"
+    "index": 148
   },
   {
     "name": "XRP",
     "id": "0x80000090",
     "icon": "icon_xrp.png",
-    "symbol": "XRP"
+    "index": 144
   },
   {
     "name": "xDai",
     "id": "0x800002bc",
     "icon": "icon_xdai.svg",
-    "symbol": "XDAI"
+    "index": 700
   }
 ]

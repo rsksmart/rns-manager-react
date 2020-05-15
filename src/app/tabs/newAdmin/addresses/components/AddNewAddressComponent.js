@@ -56,7 +56,6 @@ const AddNewAddressComponent = ({
     }
 
     handleClick(selectedNetwork, address);
-    setLocalRest(false);
     return true;
   };
 
@@ -64,7 +63,7 @@ const AddNewAddressComponent = ({
     setChecksumError(false);
     setAddress(lowerAddress);
     setLocalRest(false);
-    handleClick(selectedNetwork, address);
+    handleClick(selectedNetwork, lowerAddress);
   };
 
   const handleErrorClose = () => {

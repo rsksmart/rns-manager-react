@@ -386,5 +386,6 @@
   "whatsapp": "WhatsApp",
   "coin_address_added": "Coin address added",
   "coin_address_updated": "Coin address updated",
-  "coin_address_removed": "Coin address removed"
+  "coin_address_removed": "Coin address removed",
+  "could_not_encode_address": "Could not encode address for the network."
 }

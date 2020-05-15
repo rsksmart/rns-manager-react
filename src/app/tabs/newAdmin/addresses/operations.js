@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
-import { formatsByName } from '@ensdomains/address-encoder';
+import { formatsByCoinType } from '@ensdomains/address-encoder';
 
 import {
   multiChainResolver as multiChainResolverAddress,
@@ -45,9 +45,13 @@ export const getChainNameById = (chainId) => {
   return network[0].name;
 };
 
-export const getSymbolById = (chainId) => {
+/**
+ * Returns the index when given the chainId as per slip-0044
+ * @param {chainId} chainId to lookup
+ */
+export const getIndexById = (chainId) => {
   const network = networks.filter(net => net.id === chainId);
-  return network[0].symbol;
+  return network[0].index;
 };
 
 /**
@@ -78,9 +82,10 @@ const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
 
 /**
  * Sets an address in the multichain resolver
- * @param {*} domain to set the address for
- * @param {*} chainId that is assoicated with the address
- * @param {*} address the address or valud to set for the chainId
+ * @param {string} domain to set the address for
+ * @param {uint8} chainId that is assoicated with the address
+ * @param {address} address the address or valud to set for the chainId
+ * @param {bool} isNew is this a new entry?
  */
 const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
@@ -116,46 +121,52 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   );
 };
 
+/**
+ * Sets values in the Definitive Resolver.
+ * @param {string} domain the domain to be set
+ * @param {uint8} chainId chain Id for the coin
+ * @param {address} address address to be set
+ * @param {bool} isNew is this a new address?
+ */
 const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
-  const chainSymbol = getSymbolById(chainId);
+  const chainIndex = getIndexById(chainId);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
 
   dispatch(requestSetChainAddress(chainName));
 
-  console.log(chainName, chainSymbol, chainId);
-  console.log('DEFINITIVE_RESOLVER', domain, chainId, address, isNew);
-  console.log('domain hash:', namehash(domain));
-
-  // encode value:
-  let encodeValue;
-  try {
-    encodeValue = formatsByName[chainSymbol].decoder(address);
-  } catch (error) {
-    return dispatch(errorSetChainAddress(chainName, ADDRESS_ENCODING_ERROR));
+  // encode value if it is not empty:
+  let encodeValue = address;
+  if (encodeValue !== EMPTY_ADDRESS) {
+    try {
+      encodeValue = formatsByCoinType[chainIndex].decoder(address);
+    } catch (error) {
+      return dispatch(errorSetChainAddress(chainName, ADDRESS_ENCODING_ERROR, address));
+    }
   }
 
-  // @todo : insert into the blockchain!
-  definitiveResolver.methods.setAddr(namehash(domain), chainId, encodeValue)
+  return definitiveResolver.methods.setAddr(namehash(domain), chainId, encodeValue)
     .send({ from: currentAddress }, (error, result) => {
+      dispatch(waitingSetChainAddress(chainName));
       if (error) {
         return dispatch(errorSetChainAddress(chainName, error.message));
       }
 
       const transactionConfirmed = () => () => {
         dispatch(receiveSetChainAddress(
-          chainId, getChainNameById(chainId), address, '0xnull', isNew,
+          chainId, getChainNameById(chainId), address, result, isNew,
         ));
-        /*
         // if deleting, close the error message programatically
         if (address === '' || address === EMPTY_ADDRESS) {
           dispatch(closeSetChainAddress(chainName));
-          sendBrowserNotification(domain, 'chain_address_removed');
+          sendBrowserNotification(domain, 'coin_address_removed');
         } else {
-          sendBrowserNotification(domain, 'chain_address_updated');
+          sendBrowserNotification(
+            domain,
+            isNew ? 'coin_address_added' : 'coin_address_updated',
+          );
         }
-        */
       };
 
       return dispatch(transactionListener(result, () => transactionConfirmed()));
@@ -222,11 +233,16 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
     .catch(error => dispatch(errorChainAddress(chainName, error.message)));
 };
 
+/**
+ * Get coin address from Definitive Resolver from a specified domain
+ * @param {string} domain associated with the coin type
+ * @param {chainId} chainId chainId of the coin
+ */
 export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
-  const chainSymbol = getSymbolById(chainId);
+  const chainIndex = getIndexById(chainId);
 
   return definitiveResolver.methods.addr(hash, chainId).call()
     .then((addr) => {
@@ -234,12 +250,12 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
         return dispatch(receiveChainAddress(chainId, chainName, ''));
       }
 
-      // eslint-disable-next-line no-buffer-constructor
-      const dataBuffer = new Buffer(addr.replace('0x', ''), 'hex');
+      // eslint-disable-next-line new-cap
+      const dataBuffer = new Buffer.from(addr.replace('0x', ''), 'hex');
       return dispatch(receiveChainAddress(
         chainId,
         chainName,
-        formatsByName[chainSymbol].encoder(dataBuffer),
+        formatsByCoinType[chainIndex].encoder(dataBuffer),
       ));
     })
     .catch(error => dispatch(errorChainAddress(chainName, error.message)));
@@ -286,6 +302,9 @@ export const deleteChainAddress = (domain, chainId, resolverName) => (dispatch) 
       break;
     case MULTICHAIN_RESOLVER:
       dispatch(setMultiChainAddress(domain, chainId, value));
+      break;
+    case DEFINITIVE_RESOLVER:
+      dispatch(setDefinitiveAddress(domain, chainId, EMPTY_ADDRESS));
       break;
     default:
       // string resolver or unknown/custom resolver
