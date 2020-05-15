@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { MigrateToMultiResolverComponent } from '../components';
-import { multiChainResolver } from '../../../../adapters/configAdapter';
+import { definitiveResolver } from '../../../../adapters/configAdapter';
 import { setDomainResolver } from '../../resolver/operations';
 import { closeMessage } from '../../resolver/actions';
 
@@ -20,7 +20,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  handleClick: () => dispatchProps.handleClick(stateProps.domain, multiChainResolver),
+  handleClick: () => dispatchProps.handleClick(stateProps.domain, definitiveResolver),
   handleCloseClick: () => dispatchProps.closeErrorMessage(),
 });
 

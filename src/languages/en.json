@@ -387,5 +387,7 @@
   "coin_address_added": "Coin address added",
   "coin_address_updated": "Coin address updated",
   "coin_address_removed": "Coin address removed",
-  "could_not_encode_address": "Could not encode address for the network."
+  "could_not_encode_address": "Could not encode address for the network.",
+  "multi_coin_addresses": "Multicoin Addresses Resolver",
+  "migrate_to_definitive_resolver": "The latest resolver offers domain compatibility with different blockchains. This will be the last time you are asked to migrate resolvers."
 }
