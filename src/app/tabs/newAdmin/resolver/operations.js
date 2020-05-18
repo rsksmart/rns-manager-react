@@ -6,9 +6,10 @@ import { validateBytes32 } from '../../../validations';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
-  receiveSetContent, errorSetContent, clearAllContent,
+  receiveSetContent, errorSetContent, clearAllContent, errorMigrateAddresses,
+  requestMigrateAddresses, receiveMigrateAddresses, errorMigrateWithAddresses,
 } from './actions';
-import { getAllChainAddresses } from '../addresses/operations';
+import { getAllChainAddresses, getIndexById } from '../addresses/operations';
 
 import {
   multiChainResolver as multiChainResolverAddress,
@@ -28,7 +29,10 @@ import {
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
+import { definitiveResolverAbi } from './definitiveAbis.json';
 import { interfaces } from './supportedInterfaces.json';
+import { EMPTY_ADDRESS } from '../types';
+import { addressDecoder } from '../helpers';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -201,4 +205,77 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
   if (contentType === CONTENT_BYTES) {
     dispatch(setContentBytes(resolverAddress, domain, value));
   }
+};
+
+export const setDomainResolverAndMigrate = (domain, chainAddresses) => async (dispatch) => {
+  dispatch(requestMigrateAddresses());
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  const hash = namehash(domain);
+
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  // convert JSON object into array and filter out empty items:
+  const nonEmpties = Object.entries(chainAddresses).filter(item => item[1].address !== '' && item[1].address !== EMPTY_ADDRESS);
+
+  // loop through nonEmpties and try to get decoded version of the address:
+  const multiCallMethods = [];
+
+  nonEmpties.forEach((item) => {
+    try {
+      // try to decode the address:
+      const decodedAddress = addressDecoder(item[1].address, getIndexById(item[1].chainId));
+
+      // add address to the multiCallMethods array:
+      multiCallMethods.push(
+        definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
+          hash, item[1].chainId, decodedAddress,
+        ).encodeABI(),
+      );
+    } catch (error) {
+      // isDecodeError = true;//@todo
+      dispatch(errorMigrateAddresses(item[1].chainId, error.message));
+    }
+  });
+
+  await rns.compose();
+
+  const setResolverPromise = new Promise((resolve, reject) => {
+    rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
+      .send({ from: currentAddress }, (error, result) => {
+        if (error) {
+          return reject(new Error(`Setting the Resolver: ${error.message}`));
+        }
+        return dispatch(transactionListener(result, () => () => {
+          dispatch(receiveSetResolver(
+            result, definitiveResolverAddress, DEFINITIVE_RESOLVER,
+          ));
+          resolve(result);
+        }));
+      });
+  });
+
+  const setAddressesPromise = new Promise((resolve, reject) => {
+    definitiveResolver.methods.multicall(multiCallMethods)
+      .send({ from: currentAddress }, (error, result) => {
+        if (error) {
+          return reject(new Error(`Setting the Addresses: ${error.message}`));
+        }
+
+        return dispatch(transactionListener(result, () => () => resolve(result)));
+      });
+  });
+
+  Promise.all([setResolverPromise, setAddressesPromise]).then((values) => {
+    // console.log(setResolverPromise, setAddressesPromise);
+    dispatch(receiveMigrateAddresses(values));
+    dispatch(getAllChainAddresses(domain, DEFINITIVE_RESOLVER));
+    dispatch(supportedInterfaces(definitiveResolverAddress, domain));
+    sendBrowserNotification(domain, 'resolver_migration_complete');
+  })
+    .catch((error) => {
+      dispatch(errorMigrateWithAddresses(`One or both of the transactions had an error: ${error.message}`));
+    });
 };

@@ -7,15 +7,15 @@ import {
 } from 'react-bootstrap';
 
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
+import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
-  strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick,
+  strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolver,
+  isMigrating,
 }) => {
-  const [migrateAddresses, setMigrateAddresses] = useState(true);
-  const handleChange = () => {
-    console.log('handasd');
-    setMigrateAddresses(!migrateAddresses);
-  };
+  const isMultiChainResolver = resolver === MULTICHAIN_RESOLVER;
+  const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver);
+
   return (
     <>
       <Row className="break-above">
@@ -28,20 +28,24 @@ const MigrateToMultiResolverComponent = ({
       <Row>
         <Col md={10}>
           <p>{strings.migrate_to_multi_resolver}</p>
+          {isMultiChainResolver && (
           <p>
             <Form.Check
               type="switch"
+              id="migrate-addr-switch"
               label="Migrate my addresses during activation. This requires a second transaction."
               checked={migrateAddresses}
-              onClick={handleChange}
+              onChange={() => setMigrateAddresses(!migrateAddresses)}
+              disabled={isMigrating}
             />
           </p>
+          )}
         </Col>
         <Col md={2}>
           <Button
-            onClick={handleClick}
+            onClick={() => handleClick(migrateAddresses)}
             className="migrate"
-            disabled={isEditing}
+            disabled={isEditing || isMigrating}
           >
             {strings.activate}
           </Button>
@@ -60,7 +64,7 @@ const MigrateToMultiResolverComponent = ({
       </Row>
     </>
   );
-  };
+};
 
 MigrateToMultiResolverComponent.propTypes = {
   strings: propTypes.shape({
@@ -74,6 +78,8 @@ MigrateToMultiResolverComponent.propTypes = {
   handleClick: propTypes.func.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
+  resolver: propTypes.string.isRequired,
+  isMigrating: propTypes.bool.isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);

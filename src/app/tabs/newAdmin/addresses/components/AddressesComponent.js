@@ -7,7 +7,7 @@ import { YourAddressesContainer, AddNewAddressContainer, MigrateToMultiResolverC
 import { getAllChainAddresses } from '../operations';
 
 import {
-  PUBLIC_RESOLVER, UNKNOWN_RESOLVER, STRING_RESOLVER,
+  PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, UNKNOWN_RESOLVER, STRING_RESOLVER,
 } from '../../resolver/types';
 
 const AddressesComponent = ({
@@ -32,7 +32,8 @@ const AddressesComponent = ({
     <div className="yourAddress">
       <YourAddressesContainer />
       <AddNewAddressContainer />
-      {resolverName === PUBLIC_RESOLVER && <MigrateToMultiResolverContainer />}
+      {(resolverName === PUBLIC_RESOLVER || resolverName === MULTICHAIN_RESOLVER)
+        && <MigrateToMultiResolverContainer resolver={resolverName} />}
     </div>
   );
 };
