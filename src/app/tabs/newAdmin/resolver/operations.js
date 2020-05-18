@@ -207,7 +207,12 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
   }
 };
 
-
+/**
+ * Set the resolver to the Definitive Resolver and Migrate Users Addresses
+ * @param {string} domain domain to be migrated
+ * @param {array} chainAddresses array of all the chainAddresses from the reducer
+ * @param {bool} understandWarning bool that the user knows some addresses are invalid
+ */
 export const setDomainResolverAndMigrate = (
   domain, chainAddresses, understandWarning,
 ) => async (dispatch) => {
@@ -221,7 +226,8 @@ export const setDomainResolverAndMigrate = (
   );
 
   // convert JSON object into array and filter out empty items:
-  const nonEmpties = Object.entries(chainAddresses).filter(item => item[1].address !== '' && item[1].address !== EMPTY_ADDRESS);
+  const nonEmpties = Object.entries(chainAddresses)
+    .filter(item => item[1].address !== '' && item[1].address !== EMPTY_ADDRESS);
 
   // loop through nonEmpties and try to get decoded version of the address:
   const multiCallMethods = [];
@@ -280,7 +286,6 @@ export const setDomainResolverAndMigrate = (
   });
 
   return Promise.all([setResolverPromise, setAddressesPromise]).then((values) => {
-    // console.log(setResolverPromise, setAddressesPromise);
     dispatch(receiveMigrateAddresses(values));
     dispatch(getAllChainAddresses(domain, DEFINITIVE_RESOLVER));
     dispatch(supportedInterfaces(definitiveResolverAddress, domain));
