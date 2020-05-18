@@ -108,6 +108,10 @@ const AddressInputComponent = ({
     return validation ? toChecksumAddress(value, validationChainId) : value;
   };
 
+  const filtersuggestions = () => suggestions.filter(
+    item => item.value.toLowerCase() !== value.toLowerCase(),
+  );
+
   if (isSuccess && (isEditing || isDeleting)) {
     setIsEditing(false);
     setIsDeleting(false);
@@ -181,18 +185,26 @@ const AddressInputComponent = ({
               {strings.submit}
             </Button>
           </div>
-          <ul className="suggestions">
-            {suggestions.map(item => (
-              <li key={item.value}>
-                <button
-                  type="button"
-                  onClick={() => setEditText(item.value)}
-                >
-                  {item.name}
-                </button>
+          {(suggestions && filtersuggestions().length !== 0) && (
+          <div className="col-md-8 offset-md-2">
+            <ul className="suggestions">
+              <li className="title">
+                {strings.suggestion}
+                :
               </li>
-            ))}
-          </ul>
+              {filtersuggestions().map(item => (
+                <li key={item.value}>
+                  <button
+                    type="button"
+                    onClick={() => setEditText(item.value)}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          )}
         </div>
         )
       }
@@ -273,6 +285,7 @@ AddressInputComponent.defaultProps = {
     success_message: 'Success Message',
     value_prefix: 'Owner',
     waiting: 'Waiting text',
+    suggestion: '',
   },
   handleDelete: () => {},
   handleErrorClose: () => {},

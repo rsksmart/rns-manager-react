@@ -56,6 +56,8 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
           "add_records": "Add records",
           "close": "Close",
           "content_bytes": "Content bytes",
+          "resolve_not_set": "Could not resolve domain",
+          "same_value": "Input is the same as the value",
           "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
         }
       }
@@ -136,6 +138,8 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
                 "add_records": "Add records",
                 "close": "Close",
                 "content_bytes": "Content bytes",
+                "resolve_not_set": "Could not resolve domain",
+                "same_value": "Input is the same as the value",
                 "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
               }
             }

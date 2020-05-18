@@ -12,6 +12,8 @@ const store = mockStore({
   content_bytes: en.content_bytes,
   wait_transation_confirmed: en.wait_transation_confirmed,
   close: en.close,
+  same_value: en.same_value,
+  resolve_not_set: en.resolve_not_set,
 });
 
 const initProps = {

@@ -372,5 +372,11 @@
   "controller_placeholder": "Type the new controller's address or RSK domain",
   "same_value": "Input is the same as the value",
   "resolve_placeholder": "Type in a domain or an address",
-  "no_resolution": "No resolution"
+  "no_resolution": "No resolution",
+  "suggestions": "Suggestions",
+  "suggestion": "Suggestion",
+  "type_domain": "Type your rsk domain",
+  "your_address": "your address",
+  "default_resolver": "Default Resolver",
+  "new_value": "New Value"
 }

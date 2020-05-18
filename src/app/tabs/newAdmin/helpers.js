@@ -8,3 +8,5 @@ export const formatDate = (date) => {
   const monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   return `${result.getDate()} / ${monthArray[result.getMonth()]} / ${result.getFullYear()}`;
 };
+
+export const truncateString = string => `${string.substr(0, 6)}...${string.substr((string.length - 6))}`;
