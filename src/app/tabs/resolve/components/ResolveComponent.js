@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import { isValidAddress } from 'rskjs-util';
 import {
-  Container, Row, Col, Form, Button, Spinner, Alert,
+  Container, Row, Col, Form, Button, Alert,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidDomain } from '../../../validations';
 import { ResolveAddrContainer, ResolveChainAddrContainer, ResolveNameContainer } from '../containers';
-
+import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
@@ -19,7 +20,7 @@ const renderResolutions = (supportedInterfaces) => {
         {
           hasAddr && (
             <Col lg={hasChainAddr ? 6 : { span: 6, offset: 3 }}>
-              <ResolveAddrContainer />
+              <ResolveAddrContainer title="RSK" />
             </Col>
           )
         }
@@ -28,8 +29,8 @@ const renderResolutions = (supportedInterfaces) => {
       <Row>
         {
           hasName && (
-            <Col>
-              <ResolveNameContainer />
+            <Col md={{ span: 6, offset: 3 }}>
+              <ResolveNameContainer title="NAME" />
             </Col>
           )
         }
@@ -96,7 +97,7 @@ class ResolveComponent extends Component {
 
   validate() {
     const { value } = this.state;
-    const isValid = isValidDomain(value);
+    const isValid = isValidDomain(value) || isValidAddress(value.toLowerCase());
     this.setState({ isValid });
     return isValid;
   }
@@ -112,26 +113,40 @@ class ResolveComponent extends Component {
     if (error) {
       result = <Alert variant="danger" dismissible show={showError} onClose={() => this.setState({ showError: false })}>{error}</Alert>;
     } else if (loading) {
-      result = <Spinner animation="grow" variant="primary" />;
+      result = <UserWaitingComponent />;
     } else {
       result = renderResolutions(supportedInterfaces);
     }
 
     return (
-      <Container className="page">
-        <Row>
-          <Col>
-            <Form onSubmit={this.onResolve}>
+      <Container className="page resolver">
+        <h2>{strings.resolve}</h2>
+        <Form onSubmit={this.onResolve} className="search">
+          <Row>
+            <Col md={10}>
               <Form.Group>
-                <Form.Control type="text" value={value} onChange={this.resolveValueChange} className={!isValid && 'is-invalid'} />
+                <input
+                  type="text"
+                  value={value}
+                  onChange={this.resolveValueChange}
+                  className={!isValid && 'is-invalid'}
+                  placeholder={strings.resolve_placeholder}
+                />
                 <div className="invalid-feedback">
                   {strings.invalid_name}
                 </div>
               </Form.Group>
-              <Button type="submit" size="sm" disabled={loading}>{strings.resolve}</Button>
-            </Form>
-          </Col>
-        </Row>
+            </Col>
+            <Col md={2}>
+              <Button
+                type="submit"
+                disabled={loading}
+              >
+                {strings.resolve}
+              </Button>
+            </Col>
+          </Row>
+        </Form>
         <Row>
           <Col>
             {result}
@@ -150,6 +165,7 @@ ResolveComponent.propTypes = {
   strings: propTypes.shape({
     resolve: propTypes.string.isRequired,
     invalid_name: propTypes.string.isRequired,
+    resolve_placeholder: propTypes.string.isRequired,
   }).isRequired,
   loading: propTypes.bool.isRequired,
   supportedInterfaces: propTypes.arrayOf(propTypes.string).isRequired,

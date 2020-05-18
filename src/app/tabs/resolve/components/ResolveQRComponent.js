@@ -12,14 +12,16 @@ class ResolveAddr extends Component {
 
   render() {
     const {
-      strings, loading, error, value,
+      strings, loading, error, value, title,
     } = this.props;
 
     return (
       <Container>
         <Row>
           <Col>
-            <h2>{strings.rsk_address}</h2>
+            <h2 style={{ textAlign: 'center' }}>
+              {(title === 'RSK') ? strings.rsk_address : strings.reverse}
+            </h2>
           </Col>
         </Row>
         <Row>
@@ -36,10 +38,12 @@ ResolveAddr.propTypes = {
   getResolution: propTypes.func.isRequired,
   strings: propTypes.shape({
     rsk_address: propTypes.string.isRequired,
+    reverse: propTypes.string.isRequired,
   }).isRequired,
   loading: propTypes.bool.isRequired,
   error: propTypes.string,
   value: propTypes.string,
+  title: propTypes.string.isRequired,
 };
 
 ResolveAddr.defaultProps = {

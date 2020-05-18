@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { ResolveComponent } from '../components';
-import { identifyInterfaces } from '../operations';
+import { searchAddressOrDomain } from '../operations';
 import { getSearch, getResolve } from '../selectors';
 
 const mapStateToProps = state => ({
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   search: name => dispatch(push(`resolve?name=${name}`)),
-  resolve: name => dispatch(identifyInterfaces(name)),
+  resolve: name => dispatch(searchAddressOrDomain(name.toLowerCase())),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
