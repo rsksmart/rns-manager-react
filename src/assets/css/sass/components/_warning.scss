@@ -1,0 +1,12 @@
+.warning {
+
+}
+.alert.alert-warning {
+  p, label, ul, li {
+    color: #000;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+}

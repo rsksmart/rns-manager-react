@@ -11,14 +11,15 @@ const mapStateToProps = state => ({
   errorMessage: state.newAdmin.resolver.errorMessage,
   chainAddresses: state.newAdmin.addresses.chainAddresses,
   isMigrating: state.newAdmin.resolver.migrating.isMigrating,
+  decodingErrors: state.newAdmin.resolver.migrating.errors,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, migrateAddresses, chainAddresses) => {
+  handleClick: (domain, migrateAddresses, chainAddresses, understandWarning) => {
     if (!migrateAddresses) {
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
-      dispatch(setDomainResolverAndMigrate(domain, chainAddresses));
+      dispatch(setDomainResolverAndMigrate(domain, chainAddresses, understandWarning));
     }
   },
   closeErrorMessage: () => dispatch(closeMessage()),
@@ -28,8 +29,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  handleClick: migrateAddresses => dispatchProps.handleClick(
-    stateProps.domain, migrateAddresses, stateProps.chainAddresses,
+  handleClick: (migrateAddresses, understandWarning) => dispatchProps.handleClick(
+    stateProps.domain, migrateAddresses, stateProps.chainAddresses, understandWarning,
   ),
   handleCloseClick: () => dispatchProps.closeErrorMessage(),
 });

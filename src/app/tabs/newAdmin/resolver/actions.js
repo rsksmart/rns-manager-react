@@ -3,7 +3,7 @@ import {
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
   ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT, REQUEST_MIGRATE_ADDRESSES,
-  RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
+  RECEIVE_MIGRATE_ADDRESSES, ERROR_DECODING_ADDRESS, ERROR_MIGRATE_WITH_ADDRESSES,
 } from './types';
 
 export const requestResolver = () => ({
@@ -93,8 +93,9 @@ export const receiveMigrateAddresses = txs => ({
   txs,
 });
 
-export const errorMigrateAddresses = (chainId, errorMessage) => ({
-  type: ERROR_MIGRATE_ADDRESSES,
+export const errorDecodingAddress = (chainId, chainName, errorMessage) => ({
+  type: ERROR_DECODING_ADDRESS,
+  chainName,
   chainId,
   errorMessage,
 });

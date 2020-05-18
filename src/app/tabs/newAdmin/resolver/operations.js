@@ -6,10 +6,10 @@ import { validateBytes32 } from '../../../validations';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
-  receiveSetContent, errorSetContent, clearAllContent, errorMigrateAddresses,
+  receiveSetContent, errorSetContent, clearAllContent, errorDecodingAddress,
   requestMigrateAddresses, receiveMigrateAddresses, errorMigrateWithAddresses,
 } from './actions';
-import { getAllChainAddresses, getIndexById } from '../addresses/operations';
+import { getAllChainAddresses, getIndexById, getChainNameById } from '../addresses/operations';
 
 import {
   multiChainResolver as multiChainResolverAddress,
@@ -207,7 +207,10 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
   }
 };
 
-export const setDomainResolverAndMigrate = (domain, chainAddresses) => async (dispatch) => {
+
+export const setDomainResolverAndMigrate = (
+  domain, chainAddresses, understandWarning,
+) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -222,6 +225,7 @@ export const setDomainResolverAndMigrate = (domain, chainAddresses) => async (di
 
   // loop through nonEmpties and try to get decoded version of the address:
   const multiCallMethods = [];
+  let decodeError = false;
 
   nonEmpties.forEach((item) => {
     try {
@@ -235,10 +239,17 @@ export const setDomainResolverAndMigrate = (domain, chainAddresses) => async (di
         ).encodeABI(),
       );
     } catch (error) {
-      // isDecodeError = true;//@todo
-      dispatch(errorMigrateAddresses(item[1].chainId, error.message));
+      decodeError = true;
+      dispatch(errorDecodingAddress(
+        item[1].chainId, getChainNameById(item[1].chainId), error.message,
+      ));
     }
   });
+
+  // return if an error in decoding happened to let the user know
+  if (decodeError && !understandWarning) {
+    return dispatch(errorMigrateWithAddresses(''));
+  }
 
   await rns.compose();
 
@@ -268,7 +279,7 @@ export const setDomainResolverAndMigrate = (domain, chainAddresses) => async (di
       });
   });
 
-  Promise.all([setResolverPromise, setAddressesPromise]).then((values) => {
+  return Promise.all([setResolverPromise, setAddressesPromise]).then((values) => {
     // console.log(setResolverPromise, setAddressesPromise);
     dispatch(receiveMigrateAddresses(values));
     dispatch(getAllChainAddresses(domain, DEFINITIVE_RESOLVER));

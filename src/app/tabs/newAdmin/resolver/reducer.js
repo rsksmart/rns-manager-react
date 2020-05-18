@@ -2,7 +2,7 @@ import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
-  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_MIGRATE_ADDRESSES,
+  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_DECODING_ADDRESS,
   REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
 } from './types';
 
@@ -164,7 +164,7 @@ const resolverReducer = (state = initialState, action) => {
       },
     };
 
-    case ERROR_MIGRATE_ADDRESSES: return {
+    case ERROR_DECODING_ADDRESS: return {
       ...state,
       migrating: {
         ...state.migrating,
@@ -172,6 +172,7 @@ const resolverReducer = (state = initialState, action) => {
           ...state.migrating.errors,
           {
             chainId: action.chainId,
+            chainName: action.chainName,
             error: action.errorMessage,
           },
         ],

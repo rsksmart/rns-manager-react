@@ -29,7 +29,7 @@ export const addressDecoder = (address, chainIndex) => {
     try {
       encodeValue = formatsByCoinType[chainIndex].decoder(addr);
     } catch (error) {
-      throw new Error('Error converting:', address);
+      throw new Error(error.message);
     }
   }
 

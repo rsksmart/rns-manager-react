@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
 import {
-  Row, Col, Button, Form,
+  Row, Col, Button, Form, Alert,
 } from 'react-bootstrap';
 
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
@@ -11,10 +11,13 @@ import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
   strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolver,
-  isMigrating,
+  isMigrating, decodingErrors,
 }) => {
   const isMultiChainResolver = resolver === MULTICHAIN_RESOLVER;
+  const isDecodingErrors = decodingErrors.length !== 0;
+
   const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver);
+  const [understandWarning, setUnderstandWarning] = useState(isDecodingErrors);
 
   return (
     <>
@@ -29,28 +32,55 @@ const MigrateToMultiResolverComponent = ({
         <Col md={10}>
           <p>{strings.migrate_to_multi_resolver}</p>
           {isMultiChainResolver && (
-          <p>
-            <Form.Check
-              type="switch"
-              id="migrate-addr-switch"
-              label="Migrate my addresses during activation. This requires a second transaction."
-              checked={migrateAddresses}
-              onChange={() => setMigrateAddresses(!migrateAddresses)}
-              disabled={isMigrating}
-            />
-          </p>
+            <p>
+              <Form.Check
+                type="switch"
+                id="migrate-addr-switch"
+                label={strings.migrate_addresses_during}
+                checked={migrateAddresses}
+                onChange={() => setMigrateAddresses(!migrateAddresses)}
+                disabled={isMigrating}
+              />
+            </p>
           )}
         </Col>
         <Col md={2}>
           <Button
-            onClick={() => handleClick(migrateAddresses)}
+            onClick={() => handleClick(migrateAddresses, understandWarning)}
             className="migrate"
-            disabled={isEditing || isMigrating}
+            disabled={isEditing || isMigrating || (isDecodingErrors && !understandWarning)}
           >
             {strings.activate}
           </Button>
         </Col>
       </Row>
+
+      {isDecodingErrors && (
+      <Alert key="decode" variant="warning">
+        <h2>{strings.warning}</h2>
+        <p>{strings.decode_warning_explanation}</p>
+        <ul>
+          {decodingErrors.map(item => (
+            <li key={item.chainId}>
+              <strong>{item.chainName}</strong>
+              {': '}
+              {item.error}
+            </li>
+          ))}
+        </ul>
+        <p>
+          <Form.Check
+            type="switch"
+            id="understand-addr-switch"
+            label={strings.understand_warning}
+            checked={understandWarning}
+            disabled={isMigrating}
+            onChange={() => setUnderstandWarning(!understandWarning)}
+          />
+        </p>
+      </Alert>
+      )}
+
       <Row>
         <UserWaitingComponent
           message={strings.wait_transation_confirmed}
@@ -72,6 +102,10 @@ MigrateToMultiResolverComponent.propTypes = {
     migrate_to_multi_resolver: propTypes.string.isRequired,
     activate: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
+    migrate_addresses_during: propTypes.string.isRequired,
+    warning: propTypes.string.isRequired,
+    decode_warning_explanation: propTypes.string.isRequired,
+    understand_warning: propTypes.string.isRequired,
   }).isRequired,
   isWaiting: propTypes.bool.isRequired,
   isEditing: propTypes.bool.isRequired,
@@ -80,6 +114,11 @@ MigrateToMultiResolverComponent.propTypes = {
   errorMessage: propTypes.string.isRequired,
   resolver: propTypes.string.isRequired,
   isMigrating: propTypes.bool.isRequired,
+  decodingErrors: propTypes.arrayOf({
+    chainId: propTypes.string,
+    chainName: propTypes.string,
+    error: propTypes.string,
+  }).isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);
