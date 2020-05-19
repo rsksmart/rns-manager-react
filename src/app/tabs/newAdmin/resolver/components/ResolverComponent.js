@@ -7,7 +7,7 @@ import {
   PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER, DEFINITIVE_RESOLVER,
 } from '../types';
 import { SetResolverContainer, ViewRecordsContainer, NewRecordContainer } from '../containers';
-import { multiChainResolver } from '../../../../adapters/configAdapter';
+import { definitiveResolver } from '../../../../adapters/configAdapter';
 
 const ResolverComponent = ({
   strings, gettingResolver, resolverName,
@@ -39,7 +39,7 @@ const ResolverComponent = ({
           suggestions={[
             {
               name: strings.default_resolver,
-              value: multiChainResolver,
+              value: definitiveResolver,
             },
           ]}
           strings={{

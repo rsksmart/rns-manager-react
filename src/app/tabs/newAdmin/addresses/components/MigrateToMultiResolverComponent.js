@@ -55,7 +55,7 @@ const MigrateToMultiResolverComponent = ({
         </Col>
       </Row>
 
-      {isDecodingErrors && (
+      {(isDecodingErrors && !isWaiting) && (
       <Alert key="decode" variant="warning">
         <h2>{strings.warning}</h2>
         <p>{strings.decode_warning_explanation}</p>

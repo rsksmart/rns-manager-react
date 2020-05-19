@@ -229,26 +229,26 @@ export const setDomainResolverAndMigrate = (
   const nonEmpties = Object.entries(chainAddresses)
     .filter(item => item[1].address !== '' && item[1].address !== EMPTY_ADDRESS);
 
-  // loop through nonEmpties and try to get decoded version of the address:
+  // loop through nonEmpties and to get decoded version of the address, if valid, create
+  // the contract method and add it to the multiCallMethods array.
   const multiCallMethods = [];
   let decodeError = false;
-
   nonEmpties.forEach((item) => {
-    try {
-      // try to decode the address:
-      const decodedAddress = addressDecoder(item[1].address, getIndexById(item[1].chainId));
+    const decodedAddress = addressDecoder(item[1].address, getIndexById(item[1].chainId));
 
-      // add address to the multiCallMethods array:
+    // if returned a string, it is an error:
+    if (typeof (decodedAddress) === 'string') {
+      decodeError = true;
+      dispatch(errorDecodingAddress(
+        item[1].chainId, getChainNameById(item[1].chainId), decodedAddress,
+      ));
+    } else {
+    // valid address to be added to the multiCallMethods array:
       multiCallMethods.push(
         definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
           hash, item[1].chainId, decodedAddress,
         ).encodeABI(),
       );
-    } catch (error) {
-      decodeError = true;
-      dispatch(errorDecodingAddress(
-        item[1].chainId, getChainNameById(item[1].chainId), error.message,
-      ));
     }
   });
 
@@ -258,7 +258,6 @@ export const setDomainResolverAndMigrate = (
   }
 
   await rns.compose();
-
   const setResolverPromise = new Promise((resolve, reject) => {
     rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
       .send({ from: currentAddress }, (error, result) => {
@@ -292,6 +291,6 @@ export const setDomainResolverAndMigrate = (
     sendBrowserNotification(domain, 'resolver_migration_complete');
   })
     .catch((error) => {
-      dispatch(errorMigrateWithAddresses(`One or both of the transactions had an error: ${error.message}`));
+      dispatch(errorMigrateWithAddresses(`One of the transactions had an error: ${error.message}`));
     });
 };
