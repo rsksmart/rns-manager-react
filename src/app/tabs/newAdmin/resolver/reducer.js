@@ -4,6 +4,7 @@ import {
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
   RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_DECODING_ADDRESS,
   REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
+  CLEAR_MIGRATE_CONTENT,
 } from './types';
 
 const initialState = {
@@ -154,7 +155,6 @@ const resolverReducer = (state = initialState, action) => {
         errors: [],
       },
     };
-
     case RECEIVE_MIGRATE_ADDRESSES: return {
       ...state,
       migrating: {
@@ -163,7 +163,6 @@ const resolverReducer = (state = initialState, action) => {
         migrationComplete: true,
       },
     };
-
     case ERROR_DECODING_ADDRESS: return {
       ...state,
       migrating: {
@@ -178,7 +177,6 @@ const resolverReducer = (state = initialState, action) => {
         ],
       },
     };
-
     case ERROR_MIGRATE_WITH_ADDRESSES: return {
       ...state,
       isWaiting: false,
@@ -186,6 +184,14 @@ const resolverReducer = (state = initialState, action) => {
       migrating: {
         ...state.migrating,
         isMigrating: false,
+      },
+    };
+    case CLEAR_MIGRATE_CONTENT: return {
+      ...state,
+      migrating: {
+        isMigrating: false,
+        errors: [],
+        migrationComplete: false,
       },
     };
 

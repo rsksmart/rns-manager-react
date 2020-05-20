@@ -3,6 +3,18 @@ import { MigrateToMultiResolverComponent } from '../components';
 import { definitiveResolver } from '../../../../adapters/configAdapter';
 import { setDomainResolver, setDomainResolverAndMigrate } from '../../resolver/operations';
 import { closeMessage } from '../../resolver/actions';
+import { EMPTY_ADDRESS } from '../../types';
+
+const hasAddresses = (chainAddresses) => {
+  let result = false;
+  Object.entries(chainAddresses).map((chainAddress) => {
+    if (chainAddress[1].address !== '' && chainAddress[1].address !== EMPTY_ADDRESS) {
+      result = true;
+    }
+    return false;
+  });
+  return result;
+};
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -15,8 +27,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, migrateAddresses, chainAddresses, understandWarning) => {
-    if (!migrateAddresses) {
+  handleClick: (domain, migrateAddresses, chainAddresses, understandWarning, hasMigration) => {
+    if (!migrateAddresses || !hasMigration) {
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
       dispatch(setDomainResolverAndMigrate(domain, chainAddresses, understandWarning));
@@ -31,8 +43,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
   handleClick: (migrateAddresses, understandWarning) => dispatchProps.handleClick(
     stateProps.domain, migrateAddresses, stateProps.chainAddresses, understandWarning,
+    hasAddresses(stateProps.chainAddresses),
   ),
   handleCloseClick: () => dispatchProps.closeErrorMessage(),
+  hasAddresses: hasAddresses(stateProps.chainAddresses),
 });
 
 export default connect(

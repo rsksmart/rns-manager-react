@@ -25,12 +25,6 @@
     "index": 145
   },
   {
-    "name": "Cosmos (ATOM)",
-    "id": "0x80000076",
-    "icon": "icon_atomic.png",
-    "index": 118
-  },  
-  {
     "name": "Dash",
     "id": "0x80000005",
     "icon": "icon_dash.png",

@@ -11,7 +11,7 @@ import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
   strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolver,
-  isMigrating, decodingErrors,
+  isMigrating, decodingErrors, hasAddresses,
 }) => {
   const isMultiChainResolver = resolver === MULTICHAIN_RESOLVER;
   const isDecodingErrors = decodingErrors.length !== 0;
@@ -31,7 +31,7 @@ const MigrateToMultiResolverComponent = ({
       <Row>
         <Col md={10}>
           <p>{strings.migrate_to_multi_resolver}</p>
-          {isMultiChainResolver && (
+          {(isMultiChainResolver && hasAddresses) && (
             <p>
               <Form.Check
                 type="switch"
@@ -119,6 +119,7 @@ MigrateToMultiResolverComponent.propTypes = {
     chainName: propTypes.string,
     error: propTypes.string,
   }).isRequired,
+  hasAddresses: propTypes.bool.isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);

@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
 import { MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, DEFINITIVE_RESOLVER } from '../../resolver/types';
+import { EMPTY_ADDRESS } from '../../types';
 import { truncateString } from '../../helpers';
 
 const YourAddressesComponent = ({
@@ -23,7 +24,7 @@ const YourAddressesComponent = ({
       </p>
 
       {Object.entries(chainAddresses).map((chainAddress) => {
-        if (chainAddress[1].address === '' || chainAddress[1].address === '0x0000000000000000000000000000000000000000') {
+        if (chainAddress[1].address === '' || chainAddress[1].address === EMPTY_ADDRESS) {
           return (<></>);
         }
 

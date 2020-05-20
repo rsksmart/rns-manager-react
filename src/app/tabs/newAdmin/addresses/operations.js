@@ -14,6 +14,7 @@ import {
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
   errorChainAddress, clearAddresses, closeSetChainAddress,
 } from './actions';
+import { clearMigrateContent } from '../resolver/actions';
 
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 import { definitiveResolverAbi } from '../resolver/definitiveAbis.json';
@@ -270,6 +271,7 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
  */
 export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
   dispatch(clearAddresses());
+  dispatch(clearMigrateContent());
   switch (resolverName) {
     case PUBLIC_RESOLVER:
       dispatch(getPublicChainAddresses(domain));
