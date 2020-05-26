@@ -90,6 +90,7 @@ const registrar = (state = initialState, action) => {
     };
     case OPTIONS_NOT_FOUND: return {
       ...state,
+      ...state.conversionRate,
       ...initialState,
     };
     case REQUEST_CONVERSION_RATE: return {
