@@ -16,14 +16,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCost: (domain, duration) => dispatch(getCost(domain, duration)),
-  getConversionRate: () => dispatch(getConversionRate()),
+  getConversionRate: rate => (!rate ? dispatch(getConversionRate(rate)) : false),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   getCost: duration => dispatchProps.getCost(stateProps.domain, duration),
-  getConversionRate: () => dispatchProps.getConversionRate(),
+  getConversionRate: () => dispatchProps.getConversionRate(stateProps.conversionRate),
 });
 
 export default connect(
