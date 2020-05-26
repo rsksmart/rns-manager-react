@@ -1,0 +1,432 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RenewButtonComponent renders without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(ShareButtonComponent)
+    domain="foobar.rsk"
+  >
+    <ShareButtonComponent
+      currentLanguageCode="en"
+      dispatch={[Function]}
+      domain="foobar.rsk"
+      strings={
+        Object {
+          "copied": "copied",
+          "copy_text": "Copy text",
+          "email": "Email",
+          "link": "Link",
+          "my_rsk_domain": "My RSK domain",
+          "share_your_domain": "Share your domain",
+          "whatsapp": "WhatsApp",
+        }
+      }
+    >
+      <OverlayTrigger
+        defaultOverlayShown={false}
+        key="share"
+        overlay={
+          <ForwardRef
+            id="share-popover"
+            placement="right"
+          >
+            <ForwardRef>
+              <h2>
+                Share your domain
+              </h2>
+              <ForwardRef
+                noGutters={true}
+              >
+                <ForwardRef
+                  sm={4}
+                >
+                  <a
+                    className="btn-link whatsapp"
+                    href="whatsapp://send?text=My%20RSK%20domain:%20/resolve?name=foobar.rsk"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="WhatsApp"
+                      src="mock-image"
+                    />
+                    WhatsApp
+                  </a>
+                </ForwardRef>
+                <ForwardRef
+                  sm={4}
+                >
+                  <a
+                    className="btn-link email"
+                    href="mailto:?subject=My%20RSK%20domain&body=My%20RSK%20domain%20/resolve?name=foobar.rsk"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="Email"
+                      src="mock-image"
+                    />
+                    Email
+                  </a>
+                </ForwardRef>
+                <ForwardRef
+                  sm={4}
+                >
+                  <ForwardRef
+                    active={false}
+                    className="link"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                    variant="link"
+                  >
+                    <img
+                      alt="Link"
+                      src="mock-image"
+                    />
+                    Link
+                  </ForwardRef>
+                </ForwardRef>
+              </ForwardRef>
+            </ForwardRef>
+          </ForwardRef>
+        }
+        placement="right"
+        trigger="click"
+      >
+        <RefHolder>
+          <Button
+            active={false}
+            className="share-button"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+            variant="link"
+          >
+            <button
+              className="share-button btn btn-link"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Share"
+                src="mock-image"
+              />
+            </button>
+          </Button>
+        </RefHolder>
+        <Overlay
+          defaultOverlayShown={false}
+          onHide={[Function]}
+          placement="right"
+          popperConfig={
+            Object {
+              "modifiers": Object {
+                "ariaModifier": Object {
+                  "enabled": true,
+                  "fn": [Function],
+                  "order": 900,
+                },
+              },
+            }
+          }
+          rootClose={false}
+          show={true}
+          target={[Function]}
+          transition={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "defaultProps": Object {
+                "appear": false,
+                "in": false,
+                "mountOnEnter": false,
+                "timeout": 300,
+                "unmountOnExit": false,
+              },
+              "displayName": "Fade",
+              "render": [Function],
+            }
+          }
+        >
+          <Overlay
+            containerPadding={5}
+            defaultOverlayShown={false}
+            onHide={[Function]}
+            placement="right"
+            popperConfig={
+              Object {
+                "modifiers": Object {
+                  "ariaModifier": Object {
+                    "enabled": true,
+                    "fn": [Function],
+                    "order": 900,
+                  },
+                },
+              }
+            }
+            rootClose={false}
+            show={true}
+            target={[Function]}
+            transition={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "defaultProps": Object {
+                  "appear": false,
+                  "in": false,
+                  "mountOnEnter": false,
+                  "timeout": 300,
+                  "unmountOnExit": false,
+                },
+                "displayName": "Fade",
+                "render": [Function],
+              }
+            }
+          >
+            <Portal
+              containerInfo={
+                <body>
+                  <div
+                    class="fade show popover bs-popover-right"
+                    id="share-popover"
+                    role="tooltip"
+                    style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+                    x-placement="right"
+                  >
+                    <div
+                      class="arrow"
+                    />
+                    <div
+                      class="popover-body"
+                    >
+                      <h2>
+                        Share your domain
+                      </h2>
+                      <div
+                        class="row no-gutters"
+                      >
+                        <div
+                          class="col-sm-4"
+                        >
+                          <a
+                            class="btn-link whatsapp"
+                            href="whatsapp://send?text=My%20RSK%20domain:%20/resolve?name=foobar.rsk"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <img
+                              alt="WhatsApp"
+                              src="mock-image"
+                            />
+                            WhatsApp
+                          </a>
+                        </div>
+                        <div
+                          class="col-sm-4"
+                        >
+                          <a
+                            class="btn-link email"
+                            href="mailto:?subject=My%20RSK%20domain&body=My%20RSK%20domain%20/resolve?name=foobar.rsk"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <img
+                              alt="Email"
+                              src="mock-image"
+                            />
+                            Email
+                          </a>
+                        </div>
+                        <div
+                          class="col-sm-4"
+                        >
+                          <button
+                            class="link btn btn-link"
+                            type="button"
+                          >
+                            <img
+                              alt="Link"
+                              src="mock-image"
+                            />
+                            Link
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </body>
+              }
+            >
+              <Fade
+                appear={true}
+                in={true}
+                mountOnEnter={false}
+                onExited={[Function]}
+                timeout={300}
+                unmountOnExit={false}
+              >
+                <Transition
+                  addEndListener={[Function]}
+                  appear={true}
+                  enter={true}
+                  exit={true}
+                  in={true}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={300}
+                  unmountOnExit={false}
+                >
+                  <ForwardRef
+                    arrowProps={
+                      Object {
+                        "ref": [Function],
+                        "style": Object {},
+                      }
+                    }
+                    className="fade show"
+                    id="share-popover"
+                    outOfBoundaries={false}
+                    placement="right"
+                    scheduleUpdate={[Function]}
+                    style={
+                      Object {
+                        "left": "0",
+                        "opacity": "0",
+                        "pointerEvents": "none",
+                        "position": "absolute",
+                        "top": "0",
+                      }
+                    }
+                  >
+                    <div
+                      className="fade show popover bs-popover-right"
+                      id="share-popover"
+                      role="tooltip"
+                      style={
+                        Object {
+                          "left": "0",
+                          "opacity": "0",
+                          "pointerEvents": "none",
+                          "position": "absolute",
+                          "top": "0",
+                        }
+                      }
+                      x-placement="right"
+                    >
+                      <div
+                        className="arrow"
+                        style={Object {}}
+                      />
+                      <ForwardRef>
+                        <div
+                          className="popover-body"
+                        >
+                          <h2>
+                            Share your domain
+                          </h2>
+                          <ForwardRef
+                            noGutters={true}
+                          >
+                            <div
+                              className="row no-gutters"
+                            >
+                              <Col
+                                sm={4}
+                              >
+                                <div
+                                  className="col-sm-4"
+                                >
+                                  <a
+                                    className="btn-link whatsapp"
+                                    href="whatsapp://send?text=My%20RSK%20domain:%20/resolve?name=foobar.rsk"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                  >
+                                    <img
+                                      alt="WhatsApp"
+                                      src="mock-image"
+                                    />
+                                    WhatsApp
+                                  </a>
+                                </div>
+                              </Col>
+                              <Col
+                                sm={4}
+                              >
+                                <div
+                                  className="col-sm-4"
+                                >
+                                  <a
+                                    className="btn-link email"
+                                    href="mailto:?subject=My%20RSK%20domain&body=My%20RSK%20domain%20/resolve?name=foobar.rsk"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                  >
+                                    <img
+                                      alt="Email"
+                                      src="mock-image"
+                                    />
+                                    Email
+                                  </a>
+                                </div>
+                              </Col>
+                              <Col
+                                sm={4}
+                              >
+                                <div
+                                  className="col-sm-4"
+                                >
+                                  <Button
+                                    active={false}
+                                    className="link"
+                                    disabled={false}
+                                    onClick={[Function]}
+                                    type="button"
+                                    variant="link"
+                                  >
+                                    <button
+                                      className="link btn btn-link"
+                                      disabled={false}
+                                      onClick={[Function]}
+                                      type="button"
+                                    >
+                                      <img
+                                        alt="Link"
+                                        src="mock-image"
+                                      />
+                                      Link
+                                    </button>
+                                  </Button>
+                                </div>
+                              </Col>
+                            </div>
+                          </ForwardRef>
+                        </div>
+                      </ForwardRef>
+                    </div>
+                  </ForwardRef>
+                </Transition>
+              </Fade>
+            </Portal>
+          </Overlay>
+        </Overlay>
+      </OverlayTrigger>
+    </ShareButtonComponent>
+  </Connect(ShareButtonComponent)>
+</Provider>
+`;

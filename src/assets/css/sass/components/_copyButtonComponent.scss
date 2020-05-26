@@ -3,12 +3,21 @@
 
   button {
     border: none;
-    background: $white;
+    background-color: rgba(0,0,0,0) !important;
     margin-left:.25em;
 
     img {
       width: 25px;
     }
+  }
+
+  button:hover {
+    border: none !important;
+  }
+
+  .response {
+    color: $gray !important;
+    font-weight: 300 !important;
   }
 
   .copyText {

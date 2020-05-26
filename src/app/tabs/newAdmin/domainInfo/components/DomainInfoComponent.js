@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import { ReclaimContainer } from '../../containers';
+import ShareButtonComponent from './ShareButtonComponent';
 
 import {
   TransferAddressContainer, RenewButtonContainer, RenewDomainContainer,
@@ -43,6 +44,7 @@ const DomainInfoComponent = (props) => {
           <div className="domain">
             {domain}
             <CopyButtonComponent text={domain} />
+            <ShareButtonComponent domain={domain} />
           </div>
         </Col>
         {!isSubdomain && (
