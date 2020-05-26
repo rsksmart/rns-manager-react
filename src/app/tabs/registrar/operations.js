@@ -6,6 +6,7 @@ import {
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
   errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
   requestConversionRate, recieveConversionRate, errorConversionRate,
+  requestCheckCommitRegistrar,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -105,8 +106,17 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
             contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
           }));
 
+          const transactionFailed = (errorReason) => {
+            localStorage.removeItem(`${domain}-options`);
+            dispatch(errorRegistrarCommit(errorReason));
+          };
+
           dispatch(receiveCommitRegistrar(hashCommit));
-          return dispatch(transactionListener(result, () => dispatch(commitTxMined())));
+          return dispatch(transactionListener(
+            result,
+            () => dispatch(commitTxMined()),
+            errorReason => transactionFailed(errorReason),
+          ));
         });
       });
   });
@@ -154,7 +164,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   options = JSON.parse(options);
   const { salt, contract } = options;
 
-  dispatch(requestCommitRegistrar());
+  dispatch(requestCheckCommitRegistrar());
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];

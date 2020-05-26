@@ -5,7 +5,7 @@ import {
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
-  TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR,
+  TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -21,6 +21,10 @@ export const receiveGetCost = (rifCost, hasBalance) => ({
 
 export const requestCommitRegistrar = () => ({
   type: REQUEST_REGISTRAR_COMMIT,
+});
+
+export const requestCheckCommitRegistrar = () => ({
+  type: REQUEST_CHECK_COMMIT_REGISTRAR,
 });
 
 export const receiveCommitRegistrar = (hash, commitConfirmed) => ({

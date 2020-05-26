@@ -5,6 +5,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
 import { ERROR_RESOLVE_NAME } from '../tabs/resolve/types';
 import { ADDRESS_ENCODING_ERROR } from '../tabs/newAdmin/addresses/types';
+import { TRANSACTION_RECEIPT_FAILED } from '../types';
 
 import closeRed from '../../assets/img/close-red.svg';
 
@@ -20,6 +21,7 @@ const UserErrorComponent = ({
       case ERROR_SAME_VALUE: return strings.same_value;
       case ERROR_RESOLVE_NAME: return strings.resolve_not_set;
       case ADDRESS_ENCODING_ERROR: return strings.could_not_encode_address;
+      case TRANSACTION_RECEIPT_FAILED: return strings.transaction_receipt_failed;
       default: return message;
     }
   };
@@ -52,6 +54,7 @@ UserErrorComponent.propTypes = {
     same_value: propTypes.string.isRequired,
     resolve_not_set: propTypes.string.isRequired,
     could_not_encode_address: propTypes.string.isRequired,
+    transaction_receipt_failed: propTypes.string.isRequired,
   }).isRequired,
   title: propTypes.string,
   message: propTypes.string,

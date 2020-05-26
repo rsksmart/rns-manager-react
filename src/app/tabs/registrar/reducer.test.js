@@ -147,10 +147,14 @@ describe('register reducer', () => {
     expect(
       reducer({}, {
         type: ERROR_REGISTRAR_COMMIT,
+        message: 'error',
       }),
     ).toEqual({
       committing: false,
       committed: false,
+      waiting: false,
+      errorMessage: 'error',
+      hash: null,
     });
   });
 
@@ -215,10 +219,14 @@ describe('register reducer', () => {
         committing: true,
       }, {
         type: ERROR_REGISTRAR_COMMIT,
+        message: '',
       }),
     ).toEqual({
       committing: false,
       committed: false,
+      errorMessage: '',
+      waiting: false,
+      hash: null,
     });
   });
 
