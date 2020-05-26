@@ -240,7 +240,11 @@ export const revealCommit = domain => async (dispatch) => {
           localStorage.removeItem(`${domain}-options`);
         };
 
-        return resolve(dispatch(transactionListener(result, () => revealCallback())));
+        return resolve(dispatch(transactionListener(
+          result,
+          () => revealCallback(),
+          errorReason => dispatch(errorRevealCommit(errorReason)),
+        )));
       });
   });
 };
