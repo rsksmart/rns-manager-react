@@ -41,7 +41,7 @@
     "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "env-cmd -f .env.testnet react-scripts build",
     "build:mainnet": "env-cmd -f .env.production react-scripts build",
-    "test": "node ./tests/setupRnsSuite.js && jest && eslint src",
+    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "lint": "eslint src"
   },
