@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCost: (domain, duration) => dispatch(getCost(domain, duration)),
-  getConversionRate: rate => !rate && dispatch(getConversionRate(rate)),
+  getConversionRate: rate => !rate && dispatch(getConversionRate()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
