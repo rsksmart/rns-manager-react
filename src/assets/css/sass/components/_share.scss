@@ -1,0 +1,55 @@
+button.share-button:hover {
+  border: none !important;
+}
+
+#share-popover {
+  border: none !important;
+
+  .arrow {
+    display: none;
+  }
+
+  .popover-body {
+    background-color: $light-gray;
+    border-radius: 12px;
+    text-align: center;
+
+    h2 {
+      font-size: 16px !important;
+    }
+    
+    .row {
+      min-width: 250px;
+
+      .btn-link:hover {
+        border-color: $light-gray !important;
+        text-decoration: none !important;
+        font-weight: 400 !important;
+        color: $blue !important;
+      }
+
+      .btn-link {
+        color: $gray !important;
+
+        img {
+          display: block;
+          margin: 0 auto 5px auto;
+          width: 30px;
+        }
+      }
+
+      .btn-link.active {
+        color: $light-gray;
+      }
+    }
+
+    .share-link {
+      input {
+        padding: 5px;
+        border-radius: 10px;
+        margin: 0 10px;
+        width: 90%;
+      }
+    }
+  }
+}
