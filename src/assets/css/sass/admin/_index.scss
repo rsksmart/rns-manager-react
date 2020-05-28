@@ -22,6 +22,12 @@
     }
   }
 
+  .custom-switch {
+    * {
+      cursor: pointer;
+    }
+  }
+
   color: $gray;
   text-align: left;
 

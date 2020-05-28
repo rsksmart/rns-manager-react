@@ -11,13 +11,18 @@ import { MULTICHAIN_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
   strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolver,
-  isMigrating, decodingErrors, hasAddresses,
+  isMigrating, decodingErrors, hasAddresses, clearMigrateWarning,
 }) => {
   const isMultiChainResolver = resolver === MULTICHAIN_RESOLVER;
   const isDecodingErrors = decodingErrors.length !== 0;
 
   const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver);
   const [understandWarning, setUnderstandWarning] = useState(isDecodingErrors);
+
+  const handleMigrateAddressSwitch = () => {
+    setMigrateAddresses(!migrateAddresses);
+    clearMigrateWarning();
+  };
 
   return (
     <>
@@ -38,7 +43,7 @@ const MigrateToMultiResolverComponent = ({
                 id="migrate-addr-switch"
                 label={strings.migrate_addresses_during}
                 checked={migrateAddresses}
-                onChange={() => setMigrateAddresses(!migrateAddresses)}
+                onChange={handleMigrateAddressSwitch}
                 disabled={isMigrating}
               />
             </p>
@@ -62,9 +67,7 @@ const MigrateToMultiResolverComponent = ({
         <ul>
           {decodingErrors.map(item => (
             <li key={item.chainId}>
-              <strong>{item.chainName}</strong>
-              {': '}
-              {item.error}
+              {item.chainName}
             </li>
           ))}
         </ul>
@@ -120,6 +123,7 @@ MigrateToMultiResolverComponent.propTypes = {
     error: propTypes.string,
   }).isRequired,
   hasAddresses: propTypes.bool.isRequired,
+  clearMigrateWarning: propTypes.func.isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);

@@ -123,7 +123,6 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
  */
 export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
   dispatch(requestSetResolver());
-
   const lowerResolverAddress = resolverAddress.toLowerCase();
 
   const accounts = await window.ethereum.enable();
@@ -225,31 +224,32 @@ export const setDomainResolverAndMigrate = (
     definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
   );
 
-  // convert JSON object into array and filter out empty items:
-  const nonEmpties = Object.entries(chainAddresses)
-    .filter(item => item[1].address !== '' && item[1].address !== EMPTY_ADDRESS);
-
-  // loop through nonEmpties and to get decoded version of the address, if valid, create
-  // the contract method and add it to the multiCallMethods array.
+  // loop through addresses and skip empties, then get decoded version of the address,
+  // if valid, create the contract method and add it to the multiCallMethods array.
   const multiCallMethods = [];
   let decodeError = false;
-  nonEmpties.forEach((item) => {
+  Object.entries(chainAddresses).forEach((item) => {
+    // if address is empty, do not continue
+    if (item[1].address === '' || item[1].address === EMPTY_ADDRESS) {
+      return false;
+    }
+
     const decodedAddress = addressDecoder(item[1].address, getIndexById(item[1].chainId));
 
     // if returned a string, it is an error:
     if (typeof (decodedAddress) === 'string') {
       decodeError = true;
-      dispatch(errorDecodingAddress(
+      return dispatch(errorDecodingAddress(
         item[1].chainId, getChainNameById(item[1].chainId), decodedAddress,
       ));
-    } else {
-    // valid address to be added to the multiCallMethods array:
-      multiCallMethods.push(
-        definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
-          hash, item[1].chainId, decodedAddress,
-        ).encodeABI(),
-      );
     }
+
+    // valid address to be added to the multiCallMethods array:
+    return multiCallMethods.push(
+      definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
+        hash, item[1].chainId, decodedAddress,
+      ).encodeABI(),
+    );
   });
 
   // return if an error in decoding happened to let the user know
@@ -258,39 +258,29 @@ export const setDomainResolverAndMigrate = (
   }
 
   await rns.compose();
-  const setResolverPromise = new Promise((resolve, reject) => {
-    rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
-      .send({ from: currentAddress }, (error, result) => {
-        if (error) {
-          return reject(new Error(`Setting the Resolver: ${error.message}`));
-        }
-        return dispatch(transactionListener(result, () => () => {
-          dispatch(receiveSetResolver(
-            result, definitiveResolverAddress, DEFINITIVE_RESOLVER,
-          ));
-          resolve(result);
-        }));
-      });
-  });
+  const migratePromise = [
+    new Promise((resolve, reject) => {
+      rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+    new Promise((resolve, reject) => {
+      definitiveResolver.methods.multicall(multiCallMethods)
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+  ];
 
-  const setAddressesPromise = new Promise((resolve, reject) => {
-    definitiveResolver.methods.multicall(multiCallMethods)
-      .send({ from: currentAddress }, (error, result) => {
-        if (error) {
-          return reject(new Error(`Setting the Addresses: ${error.message}`));
-        }
-
-        return dispatch(transactionListener(result, () => () => resolve(result)));
-      });
-  });
-
-  return Promise.all([setResolverPromise, setAddressesPromise]).then((values) => {
+  return Promise.all(migratePromise).then((values) => {
+    dispatch(receiveSetResolver(
+      values[0], definitiveResolverAddress, DEFINITIVE_RESOLVER,
+    ));
     dispatch(receiveMigrateAddresses(values));
     dispatch(getAllChainAddresses(domain, DEFINITIVE_RESOLVER));
     dispatch(supportedInterfaces(definitiveResolverAddress, domain));
     sendBrowserNotification(domain, 'resolver_migration_complete');
   })
-    .catch((error) => {
-      dispatch(errorMigrateWithAddresses(`One of the transactions had an error: ${error.message}`));
+    .catch(() => {
+      dispatch(errorMigrateWithAddresses('One of the transactions had an error.'));
     });
 };

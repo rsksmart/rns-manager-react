@@ -393,6 +393,6 @@
   "resolver_migration_complete": "Migration complete!",
   "migrate_addresses_during": "Migrate my addresses during activation. This will require a second transaction.",
   "warning": "Warning",
-  "decode_warning_explanation": "The following addresses could not be converted into the address format required by the Multicoin Addresses Resolver.",
-  "understand_warning": "I understand that the following addresses will not get converted."
+  "decode_warning_explanation": "The following addresses are not valid and cannot be migrated. You can set them up again later.",
+  "understand_warning": "I understand."
 }

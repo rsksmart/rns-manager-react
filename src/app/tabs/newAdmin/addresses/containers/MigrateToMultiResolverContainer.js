@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { MigrateToMultiResolverComponent } from '../components';
 import { definitiveResolver } from '../../../../adapters/configAdapter';
 import { setDomainResolver, setDomainResolverAndMigrate } from '../../resolver/operations';
-import { closeMessage } from '../../resolver/actions';
+import { closeMessage, clearMigrateContent } from '../../resolver/actions';
 import { EMPTY_ADDRESS } from '../../types';
 
 const hasAddresses = (chainAddresses) => {
@@ -35,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   closeErrorMessage: () => dispatch(closeMessage()),
+  clearMigrateWarning: () => dispatch(clearMigrateContent()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -47,6 +48,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ),
   handleCloseClick: () => dispatchProps.closeErrorMessage(),
   hasAddresses: hasAddresses(stateProps.chainAddresses),
+  clearMigrateWarning: () => dispatchProps.clearMigrateWarning(),
 });
 
 export default connect(

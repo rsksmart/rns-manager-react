@@ -131,11 +131,11 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
  */
 const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
+  dispatch(requestSetChainAddress(chainName));
+
   const chainIndex = getIndexById(chainId);
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
-
-  dispatch(requestSetChainAddress(chainName));
 
   // encode value if it is not empty:
   let encodeValue = address;
@@ -154,7 +154,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
         return dispatch(errorSetChainAddress(chainName, error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveSetChainAddress(
           chainId, getChainNameById(chainId), address, result, isNew,
         ));
@@ -170,7 +170,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(result, () => transactionConfirmed));
     });
 };
 
@@ -247,7 +247,7 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
 
   return definitiveResolver.methods.addr(hash, chainId).call()
     .then((addr) => {
-      if (!addr) {
+      if (!addr || addr === EMPTY_ADDRESS) {
         return dispatch(receiveChainAddress(chainId, chainName, ''));
       }
 
@@ -277,7 +277,12 @@ export const getAllChainAddresses = (domain, resolverName) => (dispatch) => {
       dispatch(getPublicChainAddresses(domain));
       break;
     case MULTICHAIN_RESOLVER:
-      networks.map(network => dispatch(getMultiChainAddresses(domain, network.id)));
+      networks.map((network) => {
+        if (network.multi) {
+          return dispatch(getMultiChainAddresses(domain, network.id));
+        }
+        return false;
+      });
       break;
     case DEFINITIVE_RESOLVER:
       networks.map(network => dispatch(getMultiCoinAddresses(domain, network.id)));

@@ -32,6 +32,8 @@ const resolverReducer = (state = initialState, action) => {
         [action.chainName]: {
           ...state.chainAddresses[action.chainName],
           isEditing: true,
+          isError: '',
+          isSuccess: '',
         },
       },
     };
@@ -98,6 +100,7 @@ const resolverReducer = (state = initialState, action) => {
     case CLOSE_SET_CHAIN_ADDRESS: return {
       ...state,
       newChainAddress: '',
+      newChainSuccess: false,
       chainAddresses: {
         ...state.chainAddresses,
         [action.chainName]: {

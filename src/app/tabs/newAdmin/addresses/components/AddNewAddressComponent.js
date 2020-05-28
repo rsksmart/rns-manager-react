@@ -29,15 +29,16 @@ const AddNewAddressComponent = ({
   const [checksumError, setChecksumError] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0][1].chainId);
   const [address, setAddress] = useState('');
-  const [localReset, setLocalRest] = useState(false);
 
   const networkName = getChainNameById(selectedNetwork);
 
-  // reset the state and select new network when newSuccess is finished
-  if (newSuccess && !localReset) {
+  // reset the state and select new network when newSuccess is finished and
+  // selectedNetwork is not in the list of avaialable networks
+  if (
+    newSuccess && (networks.filter(item => item[1].chainId === selectedNetwork).length === 0)
+  ) {
     setSelectedNetwork(networks[0][1].chainId);
     setAddress('');
-    setLocalRest(true);
   }
 
   const handleAddClick = () => {
@@ -62,7 +63,6 @@ const AddNewAddressComponent = ({
   const handleChecksumClick = (lowerAddress) => {
     setChecksumError(false);
     setAddress(lowerAddress);
-    setLocalRest(false);
     handleClick(selectedNetwork, lowerAddress);
   };
 
@@ -92,6 +92,7 @@ const AddNewAddressComponent = ({
           <select
             onChange={evt => setSelectedNetwork(evt.target.value)}
             value={selectedNetwork}
+            disabled={isEditing}
           >
             {networks.map(chainAddress => (
               <option value={chainAddress[1].chainId}>{chainAddress[0]}</option>))}
