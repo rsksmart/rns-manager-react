@@ -59,6 +59,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
           "could_not_encode_address": "Could not encode address for the network.",
           "resolve_not_set": "Could not resolve domain",
           "same_value": "Input is the same as the value",
+          "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
           "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
         }
       }
@@ -142,6 +143,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
                 "could_not_encode_address": "Could not encode address for the network.",
                 "resolve_not_set": "Could not resolve domain",
                 "same_value": "Input is the same as the value",
+                "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
                 "wait_transation_confirmed": "Wait until the transaction is confirmed. It will take less than a minute.",
               }
             }
