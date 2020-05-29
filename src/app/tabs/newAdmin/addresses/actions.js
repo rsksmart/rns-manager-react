@@ -14,10 +14,11 @@ export const waitingSetChainAddress = chainName => ({
   chainName,
 });
 
-export const errorSetChainAddress = (chainName, message) => ({
+export const errorSetChainAddress = (chainName, message, address) => ({
   type: ERROR_SET_CHAIN_ADDRESS,
   chainName,
   message,
+  address,
 });
 
 export const closeSetChainAddress = chainName => ({

@@ -3,27 +3,103 @@
     "name": "RSK",
     "id": "0x80000089",
     "validation": "HEX",
-    "icon": "/assets/icons/icon_rsk.png"
+    "icon": "icon_rsk.png",
+    "index": 137,
+    "multi": true
+  },
+  {
+    "name": "Binance Coin",
+    "id": "0x800002ca",
+    "icon": "icon_binance_coin.png",
+    "index": 714
   },
   {
     "name": "Bitcoin",
     "id": "0x80000000",
-    "icon": "/assets/icons/icon_btc.png"
+    "icon": "icon_btc.png",
+    "index": 0,
+    "multi": true
+  },
+  {
+    "name": "Bitcoin Cash",
+    "id": "0x80000091",
+    "icon": "icon_bitconcash.png",
+    "index": 145,
+    "multi": true
+  },
+  {
+    "name": "Dash",
+    "id": "0x80000005",
+    "icon": "icon_dash.png",
+    "index": 5
+  },
+  {
+    "name": "Dogecoin",
+    "id": "0x80000003",
+    "icon": "icon_dogecoin.png",
+    "index": 3
   },
   {
     "name": "Ethereum",
     "id": "0x8000003c",
     "validation": "HEX",
-    "icon": "/assets/icons/icon_eth.png"
+    "icon": "icon_eth.png",
+    "index": 60,
+    "multi": true
+  },
+  {
+    "name": "Ethereum Classic",
+    "id": "0x8000003d",
+    "icon": "ethereum_classic.png",
+    "index": 61
+  },
+  {
+    "name": "EOS",
+    "id": "0x800000c2",
+    "icon": "icon_eos.png",
+    "index": 194
+  },
+  {
+    "name": "Kusama",
+    "id": "0x800001b2",
+    "icon": "icon_kusama.png",
+    "index": 434
   },
   {
     "name": "Litecoin",
     "id": "0x80000002",
-    "icon": "/assets/icons/icon_ltc.png"
+    "icon": "icon_ltc.png",
+    "index": 2,
+    "multi": true
   },
   {
-    "name": "Bitcoin Cash",
-    "id": "0x80000091",
-    "icon": "/assets/icons/icon_bitconcash.png"
+    "name": "MonaCoin",
+    "id": "0x80000016",
+    "icon": "icon_monacoin.png",
+    "index": 22
+  },
+  {
+    "name": "NEM",
+    "id": "0x8000002b",
+    "icon": "icon_nem.png",
+    "index": 43
+  },
+  {
+    "name": "Stellar",
+    "id": "0x80000094",
+    "icon": "icon_stellar.png",
+    "index": 148
+  },
+  {
+    "name": "XRP",
+    "id": "0x80000090",
+    "icon": "icon_xrp.png",
+    "index": 144
+  },
+  {
+    "name": "xDai",
+    "id": "0x800002bc",
+    "icon": "icon_xdai.svg",
+    "index": 700
   }
 ]

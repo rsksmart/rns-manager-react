@@ -3,6 +3,7 @@
   "version": "2.0.0-beta.16",
   "private": true,
   "dependencies": {
+    "@ensdomains/address-encoder": "^0.1.7",
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rns": "^1.6.0",
     "@rsksmart/rns-suite": "^1.0.4",

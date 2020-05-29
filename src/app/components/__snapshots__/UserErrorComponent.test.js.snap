@@ -22,6 +22,7 @@ exports[`UserErrorComponent renders and matches snapshot 1`] = `
       strings={
         Object {
           "close": "Close",
+          "could_not_encode_address": "Could not encode address for the network.",
           "resolve_not_set": "Could not resolve domain",
           "same_value": "Input is the same as the value",
         }

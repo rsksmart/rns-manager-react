@@ -14,6 +14,7 @@ const store = mockStore({
   close: en.close,
   same_value: en.same_value,
   resolve_not_set: en.resolve_not_set,
+  could_not_encode_address: en.could_not_encode_address,
 });
 
 const initProps = {

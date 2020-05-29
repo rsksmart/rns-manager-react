@@ -6,7 +6,9 @@ import { useDispatch } from 'react-redux';
 import { YourAddressesContainer, AddNewAddressContainer, MigrateToMultiResolverContainer } from '../containers';
 import { getAllChainAddresses } from '../operations';
 
-import { PUBLIC_RESOLVER, UNKNOWN_RESOLVER, STRING_RESOLVER } from '../../resolver/types';
+import {
+  PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, UNKNOWN_RESOLVER, STRING_RESOLVER,
+} from '../../resolver/types';
 
 const AddressesComponent = ({
   domain, resolverName, gettingResolver, strings,
@@ -30,7 +32,8 @@ const AddressesComponent = ({
     <div className="yourAddress">
       <YourAddressesContainer />
       <AddNewAddressContainer />
-      {resolverName === PUBLIC_RESOLVER && <MigrateToMultiResolverContainer />}
+      {(resolverName === PUBLIC_RESOLVER || resolverName === MULTICHAIN_RESOLVER)
+        && <MigrateToMultiResolverContainer resolver={resolverName} />}
     </div>
   );
 };

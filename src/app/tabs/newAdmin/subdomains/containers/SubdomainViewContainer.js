@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { AddressInputComponent } from '../../../../components';
 import { setSubdomainOwner } from '../operations';
 import { errorSetSubdomainOwner, successSetSubdomainOwnerClose } from '../actions';
-import { EMPTY } from '../types';
+import { EMPTY_ADDRESS } from '../../types';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
   handleErrorClose: subdomain => dispatch(errorSetSubdomainOwner(subdomain, '')),
   handleSuccessClose: subdomain => dispatch(successSetSubdomainOwnerClose(subdomain)),
   handleDelete: (domain, subdomain, currentOwner) => dispatch(
-    setSubdomainOwner(domain, subdomain, EMPTY, currentOwner),
+    setSubdomainOwner(domain, subdomain, EMPTY_ADDRESS, currentOwner),
   ),
 });
 

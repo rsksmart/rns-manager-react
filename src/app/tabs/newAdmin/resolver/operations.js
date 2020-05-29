@@ -6,14 +6,16 @@ import { validateBytes32 } from '../../../validations';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
-  receiveSetContent, errorSetContent, clearAllContent,
+  receiveSetContent, errorSetContent, clearAllContent, errorDecodingAddress,
+  requestMigrateAddresses, receiveMigrateAddresses, errorMigrateWithAddresses,
 } from './actions';
-import { getAllChainAddresses } from '../addresses/operations';
+import { getAllChainAddresses, getIndexById, getChainNameById } from '../addresses/operations';
 
 import {
   multiChainResolver as multiChainResolverAddress,
   publicResolver as publicResolverAddress,
   stringResolver as stringResolverAddress,
+  definitiveResolver as definitiveResolverAddress,
 } from '../../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 
@@ -23,11 +25,14 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
-  CONTENT_BYTES, CONTENT_BYTES_BLANK,
+  CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
+import { definitiveResolverAbi } from './definitiveAbis.json';
 import { interfaces } from './supportedInterfaces.json';
+import { EMPTY_ADDRESS } from '../types';
+import { addressDecoder } from '../helpers';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
@@ -44,6 +49,8 @@ export const getResolverNameByAddress = (resolverAddr) => {
       return PUBLIC_RESOLVER;
     case stringResolverAddress:
       return STRING_RESOLVER;
+    case definitiveResolverAddress:
+      return DEFINITIVE_RESOLVER;
     default:
       return UNKNOWN_RESOLVER;
   }
@@ -116,7 +123,6 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
  */
 export const setDomainResolver = (domain, resolverAddress) => async (dispatch) => {
   dispatch(requestSetResolver());
-
   const lowerResolverAddress = resolverAddress.toLowerCase();
 
   const accounts = await window.ethereum.enable();
@@ -198,4 +204,83 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
   if (contentType === CONTENT_BYTES) {
     dispatch(setContentBytes(resolverAddress, domain, value));
   }
+};
+
+/**
+ * Set the resolver to the Definitive Resolver and Migrate Users Addresses
+ * @param {string} domain domain to be migrated
+ * @param {array} chainAddresses array of all the chainAddresses from the reducer
+ * @param {bool} understandWarning bool that the user knows some addresses are invalid
+ */
+export const setDomainResolverAndMigrate = (
+  domain, chainAddresses, understandWarning,
+) => async (dispatch) => {
+  dispatch(requestMigrateAddresses());
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  const hash = namehash(domain);
+
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  // loop through addresses and skip empties, then get decoded version of the address,
+  // if valid, create the contract method and add it to the multiCallMethods array.
+  const multiCallMethods = [];
+  let decodeError = false;
+  Object.entries(chainAddresses).forEach((item) => {
+    // if address is empty, do not continue
+    if (item[1].address === '' || item[1].address === EMPTY_ADDRESS) {
+      return false;
+    }
+
+    const decodedAddress = addressDecoder(item[1].address, getIndexById(item[1].chainId));
+
+    // if returned a string, it is an error:
+    if (typeof (decodedAddress) === 'string') {
+      decodeError = true;
+      return dispatch(errorDecodingAddress(
+        item[1].chainId, getChainNameById(item[1].chainId), decodedAddress,
+      ));
+    }
+
+    // valid address to be added to the multiCallMethods array:
+    return multiCallMethods.push(
+      definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
+        hash, item[1].chainId, decodedAddress,
+      ).encodeABI(),
+    );
+  });
+
+  // return if an error in decoding happened to let the user know
+  if (decodeError && !understandWarning) {
+    return dispatch(errorMigrateWithAddresses(''));
+  }
+
+  await rns.compose();
+  const migratePromise = [
+    new Promise((resolve, reject) => {
+      rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+    new Promise((resolve, reject) => {
+      definitiveResolver.methods.multicall(multiCallMethods)
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+  ];
+
+  return Promise.all(migratePromise).then((values) => {
+    dispatch(receiveSetResolver(
+      values[0], definitiveResolverAddress, DEFINITIVE_RESOLVER,
+    ));
+    dispatch(receiveMigrateAddresses(values));
+    dispatch(getAllChainAddresses(domain, DEFINITIVE_RESOLVER));
+    dispatch(supportedInterfaces(definitiveResolverAddress, domain));
+    sendBrowserNotification(domain, 'resolver_migration_complete');
+  })
+    .catch(() => {
+      dispatch(errorMigrateWithAddresses('One of the transactions had an error.'));
+    });
 };

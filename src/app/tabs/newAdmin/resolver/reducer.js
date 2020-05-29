@@ -2,7 +2,9 @@ import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
-  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT,
+  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_DECODING_ADDRESS,
+  REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
+  CLEAR_MIGRATE_CONTENT,
 } from './types';
 
 const initialState = {
@@ -14,6 +16,11 @@ const initialState = {
   successTx: '',
   errorMessage: '',
   content: [],
+  migrating: {
+    isMigrating: false,
+    errors: [],
+    migrationComplete: false,
+  },
 };
 
 const contentInititalState = {
@@ -138,6 +145,56 @@ const resolverReducer = (state = initialState, action) => {
       ...state,
       content: [],
     };
+
+    case REQUEST_MIGRATE_ADDRESSES: return {
+      ...state,
+      isWaiting: true,
+      migrating: {
+        ...state.migrating,
+        isMigrating: true,
+        errors: [],
+      },
+    };
+    case RECEIVE_MIGRATE_ADDRESSES: return {
+      ...state,
+      migrating: {
+        ...state.migrating,
+        isMigrating: false,
+        migrationComplete: true,
+      },
+    };
+    case ERROR_DECODING_ADDRESS: return {
+      ...state,
+      migrating: {
+        ...state.migrating,
+        errors: [
+          ...state.migrating.errors,
+          {
+            chainId: action.chainId,
+            chainName: action.chainName,
+            error: action.errorMessage,
+          },
+        ],
+      },
+    };
+    case ERROR_MIGRATE_WITH_ADDRESSES: return {
+      ...state,
+      isWaiting: false,
+      errorMessage: action.message,
+      migrating: {
+        ...state.migrating,
+        isMigrating: false,
+      },
+    };
+    case CLEAR_MIGRATE_CONTENT: return {
+      ...state,
+      migrating: {
+        isMigrating: false,
+        errors: [],
+        migrationComplete: false,
+      },
+    };
+
     default: return state;
   }
 };

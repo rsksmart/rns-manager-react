@@ -5,7 +5,8 @@ import { Row, Col } from 'react-bootstrap';
 
 import { ChainAddressEditContainer } from '../containers';
 import networks from '../networks.json';
-import { MULTICHAIN_RESOLVER, PUBLIC_RESOLVER } from '../../resolver/types';
+import { MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, DEFINITIVE_RESOLVER } from '../../resolver/types';
+import { EMPTY_ADDRESS } from '../../types';
 import { truncateString } from '../../helpers';
 
 const YourAddressesComponent = ({
@@ -18,10 +19,12 @@ const YourAddressesComponent = ({
       </h1>
       <p>
         {resolverName === PUBLIC_RESOLVER && strings.public_resolver_explanation}
-        {resolverName === MULTICHAIN_RESOLVER && strings.your_addresses_explanation}
+        {(resolverName === MULTICHAIN_RESOLVER || resolverName === DEFINITIVE_RESOLVER)
+          && strings.your_addresses_explanation}
       </p>
+
       {Object.entries(chainAddresses).map((chainAddress) => {
-        if (chainAddress[1].address === '' || chainAddress[1].address === '0x0000000000000000000000000000000000000000') {
+        if (chainAddress[1].address === '' || chainAddress[1].address === EMPTY_ADDRESS) {
           return (<></>);
         }
 
@@ -44,7 +47,7 @@ const YourAddressesComponent = ({
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
-              labelIcon={network.icon}
+              labelIcon={`../../assets/icons/${network.icon}`}
               networkId={chainId}
               value={address}
               isError={isError}
