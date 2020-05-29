@@ -41,19 +41,13 @@ const definitiveResolver = new web3.eth.Contract(
  * Helper Function to get the chain name with the ID
  * @param {chaindId} chaindId the chainId to be looked up
  */
-export const getChainNameById = (chainId) => {
-  const network = networks.filter(net => net.id === chainId);
-  return network[0].name;
-};
+export const getChainNameById = chainId => networks.find(net => net.id === chainId).name;
 
 /**
  * Returns the index when given the chainId as per slip-0044
  * @param {chainId} chainId to lookup
  */
-export const getIndexById = (chainId) => {
-  const network = networks.filter(net => net.id === chainId);
-  return network[0].index;
-};
+export const getIndexById = chainId => networks.find(net => net.id === chainId).index;
 
 /**
  * Sets the RSK resolution when using the public resolver
