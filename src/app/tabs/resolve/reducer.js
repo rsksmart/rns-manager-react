@@ -134,6 +134,9 @@ const reducer = (state = initialState, action) => {
         error: action.error,
       },
     };
+    case types.RESET_RESOLVE: return {
+      ...initialState,
+    };
     default: return state;
   }
 };

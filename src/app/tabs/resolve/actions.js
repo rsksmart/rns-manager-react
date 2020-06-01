@@ -67,3 +67,7 @@ export const errorChainAddr = error => ({
   type: types.ERROR_RESOLVE_CHAIN_ADDR,
   error,
 });
+
+export const resetResolve = () => ({
+  type: types.RESET_RESOLVE,
+});

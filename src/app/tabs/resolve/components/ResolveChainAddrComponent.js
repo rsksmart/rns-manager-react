@@ -6,7 +6,7 @@ import ResolutionComponent from './ResolutionComponent';
 import networks from '../../newAdmin/addresses/networks.json';
 
 const ResolveChainAddr = ({
-  strings, loading, error, value, getChainAddr,
+  strings, loading, error, value, getChainAddr, hasMulticoin,
 }) => {
   const [selectedChain, setSelectedChain] = useState('');
   const handleChange = (e) => {
@@ -14,6 +14,13 @@ const ResolveChainAddr = ({
     if (e.target.value && e.target.value.length === 10) {
       getChainAddr(e.target.value);
     }
+  };
+
+  const coinList = () => {
+    const coins = hasMulticoin ? networks : networks.filter(address => address.multi === true);
+    return coins.map(address => (
+      <option value={address.id}>{address.name}</option>
+    ));
   };
 
   return (
@@ -31,8 +38,7 @@ const ResolveChainAddr = ({
             value={selectedChain}
           >
             <option value="">Select Coin...</option>
-            {networks.map(address => (
-              <option value={address.id}>{address.name}</option>))}
+            {coinList()}
           </select>
         </Col>
       </Row>
@@ -59,6 +65,7 @@ ResolveChainAddr.propTypes = {
   error: propTypes.string,
   value: propTypes.string,
   getChainAddr: propTypes.func.isRequired,
+  hasMulticoin: propTypes.bool.isRequired,
 };
 
 ResolveChainAddr.defaultProps = {

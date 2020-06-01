@@ -57,5 +57,26 @@
         "type": "function"
       }
     ]
+  },
+  {
+    "name": "multicoin",
+    "signature": "0xf1cb7e06",
+    "abi": [
+      {
+        "constant": true,
+        "inputs": [
+          { "name": "node", "type": "bytes32" },
+          { "name": "chain", "type": "bytes4" }
+        ],
+        "name": "addr",
+        "outputs": [
+          { "name": "", "type": "string" }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xf1cb7e06"
+      }
+    ]
   }
 ]
