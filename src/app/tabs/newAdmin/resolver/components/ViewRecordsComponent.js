@@ -19,6 +19,7 @@ const ResolverComponent = ({ strings, start, content }) => {
               label={strings[item[0].toLowerCase()]}
               value={item[1].value}
               validation={false}
+              contentType={item[0]}
               strings={{
                 submit: strings.submit,
                 cancel: strings.cancel,
