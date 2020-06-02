@@ -20,6 +20,7 @@ const initialState = {
     isMigrating: false,
     errors: [],
     migrationComplete: false,
+    errorMessage: null,
   },
 };
 
@@ -72,6 +73,10 @@ const resolverReducer = (state = initialState, action) => {
       ...state,
       errorMessage: '',
       successTx: '',
+      migrating: {
+        ...state.migrating,
+        errorMessage: '',
+      },
     };
 
     case REQUEST_CONTENT: return {
@@ -180,15 +185,16 @@ const resolverReducer = (state = initialState, action) => {
     case ERROR_MIGRATE_WITH_ADDRESSES: return {
       ...state,
       isWaiting: false,
-      errorMessage: action.message,
       migrating: {
         ...state.migrating,
         isMigrating: false,
+        errorMessage: action.message,
       },
     };
     case CLEAR_MIGRATE_CONTENT: return {
       ...state,
       migrating: {
+        errorMessage: '',
         isMigrating: false,
         errors: [],
         migrationComplete: false,
