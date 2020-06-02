@@ -26,6 +26,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
   CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER, CONTENT_HASH,
+  MULTICHAIN, MULTICOIN,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -103,7 +104,6 @@ export const getContentBytes = (resolverAddress, domain, type = CONTENT_BYTES) =
 
 /**
  * Loops through manager's supported interfaces and checks if resolver also supports them.
- * Currently, CONTENT_BYTES is the only content type supported.
  * @param {address} resolverAddress
  * @param {string} domain
  */
@@ -111,7 +111,7 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   dispatch(clearAllContent());
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
-  // loop throgh supported interfaces and if CONTENT_BYTES
+  // loop throgh supported interfaces and if found, call 'get' function.
   interfaces.forEach((i) => {
     abstractResolver.methods
       .supportsInterface(i.interfaceId).call()
@@ -121,6 +121,11 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
             case CONTENT_BYTES:
             case CONTENT_HASH:
               return dispatch(getContentBytes(resolverAddress, domain, i.name));
+            case MULTICHAIN:
+            case MULTICOIN:
+              return dispatch(getAllChainAddresses(
+                domain, getResolverNameByAddress(resolverAddress),
+              ));
             default:
           }
         }
@@ -241,7 +246,7 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
  * @param {bool} understandWarning bool that the user knows some addresses are invalid
  */
 export const setDomainResolverAndMigrate = (
-  domain, chainAddresses, understandWarning,
+  domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
   const accounts = await window.ethereum.enable();
@@ -279,6 +284,15 @@ export const setDomainResolverAndMigrate = (
       ).encodeABI(),
     );
   });
+
+  // add contentBytes if not null or empty
+  if (contentBytes && contentBytes !== CONTENT_BYTES_BLANK.value) {
+    multiCallMethods.push(
+      definitiveResolver.methods['setContenthash(bytes32,bytes)'](
+        hash, contentBytes.value,
+      ).encodeABI(),
+    );
+  }
 
   // return if an error in decoding happened to let the user know
   if (decodeError && !understandWarning) {

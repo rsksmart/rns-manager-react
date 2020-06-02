@@ -17,6 +17,18 @@
       "interfaceId": "0xbc1c58d1",
       "type": "bytes32",
       "notes": "content hash for definitive"
+    },
+    {
+      "name": "MULTICHAIN",
+      "interfaceId": "0x8be4b5f6",
+      "type": "bytes4",
+      "notes": "multichain resolver"
+    },
+    {
+      "name": "MULTICOIN",
+      "interfaceId": "0xf1cb7e06",
+      "type": "",
+      "notes": "definitive resolver addr method"
     }
   ]
 }

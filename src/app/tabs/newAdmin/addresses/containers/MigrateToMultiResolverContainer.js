@@ -20,18 +20,24 @@ const mapStateToProps = state => ({
   domain: state.auth.name,
   isWaiting: state.newAdmin.resolver.isWaiting,
   isEditing: state.newAdmin.resolver.isEditing,
-  errorMessage: state.newAdmin.resolver.errorMessage,
+  errorMessage: state.newAdmin.resolver.migrating.errorMessage,
   chainAddresses: state.newAdmin.addresses.chainAddresses,
   isMigrating: state.newAdmin.resolver.migrating.isMigrating,
   decodingErrors: state.newAdmin.resolver.migrating.errors,
+  contentBytes: state.newAdmin.resolver.content.CONTENT_BYTES,
+  resolverName: state.newAdmin.resolver.resolverName,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, migrateAddresses, chainAddresses, understandWarning, hasMigration) => {
-    if (!migrateAddresses || !hasMigration) {
+  handleClick: (
+    domain, migrateAddresses, chainAddresses, contentBytes, understandWarning,
+  ) => {
+    if (!migrateAddresses) {
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
-      dispatch(setDomainResolverAndMigrate(domain, chainAddresses, understandWarning));
+      dispatch(setDomainResolverAndMigrate(
+        domain, chainAddresses, contentBytes, understandWarning,
+      ));
     }
   },
   closeErrorMessage: () => dispatch(closeMessage()),
@@ -43,8 +49,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   handleClick: (migrateAddresses, understandWarning) => dispatchProps.handleClick(
-    stateProps.domain, migrateAddresses, stateProps.chainAddresses, understandWarning,
-    hasAddresses(stateProps.chainAddresses),
+    stateProps.domain, migrateAddresses, stateProps.chainAddresses, stateProps.contentBytes,
+    understandWarning,
   ),
   handleCloseClick: () => dispatchProps.closeErrorMessage(),
   hasAddresses: hasAddresses(stateProps.chainAddresses),
