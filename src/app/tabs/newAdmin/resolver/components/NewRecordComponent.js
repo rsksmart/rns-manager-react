@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 
+import ContractAbiInputComponent from './ContractAbiInputComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
+import { CONTRACT_ABI } from '../types';
 
 const NewRecordComponent = ({
   strings, content, handleSubmit, handleCloseMessage,
@@ -30,6 +32,38 @@ const NewRecordComponent = ({
 
   const activeOptions = content.filter(c => c[0] === selectedContent)[0][1];
 
+  const handleInputType = () => {
+    if (selectedContent === CONTRACT_ABI) {
+      return (
+        <Col md="9">
+          <ContractAbiInputComponent
+            handleClick={abiValue => handleSubmit(CONTRACT_ABI, abiValue)}
+            disabled={activeOptions.isWaiting}
+          />
+        </Col>
+      );
+    }
+    return (
+      <>
+        <div className="col-md-7">
+          <input
+            value={value}
+            onChange={evt => setValue(evt.target.value)}
+            disabled={activeOptions.isWaiting}
+          />
+        </div>
+        <div className="col-md-2">
+          <Button
+            className="add"
+            onClick={handleAddClick}
+          >
+            {strings.add}
+          </Button>
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="major-section add-records">
       <h3>{strings.add_records}</h3>
@@ -53,21 +87,7 @@ const NewRecordComponent = ({
             })}
           </select>
         </div>
-        <div className="col-md-7">
-          <input
-            value={value}
-            onChange={evt => setValue(evt.target.value)}
-            disabled={activeOptions.isWaiting}
-          />
-        </div>
-        <div className="col-md-2">
-          <Button
-            className="add"
-            onClick={handleAddClick}
-          >
-            {strings.add}
-          </Button>
-        </div>
+        {handleInputType()}
       </div>
 
       <UserWaitingComponent

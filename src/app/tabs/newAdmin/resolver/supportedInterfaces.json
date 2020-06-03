@@ -13,6 +13,12 @@
       "notes": "public resolver interfaceId"
     },
     {
+      "name": "CONTRACT_ABI",
+      "interfaceId": "0xbc1c58d1",
+      "type": "",
+      "notes": "abi upload or link"
+    },
+    {
       "name": "CONTENT_HASH",
       "interfaceId": "0xbc1c58d1",
       "type": "bytes32",

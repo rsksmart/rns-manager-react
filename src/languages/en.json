@@ -396,5 +396,6 @@
   "decode_warning_explanation": "The following addresses are not valid and cannot be migrated. You can set them up again later.",
   "understand_warning": "I understand.",
   "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
-  "content_hash": "Content Hash"
+  "content_hash": "Content Hash",
+  "contract_abi": "Contract ABI"
 }

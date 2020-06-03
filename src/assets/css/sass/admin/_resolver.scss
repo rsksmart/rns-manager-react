@@ -30,6 +30,30 @@
       color: $white;
       border-radius: 15px;
     }
+
+    .contractAbiInput {
+      border: 1px solid $gray;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-radius: 10px;
+
+      label:not(.custom-control-label) {
+        width: 100% !important;
+        font-weight: 500 !important;
+      }
+
+      textarea {
+        width: 100% !important;
+        height: 150px;
+        border-radius: 15px;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0 0 15px 15px;
+        padding: 0;
+      }
+    }
   }
   .records {
     .addressInput {

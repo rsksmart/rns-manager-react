@@ -50,3 +50,9 @@ p.explanation {
 .caps-first:first-letter {
   text-transform: uppercase;
 }
+
+input::-webkit-input-placeholder {
+  text-align: center;
+  color: #E5E5E5;
+  font-size: .9em;
+}
