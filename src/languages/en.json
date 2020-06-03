@@ -402,8 +402,8 @@
   "contracts_not_set": "Contracts Not Set",
   "domain_expired": "Your domain has expired",
   "search_for_domain": "Register it again",
-  "set_subdomain_rsk": "Set the RSK address automatically to the owner. This will be two transactions.",
   "set_subdomain_rsk_other": "Set the RSK address to a different owner. This will result in three transactions.",
+  "set_subdomain_rsk": "Set the RSK address to a different owner. If the owner is yourself, you will need to sign two transactions. If the owner is a different address, you will need to sign three transactions.",
   "confirm_two_transactions": "You will need to confirm two transactions",
   "confirm_three_transactions": "You will need to confirm three transactions"
 }

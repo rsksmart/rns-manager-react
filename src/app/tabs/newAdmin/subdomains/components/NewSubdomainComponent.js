@@ -35,7 +35,7 @@ const NewSubdomainComponent = ({
 
   const [subdomain, setSubdomain] = useState(initialSubdomain);
   const [owner, setOwner] = useState(initialOwner);
-  const [setupRsk, setSetupRsk] = useState(true);
+  const [setupRsk, setSetupRsk] = useState(false);
 
   const handleOnClick = (e) => {
     e.preventDefault();
@@ -162,6 +162,7 @@ const NewSubdomainComponent = ({
                 label={strings.set_subdomain_rsk}
                 checked={setupRsk}
                 onChange={() => setSetupRsk(!setupRsk)}
+                disabled={disabled}
               />
             </Col>
           </Row>

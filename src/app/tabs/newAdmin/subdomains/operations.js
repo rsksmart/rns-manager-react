@@ -13,12 +13,22 @@ import {
   removeSubdomainFromList,
 } from './actions';
 
+import {
+  multiChainResolver as multiChainResolverAddress,
+} from '../../../adapters/configAdapter';
+import { multichainResolverAbi } from '../addresses/abis.json';
+import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
+
 import { EMPTY_ADDRESS } from '../types';
 
 import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 const web3 = new Web3(window.ethereum);
+
+const multichainResolver = new web3.eth.Contract(
+  multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+);
 
 // JS library:
 const rns = new RNS(web3, getOptions());
@@ -40,7 +50,83 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
 };
 
 const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => async (dispatch) => {
+  dispatch(waitingNewSubdomainConfirm());
   console.log('creating new subdomain', parentDomain, subdomain, owner, setupResolution);
+
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+
+  const label = `0x${sha3(subdomain)}`;
+  const node = namehash(parentDomain);
+  const fullDomain = `${subdomain}.${parentDomain}`;
+
+  await rns.compose();
+
+  const success = (result) => {
+    console.log('success', result);
+    dispatch(addSubdomainToList(subdomain, owner));
+    dispatch(receiveNewSubdomain(result[0]));
+    updateSubdomainToLocalStorage(parentDomain, subdomain, true);
+    sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
+  };
+
+  // register a subdomain without rsk resolution:
+  if (!setupResolution) {
+    console.log('single subdomain :)');
+    return rns.contracts.registry.methods.setSubnodeOwner(node, label, owner)
+      .send({ from: currentAddress }, (error, result) => (error
+        ? dispatch(errorNewSubdomain(error.message))
+        : dispatch(transactionListener(result, () => () => success(result)))));
+  }
+
+  console.log('setting', fullDomain, '0x80000089', owner);
+  const promiseArray = [
+    new Promise((resolve, reject) => {
+      // register the domain to the current address to setup the resolver
+      rns.contracts.registry.methods.setSubnodeOwner(node, label, currentAddress)
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+    new Promise((resolve, reject) => {
+      // set the multichainResolver since that is the default
+      multichainResolver.methods.setChainAddr(
+        namehash(fullDomain), '0x80000089', owner,
+      )
+        .send({ from: currentAddress }, (error, result) => (error
+          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+    }),
+  ];
+
+  // if the owner is not the currentAddress, then add the third transaction that transfers
+  // the domain to a new owner.
+  if (owner !== currentAddress) {
+    console.log('set to someone else');
+    promiseArray.push(
+      new Promise((resolve, reject) => {
+        // register the domain to the current address to setup the resolver
+        rns.contracts.registry.methods.setSubnodeOwner(node, label, owner)
+          .send({ from: currentAddress }, (error, result) => (error
+            ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+      }),
+    );
+  }
+
+  return Promise.all(promiseArray).then((result) => {
+    console.log('promiseAll', result);
+    success(result[0]);
+  })
+    .catch((error) => {
+      console.log('error');
+      dispatch(errorNewSubdomain(error));
+    });
+
+  // first, register the domain:
+  /*
+  new Promise((resolve, reject) => {
+    rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
+      .send({ from: currentAddress }, (error, result) => (error
+        ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+  }),
 
   const contract = setupResolution
     ? rns.subdomains.create(parentDomain, subdomain, owner, owner)
@@ -58,6 +144,7 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
     .catch((error) => {
       dispatch(errorNewSubdomain(error.message));
     });
+  */
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
