@@ -131,32 +131,6 @@ const NewSubdomainComponent = ({
           </button>
         </Col>
       </Row>
-      {advancedView && (
-        <>
-          <Row>
-            <Col className="col-md-10 offset-md-2">
-              <Form.Check
-                type="switch"
-                id="setup-addr-switch"
-                label={strings.set_subdomain_rsk}
-                checked={setupRsk}
-                onChange={() => setSetupRsk(!setupRsk)}
-              />
-            </Col>
-          </Row>
-          <Row>
-          <Col className="col-md-10 offset-md-2">
-            <Form.Check
-              type="switch"
-              id="setup-addr-switch"
-              label={strings.set_subdomain_rsk_other}
-              checked={setupRsk}
-              onChange={() => setSetupRsk(!setupRsk)}
-            />
-          </Col>
-        </Row>
-      </>
-      )}
 
       <Row>
         <div className="col-md-8 offset-md-2">
@@ -177,6 +151,22 @@ const NewSubdomainComponent = ({
           </ul>
         </div>
       </Row>
+
+      {advancedView && (
+        <>
+          <Row>
+            <Col className="col-md-10 offset-md-2">
+              <Form.Check
+                type="switch"
+                id="setup-addr-switch"
+                label={strings.set_subdomain_rsk}
+                checked={setupRsk}
+                onChange={() => setSetupRsk(!setupRsk)}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
 
       <ChecksumErrorContainer
         show={checksumError}
