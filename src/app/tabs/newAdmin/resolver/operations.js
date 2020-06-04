@@ -26,7 +26,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
   CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER, CONTENT_HASH,
-  MULTICHAIN, MULTICOIN,
+  MULTICHAIN, MULTICOIN, CONTRACT_ABI,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -37,6 +37,10 @@ import { addressDecoder } from '../helpers';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
+
+const definitiveResolver = new web3.eth.Contract(
+  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+);
 
 /**
  * Returns user friendly name based on address
@@ -126,6 +130,9 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
               return dispatch(getAllChainAddresses(
                 domain, getResolverNameByAddress(resolverAddress),
               ));
+            case CONTRACT_ABI:
+              dispatch(dispatch(requestContent(CONTRACT_ABI)));
+              return dispatch(receiveContent(CONTRACT_ABI, ''));
             default:
           }
         }
@@ -220,9 +227,58 @@ const setContentBytes = (
   );
 };
 
+const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
+  dispatch(requestSetContent(CONTRACT_ABI));
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  const node = namehash(domain);
+
+  let json;
+  let url;
+  // error check
+  if (value.inputMethod === 'url') {
+    console.log('url', url);
+  } else {
+    try {
+      json = JSON.stringify(JSON.parse(value.jsonText));
+    } catch (error) {
+      return dispatch(errorSetContent(CONTRACT_ABI, 'Could not validate JSON'));
+    }
+  }
+
+  const multiCallMethods = [];
+  if (value.encodings.json) {
+    multiCallMethods.push(
+      definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
+        node, 1, web3.utils.toHex(json),
+      ),
+    );
+  }
+
+  if (multiCallMethods.length === 0) {
+    return dispatch(errorSetContent(CONTRACT_ABI, 'No encodings selected'));
+  }
+
+  // make the call
+  return definitiveResolver.methods.multicall(multiCallMethods)
+    .send({ from: currentAddress }, (error, result) => {
+      if (error) {
+        return dispatch(errorSetContent(CONTRACT_ABI, error.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetContent(CONTRACT_ABI, result, json));
+        // sendBrowserNotification(domain, 'record_set');
+      };
+
+      return dispatch(transactionListener(result, () => transactionConfirmed()));
+    });
+};
+
+
 /**
  * Function to handle content type when setting. This will be expanded as more
- * content types are supported. Currently, CONTENT_BYTES is the only content type
+ * content types are supported.
  * @param {const} contentType
  * @param {address} resolverAddress address of the resolver
  * @param {string} domain domain the content is associated with
@@ -232,10 +288,10 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
   switch (contentType) {
     case CONTENT_BYTES:
     case CONTENT_HASH:
-      dispatch(setContentBytes(resolverAddress, domain, value, contentType));
-      break;
-    default:
-      break;
+      return dispatch(setContentBytes(resolverAddress, domain, value, contentType));
+    case CONTRACT_ABI:
+      return dispatch(setContractAbi(resolverAddress, domain, value));
+    default: return null;
   }
 };
 
@@ -252,10 +308,6 @@ export const setDomainResolverAndMigrate = (
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
-
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
-  );
 
   // loop through addresses and skip empties, then get decoded version of the address,
   // if valid, create the contract method and add it to the multiCallMethods array.

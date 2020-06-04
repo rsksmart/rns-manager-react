@@ -8,7 +8,7 @@ import {
 const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
   const [state, setState] = useState({
     inputMethod: 'url',
-    json: '',
+    jsonText: '',
     url: '',
     encodings: {
       json: true,
@@ -54,8 +54,8 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
           <label htmlFor="json">
             Paste in the ABI in JSON format
             <textarea
-              id="json"
-              onChange={e => setState({ ...state, json: e.target.value })}
+              id="jsonText"
+              onChange={e => setState({ ...state, jsonText: e.target.value })}
               value={state.json}
               disabled={disabled}
             />
