@@ -394,5 +394,6 @@
   "migrate_addresses_during": "Migrate my addresses during activation. This will require a second transaction.",
   "warning": "Warning",
   "decode_warning_explanation": "The following addresses are not valid and cannot be migrated. You can set them up again later.",
-  "understand_warning": "I understand."
+  "understand_warning": "I understand.",
+  "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent."
 }
