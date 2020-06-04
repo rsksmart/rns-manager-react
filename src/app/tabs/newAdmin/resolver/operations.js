@@ -229,29 +229,59 @@ const setContentBytes = (
 
 const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestSetContent(CONTRACT_ABI));
-  const accounts = await window.ethereum.enable();
-  const currentAddress = accounts[0];
   const node = namehash(domain);
+  let dataSourceError;
+  let parsedJson;
 
-  let json;
-  let url;
-  // error check
+  // get data by input method starting with URL:
   if (value.inputMethod === 'url') {
-    console.log('url', url);
+    await fetch(encodeURI(value.url))
+      .then(res => res.json())
+      .then((data) => {
+        try {
+          parsedJson = JSON.stringify(data);
+        } catch (e) {
+          dataSourceError = `Could not validate JSON from URL, ${e.message}`;
+        }
+      })
+      .catch((e) => {
+        dataSourceError = e.message;
+      });
   } else {
     try {
-      json = JSON.stringify(JSON.parse(value.jsonText));
-    } catch (error) {
-      return dispatch(errorSetContent(CONTRACT_ABI, 'Could not validate JSON'));
+      parsedJson = JSON.stringify(JSON.parse(value.jsonText));
+    } catch (e) {
+      dataSourceError = 'Could not validate JSON';
     }
   }
 
+  if (dataSourceError) {
+    console.log('parsed:', parsedJson);
+    return dispatch(errorSetContent(CONTRACT_ABI, dataSourceError));
+  }
+
   const multiCallMethods = [];
-  if (value.encodings.json) {
+
+  // type 1: uncompressed Json
+  if (value.encodings.json && parsedJson !== '') {
+    console.log('adding 1: JSON', parsedJson);
     multiCallMethods.push(
       definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
-        node, 1, web3.utils.toHex(json),
-      ),
+        node, 1, web3.utils.toHex(parsedJson),
+      ).encodeABI(),
+    );
+  }
+
+  // type 2:
+  // type 4:
+
+  // type 8: the URI:
+  if (value.encodings.url) {
+    console.log('adding 8: URI');
+    multiCallMethods.push(
+      definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
+        node, 8, web3.utils.toHex(parsedJson),
+      ).encodeABI(),
     );
   }
 
@@ -259,19 +289,30 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     return dispatch(errorSetContent(CONTRACT_ABI, 'No encodings selected'));
   }
 
-  // make the call
+  console.log(multiCallMethods);
+  // make the call!
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  console.log('sending the message');
   return definitiveResolver.methods.multicall(multiCallMethods)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetContent(CONTRACT_ABI, error.message));
+    .send({ from: currentAddress }, (e, result) => {
+      console.log('method sent');
+      if (e) {
+        console.log('error in send');
+        return dispatch(errorSetContent(CONTRACT_ABI, e.message));
       }
 
       const transactionConfirmed = () => () => {
-        dispatch(receiveSetContent(CONTRACT_ABI, result, json));
+        console.log('transaction Confirmed!', result);
+        dispatch(receiveSetContent(CONTRACT_ABI, result, parsedJson));
         // sendBrowserNotification(domain, 'record_set');
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetContent(CONTRACT_ABI, errorReason)),
+      ));
     });
 };
 
