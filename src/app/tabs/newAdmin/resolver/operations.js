@@ -107,6 +107,35 @@ export const getContentBytes = (resolverAddress, domain, type = CONTENT_BYTES) =
 };
 
 /**
+ * Querys the blockchain for all four encodings of contract ABI and returns values
+ * or null.
+ * @param {address} resolverAddress address of the domain's resolver
+ * @param {domain} domain domain associated with the ABI.
+ */
+const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
+  dispatch(requestContent(CONTRACT_ABI));
+  const hash = namehash(domain);
+  const resolver = new web3.eth.Contract(
+    definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  const promiseArray = [];
+  [1, 2, 4, 8].forEach(async (id) => {
+    promiseArray.push(
+      new Promise((resolve) => {
+        resolver.methods.ABI(hash, id).call()
+          .then(result => resolve({ id, result: result[1] }));
+      }),
+    );
+  });
+
+  Promise.all(promiseArray).then((values) => {
+    const isEmpty = values.filter(item => item.result !== null).length;
+    dispatch(receiveContent(CONTRACT_ABI, { isEmpty: !isEmpty, values }));
+  });
+};
+
+/**
  * Loops through manager's supported interfaces and checks if resolver also supports them.
  * @param {address} resolverAddress
  * @param {string} domain
@@ -131,8 +160,7 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
                 domain, getResolverNameByAddress(resolverAddress),
               ));
             case CONTRACT_ABI:
-              dispatch(dispatch(requestContent(CONTRACT_ABI)));
-              return dispatch(receiveContent(CONTRACT_ABI, ''));
+              return (dispatch(getContractAbi(resolverAddress, domain)));
             default:
           }
         }

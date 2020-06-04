@@ -2,36 +2,47 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
+import EditContractAbiComponent from './EditContractAbiComponent';
 import { EditContentContainer } from '../containers';
+import { CONTRACT_ABI } from '../types';
 
 const ResolverComponent = ({ strings, start, content }) => {
   useEffect(() => start(), []);
+
+  const switchViewType = (item) => {
+    console.log('switchView', item);
+    switch (item[0]) {
+      case CONTRACT_ABI:
+        return <EditContractAbiComponent value={item[1].value} />;
+      default:
+        // the default is the AddressInputComponent
+        if (item[1].value === '') {
+          return <></>;
+        }
+        return (
+          <EditContentContainer
+            key={item[0]}
+            label={strings[item[0].toLowerCase()]}
+            value={item[1].value}
+            validation={false}
+            contentType={item[0]}
+            strings={{
+              submit: strings.submit,
+              cancel: strings.cancel,
+              delete: strings.delete,
+              delete_confirm_text: strings.delete_content_confirm,
+              success_message: strings.content_updated,
+            }}
+          />
+        );
+    }
+  };
 
   return (
     <div className="major-section records">
       <h2>{strings.records}</h2>
       <p>{strings.records_explanation}</p>
-      {Object.entries(content).map((item) => {
-        if (item[1].value !== '') {
-          return (
-            <EditContentContainer
-              key={item[0]}
-              label={strings[item[0].toLowerCase()]}
-              value={item[1].value}
-              validation={false}
-              contentType={item[0]}
-              strings={{
-                submit: strings.submit,
-                cancel: strings.cancel,
-                delete: strings.delete,
-                delete_confirm_text: strings.delete_content_confirm,
-                success_message: strings.content_updated,
-              }}
-            />
-          );
-        }
-        return <></>;
-      })}
+      {Object.entries(content).map(item => switchViewType(item))}
     </div>
   );
 };
