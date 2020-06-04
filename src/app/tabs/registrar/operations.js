@@ -6,6 +6,7 @@ import {
   requestRevealCommit, receiveRevealCommit, receiveCanRevealCommit,
   errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
   requestConversionRate, recieveConversionRate, errorConversionRate,
+  requestCheckCommitRegistrar,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -14,11 +15,13 @@ import {
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import transactionListener from '../../helpers/transactionListener';
+import estimateGas from '../../helpers/estimateGas';
 import { notifyError } from '../../notifications';
 import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
 import { sendBrowserNotification } from '../../browerNotifications/operations';
+import { CONTENT_BYTES_BLANK } from '../newAdmin/resolver/types';
 
 export const getCost = (domain, duration) => async (dispatch) => {
   const accounts = await window.ethereum.enable();
@@ -84,6 +87,11 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
     abi, address, { from: currentAddress, gasPrice: defaultGasPrice },
   );
 
+  const options = {
+    from: currentAddress,
+    gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK)),
+  };
+
   return new Promise((resolve) => {
     registrar
       .methods
@@ -93,7 +101,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
           return resolve(dispatch(errorRegistrarCommit(error.message)));
         }
 
-        return registrar.methods.commit(hashCommit).send((_error, result) => {
+        return registrar.methods.commit(hashCommit).send(options, (_error, result) => {
           if (_error) {
             return dispatch(errorRegistrarCommit(_error.message));
           }
@@ -105,8 +113,17 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
             contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
           }));
 
+          const transactionFailed = (errorReason) => {
+            localStorage.removeItem(`${domain}-options`);
+            dispatch(errorRegistrarCommit(errorReason));
+          };
+
           dispatch(receiveCommitRegistrar(hashCommit));
-          return dispatch(transactionListener(result, () => dispatch(commitTxMined())));
+          return dispatch(transactionListener(
+            result,
+            () => dispatch(commitTxMined()),
+            errorReason => transactionFailed(errorReason),
+          ));
         });
       });
   });
@@ -154,7 +171,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   options = JSON.parse(options);
   const { salt, contract } = options;
 
-  dispatch(requestCommitRegistrar());
+  dispatch(requestCheckCommitRegistrar());
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -208,11 +225,16 @@ export const revealCommit = domain => async (dispatch) => {
     rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
   );
 
+  const contractOptions = {
+    from: currentAddress,
+    gas: await estimateGas(rif.methods.transferAndCall(fifsAddress, weiValue.toString(), data)),
+  };
+
   return new Promise((resolve) => {
     rif
       .methods
       .transferAndCall(fifsAddress, weiValue.toString(), data)
-      .send((error, result) => {
+      .send(contractOptions, (error, result) => {
         if (error) {
           return dispatch(errorRevealCommit(error.message));
         }
@@ -230,7 +252,11 @@ export const revealCommit = domain => async (dispatch) => {
           localStorage.removeItem(`${domain}-options`);
         };
 
-        return resolve(dispatch(transactionListener(result, () => revealCallback())));
+        return resolve(dispatch(transactionListener(
+          result,
+          () => revealCallback(),
+          errorReason => dispatch(errorRevealCommit(errorReason)),
+        )));
       });
   });
 };
