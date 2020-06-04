@@ -29,7 +29,7 @@ const NewRecordComponent = ({
   const handleErrorClose = () => {
     handleCloseMessage(selectedContent);
   };
-  console.log('thecontent', content);
+
   const activeOptions = content.filter(c => c[0] === selectedContent)[0][1];
 
   const handleInputType = () => {

@@ -10,15 +10,15 @@ const ResolverComponent = ({ strings, start, content }) => {
   useEffect(() => start(), []);
 
   const switchViewType = (item) => {
-    console.log('switchView', item);
+    if (item[1].isEmpty) {
+      return <></>;
+    }
+
     switch (item[0]) {
       case CONTRACT_ABI:
         return <EditContractAbiComponent value={item[1].value} />;
       default:
         // the default is the AddressInputComponent
-        if (item[1].value === '') {
-          return <></>;
-        }
         return (
           <EditContentContainer
             key={item[0]}

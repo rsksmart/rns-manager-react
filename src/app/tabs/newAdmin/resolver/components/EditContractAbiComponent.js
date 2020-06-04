@@ -3,10 +3,6 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
 const EditContractAbiComponent = ({ strings, value }) => {
-  if (value.isEmpty) {
-    return <></>;
-  };
-
   return (
     <div className="row addressInput minor-section">
       <div className="row view">
@@ -26,7 +22,8 @@ EditContractAbiComponent.propTypes = {
   strings: propTypes.shape({
     contract_abi: propTypes.string.isRequired,
   }).isRequired,
-  value: propTypes.shape({}).isRequired,
+  value: propTypes.shape({
+  }).isRequired,
 };
 
 export default multilanguage(EditContractAbiComponent);

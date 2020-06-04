@@ -30,6 +30,7 @@ const contentInititalState = {
   isWaiting: false,
   successTx: '',
   errorMessage: '',
+  isEmpty: true,
 };
 
 const resolverReducer = (state = initialState, action) => {
@@ -97,6 +98,7 @@ const resolverReducer = (state = initialState, action) => {
           ...state.content[action.contentType],
           isRequesting: false,
           value: action.value,
+          isEmpty: action.isEmpty,
         },
       },
     };

@@ -101,6 +101,7 @@ export const getContentBytes = (resolverAddress, domain, type = CONTENT_BYTES) =
       receiveContent(
         type,
         (value === CONTENT_BYTES_BLANK || !value) ? '' : value,
+        (value === CONTENT_BYTES_BLANK || !value),
       ),
     ))
     .catch(error => dispatch(errorContent(type, error)));
@@ -130,8 +131,8 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   });
 
   Promise.all(promiseArray).then((values) => {
-    const isEmpty = values.filter(item => item.result !== null).length;
-    dispatch(receiveContent(CONTRACT_ABI, { isEmpty: !isEmpty, values }));
+    const hasValues = values.filter(item => item.result !== null).length;
+    dispatch(receiveContent(CONTRACT_ABI, values, !hasValues));
   });
 };
 
