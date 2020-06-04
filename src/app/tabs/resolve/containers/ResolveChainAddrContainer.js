@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import { ResolveChainAddrComponent } from '../components';
 import { getSearch, getChainAddr, getResolverAddress } from '../selectors';
-import { chainAddr } from '../operations';
+import { getAddress } from '../operations';
 
 const mapStateToProps = state => ({
   name: getSearch(state),
   resolverAddress: getResolverAddress(state),
   chainAddr: getChainAddr(state),
+  supportedInterfaces: state.resolve.supportedInterfaces,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getChainAddr: (resolverAddress, name, chainId) => {
-    dispatch(chainAddr(resolverAddress, name, chainId));
+  getChainAddr: (resolverAddress, supportedInterfaces, name, chainId) => {
+    dispatch(getAddress(resolverAddress, supportedInterfaces, name, chainId));
   },
 });
 
@@ -19,7 +20,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps.chainAddr,
   getChainAddr: (chainId) => {
-    dispatchProps.getChainAddr(stateProps.resolverAddress, stateProps.name, chainId);
+    dispatchProps.getChainAddr(
+      stateProps.resolverAddress, stateProps.supportedInterfaces, stateProps.name, chainId,
+    );
   },
 });
 
