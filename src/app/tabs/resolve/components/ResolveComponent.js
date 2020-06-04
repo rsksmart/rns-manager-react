@@ -12,6 +12,7 @@ import UserWaitingComponent from '../../../components/UserWaitingComponent';
 const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
   const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
+  const hasMulticoin = supportedInterfaces.indexOf('multicoin') > -1;
   const hasName = supportedInterfaces.indexOf('name') > -1;
 
   return (
@@ -19,12 +20,18 @@ const renderResolutions = (supportedInterfaces) => {
       <Row>
         {
           hasAddr && (
-            <Col lg={hasChainAddr ? 6 : { span: 6, offset: 3 }}>
+            <Col lg={(hasChainAddr || hasMulticoin) ? 6 : { span: 6, offset: 3 }}>
               <ResolveAddrContainer title="RSK" />
             </Col>
           )
         }
-        {hasChainAddr && <Col lg={6}><ResolveChainAddrContainer /></Col>}
+        {
+          (hasChainAddr || hasMulticoin) && (
+            <Col lg={6}>
+              <ResolveChainAddrContainer hasMulticoin={hasMulticoin} />
+            </Col>
+          )
+        }
       </Row>
       <Row>
         {
@@ -55,10 +62,12 @@ class ResolveComponent extends Component {
   }
 
   componentDidMount() {
-    const { name, resolve } = this.props;
+    const { name, resolve, reset } = this.props;
 
     if (name) {
       resolve();
+    } else {
+      reset();
     }
   }
 
@@ -160,6 +169,7 @@ class ResolveComponent extends Component {
 ResolveComponent.propTypes = {
   name: propTypes.string.isRequired,
   resolve: propTypes.func.isRequired,
+  reset: propTypes.func.isRequired,
   error: propTypes.string,
   search: propTypes.func.isRequired,
   strings: propTypes.shape({
