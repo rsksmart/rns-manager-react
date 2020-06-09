@@ -397,5 +397,6 @@
   "understand_warning": "I understand.",
   "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
   "content_hash": "Content Hash",
-  "contract_abi": "Contract ABI"
+  "contract_abi": "Contract ABI",
+  "contract_abi_set": "Contract ABI has been set."
 }

@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
-import EditContractAbiComponent from './EditContractAbiComponent';
-import { EditContentContainer } from '../containers';
+import { EditContentContainer, ViewContractAbiContainer } from '../containers';
 import { CONTRACT_ABI } from '../types';
 
 const ResolverComponent = ({ strings, start, content }) => {
@@ -16,7 +15,7 @@ const ResolverComponent = ({ strings, start, content }) => {
 
     switch (item[0]) {
       case CONTRACT_ABI:
-        return <EditContractAbiComponent value={item[1].value} />;
+        return <ViewContractAbiContainer value={item[1].value} />;
       default:
         // the default is the AddressInputComponent
         return (

@@ -146,6 +146,8 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
   // loop throgh supported interfaces and if found, call 'get' function.
+  // only calls MULTICHAIN on the resolver page for the migration component
+  // multicoin data is not needed on this page.
   interfaces.forEach((i) => {
     abstractResolver.methods
       .supportsInterface(i.interfaceId).call()
@@ -156,12 +158,12 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
             case CONTENT_HASH:
               return dispatch(getContentBytes(resolverAddress, domain, i.name));
             case MULTICHAIN:
-            case MULTICOIN:
               return dispatch(getAllChainAddresses(
                 domain, getResolverNameByAddress(resolverAddress),
               ));
             case CONTRACT_ABI:
               return (dispatch(getContractAbi(resolverAddress, domain)));
+            case MULTICOIN:
             default:
           }
         }
@@ -258,26 +260,29 @@ const setContentBytes = (
 
 const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestSetContent(CONTRACT_ABI));
-  const node = namehash(domain);
   let dataSourceError;
   let parsedJson;
+  const response = [];
+  console.log('setting Contract Abi!', resolverAddress, domain, value);
 
-  // get data by input method starting with URL:
-  if (value.inputMethod === 'url') {
-    await fetch(encodeURI(value.url))
+  // get data by input method starting with URI:
+  if (value.inputMethod === 'uri') {
+    await fetch(encodeURI(value.uri))
       .then(res => res.json())
       .then((data) => {
         try {
           parsedJson = JSON.stringify(data);
         } catch (e) {
-          dataSourceError = `Could not validate JSON from URL, ${e.message}`;
+          dataSourceError = `Could not validate JSON from URI, ${e.message}`;
         }
       })
       .catch((e) => {
         dataSourceError = e.message;
       });
   } else {
+    // get the data from the input form
     try {
+      console.log('trying:', value.jsonText);
       parsedJson = JSON.stringify(JSON.parse(value.jsonText));
     } catch (e) {
       dataSourceError = 'Could not validate JSON';
@@ -285,7 +290,6 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   if (dataSourceError) {
-    console.log('parsed:', parsedJson);
     return dispatch(errorSetContent(CONTRACT_ABI, dataSourceError));
   }
 
@@ -294,25 +298,33 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   // type 1: uncompressed Json
   if (value.encodings.json && parsedJson !== '') {
     console.log('adding 1: JSON', parsedJson);
-    multiCallMethods.push(
-      definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
-        node, 1, web3.utils.toHex(parsedJson),
-      ).encodeABI(),
-    );
+    response.push({ id: 1, result: web3.utils.toHex(parsedJson) });
+  } else if (value.isEditing && !value.encodings.json) {
+    // if editing, and uri is not checked, erase the value just in case
+    response.push({ id: 1, result: 0 });
   }
 
   // type 2:
   // type 4:
 
   // type 8: the URI:
-  if (value.encodings.url) {
-    console.log('adding 8: URI');
+  if (value.encodings.uri) {
+    console.log('adding 8: URI', value.uri);
+    response.push({ id: 8, result: web3.utils.toHex(value.uri) });
+  } else if (value.isEditing && !value.encodings.uri) {
+    console.log('blank 8: URI', value.uri);
+    response.push({ id: 8, result: 0 });
+  }
+
+  // Let's Multicall!
+  response.forEach((call) => {
+    console.log('adding to multicall:', call.id);
     multiCallMethods.push(
       definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
-        node, 8, web3.utils.toHex(parsedJson),
+        namehash(domain), call.id, call.result,
       ).encodeABI(),
     );
-  }
+  });
 
   if (multiCallMethods.length === 0) {
     return dispatch(errorSetContent(CONTRACT_ABI, 'No encodings selected'));
@@ -333,8 +345,8 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
 
       const transactionConfirmed = () => () => {
         console.log('transaction Confirmed!', result);
-        dispatch(receiveSetContent(CONTRACT_ABI, result, parsedJson));
-        // sendBrowserNotification(domain, 'record_set');
+        dispatch(receiveSetContent(CONTRACT_ABI, result, response));
+        sendBrowserNotification(domain, 'contract_abi_set');
       };
 
       return dispatch(transactionListener(

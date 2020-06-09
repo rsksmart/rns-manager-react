@@ -1,27 +1,26 @@
 .resolver {
+  select {
+    -webkit-appearance:none;
+    display: block;
+    width: 100%;
+    color: $gray;
+    padding: 12px 10px;
+    border-radius: 5px;
+    border: 1px solid $gray;
+    background-image: url('/assets/img/caret-down.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 12px 8px;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    border: 1px solid $gray;
+    border-radius: 12px;
+    padding: 10px;
+  }
   .add-records {
-    select {
-      -webkit-appearance:none;
-      display: block;
-      width: 100%;
-      color: $gray;
-      padding: 12px 10px;
-      border-radius: 5px;
-      border: 1px solid $gray;
-      background-image: url('/assets/img/caret-down.svg');
-      background-position: right 15px center;
-      background-repeat: no-repeat;
-      background-size: 12px 8px;
-    }
-
-    input {
-      display: block;
-      width: 100%;
-      border: 1px solid $gray;
-      border-radius: 12px;
-      padding: 10px;
-    }
-
     button.add {
       display: block;
       width: 100%;
@@ -29,30 +28,6 @@
       padding: 10px !important;
       color: $white;
       border-radius: 15px;
-    }
-
-    .contractAbiInput {
-      border: 1px solid $gray;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      border-radius: 10px;
-
-      label:not(.custom-control-label) {
-        width: 100% !important;
-        font-weight: 500 !important;
-      }
-
-      textarea {
-        width: 100% !important;
-        height: 150px;
-        border-radius: 15px;
-      }
-
-      ul {
-        list-style-type: none;
-        margin: 0 0 15px 15px;
-        padding: 0;
-      }
     }
   }
   .records {
@@ -69,6 +44,61 @@
       .options {
         margin-left: 50px;
       }
+    }
+
+    .contract-abi-view {
+      p {
+        font-size: 1em !important;
+        margin:10px 0 0 0 !important;
+      }
+
+      pre.contractAbi {
+        border: 1px solid $gray;
+        background-color: $light-gray;
+        padding: 5px;
+        max-height: 250px;
+        width: 100%;
+        overflow: scroll;
+      }
+
+      div.uri {
+        border: 1px solid $gray;
+        background-color: $light-gray;
+        padding: 5px;
+      }
+
+      ul, ul li {
+        color: $gray !important;
+      }
+    }
+  }
+
+  .contractAbiInput {
+    border: 1px solid $gray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+
+    label:not(.custom-control-label) {
+      width: 100% !important;
+      font-weight: 500 !important;
+    }
+
+    textarea {
+      width: 100% !important;
+      height: 150px;
+      border-radius: 15px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0 0 15px 15px;
+      padding: 0;
+    }
+
+    button.save {
+      background-color: $blue !important;
+      padding: 10px 20px !important;
     }
   }
 

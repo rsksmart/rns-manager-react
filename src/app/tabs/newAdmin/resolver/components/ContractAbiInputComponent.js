@@ -7,9 +7,9 @@ import {
 
 const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
   const [state, setState] = useState({
-    inputMethod: 'url',
+    inputMethod: 'uri',
     jsonText: '',
-    url: '',
+    uri: '',
     encodings: {
       json: true,
       zlib: true,
@@ -44,7 +44,7 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
             onChange={e => setState({ ...state, inputMethod: e.target.value })}
             disabled={disabled}
           >
-            <option value="url">URL</option>
+            <option value="uri">URI</option>
             <option value="text">Paste in JSON</option>
           </select>
         </label>
@@ -61,14 +61,14 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
             />
           </label>
         )}
-        {state.inputMethod === 'url' && (
-          <label htmlFor="url">
-            URL
+        {state.inputMethod === 'uri' && (
+          <label htmlFor="uriInput">
+            URI
             <input
-              id="url"
-              onChange={e => setState({ ...state, url: e.target.value })}
-              placeholder="URL of the JSON abi file"
-              value={state.url}
+              id="uriInput"
+              onChange={e => setState({ ...state, uri: e.target.value })}
+              placeholder="URI of the JSON abi file"
+              value={state.uri}
               disabled={disabled}
             />
           </label>
@@ -89,7 +89,7 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
               />
             </li>
           ))}
-          {state.inputMethod === 'url' && (
+          {state.inputMethod === 'uri' && (
           <li>
             <Form.Check
               type="switch"
@@ -105,11 +105,11 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
       </Col>
       <Col sm="3">
         <Button
-          className="add"
+          className="save"
           onClick={() => handleClick(state)}
           disabled={disabled}
         >
-          {strings.add}
+          {strings.submit}
         </Button>
       </Col>
     </Row>
@@ -118,7 +118,7 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
 
 ContractAbiInputComponent.propTypes = {
   strings: propTypes.shape({
-    add: propTypes.string.isRequired,
+    submit: propTypes.string.isRequired,
   }).isRequired,
   handleClick: propTypes.func.isRequired,
   disabled: propTypes.bool.isRequired,
