@@ -64,11 +64,12 @@ export const requestSetContent = contentType => ({
   contentType,
 });
 
-export const receiveSetContent = (contentType, successTx, value) => ({
+export const receiveSetContent = (contentType, successTx, value, isEmpty) => ({
   type: RECEIVE_SET_CONTENT,
   contentType,
   successTx,
   value,
+  isEmpty,
 });
 
 export const errorSetContent = (contentType, message) => ({

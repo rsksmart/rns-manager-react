@@ -109,7 +109,6 @@ export const getContentBytes = (resolverAddress, domain, type = CONTENT_BYTES) =
 
 /**
  * Querys the blockchain for all four encodings of contract ABI and returns values
- * or null.
  * @param {address} resolverAddress address of the domain's resolver
  * @param {domain} domain domain associated with the ABI.
  */
@@ -131,7 +130,8 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   });
 
   Promise.all(promiseArray).then((values) => {
-    const hasValues = values.filter(item => item.result !== null).length;
+    const hasValues = values
+      .filter(item => item.result !== null && parseInt(item.result, 16) !== 0).length;
     dispatch(receiveContent(CONTRACT_ABI, values, !hasValues));
   });
 };
@@ -279,7 +279,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
       .catch((e) => {
         dataSourceError = e.message;
       });
-  } else {
+  } else if (value.inputMethod !== 'delete') {
     // get the data from the input form
     try {
       console.log('trying:', value.jsonText);
@@ -301,6 +301,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     response.push({ id: 1, result: web3.utils.toHex(parsedJson) });
   } else if (value.isEditing && !value.encodings.json) {
     // if editing, and uri is not checked, erase the value just in case
+    console.log('blank 1: JSON');
     response.push({ id: 1, result: 0 });
   }
 
@@ -312,7 +313,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     console.log('adding 8: URI', value.uri);
     response.push({ id: 8, result: web3.utils.toHex(value.uri) });
   } else if (value.isEditing && !value.encodings.uri) {
-    console.log('blank 8: URI', value.uri);
+    console.log('blank 8: URI');
     response.push({ id: 8, result: 0 });
   }
 
@@ -345,7 +346,9 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
 
       const transactionConfirmed = () => () => {
         console.log('transaction Confirmed!', result);
-        dispatch(receiveSetContent(CONTRACT_ABI, result, response));
+        dispatch(receiveSetContent(
+          CONTRACT_ABI, result, response, (value.inputMethod === 'delete'),
+        ));
         sendBrowserNotification(domain, 'contract_abi_set');
       };
 

@@ -80,24 +80,4 @@
       font-weight: 300 !important;
     }
   }
-
-  div.delete {
-    background-color: $light-gray;
-    padding: 1em 2em;
-    margin: 1em auto;
-
-    button {
-      padding:10px 20px !important;
-      margin-left: 5px;
-      border-radius: 15px;
-      width: 47%
-    }
-    
-    button.cancel {
-      border:1px solid $gray;
-      background: $white;
-      color: $gray;
-      font-weight: 300 !important;
-    }
-  }
 }

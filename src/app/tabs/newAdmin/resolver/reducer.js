@@ -122,6 +122,7 @@ const resolverReducer = (state = initialState, action) => {
           isWaiting: false,
           value: action.value,
           successTx: action.successTx,
+          isEmpty: action.isEmpty,
         },
       },
     };
