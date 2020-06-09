@@ -26,6 +26,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "2.1.5",
     "react-switch": "^5.0.0",
+    "react-zlib-js": "^1.0.4",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-multilanguage": "^0.1.2",

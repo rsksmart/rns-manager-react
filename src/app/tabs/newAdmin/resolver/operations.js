@@ -1,6 +1,8 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
+import { deflate } from 'react-zlib-js';
+
 import { validateBytes32 } from '../../../validations';
 
 import {
@@ -124,7 +126,10 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
     promiseArray.push(
       new Promise((resolve) => {
         resolver.methods.ABI(hash, id).call()
-          .then(result => resolve({ id, result: result[1] }));
+          .then(result => resolve({
+            id,
+            result: (result[1] !== '0x00' && result[1]) ? result[1] : null,
+          }));
       }),
     );
   });
@@ -282,7 +287,6 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   } else if (value.inputMethod !== 'delete') {
     // get the data from the input form
     try {
-      console.log('trying:', value.jsonText);
       parsedJson = JSON.stringify(JSON.parse(value.jsonText));
     } catch (e) {
       dataSourceError = 'Could not validate JSON';
@@ -306,6 +310,26 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // type 2:
+  if (value.encodings.zlib && parsedJson !== '') {
+    console.log('adding 2: zLIB');
+    const zLibPromise = new Promise((resolve, reject) => {
+      deflate(parsedJson, async (err, buffer) => {
+        console.log('deflateFinished');
+        if (err) {
+          return reject(dispatch(errorSetContent(CONTRACT_ABI, 'Error creating zlib package')));
+        }
+        const zlibCompressed = web3.utils.toHex(buffer);
+        console.log('zlib to hex', zlibCompressed);
+        return resolve(zlibCompressed);
+      });
+    });
+
+    await zLibPromise.then(zlibHex => response.push({ id: 2, result: zlibHex }));
+  } else if (value.isEditing && !value.encodings.zlib) {
+    console.log('blank 2: URI');
+    response.push({ id: 2, result: 0 });
+  }
+
   // type 4:
 
   // type 8: the URI:
@@ -318,6 +342,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // Let's Multicall!
+  console.log('starting multicall!');
   response.forEach((call) => {
     console.log('adding to multicall:', call.id);
     multiCallMethods.push(
@@ -338,7 +363,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   console.log('sending the message');
   return definitiveResolver.methods.multicall(multiCallMethods)
     .send({ from: currentAddress }, (e, result) => {
-      console.log('method sent');
+      console.log('method sent', multiCallMethods);
       if (e) {
         console.log('error in send');
         return dispatch(errorSetContent(CONTRACT_ABI, e.message));

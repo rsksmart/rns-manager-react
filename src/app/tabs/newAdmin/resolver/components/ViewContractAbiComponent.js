@@ -14,24 +14,17 @@ import closeBlue from '../../../../../assets/img/close-blue.svg';
 
 const ViewContractAbiComponent = ({
   strings, value, handleClick, isWaiting, errorMessage, handleCloseClick, successTx,
+  prettyJson,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const uncompressed = value.filter(i => i.id === 1)[0];
-  const uri = value.filter(i => i.id === 8)[0];
+  const uncompressed = value.filter(i => i.id === 1)[0].result;
+  const zlib = value.filter(i => i.id === 2)[0].result;
+  const uri = value.filter(i => i.id === 8)[0].result;
 
-  let prettyJson;
-  try {
-    prettyJson = (uncompressed && uncompressed.result)
-      ? JSON.stringify(JSON.parse(Web3.utils.toAscii(uncompressed.result)), null, 2)
-      : null;
-  } catch (e) {
-    prettyJson = null;
-  }
-
-  const prettyUri = (uri && uri.result && parseInt(uri.result, 16) !== 0)
-    ? Web3.utils.toAscii(uri.result) : null;
+  const prettyUri = (uri && uri && parseInt(uri, 16) !== 0)
+    ? Web3.utils.toAscii(uri) : null;
 
   if (successTx && isEditing) {
     setIsEditing(false);
@@ -82,8 +75,9 @@ const ViewContractAbiComponent = ({
           )}
           <p>Stored as:</p>
           <ul>
-            {(prettyJson) && <li>JSON</li>}
-            {(prettyUri) && <li>URI</li>}
+            {uncompressed && <li>JSON</li>}
+            {zlib && <li>zlib-compressed JSON</li>}
+            {uri && <li>URI</li>}
           </ul>
         </div>
         )}
@@ -147,6 +141,7 @@ ViewContractAbiComponent.propTypes = {
   errorMessage: propTypes.string,
   handleCloseClick: propTypes.func.isRequired,
   successTx: propTypes.string,
+  prettyJson: propTypes.string.isRequired,
 };
 
 export default multilanguage(ViewContractAbiComponent);
