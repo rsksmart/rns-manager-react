@@ -13,11 +13,7 @@ import {
   removeSubdomainFromList,
 } from './actions';
 
-import {
-  multiChainResolver as multiChainResolverAddress,
-} from '../../../adapters/configAdapter';
-import { multichainResolverAbi } from '../addresses/abis.json';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
+import { abstractResolverAbi } from '../resolver/abis.json';
 
 import { EMPTY_ADDRESS } from '../types';
 
@@ -26,9 +22,6 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 const web3 = new Web3(window.ethereum);
 
-const multichainResolver = new web3.eth.Contract(
-  multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
-);
 
 // JS library:
 const rns = new RNS(web3, getOptions());
@@ -49,9 +42,11 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
 };
 
-const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => async (dispatch) => {
+const registerSubdomain = (
+  parentDomain, subdomain, owner, setupResolution, resolverAddress,
+) => async (dispatch) => {
   dispatch(waitingNewSubdomainConfirm());
-  console.log('creating new subdomain', parentDomain, subdomain, owner, setupResolution);
+  console.log('creating new subdomain', parentDomain, subdomain, owner, setupResolution, resolverAddress);
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
@@ -80,6 +75,7 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
   }
 
   console.log('setting', fullDomain, '0x80000089', owner);
+
   const promiseArray = [
     new Promise((resolve, reject) => {
       // register the domain to the current address to setup the resolver
@@ -89,11 +85,11 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
     }),
     new Promise((resolve, reject) => {
       // set the multichainResolver since that is the default
-      multichainResolver.methods.setChainAddr(
-        namehash(fullDomain), '0x80000089', owner,
-      )
+      const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
+      console.log('resolver', abstractResolver);
+      abstractResolver.methods.setAddr(namehash(fullDomain), owner)
         .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+          ? reject(error) : dispatch(transactionListener(result, () => () => resolve(result)))));
     }),
   ];
 
@@ -106,7 +102,7 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
         // register the domain to the current address to setup the resolver
         rns.contracts.registry.methods.setSubnodeOwner(node, label, owner)
           .send({ from: currentAddress }, (error, result) => (error
-            ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+            ? reject(error) : dispatch(transactionListener(result, () => () => resolve(result)))));
       }),
     );
   }
@@ -116,8 +112,8 @@ const registerSubdomain = (parentDomain, subdomain, owner, setupResolution) => a
     success(result[0]);
   })
     .catch((error) => {
-      console.log('error');
-      dispatch(errorNewSubdomain(error));
+      console.log('error', error);
+      return dispatch(errorNewSubdomain(error.message));
     });
 
   // first, register the domain:
@@ -169,7 +165,7 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
  * @param {Object[]} subdomainList the list of known and stored domains
  */
 export const newSubdomain = (
-  parentDomain, subdomain, newOwner, subdomainList, setupResolution,
+  parentDomain, subdomain, newOwner, subdomainList, setupResolution, resolverAddress,
 ) => async (dispatch) => {
   dispatch(requestNewSubdomain());
 
@@ -183,7 +179,9 @@ export const newSubdomain = (
 
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress, setupResolution));
+    return dispatch(registerSubdomain(
+      parentDomain, subdomain, newAddress, setupResolution, resolverAddress,
+    ));
   }
 
   if (subdomainList[subdomain]) {

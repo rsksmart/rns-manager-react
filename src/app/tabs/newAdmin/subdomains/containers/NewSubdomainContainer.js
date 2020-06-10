@@ -13,11 +13,14 @@ const mapStateToProps = state => ({
   confirmedTx: state.newAdmin.subdomains.confirmedTx,
   subdomains: state.newAdmin.subdomains.subdomains,
   chainId: state.auth.network,
+  resolverAddress: state.newAdmin.resolver.resolverAddr,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, subDomain, owner, subdomains, setupResolution) => dispatch(newSubdomain(
-    domain, subDomain, owner, subdomains, setupResolution,
+  handleClick: (
+    domain, subDomain, owner, subdomains, setupResolution, resolverAddress,
+  ) => dispatch(newSubdomain(
+    domain, subDomain, owner, subdomains, setupResolution, resolverAddress,
   )),
   handleErrorClose: () => dispatch(errorNewSubdomainClose()),
   handleSuccessClose: () => dispatch(successNewSubdomainClose()),
@@ -28,7 +31,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   handleClick: (subDomain, owner, setupResolution) => dispatchProps.handleClick(
-    stateProps.domain, subDomain, owner, stateProps.subdomains, setupResolution,
+    stateProps.domain, subDomain, owner, stateProps.subdomains,
+    setupResolution, stateProps.resolverAddress,
   ),
   handleErrorClose: () => dispatchProps.handleErrorClose(),
   handleSuccessClose: () => dispatchProps.handleSuccessClose(),
