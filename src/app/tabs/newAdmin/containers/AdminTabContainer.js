@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AdminTabComponent } from '../components';
-import { toggleBasicAdvancedSwitch } from '../operations';
+import { toggleBasicAdvancedSwitch, start } from '../operations';
 
 const mapStateToProps = state => ({
   advancedView: state.newAdmin.view.advancedView,
@@ -11,9 +11,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleAdvancedBasic: value => dispatch(toggleBasicAdvancedSwitch(value)),
+  start: domain => dispatch(start(domain)),
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  start: () => dispatchProps.start(stateProps.domain),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(AdminTabComponent);

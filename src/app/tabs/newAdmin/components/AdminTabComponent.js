@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { Switch, Route } from 'react-router';
 
 import { AuthTabWrapper } from '../../../auth';
-import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
@@ -27,14 +25,14 @@ const AdminComponent = ({
   domain,
   isRegistryOwner,
   enabling,
+  start,
 }) => {
   if (enabling) {
     return <UserWaitingComponent />;
   }
 
   if (domain) {
-    const dispatch = useDispatch();
-    useEffect(() => dispatch(start(domain)), [dispatch]);
+    useEffect(() => start(), []);
   }
 
   return (
@@ -89,6 +87,7 @@ AdminComponent.propTypes = {
   domain: propTypes.string,
   isRegistryOwner: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
+  start: propTypes.func.isRequired,
 };
 
 export default multilanguage(AdminComponent);
