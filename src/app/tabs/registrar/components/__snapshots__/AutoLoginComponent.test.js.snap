@@ -148,7 +148,7 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
             </Button>
           </div>
         </div>
-      </ForwardRef>
+      </Row>
     </AutoLoginComponent>
   </Connect(AutoLoginComponent)>
 </Provider>
