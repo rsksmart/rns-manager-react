@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
 import { deflate } from 'react-zlib-js';
-
+import cbor from 'cbor';
 import { validateBytes32 } from '../../../validations';
 
 import {
@@ -331,6 +331,15 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // type 4:
+  if (value.encodings.cbor && parsedJson !== '') {
+    console.log('adding 4: cbor');
+    const cborEncoded = web3.utils.toHex(cbor.encode(parsedJson));
+    response.push({ id: 4, result: web3.utils.toHex(cbor.encode(parsedJson)) });
+    console.log('result', cborEncoded);
+  } else if (value.isEditing && !value.encodings.cbor) {
+    console.log('blank 4: CBOR');
+    response.push({ id: 4, result: 0 });
+  }
 
   // type 8: the URI:
   if (value.encodings.uri) {

@@ -19,11 +19,9 @@ const ViewContractAbiComponent = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const uncompressed = value.filter(i => i.id === 1)[0].result;
-  const zlib = value.filter(i => i.id === 2)[0].result;
   const uri = value.filter(i => i.id === 8)[0].result;
 
-  const prettyUri = (uri && uri && parseInt(uri, 16) !== 0)
+  const prettyUri = (uri && parseInt(uri, 16) !== 0)
     ? Web3.utils.toAscii(uri) : null;
 
   if (successTx && isEditing) {
@@ -41,6 +39,25 @@ const ViewContractAbiComponent = ({
         json: false, uri: false, zlib: false, cbor: false,
       },
     });
+  };
+
+  const storedAs = (encoding) => {
+    if (!encoding.result || parseInt(encoding.result, 16) === 0) {
+      return <></>;
+    }
+
+    const encodingNames = [
+      { id: 1, name: 'JSON' },
+      { id: 2, name: 'zlib-compressed JSON' },
+      { id: 4, name: 'CBOR' },
+      { id: 8, name: 'URI' },
+    ];
+
+    return (
+      <li key={encoding.id}>
+        {encodingNames.filter(item => item.id === encoding.id)[0].name}
+      </li>
+    );
   };
 
   return (
@@ -75,9 +92,7 @@ const ViewContractAbiComponent = ({
           )}
           <p>Stored as:</p>
           <ul>
-            {uncompressed && <li>JSON</li>}
-            {zlib && <li>zlib-compressed JSON</li>}
-            {uri && <li>URI</li>}
+            {value.map(encoding => storedAs(encoding))}
           </ul>
         </div>
         )}
@@ -133,8 +148,9 @@ ViewContractAbiComponent.propTypes = {
     delete: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
   }).isRequired,
-  value: propTypes.shape({
-    filter: propTypes.func.isRequired,
+  value: propTypes.arrayOf({
+    id: propTypes.number,
+    result: propTypes.string,
   }).isRequired,
   handleClick: propTypes.func.isRequired,
   isWaiting: propTypes.bool.isRequired,
