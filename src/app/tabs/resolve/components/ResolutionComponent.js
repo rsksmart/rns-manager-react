@@ -1,65 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
+import { multilanguage } from 'redux-multilanguage';
 import {
-  Container, Row, Col, Image, Card, Alert, Spinner,
+  Row, Col, Image, Card,
 } from 'react-bootstrap';
-import { CopyableComponent } from '../../../components';
+import {
+  CopyableComponent, UserErrorComponent, UserWaitingComponent,
+} from '../../../components';
 
-class ResolutionComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showError: false };
+const ResolutionComponent = ({
+  error, loading, value, strings,
+}) => {
+  if (error) {
+    return <UserErrorComponent message={error} />;
   }
 
-  componentWillReceiveProps(newProps) {
-    const { error } = this.props;
-
-    if (newProps.error !== error) {
-      this.setState({ showError: true });
-    }
+  if (loading) {
+    return <UserWaitingComponent />;
   }
 
-  render() {
-    const { error, loading, value } = this.props;
-    const { showError } = this.state;
-
-    if (error) {
-      return <Alert variant="danger" dismissible show={showError} onClose={() => this.setState({ showError: false })}>{error}</Alert>;
-    }
-
-    if (loading) {
-      return <Spinner animation="grow" variant="primary" />;
-    }
-
-    if (!value) {
-      return 'no resolution';
-    }
-
-    return (
-      <Container>
-        <Row>
-          <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={12}>
-            <br />
-            <Card>
-              <Image src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${value}&choe=UTF-8`} alt="resolution qr" className="card-img-top" />
-            </Card>
-          </Col>
-        </Row>
-        <br />
-        <Row>
-          <Col lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={12}>
-            <CopyableComponent>{value}</CopyableComponent>
-          </Col>
-        </Row>
-      </Container>
-    );
+  if (!value) {
+    return <div>{strings.no_resolution}</div>;
   }
-}
+
+  return (
+    <Row>
+      <Col md={{ span: 10, offset: 1 }} sm={12}>
+        <Card className="break-below">
+          <Image
+            src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${value}&choe=UTF-8`}
+            alt="resolution qr"
+            className="card-img-top"
+          />
+        </Card>
+        <CopyableComponent>{value}</CopyableComponent>
+      </Col>
+    </Row>
+  );
+};
 
 ResolutionComponent.propTypes = {
   error: propTypes.string,
   loading: propTypes.bool.isRequired,
   value: propTypes.string,
+  strings: propTypes.shape({
+    no_resolution: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 ResolutionComponent.defaultProps = {
@@ -67,4 +53,4 @@ ResolutionComponent.defaultProps = {
   value: null,
 };
 
-export default ResolutionComponent;
+export default multilanguage(ResolutionComponent);

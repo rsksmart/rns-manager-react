@@ -9,7 +9,7 @@ import { getReverse } from '../operations';
 
 const ReverseComponent = ({
   reverseValue, address, strings, isRequesting, isWaiting, isError,
-  errorMessage, isSuccess, successTx, chainId,
+  errorMessage, isSuccess, successTx, chainId, domain,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getReverse(address)), []);
@@ -33,6 +33,10 @@ const ReverseComponent = ({
         isSuccess={isSuccess}
         successTx={successTx}
         validation={false}
+        suggestions={[{
+          name: domain,
+          value: domain,
+        }]}
         strings={{
           value_prefix: '',
           submit: strings.submit,
@@ -41,6 +45,8 @@ const ReverseComponent = ({
           success_message: strings.reverse_success,
           edit_propmt: strings.domain,
           waiting: strings.wait_transation_confirmed,
+          suggestion: `${strings.suggestion}`,
+          edit_placeholder: strings.type_domain,
         }}
       />
     </div>
@@ -57,6 +63,8 @@ ReverseComponent.propTypes = {
     not_set: propTypes.string.isRequired,
     domain: propTypes.string.isRequired,
     wait_transation_confirmed: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
+    type_domain: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
   chainId: propTypes.string.isRequired,
@@ -67,6 +75,7 @@ ReverseComponent.propTypes = {
   successTx: propTypes.string.isRequired,
   isWaiting: propTypes.bool.isRequired,
   isSuccess: propTypes.bool.isRequired,
+  domain: propTypes.string.isRequired,
 };
 
 export default multilanguage(ReverseComponent);

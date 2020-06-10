@@ -5,7 +5,7 @@ import {
   RECEIVE_CAN_REVEAL_COMMIT, ERROR_REGISTRAR_REVEAL_COMMIT, OPTIONS_NOT_FOUND,
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS, ERROR_CONVERSION_RATE,
-  CLOSE_REGISTRATION_ERROR,
+  CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
 } from './types';
 
 const initialState = {
@@ -44,6 +44,10 @@ const registrar = (state = initialState, action) => {
       committing: true,
       errorMessage: '',
     };
+    case REQUEST_CHECK_COMMIT_REGISTRAR: return {
+      ...state,
+      committing: true,
+    };
     case RECEIVE_REGISTRAR_COMMIT: return {
       ...state,
       committing: false,
@@ -56,6 +60,8 @@ const registrar = (state = initialState, action) => {
       ...state,
       committing: false,
       committed: false,
+      waiting: false,
+      hash: null,
       errorMessage: action.message,
     };
     case REQUEST_REGISTRAR_REVEAL_COMMIT: return {
@@ -90,7 +96,9 @@ const registrar = (state = initialState, action) => {
     };
     case OPTIONS_NOT_FOUND: return {
       ...state,
+      ...state.conversionRate,
       ...initialState,
+      errorMessage: state.errorMessage,
     };
     case REQUEST_CONVERSION_RATE: return {
       ...state,

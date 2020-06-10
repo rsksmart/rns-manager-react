@@ -13,7 +13,7 @@ import {
   removeSubdomainFromList,
 } from './actions';
 
-import { EMPTY } from './types';
+import { EMPTY_ADDRESS } from '../types';
 
 import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
@@ -72,7 +72,7 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   await rns.compose();
   await rns.contracts.registry.methods.owner(hash).call((error, result) => {
     if (!error) {
-      if (result !== EMPTY) {
+      if (result !== EMPTY_ADDRESS) {
         dispatch(addSubdomainToList(subdomain, result));
       }
     }
@@ -176,7 +176,7 @@ export const setSubdomainOwner = (
       const transactionConfirmed = () => () => {
         dispatch(receiveSetSubdomainOwner(result, subdomain, newAddress));
 
-        if (newAddress === EMPTY) {
+        if (newAddress === EMPTY_ADDRESS) {
           sendBrowserNotification(`${subdomain}.${parentDomain}`, 'remove_subdomain');
           updateSubdomainToLocalStorage(parentDomain, subdomain, false);
           dispatch(removeSubdomainFromList(subdomain));

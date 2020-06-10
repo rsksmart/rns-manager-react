@@ -22,6 +22,12 @@
     }
   }
 
+  .custom-switch {
+    * {
+      cursor: pointer;
+    }
+  }
+
   color: $gray;
   text-align: left;
 
@@ -49,6 +55,10 @@
       padding:10px 20px !important;
     }
   }
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 @import 'transferModal';

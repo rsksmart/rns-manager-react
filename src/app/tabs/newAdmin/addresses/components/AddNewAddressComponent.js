@@ -7,6 +7,8 @@ import { validateAddress } from '../../../../validations';
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
 import { ChecksumErrorContainer } from '../../../../containers';
 import { getChainNameById } from '../operations';
+import { truncateString } from '../../helpers';
+
 import allNetworks from '../networks.json';
 
 const AddNewAddressComponent = ({
@@ -16,6 +18,7 @@ const AddNewAddressComponent = ({
   handleClose,
   chainAddresses,
   newSuccess,
+  yourAddress,
 }) => {
   // all available addresses have been set, return before states are set
   if (networks.length === 0) {
@@ -26,15 +29,16 @@ const AddNewAddressComponent = ({
   const [checksumError, setChecksumError] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0][1].chainId);
   const [address, setAddress] = useState('');
-  const [localReset, setLocalRest] = useState(false);
 
   const networkName = getChainNameById(selectedNetwork);
 
-  // reset the state and select new network when newSuccess is finished
-  if (newSuccess && !localReset) {
+  // reset the state and select new network when newSuccess is finished and
+  // selectedNetwork is not in the list of avaialable networks
+  if (
+    newSuccess && (networks.filter(item => item[1].chainId === selectedNetwork).length === 0)
+  ) {
     setSelectedNetwork(networks[0][1].chainId);
     setAddress('');
-    setLocalRest(true);
   }
 
   const handleAddClick = () => {
@@ -53,15 +57,13 @@ const AddNewAddressComponent = ({
     }
 
     handleClick(selectedNetwork, address);
-    setLocalRest(false);
     return true;
   };
 
   const handleChecksumClick = (lowerAddress) => {
     setChecksumError(false);
     setAddress(lowerAddress);
-    setLocalRest(false);
-    handleClick(selectedNetwork, address);
+    handleClick(selectedNetwork, lowerAddress);
   };
 
   const handleErrorClose = () => {
@@ -90,6 +92,7 @@ const AddNewAddressComponent = ({
           <select
             onChange={evt => setSelectedNetwork(evt.target.value)}
             value={selectedNetwork}
+            disabled={isEditing}
           >
             {networks.map(chainAddress => (
               <option value={chainAddress[1].chainId}>{chainAddress[0]}</option>))}
@@ -113,6 +116,28 @@ const AddNewAddressComponent = ({
           </Button>
         </Col>
       </Row>
+
+      {selectedNetwork === '0x80000089' && (
+      <Row className="break-above">
+        <div className="col-md-8 offset-md-3">
+          <ul className="suggestions">
+            <li className="title">
+              {strings.suggestion}
+              :
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => setAddress(yourAddress)}
+                className="capitalize"
+              >
+                {`${strings.your_address} (${truncateString(yourAddress)})`}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </Row>
+      )}
 
       <UserErrorComponent
         message={errorMessage || localError}
@@ -145,6 +170,8 @@ AddNewAddressComponent.propTypes = {
     wait_transation_confirmed: propTypes.string.isRequired,
     add_new_address: propTypes.string.isRequired,
     paste_your_address: propTypes.string.isRequired,
+    suggestion: propTypes.string.isRequired,
+    your_address: propTypes.string.isRequired,
   }).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   networks: propTypes.array.isRequired,
@@ -152,6 +179,7 @@ AddNewAddressComponent.propTypes = {
   handleClick: propTypes.func.isRequired,
   handleClose: propTypes.func.isRequired,
   newSuccess: propTypes.bool.isRequired,
+  yourAddress: propTypes.bool.isRequired,
 };
 
 export default multilanguage(AddNewAddressComponent);

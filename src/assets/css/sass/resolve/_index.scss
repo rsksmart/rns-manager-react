@@ -1,0 +1,50 @@
+.container.resolver {
+  margin-top: 50px;
+
+  h2 {
+    text-transform: capitalize;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .search {
+    input {
+      display: block;
+      width: 100%;
+      border: 1px solid $gray;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    input::-webkit-input-placeholder {
+      text-align: center;
+      color: #E5E5E5;
+      font-size: .9em;
+      text-transform: capitalize;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px 20px !important;
+      margin: .25em 0;
+      border: 1px solid $white;
+      background: $blue;
+      color: $white;
+    }
+  }
+
+  .selectChain {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  // copy button:
+  .btn.btn-secondary.btn-sm {
+    border:1px solid $blue !important;
+  }
+}

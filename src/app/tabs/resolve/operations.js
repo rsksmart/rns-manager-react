@@ -1,14 +1,18 @@
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
+import { isValidAddress } from 'rskjs-util';
 import RNS from '@rsksmart/rns';
+import { formatsByCoinType } from '@ensdomains/address-encoder';
 import * as actions from './actions';
 import { rskNode } from '../../adapters/nodeAdapter';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
+import { definitiveResolverAbi } from '../newAdmin/resolver/definitiveAbis.json';
 import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
 import { getOptions } from '../../adapters/RNSLibAdapter';
 import { ERROR_RESOLVE_NAME } from './types';
-import { ERROR_SAME_VALUE } from '../newAdmin/types';
+import { ERROR_SAME_VALUE, EMPTY_ADDRESS } from '../newAdmin/types';
+import { getIndexById } from '../newAdmin/addresses/operations';
 
 /**
  * Resolves a domain name using the js library
@@ -119,16 +123,62 @@ export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
   }).catch(error => dispatch(actions.errorChainAddr(error.message)));
 };
 
+export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
+  dispatch(actions.requestChainAddr());
+
+  const hash = namehash(domain);
+  const web3 = new Web3(rskNode);
+  const resolver = new web3.eth.Contract(definitiveResolverAbi, resolverAddress);
+
+  return resolver.methods.addr(hash, chainId).call()
+    .then((resolution) => {
+      if (!resolution || resolution === EMPTY_ADDRESS) {
+        return dispatch(actions.receiveChainAddr(''));
+      }
+
+      // eslint-disable-next-line new-cap
+      const dataBuffer = new Buffer.from(resolution.replace('0x', ''), 'hex');
+      const result = formatsByCoinType[getIndexById(chainId)].encoder(dataBuffer);
+
+      if (chainId === '0x80000089') {
+        dispatch(actions.receiveAddr(result));
+      }
+      return dispatch(actions.receiveChainAddr(result));
+    })
+    .catch((error) => {
+      dispatch(actions.errorChainAddr(error.message));
+    });
+};
+
 export const name = (resolverAddress, address) => (dispatch) => {
   dispatch(actions.requestName());
-
   const web3 = new Web3(rskNode);
 
   const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
 
-  const hash = namehash(address);
+  const value = isValidAddress(address) ? `${address.replace('0x', '')}.addr.reverse` : address;
+  const hash = namehash(value);
 
   return nameResolver.methods.name(hash).call().then((nameResolution) => {
     dispatch(actions.receiveName(nameResolution));
   }).catch(error => dispatch(actions.errorName(error.message)));
+};
+
+export const searchAddressOrDomain = input => (dispatch) => {
+  const value = isValidAddress(input) ? `${input.replace('0x', '')}.addr.reverse` : input;
+  return dispatch(identifyInterfaces(value));
+};
+
+export const getAddress = (
+  resolverAddress, supportedInterfaces, coinName, chainId,
+) => (dispatch) => {
+  if (supportedInterfaces.indexOf('multicoin') > -1) {
+    return dispatch(multicoin(resolverAddress, coinName, (chainId || '0x80000089')));
+  }
+
+  if (supportedInterfaces.indexOf('chainAddr') > -1 && chainId) {
+    return dispatch(chainAddr(resolverAddress, coinName, chainId));
+  }
+
+  return dispatch(addr(resolverAddress, coinName));
 };

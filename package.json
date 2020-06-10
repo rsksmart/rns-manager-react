@@ -1,8 +1,9 @@
 {
   "name": "rns-manager-react",
-  "version": "2.0.0-beta.16",
+  "version": "2.0.0-beta.17",
   "private": true,
   "dependencies": {
+    "@ensdomains/address-encoder": "^0.1.7",
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rns": "^1.6.0",
     "@rsksmart/rns-suite": "^1.0.4",
@@ -41,7 +42,7 @@
     "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "env-cmd -f .env.testnet react-scripts build",
     "build:mainnet": "env-cmd -f .env.production react-scripts build",
-    "test": "node ./tests/setupRnsSuite.js && jest && eslint src",
+    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "lint": "eslint src"
   },

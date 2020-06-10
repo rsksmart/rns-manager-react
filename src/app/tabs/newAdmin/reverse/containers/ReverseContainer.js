@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   isSuccess: state.newAdmin.reverse.isSuccess,
   successTx: state.newAdmin.reverse.successTx,
   errorMessage: state.newAdmin.reverse.errorMessage,
+  domain: state.auth.name,
 });
 
 export default connect(mapStateToProps)(ReverseComponent);

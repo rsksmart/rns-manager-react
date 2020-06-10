@@ -27,6 +27,7 @@ describe('AddressInputComponent', () => {
       success_message: 'success message text',
       value_prefix: 'value prefix',
       waiting: 'waiting text string',
+      suggestion: 'suggestion',
     },
   };
 
@@ -148,6 +149,18 @@ describe('AddressInputComponent', () => {
     expect(component.find('div.value').text()).toBe('');
   });
 
+  it('does not show suggested row when there are no suggestions', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '',
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.edit').simulate('click');
+
+    expect(component.find('ul.suggestions').length).toBe(0);
+  });
+
   it('displays suggested items', () => {
     const localProps = {
       ...checksumInitialProps,
@@ -155,11 +168,37 @@ describe('AddressInputComponent', () => {
       validationChainId: '30',
       suggestions: [
         {
-          title: 'suggested item',
+          name: 'suggested item',
           value: '0x123456789',
         },
         {
-          title: 'suggested item 2',
+          name: 'suggested item 2',
+          value: '0x987654321',
+        },
+      ],
+    };
+
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.edit').simulate('click');
+
+    const ul = component.find('ul.suggestions');
+    expect(ul.children().length).toBe(3);
+    expect(ul.find('li.title').text()).toBe('suggestion:');
+    expect(ul.find('li').at(1).text()).toBe('suggested item');
+    expect(ul.find('li').at(2).text()).toBe('suggested item 2');
+  });
+
+  it('does not display suggested items when item is the value', () => {
+    const localProps = {
+      ...checksumInitialProps,
+      value: '0x123456789',
+      suggestions: [
+        {
+          name: 'suggested item',
+          value: '0x123456789',
+        },
+        {
+          name: 'suggested item 2',
           value: '0x987654321',
         },
       ],
@@ -170,5 +209,7 @@ describe('AddressInputComponent', () => {
 
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(2);
+    expect(ul.find('li.title').text()).toBe('suggestion:');
+    expect(ul.find('li').at(1).text()).toBe('suggested item 2');
   });
 });

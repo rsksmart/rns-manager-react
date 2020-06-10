@@ -2,7 +2,9 @@ import {
   REQUEST_RESOLVER, RECEIVE_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
-  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT,
+  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT, REQUEST_MIGRATE_ADDRESSES,
+  RECEIVE_MIGRATE_ADDRESSES, ERROR_DECODING_ADDRESS, ERROR_MIGRATE_WITH_ADDRESSES,
+  CLEAR_MIGRATE_CONTENT,
 } from './types';
 
 export const requestResolver = () => ({
@@ -81,4 +83,29 @@ export const closeSetMessage = contentType => ({
 
 export const clearAllContent = () => ({
   type: CLEAR_ALL_CONTENT,
+});
+
+export const requestMigrateAddresses = () => ({
+  type: REQUEST_MIGRATE_ADDRESSES,
+});
+
+export const receiveMigrateAddresses = txs => ({
+  type: RECEIVE_MIGRATE_ADDRESSES,
+  txs,
+});
+
+export const errorDecodingAddress = (chainId, chainName, errorMessage) => ({
+  type: ERROR_DECODING_ADDRESS,
+  chainName,
+  chainId,
+  errorMessage,
+});
+
+export const errorMigrateWithAddresses = message => ({
+  type: ERROR_MIGRATE_WITH_ADDRESSES,
+  message,
+});
+
+export const clearMigrateContent = () => ({
+  type: CLEAR_MIGRATE_CONTENT,
 });

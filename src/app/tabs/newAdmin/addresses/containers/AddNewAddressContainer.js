@@ -12,6 +12,7 @@ const networksFilter = networks => Object.entries(networks).filter(
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
+  yourAddress: state.auth.address,
   resolver: state.newAdmin.resolver.resolverAddr,
   resolverName: state.newAdmin.resolver.resolverName,
   networks: networksFilter(state.newAdmin.addresses.chainAddresses),
