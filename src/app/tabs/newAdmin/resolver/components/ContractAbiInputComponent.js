@@ -78,7 +78,7 @@ const ContractAbiInputComponent = ({ strings, handleClick, disabled }) => {
         <p><strong>ABI encodings:</strong></p>
         <ul>
           {encodings.map(item => (
-            <li>
+            <li key={item.id}>
               <Form.Check
                 type="switch"
                 id={item.id}

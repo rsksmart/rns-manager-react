@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
-import { deflate } from 'react-zlib-js';
+import { deflateSync } from 'react-zlib-js';
 import cbor from 'cbor';
 import { validateBytes32 } from '../../../validations';
 
@@ -307,17 +307,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
 
   // type 2: zlib compression
   if (value.encodings.zlib && parsedJson !== '') {
-    const zLibPromise = new Promise((resolve, reject) => {
-      deflate(parsedJson, async (err, buffer) => {
-        if (err) {
-          return reject(dispatch(errorSetContent(CONTRACT_ABI, 'Error creating zlib package')));
-        }
-        const zlibCompressed = web3.utils.toHex(buffer);
-        return resolve(zlibCompressed);
-      });
-    });
-
-    await zLibPromise.then(zlibHex => response.push({ id: 2, result: zlibHex }));
+    response.push({ id: 2, result: web3.utils.toHex(deflateSync(Buffer.from(parsedJson))) });
   } else if (value.isEditing && !value.encodings.zlib) {
     response.push({ id: 2, result: 0 });
   }
@@ -349,8 +339,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     return dispatch(errorSetContent(CONTRACT_ABI, 'No encodings selected'));
   }
 
-  console.log(multiCallMethods);
-  // make the call!
+  // make the multicall
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   return definitiveResolver.methods.multicall(multiCallMethods)

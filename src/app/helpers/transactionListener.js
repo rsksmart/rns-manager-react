@@ -12,7 +12,6 @@ const transactionListener = (tx, callback, failCallBack = () => {}) => (dispatch
         if (parseInt(response.result.status, 16) === 1) {
           return dispatch(callback());
         }
-        console.log('transaction failed');
         return failCallBack(TRANSACTION_RECEIPT_FAILED);
       }
       return false;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
@@ -30,7 +31,15 @@ const NewRecordComponent = ({
     handleCloseMessage(selectedContent);
   };
 
-  const activeOptions = content.filter(c => c[0] === selectedContent)[0][1];
+  // set the active options if exists, or select the top most
+  const active = content.filter(c => c[0] === selectedContent);
+  let activeOptions;
+  if (active.length !== 0) {
+    activeOptions = active[0][1];
+  } else {
+    activeOptions = content[0][1];
+    setSelectedContent(content[0][0]);
+  }
 
   const handleInputType = () => {
     if (selectedContent === CONTRACT_ABI) {
