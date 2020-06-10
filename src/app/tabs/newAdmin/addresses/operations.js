@@ -141,7 +141,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
     }
   }
 
-  return definitiveResolver.methods.setAddr(namehash(domain), chainId, encodeValue)
+  return definitiveResolver.methods.setAddr(namehash(domain), chainIndex, encodeValue)
     .send({ from: currentAddress }, (error, result) => {
       dispatch(waitingSetChainAddress(chainName));
       if (error) {
@@ -235,11 +235,12 @@ export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
  */
 export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
+
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
   const chainIndex = getIndexById(chainId);
 
-  return definitiveResolver.methods.addr(hash, chainId).call()
+  return definitiveResolver.methods.addr(hash, chainIndex).call()
     .then((addr) => {
       if (!addr || addr === EMPTY_ADDRESS) {
         return dispatch(receiveChainAddress(chainId, chainName, ''));
