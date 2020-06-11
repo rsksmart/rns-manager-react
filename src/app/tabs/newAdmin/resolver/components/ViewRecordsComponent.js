@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
 import { EditContentContainer, ViewContractAbiContainer } from '../containers';
-import { CONTRACT_ABI } from '../types';
+import { CONTRACT_ABI, CONTENT_HASH } from '../types';
 
 const ResolverComponent = ({ strings, start, content }) => {
   useEffect(() => start(), []);
@@ -17,7 +17,10 @@ const ResolverComponent = ({ strings, start, content }) => {
       case CONTRACT_ABI:
         return <ViewContractAbiContainer value={item[1].value} />;
       default:
-        // the default is the AddressInputComponent
+        // eslint-disable-next-line no-case-declarations
+        const placeholder = (item[0] === CONTENT_HASH)
+          ? '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...' : '';
+
         return (
           <EditContentContainer
             key={item[0]}
@@ -31,7 +34,7 @@ const ResolverComponent = ({ strings, start, content }) => {
               delete: strings.delete,
               delete_confirm_text: strings.delete_content_confirm,
               success_message: strings.content_updated,
-              placeholder: '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...',
+              edit_placeholder: placeholder,
             }}
           />
         );

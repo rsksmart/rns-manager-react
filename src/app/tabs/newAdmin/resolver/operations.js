@@ -232,11 +232,9 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  */
 const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
-  console.log('setContentHash', domain, input);
   rns.setContenthash(domain, input)
     .then((result) => {
       const transactionConfirmed = () => () => {
-        //          contentType, successTx, value, isEmpty
         dispatch(receiveSetContent(
           CONTENT_HASH, result, input, input === '',
         ));
@@ -266,7 +264,7 @@ const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => 
   const value = input !== '' ? input : CONTENT_BYTES_BLANK;
 
   // validation
-  if (!web3.utils.isHex(input)) {
+  if (validateBytes32(input)) {
     return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
 
