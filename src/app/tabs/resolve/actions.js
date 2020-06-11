@@ -71,3 +71,20 @@ export const errorChainAddr = error => ({
 export const resetResolve = () => ({
   type: types.RESET_RESOLVE,
 });
+
+export const requestContent = contentType => ({
+  type: types.REQUEST_CONTENT,
+  contentType,
+});
+
+export const receiveContent = (contentType, value) => ({
+  type: types.RECEIVE_CONTENT,
+  contentType,
+  value,
+});
+
+export const errorContent = (contentType, message) => ({
+  type: types.ERROR_CONTENT,
+  contentType,
+  message,
+});
