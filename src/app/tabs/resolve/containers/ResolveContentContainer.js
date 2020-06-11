@@ -5,12 +5,4 @@ const mapStateToProps = state => ({
   content: state.resolve.content,
 });
 
-const mapDispatchToProps = dispatch => ({
-
-});
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ResolveContentComponent);
+export default connect(mapStateToProps)(ResolveContentComponent);
