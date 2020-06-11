@@ -1470,16 +1470,19 @@
     truffle "^5.1.17"
     web3 "^1.2.6"
 
-"@rsksmart/rns@^1.6.0":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rns/-/rns-1.7.4.tgz#5e1b6a100f958c21e027a4e4a779ee831c3d43e7"
-  integrity sha512-askXXUKuzHFG98IY08OXFqIWbVZgWvmMSj90Ci6SkbEReDHWy5B+M9OCR27MLOghqX4f/r7dL0H8KW1/VbQaBw==
+"@rsksmart/rns@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rns/-/rns-1.8.0.tgz#ed4c204974a668a1a1ac254462f4d012e7188b88"
+  integrity sha512-Lo6TxztOypDvUca9Tqx1Wh/h7DSgDpgNcqD5hTy6ITQjPRfXxRTTdcFE/TL9+/PzKEoXVZug31SjlVikgJn5uw==
   dependencies:
+    "@ensdomains/address-encoder" "^0.1.7"
     "@rsksmart/rns-registry" "^1.0.2"
     "@rsksmart/rns-resolver" "^1.0.2"
     "@rsksmart/rns-reverse" "^1.0.2"
     "@rsksmart/rns-rskregistrar" "^1.2.1"
     "@rsksmart/rsk3" "^0.3.4"
+    buffer "^5.6.0"
+    content-hash "^2.5.2"
     eth-ens-namehash "^2.0.8"
     js-sha3 "^0.8.0"
     rskjs-util "^1.0.3"
@@ -3765,7 +3768,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.0.5, buffer@^5.2.1, buffer@^5.5.0:
+buffer@^5.0.5, buffer@^5.2.1, buffer@^5.5.0, buffer@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
   integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==

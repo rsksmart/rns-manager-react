@@ -5,7 +5,7 @@
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.7",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rns": "^1.6.0",
+    "@rsksmart/rns": "^1.8.0",
     "@rsksmart/rns-suite": "^1.0.4",
     "bootstrap": "^4.3.1",
     "cbor": "^5.0.2",

@@ -31,6 +31,7 @@ const ResolverComponent = ({ strings, start, content }) => {
               delete: strings.delete,
               delete_confirm_text: strings.delete_content_confirm,
               success_message: strings.content_updated,
+              placeholder: '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...',
             }}
           />
         );

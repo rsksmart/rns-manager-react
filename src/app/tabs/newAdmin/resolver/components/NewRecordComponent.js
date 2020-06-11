@@ -59,6 +59,7 @@ const NewRecordComponent = ({
             value={value}
             onChange={evt => setValue(evt.target.value)}
             disabled={activeOptions.isWaiting}
+            placeholder="/ipfs/, ipfs://..., bzz://..., onion://..., onion3://..."
           />
         </div>
         <div className="col-md-2">

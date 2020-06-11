@@ -78,35 +78,44 @@ export const getDomainResolver = domain => async (dispatch) => {
     });
 };
 
+export const getContentHash = domain => (dispatch) => {
+  dispatch(requestContent(CONTENT_HASH));
+  rns.contenthash(domain)
+    .then((result) => {
+      dispatch(receiveContent(
+        CONTENT_HASH,
+        `${result.protocolType}://${result.decoded}`,
+        false,
+      ));
+    })
+    .catch(() => dispatch(receiveContent(CONTENT_HASH, null, true)));
+};
 
 /**
- * Get the content Bytes or contenthash from the given resolver
+ * Get the content Bytes from the given resolver
  * @param {address} resolverAddress to be queried
  * @param {string} domain
  * @param {const} type either CONTENT_BYTES or CONTENT_HASH
  */
-export const getContentBytes = (resolverAddress, domain, type = CONTENT_BYTES) => (dispatch) => {
-  dispatch(requestContent(type));
+export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
+  dispatch(requestContent(CONTENT_BYTES));
 
   const resolver = new web3.eth.Contract(
     resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
 
   const hash = namehash(domain);
-
-  const method = type === CONTENT_BYTES
-    ? resolver.methods.content(hash)
-    : resolver.methods.contenthash(hash);
+  const method = resolver.methods.content(hash);
 
   method.call()
     .then(value => dispatch(
       receiveContent(
-        type,
+        CONTENT_BYTES,
         (value === CONTENT_BYTES_BLANK || !value) ? '' : value,
         (value === CONTENT_BYTES_BLANK || !value),
       ),
     ))
-    .catch(error => dispatch(errorContent(type, error)));
+    .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
 
 /**
@@ -160,8 +169,9 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
         if (supportsInterface) {
           switch (i.name) {
             case CONTENT_BYTES:
+              return dispatch(getContentBytes(resolverAddress, domain));
             case CONTENT_HASH:
-              return dispatch(getContentBytes(resolverAddress, domain, i.name));
+              return dispatch(getContentHash(domain));
             case MULTICHAIN:
               return dispatch(getAllChainAddresses(
                 domain, getResolverNameByAddress(resolverAddress),
@@ -216,22 +226,48 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
 };
 
 /**
+ * setContentHash using the JS Lib
+ * @param {string} domain The domain to set content hash for
+ * @param {string} input string input that should be sent
+ */
+const setContentHash = (domain, input) => async (dispatch) => {
+  dispatch(requestSetContent(CONTENT_HASH));
+  console.log('setContentHash', domain, input);
+  rns.setContenthash(domain, input)
+    .then((result) => {
+      const transactionConfirmed = () => () => {
+        //          contentType, successTx, value, isEmpty
+        dispatch(receiveSetContent(
+          CONTENT_HASH, result, input, input === '',
+        ));
+        sendBrowserNotification(domain, 'record_set');
+      };
+
+      return dispatch(transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetContent(CONTENT_HASH, errorReason)),
+      ));
+    })
+    .catch(error => dispatch(errorSetContent(CONTENT_HASH, error.message)));
+};
+
+
+/**
  * Sets the ContentBytes OR ContentHash for the domain
  * @param {address} resolverAddress address of the Resolver used
  * @param {string} domain to be associated with the data
  * @param {bytes32} input to be set, or empty to set blank
  * @param {const} type either CONTENT_BYTES or CONTENT_HASH
  */
-const setContentBytes = (
-  resolverAddress, domain, input, type = CONTENT_BYTES,
-) => async (dispatch) => {
-  dispatch(requestSetContent(type));
+const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => {
+  dispatch(requestSetContent(CONTENT_BYTES));
 
   const value = input !== '' ? input : CONTENT_BYTES_BLANK;
 
   // validation
-  if (validateBytes32(value)) {
-    return dispatch(errorSetContent(type, validateBytes32(value)));
+  if (!web3.utils.isHex(input)) {
+    return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
 
   const resolver = new web3.eth.Contract(
@@ -240,20 +276,17 @@ const setContentBytes = (
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
-
-  const method = type === CONTENT_BYTES
-    ? resolver.methods.setContent(namehash(domain), value)
-    : resolver.methods.setContenthash(namehash(domain), value);
+  const method = resolver.methods.setContent(namehash(domain), value);
 
   return method.send(
     { from: currentAddress }, (error, result) => {
       if (error) {
-        return dispatch(errorSetContent(type, error.message));
+        return dispatch(errorSetContent(CONTENT_BYTES, error.message));
       }
 
       const transactionConfirmed = () => () => {
         dispatch(receiveSetContent(
-          type, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
+          CONTENT_BYTES, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
         ));
         sendBrowserNotification(domain, 'record_set');
       };
@@ -374,11 +407,9 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
  */
 export const setContent = (contentType, resolverAddress, domain, value) => (dispatch) => {
   switch (contentType) {
-    case CONTENT_BYTES:
-    case CONTENT_HASH:
-      return dispatch(setContentBytes(resolverAddress, domain, value, contentType));
-    case CONTRACT_ABI:
-      return dispatch(setContractAbi(resolverAddress, domain, value));
+    case CONTENT_BYTES: return dispatch(setContentBytes(resolverAddress, domain, value));
+    case CONTENT_HASH: return dispatch(setContentHash(domain, value));
+    case CONTRACT_ABI: return dispatch(setContractAbi(resolverAddress, domain, value));
     default: return null;
   }
 };
