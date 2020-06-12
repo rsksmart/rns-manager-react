@@ -129,8 +129,9 @@ export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
   const hash = namehash(domain);
   const web3 = new Web3(rskNode);
   const resolver = new web3.eth.Contract(definitiveResolverAbi, resolverAddress);
+  const chainIndex = getIndexById(chainId);
 
-  return resolver.methods.addr(hash, chainId).call()
+  return resolver.methods.addr(hash, chainIndex).call()
     .then((resolution) => {
       if (!resolution || resolution === EMPTY_ADDRESS) {
         return dispatch(actions.receiveChainAddr(''));
@@ -138,7 +139,7 @@ export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
 
       // eslint-disable-next-line new-cap
       const dataBuffer = new Buffer.from(resolution.replace('0x', ''), 'hex');
-      const result = formatsByCoinType[getIndexById(chainId)].encoder(dataBuffer);
+      const result = formatsByCoinType[chainIndex].encoder(dataBuffer);
 
       if (chainId === '0x80000089') {
         dispatch(actions.receiveAddr(result));
