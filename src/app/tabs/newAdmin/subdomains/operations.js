@@ -41,14 +41,11 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
 };
 
 const registerSubdomain = (
-  parentDomain, subdomain, _newOwner, setupResolution,
+  parentDomain, subdomain, newOwner, setupResolution,
 ) => async (dispatch) => {
   dispatch(waitingNewSubdomainConfirm());
-  const newOwner = '0x3Dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A';
-  console.log('creating new subdomain', parentDomain, subdomain, newOwner, setupResolution);
 
   const transactionConfirmed = result => () => {
-    console.log('success', result);
     dispatch(addSubdomainToList(subdomain, newOwner));
     dispatch(receiveNewSubdomain(result));
     updateSubdomainToLocalStorage(parentDomain, subdomain, true);
@@ -60,12 +57,12 @@ const registerSubdomain = (
     : rns.subdomains.create(parentDomain, subdomain);
 
   method
-    .then((result) => {
-      return dispatch(transactionListener(result, () => transactionConfirmed(result)));
-    })
-    .catch((error) => {
-      return dispatch(errorNewSubdomain(error.message));
-    });
+    .then(result => dispatch(transactionListener(
+      result,
+      () => transactionConfirmed(result),
+      errorReason => dispatch(errorNewSubdomain(errorReason)),
+    )))
+    .catch(error => dispatch(errorNewSubdomain(error.message)));
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {

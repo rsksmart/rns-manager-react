@@ -95,7 +95,6 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  console.log('here', domain, chainId, address);
   multichainResolver.methods.setChainAddr(hash, chainId, address).send(
     { from: currentAddress }, (error, result) => {
       dispatch(waitingSetChainAddress(chainName));
