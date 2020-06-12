@@ -185,7 +185,9 @@ export const start = callback => (dispatch) => {
           accounts.length !== 0,
         ));
 
-        if (localStorage.getItem('name')) {
+        if (window.location.search.includes('autologin')) {
+          dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
+        } else if (localStorage.getItem('name')) {
           dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
         }
       })
