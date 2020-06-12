@@ -57,8 +57,9 @@
       width: 100%
     }
 
-    .col-md-2 {
+    .cta div {
       text-align: center;
+      margin-bottom: 15px;
 
       a {
         display: block;
@@ -81,6 +82,13 @@
   }
 }
 
+// tablet size
+@media (max-width: 1199px) {
+  .home .developer .cta div a {
+    padding: 15px !important;
+  }
+}
+
 // mobile styles
 @media (max-width: 767.98px) {
   .home {
@@ -92,13 +100,33 @@
       margin-bottom: 10px;
     }
 
+    form.searchBox.row {
+      padding-top: 0 !important;
+    }
+
+    .results .searchResults {
+      padding-top: 15px;
+
+      h3 {
+        margin-left: 0;
+      }
+
+      .register.btn-primary {
+        width: 100%;
+      }
+    }
+
     .spacer {
-      background-image: none;
-      background-color: $blue;
-      height: 15px;
+      height: 50px
+    }
+
+    .imageWraper {
+      margin-bottom: 15px;
     }
 
     .white {
+      margin: 25px 0;
+
       .imageWraper {
         min-height: auto !important;
       }

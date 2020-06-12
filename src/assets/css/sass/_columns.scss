@@ -1,3 +1,9 @@
 div.page, .page.container {
   margin-top:50px;
 }
+
+@media (max-width: 767.98px) {
+  div.page, .page.container {
+    margin-top:0;
+  }
+}

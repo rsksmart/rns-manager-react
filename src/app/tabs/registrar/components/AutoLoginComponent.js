@@ -13,7 +13,7 @@ const AutoLoginComponent = ({
       address={successTx}
       message=""
     />
-    <Row className="major-section">
+    <Row className="major-section next-steps">
       <div className="col-md-4 offset-md-2 col-lg-3 offset-lg-3">
         <Button onClick={handleManageClick} block>
           {strings.admin_domain}

@@ -37,7 +37,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
   return (
     <>
       <Form onSubmit={handleSearchEnter} className="searchBox row">
-        <div className="col-md-7 offset-md-1 searchInput">
+        <div className="col-md-7 col-lg-7 offset-lg-1 searchInput">
           <input
             placeholder={strings.search_placeholder}
             value={search}
@@ -45,7 +45,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
           />
           <span className="blue">.rsk</span>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-5 col-lg-3">
           <Button
             onClick={handleSearchClick}
           >
