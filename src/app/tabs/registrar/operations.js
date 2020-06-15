@@ -119,11 +119,12 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
           };
 
           dispatch(receiveCommitRegistrar(hashCommit));
-          return dispatch(transactionListener(
+
+          return transactionListener(
             result,
             () => dispatch(commitTxMined()),
             errorReason => transactionFailed(errorReason),
-          ));
+          );
         });
       });
   });
@@ -244,7 +245,7 @@ export const revealCommit = domain => async (dispatch) => {
           registerHash: result,
         }));
 
-        const revealCallback = () => () => {
+        const revealCallback = () => {
           dispatch(receiveRevealCommit());
           dispatch(revealTxMined(result));
           sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
@@ -252,11 +253,11 @@ export const revealCommit = domain => async (dispatch) => {
           localStorage.removeItem(`${domain}-options`);
         };
 
-        return resolve(dispatch(transactionListener(
+        return resolve(transactionListener(
           result,
           () => revealCallback(),
           errorReason => dispatch(errorRevealCommit(errorReason)),
-        )));
+        ));
       });
   });
 };

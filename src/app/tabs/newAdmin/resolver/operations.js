@@ -137,7 +137,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
         return dispatch(errorSetResolver(error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         const resolverName = getResolverNameByAddress(lowerResolverAddress);
         dispatch(receiveSetResolver(
           result, lowerResolverAddress, resolverName,
@@ -147,8 +147,10 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
         sendBrowserNotification(domain, 'resolver_set_success');
       };
 
-      return dispatch(
-        transactionListener(result, () => transactionConfirmed()),
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetResolver(errorReason)),
       );
     });
 };
@@ -180,14 +182,18 @@ const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => 
         return dispatch(errorSetContent(CONTENT_BYTES, error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveSetContent(
           CONTENT_BYTES, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
         ));
         sendBrowserNotification(domain, 'record_set');
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetContent(CONTENT_BYTES, errorReason)),
+      );
     },
   );
 };
@@ -262,12 +268,12 @@ export const setDomainResolverAndMigrate = (
     new Promise((resolve, reject) => {
       rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
         .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+          ? reject() : transactionListener(result, () => resolve(result), e => reject(e))));
     }),
     new Promise((resolve, reject) => {
       definitiveResolver.methods.multicall(multiCallMethods)
         .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+          ? reject() : transactionListener(result, () => resolve(result), e => reject(e))));
     }),
   ];
 

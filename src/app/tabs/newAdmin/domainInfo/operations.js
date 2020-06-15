@@ -93,7 +93,11 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
         return dispatch(errorRenewDomain(error.message));
       }
 
-      return dispatch(transactionListener(result, () => renewDomainComplete(result, domain)));
+      return transactionListener(
+        result,
+        () => dispatch(renewDomainComplete(result, domain)),
+        errorReason => dispatch(errorRenewDomain(errorReason)),
+      );
     });
 };
 
@@ -124,7 +128,11 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
           return resolve(dispatch(errorTransferDomain(error.message)));
         }
 
-        return dispatch(transactionListener(result, () => transferDomainConfirmed(result)));
+        return transactionListener(
+          result,
+          () => dispatch(transferDomainConfirmed(result)),
+          errorReason => dispatch(errorTransferDomain(errorReason)),
+        );
       },
     );
   });
@@ -147,9 +155,11 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
           return dispatch(errorFifsMigration());
         }
 
-        return dispatch(transactionListener(result, () => resolve(
-          dispatch(receiveFifsMigration()),
-        )));
+        return transactionListener(
+          result,
+          () => resolve(dispatch(receiveFifsMigration())),
+          () => resolve(dispatch(errorFifsMigration())),
+        );
       },
     );
   });
@@ -183,7 +193,7 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
         return dispatch(errorSetRegistryOwner(error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveRegistryOwner(
           newAddress, newAddress.toLowerCase() === currentAddress.toLowerCase(),
         ));
@@ -192,7 +202,11 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
         dispatch(receiveRegistryOwner(newAddress, false));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetRegistryOwner(errorReason)),
+      );
     });
 };
 
@@ -213,11 +227,15 @@ export const reclaimDomain = domain => async (dispatch) => {
         return dispatch(errorReclaimDomain(error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveRegistryOwner(currentAddress, true));
         dispatch(receiveReclaimDomain(result));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorReclaimDomain(errorReason)),
+      );
     });
 };

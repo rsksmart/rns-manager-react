@@ -66,11 +66,11 @@ const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
         return dispatch(errorSetChainAddress('RSK', error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result, isNew));
-      };
-
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result, isNew)),
+        errorReason => dispatch(errorSetChainAddress('RSK', errorReason)),
+      );
     },
   );
 };
@@ -97,7 +97,7 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
         return dispatch(errorSetChainAddress(chainName, error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveSetChainAddress(
           chainId, getChainNameById(chainId), address, result, isNew,
         ));
@@ -111,7 +111,11 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetChainAddress(chainName, errorReason)),
+      );
     },
   );
 };
@@ -164,7 +168,11 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetChainAddress(chainName, errorReason)),
+      );
     });
 };
 

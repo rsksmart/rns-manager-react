@@ -55,14 +55,18 @@ const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch
 
       dispatch(waitingNewSubdomainConfirm());
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(addSubdomainToList(subdomain, newOwner));
         dispatch(receiveNewSubdomain(result));
         updateSubdomainToLocalStorage(parentDomain, subdomain, true);
         sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorNewSubdomain(errorReason)),
+      );
     });
 };
 
@@ -173,7 +177,7 @@ export const setSubdomainOwner = (
         return dispatch(errorSetSubdomainOwner(subdomain, error.message));
       }
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = () => {
         dispatch(receiveSetSubdomainOwner(result, subdomain, newAddress));
 
         if (newAddress === EMPTY_ADDRESS) {
@@ -185,6 +189,10 @@ export const setSubdomainOwner = (
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetSubdomainOwner(subdomain, errorReason)),
+      );
     });
 };
