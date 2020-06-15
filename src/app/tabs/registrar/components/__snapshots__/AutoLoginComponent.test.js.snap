@@ -99,11 +99,11 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
         </UserSuccessComponent>
       </Connect(UserSuccessComponent)>
       <ForwardRef
-        className="major-section"
+        className="major-section next-steps"
         noGutters={false}
       >
         <div
-          className="major-section row"
+          className="major-section next-steps row"
         >
           <div
             className="col-md-4 offset-md-2 col-lg-3 offset-lg-3"

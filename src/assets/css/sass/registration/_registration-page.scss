@@ -59,3 +59,33 @@
     }
   }
 }
+
+
+// tablet size
+@media (max-width: 1199px) {
+  .register {
+    .list-inline li {
+      min-width: auto !important;
+    }
+  }
+}
+
+// mobile styles
+@media (max-width: 767.98px) {
+  .register {
+    .list-inline {
+      margin-bottom: 15px;
+
+      li {
+        margin:0 0 5px 0 !important;
+        display: block;
+      }
+    }
+
+    .next-steps {
+      div {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

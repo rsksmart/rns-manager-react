@@ -77,6 +77,10 @@
 
 // mobile styles
 @media (max-width: 767.98px) {
+  .navbar {
+    position: relative !important;
+  }
+
   .navbar-brand {
     margin-left: 10px;
   }

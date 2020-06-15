@@ -48,3 +48,14 @@ footer::before {
   position: relative;
   top: 125px;
 }
+
+// mobile styles
+@media (max-width: 767.98px) {
+  footer {
+    margin-top: -75px;
+
+    .footer-top {
+      padding-top: 0 !important;
+    }
+  }
+}

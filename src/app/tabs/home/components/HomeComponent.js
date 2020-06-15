@@ -66,8 +66,8 @@ const HomeComponent = ({ strings }) => (
             </p>
           </div>
         </Row>
-        <Row className="major-section">
-          <div className="col-md-2 offset-md-2">
+        <Row className="major-section cta">
+          <div className="col-md-3 col-lg-2 offset-lg-2">
             <a
               className="btn btn-outline-primary"
               href="https://developers.rsk.co/rif/rns"
@@ -78,7 +78,7 @@ const HomeComponent = ({ strings }) => (
               <span>{strings.read_documentation}</span>
             </a>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 col-lg-2 ">
             <a
               className="btn btn-outline-primary"
               href="https://github.com/rnsdomains"
@@ -89,7 +89,7 @@ const HomeComponent = ({ strings }) => (
               <span>{strings.collaborate_github}</span>
             </a>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 col-lg-2 ">
             <a
               className="btn btn-outline-primary"
               href="https://developers.rsk.co/rif/rns/integrate"
@@ -100,7 +100,7 @@ const HomeComponent = ({ strings }) => (
               <span>{strings.integrate_rns}</span>
             </a>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 col-lg-2">
             <a
               className="btn btn-outline-primary"
               href="https://gitter.im/rsksmart/rif-name-service"
