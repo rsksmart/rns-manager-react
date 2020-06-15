@@ -98,7 +98,7 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
           </div>
         </UserSuccessComponent>
       </Connect(UserSuccessComponent)>
-      <ForwardRef
+      <Row
         className="major-section next-steps"
         noGutters={false}
       >
