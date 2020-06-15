@@ -2,35 +2,50 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
-import { EditContentContainer } from '../containers';
+import { EditContentContainer, ViewContractAbiContainer } from '../containers';
+import { CONTRACT_ABI, CONTENT_HASH } from '../types';
 
 const ResolverComponent = ({ strings, start, content }) => {
   useEffect(() => start(), []);
+
+  const switchViewType = (item) => {
+    if (item[1].isEmpty) {
+      return <></>;
+    }
+
+    switch (item[0]) {
+      case CONTRACT_ABI:
+        return <ViewContractAbiContainer value={item[1].value} />;
+      default:
+        // eslint-disable-next-line no-case-declarations
+        const placeholder = (item[0] === CONTENT_HASH)
+          ? '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...' : '';
+
+        return (
+          <EditContentContainer
+            key={item[0]}
+            label={strings[item[0].toLowerCase()]}
+            value={item[1].value}
+            validation={false}
+            contentType={item[0]}
+            strings={{
+              submit: strings.submit,
+              cancel: strings.cancel,
+              delete: strings.delete,
+              delete_confirm_text: strings.delete_content_confirm,
+              success_message: strings.content_updated,
+              edit_placeholder: placeholder,
+            }}
+          />
+        );
+    }
+  };
 
   return (
     <div className="major-section records">
       <h2>{strings.records}</h2>
       <p>{strings.records_explanation}</p>
-      {Object.entries(content).map((item) => {
-        if (item[1].value !== '') {
-          return (
-            <EditContentContainer
-              key={item[0]}
-              label={strings[item[0].toLowerCase()]}
-              value={item[1].value}
-              validation={false}
-              strings={{
-                submit: strings.submit,
-                cancel: strings.cancel,
-                delete: strings.delete,
-                delete_confirm_text: strings.delete_content_confirm,
-                success_message: strings.content_updated,
-              }}
-            />
-          );
-        }
-        return <></>;
-      })}
+      {Object.entries(content).map(item => switchViewType(item))}
     </div>
   );
 };

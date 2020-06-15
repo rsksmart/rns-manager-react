@@ -6,7 +6,9 @@ import {
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidDomain } from '../../../validations';
-import { ResolveAddrContainer, ResolveChainAddrContainer, ResolveNameContainer } from '../containers';
+import {
+  ResolveAddrContainer, ResolveChainAddrContainer, ResolveNameContainer, ResolveContentContainer,
+} from '../containers';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 const renderResolutions = (supportedInterfaces) => {
@@ -41,6 +43,9 @@ const renderResolutions = (supportedInterfaces) => {
             </Col>
           )
         }
+      </Row>
+      <Row>
+        <ResolveContentContainer />
       </Row>
     </Container>
   );

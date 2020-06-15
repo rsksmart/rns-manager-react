@@ -7,6 +7,7 @@ import {
   PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER, DEFINITIVE_RESOLVER,
 } from '../types';
 import { SetResolverContainer, ViewRecordsContainer, NewRecordContainer } from '../containers';
+import { MigrateToMultiResolverContainer } from '../../addresses/containers';
 import { definitiveResolver } from '../../../../adapters/configAdapter';
 
 const ResolverComponent = ({
@@ -51,6 +52,7 @@ const ResolverComponent = ({
           }}
         />
       </div>
+      <MigrateToMultiResolverContainer />
     </div>
   );
 };

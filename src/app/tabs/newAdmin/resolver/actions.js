@@ -46,10 +46,11 @@ export const requestContent = contentType => ({
   contentType,
 });
 
-export const receiveContent = (contentType, value) => ({
+export const receiveContent = (contentType, value, isEmpty) => ({
   type: RECEIVE_CONTENT,
   contentType,
   value,
+  isEmpty,
 });
 
 export const errorContent = (contentType, message) => ({
@@ -63,11 +64,12 @@ export const requestSetContent = contentType => ({
   contentType,
 });
 
-export const receiveSetContent = (contentType, successTx, value) => ({
+export const receiveSetContent = (contentType, successTx, value, isEmpty) => ({
   type: RECEIVE_SET_CONTENT,
   contentType,
   successTx,
   value,
+  isEmpty,
 });
 
 export const errorSetContent = (contentType, message) => ({

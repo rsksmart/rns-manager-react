@@ -35,7 +35,7 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
       <div
         className="upgrade major-section"
       >
-        <ForwardRef
+        <Row
           noGutters={false}
         >
           <div
@@ -51,8 +51,8 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
               </div>
             </Col>
           </div>
-        </ForwardRef>
-        <ForwardRef
+        </Row>
+        <Row
           noGutters={false}
         >
           <div
@@ -94,7 +94,7 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
               </div>
             </Col>
           </div>
-        </ForwardRef>
+        </Row>
       </div>
     </UpgradeComponent>
   </Connect(UpgradeComponent)>

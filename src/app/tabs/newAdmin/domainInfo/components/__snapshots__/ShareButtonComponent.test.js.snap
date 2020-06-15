@@ -33,7 +33,7 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
       }
     >
       <OverlayTrigger
-        defaultOverlayShown={false}
+        defaultShow={false}
         key="share"
         overlay={
           <ForwardRef
@@ -127,18 +127,20 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
           </Button>
         </RefHolder>
         <Overlay
-          defaultOverlayShown={false}
+          flip={false}
           onHide={[Function]}
           placement="right"
           popperConfig={
             Object {
-              "modifiers": Object {
-                "ariaModifier": Object {
+              "modifiers": Array [
+                Object {
+                  "effect": [Function],
                   "enabled": true,
                   "fn": [Function],
-                  "order": 900,
+                  "name": "ariaDescribedBy",
+                  "phase": "afterWrite",
                 },
-              },
+              ],
             }
           }
           rootClose={false}
@@ -160,19 +162,26 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
           }
         >
           <Overlay
-            containerPadding={5}
-            defaultOverlayShown={false}
+            flip={false}
             onHide={[Function]}
             placement="right"
             popperConfig={
               Object {
-                "modifiers": Object {
-                  "ariaModifier": Object {
+                "modifiers": Array [
+                  Object {
+                    "name": "offset",
+                    "options": Object {
+                      "offset": [Function],
+                    },
+                  },
+                  Object {
+                    "effect": [Function],
                     "enabled": true,
                     "fn": [Function],
-                    "order": 900,
+                    "name": "ariaDescribedBy",
+                    "phase": "afterWrite",
                   },
-                },
+                ],
               }
             }
             rootClose={false}
@@ -200,11 +209,12 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                     class="fade show popover bs-popover-right"
                     id="share-popover"
                     role="tooltip"
-                    style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+                    style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none; margin: 0px;"
                     x-placement="right"
                   >
                     <div
                       class="arrow"
+                      style="margin: 0px;"
                     />
                     <div
                       class="popover-body"
@@ -300,9 +310,15 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                     }
                     className="fade show"
                     id="share-popover"
-                    outOfBoundaries={false}
                     placement="right"
-                    scheduleUpdate={[Function]}
+                    popper={
+                      Object {
+                        "outOfBoundaries": false,
+                        "placement": "right",
+                        "scheduleUpdate": [Function],
+                        "state": undefined,
+                      }
+                    }
                     style={
                       Object {
                         "left": "0",
@@ -330,7 +346,11 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                     >
                       <div
                         className="arrow"
-                        style={Object {}}
+                        style={
+                          Object {
+                            "margin": 0,
+                          }
+                        }
                       />
                       <ForwardRef>
                         <div
@@ -339,7 +359,7 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                           <h2>
                             Share your domain
                           </h2>
-                          <ForwardRef
+                          <Row
                             noGutters={true}
                           >
                             <div
@@ -415,7 +435,7 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                                 </div>
                               </Col>
                             </div>
-                          </ForwardRef>
+                          </Row>
                         </div>
                       </ForwardRef>
                     </div>

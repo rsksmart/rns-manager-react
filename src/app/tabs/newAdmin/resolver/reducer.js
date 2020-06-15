@@ -20,6 +20,7 @@ const initialState = {
     isMigrating: false,
     errors: [],
     migrationComplete: false,
+    errorMessage: null,
   },
 };
 
@@ -29,6 +30,7 @@ const contentInititalState = {
   isWaiting: false,
   successTx: '',
   errorMessage: '',
+  isEmpty: true,
 };
 
 const resolverReducer = (state = initialState, action) => {
@@ -72,6 +74,10 @@ const resolverReducer = (state = initialState, action) => {
       ...state,
       errorMessage: '',
       successTx: '',
+      migrating: {
+        ...state.migrating,
+        errorMessage: '',
+      },
     };
 
     case REQUEST_CONTENT: return {
@@ -92,6 +98,7 @@ const resolverReducer = (state = initialState, action) => {
           ...state.content[action.contentType],
           isRequesting: false,
           value: action.value,
+          isEmpty: action.isEmpty,
         },
       },
     };
@@ -115,6 +122,7 @@ const resolverReducer = (state = initialState, action) => {
           isWaiting: false,
           value: action.value,
           successTx: action.successTx,
+          isEmpty: action.isEmpty,
         },
       },
     };
@@ -180,15 +188,16 @@ const resolverReducer = (state = initialState, action) => {
     case ERROR_MIGRATE_WITH_ADDRESSES: return {
       ...state,
       isWaiting: false,
-      errorMessage: action.message,
       migrating: {
         ...state.migrating,
         isMigrating: false,
+        errorMessage: action.message,
       },
     };
     case CLEAR_MIGRATE_CONTENT: return {
       ...state,
       migrating: {
+        errorMessage: '',
         isMigrating: false,
         errors: [],
         migrationComplete: false,

@@ -1,10 +1,13 @@
+/* eslint-disable prefer-destructuring */
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 
+import ContractAbiInputComponent from './ContractAbiInputComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
+import { CONTRACT_ABI, CONTENT_HASH } from '../types';
 
 const NewRecordComponent = ({
   strings, content, handleSubmit, handleCloseMessage,
@@ -28,7 +31,48 @@ const NewRecordComponent = ({
     handleCloseMessage(selectedContent);
   };
 
-  const activeOptions = content.filter(c => c[0] === selectedContent)[0][1];
+  // set the active options if exists, or select the top most
+  const active = content.filter(c => c[0] === selectedContent);
+  let activeOptions;
+  if (active.length !== 0) {
+    activeOptions = active[0][1];
+  } else {
+    activeOptions = content[0][1];
+    setSelectedContent(content[0][0]);
+  }
+
+  const handleInputType = () => {
+    if (selectedContent === CONTRACT_ABI) {
+      return (
+        <Col md="9">
+          <ContractAbiInputComponent
+            handleClick={abiValue => handleSubmit(CONTRACT_ABI, abiValue)}
+            disabled={activeOptions.isWaiting}
+          />
+        </Col>
+      );
+    }
+    return (
+      <>
+        <div className="col-md-7">
+          <input
+            value={value}
+            onChange={evt => setValue(evt.target.value)}
+            disabled={activeOptions.isWaiting}
+            placeholder={selectedContent === CONTENT_HASH ? '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...' : 'bytes32'}
+          />
+        </div>
+        <div className="col-md-2">
+          <Button
+            className="add"
+            onClick={handleAddClick}
+          >
+            {strings.add}
+          </Button>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="major-section add-records">
@@ -53,21 +97,7 @@ const NewRecordComponent = ({
             })}
           </select>
         </div>
-        <div className="col-md-7">
-          <input
-            value={value}
-            onChange={evt => setValue(evt.target.value)}
-            disabled={activeOptions.isWaiting}
-          />
-        </div>
-        <div className="col-md-2">
-          <Button
-            className="add"
-            onClick={handleAddClick}
-          >
-            {strings.add}
-          </Button>
-        </div>
+        {handleInputType()}
       </div>
 
       <UserWaitingComponent

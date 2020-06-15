@@ -1,6 +1,8 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from 'eth-ens-namehash';
+import { deflateSync } from 'react-zlib-js';
+import cbor from 'cbor';
 import { validateBytes32 } from '../../../validations';
 
 import {
@@ -25,7 +27,8 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
-  CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER,
+  CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER, CONTENT_HASH,
+  MULTICHAIN, MULTICOIN, CONTRACT_ABI,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -36,6 +39,10 @@ import { addressDecoder } from '../helpers';
 
 const web3 = new Web3(window.ethereum);
 const rns = new RNS(web3, getOptions());
+
+const definitiveResolver = new web3.eth.Contract(
+  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+);
 
 /**
  * Returns user friendly name based on address
@@ -71,11 +78,24 @@ export const getDomainResolver = domain => async (dispatch) => {
     });
 };
 
+export const getContentHash = domain => (dispatch) => {
+  dispatch(requestContent(CONTENT_HASH));
+  rns.contenthash(domain)
+    .then((result) => {
+      dispatch(receiveContent(
+        CONTENT_HASH,
+        `${result.protocolType}://${result.decoded}`,
+        false,
+      ));
+    })
+    .catch(() => dispatch(receiveContent(CONTENT_HASH, null, true)));
+};
 
 /**
  * Get the content Bytes from the given resolver
  * @param {address} resolverAddress to be queried
  * @param {string} domain
+ * @param {const} type either CONTENT_BYTES or CONTENT_HASH
  */
 export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
   dispatch(requestContent(CONTENT_BYTES));
@@ -85,17 +105,53 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
   );
 
   const hash = namehash(domain);
+  const method = resolver.methods.content(hash);
 
-  resolver.methods.content(hash).call()
+  method.call()
     .then(value => dispatch(
-      receiveContent(CONTENT_BYTES, (value === CONTENT_BYTES_BLANK) ? '' : value),
+      receiveContent(
+        CONTENT_BYTES,
+        (value === CONTENT_BYTES_BLANK || !value) ? '' : value,
+        (value === CONTENT_BYTES_BLANK || !value),
+      ),
     ))
     .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
 
 /**
+ * Querys the blockchain for all four encodings of contract ABI and returns values
+ * @param {address} resolverAddress address of the domain's resolver
+ * @param {domain} domain domain associated with the ABI.
+ */
+const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
+  dispatch(requestContent(CONTRACT_ABI));
+  const hash = namehash(domain);
+  const resolver = new web3.eth.Contract(
+    definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+
+  const promiseArray = [];
+  [1, 2, 4, 8].forEach(async (id) => {
+    promiseArray.push(
+      new Promise((resolve) => {
+        resolver.methods.ABI(hash, id).call()
+          .then(result => resolve({
+            id,
+            result: (result[1] !== '0x00' && result[1]) ? result[1] : null,
+          }));
+      }),
+    );
+  });
+
+  Promise.all(promiseArray).then((values) => {
+    const hasValues = values
+      .filter(item => item.result !== null && parseInt(item.result, 16) !== 0).length;
+    dispatch(receiveContent(CONTRACT_ABI, values, !hasValues));
+  });
+};
+
+/**
  * Loops through manager's supported interfaces and checks if resolver also supports them.
- * Currently, CONTENT_BYTES is the only content type supported.
  * @param {address} resolverAddress
  * @param {string} domain
  */
@@ -103,14 +159,30 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   dispatch(clearAllContent());
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
-  // loop throgh supported interfaces and if CONTENT_BYTES
+  // loop throgh supported interfaces and if found, call 'get' function.
+  // only calls MULTICHAIN on the resolver page for the migration component
+  // multicoin data is not needed on this page.
   interfaces.forEach((i) => {
     abstractResolver.methods
       .supportsInterface(i.interfaceId).call()
       .then((supportsInterface) => {
-        if (supportsInterface && i.name === CONTENT_BYTES) {
-          dispatch(getContentBytes(resolverAddress, domain));
+        if (supportsInterface) {
+          switch (i.name) {
+            case CONTENT_BYTES:
+              return dispatch(getContentBytes(resolverAddress, domain));
+            case CONTENT_HASH:
+              return dispatch(getContentHash(domain));
+            case MULTICHAIN:
+              return dispatch(getAllChainAddresses(
+                domain, getResolverNameByAddress(resolverAddress),
+              ));
+            case CONTRACT_ABI:
+              return (dispatch(getContractAbi(resolverAddress, domain)));
+            case MULTICOIN:
+            default:
+          }
         }
+        return null;
       });
   });
 };
@@ -154,16 +226,45 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
 };
 
 /**
- * Sets the ContentBytes for the domain
+ * setContentHash using the JS Lib
+ * @param {string} domain The domain to set content hash for
+ * @param {string} input string input that should be sent
+ */
+const setContentHash = (domain, input) => async (dispatch) => {
+  dispatch(requestSetContent(CONTENT_HASH));
+  rns.setContenthash(domain, input)
+    .then((result) => {
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetContent(
+          CONTENT_HASH, result, input, input === '',
+        ));
+        sendBrowserNotification(domain, 'record_set');
+      };
+
+      return dispatch(transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetContent(CONTENT_HASH, errorReason)),
+      ));
+    })
+    .catch(error => dispatch(errorSetContent(CONTENT_HASH, error.message)));
+};
+
+
+/**
+ * Sets the ContentBytes OR ContentHash for the domain
  * @param {address} resolverAddress address of the Resolver used
  * @param {string} domain to be associated with the data
- * @param {bytes32} value to be set
+ * @param {bytes32} input to be set, or empty to set blank
+ * @param {const} type either CONTENT_BYTES or CONTENT_HASH
  */
-const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => {
+const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_BYTES));
 
+  const value = input !== '' ? input : CONTENT_BYTES_BLANK;
+
   // validation
-  if (validateBytes32(value)) {
+  if (validateBytes32(input)) {
     return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
 
@@ -173,8 +274,9 @@ const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => 
 
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
+  const method = resolver.methods.setContent(namehash(domain), value);
 
-  return resolver.methods.setContent(namehash(domain), value).send(
+  return method.send(
     { from: currentAddress }, (error, result) => {
       if (error) {
         return dispatch(errorSetContent(CONTENT_BYTES, error.message));
@@ -192,17 +294,121 @@ const setContentBytes = (resolverAddress, domain, value) => async (dispatch) => 
   );
 };
 
+const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
+  dispatch(requestSetContent(CONTRACT_ABI));
+  let dataSourceError;
+  let parsedJson;
+  const response = [];
+
+  // get data by input method starting with URI:
+  if (value.inputMethod === 'uri') {
+    await fetch(encodeURI(value.uri))
+      .then(res => res.json())
+      .then((data) => {
+        try {
+          parsedJson = JSON.stringify(data);
+        } catch (e) {
+          dataSourceError = `Could not validate JSON from URI, ${e.message}`;
+        }
+      })
+      .catch((e) => {
+        dataSourceError = e.message;
+      });
+  } else if (value.inputMethod !== 'delete') {
+    // get the data from the input form
+    try {
+      parsedJson = JSON.stringify(JSON.parse(value.jsonText));
+    } catch (e) {
+      dataSourceError = 'Could not validate JSON';
+    }
+  }
+
+  if (dataSourceError) {
+    return dispatch(errorSetContent(CONTRACT_ABI, dataSourceError));
+  }
+
+  const multiCallMethods = [];
+
+  // type 1: uncompressed Json
+  if (value.encodings.json && parsedJson !== '') {
+    response.push({ id: 1, result: web3.utils.toHex(parsedJson) });
+  } else if (value.isEditing && !value.encodings.json) {
+    response.push({ id: 1, result: 0 });
+  }
+
+  // type 2: zlib compression
+  if (value.encodings.zlib && parsedJson !== '') {
+    response.push({ id: 2, result: web3.utils.toHex(deflateSync(Buffer.from(parsedJson))) });
+  } else if (value.isEditing && !value.encodings.zlib) {
+    response.push({ id: 2, result: 0 });
+  }
+
+  // type 4: cbor compression
+  if (value.encodings.cbor && parsedJson !== '') {
+    response.push({ id: 4, result: web3.utils.toHex(cbor.encode(parsedJson)) });
+  } else if (value.isEditing && !value.encodings.cbor) {
+    response.push({ id: 4, result: 0 });
+  }
+
+  // type 8: the URI straight
+  if (value.encodings.uri) {
+    response.push({ id: 8, result: web3.utils.toHex(value.uri) });
+  } else if (value.isEditing && !value.encodings.uri) {
+    response.push({ id: 8, result: 0 });
+  }
+
+  // prepare multicall methods array
+  response.forEach((call) => {
+    multiCallMethods.push(
+      definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
+        namehash(domain), call.id, call.result,
+      ).encodeABI(),
+    );
+  });
+
+  if (multiCallMethods.length === 0) {
+    return dispatch(errorSetContent(CONTRACT_ABI, 'No encodings selected'));
+  }
+
+  // make the multicall
+  const accounts = await window.ethereum.enable();
+  const currentAddress = accounts[0];
+  return definitiveResolver.methods.multicall(multiCallMethods)
+    .send({ from: currentAddress }, (e, result) => {
+      if (e) {
+        return dispatch(errorSetContent(CONTRACT_ABI, e.message));
+      }
+
+      const transactionConfirmed = () => () => {
+        dispatch(receiveSetContent(
+          CONTRACT_ABI, result, response, (value.inputMethod === 'delete'),
+        ));
+        sendBrowserNotification(domain, 'contract_abi_set');
+      };
+
+      return dispatch(transactionListener(
+        result,
+        () => transactionConfirmed(),
+        errorReason => dispatch(errorSetContent(CONTRACT_ABI, errorReason)),
+      ));
+    });
+};
+
+
 /**
  * Function to handle content type when setting. This will be expanded as more
- * content types are supported. Currently, CONTENT_BYTES is the only content type
+ * content types are supported.
  * @param {const} contentType
  * @param {address} resolverAddress address of the resolver
  * @param {string} domain domain the content is associated with
  * @param {string} value value of the content
  */
 export const setContent = (contentType, resolverAddress, domain, value) => (dispatch) => {
-  if (contentType === CONTENT_BYTES) {
-    dispatch(setContentBytes(resolverAddress, domain, value));
+  switch (contentType) {
+    case CONTENT_BYTES: return dispatch(setContentBytes(resolverAddress, domain, value));
+    case CONTENT_HASH: return dispatch(setContentHash(domain, value));
+    case CONTRACT_ABI: return dispatch(setContractAbi(resolverAddress, domain, value));
+    default: return null;
   }
 };
 
@@ -213,16 +419,12 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
  * @param {bool} understandWarning bool that the user knows some addresses are invalid
  */
 export const setDomainResolverAndMigrate = (
-  domain, chainAddresses, understandWarning,
+  domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
   const accounts = await window.ethereum.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
-
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
-  );
 
   // loop through addresses and skip empties, then get decoded version of the address,
   // if valid, create the contract method and add it to the multiCallMethods array.
@@ -251,6 +453,15 @@ export const setDomainResolverAndMigrate = (
       ).encodeABI(),
     );
   });
+
+  // add contentBytes if not null or empty
+  if (contentBytes && contentBytes !== CONTENT_BYTES_BLANK.value) {
+    multiCallMethods.push(
+      definitiveResolver.methods['setContenthash(bytes32,bytes)'](
+        hash, contentBytes.value,
+      ).encodeABI(),
+    );
+  }
 
   // return if an error in decoding happened to let the user know
   if (decodeError && !understandWarning) {
