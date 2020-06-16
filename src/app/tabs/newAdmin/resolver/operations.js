@@ -450,7 +450,7 @@ export const setDomainResolverAndMigrate = (
     // valid address to be added to the multiCallMethods array:
     return multiCallMethods.push(
       definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
-        hash, item[1].chainId, decodedAddress,
+        hash, getIndexById(item[1].chainId), decodedAddress,
       ).encodeABI(),
     );
   });
