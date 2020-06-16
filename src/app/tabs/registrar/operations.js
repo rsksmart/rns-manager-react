@@ -113,16 +113,18 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
             contract: setupAddr ? FIFS_ADDR_REGISTRER : FIFS_REGISTRER,
           }));
 
-          const transactionFailed = (errorReason) => {
-            localStorage.removeItem(`${domain}-options`);
-            dispatch(errorRegistrarCommit(errorReason));
+          const transactionFailed = listenerParams => (listenerDispatch) => {
+            localStorage.removeItem(`${listenerParams.domain}-options`);
+            listenerDispatch(errorRegistrarCommit(listenerParams.errorReason));
           };
 
           dispatch(receiveCommitRegistrar(hashCommit));
           return dispatch(transactionListener(
             result,
-            () => dispatch(commitTxMined()),
-            errorReason => transactionFailed(errorReason),
+            () => listenerDispatch => listenerDispatch(commitTxMined()),
+            {},
+            transactionFailed,
+            { domain },
           ));
         });
       });
@@ -244,18 +246,22 @@ export const revealCommit = domain => async (dispatch) => {
           registerHash: result,
         }));
 
-        const revealCallback = () => () => {
-          dispatch(receiveRevealCommit());
-          dispatch(revealTxMined(result));
-          sendBrowserNotification(`${domain}.rsk`, 'notifications_registrar_revealed');
-          localStorage.setItem('name', `${domain}.rsk`);
-          localStorage.removeItem(`${domain}-options`);
+        const transactionConfirmed = listenerParams => (listenerDispatch) => {
+          const listnerDomain = listenerParams.domain;
+          listenerDispatch(receiveRevealCommit());
+          listenerDispatch(revealTxMined(listenerParams.resultTx));
+          sendBrowserNotification(`${listnerDomain}.rsk`, 'notifications_registrar_revealed');
+          localStorage.setItem('name', `${listnerDomain}.rsk`);
+          localStorage.removeItem(`${listnerDomain}-options`);
         };
 
         return resolve(dispatch(transactionListener(
           result,
-          () => revealCallback(),
-          errorReason => dispatch(errorRevealCommit(errorReason)),
+          transactionConfirmed,
+          { domain },
+          listenerParams => listenerDispatch => listenerDispatch(
+            errorRevealCommit(listenerParams.errorReason),
+          ),
         )));
       });
   });

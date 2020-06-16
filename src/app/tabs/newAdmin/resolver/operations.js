@@ -210,19 +210,26 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
         return dispatch(errorSetResolver(error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        const resolverName = getResolverNameByAddress(lowerResolverAddress);
-        dispatch(receiveSetResolver(
-          result, lowerResolverAddress, resolverName,
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        const resolverName = getResolverNameByAddress(listenerParams.lowerResolverAddress);
+        listenerDispatch(receiveSetResolver(
+          listenerParams.resultTx, listenerParams.lowerResolverAddress, resolverName,
         ));
-        dispatch(getAllChainAddresses(domain, resolverName));
-        dispatch(supportedInterfaces(lowerResolverAddress, domain));
-        sendBrowserNotification(domain, 'resolver_set_success');
+        listenerDispatch(getAllChainAddresses(listenerParams.domain, resolverName));
+        listenerDispatch(supportedInterfaces(
+          listenerParams.lowerResolverAddress, listenerParams.domain,
+        ));
+        sendBrowserNotification(listenerParams.domain, 'resolver_set_success');
       };
 
-      return dispatch(
-        transactionListener(result, () => transactionConfirmed()),
-      );
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { lowerResolverAddress, domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetResolver(listenerParams.errorReason),
+        ),
+      ));
     });
 };
 
@@ -235,17 +242,20 @@ const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
   rns.setContenthash(domain, input)
     .then((result) => {
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetContent(
-          CONTENT_HASH, result, input, input === '',
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetContent(
+          CONTENT_HASH, listenerParams.resultTx, listenerParams.input, listenerParams.input === '',
         ));
-        sendBrowserNotification(domain, 'record_set');
+        sendBrowserNotification(listenerParams.domain, 'record_set');
       };
 
       return dispatch(transactionListener(
         result,
-        () => transactionConfirmed(),
-        errorReason => dispatch(errorSetContent(CONTENT_HASH, errorReason)),
+        transactionConfirmed,
+        { input, domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetContent(CONTENT_HASH, listenerParams.errorReason),
+        ),
       ));
     })
     .catch(error => dispatch(errorSetContent(CONTENT_HASH, error.message)));
@@ -283,14 +293,23 @@ const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => 
         return dispatch(errorSetContent(CONTENT_BYTES, error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetContent(
-          CONTENT_BYTES, result, (value === CONTENT_BYTES_BLANK) ? '' : value,
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetContent(
+          CONTENT_BYTES,
+          listenerParams.resultTx,
+          (listenerParams.value === CONTENT_BYTES_BLANK) ? '' : listenerParams.value,
         ));
-        sendBrowserNotification(domain, 'record_set');
+        sendBrowserNotification(listenerParams.domain, 'record_set');
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { value, domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetContent(CONTENT_BYTES, listenerParams.errorReason),
+        ),
+      ));
     },
   );
 };
@@ -380,21 +399,24 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
         return dispatch(errorSetContent(CONTRACT_ABI, e.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetContent(
-          CONTRACT_ABI, result, response, (value.inputMethod === 'delete'),
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetContent(
+          CONTRACT_ABI, listenerParams.result, listenerParams.response,
+          (listenerParams.value.inputMethod === 'delete'),
         ));
-        sendBrowserNotification(domain, 'contract_abi_set');
+        sendBrowserNotification(listenerParams.domain, 'contract_abi_set');
       };
 
       return dispatch(transactionListener(
         result,
-        () => transactionConfirmed(),
-        errorReason => dispatch(errorSetContent(CONTRACT_ABI, errorReason)),
+        transactionConfirmed,
+        { response, value, domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetContent(CONTRACT_ABI, listenerParams.errorReason),
+        ),
       ));
     });
 };
-
 
 /**
  * Function to handle content type when setting. This will be expanded as more
@@ -474,12 +496,22 @@ export const setDomainResolverAndMigrate = (
     new Promise((resolve, reject) => {
       rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
         .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+          ? reject() : dispatch(transactionListener(
+            result,
+            params => () => resolve(params.resultTx),
+            {},
+            params => () => reject(params.errorReason),
+          ))));
     }),
     new Promise((resolve, reject) => {
       definitiveResolver.methods.multicall(multiCallMethods)
         .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(result, () => () => resolve(result)))));
+          ? reject() : dispatch(transactionListener(
+            result,
+            params => () => resolve(params.resultTx),
+            {},
+            params => () => reject(params.errorReason),
+          ))));
     }),
   ];
 

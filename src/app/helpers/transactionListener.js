@@ -1,6 +1,16 @@
 import { TRANSACTION_RECEIPT_FAILED } from '../types';
 
-const transactionListener = (tx, callback, failCallBack = () => {}) => (dispatch) => {
+/**
+ * Transaction Listener
+ * @param {reciept} tx The TX to listen to on the blockchain
+ * @param {function} callback A function to be called on a Successful TX
+ * @param {array} successCallbackParams Parameters to be sent with successful callback
+ * @param {function} failCallback A function to be called on fail
+ * @param {array} failCallbackParams Parameters to be set with failed callback
+ */
+const transactionListener = (
+  tx, callback, successCallbackParams, failCallback, failCallbackParams,
+) => (dispatch) => {
   const checkInterval = setInterval(() => {
     window.ethereum.sendAsync({
       method: 'eth_getTransactionReceipt',
@@ -9,10 +19,11 @@ const transactionListener = (tx, callback, failCallBack = () => {}) => (dispatch
       if (response.result) {
         clearInterval(checkInterval);
 
-        if (parseInt(response.result.status, 16) === 1) {
-          return dispatch(callback());
-        }
-        return failCallBack(TRANSACTION_RECEIPT_FAILED);
+        return (parseInt(response.result.status, 16) === 1)
+          ? dispatch(callback({ ...successCallbackParams, resultTx: tx }))
+          : dispatch(failCallback({
+            ...failCallbackParams, errorReason: TRANSACTION_RECEIPT_FAILED,
+          }));
       }
       return false;
     });

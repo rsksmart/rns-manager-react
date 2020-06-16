@@ -61,12 +61,19 @@ export const setReverse = value => async (dispatch) => {
 
       dispatch(waitingSetReverseResolver());
 
-      const transactionConfirmed = () => () => {
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
         sendBrowserNotification('RSK Manager', 'reverse_success');
-        dispatch(receieveSetReverseResolver(value, result));
+        listenerDispatch(receieveSetReverseResolver(listenerParams.value, listenerParams.resultTx));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { value },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetReverseResolver(listenerParams.errorReason),
+        ),
+      ));
     },
   );
 };
