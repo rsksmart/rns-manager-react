@@ -37,3 +37,4 @@ export const CONTENT_HASH = 'CONTENT_HASH';
 export const MULTICHAIN = 'MULTICHAIN';
 export const MULTICOIN = 'MULTICOIN';
 export const CONTRACT_ABI = 'CONTRACT_ABI';
+export const ADDR = 'ADDR';

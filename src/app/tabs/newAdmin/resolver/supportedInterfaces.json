@@ -35,6 +35,11 @@
       "interfaceId": "0xf1cb7e06",
       "type": "",
       "notes": "definitive resolver addr method"
+    },
+    {
+      "name": "ADDR",
+      "interfaceId": "0x3b3b57de",
+      "notes": "public resolver interfaceId for ADDR"
     }
   ]
 }
