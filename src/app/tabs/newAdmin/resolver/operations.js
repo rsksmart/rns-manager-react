@@ -28,7 +28,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
   CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER, CONTENT_HASH,
-  MULTICHAIN, MULTICOIN, CONTRACT_ABI,
+  MULTICHAIN, MULTICOIN, CONTRACT_ABI, ADDR,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -173,12 +173,13 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
             case CONTENT_HASH:
               return dispatch(getContentHash(domain));
             case MULTICHAIN:
+            case MULTICOIN:
+            case ADDR:
               return dispatch(getAllChainAddresses(
                 domain, getResolverNameByAddress(resolverAddress),
               ));
             case CONTRACT_ABI:
               return (dispatch(getContractAbi(resolverAddress, domain)));
-            case MULTICOIN:
             default:
           }
         }
@@ -449,7 +450,7 @@ export const setDomainResolverAndMigrate = (
     // valid address to be added to the multiCallMethods array:
     return multiCallMethods.push(
       definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
-        hash, item[1].chainId, decodedAddress,
+        hash, getIndexById(item[1].chainId), decodedAddress,
       ).encodeABI(),
     );
   });
