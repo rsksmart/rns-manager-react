@@ -66,11 +66,16 @@ const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
         return dispatch(errorSetChainAddress('RSK', error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress('0x80000089', 'RSK', address, result, isNew));
-      };
-
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        listenerParams => listenerDispatch => listenerDispatch(receiveSetChainAddress(
+          '0x80000089', 'RSK', listenerParams.address, listenerParams.resultTx, listenerParams.isNew,
+        )),
+        { address, isNew },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetChainAddress('RSK', listenerParams.errorReason),
+        ),
+      ));
     },
   );
 };
@@ -97,21 +102,35 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
         return dispatch(errorSetChainAddress(chainName, error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetChainAddress(
-          chainId, getChainNameById(chainId), address, result, isNew,
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetChainAddress(
+          listenerParams.chainId,
+          getChainNameById(listenerParams.chainId),
+          listenerParams.address,
+          listenerParams.resultTx,
+          listenerParams.isNew,
         ));
 
         // if deleting, close the error message programatically
-        if (address === '' || address === EMPTY_ADDRESS) {
-          dispatch(closeSetChainAddress(chainName));
-          sendBrowserNotification(domain, 'chain_address_removed');
+        if (listenerDispatch.address === '' || listenerDispatch.address === EMPTY_ADDRESS) {
+          listenerDispatch(closeSetChainAddress(listenerParams.chainName));
+          sendBrowserNotification(listenerParams.domain, 'chain_address_removed');
         } else {
-          sendBrowserNotification(domain, 'chain_address_updated');
+          sendBrowserNotification(listenerParams.domain, 'chain_address_updated');
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        {
+          chainId, chainName, address, isNew, domain,
+        },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetChainAddress(listenerParams.chainName, listenerParams.errorReason),
+        ),
+        { chainName },
+      ));
     },
   );
 };
@@ -148,23 +167,37 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
         return dispatch(errorSetChainAddress(chainName, error.message));
       }
 
-      const transactionConfirmed = () => {
-        dispatch(receiveSetChainAddress(
-          chainId, getChainNameById(chainId), address, result, isNew,
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetChainAddress(
+          listenerParams.chainId,
+          listenerParams.chainName,
+          listenerParams.address,
+          listenerParams.resultTx,
+          listenerParams.isNew,
         ));
         // if deleting, close the error message programatically
-        if (address === '' || address === EMPTY_ADDRESS) {
-          dispatch(closeSetChainAddress(chainName));
-          sendBrowserNotification(domain, 'coin_address_removed');
+        if (listenerParams.address === '' || listenerParams.address === EMPTY_ADDRESS) {
+          listenerDispatch(closeSetChainAddress(listenerParams.chainName));
+          sendBrowserNotification(listenerParams.domain, 'coin_address_removed');
         } else {
           sendBrowserNotification(
-            domain,
-            isNew ? 'coin_address_added' : 'coin_address_updated',
+            listenerParams.domain,
+            listenerParams.isNew ? 'coin_address_added' : 'coin_address_updated',
           );
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        {
+          chainId, chainName, address, isNew, domain,
+        },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetChainAddress(listenerParams.chainName, listenerParams.errorReason),
+        ),
+        { chainName },
+      ));
     });
 };
 

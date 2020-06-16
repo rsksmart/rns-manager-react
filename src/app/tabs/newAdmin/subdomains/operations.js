@@ -55,14 +55,21 @@ const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch
 
       dispatch(waitingNewSubdomainConfirm());
 
-      const transactionConfirmed = () => () => {
-        dispatch(addSubdomainToList(subdomain, newOwner));
-        dispatch(receiveNewSubdomain(result));
-        updateSubdomainToLocalStorage(parentDomain, subdomain, true);
-        sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(addSubdomainToList(listenerParams.subdomain, listenerParams.newOwner));
+        listenerDispatch(receiveNewSubdomain(listenerParams.resultTx));
+        updateSubdomainToLocalStorage(listenerParams.parentDomain, listenerParams.subdomain, true);
+        sendBrowserNotification(`${listenerParams.subdomain}.${listenerParams.parentDomain}`, 'register_subdomain');
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { subdomain, newOwner, parentDomain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorNewSubdomain(listenerParams.errorReason),
+        ),
+      ));
     });
 };
 
@@ -173,18 +180,30 @@ export const setSubdomainOwner = (
         return dispatch(errorSetSubdomainOwner(subdomain, error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveSetSubdomainOwner(result, subdomain, newAddress));
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetSubdomainOwner(
+          listenerParams.resultTx, listenerParams.subdomain, listenerParams.newAddress,
+        ));
 
-        if (newAddress === EMPTY_ADDRESS) {
-          sendBrowserNotification(`${subdomain}.${parentDomain}`, 'remove_subdomain');
-          updateSubdomainToLocalStorage(parentDomain, subdomain, false);
-          dispatch(removeSubdomainFromList(subdomain));
+        if (listenerParams.newAddress === EMPTY_ADDRESS) {
+          sendBrowserNotification(`${listenerParams.subdomain}.${listenerParams.parentDomain}`, 'remove_subdomain');
+          updateSubdomainToLocalStorage(
+            listenerParams.parentDomain, listenerParams.subdomain, false,
+          );
+          listenerDispatch(removeSubdomainFromList(listenerParams.subdomain));
         } else {
-          sendBrowserNotification(`${subdomain}.${parentDomain}`, 'update_subdomain');
+          sendBrowserNotification(`${listenerParams.subdomain}.${listenerParams.parentDomain}`, 'update_subdomain');
         }
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { subdomain, newAddress, parentDomain },
+        listenerParams => listenerDispatch => listenerDispatch(errorSetSubdomainOwner(
+          listenerParams.subdomain, listenerParams.errorReason,
+        )),
+        { subdomain },
+      ));
     });
 };
