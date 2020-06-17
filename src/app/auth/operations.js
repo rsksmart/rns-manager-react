@@ -11,6 +11,7 @@ import { checkResolver } from '../notifications';
 
 import {
   receiveHasMetamask,
+  receiveHasContracts,
   requestEnable,
   receiveEnable,
   requestLogin,
@@ -171,6 +172,8 @@ export const start = callback => (dispatch) => {
   const hasMetamask = window.ethereum !== undefined;
 
   dispatch(receiveHasMetamask(hasMetamask));
+
+  dispatch(receiveHasContracts(registryAddress !== ''));
 
   if (hasMetamask) {
     dispatch(requestEnable());
