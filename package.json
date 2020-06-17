@@ -1,6 +1,6 @@
 {
   "name": "rns-manager-react",
-  "version": "2.0.0-beta.17",
+  "version": "2.0.0-beta.18",
   "private": true,
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.7",
