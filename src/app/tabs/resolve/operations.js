@@ -186,7 +186,7 @@ export const getAddress = (
   supportedInterfaces.forEach((interfaceId) => {
     switch (interfaceId) {
       case 'multicoin': return dispatch(multicoin(resolverAddress, domain, (chainId || '0x80000089')));
-      case 'chainAddr': return dispatch(chainAddr(resolverAddress, domain, chainId));
+      case 'chainAddr': return dispatch(chainAddr(resolverAddress, domain, (chainId || '0x80000089')));
       case 'addr': return dispatch(addr(resolverAddress, domain));
       case 'contenthash': return dispatch(contentHash(domain));
       default: return false;

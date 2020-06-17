@@ -10,8 +10,21 @@ import rskWallet from '../../../assets/rsk_wallet.png';
 import { networkSelector } from '../../selectors';
 
 const ErrorTabComponent = ({
-  hasMetamask, walletNetwork, envNetwork, walletUnlocked, strings,
+  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, strings,
 }) => {
+  if (!hasContracts) {
+    return (
+      <Container className="page">
+        <Row style={{ textAlign: 'center', marginTop: '50px' }}>
+          <Col>
+            <img src={rskWallet} alt="rsk_wallet" width="250px" />
+            <h2>{strings.contracts_not_set}</h2>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
   if (!hasMetamask) {
     return (
       <Container className="page">
@@ -70,6 +83,7 @@ ErrorTabComponent.defaultProps = {
 
 ErrorTabComponent.propTypes = {
   hasMetamask: propTypes.bool.isRequired,
+  hasContracts: propTypes.bool.isRequired,
   walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
@@ -81,11 +95,13 @@ ErrorTabComponent.propTypes = {
     network_mismatch: propTypes.string.isRequired,
     connect_to_network: propTypes.string.isRequired,
     current_connected: propTypes.string.isRequired,
+    contracts_not_set: propTypes.string.isRequired,
   }).isRequired,
 };
 
 const mapStateToProps = state => ({
   hasMetamask: state.auth.hasMetamask,
+  hasContracts: state.auth.hasContracts,
   networkMatch: state.auth.networkMatch,
   walletUnlocked: state.auth.walletUnlocked,
   walletNetwork: networkSelector(state.auth.network),

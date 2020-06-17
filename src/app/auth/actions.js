@@ -14,6 +14,11 @@ export const receiveHasMetamask = value => ({
   value,
 });
 
+export const receiveHasContracts = value => ({
+  type: types.RECEIVE_HAS_CONTRACTS,
+  value,
+});
+
 export const requestEnable = () => ({
   type: types.REQUEST_ENABLE,
 });

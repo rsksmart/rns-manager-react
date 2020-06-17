@@ -24,12 +24,15 @@ import {
 const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
-  const { networkMatch, walletUnlocked } = props;
+  const { networkMatch, walletUnlocked, hasContracts } = props;
 
   const notLoggedIn = !window.ethereum || !networkMatch || !walletUnlocked;
 
   return (
     <Switch>
+      {
+        !hasContracts && <Route component={ErrorTab} />
+      }
       <Route exact path="/" component={HomeTab} />
       <Route path="/setup" component={SetUpTab} />
       <Route path="/search" component={SearchTab} />
@@ -61,11 +64,13 @@ Routes.defaultProps = {
 Routes.propTypes = {
   networkMatch: propTypes.bool,
   walletUnlocked: propTypes.bool,
+  hasContracts: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   networkMatch: state.auth.networkMatch,
   walletUnlocked: state.auth.walletUnlocked,
+  hasContracts: state.auth.hasContracts,
 });
 
 export default withRouter(connect(mapStateToProps)(Routes));
