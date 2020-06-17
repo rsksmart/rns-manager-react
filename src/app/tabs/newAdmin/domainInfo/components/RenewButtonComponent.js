@@ -9,10 +9,10 @@ import { dayMath, formatDate } from '../../helpers';
 const RenewButtonComponent = (props) => {
   const {
     expires, handleClick, checkingExpirationTime, isRenewOpen,
-    strings,
+    strings, isFifsMigrated,
   } = props;
 
-  if (checkingExpirationTime || expires === 0) {
+  if (checkingExpirationTime || expires <= 0 || !isFifsMigrated) {
     return (<></>);
   }
 
@@ -37,6 +37,7 @@ RenewButtonComponent.propTypes = {
     renew: propTypes.string.isRequired,
   }).isRequired,
   handleClick: propTypes.func.isRequired,
+  isFifsMigrated: propTypes.bool.isRequired,
 };
 
 export default multilanguage(RenewButtonComponent);
