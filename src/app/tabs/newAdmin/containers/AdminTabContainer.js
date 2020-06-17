@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
+  ...dispatchProps,
   start: () => dispatchProps.start(stateProps.domain),
 });
 
