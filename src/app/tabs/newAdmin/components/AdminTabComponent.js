@@ -9,7 +9,7 @@ import { ToggleContainer } from '../../../containers';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 import {
-  LeftNavContainer, ReclaimContainer,
+  LeftNavContainer, ReclaimContainer, ExpiredDomainContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
@@ -26,6 +26,7 @@ const AdminComponent = ({
   isRegistryOwner,
   enabling,
   start,
+  isExpired,
 }) => {
   if (enabling) {
     return <UserWaitingComponent />;
@@ -33,6 +34,10 @@ const AdminComponent = ({
 
   if (domain) {
     useEffect(() => start(), []);
+  }
+
+  if (isExpired) {
+    return <ExpiredDomainContainer />;
   }
 
   return (
@@ -74,6 +79,7 @@ const AdminComponent = ({
 
 AdminComponent.defaultProps = {
   domain: '',
+  isExpired: false,
 };
 
 AdminComponent.propTypes = {
@@ -88,6 +94,7 @@ AdminComponent.propTypes = {
   isRegistryOwner: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   start: propTypes.func.isRequired,
+  isExpired: propTypes.bool,
 };
 
 export default multilanguage(AdminComponent);

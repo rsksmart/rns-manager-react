@@ -19,6 +19,7 @@ const initProps = {
   handleClick,
   checkingExpirationTime: false,
   isRenewOpen: false,
+  isFifsMigrated: true,
 };
 
 describe('RenewButtonComponent', () => {

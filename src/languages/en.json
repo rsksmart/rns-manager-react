@@ -399,5 +399,7 @@
   "content_hash": "Content Hash",
   "contract_abi": "Contract ABI",
   "contract_abi_set": "Contract ABI has been set.",
-  "contracts_not_set": "Contracts Not Set"
+  "contracts_not_set": "Contracts Not Set",
+  "domain_expired": "Your domain has expired",
+  "search_for_domain": "See if you can register it again"
 }
