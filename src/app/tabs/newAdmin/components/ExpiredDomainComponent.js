@@ -1,5 +1,5 @@
 import React from 'react';
-import { multilanguage } from 'redux-multilanguage'
+import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 
 import {
