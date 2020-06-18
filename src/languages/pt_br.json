@@ -393,9 +393,12 @@
   "multi_coin_addresses": "Multicoin Addresses Resolver",
   "migrate_to_definitive_resolver": "O último resolver oferece compatibilidade de domínio com diferentes blockchains. Essa será a última vez em que você será solicitado a migrar resolvers.",
   "resolver_migration_complete": "Migração concluída!",
-  "migrate_addresses_during": "Migrar meus endereços durante a ativação. Isso exigirá uma segunda transação.",
+  "migrate_addresses_during": "Migrar meus endereços e bytes de conteúdo (se necessário) durante a ativação. Isso exigirá uma segunda transação",
   "warning": "Atenção",
   "decode_warning_explanation": "Os endereços a seguir não são válidos e não podem ser migrados. Você pode configurá-los novamente mais tarde.",
   "understand_warning": "Compreendo.",
-  "transaction_receipt_failed": "Falha na transação. Entre em contato conosco via Gitter para obter suporte."
+  "transaction_receipt_failed": "Falha na transação. Entre em contato conosco via Gitter para obter suporte.",
+  "content_hash": "Conteúdo Hash",
+  "contract_abi": "Contrato ABI",
+  "contract_abi_set": "Contrato ABI foi definido."
 }
