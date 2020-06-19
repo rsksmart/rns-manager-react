@@ -10,5 +10,6 @@
   "fifsAddrRegistrar": "",
   "rskOwner": "",
   "renewer": "",
-  "stringResolver": ""
+  "stringResolver": "",
+  "definitiveResolver": ""
 }
