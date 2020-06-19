@@ -12,16 +12,14 @@ const RenewButtonComponent = (props) => {
     strings, isFifsMigrated,
   } = props;
 
-  if (checkingExpirationTime || expires <= 0 || !isFifsMigrated) {
-    return (<></>);
-  }
+  const disable = (checkingExpirationTime || expires <= 0 || !isFifsMigrated)
 
   return (
     <p>
       {strings.expires_on}
       {' '}
       {formatDate(dayMath(expires))}
-      <Button onClick={handleClick} className={isRenewOpen ? 'active' : ''}>
+      <Button onClick={handleClick} className={isRenewOpen ? 'active' : ''} disabled={disable}>
         {strings.renew}
       </Button>
     </p>
