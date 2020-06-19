@@ -16,9 +16,8 @@ const RenewButtonComponent = (props) => {
 
   return (
     <p>
-      {strings.expires_on}
-      {' '}
-      {formatDate(dayMath(expires))}
+      {disable ? strings.domain_expired : `${strings.expires_on} ${formatDate(dayMath(expires))}`}
+
       <Button onClick={handleClick} className={isRenewOpen ? 'active' : ''} disabled={disable}>
         {strings.renew}
       </Button>
@@ -33,6 +32,7 @@ RenewButtonComponent.propTypes = {
   strings: propTypes.shape({
     expires_on: propTypes.string.isRequired,
     renew: propTypes.string.isRequired,
+    domain_expired: propTypes.string.isRequired,
   }).isRequired,
   handleClick: propTypes.func.isRequired,
   isFifsMigrated: propTypes.bool.isRequired,

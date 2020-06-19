@@ -9,6 +9,7 @@ import RenewButtonComponent from './RenewButtonComponent';
 const store = mockStore({
   expires_on: en.expires_on,
   renew: en.renew,
+  domain_expired: en.domain_expired,
 });
 
 const handleClick = jest.fn();
@@ -55,6 +56,6 @@ describe('RenewButtonComponent', () => {
         <RenewButtonComponent {...localProps} />
       </Provider>,
     );
-    expect(component.find('button').prop('disabled')).toBeTruthy;
+    expect(component.find('button').prop('disabled')).toBeTruthy();
   });
 });
