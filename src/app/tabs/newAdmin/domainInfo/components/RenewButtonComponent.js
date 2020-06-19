@@ -12,7 +12,7 @@ const RenewButtonComponent = (props) => {
     strings, isFifsMigrated,
   } = props;
 
-  const disable = (checkingExpirationTime || expires <= 0 || !isFifsMigrated)
+  const disable = (checkingExpirationTime || expires <= 0 || !isFifsMigrated);
 
   return (
     <p>

@@ -59,7 +59,7 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
       // the difference is in seconds, so it is divided by the amount of seconds per day
       const getRemainingDays = exp => Math.floor((exp - currentBlock.timestamp) / (60 * 60 * 24));
 
-      const remainingDays = getRemainingDays(expirationTime)
+      const remainingDays = getRemainingDays(expirationTime);
 
       if (remainingDays > 0) {
         return dispatch(receiveDomainExpirationTime(remainingDays));
@@ -72,15 +72,15 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
         tokenRegistrarAddress,
       );
 
-      auctionRegistrar.methods.entries(hash).call()
-        .then(entries => {
-          const deed = new web3.eth.Contract(deedAbi, entries[1])
-          return deed.methods.expirationDate().call()
+      return auctionRegistrar.methods.entries(hash).call()
+        .then((entries) => {
+          const deed = new web3.eth.Contract(deedAbi, entries[1]);
+          return deed.methods.expirationDate().call();
         })
-        .then(deedExpirationTime => {
-          const remaining = getRemainingDays(deedExpirationTime)
-          dispatch(receiveDomainExpirationTime(remaining))
-        })
+        .then((deedExpirationTime) => {
+          const remaining = getRemainingDays(deedExpirationTime);
+          dispatch(receiveDomainExpirationTime(remaining));
+        });
     });
   });
 };
