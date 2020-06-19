@@ -400,5 +400,7 @@
   "transaction_receipt_failed": "Falha na transação. Entre em contato conosco via Gitter para obter suporte.",
   "content_hash": "Conteúdo Hash",
   "contract_abi": "Contrato ABI",
-  "contract_abi_set": "Contrato ABI foi definido."
+  "contract_abi_set": "Contrato ABI foi definido.",
+  "domain_expired": "Seu domínio expirou",
+  "search_for_domain": "Registre-o novamente"
 }

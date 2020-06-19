@@ -400,5 +400,7 @@
   "transaction_receipt_failed": "トランザクションが失敗しました。サポートは、Gitter経由で承っております。",
   "content_hash": "コンテンツハッシュ",
   "contract_abi": "コントラクトABI",
-  "contract_abi_set": "コントラクトABIが設定されました。"
+  "contract_abi_set": "コントラクトABIが設定されました。",
+  "domain_expired": "ドメインの有効期限が切れています",
+  "search_for_domain": "もう一度登録する"
 }
