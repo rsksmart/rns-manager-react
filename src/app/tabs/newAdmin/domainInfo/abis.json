@@ -169,5 +169,22 @@
       "stateMutability": "nonpayable",
       "type": "function"
     }
+  ],
+  "deedAbi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "expirationDate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
   ]
 }
