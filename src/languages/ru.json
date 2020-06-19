@@ -400,5 +400,7 @@
   "transaction_receipt_failed": "Транзакция не удалась. Для получения поддержки свяжитесь с нами через Gitter.",
   "content_hash": "Хэш данных",
   "contract_abi": "ABI контракта",
-  "contract_abi_set": "ABI контракта установлен."
+  "contract_abi_set": "ABI контракта установлен.",
+  "domain_expired": "Срок действия вашего домена истек",
+  "search_for_domain": "Зарегистрируй еще раз"
 }

@@ -78,17 +78,17 @@ const ViewContractAbiComponent = ({
         {!isEditing && (
         <div className="col-md-9">
           {prettyJson && (
-          <>
-            <p>Contract ABI Value</p>
-            <pre className="contractAbi">{prettyJson}</pre>
-          </>
+            <>
+              <p>Contract ABI Value</p>
+              <pre className="contractAbi">{prettyJson}</pre>
+            </>
           )}
 
           {prettyUri && (
-          <>
-            <p>URI</p>
-            <div className="uri">{prettyUri}</div>
-          </>
+            <>
+              <p>URI</p>
+              <div className="uri">{prettyUri}</div>
+            </>
           )}
           <p>Stored as:</p>
           <ul>

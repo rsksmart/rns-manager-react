@@ -400,5 +400,7 @@
   "transaction_receipt_failed": "交易失败。通过 Gitter 与我们联系以获得支持。",
   "content_hash": "内容散列",
   "contract_abi": "合约 ABI",
-  "contract_abi_set": "合约 ABI 已设置。"
+  "contract_abi_set": "合约 ABI 已设置。",
+  "domain_expired": "您的网域已过期",
+  "search_for_domain": "重新注册"
 }

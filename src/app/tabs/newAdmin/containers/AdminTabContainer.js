@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   isRegistryOwner: state.newAdmin.view.isRegistryOwner,
   domain: state.auth.name,
   enabling: state.auth.enabling,
+  isExpired: (state.newAdmin.domainInfo.expires <= 0),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -400,5 +400,7 @@
   "transaction_receipt_failed": "거래 실패. Gitter를 통해 지원을 요청하시기 바랍니다.",
   "content_hash": "콘텐츠_해시",
   "contract_abi": "컨트랙트_ABI",
-  "contract_abi_set": "컨트랙트 ABI가 설정 완료되었습니다."
+  "contract_abi_set": "컨트랙트 ABI가 설정 완료되었습니다.",
+  "domain_expired": "도메인이 만료되었습니다",
+  "search_for_domain": "다시 등록하십시오"
 }

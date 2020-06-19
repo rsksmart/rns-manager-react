@@ -10,7 +10,7 @@ import {
   registrar as tokenRegistrarAddress,
 } from '../../../adapters/configAdapter';
 import {
-  rskOwnerAbi, rifAbi, tokenRegistrarAbi,
+  rskOwnerAbi, rifAbi, tokenRegistrarAbi, deedAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -56,12 +56,31 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
         return dispatch(errorDomainExpirationTime());
       }
 
-      const diff = expirationTime - currentBlock.timestamp;
-
       // the difference is in seconds, so it is divided by the amount of seconds per day
-      const remainingDays = Math.floor(diff / (60 * 60 * 24));
+      const getRemainingDays = exp => Math.floor((exp - currentBlock.timestamp) / (60 * 60 * 24));
 
-      return dispatch(receiveDomainExpirationTime(remainingDays));
+      const remainingDays = getRemainingDays(expirationTime);
+
+      if (remainingDays > 0) {
+        return dispatch(receiveDomainExpirationTime(remainingDays));
+      }
+
+      // this means he logged in but the expiration time was not found
+      // in the rsk owner => it is in the auction regisrar
+      const auctionRegistrar = new web3.eth.Contract(
+        tokenRegistrarAbi,
+        tokenRegistrarAddress,
+      );
+
+      return auctionRegistrar.methods.entries(hash).call()
+        .then((entries) => {
+          const deed = new web3.eth.Contract(deedAbi, entries[1]);
+          return deed.methods.expirationDate().call();
+        })
+        .then((deedExpirationTime) => {
+          const remaining = getRemainingDays(deedExpirationTime);
+          dispatch(receiveDomainExpirationTime(remaining));
+        });
     });
   });
 };

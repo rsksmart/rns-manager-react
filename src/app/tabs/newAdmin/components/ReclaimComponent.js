@@ -12,24 +12,24 @@ const ReclaimComponent = ({
   <div className="reclaim major-section">
 
     {(isDomainInfo && !isSettingRegistryOwner) && (
-    <>
-      <h2>{strings.set_controller}</h2>
-      <p>{strings.set_controller_explanation}</p>
-      <Row className="addressInput">
-        <div className="view row">
-          <Col md={3} className="label">
-            {domain}
-          </Col>
-          <Col md={9} className="value">
-            <span className="value-prefix">
-              {`${strings.controller}: `}
-            </span>
-            {registryOwner}
-          </Col>
-        </div>
-      </Row>
-      <br />
-    </>
+      <>
+        <h2>{strings.set_controller}</h2>
+        <p>{strings.set_controller_explanation}</p>
+        <Row className="addressInput">
+          <div className="view row">
+            <Col md={3} className="label">
+              {domain}
+            </Col>
+            <Col md={9} className="value">
+              <span className="value-prefix">
+                {`${strings.controller}: `}
+              </span>
+              {registryOwner}
+            </Col>
+          </div>
+        </Row>
+        <br />
+      </>
     )}
     <Row>
       <Col>

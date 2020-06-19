@@ -24,6 +24,7 @@ const DomainInfoComponent = (props) => {
     checkingRegistryOwner,
     checkingOwnership,
     isRegistryOwner,
+    isFifsMigrated,
   } = props;
 
   if (isTransferSuccess) {
@@ -54,7 +55,7 @@ const DomainInfoComponent = (props) => {
         )}
       </Row>
       <RenewDomainContainer />
-      {(isTokenOwner && !isSubdomain)
+      {(isTokenOwner && !isSubdomain && isFifsMigrated)
       && (
       <Row className="break-above">
         <Col>
@@ -99,6 +100,7 @@ DomainInfoComponent.propTypes = {
   checkingRegistryOwner: propTypes.bool.isRequired,
   checkingOwnership: propTypes.bool.isRequired,
   isRegistryOwner: propTypes.bool.isRequired,
+  isFifsMigrated: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);

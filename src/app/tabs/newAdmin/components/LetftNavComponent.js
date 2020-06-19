@@ -44,24 +44,24 @@ const LeftNavComponent = (props) => {
           </li>
           {advancedView
             && (
-            <>
-              <li>
-                <Link
-                  to="/newAdmin/resolver"
-                  className={location === '/newAdmin/resolver' ? 'active' : ''}
-                >
-                  {strings.resolver}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/newAdmin/reverse"
-                  className={location === '/newAdmin/reverse' ? 'active' : ''}
-                >
+              <>
+                <li>
+                  <Link
+                    to="/newAdmin/resolver"
+                    className={location === '/newAdmin/resolver' ? 'active' : ''}
+                  >
+                    {strings.resolver}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/newAdmin/reverse"
+                    className={location === '/newAdmin/reverse' ? 'active' : ''}
+                  >
                   Reverse
-                </Link>
-              </li>
-            </>
+                  </Link>
+                </li>
+              </>
             )
           }
         </ul>

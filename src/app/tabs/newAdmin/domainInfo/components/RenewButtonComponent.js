@@ -9,19 +9,16 @@ import { dayMath, formatDate } from '../../helpers';
 const RenewButtonComponent = (props) => {
   const {
     expires, handleClick, checkingExpirationTime, isRenewOpen,
-    strings,
+    strings, isFifsMigrated,
   } = props;
 
-  if (checkingExpirationTime || expires === 0) {
-    return (<></>);
-  }
+  const disable = (checkingExpirationTime || expires <= 0 || !isFifsMigrated);
 
   return (
     <p>
-      {strings.expires_on}
-      {' '}
-      {formatDate(dayMath(expires))}
-      <Button onClick={handleClick} className={isRenewOpen ? 'active' : ''}>
+      {disable ? strings.domain_expired : `${strings.expires_on} ${formatDate(dayMath(expires))}`}
+
+      <Button onClick={handleClick} className={isRenewOpen ? 'active' : ''} disabled={disable}>
         {strings.renew}
       </Button>
     </p>
@@ -35,8 +32,10 @@ RenewButtonComponent.propTypes = {
   strings: propTypes.shape({
     expires_on: propTypes.string.isRequired,
     renew: propTypes.string.isRequired,
+    domain_expired: propTypes.string.isRequired,
   }).isRequired,
   handleClick: propTypes.func.isRequired,
+  isFifsMigrated: propTypes.bool.isRequired,
 };
 
 export default multilanguage(RenewButtonComponent);
