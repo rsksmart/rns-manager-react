@@ -55,6 +55,6 @@ describe('RenewButtonComponent', () => {
         <RenewButtonComponent {...localProps} />
       </Provider>,
     );
-    expect(component.html()).toBe('');
+    expect(component.find('button').prop('disabled')).toBeTruthy;
   });
 });
