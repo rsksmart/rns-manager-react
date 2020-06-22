@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   isTransferSuccess: state.newAdmin.domainInfo.isTransferSuccess,
   checkingRegistryOwner: state.newAdmin.view.checkingRegistryOwner,
   checkingOwnership: state.newAdmin.view.checkingRegistryOwner,
+  isFifsMigrated: state.newAdmin.view.isFifsMigrated,
 });
 
 export default connect(

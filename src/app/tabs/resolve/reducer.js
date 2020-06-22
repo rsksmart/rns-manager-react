@@ -20,6 +20,7 @@ const initialState = {
     value: null,
     error: null,
   },
+  content: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -132,6 +133,26 @@ const reducer = (state = initialState, action) => {
         loading: false,
         value: null,
         error: action.error,
+      },
+    };
+    case types.REQUEST_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          loading: true,
+          value: '',
+        },
+      },
+    };
+    case types.RECEIVE_CONTENT: return {
+      ...state,
+      content: {
+        ...state.content,
+        [action.contentType]: {
+          loading: false,
+          value: action.value,
+        },
       },
     };
     case types.RESET_RESOLVE: return {

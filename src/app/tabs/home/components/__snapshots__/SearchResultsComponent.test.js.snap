@@ -67,7 +67,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
           <div
             className="results"
           >
-            <ForwardRef
+            <Row
               className="break-above"
               noGutters={false}
             >
@@ -84,8 +84,8 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                   </h2>
                 </div>
               </div>
-            </ForwardRef>
-            <ForwardRef
+            </Row>
+            <Row
               noGutters={false}
             >
               <div
@@ -94,7 +94,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                 <div
                   className="col-md-8 offset-md-2"
                 >
-                  <ForwardRef
+                  <Row
                     className="searchResults available"
                     noGutters={false}
                   >
@@ -175,10 +175,10 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                         </div>
                       </Col>
                     </div>
-                  </ForwardRef>
+                  </Row>
                 </div>
               </div>
-            </ForwardRef>
+            </Row>
           </div>
         </SearchResultsComponent>
       </Connect(SearchResultsComponent)>
@@ -254,7 +254,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
           <div
             className="results"
           >
-            <ForwardRef
+            <Row
               className="break-above"
               noGutters={false}
             >
@@ -271,8 +271,8 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
                   </h2>
                 </div>
               </div>
-            </ForwardRef>
-            <ForwardRef
+            </Row>
+            <Row
               noGutters={false}
             >
               <div
@@ -281,7 +281,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
                 <div
                   className="col-md-8 offset-md-2"
                 >
-                  <ForwardRef
+                  <Row
                     className="searchResults notAvailable"
                     noGutters={false}
                   >
@@ -326,10 +326,10 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
                         </div>
                       </Col>
                     </div>
-                  </ForwardRef>
+                  </Row>
                 </div>
               </div>
-            </ForwardRef>
+            </Row>
           </div>
         </SearchResultsComponent>
       </Connect(SearchResultsComponent)>

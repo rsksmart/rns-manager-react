@@ -129,8 +129,9 @@ export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
   const hash = namehash(domain);
   const web3 = new Web3(rskNode);
   const resolver = new web3.eth.Contract(definitiveResolverAbi, resolverAddress);
+  const chainIndex = getIndexById(chainId);
 
-  return resolver.methods.addr(hash, chainId).call()
+  return resolver.methods.addr(hash, chainIndex).call()
     .then((resolution) => {
       if (!resolution || resolution === EMPTY_ADDRESS) {
         return dispatch(actions.receiveChainAddr(''));
@@ -138,7 +139,7 @@ export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
 
       // eslint-disable-next-line new-cap
       const dataBuffer = new Buffer.from(resolution.replace('0x', ''), 'hex');
-      const result = formatsByCoinType[getIndexById(chainId)].encoder(dataBuffer);
+      const result = formatsByCoinType[chainIndex].encoder(dataBuffer);
 
       if (chainId === '0x80000089') {
         dispatch(actions.receiveAddr(result));
@@ -164,21 +165,31 @@ export const name = (resolverAddress, address) => (dispatch) => {
   }).catch(error => dispatch(actions.errorName(error.message)));
 };
 
+export const contentHash = domain => (dispatch) => {
+  dispatch(actions.requestContent('CONTENT_HASH'));
+  const web3 = new Web3(window.ethereum);
+  const rns = new RNS(web3, getOptions());
+
+  rns.contenthash(domain)
+    .then(result => dispatch(actions.receiveContent('CONTENT_HASH', result)))
+    .catch(error => dispatch(actions.errorContent('CONTENT_HASH', error.message)));
+};
+
 export const searchAddressOrDomain = input => (dispatch) => {
   const value = isValidAddress(input) ? `${input.replace('0x', '')}.addr.reverse` : input;
   return dispatch(identifyInterfaces(value));
 };
 
 export const getAddress = (
-  resolverAddress, supportedInterfaces, coinName, chainId,
+  resolverAddress, supportedInterfaces, domain, chainId,
 ) => (dispatch) => {
-  if (supportedInterfaces.indexOf('multicoin') > -1) {
-    return dispatch(multicoin(resolverAddress, coinName, (chainId || '0x80000089')));
-  }
-
-  if (supportedInterfaces.indexOf('chainAddr') > -1 && chainId) {
-    return dispatch(chainAddr(resolverAddress, coinName, chainId));
-  }
-
-  return dispatch(addr(resolverAddress, coinName));
+  supportedInterfaces.forEach((interfaceId) => {
+    switch (interfaceId) {
+      case 'multicoin': return dispatch(multicoin(resolverAddress, domain, (chainId || '0x80000089')));
+      case 'chainAddr': return dispatch(chainAddr(resolverAddress, domain, (chainId || '0x80000089')));
+      case 'addr': return dispatch(addr(resolverAddress, domain));
+      case 'contenthash': return dispatch(contentHash(domain));
+      default: return false;
+    }
+  });
 };

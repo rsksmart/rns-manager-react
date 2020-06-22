@@ -19,7 +19,7 @@ const HeaderComponent = (props) => {
   return (
     <Navbar
       expand="md"
-      className="navbar-expand-md navbar-dark fixed-top"
+      className="navbar-expand-md navbar-dark sticky-top"
     >
       <Container>
         <Link to="/" className="navbar-brand">

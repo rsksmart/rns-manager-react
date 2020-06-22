@@ -7,13 +7,13 @@ import {
 } from 'react-bootstrap';
 
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
-import { MULTICHAIN_RESOLVER } from '../../resolver/types';
+import { MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
-  strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolver,
-  isMigrating, decodingErrors, hasAddresses, clearMigrateWarning,
+  strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolverName,
+  isMigrating, decodingErrors, hasAddresses, clearMigrateWarning, contentBytes,
 }) => {
-  const isMultiChainResolver = resolver === MULTICHAIN_RESOLVER;
+  const isMultiChainResolver = resolverName === MULTICHAIN_RESOLVER;
   const isDecodingErrors = decodingErrors.length !== 0;
 
   const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver);
@@ -23,6 +23,10 @@ const MigrateToMultiResolverComponent = ({
     setMigrateAddresses(!migrateAddresses);
     clearMigrateWarning();
   };
+
+  if (resolverName === DEFINITIVE_RESOLVER) {
+    return (<></>);
+  }
 
   return (
     <>
@@ -36,7 +40,7 @@ const MigrateToMultiResolverComponent = ({
       <Row>
         <Col md={10}>
           <p>{strings.migrate_to_multi_resolver}</p>
-          {(isMultiChainResolver && hasAddresses) && (
+          {(isMultiChainResolver && (hasAddresses || contentBytes)) && (
             <p>
               <Form.Check
                 type="switch"
@@ -44,7 +48,7 @@ const MigrateToMultiResolverComponent = ({
                 label={strings.migrate_addresses_during}
                 checked={migrateAddresses}
                 onChange={handleMigrateAddressSwitch}
-                disabled={isMigrating}
+                disabled={isEditing || isMigrating}
               />
             </p>
           )}
@@ -115,7 +119,7 @@ MigrateToMultiResolverComponent.propTypes = {
   handleClick: propTypes.func.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
-  resolver: propTypes.string.isRequired,
+  resolverName: propTypes.string.isRequired,
   isMigrating: propTypes.bool.isRequired,
   decodingErrors: propTypes.arrayOf({
     chainId: propTypes.string,
@@ -124,6 +128,7 @@ MigrateToMultiResolverComponent.propTypes = {
   }).isRequired,
   hasAddresses: propTypes.bool.isRequired,
   clearMigrateWarning: propTypes.func.isRequired,
+  contentBytes: propTypes.shape({}).isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);

@@ -393,9 +393,14 @@
   "multi_coin_addresses": "多币种地址解析器",
   "migrate_to_definitive_resolver": "最新的解析器提供了与不同区块链的域兼容性。这将是最后一次要求您迁移解析器。",
   "resolver_migration_complete": "迁移完成！",
-  "migrate_addresses_during": "在激活期间迁移我的地址。这将需要进行第二次交易。",
+  "migrate_addresses_during": "在激活期间，请迁移我的地址和内容字节（如果需要）。这将需要第二笔交易。",
   "warning": "警告",
   "decode_warning_explanation": "以下地址无效，无法迁移。您可以稍后再进行设置。",
   "understand_warning": "我理解。",
-  "transaction_receipt_failed": "交易失败。通过 Gitter 与我们联系以获得支持。"
+  "transaction_receipt_failed": "交易失败。通过 Gitter 与我们联系以获得支持。",
+  "content_hash": "内容散列",
+  "contract_abi": "合约 ABI",
+  "contract_abi_set": "合约 ABI 已设置。",
+  "domain_expired": "您的网域已过期",
+  "search_for_domain": "重新注册"
 }

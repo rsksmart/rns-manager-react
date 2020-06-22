@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { Switch, Route } from 'react-router';
 
 import { AuthTabWrapper } from '../../../auth';
-import { start } from '../operations';
 import { ToggleContainer } from '../../../containers';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 import {
-  LeftNavContainer, ReclaimContainer,
+  LeftNavContainer, ReclaimContainer, ExpiredDomainContainer,
 } from '../containers';
 
 import { DomainInfoContainer } from '../domainInfo/containers';
@@ -27,14 +25,19 @@ const AdminComponent = ({
   domain,
   isRegistryOwner,
   enabling,
+  start,
+  isExpired,
 }) => {
   if (enabling) {
     return <UserWaitingComponent />;
   }
 
   if (domain) {
-    const dispatch = useDispatch();
-    useEffect(() => dispatch(start(domain)), [dispatch]);
+    useEffect(() => start(), []);
+  }
+
+  if (isExpired) {
+    return <ExpiredDomainContainer />;
   }
 
   return (
@@ -76,6 +79,7 @@ const AdminComponent = ({
 
 AdminComponent.defaultProps = {
   domain: '',
+  isExpired: false,
 };
 
 AdminComponent.propTypes = {
@@ -89,6 +93,8 @@ AdminComponent.propTypes = {
   domain: propTypes.string,
   isRegistryOwner: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
+  start: propTypes.func.isRequired,
+  isExpired: propTypes.bool,
 };
 
 export default multilanguage(AdminComponent);

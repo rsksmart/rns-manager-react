@@ -78,5 +78,9 @@
         "signature": "0xf1cb7e06"
       }
     ]
+  },
+  {
+    "name": "contenthash",
+    "signature": "0xbc1c58d1"
   }
 ]

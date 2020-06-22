@@ -391,9 +391,15 @@
   "multi_coin_addresses": "Multicoin Addresses Resolver",
   "migrate_to_definitive_resolver": "The latest resolver offers domain compatibility with different blockchains. This will be the last time you are asked to migrate resolvers.",
   "resolver_migration_complete": "Migration complete!",
-  "migrate_addresses_during": "Migrate my addresses during activation. This will require a second transaction.",
+  "migrate_addresses_during": "Migrate my addresses and content bytes (if needed) during activation. This will require a second transaction.",
   "warning": "Warning",
   "decode_warning_explanation": "The following addresses are not valid and cannot be migrated. You can set them up again later.",
   "understand_warning": "I understand.",
-  "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent."
+  "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
+  "content_hash": "Content Hash",
+  "contract_abi": "Contract ABI",
+  "contract_abi_set": "Contract ABI has been set.",
+  "contracts_not_set": "Contracts Not Set",
+  "domain_expired": "Your domain has expired",
+  "search_for_domain": "Register it again"
 }

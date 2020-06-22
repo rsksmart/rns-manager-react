@@ -1,0 +1,31 @@
+div.delete {
+  background-color: $light-gray;
+  padding: 1em 2em;
+  margin: 1em auto;
+
+  button.btn-primary {
+    padding:10px 20px !important;
+    margin-left: 2% !important;
+    border-radius: 15px !important;
+    width: 45% !important;
+    border: 1px solid $gray !important;
+  }
+  
+  button.btn-primary.cancel {
+    background: $white;
+    color: $gray;
+    font-weight: 300 !important;
+  }
+
+  button.btn-primary.submit {
+    background-color: $blue !important;
+    color: $white !important;
+  }
+
+  button.btn-primary:hover {
+    background: $white;
+    padding:10px 20px !important;
+    border:1px solid $gray !important;
+    margin-left: 2% !important;
+  }
+}

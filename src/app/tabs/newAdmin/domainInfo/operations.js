@@ -10,7 +10,7 @@ import {
   registrar as tokenRegistrarAddress,
 } from '../../../adapters/configAdapter';
 import {
-  rskOwnerAbi, rifAbi, tokenRegistrarAbi,
+  rskOwnerAbi, rifAbi, tokenRegistrarAbi, deedAbi,
 } from './abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -56,19 +56,33 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
         return dispatch(errorDomainExpirationTime());
       }
 
-      const diff = expirationTime - currentBlock.timestamp;
-
       // the difference is in seconds, so it is divided by the amount of seconds per day
-      const remainingDays = Math.floor(diff / (60 * 60 * 24));
+      const getRemainingDays = exp => Math.floor((exp - currentBlock.timestamp) / (60 * 60 * 24));
 
-      return dispatch(receiveDomainExpirationTime(remainingDays));
+      const remainingDays = getRemainingDays(expirationTime);
+
+      if (remainingDays > 0) {
+        return dispatch(receiveDomainExpirationTime(remainingDays));
+      }
+
+      // this means he logged in but the expiration time was not found
+      // in the rsk owner => it is in the auction regisrar
+      const auctionRegistrar = new web3.eth.Contract(
+        tokenRegistrarAbi,
+        tokenRegistrarAddress,
+      );
+
+      return auctionRegistrar.methods.entries(hash).call()
+        .then((entries) => {
+          const deed = new web3.eth.Contract(deedAbi, entries[1]);
+          return deed.methods.expirationDate().call();
+        })
+        .then((deedExpirationTime) => {
+          const remaining = getRemainingDays(deedExpirationTime);
+          dispatch(receiveDomainExpirationTime(remaining));
+        });
     });
   });
-};
-
-const renewDomainComplete = (result, domain) => (dispatch) => {
-  dispatch(receiveRenewDomain(result));
-  dispatch(checkIfSubdomainAndGetExpirationRemaining(`${domain}.rsk`));
 };
 
 export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
@@ -93,12 +107,20 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
         return dispatch(errorRenewDomain(error.message));
       }
 
-      return dispatch(transactionListener(result, () => renewDomainComplete(result, domain)));
-    });
-};
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveRenewDomain(listenerParams.resultTx));
+        listenerDispatch(checkIfSubdomainAndGetExpirationRemaining(`${listenerParams.domain}.rsk`));
+      };
 
-export const transferDomainConfirmed = tx => (dispatch) => {
-  dispatch(receiveTransferDomain(tx));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorRenewDomain(listenerParams.errorReason),
+        ),
+      ));
+    });
 };
 
 export const transferDomain = (name, address, sender) => async (dispatch) => {
@@ -124,7 +146,16 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
           return resolve(dispatch(errorTransferDomain(error.message)));
         }
 
-        return dispatch(transactionListener(result, () => transferDomainConfirmed(result)));
+        return dispatch(transactionListener(
+          result,
+          listenerParams => listenerDispatch => listenerDispatch(
+            receiveTransferDomain(listenerParams.resultTx),
+          ),
+          {},
+          listenerParams => listenerDispatch => listenerDispatch(
+            errorTransferDomain(listenerParams.errorReason),
+          ),
+        ));
       },
     );
   });
@@ -147,17 +178,22 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
           return dispatch(errorFifsMigration());
         }
 
-        return dispatch(transactionListener(result, () => resolve(
-          dispatch(receiveFifsMigration()),
-        )));
+        return dispatch(transactionListener(
+          result,
+          // eslint-disable-next-line no-unused-vars
+          _listenerParams => listenerDispatch => listenerDispatch(resolve(receiveFifsMigration())),
+          {},
+          listenerParams => listenerDispatch => listenerDispatch(
+            errorFifsMigration(listenerParams.errorReason),
+          ),
+        ));
       },
     );
   });
 };
 
 /**
- * Set RNS Registry owner to a different address
- * aka "Set Controller" in the UI
+ * Set RNS Registry owner to a different address, aka "Set Controller"
  * @param {string} domain that should be set
  * @param {address} address new address to set owner to
  */
@@ -183,16 +219,26 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
         return dispatch(errorSetRegistryOwner(error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveRegistryOwner(
-          newAddress, newAddress.toLowerCase() === currentAddress.toLowerCase(),
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        const listenerAddress = listenerParams.newAddress;
+        listenerDispatch(receiveRegistryOwner(
+          listenerAddress,
+          listenerAddress.toLowerCase() === listenerParams.currentAddress.toLowerCase(),
         ));
 
-        dispatch(receiveSetRegistryOwner(newAddress, result));
-        dispatch(receiveRegistryOwner(newAddress, false));
+        listenerDispatch(receiveSetRegistryOwner(newAddress, listenerParams.resultTx));
+        listenerDispatch(receiveRegistryOwner(newAddress, false));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { newAddress, currentAddress },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetRegistryOwner(listenerParams.errorReason),
+        ),
+        {},
+      ));
     });
 };
 
@@ -213,11 +259,18 @@ export const reclaimDomain = domain => async (dispatch) => {
         return dispatch(errorReclaimDomain(error.message));
       }
 
-      const transactionConfirmed = () => () => {
-        dispatch(receiveRegistryOwner(currentAddress, true));
-        dispatch(receiveReclaimDomain(result));
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveRegistryOwner(listenerParams.currentAddress, true));
+        listenerDispatch(receiveReclaimDomain(listenerParams.resultTx));
       };
 
-      return dispatch(transactionListener(result, () => transactionConfirmed()));
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { currentAddress },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorReclaimDomain(listenerParams.errorReason),
+        ),
+      ));
     });
 };

@@ -392,9 +392,14 @@
   "multi_coin_addresses": "Resolver de direcciones de multimonedas",
   "migrate_to_definitive_resolver": "El último resolver ofrece compatibilidad de dominio con diferentes blockchains. Esta será la última vez que se le solicite que migre los resolvers.",
   "resolver_migration_complete": "¡Migración completa!",
-  "migrate_addresses_during": "Migrar mis direcciones durante la activación. Esto requerirá una segunda transacción.",
+  "migrate_addresses_during": "Migrar mis direcciones y bytes de contenido (si es necesario) durante la activación. Esto requerirá una segunda transacción.",
   "warning": "Advertencia",
   "decode_warning_explanation": "Las siguientes direcciones no son válidas y no se pueden migrar. Puede configurarlas nuevamente más adelante.",
   "understand_warning": "Entiendo.",
-  "transaction_receipt_failed": "La transacción falló. Contáctanos a través de Gitter para obtener ayuda."
+  "transaction_receipt_failed": "La transacción falló. Contáctanos a través de Gitter para obtener ayuda.",
+  "content_hash": "Contenido hash",
+  "contract_abi": "Contrato ABI",
+  "contract_abi_set": "El contrato ABI ha sido configurado.",
+  "domain_expired": "Su dominio ha expirado",
+  "search_for_domain": "Regístralo nuevamente"
 }

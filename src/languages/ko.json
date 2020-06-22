@@ -393,9 +393,14 @@
   "multi_coin_addresses": "멀티코인 주소 Resolver",
   "migrate_to_definitive_resolver": "최신 Resolver는 여러 블록체인과의 도메인 호환성을 제공합니다. Resolver 이전 요청은 이번이 마지막입니다.",
   "resolver_migration_complete": "이전 완료!",
-  "migrate_addresses_during": "활성화 과정 중에 내 주소 이전하기. 여기에는 두 번째 거래가 필요합니다.",
+  "migrate_addresses_during": "활성화 중 내 주소와 콘텐츠 바이트를 이동합니다(필요한 경우). 여기에는 두 번째 거래가 필요합니다.",
   "warning": "경고",
   "decode_warning_explanation": "다음 주소는 유효하지 않으며 이전이 불가능합니다. 나중에 설정하시기 바랍니다.",
   "understand_warning": "알겠습니다.",
-  "transaction_receipt_failed": "거래 실패. Gitter를 통해 지원을 요청하시기 바랍니다."
+  "transaction_receipt_failed": "거래 실패. Gitter를 통해 지원을 요청하시기 바랍니다.",
+  "content_hash": "콘텐츠_해시",
+  "contract_abi": "컨트랙트_ABI",
+  "contract_abi_set": "컨트랙트 ABI가 설정 완료되었습니다.",
+  "domain_expired": "도메인이 만료되었습니다",
+  "search_for_domain": "다시 등록하십시오"
 }

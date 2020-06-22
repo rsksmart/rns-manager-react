@@ -145,24 +145,24 @@ class RegistrarComponent extends Component {
           }
 
           {waiting && (
-          <>
-            <LoadingContainer />
-            <TextRotationComponent
-              messages={shuffle(keyMessages)}
-              language={language}
-              heading={strings.did_you_know}
-              timer={6000}
-            />
-            <p style={{ marginTop: '50px' }}>
-              <a
-                href="https://hackmd.io/@ilanolkies/rns-user-guide"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.download_guide}
-              </a>
-            </p>
-          </>
+            <>
+              <LoadingContainer />
+              <TextRotationComponent
+                messages={shuffle(keyMessages)}
+                language={language}
+                heading={strings.did_you_know}
+                timer={6000}
+              />
+              <p style={{ marginTop: '50px' }}>
+                <a
+                  href="https://hackmd.io/@ilanolkies/rns-user-guide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {strings.download_guide}
+                </a>
+              </p>
+            </>
           )}
 
           {(canReveal && !revealConfirmed)

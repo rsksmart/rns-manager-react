@@ -6,7 +6,8 @@ import { closeSetMessage } from '../actions';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   resolverAddress: state.newAdmin.resolver.resolverAddr,
-  content: Object.entries(state.newAdmin.resolver.content).filter(c => c[1].value === ''),
+  content: Object.entries(state.newAdmin.resolver.content)
+    .filter(c => c[1].isEmpty && !c[1].isRequesting),
 });
 
 const mapDispatchToProps = dispatch => ({

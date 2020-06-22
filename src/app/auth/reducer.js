@@ -3,6 +3,7 @@ import * as types from './types';
 const initialState = {
   showModal: false,
   hasMetamask: true,
+  hasContracts: true,
   walletUnlocked: false,
   enabling: false,
   enableError: null,
@@ -32,6 +33,10 @@ export default (state = initialState, action) => {
     case types.RECEIVE_HAS_METAMASK: return {
       ...state,
       hasMetamask: action.value,
+    };
+    case types.RECEIVE_HAS_CONTRACTS: return {
+      ...state,
+      hasContracts: action.value,
     };
     case types.REQUEST_ENABLE: return {
       ...state,

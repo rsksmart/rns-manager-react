@@ -2,26 +2,21 @@ import { connect } from 'react-redux';
 import AddressInputContainer from '../../../../components/AddressInputComponent';
 import { setContent } from '../operations';
 import { closeSetMessage } from '../actions';
-import { CONTENT_BYTES, CONTENT_BYTES_BLANK } from '../types';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
   resolverAddress: state.newAdmin.resolver.resolverAddr,
   allowDelete: true,
-  isSuccess: state.newAdmin.resolver.content[CONTENT_BYTES].successTx !== '',
-  successTx: state.newAdmin.resolver.content[CONTENT_BYTES].successTx,
-  isWaiting: state.newAdmin.resolver.content[CONTENT_BYTES].isWaiting,
-  isError: state.newAdmin.resolver.content[CONTENT_BYTES].errorMessage !== '',
-  errorMessage: state.newAdmin.resolver.content[CONTENT_BYTES].errorMessage,
+  content: state.newAdmin.resolver.content,
 });
 
 
 const mapDispatchToProps = dispatch => ({
-  setContentHash: (resolverAddress, domain, value) => dispatch(
-    setContent(CONTENT_BYTES, resolverAddress, domain, value),
+  setContentHash: (contentType, resolverAddress, domain, value) => dispatch(
+    setContent(contentType, resolverAddress, domain, value),
   ),
-  handleErrorClose: () => dispatch(closeSetMessage(CONTENT_BYTES)),
-  handleSuccessClose: () => dispatch(closeSetMessage(CONTENT_BYTES)),
+  handleErrorClose: type => dispatch(closeSetMessage(type)),
+  handleSuccessClose: type => dispatch(closeSetMessage(type)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -29,15 +24,21 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   handleSubmit: value => dispatchProps.setContentHash(
-    stateProps.resolverAddress, stateProps.domain, value,
+    ownProps.contentType, stateProps.resolverAddress, stateProps.domain, value,
   ),
   handleDelete: () => dispatchProps.setContentHash(
-    stateProps.resolverAddress, stateProps.domain, CONTENT_BYTES_BLANK,
+    ownProps.contentType, stateProps.resolverAddress, stateProps.domain, '',
   ),
+  handleErrorClose: () => dispatchProps.handleErrorClose(ownProps.contentType),
+  handleSuccessClose: () => dispatchProps.handleSuccessClose(ownProps.contentType),
   reset: false,
+  isSuccess: stateProps.content[ownProps.contentType].successTx !== '',
+  successTx: stateProps.content[ownProps.contentType].successTx,
+  isWaiting: stateProps.content[ownProps.contentType].isWaiting,
+  isError: stateProps.content[ownProps.contentType].errorMessage !== '',
   strings: {
     ...ownProps.strings,
-    error_message: stateProps.errorMessage,
+    error_message: stateProps.content[ownProps.contentType].errorMessage,
   },
 });
 

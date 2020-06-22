@@ -393,9 +393,14 @@
   "multi_coin_addresses": "マルチコインアドレスResolver",
   "migrate_to_definitive_resolver": "最新のResolverは、様々なブロックチェーンとのドメイン互換性を提供します。Resolverの移行をお願いするのは今回が最後です。",
   "resolver_migration_complete": "移行完了です！",
-  "migrate_addresses_during": "有効化中にアドレスを移行。これには、2番目のトランザクションが必要です。",
+  "migrate_addresses_during": "「アクティベーション中にアドレスとコンテンツバイト（必要な場合）を移行します。これには、2番目のトランザクションが必要です。",
   "warning": "警告",
   "decode_warning_explanation": "次のアドレスは無効なため、移行できません。のちほど再設定が可能です。",
   "understand_warning": "理解しました。",
-  "transaction_receipt_failed": "トランザクションが失敗しました。サポートは、Gitter経由で承っております。"
+  "transaction_receipt_failed": "トランザクションが失敗しました。サポートは、Gitter経由で承っております。",
+  "content_hash": "コンテンツハッシュ",
+  "contract_abi": "コントラクトABI",
+  "contract_abi_set": "コントラクトABIが設定されました。",
+  "domain_expired": "ドメインの有効期限が切れています",
+  "search_for_domain": "もう一度登録する"
 }

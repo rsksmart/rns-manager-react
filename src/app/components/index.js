@@ -17,3 +17,5 @@ export { default as AddressInputComponent } from './AddressInputComponent';
 export { default as UserErrorComponent } from './UserErrorComponent';
 export { default as UserSuccessComponent } from './UserSuccessComponent';
 export { default as UserWaitingComponent } from './UserWaitingComponent';
+export { default as ScrollToTopComponent } from './ScrollToTopComponent';
+export { default as UserDeleteComponent } from './UserDeleteComponent';
