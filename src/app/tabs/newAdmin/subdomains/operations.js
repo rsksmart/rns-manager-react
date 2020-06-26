@@ -53,7 +53,7 @@ const registerSubdomain = (
   };
 
   const method = setupResolution
-    ? rns.subdomains.create(parentDomain, subdomain, newOwner, newOwner)
+    ? rns.subdomains.create(parentDomain, subdomain, newOwner, newOwner, { gas: 85000 })
     : rns.subdomains.create(parentDomain, subdomain);
 
   method
