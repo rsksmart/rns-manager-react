@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
-import { Row, Col, Button } from 'react-bootstrap';
+import {
+  Form, Row, Col,
+} from 'react-bootstrap';
 import { validateAddress } from '../../../../validations';
 
 import UserErrorComponent from '../../../../components/UserErrorComponent';
@@ -26,20 +28,24 @@ const NewSubdomainComponent = ({
   initialSubdomain,
   initialOwner,
   chainId,
+  advancedView,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
 
   const [subdomain, setSubdomain] = useState(initialSubdomain);
   const [owner, setOwner] = useState(initialOwner);
+  const [setupRsk, setSetupRsk] = useState(false);
 
-  const handleOnClick = () => {
+  const handleOnClick = (e) => {
+    e.preventDefault();
+
     if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
       return setLocalError(strings.invalid_name);
     }
 
     if (owner.endsWith('.rsk')) {
-      return handleClick(subdomain, owner.toLowerCase());
+      return handleClick(subdomain, owner.toLowerCase(), setupRsk);
     }
 
     switch (validateAddress(owner, chainId)) {
@@ -48,7 +54,7 @@ const NewSubdomainComponent = ({
       case 'Invalid checksum':
         return setChecksumError(true);
       default:
-        return handleClick(subdomain, owner.toLowerCase());
+        return handleClick(subdomain, owner.toLowerCase(), setupRsk);
     }
   };
 
@@ -72,7 +78,7 @@ const NewSubdomainComponent = ({
   const disabled = newRequesting || newWaiting;
 
   return (
-    <div>
+    <Form onSubmit={handleOnClick}>
       <Row>
         <Col>
           <h3 className="blue caps-first">{strings.admin_your_domain_action_3}</h3>
@@ -116,12 +122,13 @@ const NewSubdomainComponent = ({
           />
         </Col>
         <Col>
-          <Button
-            onClick={handleOnClick}
+          <button
             disabled={disabled}
+            className="btn btn-primary"
+            type="submit"
           >
             {strings.create}
-          </Button>
+          </button>
         </Col>
       </Row>
 
@@ -144,6 +151,23 @@ const NewSubdomainComponent = ({
           </ul>
         </div>
       </Row>
+
+      {advancedView && (
+        <>
+          <Row>
+            <Col className="col-md-10 offset-md-2">
+              <Form.Check
+                type="switch"
+                id="setup-addr-switch"
+                label={strings.set_subdomain_rsk}
+                checked={setupRsk}
+                onChange={() => setSetupRsk(!setupRsk)}
+                disabled={disabled}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
 
       <ChecksumErrorContainer
         show={checksumError}
@@ -168,7 +192,7 @@ const NewSubdomainComponent = ({
         visible={newWaiting === true}
         message={strings.wait_transation_confirmed}
       />
-    </div>
+    </Form>
   );
 };
 
@@ -195,6 +219,8 @@ NewSubdomainComponent.propTypes = {
     address_placeholder: propTypes.string.isRequired,
     suggestion: propTypes.string.isRequired,
     your_address: propTypes.string.isRequired,
+    set_subdomain_rsk: propTypes.string.isRequired,
+    set_subdomain_rsk_other: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   address: propTypes.string.isRequired,
@@ -208,6 +234,7 @@ NewSubdomainComponent.propTypes = {
   initialSubdomain: propTypes.string,
   initialOwner: propTypes.string,
   chainId: propTypes.string.isRequired,
+  advancedView: propTypes.bool.isRequired,
 };
 
 export default multilanguage(NewSubdomainComponent);

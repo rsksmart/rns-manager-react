@@ -20,6 +20,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 
 const web3 = new Web3(window.ethereum);
 
+
 // JS library:
 const rns = new RNS(web3, getOptions());
 
@@ -39,38 +40,29 @@ const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   localStorage.setItem('subdomains', JSON.stringify(storedSubdomains));
 };
 
-const registerSubdomain = (parentDomain, subdomain, newOwner) => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
-  const currentAddress = accounts[0];
+const registerSubdomain = (
+  parentDomain, subdomain, newOwner, setupResolution,
+) => async (dispatch) => {
+  dispatch(waitingNewSubdomainConfirm());
 
-  const label = `0x${sha3(subdomain)}`;
-  const node = namehash(parentDomain);
+  const transactionConfirmed = result => () => {
+    dispatch(addSubdomainToList(subdomain, newOwner));
+    dispatch(receiveNewSubdomain(result));
+    updateSubdomainToLocalStorage(parentDomain, subdomain, true);
+    sendBrowserNotification(`${subdomain}.${parentDomain}`, 'register_subdomain');
+  };
 
-  await rns.compose();
-  await rns.contracts.registry.methods.setSubnodeOwner(node, label, newOwner)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorNewSubdomain(error.message));
-      }
+  const method = setupResolution
+    ? rns.subdomains.create(parentDomain, subdomain, newOwner, newOwner, { gas: 85000 })
+    : rns.subdomains.create(parentDomain, subdomain);
 
-      dispatch(waitingNewSubdomainConfirm());
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(addSubdomainToList(listenerParams.subdomain, listenerParams.newOwner));
-        listenerDispatch(receiveNewSubdomain(listenerParams.resultTx));
-        updateSubdomainToLocalStorage(listenerParams.parentDomain, listenerParams.subdomain, true);
-        sendBrowserNotification(`${listenerParams.subdomain}.${listenerParams.parentDomain}`, 'register_subdomain');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { subdomain, newOwner, parentDomain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorNewSubdomain(listenerParams.errorReason),
-        ),
-      ));
-    });
+  method
+    .then(result => dispatch(transactionListener(
+      result,
+      () => transactionConfirmed(result),
+      errorReason => dispatch(errorNewSubdomain(errorReason)),
+    )))
+    .catch(error => dispatch(errorNewSubdomain(error.message)));
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
@@ -95,7 +87,7 @@ const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
  * @param {Object[]} subdomainList the list of known and stored domains
  */
 export const newSubdomain = (
-  parentDomain, subdomain, newOwner, subdomainList,
+  parentDomain, subdomain, newOwner, subdomainList, setupResolution,
 ) => async (dispatch) => {
   dispatch(requestNewSubdomain());
 
@@ -109,7 +101,9 @@ export const newSubdomain = (
 
   const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
-    return dispatch(registerSubdomain(parentDomain, subdomain, newAddress));
+    return dispatch(registerSubdomain(
+      parentDomain, subdomain, newAddress, setupResolution,
+    ));
   }
 
   if (subdomainList[subdomain]) {
