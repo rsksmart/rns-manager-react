@@ -6,6 +6,7 @@ import { errorNewSubdomainClose, successNewSubdomainClose } from '../actions';
 const mapStateToProps = state => ({
   domain: state.auth.name,
   address: state.auth.address,
+  advancedView: state.newAdmin.view.advancedView,
   errorMessage: state.newAdmin.subdomains.newError,
   newRequesting: state.newAdmin.subdomains.newRequesting,
   newWaiting: state.newAdmin.subdomains.newWaiting,
@@ -15,8 +16,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, subDomain, owner, subdomains) => dispatch(newSubdomain(
-    domain, subDomain, owner, subdomains,
+  handleClick: (
+    domain, subDomain, owner, subdomains, setupResolution,
+  ) => dispatch(newSubdomain(
+    domain, subDomain, owner, subdomains, setupResolution,
   )),
   handleErrorClose: () => dispatch(errorNewSubdomainClose()),
   handleSuccessClose: () => dispatch(successNewSubdomainClose()),
@@ -26,8 +29,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  handleClick: (subDomain, owner) => dispatchProps.handleClick(
+  handleClick: (subDomain, owner, setupResolution) => dispatchProps.handleClick(
     stateProps.domain, subDomain, owner, stateProps.subdomains,
+    setupResolution,
   ),
   handleErrorClose: () => dispatchProps.handleErrorClose(),
   handleSuccessClose: () => dispatchProps.handleSuccessClose(),
