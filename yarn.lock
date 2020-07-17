@@ -1470,10 +1470,10 @@
     truffle "^5.1.17"
     web3 "^1.2.6"
 
-"@rsksmart/rns@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rns/-/rns-1.8.0.tgz#ed4c204974a668a1a1ac254462f4d012e7188b88"
-  integrity sha512-Lo6TxztOypDvUca9Tqx1Wh/h7DSgDpgNcqD5hTy6ITQjPRfXxRTTdcFE/TL9+/PzKEoXVZug31SjlVikgJn5uw==
+"@rsksmart/rns@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rns/-/rns-1.8.2.tgz#add7f0518a3226842079806d07dcb452a6bd5732"
+  integrity sha512-d/GojlAHSPsYmUVmySs+unXeJF20L+HoOAS8w75XV+LE6TmCp8qyGvWbuIx+RSCK4VhPMX+gBGK7GS7iSoxuFg==
   dependencies:
     "@ensdomains/address-encoder" "^0.1.7"
     "@rsksmart/rns-registry" "^1.0.2"
