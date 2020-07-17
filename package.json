@@ -1,11 +1,11 @@
 {
   "name": "rns-manager-react",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.7",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rns": "^1.8.0",
+    "@rsksmart/rns": "^1.8.2",
     "@rsksmart/rns-suite": "^1.0.4",
     "bootstrap": "^4.3.1",
     "cbor": "^5.0.2",
