@@ -94,7 +94,6 @@ export const checkIfFIFSRegistrar = domain => async (dispatch) => {
     tokenRegistrar.methods.entries(label).call((error, result) => {
       if (error) {
         dispatch(errorFifsMigrationStatus());
-        return
       }
 
       const mode = result[0];
