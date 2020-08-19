@@ -96,9 +96,9 @@ export const checkIfFIFSRegistrar = domain => async (dispatch) => {
         dispatch(errorFifsMigrationStatus());
       }
 
-      const deed = result[1];
+      const mode = result[0];
 
-      return resolve(dispatch(receiveFifsMigrationStatus(deed === '0x0000000000000000000000000000000000000000')));
+      return resolve(dispatch(receiveFifsMigrationStatus(mode !== '2')));
     });
   });
 };
