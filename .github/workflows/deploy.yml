@@ -3,7 +3,7 @@ name: RNS build and deploy
 on:
   pull_request:
     branches:
-      - master
+    - master
    types: [closed] 
 
 jobs:
