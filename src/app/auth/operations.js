@@ -204,6 +204,10 @@ export const start = callback => (dispatch) => {
   if (!window.rLogin) {
     return rLogin.connect().then((provider) => {
       window.rLogin = provider;
+
+      provider.addListener('accountsChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
+
       dispatch(startWithRLogin(callback));
     });
   }

@@ -8,9 +8,10 @@ import {
 
 import rskWallet from '../../../assets/rsk_wallet.png';
 import { networkSelector } from '../../selectors';
+import { start } from '../../auth/operations';
 
 const ErrorTabComponent = ({
-  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, strings,
+  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, connect, strings,
 }) => {
   if (!hasContracts) {
     return (
@@ -47,7 +48,8 @@ const ErrorTabComponent = ({
         <Row style={{ textAlign: 'center', marginTop: '50px' }}>
           <Col>
             <img src={rskWallet} alt="rsk_wallet" width="250px" />
-            <h2>{strings.unlock_wallet}</h2>
+            <h2>Please unlock your wallet and connect to the RNS Manager</h2>
+            <Button onClick={connect} size="lg">{strings.connect}</Button>
           </Col>
         </Row>
       </Container>
@@ -87,6 +89,7 @@ ErrorTabComponent.propTypes = {
   walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
+  connect: propTypes.func.isRequired,
   strings: propTypes.shape({
     no_wallet: propTypes.string.isRequired,
     rsk_wallet_needed: propTypes.string.isRequired,
@@ -96,6 +99,7 @@ ErrorTabComponent.propTypes = {
     connect_to_network: propTypes.string.isRequired,
     current_connected: propTypes.string.isRequired,
     contracts_not_set: propTypes.string.isRequired,
+    connect: propTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -108,9 +112,13 @@ const mapStateToProps = state => ({
   envNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
 });
 
+const mapDispatchToProps = dispatch => ({
+  connect: () => dispatch(start()),
+});
+
 const ErrorTabConnect = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(multilanguage(ErrorTabComponent));
 
 const ErrorTab = () => (<ErrorTabConnect />);
