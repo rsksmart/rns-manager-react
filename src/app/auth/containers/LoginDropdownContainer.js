@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import { LoginDropdownComponent } from '../components';
 
 import { togglePopUp, logOut } from '../actions';
-import { authenticate } from '../operations';
+import { start, authenticate } from '../operations';
 
 const getStoredDomains = (address, current) => {
   if (!localStorage.getItem('storedDomains')) {
@@ -36,7 +36,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logOut());
     dispatch(authenticate(domain, address, true));
   },
-  toggleShowPopUp: newState => dispatch(togglePopUp(newState)),
+  toggleShowPopUp:
+    newState => (window.rLogin ? dispatch(togglePopUp(newState)) : dispatch(start())),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
