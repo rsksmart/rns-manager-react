@@ -162,7 +162,7 @@ export const setSubdomainOwner = (
     return;
   }
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const label = `0x${sha3(subdomain)}`;
   const node = namehash(parentDomain);
