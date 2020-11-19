@@ -140,7 +140,6 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
         className="cancel"
         disabled={false}
         onClick={[Function]}
-        type="button"
         variant="primary"
       >
         cancel string
@@ -150,7 +149,6 @@ exports[`AddressInputComponent shows confirmation window when delete is clicked 
         className="submit"
         disabled={false}
         onClick={[Function]}
-        type="button"
         variant="primary"
       >
         delete string

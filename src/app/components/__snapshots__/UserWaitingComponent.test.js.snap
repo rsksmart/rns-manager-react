@@ -25,13 +25,13 @@ exports[`UserWaitingComponent renders and matches snapshot 1`] = `
         >
           <Box
             bg="transparent"
-            className="sc-jXqrPq fhxevS loader-center"
+            className="sc-hswJLo dnMQRx loader-center"
             color="#008FF7"
             size="80px"
           >
             <styled.div
               bg="transparent"
-              className="sc-jXqrPq fhxevS loader-center"
+              className="sc-hswJLo dnMQRx loader-center"
               color="#008FF7"
               size="80px"
               theme={
@@ -235,7 +235,7 @@ exports[`UserWaitingComponent renders and matches snapshot 1`] = `
               }
             >
               <div
-                className="sc-AxirZ WKnMC sc-jXqrPq fhxevS loader-center"
+                className="sc-gsTCUz gVyexA sc-hswJLo dnMQRx loader-center"
                 color="#008FF7"
                 size="80px"
               >

@@ -160,7 +160,6 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                             className="register"
                             disabled={false}
                             onClick={[MockFunction]}
-                            type="button"
                             variant="primary"
                           >
                             <button

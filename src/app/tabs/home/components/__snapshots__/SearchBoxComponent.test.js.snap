@@ -59,7 +59,6 @@ exports[`SearchBoxComponent renders and matches snapshot 1`] = `
               active={false}
               disabled={false}
               onClick={[Function]}
-              type="button"
               variant="primary"
             >
               <button

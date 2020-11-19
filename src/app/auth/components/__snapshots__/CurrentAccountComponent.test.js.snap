@@ -63,7 +63,6 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
               className="switchButton"
               disabled={false}
               onClick={[MockFunction]}
-              type="button"
               variant="primary"
             >
               <button
@@ -79,7 +78,6 @@ exports[`CurrentAccountComponent renders and matches snapshot 1`] = `
               active={false}
               disabled={false}
               onClick={[MockFunction]}
-              type="button"
               variant="outline-primary"
             >
               <button

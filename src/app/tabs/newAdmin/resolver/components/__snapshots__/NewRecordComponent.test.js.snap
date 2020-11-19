@@ -107,7 +107,6 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
               className="add"
               disabled={false}
               onClick={[Function]}
-              type="button"
               variant="primary"
             >
               <button

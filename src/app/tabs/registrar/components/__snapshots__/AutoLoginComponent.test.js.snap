@@ -113,7 +113,6 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
               block={true}
               disabled={false}
               onClick={[MockFunction]}
-              type="button"
               variant="primary"
             >
               <button
@@ -134,7 +133,6 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
               block={true}
               disabled={false}
               onClick={[MockFunction]}
-              type="button"
               variant="primary"
             >
               <button

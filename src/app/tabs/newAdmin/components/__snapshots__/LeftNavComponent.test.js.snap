@@ -95,9 +95,8 @@ exports[`LeftNavComponent matches snapshot 1`] = `
               <NavbarCollapse
                 id="basic-navbar-nav"
               >
-                <Collapse
+                <ForwardRef
                   appear={false}
-                  dimension="height"
                   getDimensionValue={[Function]}
                   id="basic-navbar-nav"
                   in={false}
@@ -192,7 +191,7 @@ exports[`LeftNavComponent matches snapshot 1`] = `
                       </ul>
                     </div>
                   </Transition>
-                </Collapse>
+                </ForwardRef>
               </NavbarCollapse>
             </nav>
           </Navbar>
