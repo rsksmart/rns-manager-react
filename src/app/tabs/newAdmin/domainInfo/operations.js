@@ -30,18 +30,16 @@ import {
 import { receiveRegistryOwner } from '../actions';
 import { resolveDomain } from '../../resolve/operations';
 
-const web3 = new Web3(window.ethereum);
-const rns = new RNS(web3, getOptions());
-
-const rskOwner = new web3.eth.Contract(
-  rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
-);
-
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   dispatch(requestDomainExpirationTime());
 
   const label = name.split('.')[0];
   const hash = `0x${sha3(label)}`;
+
+  const web3 = new Web3(window.rLogin);
+  const rskOwner = new web3.eth.Contract(
+    rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
+  );
 
   rskOwner.methods.expirationTime(hash).call((error, result) => {
     if (error) {
@@ -88,9 +86,10 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
 export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   dispatch(requestRenewDomain());
 
+  const web3 = new Web3(window.rLogin);
   const durationBN = window.web3.toBigNumber(duration);
   const weiValue = rifCost * (10 ** 18);
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
   const data = getRenewData(domain, durationBN);
@@ -139,6 +138,11 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
   return new Promise((resolve) => {
     const hash = `0x${sha3(label)}`;
 
+    const web3 = new Web3(window.rLogin);
+    const rskOwner = new web3.eth.Contract(
+      rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
+    );
+
     rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
       { from: sender },
       (error, result) => {
@@ -166,6 +170,7 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
 
   return new Promise((resolve) => {
     const label = `0x${sha3(domain.split('.')[0])}`;
+    const web3 = new Web3(window.rLogin);
 
     const tokenRegistrar = new web3.eth.Contract(
       tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
@@ -209,9 +214,11 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
   }
 
   const label = namehash(domain);
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0].toLowerCase();
 
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
   await rns.compose();
   return rns.contracts.registry.methods.setOwner(label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
@@ -250,8 +257,12 @@ export const reclaimDomain = domain => async (dispatch) => {
   dispatch(requestReclaimDomain(domain));
 
   const label = `0x${sha3(domain.split('.')[0])}`;
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0].toLowerCase();
+  const web3 = new Web3(window.rLogin);
+  const rskOwner = new web3.eth.Contract(
+    rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
+  );
 
   rskOwner.methods.reclaim(label, currentAddress)
     .send({ from: currentAddress }, (error, result) => {
