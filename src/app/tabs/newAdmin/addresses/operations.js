@@ -26,17 +26,6 @@ import { ADDRESS_ENCODING_ERROR } from './types';
 import { EMPTY_ADDRESS } from '../types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
-const web3 = new Web3(window.ethereum);
-const multichainResolver = new web3.eth.Contract(
-  multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
-);
-const publicResolver = new web3.eth.Contract(
-  publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
-);
-const definitiveResolver = new web3.eth.Contract(
-  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
-);
-
 /**
  * Helper Function to get the chain name with the ID
  * @param {chaindId} chaindId the chainId to be looked up
@@ -55,9 +44,14 @@ export const getIndexById = chainId => networks.find(net => net.id === chainId).
  * @param {address} address to resolve to
  */
 const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
+
+  const web3 = new Web3(window.rLogin);
+  const publicResolver = new web3.eth.Contract(
+    publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   publicResolver.methods.setAddr(hash, address).send(
     { from: currentAddress }, (error, result) => {
@@ -91,9 +85,14 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
+
+  const web3 = new Web3(window.rLogin);
+  const multichainResolver = new web3.eth.Contract(
+    multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   multichainResolver.methods.setChainAddr(hash, chainId, address).send(
     { from: currentAddress }, (error, result) => {
@@ -147,7 +146,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
   dispatch(requestSetChainAddress(chainName));
 
   const chainIndex = getIndexById(chainId);
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
   // encode value if it is not empty:
@@ -159,6 +158,10 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
       return dispatch(errorSetChainAddress(chainName, ADDRESS_ENCODING_ERROR, address));
     }
   }
+  const web3 = new Web3(window.rLogin);
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   return definitiveResolver.methods.setAddr(namehash(domain), chainIndex, encodeValue)
     .send({ from: currentAddress }, (error, result) => {
@@ -234,6 +237,11 @@ export const getPublicChainAddresses = domain => async (dispatch) => {
   dispatch(requestChainAddress());
   const hash = namehash(domain);
 
+  const web3 = new Web3(window.rLogin);
+  const publicResolver = new web3.eth.Contract(
+    publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
+  );
+
   return publicResolver.methods.addr(hash).call()
     .then(addr => dispatch(receiveChainAddress('0x80000089', 'RSK', addr)))
     .catch(error => dispatch(errorChainAddress('RSK', error.message)));
@@ -246,6 +254,11 @@ export const getPublicChainAddresses = domain => async (dispatch) => {
  */
 export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
+
+  const web3 = new Web3(window.rLogin);
+  const multichainResolver = new web3.eth.Contract(
+    multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
@@ -272,6 +285,11 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
   const chainIndex = getIndexById(chainId);
+
+  const web3 = new Web3(window.rLogin);
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   return definitiveResolver.methods.addr(hash, chainIndex).call()
     .then((addr) => {
