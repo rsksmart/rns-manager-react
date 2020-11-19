@@ -28,7 +28,7 @@ import {
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
 import rLogin from '../rLogin/rLogin';
-import Web3ProviderClass from '../rLogin/Web3ProviderClass';
+
 
 /**
  * Save Domain into Local Storage to be used with login popup.
@@ -171,20 +171,18 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 };
 
 const startWithRLogin = callback => (dispatch) => {
-  const web3Provider = new Web3ProviderClass().getProvider();
-
-  dispatch(receiveHasMetamask(web3Provider.isMetaMask));
+  dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
-  if (web3Provider.isMetaMask) {
+  if (window.rLogin.isMetaMask) {
     dispatch(requestEnable());
 
-    web3Provider.enable()
+    window.rLogin.enable()
       .then((accounts) => {
         dispatch(receiveEnable(
           accounts[0],
-          web3Provider.publicConfigStore.getState().networkVersion,
-          web3Provider.publicConfigStore.getState().networkVersion
+          window.rLogin.publicConfigStore.getState().networkVersion,
+          window.rLogin.publicConfigStore.getState().networkVersion
             === process.env.REACT_APP_ENVIRONMENT_ID,
           accounts.length !== 0,
         ));
@@ -198,17 +196,14 @@ const startWithRLogin = callback => (dispatch) => {
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
 
-    web3Provider.on('accountsChanged', () => dispatch(startWithRLogin()));
+    window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
   }
 };
 
 export const start = callback => (dispatch) => {
-  const web3Provider = new Web3ProviderClass();
-
-  console.log('start', web3Provider);
-  if (!web3Provider.provider) {
+  if (!window.rLogin) {
     return rLogin.connect().then((provider) => {
-      web3Provider.setProvider(provider);
+      window.rLogin = provider;
       dispatch(startWithRLogin(callback));
     });
   }
