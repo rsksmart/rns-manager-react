@@ -6,7 +6,7 @@ export const notifyTx = (tx, message, params, callback) => (dispatch) => {
   dispatch(addTxNotification(tx, message, params));
 
   const checkInterval = setInterval(() => {
-    window.ethereum.sendAsync({
+    window.rLogin.sendAsync({
       method: 'eth_getTransactionByHash',
       params: [tx],
     }, (err, response) => {
