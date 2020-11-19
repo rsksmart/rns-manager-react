@@ -44,7 +44,7 @@ export const saveDomainToLocalStorage = async (domain) => {
     storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
   }
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const newDomain = {
     domain,
     owner: accounts[0],
@@ -218,6 +218,6 @@ export const logoutManager = (redirect = '') => (dispatch) => {
 };
 
 export const autoLogin = domain => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   dispatch(authenticate(domain, accounts[0]));
 };
