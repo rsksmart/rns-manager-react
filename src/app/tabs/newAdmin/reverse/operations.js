@@ -17,20 +17,15 @@ import {
   receieveSetReverseResolver, errorSetReverseResolver, errorResolver,
 } from './actions';
 
-
-const web3 = new Web3(window.ethereum);
-const rns = new RNS(web3, getOptions());
-
-const reverseRegistry = new web3.eth.Contract(
-  reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
-);
-
 /**
  * Get reverse value when given an address
  * @param {address} address the address to lookup
  */
 export const getReverse = address => (dispatch) => {
   dispatch(requestResolver());
+
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
 
   rns.reverse(address.toLowerCase())
     .then((response) => {
@@ -48,10 +43,15 @@ export const getReverse = address => (dispatch) => {
  * @param {string} value value to be set
  */
 export const setReverse = value => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
   dispatch(requestSetReverseResolver());
+
+  const web3 = new Web3(window.rLogin);
+  const reverseRegistry = new web3.eth.Contract(
+    reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
+  );
 
   reverseRegistry.methods.setName(value).send(
     { from: currentAddress }, (error, result) => {
