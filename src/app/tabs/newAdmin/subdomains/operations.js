@@ -18,11 +18,10 @@ import { EMPTY_ADDRESS } from '../types';
 import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
-const web3 = new Web3(window.ethereum);
-
-
-// JS library:
-const rns = new RNS(web3, getOptions());
+const getRNS = () => {
+  const web3 = new Web3(window.rLogin);
+  return new RNS(web3, getOptions());
+};
 
 const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
@@ -53,8 +52,8 @@ const registerSubdomain = (
   };
 
   const method = setupResolution
-    ? rns.subdomains.create(parentDomain, subdomain, newOwner, newOwner, { gas: 85000 })
-    : rns.subdomains.create(parentDomain, subdomain);
+    ? getRNS().subdomains.create(parentDomain, subdomain, newOwner, newOwner, { gas: 85000 })
+    : getRNS().subdomains.create(parentDomain, subdomain);
 
   method
     .then(result => dispatch(transactionListener(
@@ -68,6 +67,7 @@ const registerSubdomain = (
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
   const hash = namehash(`${subdomain}.${domain}`);
 
+  const rns = getRNS();
   await rns.compose();
   await rns.contracts.registry.methods.owner(hash).call((error, result) => {
     if (!error) {
@@ -99,7 +99,7 @@ export const newSubdomain = (
     return null;
   }
 
-  const isAvailable = await rns.subdomains.available(parentDomain, subdomain);
+  const isAvailable = await getRNS().subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
     return dispatch(registerSubdomain(
       parentDomain, subdomain, newAddress, setupResolution,
@@ -167,6 +167,7 @@ export const setSubdomainOwner = (
   const label = `0x${sha3(subdomain)}`;
   const node = namehash(parentDomain);
 
+  const rns = getRNS();
   await rns.compose();
   rns.contracts.registry.methods.setSubnodeOwner(node, label, newAddress)
     .send({ from: currentAddress }, (error, result) => {
