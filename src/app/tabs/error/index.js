@@ -11,7 +11,7 @@ import { networkSelector } from '../../selectors';
 import { start } from '../../auth/operations';
 
 const ErrorTabComponent = ({
-  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, connect, strings,
+  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, rLoginConnect, strings,
 }) => {
   if (!hasContracts) {
     return (
@@ -49,7 +49,7 @@ const ErrorTabComponent = ({
           <Col>
             <img src={rskWallet} alt="rsk_wallet" width="250px" />
             <h2>Please unlock your wallet and connect to the RNS Manager</h2>
-            <Button onClick={connect} size="lg">{strings.connect}</Button>
+            <Button onClick={rLoginConnect} size="lg">{strings.connect}</Button>
           </Col>
         </Row>
       </Container>
@@ -89,7 +89,7 @@ ErrorTabComponent.propTypes = {
   walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
   envNetwork: propTypes.string.isRequired,
-  connect: propTypes.func.isRequired,
+  rLoginConnect: propTypes.func.isRequired,
   strings: propTypes.shape({
     no_wallet: propTypes.string.isRequired,
     rsk_wallet_needed: propTypes.string.isRequired,
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  connect: () => dispatch(start()),
+  rLoginConnect: () => dispatch(start()),
 });
 
 const ErrorTabConnect = connect(
