@@ -48,7 +48,7 @@ const ErrorTabComponent = ({
         <Row style={{ textAlign: 'center', marginTop: '50px' }}>
           <Col>
             <img src={rskWallet} alt="rsk_wallet" width="250px" />
-            <h2>Please unlock your wallet and connect to the RNS Manager</h2>
+            <h2>{strings.unlock_connect}</h2>
             <Button onClick={rLoginConnect} size="lg">{strings.connect}</Button>
           </Col>
         </Row>
@@ -100,6 +100,7 @@ ErrorTabComponent.propTypes = {
     current_connected: propTypes.string.isRequired,
     contracts_not_set: propTypes.string.isRequired,
     connect: propTypes.string.isRequired,
+    unlock_connect: propTypes.string.isRequired,
   }).isRequired,
 };
 

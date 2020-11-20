@@ -37,15 +37,6 @@ import { interfaces } from './supportedInterfaces.json';
 import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
 
-/*
-const web3 = new Web3(window.rLogin);
-const rns = new RNS(web3, getOptions());
-
-const definitiveResolver = new web3.eth.Contract(
-  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
-);
-*/
-
 /**
  * Returns user friendly name based on address
  * @param {address} address the resolver address
