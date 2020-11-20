@@ -149,7 +149,7 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   const registrar = new web3.eth.Contract(abi, address);
 
   return new Promise((resolve) => {
-    registrar.canReveal(hash, (error, canReveal) => {
+    registrar.methods.canReveal(hash).call((error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
       if (canReveal && !notificationReady) {
         sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
@@ -186,8 +186,9 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
   const web3 = new Web3(window.rLogin);
   const registrar = new web3.eth.Contract(abi, address);
+
   return new Promise((resolve) => {
-    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
+    registrar.methods.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt).call((error, hashCommit) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       dispatch(receiveCommitRegistrar(hashCommit, true));
