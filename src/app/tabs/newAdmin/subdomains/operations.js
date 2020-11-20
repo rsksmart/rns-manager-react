@@ -59,7 +59,8 @@ const registerSubdomain = (
     .then(result => dispatch(transactionListener(
       result,
       () => transactionConfirmed(result),
-      errorReason => dispatch(errorNewSubdomain(errorReason)),
+      {},
+      errorReason => dispatch(errorNewSubdomain(errorReason.message)),
     )))
     .catch(error => dispatch(errorNewSubdomain(error.message)));
 };
