@@ -508,7 +508,7 @@ export const setDomainResolverAndMigrate = (
   });
 
   // add contentBytes if not null or empty
-  if (contentBytes && contentBytes !== CONTENT_BYTES_BLANK.value) {
+  if (contentBytes && contentBytes.value !== CONTENT_BYTES_BLANK && contentBytes.value !== '') {
     multiCallMethods.push(
       definitiveResolver.methods['setContenthash(bytes32,bytes)'](
         hash, contentBytes.value,
