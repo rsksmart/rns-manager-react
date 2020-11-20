@@ -87,7 +87,8 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   dispatch(requestRenewDomain());
 
   const web3 = new Web3(window.rLogin);
-  const durationBN = window.web3.toBigNumber(duration);
+  const durationBN = new web3.utils.BN(duration);
+
   const weiValue = rifCost * (10 ** 18);
   const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
