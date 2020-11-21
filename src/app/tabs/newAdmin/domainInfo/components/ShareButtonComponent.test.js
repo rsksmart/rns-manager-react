@@ -16,7 +16,6 @@ const store = mockStore({
   copied: en.copied,
 });
 
-
 describe('RenewButtonComponent', () => {
   it('renders without crashing', () => {
     const component = mount(
@@ -24,7 +23,6 @@ describe('RenewButtonComponent', () => {
         <ShareButtonComponent domain="foobar.rsk" />
       </Provider>,
     );
-
     component.find('button.share-button').simulate('click');
     expect(component).toMatchSnapshot();
   });

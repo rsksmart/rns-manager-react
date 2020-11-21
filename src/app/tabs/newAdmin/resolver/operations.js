@@ -37,13 +37,6 @@ import { interfaces } from './supportedInterfaces.json';
 import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
 
-const web3 = new Web3(window.ethereum);
-const rns = new RNS(web3, getOptions());
-
-const definitiveResolver = new web3.eth.Contract(
-  definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
-);
-
 /**
  * Returns user friendly name based on address
  * @param {address} address the resolver address
@@ -71,6 +64,9 @@ export const getDomainResolver = domain => async (dispatch) => {
   dispatch(requestResolver());
   const hash = namehash(domain);
 
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
+
   await rns.compose();
   await rns.contracts.registry.methods.resolver(hash)
     .call((error, result) => {
@@ -80,6 +76,9 @@ export const getDomainResolver = domain => async (dispatch) => {
 
 export const getContentHash = domain => (dispatch) => {
   dispatch(requestContent(CONTENT_HASH));
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
+
   rns.contenthash(domain)
     .then((result) => {
       dispatch(receiveContent(
@@ -99,6 +98,7 @@ export const getContentHash = domain => (dispatch) => {
  */
 export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
   dispatch(requestContent(CONTENT_BYTES));
+  const web3 = new Web3(window.rLogin);
 
   const resolver = new web3.eth.Contract(
     resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
@@ -126,6 +126,8 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
 const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestContent(CONTRACT_ABI));
   const hash = namehash(domain);
+  const web3 = new Web3(window.rLogin);
+
   const resolver = new web3.eth.Contract(
     definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
@@ -157,6 +159,7 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
  */
 export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   dispatch(clearAllContent());
+  const web3 = new Web3(window.rLogin);
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 
   // loop throgh supported interfaces and if found, call 'get' function.
@@ -198,9 +201,12 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
   dispatch(requestSetResolver());
   const lowerResolverAddress = resolverAddress.toLowerCase();
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
+
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
 
   await rns.compose();
   await rns.contracts.registry.methods.setResolver(hash, lowerResolverAddress)
@@ -240,6 +246,9 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  */
 const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
+
   rns.setContenthash(domain, input)
     .then((result) => {
       const transactionConfirmed = listenerParams => (listenerDispatch) => {
@@ -278,12 +287,13 @@ const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => 
   if (validateBytes32(input)) {
     return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
+  const web3 = new Web3(window.rLogin);
 
   const resolver = new web3.eth.Contract(
     resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const method = resolver.methods.setContent(namehash(domain), value);
 
@@ -348,6 +358,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   const multiCallMethods = [];
+  const web3 = new Web3(window.rLogin);
 
   // type 1: uncompressed Json
   if (value.encodings.json && parsedJson !== '') {
@@ -377,6 +388,9 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     response.push({ id: 8, result: 0 });
   }
 
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
   // prepare multicall methods array
   response.forEach((call) => {
     multiCallMethods.push(
@@ -391,7 +405,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // make the multicall
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   return definitiveResolver.methods.multicall(multiCallMethods)
     .send({ from: currentAddress }, (e, result) => {
@@ -445,9 +459,16 @@ export const setDomainResolverAndMigrate = (
   domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
   const hash = namehash(domain);
+
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
+
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  );
 
   // loop through addresses and skip empties, then get decoded version of the address,
   // if valid, create the contract method and add it to the multiCallMethods array.
@@ -478,7 +499,7 @@ export const setDomainResolverAndMigrate = (
   });
 
   // add contentBytes if not null or empty
-  if (contentBytes && contentBytes !== CONTENT_BYTES_BLANK.value) {
+  if (contentBytes && contentBytes.value !== CONTENT_BYTES_BLANK && contentBytes.value !== '') {
     multiCallMethods.push(
       definitiveResolver.methods['setContenthash(bytes32,bytes)'](
         hash, contentBytes.value,

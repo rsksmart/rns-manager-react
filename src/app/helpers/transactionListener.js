@@ -12,7 +12,7 @@ const transactionListener = (
   tx, callback, successCallbackParams, failCallback, failCallbackParams,
 ) => (dispatch) => {
   const checkInterval = setInterval(() => {
-    window.ethereum.sendAsync({
+    window.rLogin.sendAsync({
       method: 'eth_getTransactionReceipt',
       params: [tx],
     }, (err, response) => {

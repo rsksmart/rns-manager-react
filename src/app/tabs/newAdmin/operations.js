@@ -20,21 +20,21 @@ import {
 import { checkIfSubdomainAndGetExpirationRemaining } from './domainInfo/operations';
 import { getDomainResolver } from './resolver/operations';
 
-const web3 = new Web3(window.ethereum);
-const rns = new RNS(web3, getOptions());
-
 /**
  * Checks if the wallet's account is the RSK Token owner
  * @param {string} domain to check
  */
 export const checkIfTokenOwner = domain => async (dispatch) => {
   const label = domain.split('.')[0];
-  const accounts = await window.ethereum.enable();
+
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
   dispatch(requestCheckTokenOwner());
 
   const hash = `0x${sha3(label)}`;
+
+  const web3 = new Web3(window.rLogin);
 
   const rskOwner = new web3.eth.Contract(
     rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
@@ -61,8 +61,11 @@ export const checkIfTokenOwner = domain => async (dispatch) => {
  */
 export const checkIfRegistryOwner = domain => async (dispatch) => {
   const label = namehash(domain);
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
+
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
 
   dispatch(requestRegistryOwner());
   await rns.compose();
@@ -86,6 +89,7 @@ export const checkIfFIFSRegistrar = domain => async (dispatch) => {
 
   return new Promise((resolve) => {
     const label = `0x${sha3(domain.split('.')[0])}`;
+    const web3 = new Web3(window.rLogin);
 
     const tokenRegistrar = new web3.eth.Contract(
       tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
@@ -93,7 +97,7 @@ export const checkIfFIFSRegistrar = domain => async (dispatch) => {
 
     tokenRegistrar.methods.entries(label).call((error, result) => {
       if (error) {
-        dispatch(errorFifsMigrationStatus());
+        return dispatch(errorFifsMigrationStatus());
       }
 
       const mode = result[0];

@@ -24,7 +24,7 @@ import { getIndexById } from '../newAdmin/addresses/operations';
 export const resolveDomain = (
   domain, chainId = null, errorFunction = null, value = null,
 ) => async (dispatch) => {
-  const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(rskNode);
   const rns = new RNS(web3, getOptions());
 
   dispatch(actions.requestAddr());
@@ -167,7 +167,7 @@ export const name = (resolverAddress, address) => (dispatch) => {
 
 export const contentHash = domain => (dispatch) => {
   dispatch(actions.requestContent('CONTENT_HASH'));
-  const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(rskNode);
   const rns = new RNS(web3, getOptions());
 
   rns.contenthash(domain)
