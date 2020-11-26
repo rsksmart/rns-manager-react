@@ -79,7 +79,6 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
                   active={false}
                   disabled={false}
                   onClick={[MockFunction]}
-                  type="button"
                   variant="primary"
                 >
                   <button

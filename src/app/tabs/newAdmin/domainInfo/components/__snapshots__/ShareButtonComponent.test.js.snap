@@ -87,7 +87,6 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                     className="link"
                     disabled={false}
                     onClick={[Function]}
-                    type="button"
                     variant="link"
                   >
                     <img
@@ -110,7 +109,6 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
             className="share-button"
             disabled={false}
             onClick={[Function]}
-            type="button"
             variant="link"
           >
             <button
@@ -130,19 +128,7 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
           flip={false}
           onHide={[Function]}
           placement="right"
-          popperConfig={
-            Object {
-              "modifiers": Array [
-                Object {
-                  "effect": [Function],
-                  "enabled": true,
-                  "fn": [Function],
-                  "name": "ariaDescribedBy",
-                  "phase": "afterWrite",
-                },
-              ],
-            }
-          }
+          popperConfig={Object {}}
           rootClose={false}
           show={true}
           target={[Function]}
@@ -177,9 +163,11 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                   Object {
                     "effect": [Function],
                     "enabled": true,
-                    "fn": [Function],
-                    "name": "ariaDescribedBy",
-                    "phase": "afterWrite",
+                    "name": "popoverArrowMargins",
+                    "phase": "main",
+                    "requiresIfExists": Array [
+                      "arrow",
+                    ],
                   },
                 ],
               }
@@ -346,11 +334,7 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                     >
                       <div
                         className="arrow"
-                        style={
-                          Object {
-                            "margin": 0,
-                          }
-                        }
+                        style={Object {}}
                       />
                       <ForwardRef>
                         <div
@@ -416,7 +400,6 @@ exports[`RenewButtonComponent renders without crashing 1`] = `
                                     className="link"
                                     disabled={false}
                                     onClick={[Function]}
-                                    type="button"
                                     variant="link"
                                   >
                                     <button

@@ -27,6 +27,8 @@ import {
   deedRegistrarAbi,
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
+import rLogin from '../rLogin/rLogin';
+
 
 /**
  * Save Domain into Local Storage to be used with login popup.
@@ -42,7 +44,7 @@ export const saveDomainToLocalStorage = async (domain) => {
     storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
   }
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const newDomain = {
     domain,
     owner: accounts[0],
@@ -168,22 +170,19 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
     .catch(error => dispatch(errorLogin(error)));
 };
 
-export const start = callback => (dispatch) => {
-  const hasMetamask = window.ethereum !== undefined;
-
-  dispatch(receiveHasMetamask(hasMetamask));
-
+const startWithRLogin = callback => (dispatch) => {
+  dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
-  if (hasMetamask) {
+  if (window.rLogin.isMetaMask) {
     dispatch(requestEnable());
 
-    window.ethereum.enable()
+    window.rLogin.enable()
       .then((accounts) => {
         dispatch(receiveEnable(
           accounts[0],
-          window.ethereum.publicConfigStore.getState().networkVersion,
-          window.ethereum.publicConfigStore.getState().networkVersion
+          window.rLogin.publicConfigStore.getState().networkVersion,
+          window.rLogin.publicConfigStore.getState().networkVersion
             === process.env.REACT_APP_ENVIRONMENT_ID,
           accounts.length !== 0,
         ));
@@ -197,8 +196,23 @@ export const start = callback => (dispatch) => {
       .then(() => callback && callback())
       .catch(e => dispatch(errorEnable(e.message)));
 
-    window.ethereum.on('accountsChanged', () => dispatch(start()));
+    window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
   }
+};
+
+export const start = callback => (dispatch) => {
+  if (!window.rLogin) {
+    return rLogin.connect().then((provider) => {
+      window.rLogin = provider;
+
+      provider.addListener('accountsChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
+
+      dispatch(startWithRLogin(callback));
+    });
+  }
+
+  return dispatch(startWithRLogin(callback));
 };
 
 export const logoutManager = (redirect = '') => (dispatch) => {
@@ -208,6 +222,6 @@ export const logoutManager = (redirect = '') => (dispatch) => {
 };
 
 export const autoLogin = domain => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   dispatch(authenticate(domain, accounts[0]));
 };

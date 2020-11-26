@@ -24,10 +24,10 @@ import { sendBrowserNotification } from '../../browerNotifications/operations';
 import { CONTENT_BYTES_BLANK } from '../newAdmin/resolver/types';
 
 export const getCost = (domain, duration) => async (dispatch) => {
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
-  const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(window.rLogin);
   const rif = new web3.eth.Contract(rifAbi, rifAddress);
 
   const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
@@ -42,7 +42,8 @@ export const getCost = (domain, duration) => async (dispatch) => {
         if (balanceError) return resolve(dispatch(notifyError(balanceError.message)));
 
         const enoughBalance = web3.utils.toBN(balance).gte(web3.utils.toBN(cost));
-        return dispatch(receiveGetCost(window.web3.toDecimal(cost / (10 ** 18)), enoughBalance));
+
+        return dispatch(receiveGetCost(cost / (10 ** 18), enoughBalance));
       });
     });
   });
@@ -75,10 +76,10 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
   const strSalt = Array.from(randomBytes).map(byte => byte.toString(16)).join('');
   const salt = `0x${strSalt.padEnd(64, '0')}`;
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
-  const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(window.rLogin);
 
   const abi = setupAddr ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
   const address = setupAddr ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
@@ -144,10 +145,11 @@ export const checkCanReveal = (hash, domain) => async (dispatch) => {
   const address = (contract === FIFS_ADDR_REGISTRER)
     ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
-  const registrar = window.web3.eth.contract(abi).at(address);
+  const web3 = new Web3(window.rLogin);
+  const registrar = new web3.eth.Contract(abi, address);
 
   return new Promise((resolve) => {
-    registrar.canReveal(hash, (error, canReveal) => {
+    registrar.methods.canReveal(hash).call((error, canReveal) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
       if (canReveal && !notificationReady) {
         sendBrowserNotification(`${domain}.rsk`, 'notification_domain_ready_register');
@@ -175,16 +177,18 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
   dispatch(requestCheckCommitRegistrar());
 
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
 
   const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
   const address = (contract === FIFS_ADDR_REGISTRER)
     ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
-  const registrar = window.web3.eth.contract(abi).at(address);
+  const web3 = new Web3(window.rLogin);
+  const registrar = new web3.eth.Contract(abi, address);
+
   return new Promise((resolve) => {
-    registrar.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, (error, hashCommit) => {
+    registrar.methods.makeCommitment(`0x${sha3(domain)}`, currentAddress, salt).call((error, hashCommit) => {
       if (error) return resolve(dispatch(notifyError(error.message)));
 
       dispatch(receiveCommitRegistrar(hashCommit, true));
@@ -210,10 +214,11 @@ export const revealCommit = domain => async (dispatch) => {
 
   dispatch(requestRevealCommit());
 
+  const web3 = new Web3(window.rLogin);
   const weiValue = rifCost * (10 ** 18);
-  const accounts = await window.ethereum.enable();
+  const accounts = await window.rLogin.enable();
   const currentAddress = accounts[0];
-  const durationBN = window.web3.toBigNumber(duration);
+  const durationBN = new web3.utils.BN(duration);
 
   const data = (contract === FIFS_ADDR_REGISTRER)
     ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
@@ -222,7 +227,6 @@ export const revealCommit = domain => async (dispatch) => {
   const fifsAddress = (contract === FIFS_ADDR_REGISTRER)
     ? fifsAddrRegistrarAddress : fifsRegistrarAddress;
 
-  const web3 = new Web3(window.ethereum);
   const rif = new web3.eth.Contract(
     rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
   );
@@ -278,7 +282,7 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
     return false;
   }
 
-  const web3 = new Web3(window.ethereum);
+  const web3 = new Web3(window.rLogin);
 
   return web3.eth.getTransactionReceipt(options.registerHash)
     .then((result) => {
