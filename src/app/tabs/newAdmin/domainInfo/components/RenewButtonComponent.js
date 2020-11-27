@@ -25,8 +25,12 @@ const RenewButtonComponent = (props) => {
   );
 };
 
+RenewButtonComponent.defaultProps = {
+  expires: 0,
+};
+
 RenewButtonComponent.propTypes = {
-  expires: propTypes.number.isRequired,
+  expires: propTypes.number,
   checkingExpirationTime: propTypes.bool.isRequired,
   isRenewOpen: propTypes.bool.isRequired,
   strings: propTypes.shape({

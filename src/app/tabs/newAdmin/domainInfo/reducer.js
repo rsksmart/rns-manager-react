@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   checkingExpirationTime: false,
-  expires: 0,
+  expires: null,
   isRenewOpen: false,
   requestingTransfer: false,
   isTransferSuccess: false,
