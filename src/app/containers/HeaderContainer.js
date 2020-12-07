@@ -5,7 +5,6 @@ import { logoutManager } from '../auth/operations';
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isOwner,
   domain: state.auth.name,
-  network: process.env.REACT_APP_ENVIRONMENT_ID,
 });
 
 const mapDispatchToProps = dispatch => ({
