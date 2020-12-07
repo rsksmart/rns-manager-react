@@ -59,7 +59,7 @@ const NewRecordComponent = ({
             value={value}
             onChange={evt => setValue(evt.target.value)}
             disabled={activeOptions.isWaiting}
-            placeholder={selectedContent === CONTENT_HASH ? '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...' : 'bytes32'}
+            placeholder={selectedContent === CONTENT_HASH ? 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...' : 'bytes32'}
           />
         </div>
         <div className="col-md-2">

@@ -19,7 +19,7 @@ const ResolverComponent = ({ strings, start, content }) => {
       default:
         // eslint-disable-next-line no-case-declarations
         const placeholder = (item[0] === CONTENT_HASH)
-          ? '/ipfs/, ipfs://..., bzz://..., onion://..., onion3://...' : '';
+          ? 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...' : '';
 
         return (
           <EditContentContainer
