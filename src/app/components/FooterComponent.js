@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/img/logo-footer.svg';
+import logo from '../../assets/img/logo.svg';
 
 import { version } from '../../../package.json';
 
