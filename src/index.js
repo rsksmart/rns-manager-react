@@ -6,8 +6,6 @@ import configureStore, { history } from './configureStore';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 
-import { start } from './app/auth/operations';
-
 import './assets/css/main.css';
 import './assets/css/theming.css';
 import './assets/css/ReplaceBootstrap.css';
@@ -24,8 +22,6 @@ if (process.env.NODE_ENV === 'production') {
     window.ga('send', 'pageview');
   });
 }
-
-store.dispatch(start());
 
 render(
   <Provider store={store}>
