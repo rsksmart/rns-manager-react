@@ -51,7 +51,6 @@ const HeaderComponent = (props) => {
 
 HeaderComponent.propTypes = {
   strings: propTypes.shape().isRequired,
-  network: propTypes.string.isRequired,
 };
 
 export default multilanguage(HeaderComponent);
