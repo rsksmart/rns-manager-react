@@ -9,6 +9,8 @@ import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
 import { CONTRACT_ABI, CONTENT_HASH } from '../types';
 
+export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
+
 const NewRecordComponent = ({
   strings, content, handleSubmit, handleCloseMessage,
 }) => {
@@ -59,7 +61,7 @@ const NewRecordComponent = ({
             value={value}
             onChange={evt => setValue(evt.target.value)}
             disabled={activeOptions.isWaiting}
-            placeholder={selectedContent === CONTENT_HASH ? 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...' : 'bytes32'}
+            placeholder={selectedContent === CONTENT_HASH ? contentHashPlaceholder : 'bytes32'}
           />
         </div>
         <div className="col-md-2">
