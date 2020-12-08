@@ -205,6 +205,12 @@ const startWithRLogin = callback => (dispatch) => {
   window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
 };
 
+export const logoutManager = (redirect = '') => (dispatch) => {
+  localStorage.removeItem('name');
+  dispatch(logOut());
+  dispatch(push(`/${redirect}`));
+};
+
 export const start = callback => (dispatch) => {
   if (!window.rLogin) {
     return rLogin.connect().then((provider) => {
@@ -212,18 +218,13 @@ export const start = callback => (dispatch) => {
 
       provider.addListener('accountsChanged', () => dispatch(startWithRLogin(callback)));
       provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('disconnect', () => dispatch(logoutManager()));
 
       dispatch(startWithRLogin(callback));
     });
   }
 
   return dispatch(startWithRLogin(callback));
-};
-
-export const logoutManager = (redirect = '') => (dispatch) => {
-  localStorage.removeItem('name');
-  dispatch(logOut());
-  dispatch(push(`/${redirect}`));
 };
 
 export const autoLogin = domain => async (dispatch) => {
