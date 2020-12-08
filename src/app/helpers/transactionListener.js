@@ -19,7 +19,7 @@ const transactionListener = (
       if (response.result) {
         clearInterval(checkInterval);
 
-        return (parseInt(response.result.status, 16) === 1)
+        return ((parseInt(response.result.status, 16) === 1) || response.result.status === true)
           ? dispatch(callback({ ...successCallbackParams, resultTx: tx }))
           : dispatch(failCallback({
             ...failCallbackParams, errorReason: TRANSACTION_RECEIPT_FAILED,
