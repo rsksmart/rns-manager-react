@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { push } from 'connected-react-router';
@@ -171,33 +172,37 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 };
 
 const startWithRLogin = callback => (dispatch) => {
-  dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
+  // dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
+  dispatch(receiveHasMetamask(true));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
-  if (window.rLogin.isMetaMask) {
-    dispatch(requestEnable());
+  dispatch(requestEnable());
 
-    window.rLogin.enable()
-      .then((accounts) => {
-        dispatch(receiveEnable(
-          accounts[0],
-          window.rLogin.publicConfigStore.getState().networkVersion,
-          window.rLogin.publicConfigStore.getState().networkVersion
-            === process.env.REACT_APP_ENVIRONMENT_ID,
-          accounts.length !== 0,
-        ));
+  window.rLogin.enable()
+    .then((accounts) => {
+      console.log('here', window.rLogin)
+      const web3 = new Web3(window.rLogin)
+      console.log('web3', web3)
 
-        if (window.location.search.includes('autologin')) {
-          dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
-        } else if (localStorage.getItem('name')) {
-          dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
-        }
-      })
-      .then(() => callback && callback())
-      .catch(e => dispatch(errorEnable(e.message)));
+      const chainId = parseInt(window.rLogin.chainId);
 
-    window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
-  }
+      dispatch(receiveEnable(
+        accounts[0],
+        chainId,
+        chainId === parseInt(process.env.REACT_APP_ENVIRONMENT_ID),
+        accounts.length !== 0,
+      ));
+
+      if (window.location.search.includes('autologin')) {
+        dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
+      } else if (localStorage.getItem('name')) {
+        dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
+      }
+    })
+    .then(() => callback && callback())
+    .catch(e => dispatch(errorEnable(e.message)));
+
+  window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
 };
 
 export const start = callback => (dispatch) => {
