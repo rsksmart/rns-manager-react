@@ -172,7 +172,6 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 };
 
 const startWithRLogin = callback => (dispatch) => {
-  // dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
   dispatch(receiveHasMetamask(true));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
