@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 import RLogin from '@rsksmart/rlogin';
-import WalletConnectProvider from '@walletconnect/web3-provider'
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 const rLogin = new RLogin({
   cachedProvider: false,

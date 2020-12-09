@@ -180,10 +180,6 @@ const startWithRLogin = callback => (dispatch) => {
 
   window.rLogin.enable()
     .then((accounts) => {
-      console.log('here', window.rLogin)
-      const web3 = new Web3(window.rLogin)
-      console.log('web3', web3)
-
       const chainId = parseInt(window.rLogin.chainId);
 
       dispatch(receiveEnable(
