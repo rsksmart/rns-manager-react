@@ -1,27 +1,42 @@
-<img src="/logo.png" alt="logo" height="200" />
+<p align="middle">
+    <img src="https://www.rifos.org/assets/img/logo.svg" alt="logo" height="100" >
+</p>
+<h3 align="middle">RNS Manager</h3>
+<p align="middle">
+    Manage your RNS domains<br />
+    Mainnet: https://manager.rns.rifos.org<br />
+    Testnet: https://testnet.manager.rns.rifos.org
+</p>
+<p align="middle">
+    <a href="https://circleci.com/gh/circrnsdomains/rns-manager-react">
+        <img src="https://circleci.com/gh/rnsdomains/rns-manager-react.svg?style=svg" alt="CircleCI" />
+    </a>
+    <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/">
+        <img src="https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
+    </a>
+    <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/context:javascript">
+        <img src="https://img.shields.io/lgtm/grade/javascript/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript" />
+    </a>
+    <a href="https://sonarcloud.io/dashboard?id=rnsdomains_rns-manager-react">
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=rnsdomains_rns-manager-react&metric=alert_status" alt="Quality Gate Status" />
+    </a>
+    <a href="https://github.com/rnsdomains/rns-manager-react/actions?query=workflow%3Adeploy">
+        <img src="https://github.com/rnsdomains/rns-manager-react/workflows/RNS%20build%20and%20deploy/badge.svg" />
+     </a>
+</p>
 
-# `rns-manager-react`
+## Run locally
 
-[![CircleCI](https://circleci.com/gh/rnsdomains/rns-manager-react.svg?style=svg)](https://circleci.com/gh/circrnsdomains/rns-manager-react)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rnsdomains/rns-manager-react/context:javascript)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rnsdomains_rns-manager-react&metric=alert_status)](https://sonarcloud.io/dashboard?id=rnsdomains_rns-manager-react)
-
-Live at https://manager.rns.rifos.org
-
-## Requisites
+Requisites:
 
 - [Node v12](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/)
 
-## Setup
-
 Install dependencies:
+
 ```
 yarn
 ```
-
-## Run locally
 
 1. Run a local blockhain:
     - Preferred: [RSK node](https://developers.rsk.co/quick-start/step1-install-rsk-local-node/)
