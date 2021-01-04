@@ -16,7 +16,9 @@ const MigrateToMultiResolverComponent = ({
   const isMultiChainResolver = resolverName === MULTICHAIN_RESOLVER;
   const isDecodingErrors = decodingErrors.length !== 0;
 
-  const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver && !isWalletConnect);
+  const [migrateAddresses, setMigrateAddresses] = useState(
+    isMultiChainResolver && !isWalletConnect,
+  );
   const [understandWarning, setUnderstandWarning] = useState(isDecodingErrors);
 
   const handleMigrateAddressSwitch = () => {
