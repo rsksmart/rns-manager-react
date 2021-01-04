@@ -11,7 +11,7 @@ import { rskNode } from '../adapters/nodeAdapter';
 import { checkResolver } from '../notifications';
 
 import {
-  receiveHasMetamask,
+  receiveHasWeb3Provider,
   receiveHasContracts,
   requestEnable,
   receiveEnable,
@@ -172,7 +172,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 };
 
 const startWithRLogin = callback => (dispatch) => {
-  dispatch(receiveHasMetamask(true));
+  dispatch(receiveHasWeb3Provider(true));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
   dispatch(requestEnable());

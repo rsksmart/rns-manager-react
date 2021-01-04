@@ -11,7 +11,7 @@ import { networkSelector } from '../../selectors';
 import { start } from '../../auth/operations';
 
 const ErrorTabComponent = ({
-  hasMetamask, hasContracts, walletNetwork, envNetwork, walletUnlocked, rLoginConnect, strings,
+  hasWeb3Provider, hasContracts, walletNetwork, envNetwork, walletUnlocked, rLoginConnect, strings,
 }) => {
   if (!hasContracts) {
     return (
@@ -26,7 +26,7 @@ const ErrorTabComponent = ({
     );
   }
 
-  if (!hasMetamask) {
+  if (!hasWeb3Provider) {
     return (
       <Container className="page">
         <Row style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -84,7 +84,7 @@ ErrorTabComponent.defaultProps = {
 };
 
 ErrorTabComponent.propTypes = {
-  hasMetamask: propTypes.bool.isRequired,
+  hasWeb3Provider: propTypes.bool.isRequired,
   hasContracts: propTypes.bool.isRequired,
   walletUnlocked: propTypes.bool.isRequired,
   walletNetwork: propTypes.string,
@@ -105,7 +105,7 @@ ErrorTabComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  hasMetamask: state.auth.hasMetamask,
+  hasWeb3Provider: state.auth.hasWeb3Provider,
   hasContracts: state.auth.hasContracts,
   networkMatch: state.auth.networkMatch,
   walletUnlocked: state.auth.walletUnlocked,
