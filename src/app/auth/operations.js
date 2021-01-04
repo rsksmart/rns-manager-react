@@ -204,6 +204,7 @@ const startWithRLogin = callback => (dispatch) => {
 export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   localStorage.removeItem('walletconnect');
+  window.rLogin = null;
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
 };

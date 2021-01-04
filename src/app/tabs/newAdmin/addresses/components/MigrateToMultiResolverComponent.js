@@ -11,12 +11,12 @@ import { MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../../resolver/types';
 
 const MigrateToMultiResolverComponent = ({
   strings, isEditing, isWaiting, errorMessage, handleClick, handleCloseClick, resolverName,
-  isMigrating, decodingErrors, hasAddresses, clearMigrateWarning, contentBytes,
+  isMigrating, decodingErrors, hasAddresses, clearMigrateWarning, contentBytes, isWalletConnect,
 }) => {
   const isMultiChainResolver = resolverName === MULTICHAIN_RESOLVER;
   const isDecodingErrors = decodingErrors.length !== 0;
 
-  const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver);
+  const [migrateAddresses, setMigrateAddresses] = useState(isMultiChainResolver && !isWalletConnect);
   const [understandWarning, setUnderstandWarning] = useState(isDecodingErrors);
 
   const handleMigrateAddressSwitch = () => {
@@ -45,10 +45,15 @@ const MigrateToMultiResolverComponent = ({
               <Form.Check
                 type="switch"
                 id="migrate-addr-switch"
-                label={strings.migrate_addresses_during}
+                label={!isWalletConnect ? strings.migrate_addresses_during : (
+                  <>
+                    {strings.migrate_addresses_during}
+                    <strong>{` ${strings.wallet_connect_feature}`}</strong>
+                  </>
+                )}
                 checked={migrateAddresses}
                 onChange={handleMigrateAddressSwitch}
-                disabled={isEditing || isMigrating}
+                disabled={isEditing || isMigrating || isWalletConnect}
               />
             </p>
           )}
@@ -113,6 +118,7 @@ MigrateToMultiResolverComponent.propTypes = {
     warning: propTypes.string.isRequired,
     decode_warning_explanation: propTypes.string.isRequired,
     understand_warning: propTypes.string.isRequired,
+    wallet_connect_feature: propTypes.string.isRequired,
   }).isRequired,
   isWaiting: propTypes.bool.isRequired,
   isEditing: propTypes.bool.isRequired,
@@ -129,6 +135,7 @@ MigrateToMultiResolverComponent.propTypes = {
   hasAddresses: propTypes.bool.isRequired,
   clearMigrateWarning: propTypes.func.isRequired,
   contentBytes: propTypes.shape({}).isRequired,
+  isWalletConnect: propTypes.bool.isRequired,
 };
 
 export default multilanguage(MigrateToMultiResolverComponent);
