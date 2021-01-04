@@ -3,6 +3,7 @@ import * as types from './types';
 const initialState = {
   showModal: false,
   hasWeb3Provider: true,
+  isWalletConnect: false,
   hasContracts: true,
   walletUnlocked: false,
   enabling: false,
@@ -33,6 +34,10 @@ export default (state = initialState, action) => {
     case types.RECEIVE_HAS_WEB3_PROVIDER: return {
       ...state,
       hasWeb3Provider: action.value,
+    };
+    case types.IS_WALLET_CONNECT: return {
+      ...state,
+      isWalletConnect: action.value,
     };
     case types.RECEIVE_HAS_CONTRACTS: return {
       ...state,

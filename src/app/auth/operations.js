@@ -12,6 +12,7 @@ import { checkResolver } from '../notifications';
 
 import {
   receiveHasWeb3Provider,
+  isWalletConnect,
   receiveHasContracts,
   requestEnable,
   receiveEnable,
@@ -202,6 +203,7 @@ const startWithRLogin = callback => (dispatch) => {
 
 export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
+  localStorage.removeItem('walletconnect');
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
 };
@@ -215,6 +217,7 @@ export const start = callback => (dispatch) => {
       provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
       provider.addListener('disconnect', () => dispatch(logoutManager()));
 
+      dispatch(isWalletConnect(!!provider.wc));
       dispatch(startWithRLogin(callback));
     });
   }

@@ -14,6 +14,11 @@ export const receiveHasWeb3Provider = value => ({
   value,
 });
 
+export const isWalletConnect = value => ({
+  type: types.IS_WALLET_CONNECT,
+  value,
+});
+
 export const receiveHasContracts = value => ({
   type: types.RECEIVE_HAS_CONTRACTS,
   value,
