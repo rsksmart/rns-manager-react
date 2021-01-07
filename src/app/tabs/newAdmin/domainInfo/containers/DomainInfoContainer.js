@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   checkingRegistryOwner: state.newAdmin.view.checkingRegistryOwner,
   checkingOwnership: state.newAdmin.view.checkingRegistryOwner,
   isFifsMigrated: state.newAdmin.view.isFifsMigrated,
+  isWalletConnect: state.auth.isWalletConnect,
 });
 
 export default connect(

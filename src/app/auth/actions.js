@@ -9,8 +9,13 @@ export const closeModal = () => ({
   type: types.CLOSE_AUTH_MODAL,
 });
 
-export const receiveHasMetamask = value => ({
-  type: types.RECEIVE_HAS_METAMASK,
+export const receiveHasWeb3Provider = value => ({
+  type: types.RECEIVE_HAS_WEB3_PROVIDER,
+  value,
+});
+
+export const isWalletConnect = value => ({
+  type: types.IS_WALLET_CONNECT,
   value,
 });
 

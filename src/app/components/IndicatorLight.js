@@ -11,7 +11,7 @@ const IndicatorLight = (props) => {
     networkMatch,
     network,
     strings,
-    hasMetamask,
+    hasWeb3Provider,
     walletUnlocked,
   } = props;
 
@@ -19,7 +19,7 @@ const IndicatorLight = (props) => {
   let popup = strings.connected_successful;
   let networkString = networkSelector(network);
 
-  if (!hasMetamask) {
+  if (!hasWeb3Provider) {
     className = 'network-error';
     popup = strings.no_wallet;
   } else if (!walletUnlocked) {
@@ -49,13 +49,13 @@ const IndicatorLight = (props) => {
     </div>
   );
 
-  return hasMetamask ? body : <Link to="/setup">{body}</Link>;
+  return hasWeb3Provider ? body : <Link to="/setup">{body}</Link>;
 };
 
 IndicatorLight.propTypes = {
   networkMatch: propTypes.bool.isRequired,
   network: propTypes.string.isRequired,
-  hasMetamask: propTypes.bool.isRequired,
+  hasWeb3Provider: propTypes.bool.isRequired,
   walletUnlocked: propTypes.bool.isRequired,
   strings: propTypes.shape().isRequired,
 };

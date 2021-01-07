@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Alert } from 'react-bootstrap';
 
 import CopyButtonComponent from '../../../../components/CopyButtonComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
@@ -25,6 +25,7 @@ const DomainInfoComponent = (props) => {
     checkingOwnership,
     isRegistryOwner,
     isFifsMigrated,
+    isWalletConnect,
   } = props;
 
   if (isTransferSuccess) {
@@ -54,6 +55,11 @@ const DomainInfoComponent = (props) => {
           </Col>
         )}
       </Row>
+      {isWalletConnect && (
+        <Alert variant="warning" dismissible={false}>
+          {strings.is_wallet_connect_warning}
+        </Alert>
+      )}
       <RenewDomainContainer />
       {(isTokenOwner && !isSubdomain && isFifsMigrated)
       && (
@@ -92,6 +98,7 @@ DomainInfoComponent.propTypes = {
     transfer: propTypes.string.isRequired,
     transfer_warning: propTypes.string.isRequired,
     address_placeholder: propTypes.string.isRequired,
+    is_wallet_connect_warning: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   isSubdomain: propTypes.bool.isRequired,
@@ -101,6 +108,7 @@ DomainInfoComponent.propTypes = {
   checkingOwnership: propTypes.bool.isRequired,
   isRegistryOwner: propTypes.bool.isRequired,
   isFifsMigrated: propTypes.bool.isRequired,
+  isWalletConnect: propTypes.bool.isRequired,
 };
 
 export default multilanguage(DomainInfoComponent);

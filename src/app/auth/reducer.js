@@ -2,7 +2,8 @@ import * as types from './types';
 
 const initialState = {
   showModal: false,
-  hasMetamask: true,
+  hasWeb3Provider: true,
+  isWalletConnect: false,
   hasContracts: true,
   walletUnlocked: false,
   enabling: false,
@@ -30,9 +31,13 @@ export default (state = initialState, action) => {
       ...state,
       showModal: false,
     };
-    case types.RECEIVE_HAS_METAMASK: return {
+    case types.RECEIVE_HAS_WEB3_PROVIDER: return {
       ...state,
-      hasMetamask: action.value,
+      hasWeb3Provider: action.value,
+    };
+    case types.IS_WALLET_CONNECT: return {
+      ...state,
+      isWalletConnect: action.value,
     };
     case types.RECEIVE_HAS_CONTRACTS: return {
       ...state,
