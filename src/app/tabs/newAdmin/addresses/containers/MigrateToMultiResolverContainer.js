@@ -26,6 +26,7 @@ const mapStateToProps = state => ({
   decodingErrors: state.newAdmin.resolver.migrating.errors,
   contentBytes: state.newAdmin.resolver.content.CONTENT_BYTES,
   resolverName: state.newAdmin.resolver.resolverName,
+  isWalletConnect: state.auth.isWalletConnect,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -212,7 +212,7 @@ RegistrarComponent.propTypes = {
   owned: propTypes.bool,
   blocked: propTypes.bool,
   owner: propTypes.string,
-  walletAddress: propTypes.bool.isRequired,
+  walletAddress: propTypes.string.isRequired,
   requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   committed: propTypes.bool.isRequired,

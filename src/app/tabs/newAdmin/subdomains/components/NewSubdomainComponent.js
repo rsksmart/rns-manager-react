@@ -29,6 +29,7 @@ const NewSubdomainComponent = ({
   initialOwner,
   chainId,
   advancedView,
+  isWalletConnect,
 }) => {
   const [localError, setLocalError] = useState('');
   const [checksumError, setChecksumError] = useState(false);
@@ -159,10 +160,15 @@ const NewSubdomainComponent = ({
               <Form.Check
                 type="switch"
                 id="setup-addr-switch"
-                label={strings.set_subdomain_rsk}
+                label={!isWalletConnect ? strings.set_subdomain_rsk : (
+                  <>
+                    {strings.set_subdomain_rsk}
+                    <strong>{` ${strings.wallet_connect_feature}`}</strong>
+                  </>
+                )}
                 checked={setupRsk}
                 onChange={() => setSetupRsk(!setupRsk)}
-                disabled={disabled}
+                disabled={disabled || isWalletConnect}
               />
             </Col>
           </Row>
@@ -221,6 +227,7 @@ NewSubdomainComponent.propTypes = {
     your_address: propTypes.string.isRequired,
     set_subdomain_rsk: propTypes.string.isRequired,
     set_subdomain_rsk_other: propTypes.string.isRequired,
+    wallet_connect_feature: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   address: propTypes.string.isRequired,
@@ -235,6 +242,7 @@ NewSubdomainComponent.propTypes = {
   initialOwner: propTypes.string,
   chainId: propTypes.string.isRequired,
   advancedView: propTypes.bool.isRequired,
+  isWalletConnect: propTypes.bool.isRequired,
 };
 
 export default multilanguage(NewSubdomainComponent);

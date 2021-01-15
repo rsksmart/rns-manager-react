@@ -32,7 +32,7 @@ class AuthModalComponent extends Component {
       strings,
       show,
       close,
-      hasMetamask,
+      hasWeb3Provider,
       walletUnlocked,
       enabling,
       enableError,
@@ -53,7 +53,7 @@ class AuthModalComponent extends Component {
 
     let body;
 
-    if (!hasMetamask) {
+    if (!hasWeb3Provider) {
       body = <Button type="link" onClick={openWallets}>{strings.get_metamask}</Button>;
     } else if (!walletUnlocked) {
       body = <div>{strings.unlock_wallet}</div>;
@@ -135,7 +135,7 @@ class AuthModalComponent extends Component {
         </Modal.Body>
         <Modal.Footer>
           {
-            hasMetamask && walletUnlocked && !enabling && !enableError && !authenticating
+            hasWeb3Provider && walletUnlocked && !enabling && !enableError && !authenticating
             && (
             <React.Fragment>
               <Button onClick={this.handleFormSubmit}>{strings.log_in}</Button>
@@ -154,7 +154,7 @@ AuthModalComponent.propTypes = {
   strings: propTypes.objectOf(propTypes.string).isRequired,
   show: propTypes.bool.isRequired,
   close: propTypes.func.isRequired,
-  hasMetamask: propTypes.bool.isRequired,
+  hasWeb3Provider: propTypes.bool.isRequired,
   walletUnlocked: propTypes.bool.isRequired,
   enabling: propTypes.bool.isRequired,
   enableError: propTypes.string,

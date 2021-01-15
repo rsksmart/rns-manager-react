@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
   confirmedTx: state.newAdmin.subdomains.confirmedTx,
   subdomains: state.newAdmin.subdomains.subdomains,
   chainId: state.auth.network,
+  isWalletConnect: state.auth.isWalletConnect,
 });
 
 const mapDispatchToProps = dispatch => ({

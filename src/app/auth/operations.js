@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
 import { push } from 'connected-react-router';
@@ -10,7 +11,8 @@ import { rskNode } from '../adapters/nodeAdapter';
 import { checkResolver } from '../notifications';
 
 import {
-  receiveHasMetamask,
+  receiveHasWeb3Provider,
+  isWalletConnect,
   receiveHasContracts,
   requestEnable,
   receiveEnable,
@@ -171,33 +173,40 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 };
 
 const startWithRLogin = callback => (dispatch) => {
-  dispatch(receiveHasMetamask(window.rLogin.isMetaMask));
+  dispatch(receiveHasWeb3Provider(true));
   dispatch(receiveHasContracts(registryAddress !== ''));
 
-  if (window.rLogin.isMetaMask) {
-    dispatch(requestEnable());
+  dispatch(requestEnable());
 
-    window.rLogin.enable()
-      .then((accounts) => {
-        dispatch(receiveEnable(
-          accounts[0],
-          window.rLogin.publicConfigStore.getState().networkVersion,
-          window.rLogin.publicConfigStore.getState().networkVersion
-            === process.env.REACT_APP_ENVIRONMENT_ID,
-          accounts.length !== 0,
-        ));
+  window.rLogin.enable()
+    .then((accounts) => {
+      const chainId = parseInt(window.rLogin.chainId);
 
-        if (window.location.search.includes('autologin')) {
-          dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
-        } else if (localStorage.getItem('name')) {
-          dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
-        }
-      })
-      .then(() => callback && callback())
-      .catch(e => dispatch(errorEnable(e.message)));
+      dispatch(receiveEnable(
+        accounts[0],
+        chainId,
+        chainId === parseInt(process.env.REACT_APP_ENVIRONMENT_ID),
+        accounts.length !== 0,
+      ));
 
-    window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
-  }
+      if (window.location.search.includes('autologin')) {
+        dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
+      } else if (localStorage.getItem('name')) {
+        dispatch(authenticate(localStorage.getItem('name'), accounts[0], true));
+      }
+    })
+    .then(() => callback && callback())
+    .catch(e => dispatch(errorEnable(e.message)));
+
+  window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
+};
+
+export const logoutManager = (redirect = '') => (dispatch) => {
+  localStorage.removeItem('name');
+  localStorage.removeItem('walletconnect');
+  window.rLogin = null;
+  dispatch(logOut());
+  dispatch(push(`/${redirect}`));
 };
 
 export const start = callback => (dispatch) => {
@@ -207,18 +216,14 @@ export const start = callback => (dispatch) => {
 
       provider.addListener('accountsChanged', () => dispatch(startWithRLogin(callback)));
       provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('disconnect', () => dispatch(logoutManager()));
 
+      dispatch(isWalletConnect(!!provider.wc));
       dispatch(startWithRLogin(callback));
     });
   }
 
   return dispatch(startWithRLogin(callback));
-};
-
-export const logoutManager = (redirect = '') => (dispatch) => {
-  localStorage.removeItem('name');
-  dispatch(logOut());
-  dispatch(push(`/${redirect}`));
 };
 
 export const autoLogin = domain => async (dispatch) => {
