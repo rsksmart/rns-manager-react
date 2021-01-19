@@ -2,6 +2,7 @@
   "name": "rns-manager-react",
   "version": "2.0.6",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
