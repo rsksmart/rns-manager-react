@@ -22,7 +22,7 @@ import {
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import {
-  notifyTx, notifyError, txTypes, checkResolver,
+  notifyTx, notifyError, txTypes,
 } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import {
@@ -68,7 +68,6 @@ export const setDomainResolver = set(
   registry.methods.setResolver,
   name => (dispatch) => {
     dispatch(getDomainResolver(name));
-    dispatch(checkResolver(name));
   },
 );
 export const setDomainTtl = set(
