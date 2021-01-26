@@ -8,7 +8,6 @@ import {
   registrar as auctionRegistrarAddress,
 } from '../adapters/configAdapter';
 import { rskNode } from '../adapters/nodeAdapter';
-import { checkResolver } from '../notifications';
 
 import {
   receiveHasWeb3Provider,
@@ -84,8 +83,6 @@ export const removeDomainToLocalStorage = (domain) => {
 };
 
 const successfulLogin = (name, noRedirect) => (dispatch) => {
-  dispatch(checkResolver(name));
-
   if (!noRedirect) {
     dispatch(push('/newAdmin'));
   }
