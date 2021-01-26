@@ -29,7 +29,7 @@ import {
   rnsAbi, reverseAbi, nameResolverAbi, tokenRegistrarAbi, rskOwnerAbi,
 } from './abis.json';
 
-const web3 = new Web3(window.ethereum);
+const web3 = new Web3(window.rLogin);
 const registry = new web3.eth.Contract(
   rnsAbi, registryAddress, { gasPrice: defaultGasPrice },
 );
