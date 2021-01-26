@@ -9,7 +9,7 @@ import { txTypes, notifyTx, notifyError } from '../../notifications';
 import { get, set } from '../../factories/operationFactory';
 import abi from './abi.json';
 
-const web3 = new Web3(window.ethereum);
+const web3 = new Web3(window.rLogin);
 const resolver = new web3.eth.Contract(abi, resolverAddress, { gasPrice: defaultGasPrice });
 
 export const getContent = get(
