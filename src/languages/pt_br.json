@@ -372,8 +372,6 @@
   "resolve_not_set": "Não foi possível resolver o domínio",
   "controller_placeholder": "Digite o endereço do novo controlador ou o domínio RSK",
   "same_value": "A entrada é igual ao valor",
-  "set_subdomain_rsk": "Defina o endereço RSK automaticamente para o proprietário.",
-  "set_subdomain_rsk_other": "Defina o endereço RSK para um proprietário diferente.",
   "confirm_two_transactions": "Você precisará confirmar duas transações",
   "confirm_three_transactions": "Você precisará confirmar três transações",
   "suggestion": "Sugestão",

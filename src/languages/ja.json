@@ -372,8 +372,6 @@
   "resolve_not_set": "ドメインを照合できませんでした",
   "controller_placeholder": "新規コントローラのアドレスまたはRSKドメインを入力してください",
   "same_value": "入力は値と同じです",
-  "set_subdomain_rsk": "RSKアドレスを自動的に所有者に設定してください。",
-  "set_subdomain_rsk_other": "RSKアドレスを別の所有者に設定してください。",
   "confirm_two_transactions": "2つのトランザクションを確認する必要があります",
   "confirm_three_transactions": "3つのトランザクションを確認する必要があります",
   "suggestion": "提案",

@@ -372,8 +372,6 @@
   "resolve_not_set": "도메인 확인 실패",
   "controller_placeholder": "새로운 컨트롤러의 주소나 RSK 도메인을 입력하세요",
   "same_value": "입력 값이 해당 값과 같습니다",
-  "set_subdomain_rsk": "RSK 주소를 자동으로 소유자로 지정합니다.",
-  "set_subdomain_rsk_other": "RSK 주소를 다른 소유자로 지정합니다.",
   "confirm_two_transactions": "두 개의 거래를 확인해야 합니다",
   "confirm_three_transactions": "세 개의 거래를 확인해야 합니다",
   "suggestion": "제안",
