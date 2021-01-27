@@ -372,8 +372,6 @@
   "resolve_not_set": "도메인 확인 실패",
   "controller_placeholder": "새로운 컨트롤러의 주소나 RSK 도메인을 입력하세요",
   "same_value": "입력 값이 해당 값과 같습니다",
-  "set_subdomain_rsk": "RSK 주소를 자동으로 소유자로 지정합니다.",
-  "set_subdomain_rsk_other": "RSK 주소를 다른 소유자로 지정합니다.",
   "confirm_two_transactions": "두 개의 거래를 확인해야 합니다",
   "confirm_three_transactions": "세 개의 거래를 확인해야 합니다",
   "suggestion": "제안",
@@ -404,5 +402,8 @@
   "domain_expired": "도메인이 만료되었습니다",
   "search_for_domain": "다시 등록하십시오",
   "set_subdomain_rsk_other": "RSK 주소를 다른 소유자로 설정하십시오. 이로 인해 세 번의 거래가 발생합니다.",
-  "set_subdomain_rsk": "RSK 주소를 다른 소유자로 설정하십시오. 소유자가 본인 인 경우 두 가지 거래에 서명해야합니다. 소유자가 다른 주소 인 경우 세 번의 거래에 서명해야합니다."
+  "set_subdomain_rsk": "RSK 주소를 다른 소유자로 설정하십시오. 소유자가 본인 인 경우 두 가지 거래에 서명해야합니다. 소유자가 다른 주소 인 경우 세 번의 거래에 서명해야합니다.",
+  "unlock_connect": "월렛을 잠금 해제하고 RNS 매니저에 연결하시기 바랍니다",
+  "is_wallet_connect_warning": "WalletConnect는 실험적인 제공 서비스이며 일부 RNS 관리자 작업은 실행되지 않습니다.",
+  "wallet_connect_feature": "해당 기능은 WalletConnect에서 작동하지 않는 기능입니다."
 }
