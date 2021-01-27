@@ -404,5 +404,8 @@
   "domain_expired": "Seu domínio expirou",
   "search_for_domain": "Registre-o novamente",
   "set_subdomain_rsk_other": "Defina o endereço RSK para um proprietário diferente. Isso resultará em três transações.",
-  "set_subdomain_rsk": "Estabilize a direção do RSK como um dispositivo diferente. Se o proprietário estiver usando o seu mecanismo, faça o firmar das transações. Se o proprietário for uma direção diferente, o firmar tres transacciones."
+  "set_subdomain_rsk": "Estabilize a direção do RSK como um dispositivo diferente. Se o proprietário estiver usando o seu mecanismo, faça o firmar das transações. Se o proprietário for uma direção diferente, o firmar tres transacciones.",
+  "unlock_connect": "Desbloqueie sua carteira e conecte-se ao RNS Manager",
+  "is_wallet_connect_warning": "WalletConnect é um provedor experimental, e nem todas as operações do RNS Manager funcionam.",
+  "wallet_connect_feature": "Este recurso não funciona com o WalletConnect."
 }
