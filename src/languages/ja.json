@@ -372,8 +372,6 @@
   "resolve_not_set": "ドメインを照合できませんでした",
   "controller_placeholder": "新規コントローラのアドレスまたはRSKドメインを入力してください",
   "same_value": "入力は値と同じです",
-  "set_subdomain_rsk": "RSKアドレスを自動的に所有者に設定してください。",
-  "set_subdomain_rsk_other": "RSKアドレスを別の所有者に設定してください。",
   "confirm_two_transactions": "2つのトランザクションを確認する必要があります",
   "confirm_three_transactions": "3つのトランザクションを確認する必要があります",
   "suggestion": "提案",
@@ -404,5 +402,8 @@
   "domain_expired": "ドメインの有効期限が切れています",
   "search_for_domain": "もう一度登録する",
   "set_subdomain_rsk_other": "RSKアドレスを別の所有者に設定します。これにより、3つのトランザクションが発生します。",
-  "set_subdomain_rsk": "RSKアドレスを別の所有者に設定します。所有者があなた自身の場合、2つのトランザクションに署名する必要があります。所有者が別の住所である場合は、3つのトランザクションに署名する必要があります。"
+  "set_subdomain_rsk": "RSKアドレスを別の所有者に設定します。所有者があなた自身の場合、2つのトランザクションに署名する必要があります。所有者が別の住所である場合は、3つのトランザクションに署名する必要があります。",
+  "unlock_connect": "ウォレットのロックを解除して、RNS Managerに接続しましょう",
+  "is_wallet_connect_warning": "WalletConnectは実験的なプロバイダであり、RNS Managerの全機能はご利用いただけません。",
+  "wallet_connect_feature": "本機能は、WalletConnectではご利用いただけません。"
 }

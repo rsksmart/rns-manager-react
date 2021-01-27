@@ -372,8 +372,6 @@
   "resolve_not_set": "无法解析域",
   "controller_placeholder": "输入新控制者的地址或 RSK 域",
   "same_value": "输入与值相同",
-  "set_subdomain_rsk": "将 RSK 地址自动设置为所有者。",
-  "set_subdomain_rsk_other": "将 RSK 地址设置为另一个所有者。",
   "confirm_two_transactions": "您需要确认两笔交易",
   "confirm_three_transactions": "您需要确认三笔交易",
   "suggestion": "建议",
@@ -404,5 +402,8 @@
   "domain_expired": "您的网域已过期",
   "search_for_domain": "重新注册",
   "set_subdomain_rsk_other": "将RSK地址设置为其他所有者。这将导致三笔交易。",
-  "set_subdomain_rsk": "将RSK地址设置为其他所有者。如果所有者是您自己，则需要签署两项交易。如果所有者是其他地址，则需要签署三笔交易。"
+  "set_subdomain_rsk": "将RSK地址设置为其他所有者。如果所有者是您自己，则需要签署两项交易。如果所有者是其他地址，则需要签署三笔交易。",
+  "unlock_connect": "请解锁您的钱包并连接到RNS Manager",
+  "is_wallet_connect_warning": "WalletConnect是实验性的提供商，并非所有RNS Manager操作都能正常运行。",
+  "wallet_connect_feature": "此功能不兼容WalletConnect。"
 }
