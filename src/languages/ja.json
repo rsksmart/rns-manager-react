@@ -405,5 +405,7 @@
   "set_subdomain_rsk": "RSKアドレスを別の所有者に設定します。所有者があなた自身の場合、2つのトランザクションに署名する必要があります。所有者が別の住所である場合は、3つのトランザクションに署名する必要があります。",
   "unlock_connect": "ウォレットのロックを解除して、RNS Managerに接続しましょう",
   "is_wallet_connect_warning": "WalletConnectは実験的なプロバイダであり、RNS Managerの全機能はご利用いただけません。",
-  "wallet_connect_feature": "本機能は、WalletConnectではご利用いただけません。"
+  "wallet_connect_feature": "本機能は、WalletConnectではご利用いただけません。",
+  "settings": "設定",
+  "subomain_login": "このサブドメインにログインしますか？"
 }

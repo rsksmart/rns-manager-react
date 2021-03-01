@@ -404,5 +404,7 @@
   "set_subdomain_rsk": "Establezca la dirección RSK a un propietario diferente. Si el propietario es usted mismo, deberá firmar dos transacciones. Si el propietario es una dirección diferente, deberá firmar tres transacciones.",
   "unlock_connect": "Desbloquee su wallet y conéctese al Administrador de RNS",
   "is_wallet_connect_warning": "WalletConnect es un proveedor experimental y no todas las operaciones del administrador de RNS funcionan.",
-  "wallet_connect_feature": "Esta funcionalidad no funciona con WalletConnect."
+  "wallet_connect_feature": "Esta funcionalidad no funciona con WalletConnect.",
+  "settings": "Ajustes",
+  "subomain_login": "¿Quieres iniciar sesión en este subdominio?"
 }
