@@ -47,7 +47,7 @@ describe('AddressInputComponent', () => {
 
   it('shows confirmation window when delete is clicked', () => {
     const component = shallow(<AddressInputComponent {...initProps} />);
-    component.find('button.delete').simulate('click');
+    component.find('button.delete').simulate('click', { currentTarget: { className: 'delete' } });
     expect(component.find('div.delete').length).toBe(1);
     expect(component).toMatchSnapshot();
   });
@@ -79,11 +79,11 @@ describe('AddressInputComponent', () => {
     expect(component.find('div.value').text()).toEqual('custom value prefix: Value');
 
     // edit screen
-    component.find('button.edit').simulate('click');
+    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
     expect(component.find('div.editLabel').text()).toEqual('custom edit prompt text');
 
     // delete screen
-    component.find('button.delete').simulate('click');
+    component.find('button.delete').simulate('click', { currentTarget: { className: 'delete' } });
     expect(component.find('div.delete').find('p').first().text())
       .toEqual('custom delete confirm text');
   });
@@ -156,7 +156,7 @@ describe('AddressInputComponent', () => {
     };
 
     const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click');
+    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
 
     expect(component.find('ul.suggestions').length).toBe(0);
   });
@@ -179,7 +179,7 @@ describe('AddressInputComponent', () => {
     };
 
     const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click');
+    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
 
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(3);
@@ -205,11 +205,21 @@ describe('AddressInputComponent', () => {
     };
 
     const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click');
+    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
 
     const ul = component.find('ul.suggestions');
     expect(ul.children().length).toBe(2);
     expect(ul.find('li.title').text()).toBe('suggestion:');
     expect(ul.find('li').at(1).text()).toBe('suggested item 2');
+  });
+
+  it('hids and shows the settings menu', () => {
+    const localProps = {
+      ...initProps,
+      settingsMenu: <div>settings</div>,
+    };
+    const component = shallow(<AddressInputComponent {...localProps} />);
+    component.find('button.settings').simulate('click', { currentTarget: { className: 'settings' } });
+    expect(component.find('.settingsMenu')).toBeDefined();
   });
 });

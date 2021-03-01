@@ -13,6 +13,7 @@ import UserWaitingComponent from './UserWaitingComponent';
 import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
 import closeBlue from '../../assets/img/close-blue.svg';
+import settings from '../../assets/img/settings.svg';
 
 const AddressInputComponent = ({
   allowDelete,
@@ -33,21 +34,20 @@ const AddressInputComponent = ({
   validationChainId,
   validation,
   suggestions,
+  settingsMenu,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isChecksumError, setIsChecksumError] = useState(false);
   const [isLocalError, setIsLocalError] = useState(false);
   const [editText, setEditText] = useState('');
+  const [showSettings, setShowSettings] = useState(false);
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
-    setIsDeleting(false);
-  };
-
-  const handleDeleteClick = () => {
-    setIsDeleting(!isDeleting);
-    setIsEditing(false);
+  const handleButtonClick = (evt) => {
+    const buttonName = evt.currentTarget.className;
+    setIsEditing(buttonName === 'edit' ? !isEditing : false);
+    setIsDeleting(buttonName === 'delete' ? !isDeleting : false);
+    setShowSettings(buttonName === 'settings' ? !showSettings : false);
   };
 
   const confirmDelete = () => {
@@ -131,10 +131,17 @@ const AddressInputComponent = ({
           }
           {formatValue()}
         </div>
-        <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
+        <div className={`${allowDelete || settingsMenu ? 'col-md-2' : 'col-md-1'} options`}>
+          {settingsMenu && (
+            <>
+              <button type="button" onClick={handleButtonClick} className="settings">
+                <img src={settings} alt={strings.settings} />
+              </button>
+            </>
+          )}
           <button
             type="button"
-            onClick={handleEditClick}
+            onClick={handleButtonClick}
             className="edit"
             disabled={isWaiting}
           >
@@ -144,7 +151,7 @@ const AddressInputComponent = ({
             && (
             <button
               type="button"
-              onClick={handleDeleteClick}
+              onClick={handleButtonClick}
               className="delete"
               disabled={isWaiting}
             >
@@ -239,6 +246,8 @@ const AddressInputComponent = ({
         )
       }
 
+      {showSettings && <div className="settingsMenu">{settingsMenu}</div>}
+
       <UserWaitingComponent
         message={strings.waiting}
         visible={isWaiting}
@@ -293,6 +302,7 @@ AddressInputComponent.defaultProps = {
   labelDisplay: null,
   labelIcon: null,
   suggestions: [],
+  settingsMenu: null,
 };
 
 AddressInputComponent.propTypes = {
@@ -317,6 +327,7 @@ AddressInputComponent.propTypes = {
     name: propTypes.string,
     value: propTypes.value,
   })),
+  settingsMenu: propTypes.node,
 };
 
 export default AddressInputComponent;
