@@ -211,9 +211,9 @@ export const start = callback => (dispatch) => {
     return rLogin.connect().then((provider) => {
       window.rLogin = provider;
 
-      provider.on('accountsChanged', () => dispatch(startWithRLogin(callback)));
-      provider.on('chainChanged', () => dispatch(startWithRLogin(callback)));
-      provider.on('disconnect', () => dispatch(logoutManager()));
+      provider.addListener('accountsChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('chainChanged', () => dispatch(startWithRLogin(callback)));
+      provider.addListener('disconnect', () => dispatch(logoutManager()));
 
       dispatch(isWalletConnect(!!provider.wc));
       dispatch(startWithRLogin(callback));
