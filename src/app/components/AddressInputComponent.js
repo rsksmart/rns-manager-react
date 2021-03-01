@@ -118,6 +118,11 @@ const AddressInputComponent = ({
     setEditText('');
   }
 
+  const buttonProps = {
+    disabled: isWaiting,
+    onClick: handleButtonClick,
+  };
+
   return (
     <div className="row addressInput">
       <div className="row view">
@@ -133,28 +138,16 @@ const AddressInputComponent = ({
         </div>
         <div className={`${allowDelete || settingsMenu ? 'col-md-2' : 'col-md-1'} options`}>
           {settingsMenu && (
-            <>
-              <button type="button" onClick={handleButtonClick} className="settings">
-                <img src={settings} alt={strings.settings} />
-              </button>
-            </>
+            <button {...buttonProps} type="button" className="settings">
+              <img src={settings} alt={strings.settings} />
+            </button>
           )}
-          <button
-            type="button"
-            onClick={handleButtonClick}
-            className="edit"
-            disabled={isWaiting}
-          >
+          <button {...buttonProps} type="button" className="edit">
             <img src={(!isEditing ? edit : editActive)} alt={strings.edit} />
           </button>
           {allowDelete
             && (
-            <button
-              type="button"
-              onClick={handleButtonClick}
-              className="delete"
-              disabled={isWaiting}
-            >
+            <button {...buttonProps} type="button" className="delete">
               <img src={closeBlue} alt={strings.delete} />
             </button>
             )
