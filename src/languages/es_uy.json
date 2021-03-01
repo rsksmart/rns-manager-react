@@ -170,7 +170,7 @@
   "notifications_new_chain_addr": "nueva dir de la cadena",
   "rsk": "rsk (RBTC)",
   "suggested_subdomains": "wallet, donar, yo, …",
-  "rsk_resolver": "resolver de dirección de rks",
+  "rsk_resolver": "resolver de dirección de RSK",
   "multi_chain_resolver": "resolver de dirección de multi-crypto",
   "migrate_multichain_resolver_title": "¡Nueva función disponible!",
   "migrate_multichain_resolver_message": "Migre al nuevo Multi Chain Resolver. Le brinda a su dominio direcciones para todos los activos, como, por ejemplo, su dirección de Bitcoin.",
