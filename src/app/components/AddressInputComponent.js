@@ -13,6 +13,7 @@ import UserWaitingComponent from './UserWaitingComponent';
 import edit from '../../assets/img/edit.svg';
 import editActive from '../../assets/img/edit-active.svg';
 import closeBlue from '../../assets/img/close-blue.svg';
+import settings from '../../assets/img/settings.svg';
 
 const AddressInputComponent = ({
   allowDelete,
@@ -33,21 +34,20 @@ const AddressInputComponent = ({
   validationChainId,
   validation,
   suggestions,
+  settingsMenu,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isChecksumError, setIsChecksumError] = useState(false);
   const [isLocalError, setIsLocalError] = useState(false);
   const [editText, setEditText] = useState('');
+  const [showSettings, setShowSettings] = useState(false);
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
-    setIsDeleting(false);
-  };
-
-  const handleDeleteClick = () => {
-    setIsDeleting(!isDeleting);
-    setIsEditing(false);
+  const handleButtonClick = (evt) => {
+    const buttonName = evt.currentTarget.className;
+    setIsEditing(buttonName === 'edit' ? !isEditing : false);
+    setIsDeleting(buttonName === 'delete' ? !isDeleting : false);
+    setShowSettings(buttonName === 'settings' ? !showSettings : false);
   };
 
   const confirmDelete = () => {
@@ -118,6 +118,11 @@ const AddressInputComponent = ({
     setEditText('');
   }
 
+  const buttonProps = {
+    disabled: isWaiting,
+    onClick: handleButtonClick,
+  };
+
   return (
     <div className="row addressInput">
       <div className="row view">
@@ -131,23 +136,18 @@ const AddressInputComponent = ({
           }
           {formatValue()}
         </div>
-        <div className={`${allowDelete ? 'col-md-2' : 'col-md-1'} options`}>
-          <button
-            type="button"
-            onClick={handleEditClick}
-            className="edit"
-            disabled={isWaiting}
-          >
+        <div className={`${allowDelete || settingsMenu ? 'col-md-2' : 'col-md-1'} options`}>
+          {settingsMenu && (
+            <button {...buttonProps} type="button" className="settings">
+              <img src={settings} alt={strings.settings} />
+            </button>
+          )}
+          <button {...buttonProps} type="button" className="edit">
             <img src={(!isEditing ? edit : editActive)} alt={strings.edit} />
           </button>
           {allowDelete
             && (
-            <button
-              type="button"
-              onClick={handleDeleteClick}
-              className="delete"
-              disabled={isWaiting}
-            >
+            <button {...buttonProps} type="button" className="delete">
               <img src={closeBlue} alt={strings.delete} />
             </button>
             )
@@ -239,6 +239,8 @@ const AddressInputComponent = ({
         )
       }
 
+      {showSettings && <div className="settingsMenu">{settingsMenu}</div>}
+
       <UserWaitingComponent
         message={strings.waiting}
         visible={isWaiting}
@@ -293,6 +295,7 @@ AddressInputComponent.defaultProps = {
   labelDisplay: null,
   labelIcon: null,
   suggestions: [],
+  settingsMenu: null,
 };
 
 AddressInputComponent.propTypes = {
@@ -317,6 +320,7 @@ AddressInputComponent.propTypes = {
     name: propTypes.string,
     value: propTypes.value,
   })),
+  settingsMenu: propTypes.node,
 };
 
 export default AddressInputComponent;

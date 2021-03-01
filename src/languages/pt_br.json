@@ -405,5 +405,7 @@
   "set_subdomain_rsk": "Estabilize a direção do RSK como um dispositivo diferente. Se o proprietário estiver usando o seu mecanismo, faça o firmar das transações. Se o proprietário for uma direção diferente, o firmar tres transacciones.",
   "unlock_connect": "Desbloqueie sua carteira e conecte-se ao RNS Manager",
   "is_wallet_connect_warning": "WalletConnect é um provedor experimental, e nem todas as operações do RNS Manager funcionam.",
-  "wallet_connect_feature": "Este recurso não funciona com o WalletConnect."
+  "wallet_connect_feature": "Este recurso não funciona com o WalletConnect.",
+  "settings": "Configurações",
+  "subomain_login": "Você quer fazer o login neste subdomínio?"
 }
