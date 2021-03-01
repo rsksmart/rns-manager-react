@@ -22,6 +22,7 @@ const SubdomainListComponent = ({
         if (!subdomain.isActive) {
           return <></>;
         }
+        const isOwner = subdomain.owner.toLowerCase() === address.toLowerCase();
 
         return (
           <div className="break-below">
@@ -41,7 +42,7 @@ const SubdomainListComponent = ({
                 name: `${strings.your_address} (${truncateString(address)})`,
                 value: address,
               }]}
-              settingsMenu={<SettingsContainer owner={address} domain={`${subdomain.name}.${domain}`} />}
+              settingsMenu={isOwner && <SettingsContainer domain={`${subdomain.name}.${domain}`} />}
               strings={{
                 value_prefix: strings.owner,
                 error_message: subdomain.editError,

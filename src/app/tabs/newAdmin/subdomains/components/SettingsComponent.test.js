@@ -11,8 +11,6 @@ describe('Subdomain settings component', () => {
   });
 
   const initProps = {
-    address: '0x123',
-    owner: '0x123',
     login: jest.fn(),
   };
 
@@ -24,14 +22,9 @@ describe('Subdomain settings component', () => {
   it('handles click button', () => {
     const handleClick = jest.fn();
     const wrapper = mount(
-      <Provider store={store}><SettingsComponent {...initProps} login={handleClick} /></Provider>
+      <Provider store={store}><SettingsComponent {...initProps} login={handleClick} /></Provider>,
     );
     wrapper.find('button').simulate('click');
     expect(handleClick).toBeCalledTimes(1);
-  });
-
-  it('shows null if address is not owner', () => {
-    const wrapper = mount(<Provider store={store}><SettingsComponent {...initProps} owner="0x321" /></Provider>);
-    expect(wrapper.text()).toBe('');
   });
 });
