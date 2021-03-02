@@ -36,10 +36,8 @@ export const getCost = (domain, duration) => async (dispatch) => {
 
   dispatch(requestGetCost(duration));
 
-  registrar.methods.price(domain, 0, duration).call((error, cost) => {
-    if (error) return dispatch(notifyError(error.message));
-    return dispatch(receiveGetCost(cost / (10 ** 18)));
-  });
+  registrar.methods.price(domain, 0, duration).call((error, cost) => (
+    error ? dispatch(notifyError(error.message)) : dispatch(receiveGetCost(cost / (10 ** 18)))));
 };
 
 /**
