@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'plugin:cypress/recommended'
   ],
   globals: {
     Atomics: 'readonly',
