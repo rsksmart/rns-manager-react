@@ -1,14 +1,8 @@
 describe('landing page search', () => {
-  it('searches for an item', () => {
+  it('shows results for an available domain', () => {
     cy.visit('/');
-    cy.get('input').type('cypressdomain')
-    cy.get('.searchBox button').click()
-
-    cy.contains('cypressdomain.rsk')
-  })
-
-  it('starts registration process without asking to login', () => {
-    cy.get('button.register').click()
-    cy.get('h1.sub-heading').should('have.text', 'Registering:')
-  })
-})
+    cy.get('input').type('cypressdomain');
+    cy.get('.searchBox button').click();
+    cy.contains('cypressdomain.rsk');
+  });
+});
