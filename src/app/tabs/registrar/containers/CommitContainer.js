@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { CommitComponent } from '../components';
-import { commit, checkIfAlreadyCommitted } from '../operations';
+import { commit, checkIfAlreadyCommitted, hasEnoughRif } from '../operations';
 import { toggleSetupAddr } from '../actions';
 
 const mapStateToProps = state => ({
   committing: state.registrar.committing,
   committed: state.registrar.committed,
   domain: parse(state.router.location.search).domain,
-  hasBalance: state.registrar.hasBalance,
   setupAddr: state.registrar.setupAddr,
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,

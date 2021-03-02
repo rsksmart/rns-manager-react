@@ -53,7 +53,6 @@ class RentalPeriodComponent extends Component {
       rifCost,
       committing,
       committed,
-      hasBalance,
       gettingConversionRate,
       conversionRate,
     } = this.props;
@@ -146,7 +145,6 @@ RentalPeriodComponent.propTypes = {
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
-  hasBalance: propTypes.bool.isRequired,
   duration: propTypes.number,
   getCost: propTypes.func.isRequired,
   getConversionRate: propTypes.func.isRequired,

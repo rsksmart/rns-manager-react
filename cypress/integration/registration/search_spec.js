@@ -7,7 +7,7 @@ describe('landing page search', () => {
     cy.contains('cypressdomain.rsk')
   })
 
-  it('starts registration process', () => {
+  it('starts registration process without asking to login', () => {
     cy.get('button.register').click()
     cy.get('h1.sub-heading').should('have.text', 'Registering:')
   })

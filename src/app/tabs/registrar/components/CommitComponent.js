@@ -60,7 +60,6 @@ CommitComponent.propTypes = {
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
-  hasBalance: propTypes.bool.isRequired,
 };
 
 export default multilanguage(CommitComponent);
