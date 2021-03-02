@@ -406,5 +406,7 @@
   "set_subdomain_rsk": "Set the RSK address to a different owner. If the owner is yourself, you will need to sign two transactions. If the owner is a different address, you will need to sign three transactions.",
   "unlock_connect": "Please unlock your wallet and connect to the RNS Manager",
   "is_wallet_connect_warning": "WalletConnect is a experimental provider and not all RNS manager operations work.",
-  "wallet_connect_feature": "This feature does not work with WalletConnect."
+  "wallet_connect_feature": "This feature does not work with WalletConnect.",
+  "settings": "Settings",
+  "subomain_login": "Do you want to login to this subdomain?"
 }

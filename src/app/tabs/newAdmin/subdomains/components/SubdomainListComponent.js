@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { SubdomainViewContainer } from '../containers';
 import { getSubdomainListFromLocalStorage } from '../operations';
 import { truncateString } from '../../helpers';
+import SettingsContainer from '../containers/SettingsContainer';
 
 const SubdomainListComponent = ({
   strings, domain, subdomains, chainId, address,
@@ -21,6 +22,7 @@ const SubdomainListComponent = ({
         if (!subdomain.isActive) {
           return <></>;
         }
+        const isOwner = subdomain.owner.toLowerCase() === address.toLowerCase();
 
         return (
           <div className="break-below">
@@ -40,6 +42,7 @@ const SubdomainListComponent = ({
                 name: `${strings.your_address} (${truncateString(address)})`,
                 value: address,
               }]}
+              settingsMenu={isOwner && <SettingsContainer domain={`${subdomain.name}.${domain}`} />}
               strings={{
                 value_prefix: strings.owner,
                 error_message: subdomain.editError,

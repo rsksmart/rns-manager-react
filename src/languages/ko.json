@@ -405,5 +405,7 @@
   "set_subdomain_rsk": "RSK 주소를 다른 소유자로 설정하십시오. 소유자가 본인 인 경우 두 가지 거래에 서명해야합니다. 소유자가 다른 주소 인 경우 세 번의 거래에 서명해야합니다.",
   "unlock_connect": "월렛을 잠금 해제하고 RNS 매니저에 연결하시기 바랍니다",
   "is_wallet_connect_warning": "WalletConnect는 실험적인 제공 서비스이며 일부 RNS 관리자 작업은 실행되지 않습니다.",
-  "wallet_connect_feature": "해당 기능은 WalletConnect에서 작동하지 않는 기능입니다."
+  "wallet_connect_feature": "해당 기능은 WalletConnect에서 작동하지 않는 기능입니다.",
+  "settings": "설정",
+  "subomain_login": "이 하위 도메인에 로그인 하시겠습니까?"
 }
