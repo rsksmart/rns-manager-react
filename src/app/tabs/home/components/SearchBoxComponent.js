@@ -21,12 +21,12 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
       return;
     }
 
-    if (isValidName(search) !== null) {
+    if (isValidName(search.toLowerCase()) !== null) {
       setError(strings.invalid_name);
       return;
     }
 
-    handleClick(search);
+    handleClick(search.toLowerCase());
   };
 
   const handleSearchEnter = (e) => {

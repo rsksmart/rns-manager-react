@@ -54,4 +54,18 @@ describe('SearchBoxComponent', () => {
 
     expect(handleClick).toBeCalledTimes(0);
   });
+
+  it('converts uppercase to lower when searching', () => {
+    const handleClick = jest.fn();
+    const component = mount(
+      <Provider store={store}>
+        <SearchBoxComponent handleClick={handleClick} />
+      </Provider>,
+    );
+
+    component.find('input').simulate('change', { target: { value: 'UPPERCASEDOMAIN' } });
+    component.find('button').simulate('click');
+
+    expect(handleClick).toBeCalledWith('uppercasedomain');
+  });
 });
