@@ -125,8 +125,6 @@ RentalPeriodComponent.propTypes = {
     discount: propTypes.string.isRequired,
     price: propTypes.string.isRequired,
     how_long_want_domain: propTypes.string.isRequired,
-    click_here_not_enough_balance: propTypes.string.isRequired,
-    not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
@@ -136,12 +134,13 @@ RentalPeriodComponent.propTypes = {
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
   gettingConversionRate: propTypes.bool.isRequired,
-  conversionRate: propTypes.number.isRequired,
+  conversionRate: propTypes.number,
 };
 
 RentalPeriodComponent.defaultProps = {
   rifCost: 0,
   duration: 3,
+  conversionRate: null,
 };
 
 export default multilanguage(RentalPeriodComponent);

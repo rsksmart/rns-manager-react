@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
   )),
   checkIfAlreadyCommitted: domain => dispatch(checkIfAlreadyCommitted(domain)),
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
-  hasEnoughRif: (cost) => dispatch(hasEnoughRif(cost))
+  hasEnoughRif: cost => dispatch(hasEnoughRif(cost)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -36,7 +36,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ),
   checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain),
   toggleSetupAddr: () => dispatchProps.toggleSetupAddr(stateProps.setupAddr),
-  checkBalance: () => dispatchProps.hasEnoughRif(stateProps.rifCost)
+  checkBalance: () => dispatchProps.hasEnoughRif(stateProps.rifCost),
 });
 
 export default connect(

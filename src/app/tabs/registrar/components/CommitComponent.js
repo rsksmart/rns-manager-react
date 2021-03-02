@@ -18,19 +18,19 @@ class CommitComponent extends Component {
     checkIfAlreadyCommitted();
   }
 
-  handleCommit = () => {
+  handleCommit() {
     const { checkBalance, doCommitment } = this.props;
-    this.setState({ balanceState: 'CHECKING' })
+    this.setState({ balanceState: 'CHECKING' });
     checkBalance()
-      .then(response => {
+      .then((response) => {
         if (!response) {
           return this.setState({ balanceState: 'NOT_ENOUGH' });
         }
 
-        this.setState({ balanceState: 'INITIAL' })
+        this.setState({ balanceState: 'INITIAL' });
         return doCommitment();
       })
-      .catch(() => this.setState({ balanceState: 'INITIAL' }))
+      .catch(() => this.setState({ balanceState: 'INITIAL' }));
   }
 
   render() {
@@ -92,11 +92,14 @@ CommitComponent.propTypes = {
     process_step_1_explanation: propTypes.string.isRequired,
     auto_address_setup: propTypes.string.isRequired,
     auto_address_explanation: propTypes.string.isRequired,
+    click_here_not_enough_balance: propTypes.string.isRequired,
+    not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
+  checkBalance: propTypes.func.isRequired,
 };
 
 export default multilanguage(CommitComponent);

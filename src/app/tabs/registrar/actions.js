@@ -13,7 +13,7 @@ export const requestGetCost = duration => ({
   duration,
 });
 
-export const receiveGetCost = (rifCost) => ({
+export const receiveGetCost = rifCost => ({
   type: RECEIVE_REGISTRAR_GET_COST,
   rifCost,
 });
