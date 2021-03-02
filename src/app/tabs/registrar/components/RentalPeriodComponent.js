@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import {
-  InputGroup, FormControl, Button, Row, Spinner, Alert,
+  InputGroup, FormControl, Button, Row, Spinner,
 } from 'react-bootstrap';
 
 
@@ -74,7 +74,7 @@ class RentalPeriodComponent extends Component {
             readOnly
           />
           <InputGroup.Append>
-            <Button size="sm" disabled={committing || committed || !hasBalance} onClick={this.increment}>+</Button>
+            <Button size="sm" disabled={committing || committed} onClick={this.increment}>+</Button>
           </InputGroup.Append>
         </InputGroup>
         <p>{strings.years}</p>
@@ -114,21 +114,6 @@ class RentalPeriodComponent extends Component {
             }
           </div>
         </Row>
-        {
-          !hasBalance
-          && (
-            <Alert variant="warning" dismissible="false">
-              <p>{strings.not_enough_balance}</p>
-              <a
-                href="https://www.rifos.org/#rif-token"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {strings.click_here_not_enough_balance}
-              </a>
-            </Alert>
-          )
-        }
       </div>
     );
   }
