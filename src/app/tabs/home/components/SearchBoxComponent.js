@@ -42,6 +42,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
             placeholder={strings.search_placeholder}
             value={search}
             onChange={evt => setSearch(evt.target.value)}
+            autoCapitalize="none"
           />
           <span className="blue">.rsk</span>
         </div>
