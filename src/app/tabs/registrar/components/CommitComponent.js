@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
-  Container, Row, Col, Spinner, Button, Alert,
+  Container, Row, Col, Spinner, Button,
 } from 'react-bootstrap';
+import NotEnoughRifComponent from '../../../components/NotEnoughRifComponent';
 
 class CommitComponent extends Component {
   constructor(props) {
@@ -52,16 +53,7 @@ class CommitComponent extends Component {
         {!hasBalance && (
           <Row>
             <div className="col-md-6 offset-md-3">
-              <Alert variant="warning" dismissible="false">
-                <p>{strings.not_enough_balance}</p>
-                <a
-                  href="https://www.rifos.org/#rif-token"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {strings.click_here_not_enough_balance}
-                </a>
-              </Alert>
+              <NotEnoughRifComponent />
             </div>
           </Row>
         )}
@@ -93,8 +85,6 @@ CommitComponent.propTypes = {
     process_step_1_explanation: propTypes.string.isRequired,
     auto_address_setup: propTypes.string.isRequired,
     auto_address_explanation: propTypes.string.isRequired,
-    click_here_not_enough_balance: propTypes.string.isRequired,
-    not_enough_balance: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
   checkIfAlreadyCommitted: propTypes.func.isRequired,

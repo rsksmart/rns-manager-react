@@ -8,6 +8,7 @@ import {
   UserErrorComponent, UserSuccessComponent, UserWaitingComponent,
 } from '../../../../components';
 import { NOT_ENOUGH_RIF } from '../types';
+import NotEnoughRifComponent from '../../../../components/NotEnoughRifComponent';
 
 const RenewDomainComponent = (props) => {
   const {
@@ -66,9 +67,7 @@ const RenewDomainComponent = (props) => {
           handleCloseClick={closeRenewError}
         />
       )}
-      {renewError === NOT_ENOUGH_RIF && (
-        <div>no enough man!</div>
-      )}
+      {renewError === NOT_ENOUGH_RIF && <NotEnoughRifComponent />}
     </Row>
   );
 };
