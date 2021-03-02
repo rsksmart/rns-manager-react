@@ -60,7 +60,7 @@ export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) =>
   };
 
   // eslint-disable-next-line no-unused-expressions
-  window.rLogin ? checkBalance() : dispatch(start(checkBalance));
+  window.rLogin ? checkBalance() : dispatch(start(checkBalance, err => reject(err)));
 });
 
 export const getConversionRate = () => async (dispatch) => {

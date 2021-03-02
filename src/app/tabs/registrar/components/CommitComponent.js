@@ -9,7 +9,11 @@ class CommitComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { balanceState: 'INITIAL' };
+    this.state = {
+      checkingBalance: false,
+      hasBalance: true,
+    };
+
     this.handleCommit = this.handleCommit.bind(this);
   }
 
@@ -20,17 +24,14 @@ class CommitComponent extends Component {
 
   handleCommit() {
     const { checkBalance, doCommitment } = this.props;
-    this.setState({ balanceState: 'CHECKING' });
+    this.setState({ checkingBalance: true, hasBalance: true });
+
     checkBalance()
       .then((response) => {
-        if (!response) {
-          return this.setState({ balanceState: 'NOT_ENOUGH' });
-        }
-
-        this.setState({ balanceState: 'INITIAL' });
-        return doCommitment();
+        this.setState({ checkingBalance: false });
+        return response ? doCommitment() : this.setState({ hasBalance: false });
       })
-      .catch(() => this.setState({ balanceState: 'INITIAL' }));
+      .catch(() => this.setState({ checkingBalance: false }));
   }
 
   render() {
@@ -39,7 +40,7 @@ class CommitComponent extends Component {
       strings,
       committed,
     } = this.props;
-    const { balanceState } = this.state;
+    const { checkingBalance, hasBalance } = this.state;
 
     return (
       <Container>
@@ -48,7 +49,7 @@ class CommitComponent extends Component {
             <p className="explanation">{strings.process_step_1_explanation}</p>
           </div>
         </Row>
-        {balanceState === 'NOT_ENOUGH' && (
+        {!hasBalance && (
           <Row>
             <div className="col-md-6 offset-md-3">
               <Alert variant="warning" dismissible="false">
@@ -72,7 +73,7 @@ class CommitComponent extends Component {
                 : (
                   <Button
                     className="commitButton"
-                    disabled={committing || committed || balanceState === 'CHECKING'}
+                    disabled={committing || committed || checkingBalance}
                     onClick={this.handleCommit}
                   >
                     {strings.process_step_1}

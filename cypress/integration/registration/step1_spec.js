@@ -19,4 +19,13 @@ describe('Registration step 1', () => {
     cy.get('.commitButton').click();
     cy.get('h2.rlogin-header2').should('have.text', 'Connect your wallet');
   });
+
+  it('register button should be enabled if rLogin is cancelled', () => {
+    cy.get('.commitButton').click();
+    cy.get('body').click();
+    cy.get('.rlogin-modal-lightbox').should('be.not.visible');
+
+    cy.get('.commitButton').click();
+    cy.get('h2.rlogin-header2').should('have.text', 'Connect your wallet');
+  });
 });
