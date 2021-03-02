@@ -52,10 +52,8 @@ export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) =>
     const rif = new web3.eth.Contract(rifAbi, rifAddress);
 
     web3.eth.getAccounts().then((accounts) => {
-      rif.methods.balanceOf(accounts[0]).call((balanceError, balance) => {
-        if (balanceError) return reject(balanceError.message);
-        return resolve(web3.utils.toBN(balance).gte(web3.utils.toBN(cost)));
-      });
+      rif.methods.balanceOf(accounts[0]).call((balanceError, balance) => (
+        balanceError ? reject(balanceError.message) : resolve(balance / (10 ** 18) >= cost)));
     });
   };
 
