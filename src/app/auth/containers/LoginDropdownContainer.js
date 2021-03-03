@@ -36,12 +36,20 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logOut());
     dispatch(authenticate(domain, address, true));
   },
+  redirectAdmin: () => {
+    dispatch(togglePopUp(false));
+    dispatch(push('/newAdmin'));
+  },
+  handleDisconnect: (domain) => {
+    console.log('@todo disconnect wallet', domain);
+  },
   toggleShowPopUp:
     newState => (window.rLogin ? dispatch(togglePopUp(newState)) : dispatch(start())),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
+  ...dispatchProps,
   ...stateProps,
   handleLogin: domain => dispatchProps.handleLogin(domain, stateProps.address),
   handleLogOut: () => dispatchProps.handleLogOut(stateProps.name),
