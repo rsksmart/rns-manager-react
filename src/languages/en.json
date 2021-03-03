@@ -408,5 +408,8 @@
   "is_wallet_connect_warning": "WalletConnect is a experimental provider and not all RNS manager operations work.",
   "wallet_connect_feature": "This feature does not work with WalletConnect.",
   "settings": "Settings",
-  "subomain_login": "Do you want to login to this subdomain?"
+  "subomain_login": "Do you want to login to this subdomain?",
+  "disconnect_wallet": "Disconnect wallet",
+  "connect_wallet": "Connect wallet",
+  "disconnect_domain": "Disconnect from this domain"
 }

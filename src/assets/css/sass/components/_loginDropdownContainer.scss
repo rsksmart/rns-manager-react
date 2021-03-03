@@ -3,64 +3,55 @@
 
   .popup {
     position: absolute;
-    width: 200px;
+    width: 300px;
     right: 0px;
     top: 50px;
     background-color: $white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 
-    .current {
-      text-align: center;
+    li {
       padding: 10px 15px;
       border-bottom: 1px solid $light-gray;
 
-      button.switchButton {
+      button {
+        display: block;
+        width: 100%;
+        border: none;
+        background-color: #fff;
         font-size: 14px;
-        border-bottom: 0 !important;
-        background-position: 150px 15px;
+        text-align: left;
+      }
+
+      button:hover {
+        border:none !important;
       }
     }
 
-    button.switchButton {
-      display: block;
-      width: 100%;
-      padding: 10px 0;
-      background-color: $white;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      border-bottom:1px solid $light-gray;
-      background-image: url('/assets/img/caret.svg');
-      background-repeat: no-repeat;
-      background-position: 165px 15px;
-      color: $gray;
-      font-size: 14px;
+    li.current {
+      button {
+        color: $blue;
+      }
     }
 
-    button.switchButton:hover {
-      border: none !important;
-      color: $gray;
-      font-weight: 500 !important;
-    }
+    .loginForm, .disconnect {
+      button {
+        font-weight: 300 !important;
+        text-align: center;
+      }
 
+      button:hover {
+        font-weight: 500 !important;
+      }
+    }
 
     .loginForm {
-      text-align: center;
       padding: 10px 15px;
       
-      button.showLogin {
-        background-color: $white !important;
-        border:none;
-        color: $gray;
-      }
-      
-      button.showLogin.btn.btn-primary:hover {
-        background: none !important;
-        color: $gray;
-        font-weight: 400 !important;
-      }
-
       h3 {
         font-size: 14px;
       }
@@ -72,8 +63,12 @@
 
         input {
           border:none;
-          width: 125px;
         }
+
+        input:focus {
+          outline: none
+        }
+
         span {
           color: $blue;
         }
@@ -97,7 +92,6 @@
     }
   }
 }
-
 
 // mobile styles
 @media (max-width: 767.98px) {
