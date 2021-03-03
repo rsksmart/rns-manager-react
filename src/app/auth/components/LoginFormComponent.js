@@ -26,22 +26,19 @@ const LoginFormComponent = ({
     setLocalError('');
   };
 
+  const AddAccountButton = () => (
+    <button type="button" onClick={() => setShowLogin(!showLogin)}>
+      {`+ ${strings.add_account}`}
+    </button>
+  );
+
   if (!showLogin) {
-    return (
-      <div className="loginForm">
-        <Button
-          className="showLogin"
-          onClick={() => setShowLogin(true)}
-        >
-          {'+ '}
-          {strings.add_account}
-        </Button>
-      </div>
-    );
+    return <li className="loginForm"><AddAccountButton /></li>;
   }
 
   return (
-    <div className="loginForm">
+    <li className="loginForm">
+      <AddAccountButton />
       <h3>{strings.your_domain}</h3>
       <form onSubmit={handleLoginClick}>
         <div className="rskinput">
@@ -61,7 +58,7 @@ const LoginFormComponent = ({
         && <p className="error">{strings.not_domains_owner_message}</p>
       }
       {localError && <p className="error">{localError}</p>}
-    </div>
+    </li>
   );
 };
 
