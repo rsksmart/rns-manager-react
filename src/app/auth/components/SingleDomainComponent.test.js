@@ -5,7 +5,9 @@ import { Provider } from 'react-redux';
 import SingleDomainComponent from './SingleDomainComponent';
 import mockStore from '../../../../tests/config/mockStore';
 
-const store = mockStore({});
+const store = mockStore({
+  disconnect_domain: 'Disconnect Domain',
+});
 
 describe('SingleDomainComponent', () => {
   const initProps = {

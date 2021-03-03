@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
-import { LoginFormContainer } from '../containers';
+import LoginFormContainer from '../containers/LoginFormContainer';
 import SingleDomainComponent from './SingleDomainComponent';
 
 const LoginDropDownComponent = ({

@@ -48,9 +48,7 @@ const LoginFormComponent = ({
           />
           <span>.rsk</span>
         </div>
-        <Button
-          onClick={handleLoginClick}
-        >
+        <Button onClick={handleLoginClick}>
           {strings.enter}
         </Button>
       </form>

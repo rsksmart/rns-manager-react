@@ -4,48 +4,65 @@ import { Provider } from 'react-redux';
 
 import LoginDropdownComponent from './LoginFormComponent';
 import mockStore from '../../../../tests/config/mockStore';
-import en from '../../../languages/en.json';
 
 const store = mockStore({
-  not_domains_owner_message: en.log_out,
-  enter: en.enter,
-  your_domain: en.your_domain,
-  add_account: en.add_account,
-  invalid_name: en.invalid_name,
+  not_domains_owner_message: 'You are not the owner',
+  enter: 'enter',
+  your_domain: 'your domain',
+  add_account: 'add account',
+  invalid_name: 'invalid name',
 });
 
 describe('LoginDropdownComponent', () => {
-  it('renders and matches snapshot when closed', () => {
-    const component = mount(
+  const initProps = {
+    authError: false,
+    showLoginInitState: false,
+    handleLogin: jest.fn(),
+    domainInputInitialState: '',
+  };
+
+  const generateComponent = (localProps = {}) => {
+    const combinedProps = { ...initProps, ...localProps };
+    return mount(
       <Provider store={store}>
-        <LoginDropdownComponent
-          authError={false}
-          showLoginInitState={false}
-          handleLogin={jest.fn()}
-          domainInputInitialState=""
-        />
+        <LoginDropdownComponent {...combinedProps} />
       </Provider>,
     );
+  };
 
-    expect(component).toMatchSnapshot();
-
-    expect(component.find('button').text()).toBe('+ Add account');
+  it('renders and matches snapshot when closed', () => {
+    const wrapper = generateComponent();
+    expect(wrapper.find('button').text()).toBe('+ add account');
   });
 
-  it('matches snapshot when open', () => {
-    const component = mount(
-      <Provider store={store}>
-        <LoginDropdownComponent
-          authError={false}
-          showLoginInitState
-          handleLogin={jest.fn()}
-          domainInputInitialState=""
-        />
-      </Provider>,
-    );
+  it('loads the initial state of the input box', () => {
+    const wrapper = generateComponent({ showLoginInitState: true, domainInputInitialState: 'foobar' });
+    expect(wrapper.find('input').props().value).toBe('foobar');
+  });
 
-    expect(component).toMatchSnapshot();
+  it('shows error when there is one', () => {
+    const wrapper = generateComponent({ showLoginInitState: true, authError: true });
+    expect(wrapper.find('.error').text()).toBe('You are not the owner');
+  });
 
-    expect(component.find('button').text()).toBe('Enter');
+  describe('login events', () => {
+    it('sends the domain when form is submitted', () => {
+      const handleLogin = jest.fn();
+      const wrapper = generateComponent({ showLoginInitState: true, handleLogin });
+      wrapper.find('input').simulate('change', { target: { value: 'hello' } });
+      wrapper.find('button.btn').simulate('click');
+
+      expect(handleLogin).toBeCalledWith('hello.rsk');
+    });
+
+    it('shows an error when domain is invalid', () => {
+      const handleLogin = jest.fn();
+      const wrapper = generateComponent({ showLoginInitState: true, domainInputInitialState: 'foobar!!', handleLogin });
+
+      wrapper.find('button.btn').simulate('click');
+
+      expect(wrapper.find('.error').text()).toBe('invalid name');
+      expect(handleLogin).toBeCalledTimes(0);
+    });
   });
 });
