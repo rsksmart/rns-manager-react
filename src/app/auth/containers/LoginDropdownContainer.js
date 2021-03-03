@@ -4,7 +4,9 @@ import { push } from 'connected-react-router';
 import { LoginDropdownComponent } from '../components';
 
 import { togglePopUp, logOut } from '../actions';
-import { start, authenticate } from '../operations';
+import {
+  start, authenticate, logoutManager, disconnectDomain,
+} from '../operations';
 
 const getStoredDomains = (address, current) => {
   if (!localStorage.getItem('storedDomains')) {
@@ -40,9 +42,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(togglePopUp(false));
     dispatch(push('/newAdmin'));
   },
-  handleDisconnect: (domain) => {
-    console.log('@todo disconnect wallet', domain);
-  },
+  disconnectDomain: (domain, isCurrent) => dispatch(disconnectDomain(domain, isCurrent)),
+  disconnectWallet: () => dispatch(logoutManager()),
   toggleShowPopUp:
     newState => (window.rLogin ? dispatch(togglePopUp(newState)) : dispatch(start())),
 });
@@ -52,8 +53,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
   ...stateProps,
   handleLogin: domain => dispatchProps.handleLogin(domain, stateProps.address),
-  handleLogOut: () => dispatchProps.handleLogOut(stateProps.name),
   toggleShowPopUp: () => dispatchProps.toggleShowPopUp(!stateProps.showPopUp),
+  disconnectDomain: domain => dispatchProps.disconnectDomain(domain, domain === stateProps.name),
+  isLoggedIn: ((stateProps.name !== '' && stateProps.name !== null) && stateProps.isOwner),
+  isWalletConnected: !!window.rLogin,
 });
 
 export default connect(

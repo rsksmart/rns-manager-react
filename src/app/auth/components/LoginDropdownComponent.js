@@ -7,21 +7,23 @@ import { LoginFormContainer } from '../containers';
 import SingleDomainComponent from './SingleDomainComponent';
 
 const LoginDropDownComponent = ({
-  strings, name, handleLogin, isOwner, authError, previousDomains,
-  showPopUp, toggleShowPopUp, handleDisconnect, redirectAdmin,
+  strings, name, handleLogin, authError, previousDomains, isLoggedIn, isWalletConnected,
+  showPopUp, toggleShowPopUp, disconnectDomain, disconnectWallet, redirectAdmin,
 }) => {
-  const isLoggedIn = ((name !== '' && name !== null) && isOwner);
+  let buttonText;
+  if (!isWalletConnected) {
+    buttonText = 'Connect Wallet';
+  } else {
+    buttonText = isLoggedIn ? name : strings.login;
+  }
 
-  const handleDisconnectClick = domain => handleDisconnect(domain);
+  const handleDisconnectClick = domain => disconnectDomain(domain);
   const handleLoginClick = domain => handleLogin(domain);
 
   return (
     <div className="loginDropdown nav-item">
-      <Button
-        className="start"
-        onClick={toggleShowPopUp}
-      >
-        {isLoggedIn ? name : strings.login}
+      <Button className="start" onClick={toggleShowPopUp}>
+        {buttonText}
       </Button>
 
       {showPopUp
@@ -38,6 +40,7 @@ const LoginDropDownComponent = ({
 
           {previousDomains.map(addr => (
             <SingleDomainComponent
+              key={addr.domain}
               domain={addr.domain}
               handleDisconnectClick={handleDisconnectClick}
               handleTextClick={handleLoginClick}
@@ -50,10 +53,8 @@ const LoginDropDownComponent = ({
             showLoginInitState={(!isLoggedIn && previousDomains.length === 0) || authError}
           />
 
-          <li>
-            <button type="button" onClick={handleDisconnect}>
-              {strings.disconnect_wallet}
-            </button>
+          <li className="disconnect">
+            <button type="button" onClick={disconnectWallet}>{`- ${strings.disconnect_wallet}`}</button>
           </li>
         </ul>
       )}
@@ -75,7 +76,6 @@ LoginDropDownComponent.propTypes = {
   }).isRequired,
   name: propTypes.string,
   handleLogin: propTypes.func.isRequired,
-  isOwner: propTypes.bool.isRequired,
   authError: propTypes.bool.isRequired,
   showPopUp: propTypes.bool.isRequired,
   toggleShowPopUp: propTypes.func.isRequired,
@@ -83,8 +83,11 @@ LoginDropDownComponent.propTypes = {
     domain: propTypes.string,
     owner: propTypes.string,
   })).isRequired,
-  handleDisconnect: propTypes.func.isRequired,
+  disconnectDomain: propTypes.func.isRequired,
+  disconnectWallet: propTypes.func.isRequired,
   redirectAdmin: propTypes.func.isRequired,
+  isLoggedIn: propTypes.bool.isRequired,
+  isWalletConnected: propTypes.bool.isRequired,
 };
 
 export default multilanguage(LoginDropDownComponent);
