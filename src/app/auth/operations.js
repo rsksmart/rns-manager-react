@@ -206,7 +206,7 @@ export const logoutManager = (redirect = '') => (dispatch) => {
   dispatch(push(`/${redirect}`));
 };
 
-export const start = callback => (dispatch) => {
+export const start = (callback, callbackError) => (dispatch) => {
   if (!window.rLogin) {
     return rLogin.connect().then((provider) => {
       window.rLogin = provider;
@@ -217,7 +217,8 @@ export const start = callback => (dispatch) => {
 
       dispatch(isWalletConnect(!!provider.wc));
       dispatch(startWithRLogin(callback));
-    });
+    })
+      .catch(err => callbackError && callbackError(err));
   }
 
   return dispatch(startWithRLogin(callback));

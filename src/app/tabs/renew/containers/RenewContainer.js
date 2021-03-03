@@ -12,7 +12,6 @@ const mapStateToProps = state => ({
   renewing: state.renew.renewing,
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,
-  hasBalance: state.registrar.hasBalance,
 });
 
 const mapDispatchToProps = dispatch => ({

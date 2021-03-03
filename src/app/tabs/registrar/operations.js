@@ -22,32 +22,42 @@ import { getRegisterData, getAddrRegisterData } from './helpers';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
 import { sendBrowserNotification } from '../../browerNotifications/operations';
 import { CONTENT_BYTES_BLANK } from '../newAdmin/resolver/types';
+import { rskNode } from '../../adapters/nodeAdapter';
+import { start } from '../../auth/operations';
 
+/**
+ * Get the cost for a domain
+ * @param {string} domain domain to be registered
+ * @param {number} duration number of years
+ */
 export const getCost = (domain, duration) => async (dispatch) => {
-  const accounts = await window.rLogin.enable();
-  const currentAddress = accounts[0];
-
-  const web3 = new Web3(window.rLogin);
-  const rif = new web3.eth.Contract(rifAbi, rifAddress);
-
+  const web3 = new Web3(rskNode);
   const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
 
   dispatch(requestGetCost(duration));
 
-  return new Promise((resolve) => {
-    registrar.methods.price(domain, 0, duration).call((error, cost) => {
-      if (error) return resolve(dispatch(notifyError(error.message)));
-
-      return rif.methods.balanceOf(currentAddress).call((balanceError, balance) => {
-        if (balanceError) return resolve(dispatch(notifyError(balanceError.message)));
-
-        const enoughBalance = web3.utils.toBN(balance).gte(web3.utils.toBN(cost));
-
-        return dispatch(receiveGetCost(cost / (10 ** 18), enoughBalance));
-      });
-    });
-  });
+  registrar.methods.price(domain, 0, duration).call((error, cost) => (
+    error ? dispatch(notifyError(error.message)) : dispatch(receiveGetCost(cost / (10 ** 18)))));
 };
+
+/**
+ * Get an account's RIF balance by their address, if rLogin is not set, promot first
+ * @param {cost} price amount of RIF needed
+ */
+export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) => {
+  const checkBalance = () => {
+    const web3 = new Web3(window.rLogin);
+    const rif = new web3.eth.Contract(rifAbi, rifAddress);
+
+    web3.eth.getAccounts().then((accounts) => {
+      rif.methods.balanceOf(accounts[0]).call((balanceError, balance) => (
+        balanceError ? reject(balanceError.message) : resolve(balance / (10 ** 18) >= cost)));
+    });
+  };
+
+  // eslint-disable-next-line no-unused-expressions
+  window.rLogin ? checkBalance() : dispatch(start(checkBalance, err => reject(err)));
+});
 
 export const getConversionRate = () => async (dispatch) => {
   dispatch(requestConversionRate());

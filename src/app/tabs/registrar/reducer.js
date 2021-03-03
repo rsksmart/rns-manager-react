@@ -19,7 +19,6 @@ const initialState = {
   canReveal: false,
   commitConfirmed: null,
   revealConfirmed: null,
-  hasBalance: false,
   gettingConversionRate: false,
   conversionRate: null,
   setupAddr: true,
@@ -37,7 +36,6 @@ const registrar = (state = initialState, action) => {
       ...state,
       gettingCost: false,
       rifCost: action.rifCost,
-      hasBalance: action.hasBalance,
     };
     case REQUEST_REGISTRAR_COMMIT: return {
       ...state,

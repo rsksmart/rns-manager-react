@@ -10,8 +10,9 @@ import {
   registrar as tokenRegistrarAddress,
 } from '../../../adapters/configAdapter';
 import {
-  rskOwnerAbi, rifAbi, tokenRegistrarAbi, deedAbi,
+  rskOwnerAbi, tokenRegistrarAbi, deedAbi,
 } from './abis.json';
+import { rifAbi } from '../../registrar/abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
 
@@ -29,6 +30,7 @@ import {
 
 import { receiveRegistryOwner } from '../actions';
 import { resolveDomain } from '../../resolve/operations';
+import { NOT_ENOUGH_RIF } from './types';
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   dispatch(requestDomainExpirationTime());
@@ -99,28 +101,34 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
     rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
   );
 
-  return rif
-    .methods
-    .transferAndCall(renewerAddress, weiValue.toString(), data)
-    .send((error, result) => {
-      if (error) {
-        return dispatch(errorRenewDomain(error.message));
-      }
+  rif.methods.balanceOf(accounts[0]).call((balanceError, balance) => {
+    if (balance / (10 ** 18) < rifCost) {
+      return dispatch(errorRenewDomain(NOT_ENOUGH_RIF));
+    }
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveRenewDomain(listenerParams.resultTx));
-        listenerDispatch(checkIfSubdomainAndGetExpirationRemaining(`${listenerParams.domain}.rsk`));
-      };
+    return rif
+      .methods
+      .transferAndCall(renewerAddress, weiValue.toString(), data)
+      .send((error, result) => {
+        if (error) {
+          return dispatch(errorRenewDomain(error.message));
+        }
 
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorRenewDomain(listenerParams.errorReason),
-        ),
-      ));
-    });
+        const transactionConfirmed = listenerParams => (listenerDispatch) => {
+          listenerDispatch(receiveRenewDomain(listenerParams.resultTx));
+          listenerDispatch(checkIfSubdomainAndGetExpirationRemaining(`${listenerParams.domain}.rsk`));
+        };
+
+        return dispatch(transactionListener(
+          result,
+          transactionConfirmed,
+          { domain },
+          listenerParams => listenerDispatch => listenerDispatch(
+            errorRenewDomain(listenerParams.errorReason),
+          ),
+        ));
+      });
+  });
 };
 
 export const transferDomain = (name, address, sender) => async (dispatch) => {
