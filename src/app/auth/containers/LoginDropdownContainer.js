@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   isOwner: state.auth.isOwner,
   authError: state.auth.authError,
   showPopUp: state.auth.showPopUp,
-  previousDomains: getStoredDomains(state.auth.address, state.auth.name),
+  getPreviousDomains: () => getStoredDomains(state.auth.address, state.auth.name),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
@@ -7,9 +7,16 @@ import { LoginFormContainer } from '../containers';
 import SingleDomainComponent from './SingleDomainComponent';
 
 const LoginDropDownComponent = ({
-  strings, name, handleLogin, authError, previousDomains, isLoggedIn, isWalletConnected,
+  strings, name, handleLogin, authError, getPreviousDomains, isLoggedIn, isWalletConnected,
   showPopUp, toggleShowPopUp, disconnectDomain, disconnectWallet, redirectAdmin,
 }) => {
+  const [previousDomains, setPreviousDomains] = useState([]);
+  useEffect(() => {
+    if (showPopUp) {
+      setPreviousDomains(getPreviousDomains());
+    }
+  }, [showPopUp]);
+
   let buttonText;
   if (!isWalletConnected) {
     buttonText = strings.connect_wallet;
@@ -17,7 +24,10 @@ const LoginDropDownComponent = ({
     buttonText = isLoggedIn ? name : strings.login;
   }
 
-  const handleDisconnectClick = domain => disconnectDomain(domain);
+  const handleDisconnectClick = (domain) => {
+    disconnectDomain(domain);
+    setPreviousDomains(previousDomains.filter(d => (d.domain !== domain)));
+  };
   const handleLoginClick = domain => handleLogin(domain);
 
   return (
@@ -80,10 +90,7 @@ LoginDropDownComponent.propTypes = {
   authError: propTypes.bool.isRequired,
   showPopUp: propTypes.bool.isRequired,
   toggleShowPopUp: propTypes.func.isRequired,
-  previousDomains: propTypes.arrayOf(propTypes.shape({
-    domain: propTypes.string,
-    owner: propTypes.string,
-  })).isRequired,
+  getPreviousDomains: propTypes.func.isRequired,
   disconnectDomain: propTypes.func.isRequired,
   disconnectWallet: propTypes.func.isRequired,
   redirectAdmin: propTypes.func.isRequired,
