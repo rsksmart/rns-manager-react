@@ -17,9 +17,7 @@ const SingleDomainComponent = ({
         key="bottom"
         placement="bottom"
         overlay={(
-          <Tooltip id="tooltip-status">
-            Disconnect from this domain
-          </Tooltip>
+          <Tooltip id="tooltip-status">{strings.disconnect_domain}</Tooltip>
         )}
       >
         <button type="button" onClick={() => handleDisconnectClick(domain)}>-</button>
@@ -33,11 +31,13 @@ SingleDomainComponent.defaultProps = {
 };
 
 SingleDomainComponent.propTypes = {
-  strings: propTypes.shape({}).isRequired,
   domain: propTypes.string.isRequired,
   handleTextClick: propTypes.func.isRequired,
   handleDisconnectClick: propTypes.func.isRequired,
   isCurrent: propTypes.bool,
+  strings: propTypes.shape({
+    disconnect_domain: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default multilanguage(SingleDomainComponent);

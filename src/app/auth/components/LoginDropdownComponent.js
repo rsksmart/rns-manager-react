@@ -12,7 +12,7 @@ const LoginDropDownComponent = ({
 }) => {
   let buttonText;
   if (!isWalletConnected) {
-    buttonText = 'Connect Wallet';
+    buttonText = strings.connect_wallet;
   } else {
     buttonText = isLoggedIn ? name : strings.login;
   }
@@ -73,6 +73,7 @@ LoginDropDownComponent.propTypes = {
     enter: propTypes.string.isRequired,
     disconnect_wallet: propTypes.string.isRequired,
     not_domains_owner_message: propTypes.string.isRequired,
+    connect_wallet: propTypes.string.isRequired,
   }).isRequired,
   name: propTypes.string,
   handleLogin: propTypes.func.isRequired,
