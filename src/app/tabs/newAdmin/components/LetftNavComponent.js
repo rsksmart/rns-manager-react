@@ -38,6 +38,7 @@ const LeftNavComponent = (props) => {
 
           {advancedView && (
             <>
+              {ListItemLink('myurl', 'My URL')}
               {ListItemLink('resolver', strings.resolver)}
               {ListItemLink('reverse', strings.reverse)}
             </>

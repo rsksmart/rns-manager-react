@@ -29,7 +29,7 @@ describe('LeftNavComponent', () => {
         </HashRouter>
       </Provider>,
     );
-    expect(component.find('li').length).toBe(5);
+    expect(component.find('li').length).toBe(6);
   });
 
   it('sets correct item active when passed', () => {

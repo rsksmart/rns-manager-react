@@ -17,6 +17,7 @@ import { SubdomainsContainer } from '../subdomains/containers';
 import { ReverseContainer } from '../reverse/containers';
 import { AddressesContainer } from '../addresses/containers';
 import { ResolverContainer } from '../resolver/containers';
+import MyUrlContainer from '../myurl/containers/MyUrlContainer';
 
 const AdminComponent = ({
   strings,
@@ -65,7 +66,7 @@ const AdminComponent = ({
               {
                 !isRegistryOwner && <Route component={ReclaimContainer} />
               }
-
+              <Route path="/newAdmin/myurl" component={MyUrlContainer} />
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
               <Route path="/newAdmin/resolver" component={advancedView ? ResolverContainer : DomainInfoContainer} />
