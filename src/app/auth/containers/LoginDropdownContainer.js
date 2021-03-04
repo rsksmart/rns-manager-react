@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { LoginDropdownComponent } from '../components';
+import LoginDropdownComponent from '../components/LoginDropdownComponent';
 
 import { togglePopUp, logOut } from '../actions';
 import {
