@@ -225,7 +225,7 @@ export const disconnectDomain = (domain, isCurrent) => (dispatch) => {
   }
 };
 
-export const start = callback => (dispatch) => {
+export const start = (callback, callbackError) => (dispatch) => {
   if (!window.rLogin) {
     return rLogin.connect().then((provider) => {
       window.rLogin = provider;

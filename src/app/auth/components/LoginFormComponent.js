@@ -27,7 +27,7 @@ const LoginFormComponent = ({
   };
 
   const AddAccountButton = () => (
-    <button type="button" onClick={() => setShowLogin(!showLogin)}>
+    <button type="button" onClick={() => setShowLogin(!showLogin)} className={showLogin && 'active'}>
       {`+ ${strings.add_account}`}
     </button>
   );

@@ -52,6 +52,10 @@
     .loginForm {
       padding: 10px 15px;
       
+      button.active {
+        color: $blue;
+      }
+
       h3 {
         font-size: 14px;
       }
@@ -79,6 +83,8 @@
         background-color: #C4C4C4;
         border-color: #C4C4C4;
         border-radius: 15px;
+        width: auto;
+        margin: 0 auto;
       }
 
       .btn.btn-primary:hover {
