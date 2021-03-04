@@ -58,10 +58,12 @@ describe('LoginDropdownComponent', () => {
       { domain: 'bar.foobar', owner },
     ]);
 
+    const previousList = wrapper => wrapper.find('li.previous');
+
     it('shows the previous domains', () => {
       const wrapper = mount(generateComponent({ getPreviousDomains }));
-      expect(wrapper.find('li.previous').at(0).text()).toBe('foobar-');
-      expect(wrapper.find('li.previous').at(1).text()).toBe('bar.foobar-');
+      expect(previousList(wrapper).at(0).text()).toBe('foobar-');
+      expect(previousList(wrapper).at(1).text()).toBe('bar.foobar-');
     });
 
     it('handles login and disconnect click', () => {
@@ -72,7 +74,7 @@ describe('LoginDropdownComponent', () => {
       );
 
       expect(wrapper.find('li.previous')).toHaveLength(2);
-      wrapper.find('li.previous').at(0).find('.domain button').simulate('click');
+      previousList(wrapper).at(0).find('.domain button').simulate('click');
       expect(handleLogin).toBeCalledWith('foobar');
 
       // remove the item

@@ -8,8 +8,9 @@ import { mockStoreEnglish } from '../../../../tests/config/mockStore';
 const store = mockStoreEnglish();
 
 describe('SingleDomainComponent', () => {
+  const domain = 'foobar.rsk';
   const initProps = {
-    domain: 'foobar.rsk',
+    domain,
     handleTextClick: jest.fn(),
     handleDisconnectClick: jest.fn(),
   };
@@ -22,7 +23,7 @@ describe('SingleDomainComponent', () => {
     const wrapper = mount(generateComponent());
     expect(wrapper).toBeDefined();
 
-    expect(wrapper.find('.domain').text()).toBe('foobar.rsk');
+    expect(wrapper.find('.domain').text()).toBe(domain);
     expect(wrapper.find('li').props().className).toBe('row previous');
   });
 
@@ -33,10 +34,10 @@ describe('SingleDomainComponent', () => {
     const wrapper = mount(generateComponent({ handleTextClick, handleDisconnectClick }));
 
     wrapper.find('.domain button').simulate('click');
-    expect(handleTextClick).toBeCalledWith('foobar.rsk');
+    expect(handleTextClick).toBeCalledWith(domain);
 
     wrapper.find('.options button').simulate('click');
-    expect(handleDisconnectClick).toBeCalledWith('foobar.rsk');
+    expect(handleDisconnectClick).toBeCalledWith(domain);
   });
 
   it('is the current row', () => {
