@@ -12,6 +12,12 @@ const LeftNavComponent = (props) => {
   const isHome = location === '/newAdmin'
     || (!advancedView && (location === '/newAdmin/resolver' || location === '/newAdmin/reverse'));
 
+  const ListItemLink = (url, text) => (
+    <li>
+      <Link to={`/newAdmin/${url}`} className={location === `/newAdmin/${url}` ? 'active' : ''}>{text}</Link>
+    </li>
+  );
+
   return (
     <Navbar bg="light" expand="md">
       <Navbar.Brand>{domain}</Navbar.Brand>
@@ -26,44 +32,16 @@ const LeftNavComponent = (props) => {
               {strings.domain_info}
             </Link>
           </li>
-          <li>
-            <Link
-              to="/newAdmin/addresses"
-              className={location === '/newAdmin/addresses' ? 'active' : ''}
-            >
-              {strings.your_addresses}
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/newAdmin/subdomains"
-              className={location === '/newAdmin/subdomains' ? 'active' : ''}
-            >
-              {strings.subdomains}
-            </Link>
-          </li>
-          {advancedView
-            && (
-              <>
-                <li>
-                  <Link
-                    to="/newAdmin/resolver"
-                    className={location === '/newAdmin/resolver' ? 'active' : ''}
-                  >
-                    {strings.resolver}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/newAdmin/reverse"
-                    className={location === '/newAdmin/reverse' ? 'active' : ''}
-                  >
-                  Reverse
-                  </Link>
-                </li>
-              </>
-            )
-          }
+
+          {ListItemLink('addresses', strings.your_addresses)}
+          {ListItemLink('subdomains', strings.subdomains)}
+
+          {advancedView && (
+            <>
+              {ListItemLink('resolver', strings.resolver)}
+              {ListItemLink('reverse', strings.reverse)}
+            </>
+          )}
         </ul>
       </Navbar.Collapse>
     </Navbar>
@@ -79,6 +57,7 @@ LeftNavComponent.propTypes = {
     resolver: propTypes.string.isRequired,
     subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
+    reverse: propTypes.string.isRequired,
   }).isRequired,
   location: propTypes.string.isRequired,
   advancedView: propTypes.bool.isRequired,
