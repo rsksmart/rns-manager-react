@@ -3,11 +3,9 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import SingleDomainComponent from './SingleDomainComponent';
-import mockStore from '../../../../tests/config/mockStore';
+import { mockStoreEnglish } from '../../../../tests/config/mockStore';
 
-const store = mockStore({
-  disconnect_domain: 'Disconnect Domain',
-});
+const store = mockStoreEnglish();
 
 describe('SingleDomainComponent', () => {
   const initProps = {
@@ -15,42 +13,34 @@ describe('SingleDomainComponent', () => {
     handleTextClick: jest.fn(),
     handleDisconnectClick: jest.fn(),
   };
+  const generateComponent = (localProps = {}) => {
+    const combinedProps = { ...initProps, ...localProps };
+    return <Provider store={store}><SingleDomainComponent {...combinedProps} /></Provider>;
+  };
 
   it('displays the text and default className', () => {
-    const wrapper = mount(
-      <Provider store={store}><SingleDomainComponent {...initProps} /></Provider>,
-    );
+    const wrapper = mount(generateComponent());
     expect(wrapper).toBeDefined();
 
     expect(wrapper.find('.domain').text()).toBe('foobar.rsk');
-    expect(wrapper.find('li').props().className).toBe('row');
+    expect(wrapper.find('li').props().className).toBe('row previous');
   });
 
   it('handles click events', () => {
-    const textClick = jest.fn();
-    const disconnectClick = jest.fn();
+    const handleTextClick = jest.fn();
+    const handleDisconnectClick = jest.fn();
 
-    const wrapper = mount(
-      <Provider store={store}>
-        <SingleDomainComponent
-          {...initProps}
-          handleTextClick={textClick}
-          handleDisconnectClick={disconnectClick}
-        />
-      </Provider>,
-    );
+    const wrapper = mount(generateComponent({ handleTextClick, handleDisconnectClick }));
 
     wrapper.find('.domain button').simulate('click');
-    expect(textClick).toBeCalledWith('foobar.rsk');
+    expect(handleTextClick).toBeCalledWith('foobar.rsk');
 
     wrapper.find('.options button').simulate('click');
-    expect(disconnectClick).toBeCalledWith('foobar.rsk');
+    expect(handleDisconnectClick).toBeCalledWith('foobar.rsk');
   });
 
   it('is the current row', () => {
-    const wrapper = mount(
-      <Provider store={store}><SingleDomainComponent {...initProps} isCurrent /></Provider>,
-    );
+    const wrapper = mount(generateComponent({ isCurrent: true }));
     expect(wrapper.find('li').props().className).toBe('row current');
   });
 });

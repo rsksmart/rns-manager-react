@@ -3,15 +3,9 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import LoginDropdownComponent from './LoginFormComponent';
-import mockStore from '../../../../tests/config/mockStore';
+import { mockStoreEnglish } from '../../../../tests/config/mockStore';
 
-const store = mockStore({
-  not_domains_owner_message: 'You are not the owner',
-  enter: 'enter',
-  your_domain: 'your domain',
-  add_account: 'add account',
-  invalid_name: 'invalid name',
-});
+const store = mockStoreEnglish();
 
 describe('LoginDropdownComponent', () => {
   const initProps = {
@@ -32,7 +26,7 @@ describe('LoginDropdownComponent', () => {
 
   it('renders and matches snapshot when closed', () => {
     const wrapper = generateComponent();
-    expect(wrapper.find('button').text()).toBe('+ add account');
+    expect(wrapper.find('button').text()).toBe('+ Add account');
   });
 
   it('loads the initial state of the input box', () => {
@@ -42,7 +36,7 @@ describe('LoginDropdownComponent', () => {
 
   it('shows error when there is one', () => {
     const wrapper = generateComponent({ showLoginInitState: true, authError: true });
-    expect(wrapper.find('.error').text()).toBe('You are not the owner');
+    expect(wrapper.find('.error').text()).toBe("You are not the domains's owner.");
   });
 
   describe('login events', () => {
@@ -61,7 +55,7 @@ describe('LoginDropdownComponent', () => {
 
       wrapper.find('button.btn').simulate('click');
 
-      expect(wrapper.find('.error').text()).toBe('invalid name');
+      expect(wrapper.find('.error').text()).toBe('Invalid name. Must be lower case characters and/or numbers');
       expect(handleLogin).toBeCalledTimes(0);
     });
   });
