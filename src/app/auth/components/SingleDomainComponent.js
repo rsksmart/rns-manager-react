@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 const SingleDomainComponent = ({
   strings, domain, handleTextClick, handleDisconnectClick, isCurrent,
 }) => (
-  <li className={isCurrent ? 'row current' : 'row'}>
+  <li className={isCurrent ? 'row current' : 'row previous'}>
     <div className="col-sm-10 domain">
       <button type="button" onClick={() => handleTextClick(domain)}>
         {domain}

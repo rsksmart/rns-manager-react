@@ -60,6 +60,10 @@ const LoginFormComponent = ({
   );
 };
 
+LoginFormComponent.defaultProps = {
+  domainInputInitialState: '',
+};
+
 LoginFormComponent.propTypes = {
   strings: propTypes.shape({
     not_domains_owner_message: propTypes.string.isRequired,
@@ -71,7 +75,7 @@ LoginFormComponent.propTypes = {
   authError: propTypes.bool.isRequired,
   handleLogin: propTypes.func.isRequired,
   showLoginInitState: propTypes.bool.isRequired,
-  domainInputInitialState: propTypes.string.isRequired,
+  domainInputInitialState: propTypes.string,
 };
 
 export default multilanguage(LoginFormComponent);
