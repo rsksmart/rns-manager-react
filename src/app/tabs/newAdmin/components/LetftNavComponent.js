@@ -38,7 +38,7 @@ const LeftNavComponent = (props) => {
 
           {advancedView && (
             <>
-              {ListItemLink('myurl', 'My URL')}
+              {ListItemLink('myurl', strings.my_url)}
               {ListItemLink('resolver', strings.resolver)}
               {ListItemLink('reverse', strings.reverse)}
             </>
@@ -59,6 +59,7 @@ LeftNavComponent.propTypes = {
     subdomains: propTypes.string.isRequired,
     your_addresses: propTypes.string.isRequired,
     reverse: propTypes.string.isRequired,
+    my_url: propTypes.string.isRequired,
   }).isRequired,
   location: propTypes.string.isRequired,
   advancedView: propTypes.bool.isRequired,

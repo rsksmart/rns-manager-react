@@ -1,12 +1,18 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import { multilanguage } from 'redux-multilanguage';
 
-const MyUrlComponent = () => {
+const MyUrlComponent = ({ strings }) => {
   return (
     <div>
-      <h1>Decentralized URL</h1>
-      <p>Here you can set URLs from decentralized storage services such as IPFS and Swarm. You can host your decentralized website with the help of RNS</p>
+      <h1>{strings.decentralized_url}</h1>
+      <p>{strings.decentralized_exp}</p>
     </div>
   );
 };
 
-export default MyUrlComponent;
+MyUrlComponent.propTypes = {
+  strings: propTypes.shape().isRequired,
+};
+
+export default multilanguage(MyUrlComponent);
