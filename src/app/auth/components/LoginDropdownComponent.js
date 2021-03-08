@@ -64,7 +64,7 @@ const LoginDropDownComponent = ({
           />
 
           <li className="disconnect">
-            <button type="button" onClick={disconnectWallet}>{`- ${strings.disconnect_wallet}`}</button>
+            <button type="button" onClick={disconnectWallet}>{strings.disconnect_wallet}</button>
           </li>
         </ul>
       )}
