@@ -71,6 +71,15 @@ describe('MyUrlComponent', () => {
   });
 
   describe('existing record', () => {
+    it('shows the edit component when a URL exists', () => {
+      const url = {
+        ...contentInititalState,
+        value: 'ipfs://QmQ',
+        isEmpty: false,
+      };
+      const wrapper = mount(generateComponent({ url }));
 
+      expect(wrapper.find('.addressInput .value').text()).toBe('ipfs://QmQ');
+    });
   });
 });

@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Alert } from 'react-bootstrap';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
+import AddressInputComponent from '../../../../components/AddressInputComponent';
 
 export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
 
@@ -14,7 +15,7 @@ const MyUrlComponent = ({
   }, []);
   const [newInput, setNewInput] = useState('');
 
-  if (!receiveContent) {
+  if (!receiveContent || (url && url.isRequesting)) {
     return <UserWaitingComponent visible />;
   }
 
@@ -46,6 +47,28 @@ const MyUrlComponent = ({
           {url.errorMessage && <div className="error">{url.errorMessage}</div>}
           {url.isWaiting && <UserWaitingComponent visible />}
         </div>
+      )}
+
+      {!url.isEmpty && (
+        <AddressInputComponent
+          handleSubmit={handleSave}
+          value={url.value}
+          isWaiting={url.isWaiting}
+          isError={!!url.errorMessage}
+          allowDelete
+          handleDelete={() => handleSave('')}
+          strings={{
+            value_prefix: '',
+            cancel: strings.cancel,
+            delete: strings.delete,
+            edit_placeholder: contentHashPlaceholder,
+            submit: strings.submit,
+            error_message: url.errorMessage,
+            delete_confirm_text: strings.delete_content_confirm,
+          }}
+          label=""
+          validation={false}
+        />
       )}
     </div>
   );
