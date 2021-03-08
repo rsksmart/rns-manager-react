@@ -10,6 +10,7 @@ import {
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
   receiveSetContent, errorSetContent, clearAllContent, errorDecodingAddress,
   requestMigrateAddresses, receiveMigrateAddresses, errorMigrateWithAddresses,
+  receiveSupportedInterfaces,
 } from './actions';
 import { getAllChainAddresses, getIndexById, getChainNameById } from '../addresses/operations';
 
@@ -187,7 +188,8 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
           }
         }
         return null;
-      });
+      })
+      .then(() => dispatch(receiveSupportedInterfaces()));
   });
 };
 
@@ -244,7 +246,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  * @param {string} domain The domain to set content hash for
  * @param {string} input string input that should be sent
  */
-const setContentHash = (domain, input) => async (dispatch) => {
+export const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
   const web3 = new Web3(window.rLogin);
   const rns = new RNS(web3, getOptions());

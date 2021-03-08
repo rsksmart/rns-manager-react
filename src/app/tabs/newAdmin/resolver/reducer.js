@@ -4,7 +4,7 @@ import {
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
   RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_DECODING_ADDRESS,
   REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
-  CLEAR_MIGRATE_CONTENT,
+  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
 } from './types';
 
 const initialState = {
@@ -22,9 +22,10 @@ const initialState = {
     migrationComplete: false,
     errorMessage: null,
   },
+  receiveContent: false,
 };
 
-const contentInititalState = {
+export const contentInititalState = {
   value: '',
   isRequesting: false,
   isWaiting: false,
@@ -152,6 +153,12 @@ const resolverReducer = (state = initialState, action) => {
     case CLEAR_ALL_CONTENT: return {
       ...state,
       content: [],
+      receiveContent: false,
+    };
+
+    case RECEIVE_SUPPORTED_INTERFACES: return {
+      ...state,
+      receiveContent: true,
     };
 
     case REQUEST_MIGRATE_ADDRESSES: return {
