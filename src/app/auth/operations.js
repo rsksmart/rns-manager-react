@@ -198,12 +198,31 @@ const startWithRLogin = callback => (dispatch) => {
   window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
 };
 
+/**
+ * Logs out of the manager and rLogin leaving domains in localStorage
+ * @param {string} redirect Optional URL to redirect to, defaults to home
+ */
 export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   localStorage.removeItem('walletconnect');
   window.rLogin = null;
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
+};
+
+/**
+ * Disconnect a single domain from the Manager, also logout if it is the current domain
+ * @param {string} domain to be removed from localstorage
+ * @param {boolean} isCurrent is it the current domain logged in?
+ */
+export const disconnectDomain = (domain, isCurrent) => (dispatch) => {
+  removeDomainToLocalStorage(domain);
+
+  if (isCurrent) {
+    dispatch(logOut());
+    localStorage.removeItem('name');
+    dispatch(push('/'));
+  }
 };
 
 export const start = (callback, callbackError) => (dispatch) => {

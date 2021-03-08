@@ -1,49 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
-import PreviousDomainListComponent from './PreviousDomainListComponent';
-import { CurrentAccountContainer, LoginFormContainer } from '../containers';
-
+import LoginFormContainer from '../containers/LoginFormContainer';
+import SingleDomainComponent from './SingleDomainComponent';
 
 const LoginDropDownComponent = ({
-  strings, name, handleLogin, isOwner, authError, previousDomains,
-  showPopUp, toggleShowPopUp,
+  strings, name, handleLogin, authError, getPreviousDomains, isLoggedIn, isWalletConnected,
+  showPopUp, toggleShowPopUp, disconnectDomain, disconnectWallet, redirectAdmin,
 }) => {
-  const isLoggedIn = ((name !== '' && name !== null) && isOwner);
+  const [previousDomains, setPreviousDomains] = useState([]);
+  useEffect(() => {
+    if (showPopUp) {
+      setPreviousDomains(getPreviousDomains());
+    }
+  }, [showPopUp]);
 
-  const handleLoginClick = (domain) => {
-    handleLogin(domain);
+  let buttonText;
+  if (!isWalletConnected) {
+    buttonText = strings.connect_wallet;
+  } else {
+    buttonText = isLoggedIn ? name : strings.login;
+  }
+
+  const handleDisconnectClick = (domain) => {
+    disconnectDomain(domain);
+    setPreviousDomains(previousDomains.filter(d => (d.domain !== domain)));
   };
+  const handleLoginClick = domain => handleLogin(domain);
 
   return (
     <div className="loginDropdown nav-item">
-      <Button
-        className="start"
-        onClick={toggleShowPopUp}
-      >
-        {isLoggedIn ? name : strings.login}
+      <Button className="start" onClick={toggleShowPopUp}>
+        {buttonText}
       </Button>
 
       {showPopUp
       && (
-        <div className="popup">
+        <ul className="popup">
           {isLoggedIn && (
-            <CurrentAccountContainer />
+            <SingleDomainComponent
+              domain={name}
+              handleDisconnectClick={handleDisconnectClick}
+              handleTextClick={redirectAdmin}
+              isCurrent
+            />
           )}
 
-          <PreviousDomainListComponent
-            previousDomains={previousDomains}
-            switchLoginClick={handleLoginClick}
-          />
+          {previousDomains.map(addr => (
+            <SingleDomainComponent
+              key={addr.domain}
+              domain={addr.domain}
+              handleDisconnectClick={handleDisconnectClick}
+              handleTextClick={handleLoginClick}
+            />
+          ))}
 
           <LoginFormContainer
             authError={authError}
             handleLogin={handleLoginClick}
             showLoginInitState={(!isLoggedIn && previousDomains.length === 0) || authError}
           />
-        </div>
+
+          <li className="disconnect">
+            <button type="button" onClick={disconnectWallet}>{strings.disconnect_wallet}</button>
+          </li>
+        </ul>
       )}
     </div>
   );
@@ -58,19 +81,21 @@ LoginDropDownComponent.propTypes = {
     login: propTypes.string.isRequired,
     your_domain: propTypes.string.isRequired,
     enter: propTypes.string.isRequired,
-    log_out: propTypes.string.isRequired,
+    disconnect_wallet: propTypes.string.isRequired,
     not_domains_owner_message: propTypes.string.isRequired,
+    connect_wallet: propTypes.string.isRequired,
   }).isRequired,
   name: propTypes.string,
   handleLogin: propTypes.func.isRequired,
-  isOwner: propTypes.bool.isRequired,
   authError: propTypes.bool.isRequired,
   showPopUp: propTypes.bool.isRequired,
   toggleShowPopUp: propTypes.func.isRequired,
-  previousDomains: propTypes.arrayOf(propTypes.shape({
-    domain: propTypes.string,
-    owner: propTypes.string,
-  })).isRequired,
+  getPreviousDomains: propTypes.func.isRequired,
+  disconnectDomain: propTypes.func.isRequired,
+  disconnectWallet: propTypes.func.isRequired,
+  redirectAdmin: propTypes.func.isRequired,
+  isLoggedIn: propTypes.bool.isRequired,
+  isWalletConnected: propTypes.bool.isRequired,
 };
 
 export default multilanguage(LoginDropDownComponent);
