@@ -8,7 +8,7 @@ import { validateBytes32 } from '../../../validations';
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
-  receiveSetContent, errorSetContent, clearAllContent, errorDecodingAddress,
+  receiveSetContent, errorSetContent, requestSupportedInterfaces, errorDecodingAddress,
   requestMigrateAddresses, receiveMigrateAddresses, errorMigrateWithAddresses,
   receiveSupportedInterfaces,
 } from './actions';
@@ -141,7 +141,7 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
  * @param {string} domain
  */
 export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
-  dispatch(clearAllContent());
+  dispatch(requestSupportedInterfaces());
   const web3 = new Web3(window.rLogin);
   const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
 

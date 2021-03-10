@@ -2,7 +2,7 @@ import {
   RECEIVE_RESOLVER, REQUEST_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
-  RECEIVE_SET_CONTENT, CLEAR_ALL_CONTENT, ERROR_DECODING_ADDRESS,
+  RECEIVE_SET_CONTENT, REQUEST_SUPPORTED_INTERFACES, ERROR_DECODING_ADDRESS,
   REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
   CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
 } from './types';
@@ -22,7 +22,7 @@ const initialState = {
     migrationComplete: false,
     errorMessage: null,
   },
-  receiveContent: false,
+  gettingContent: false,
 };
 
 export const contentInititalState = {
@@ -150,15 +150,15 @@ const resolverReducer = (state = initialState, action) => {
       },
     };
 
-    case CLEAR_ALL_CONTENT: return {
+    case REQUEST_SUPPORTED_INTERFACES: return {
       ...state,
       content: [],
-      receiveContent: false,
+      gettingContent: true,
     };
 
     case RECEIVE_SUPPORTED_INTERFACES: return {
       ...state,
-      receiveContent: true,
+      gettingContent: false,
     };
 
     case REQUEST_MIGRATE_ADDRESSES: return {
