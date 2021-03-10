@@ -57,24 +57,6 @@ export const getResolverNameByAddress = (resolverAddr) => {
   }
 };
 
-/**
- * Gets the resolver for a specified domain
- * @param {string} domain the domain to get the resolver address
- */
-export const getDomainResolver = domain => async (dispatch) => {
-  dispatch(requestResolver());
-  const hash = namehash(domain);
-
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-
-  await rns.compose();
-  await rns.contracts.registry.methods.resolver(hash)
-    .call((error, result) => {
-      dispatch(receiveResolver(result, getResolverNameByAddress(result)));
-    });
-};
-
 export const getContentHash = domain => (dispatch) => {
   dispatch(requestContent(CONTENT_HASH));
   const web3 = new Web3(window.rLogin);
@@ -193,6 +175,24 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
   });
 };
 
+/**
+ * Gets the resolver for a specified domain
+ * @param {string} domain the domain to get the resolver address
+ */
+export const getDomainResolver = domain => async (dispatch) => {
+  dispatch(requestResolver());
+  const hash = namehash(domain);
+
+  const web3 = new Web3(window.rLogin);
+  const rns = new RNS(web3, getOptions());
+
+  await rns.compose();
+  await rns.contracts.registry.methods.resolver(hash)
+    .call((error, result) => {
+      dispatch(receiveResolver(result, getResolverNameByAddress(result)));
+      dispatch(supportedInterfaces(result, domain));
+    });
+};
 
 /**
  * Sets the resolver for a specified domain
