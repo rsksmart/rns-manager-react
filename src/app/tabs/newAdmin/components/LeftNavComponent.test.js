@@ -2,12 +2,11 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import mockStore from '../../../../../tests/config/mockStore';
-import en from '../../../../languages/en.json';
+import { mockStoreEnglish } from '../../../../../tests/config/mockStore';
 
 import LeftNavComponent from './LetftNavComponent';
 
-const store = mockStore(en); // @TODO: use new mockStoreEnglish when it is merged!
+const store = mockStoreEnglish();
 
 describe('LeftNavComponent', () => {
   it('matches snapshot', () => {

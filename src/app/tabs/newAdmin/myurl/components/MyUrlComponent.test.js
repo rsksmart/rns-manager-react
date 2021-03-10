@@ -1,12 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import mockStore from '../../../../../../tests/config/mockStore';
-import en from '../../../../../languages/en.json';
+import { mockStoreEnglish } from '../../../../../../tests/config/mockStore';
 import MyUrlComponent from './MyUrlComponent';
 import { contentInititalState } from '../../resolver/reducer';
 
-const store = mockStore(en); // @TODO: use new mockStoreEnglish when it is merged!
+const store = mockStoreEnglish();
 
 describe('MyUrlComponent', () => {
   const initProps = {

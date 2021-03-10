@@ -413,5 +413,6 @@
   "connect_wallet": "Connect wallet",
   "disconnect_domain": "Disconnect from this domain",
   "my_url": "My URL",
+  "decentralized_url": "Decentralized URL",
   "decentralized_exp": "Here you can set URLs from decentralized storage services such as IPFS and Swarm. You can host your decentralized website with the help of RNS"
 }
