@@ -5,12 +5,11 @@ import { Alert } from 'react-bootstrap';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import AddressInputComponent from '../../../../components/AddressInputComponent';
 
-export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
-
 const MyUrlComponent = ({
   strings, url, gettingContent, handleSave,
 }) => {
   const [newInput, setNewInput] = useState('');
+  const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
 
   if (gettingContent) {
     return <UserWaitingComponent visible />;

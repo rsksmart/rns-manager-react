@@ -7,9 +7,7 @@ import { Col, Button } from 'react-bootstrap';
 import ContractAbiInputComponent from './ContractAbiInputComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
-import { CONTRACT_ABI, CONTENT_HASH } from '../types';
-
-export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
+import { CONTRACT_ABI, CONTENT_BYTES } from '../types';
 
 const NewRecordComponent = ({
   strings, content, handleSubmit, handleCloseMessage,
@@ -61,7 +59,7 @@ const NewRecordComponent = ({
             value={value}
             onChange={evt => setValue(evt.target.value)}
             disabled={activeOptions.isWaiting}
-            placeholder={selectedContent === CONTENT_HASH ? contentHashPlaceholder : 'bytes32'}
+            placeholder={selectedContent === CONTENT_BYTES ? 'bytes32' : ''}
           />
         </div>
         <div className="col-md-2">
