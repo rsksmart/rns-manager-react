@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Alert } from 'react-bootstrap';
@@ -8,11 +8,8 @@ import AddressInputComponent from '../../../../components/AddressInputComponent'
 export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
 
 const MyUrlComponent = ({
-  start, strings, url, gettingContent, handleSave,
+  strings, url, gettingContent, handleSave,
 }) => {
-  useEffect(() => {
-    start();
-  }, []);
   const [newInput, setNewInput] = useState('');
 
   if (gettingContent) {
@@ -81,7 +78,6 @@ MyUrlComponent.defaultProps = {
 
 MyUrlComponent.propTypes = {
   strings: propTypes.shape().isRequired,
-  start: propTypes.func.isRequired,
   url: propTypes.shape(),
   gettingContent: propTypes.bool.isRequired,
   handleSave: propTypes.func.isRequired,

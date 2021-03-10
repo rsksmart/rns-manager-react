@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import MyUrlComponent from '../components/MyUrlComponent';
-import { supportedInterfaces, setContentHash } from '../../resolver/operations';
+import { setContentHash } from '../../resolver/operations';
 
 const mapStateToProps = state => ({
   resolverAddress: state.newAdmin.resolver.resolverAddr,
@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  start: (resolverAddress, domain) => dispatch(supportedInterfaces(resolverAddress, domain)),
   handleSave: (domain, value) => dispatch(setContentHash(domain, value)),
 });
 
