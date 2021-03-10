@@ -32,15 +32,19 @@ const MyUrlComponent = ({
 
       {url.isRequesting && <UserWaitingComponent visible />}
       {url.isEmpty && !url.isRequesting && (
-        <div className="new">
-          <input
-            className="newInput"
-            type="text"
-            value={newInput}
-            onChange={evt => setNewInput(evt.target.value)}
-            placeholder={contentHashPlaceholder}
-          />
-          <button type="button" className="btn btn-primary" onClick={() => handleSave(newInput)}>Add</button>
+        <div className="new row">
+          <div className="col-md-10">
+            <input
+              className="rsk-input"
+              type="text"
+              value={newInput}
+              onChange={evt => setNewInput(evt.target.value)}
+              placeholder={contentHashPlaceholder}
+            />
+          </div>
+          <div className="col-md-2">
+            <button type="button" className="rsk-button" onClick={() => handleSave(newInput)}>Add</button>
+          </div>
 
           {url.errorMessage && <div className="error">{url.errorMessage}</div>}
           {url.isWaiting && <UserWaitingComponent visible />}

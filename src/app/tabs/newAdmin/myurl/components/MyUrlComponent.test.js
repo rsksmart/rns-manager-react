@@ -44,7 +44,7 @@ describe('MyUrlComponent', () => {
     it('handles clicking', () => {
       const handleSave = jest.fn();
       const wrapper = mount(generateComponent({ url: contentInititalState, handleSave }));
-      wrapper.find('input.newInput').simulate('change', { target: { value: 'foo' } });
+      wrapper.find('input.rsk-input').simulate('change', { target: { value: 'foo' } });
       wrapper.find('button.btn').simulate('click');
 
       expect(handleSave).toBeCalledWith('foo');

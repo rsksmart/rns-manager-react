@@ -39,7 +39,6 @@ const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
     }
   };
 
-  console.log('content!', content);
   return (
     <div className="major-section records">
       <h2>{strings.records}</h2>
