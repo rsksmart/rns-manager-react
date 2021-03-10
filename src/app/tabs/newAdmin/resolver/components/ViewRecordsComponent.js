@@ -5,7 +5,7 @@ import { EditContentContainer, ViewContractAbiContainer } from '../containers';
 import { CONTRACT_ABI } from '../types';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 
-const ResolverComponent = ({ strings, content, gettingContent }) => {
+const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
   if (gettingContent) {
     return <UserWaitingComponent visible />;
   }
@@ -39,16 +39,17 @@ const ResolverComponent = ({ strings, content, gettingContent }) => {
     }
   };
 
+  console.log('content!', content);
   return (
     <div className="major-section records">
       <h2>{strings.records}</h2>
       <p>{strings.records_explanation}</p>
-      {Object.entries(content).map(item => switchViewType(item))}
+      {content.map(item => switchViewType(item))}
     </div>
   );
 };
 
-ResolverComponent.propTypes = {
+ViewRecordsComponent.propTypes = {
   strings: propTypes.shape({
     content_bytes: propTypes.string.isRequired,
     records: propTypes.string.isRequired,
@@ -63,4 +64,4 @@ ResolverComponent.propTypes = {
   content: propTypes.shape.isRequired,
 };
 
-export default multilanguage(ResolverComponent);
+export default multilanguage(ViewRecordsComponent);
