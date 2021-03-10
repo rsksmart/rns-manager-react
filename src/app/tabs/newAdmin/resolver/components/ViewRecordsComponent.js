@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-
 import { EditContentContainer, ViewContractAbiContainer } from '../containers';
-import { CONTRACT_ABI, CONTENT_HASH } from '../types';
-import { contentHashPlaceholder } from './NewRecordComponent';
+import { CONTRACT_ABI } from '../types';
+import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 
-const ResolverComponent = ({ strings, start, content }) => {
-  useEffect(() => start(), []);
+const ResolverComponent = ({ strings, content, gettingContent }) => {
+  if (gettingContent) {
+    return <UserWaitingComponent visible />;
+  }
 
   const switchViewType = (item) => {
     if (item[1].isEmpty) {
@@ -31,7 +32,7 @@ const ResolverComponent = ({ strings, start, content }) => {
               delete: strings.delete,
               delete_confirm_text: strings.delete_content_confirm,
               success_message: strings.content_updated,
-              edit_placeholder: (item[0] === CONTENT_HASH) ? contentHashPlaceholder : '',
+              edit_placeholder: '',
             }}
           />
         );
@@ -58,7 +59,7 @@ ResolverComponent.propTypes = {
     delete_content_confirm: propTypes.string.isRequired,
     content_updated: propTypes.string.isRequired,
   }).isRequired,
-  start: propTypes.func.isRequired,
+  gettingContent: propTypes.bool.isRequired,
   content: propTypes.shape.isRequired,
 };
 

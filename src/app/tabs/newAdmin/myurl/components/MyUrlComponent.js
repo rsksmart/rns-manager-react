@@ -8,14 +8,14 @@ import AddressInputComponent from '../../../../components/AddressInputComponent'
 export const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
 
 const MyUrlComponent = ({
-  start, strings, url, receiveContent, handleSave,
+  start, strings, url, gettingContent, handleSave,
 }) => {
   useEffect(() => {
     start();
   }, []);
   const [newInput, setNewInput] = useState('');
 
-  if (!receiveContent || (url && url.isRequesting)) {
+  if (gettingContent) {
     return <UserWaitingComponent visible />;
   }
 
@@ -33,7 +33,8 @@ const MyUrlComponent = ({
       <h1>{strings.decentralized_url}</h1>
       <p>{strings.decentralized_exp}</p>
 
-      {url.isEmpty && (
+      {url.isRequesting && <UserWaitingComponent visible />}
+      {url.isEmpty && !url.isRequesting && (
         <div className="new">
           <input
             className="newInput"
@@ -82,7 +83,7 @@ MyUrlComponent.propTypes = {
   strings: propTypes.shape().isRequired,
   start: propTypes.func.isRequired,
   url: propTypes.shape(),
-  receiveContent: propTypes.bool.isRequired,
+  gettingContent: propTypes.bool.isRequired,
   handleSave: propTypes.func.isRequired,
 };
 

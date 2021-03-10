@@ -5,7 +5,7 @@ import { supportedInterfaces, setContentHash } from '../../resolver/operations';
 const mapStateToProps = state => ({
   resolverAddress: state.newAdmin.resolver.resolverAddr,
   domain: state.auth.name,
-  receiveContent: state.newAdmin.resolver.receiveContent,
+  gettingContent: state.newAdmin.resolver.gettingContent,
   url: state.newAdmin.resolver.content.CONTENT_HASH,
 });
 
