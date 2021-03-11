@@ -2,9 +2,9 @@ import {
   REQUEST_RESOLVER, RECEIVE_RESOLVER, REQUEST_SET_RESOLVER, RECEIVE_SET_RESOLVER,
   ERROR_SET_RESOLVER, WAITING_SET_RESOLVER, CLOSE_MESSAGE, REQUEST_CONTENT,
   RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
-  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, CLEAR_ALL_CONTENT, REQUEST_MIGRATE_ADDRESSES,
+  ERROR_SET_CONTENT, CLOSE_SET_CONTENT, REQUEST_SUPPORTED_INTERFACES, REQUEST_MIGRATE_ADDRESSES,
   RECEIVE_MIGRATE_ADDRESSES, ERROR_DECODING_ADDRESS, ERROR_MIGRATE_WITH_ADDRESSES,
-  CLEAR_MIGRATE_CONTENT,
+  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
 } from './types';
 
 export const requestResolver = () => ({
@@ -83,8 +83,8 @@ export const closeSetMessage = contentType => ({
   contentType,
 });
 
-export const clearAllContent = () => ({
-  type: CLEAR_ALL_CONTENT,
+export const requestSupportedInterfaces = () => ({
+  type: REQUEST_SUPPORTED_INTERFACES,
 });
 
 export const requestMigrateAddresses = () => ({
@@ -110,4 +110,8 @@ export const errorMigrateWithAddresses = message => ({
 
 export const clearMigrateContent = () => ({
   type: CLEAR_MIGRATE_CONTENT,
+});
+
+export const receiveSupportedInterfaces = () => ({
+  type: RECEIVE_SUPPORTED_INTERFACES,
 });
