@@ -406,5 +406,11 @@
   "is_wallet_connect_warning": "WalletConnect es un proveedor experimental y no todas las operaciones del administrador de RNS funcionan.",
   "wallet_connect_feature": "Esta funcionalidad no funciona con WalletConnect.",
   "settings": "Ajustes",
-  "subomain_login": "¿Quieres iniciar sesión en este subdominio?"
+  "subomain_login": "¿Quieres iniciar sesión en este subdominio?",
+  "disconnect_wallet": "Desconectar wallet",
+  "connect_wallet": "Conectar wallet",
+  "disconnect_domain": "Desconectarse de este dominio",
+  "my_url": "Mi URL",
+  "decentralized_url": "URL descentralizada",
+  "decentralized_exp": "Aquí puedes setear URLs de servicios de storage descentralizados como IPFS y Swarm. Puedes dar a conocer tu website descentralizado con la ayuda de RNS"
 }
