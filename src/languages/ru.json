@@ -407,5 +407,11 @@
   "is_wallet_connect_warning": "WalletConnect — экспериментальный провайдер, и не все операции RNS Manager работают.",
   "wallet_connect_feature": "Эта функция не работает с WalletConnect.",
   "settings": "Настройки",
-  "subomain_login": "Вы хотите войти в этот поддомен?"
+  "subomain_login": "Вы хотите войти в этот поддомен?",
+  "disconnect_wallet": "Отключить кошелек",
+  "connect_wallet": "Подключить кошелек",
+  "disconnect_domain": "Отключиться от этого домена",
+  "my_url": "Мой URL",
+  "decentralized_url": "Децентрализованный URL",
+  "decentralized_exp": "Здесь вы можете установить URL-адреса из децентрализованных сервисов хранения, таких как IPFS и Swarm. Вы можете разместить свой децентрализованный веб-сайт с помощью RNS"
 }
