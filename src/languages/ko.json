@@ -407,5 +407,11 @@
   "is_wallet_connect_warning": "WalletConnect는 실험적인 제공 서비스이며 일부 RNS 관리자 작업은 실행되지 않습니다.",
   "wallet_connect_feature": "해당 기능은 WalletConnect에서 작동하지 않는 기능입니다.",
   "settings": "설정",
-  "subomain_login": "이 하위 도메인에 로그인 하시겠습니까?"
+  "subomain_login": "이 하위 도메인에 로그인 하시겠습니까?",
+  "disconnect_wallet": "지갑 연결 해제",
+  "connect_wallet": "지갑 연결",
+  "disconnect_domain": "이 도메인에서 연결 해제",
+  "my_url": "내 URL",
+  "decentralized_url": "분산 된 URL",
+  "decentralized_exp": "여기에서 IPFS 및 Swarm과 같은 분산 형 스토리지 서비스에서 URL을 설정할 수 있습니다. RNS의 도움으로 분산 된 웹 사이트를 호스팅 할 수 있습니다."
 }

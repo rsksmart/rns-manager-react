@@ -407,5 +407,11 @@
   "is_wallet_connect_warning": "WalletConnect是实验性的提供商，并非所有RNS Manager操作都能正常运行。",
   "wallet_connect_feature": "此功能不兼容WalletConnect。",
   "settings": "设定值",
-  "subomain_login": "您要登录到该子域吗？"
+  "subomain_login": "您要登录到该子域吗？",
+  "disconnect_wallet": "断开钱包",
+  "connect_wallet": "连接钱包",
+  "disconnect_domain": "断开与此域的连接",
+  "my_url": "我的网址",
+  "decentralized_url": "去中心化网址",
+  "decentralized_exp": "在这里，您可以从分散存储服务（例如IPFS和Swarm）中设置URL。您可以在RNS的帮助下托管分散的网站"
 }
