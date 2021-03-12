@@ -21,12 +21,12 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
       return;
     }
 
-    if (isValidName(search) !== null) {
+    if (isValidName(search.toLowerCase()) !== null) {
       setError(strings.invalid_name);
       return;
     }
 
-    handleClick(search);
+    handleClick(search.toLowerCase());
   };
 
   const handleSearchEnter = (e) => {
@@ -42,6 +42,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
             placeholder={strings.search_placeholder}
             value={search}
             onChange={evt => setSearch(evt.target.value)}
+            autoCapitalize="none"
           />
           <span className="blue">.rsk</span>
         </div>

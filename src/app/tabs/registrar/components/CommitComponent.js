@@ -4,21 +4,44 @@ import propTypes from 'prop-types';
 import {
   Container, Row, Col, Spinner, Button,
 } from 'react-bootstrap';
+import NotEnoughRifComponent from '../../../components/NotEnoughRifComponent';
 
 class CommitComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      checkingBalance: false,
+      hasBalance: true,
+    };
+
+    this.handleCommit = this.handleCommit.bind(this);
+  }
+
   componentDidMount() {
     const { checkIfAlreadyCommitted } = this.props;
     checkIfAlreadyCommitted();
+  }
+
+  handleCommit() {
+    const { checkBalance, doCommitment } = this.props;
+    this.setState({ checkingBalance: true, hasBalance: true });
+
+    checkBalance()
+      .then((response) => {
+        this.setState({ checkingBalance: false });
+        return response ? doCommitment() : this.setState({ hasBalance: false });
+      })
+      .catch(() => this.setState({ checkingBalance: false }));
   }
 
   render() {
     const {
       committing,
       strings,
-      doCommitment,
       committed,
-      hasBalance,
     } = this.props;
+    const { checkingBalance, hasBalance } = this.state;
 
     return (
       <Container>
@@ -27,6 +50,13 @@ class CommitComponent extends Component {
             <p className="explanation">{strings.process_step_1_explanation}</p>
           </div>
         </Row>
+        {!hasBalance && (
+          <Row>
+            <div className="col-md-6 offset-md-3">
+              <NotEnoughRifComponent />
+            </div>
+          </Row>
+        )}
         <Row className="major-section">
           <Col>
             {
@@ -35,8 +65,8 @@ class CommitComponent extends Component {
                 : (
                   <Button
                     className="commitButton"
-                    disabled={committing || committed || !hasBalance}
-                    onClick={doCommitment}
+                    disabled={committing || committed || checkingBalance}
+                    onClick={this.handleCommit}
                   >
                     {strings.process_step_1}
                   </Button>
@@ -60,7 +90,7 @@ CommitComponent.propTypes = {
   checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
-  hasBalance: propTypes.bool.isRequired,
+  checkBalance: propTypes.func.isRequired,
 };
 
 export default multilanguage(CommitComponent);

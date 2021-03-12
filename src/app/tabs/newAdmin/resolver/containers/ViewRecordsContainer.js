@@ -1,30 +1,14 @@
 import { connect } from 'react-redux';
 import { ViewRecordsComponent } from '../components';
-import { supportedInterfaces } from '../operations';
-import { closeMessage } from '../actions';
+import { CONTENT_HASH } from '../types';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
   resolverAddr: state.newAdmin.resolver.resolverAddr,
-  content: state.newAdmin.resolver.content,
-});
-
-const mapDispatchToProps = dispatch => ({
-  start: (resolverAddress, domain) => {
-    dispatch(supportedInterfaces(resolverAddress, domain));
-    dispatch(closeMessage());
-  },
-});
-
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...stateProps,
-  ...dispatchProps,
-  start: () => dispatchProps.start(stateProps.resolverAddr, stateProps.domain),
+  content: Object.entries(state.newAdmin.resolver.content).filter(c => c[0] !== CONTENT_HASH),
+  gettingContent: state.newAdmin.resolver.gettingContent,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps,
 )(ViewRecordsComponent);

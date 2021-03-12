@@ -26,22 +26,19 @@ const LoginFormComponent = ({
     setLocalError('');
   };
 
+  const AddAccountButton = () => (
+    <button type="button" onClick={() => setShowLogin(!showLogin)} className={showLogin && 'active'}>
+      {`+ ${strings.add_account}`}
+    </button>
+  );
+
   if (!showLogin) {
-    return (
-      <div className="loginForm">
-        <Button
-          className="showLogin"
-          onClick={() => setShowLogin(true)}
-        >
-          {'+ '}
-          {strings.add_account}
-        </Button>
-      </div>
-    );
+    return <li className="loginForm"><AddAccountButton /></li>;
   }
 
   return (
-    <div className="loginForm">
+    <li className="loginForm">
+      <AddAccountButton />
       <h3>{strings.your_domain}</h3>
       <form onSubmit={handleLoginClick}>
         <div className="rskinput">
@@ -51,9 +48,7 @@ const LoginFormComponent = ({
           />
           <span>.rsk</span>
         </div>
-        <Button
-          onClick={handleLoginClick}
-        >
+        <Button onClick={handleLoginClick}>
           {strings.enter}
         </Button>
       </form>
@@ -61,8 +56,12 @@ const LoginFormComponent = ({
         && <p className="error">{strings.not_domains_owner_message}</p>
       }
       {localError && <p className="error">{localError}</p>}
-    </div>
+    </li>
   );
+};
+
+LoginFormComponent.defaultProps = {
+  domainInputInitialState: '',
 };
 
 LoginFormComponent.propTypes = {
@@ -76,7 +75,7 @@ LoginFormComponent.propTypes = {
   authError: propTypes.bool.isRequired,
   handleLogin: propTypes.func.isRequired,
   showLoginInitState: propTypes.bool.isRequired,
-  domainInputInitialState: propTypes.string.isRequired,
+  domainInputInitialState: propTypes.string,
 };
 
 export default multilanguage(LoginFormComponent);

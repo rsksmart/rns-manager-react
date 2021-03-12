@@ -7,6 +7,8 @@ import { RentalPeriodContainer } from '../../../registrar/containers';
 import {
   UserErrorComponent, UserSuccessComponent, UserWaitingComponent,
 } from '../../../../components';
+import { NOT_ENOUGH_RIF } from '../types';
+import NotEnoughRifComponent from '../../../../components/NotEnoughRifComponent';
 
 const RenewDomainComponent = (props) => {
   const {
@@ -58,13 +60,14 @@ const RenewDomainComponent = (props) => {
           <p className="explanation break-above">{strings.renew_explanation}</p>
         </Col>
       </Row>
-      {renewError !== '' && (
+      {renewError !== '' && renewError !== NOT_ENOUGH_RIF && (
         <UserErrorComponent
           title="Error"
           message={renewError}
           handleCloseClick={closeRenewError}
         />
       )}
+      {renewError === NOT_ENOUGH_RIF && <NotEnoughRifComponent />}
     </Row>
   );
 };

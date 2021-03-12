@@ -407,5 +407,11 @@
   "is_wallet_connect_warning": "WalletConnectは実験的なプロバイダであり、RNS Managerの全機能はご利用いただけません。",
   "wallet_connect_feature": "本機能は、WalletConnectではご利用いただけません。",
   "settings": "設定",
-  "subomain_login": "このサブドメインにログインしますか？"
+  "subomain_login": "このサブドメインにログインしますか？",
+  "disconnect_wallet": "ウォレットを切断します",
+  "connect_wallet": "ウォレットを接続する",
+  "disconnect_domain": "このドメインから切断します",
+  "my_url": "私のURL",
+  "decentralized_url": "分散型URL",
+  "decentralized_exp": "ここでは、IPFSやSwarmなどの分散ストレージサービスからURLを設定できます。あなたはRNSの助けを借りてあなたの分散型ウェブサイトをホストすることができます"
 }

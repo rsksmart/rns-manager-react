@@ -38,11 +38,11 @@ const Routes = (props) => {
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
       <Route path="/faq" component={FaqTab} />
+      <Route path="/registrar" component={RegistrarTab} />
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
       <Route path="/user" component={UserTab} />
-      <Route path="/registrar" component={RegistrarTab} />
       <Route path="/admin" component={AdminTab} />
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/publicResolver" component={PublicResolverTab} />

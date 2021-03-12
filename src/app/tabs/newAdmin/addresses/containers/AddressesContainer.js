@@ -1,16 +1,12 @@
 import { connect } from 'react-redux';
 import { AddressesComponent } from '../components';
-import { supportedInterfaces } from '../../resolver/operations';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
   resolverName: state.newAdmin.resolver.resolverName,
   resolverAddress: state.newAdmin.resolver.resolverAddr,
   gettingResolver: state.newAdmin.resolver.gettingResolver,
-});
-
-const mapDispatchToProps = dispatch => ({
-  start: (resolverAddress, domain) => dispatch(supportedInterfaces(resolverAddress, domain)),
+  gettingContent: state.newAdmin.resolver.gettingContent,
 });
 
 const mergeProps = (stateProps, dispatchProps) => ({
@@ -19,6 +15,6 @@ const mergeProps = (stateProps, dispatchProps) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
   mergeProps,
 )(AddressesComponent);

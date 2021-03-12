@@ -31,7 +31,7 @@ class RenewComponent extends Component {
 
   render() {
     const {
-      strings, domain, available, domainStateLoading, renewing, doRenew, hasBalance,
+      strings, domain, available, domainStateLoading, renewing, doRenew,
     } = this.props;
     const { invalid } = this.state;
 
@@ -83,7 +83,6 @@ class RenewComponent extends Component {
                 ? <Spinner animation="grow" variant="primary" />
                 : (
                   <Button
-                    disabled={!hasBalance}
                     onClick={doRenew}
                   >
                     {strings.renew}
@@ -109,7 +108,6 @@ RenewComponent.propTypes = {
   domainStateLoading: propTypes.bool.isRequired,
   available: propTypes.bool.isRequired,
   renewing: propTypes.bool.isRequired,
-  hasBalance: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   doRenew: propTypes.func.isRequired,
 };

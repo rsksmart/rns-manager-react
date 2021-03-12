@@ -212,13 +212,13 @@ RegistrarComponent.propTypes = {
   owned: propTypes.bool,
   blocked: propTypes.bool,
   owner: propTypes.string,
-  walletAddress: propTypes.string.isRequired,
+  walletAddress: propTypes.string,
   requestingOwner: propTypes.bool.isRequired,
   getState: propTypes.func.isRequired,
   committed: propTypes.bool.isRequired,
   waiting: propTypes.bool.isRequired,
   canReveal: propTypes.bool.isRequired,
-  revealConfirmed: propTypes.bool.isRequired,
+  revealConfirmed: propTypes.bool,
   checkIfAlreadyRegistered: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
@@ -229,6 +229,8 @@ RegistrarComponent.defaultProps = {
   owned: false,
   blocked: false,
   owner: '',
+  walletAddress: null,
+  revealConfirmed: false,
 };
 
 export default multilanguage(RegistrarComponent);

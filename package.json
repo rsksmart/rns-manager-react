@@ -1,6 +1,6 @@
 {
   "name": "rns-manager-react",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "private": true,
   "license": "MIT",
   "dependencies": {
@@ -49,6 +49,7 @@
     "build:mainnet": "env-cmd -f .env.production react-scripts build",
     "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
+    "cypress": "cypress open",
     "lint": "eslint src"
   },
   "eslintConfig": {
@@ -63,10 +64,12 @@
   "devDependencies": {
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "cypress": "^6.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
