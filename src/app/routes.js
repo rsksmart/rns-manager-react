@@ -14,8 +14,6 @@ import {
   FaqTab,
 } from './tabs';
 
-const NoMatch = () => <p>404! Page not found :(</p>;
-
 const Routes = (props) => {
   const { networkMatch, walletUnlocked, hasContracts } = props;
 
@@ -37,7 +35,7 @@ const Routes = (props) => {
       }
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/notifications" component={NotificationTab} />
-      <Route component={NoMatch} />
+      <Route component={() => <ErrorTab notFound />} />
     </Switch>
   );
 };
