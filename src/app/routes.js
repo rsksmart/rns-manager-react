@@ -8,7 +8,6 @@ import {
   ResolveTab,
   SearchTab,
   RegistrarTab,
-  AdminTab,
   NotificationTab,
   ErrorTab,
   NewAdminTab,
@@ -36,7 +35,6 @@ const Routes = (props) => {
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
-      <Route path="/admin" component={AdminTab} />
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route component={NoMatch} />

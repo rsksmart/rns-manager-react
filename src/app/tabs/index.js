@@ -7,7 +7,6 @@ import newAdmin from './newAdmin';
 import faqTab from './faq';
 
 export default {
-  admin,
   search,
   registrar,
   resolve,
@@ -16,7 +15,6 @@ export default {
   faqTab,
 };
 
-export { AdminTab } from './admin';
 export { NewAdminTab } from './newAdmin';
 export { HomeTab } from './home';
 export { NotificationTab } from './notifications';
