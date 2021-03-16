@@ -13,7 +13,6 @@ import {
   PublicResolverTab,
   MultiChainResolverTab,
   NotificationTab,
-  UserTab,
   RenewTab,
   ErrorTab,
   StringResolverTab,
@@ -42,7 +41,6 @@ const Routes = (props) => {
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
-      <Route path="/user" component={UserTab} />
       <Route path="/admin" component={AdminTab} />
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/publicResolver" component={PublicResolverTab} />

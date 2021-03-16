@@ -37,6 +37,5 @@ export { RegistrarTab } from './registrar';
 export { RenewTab } from './renew';
 export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
-export { UserTab } from './user';
 export { default as ErrorTab } from './error';
 export { default as FaqTab } from './faq';
