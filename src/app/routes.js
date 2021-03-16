@@ -41,7 +41,6 @@ const Routes = (props) => {
       <Route path="/admin" component={AdminTab} />
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/publicResolver" component={PublicResolverTab} />
-      <Route path="/multiChainResolver" component={MultiChainResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route component={NoMatch} />
     </Switch>
