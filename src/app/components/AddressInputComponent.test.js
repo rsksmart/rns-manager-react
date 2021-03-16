@@ -42,14 +42,13 @@ describe('AddressInputComponent', () => {
 
   it('renders without crashing', () => {
     const component = shallow(<AddressInputComponent {...initProps} />);
-    expect(component).toMatchSnapshot();
+    expect(component).toBeDefined();
   });
 
   it('shows confirmation window when delete is clicked', () => {
     const component = shallow(<AddressInputComponent {...initProps} />);
     component.find('button.delete').simulate('click', { currentTarget: { className: 'delete' } });
     expect(component.find('div.delete').length).toBe(1);
-    expect(component).toMatchSnapshot();
   });
 
   it('delete is not shown when allowDelete is false', () => {
