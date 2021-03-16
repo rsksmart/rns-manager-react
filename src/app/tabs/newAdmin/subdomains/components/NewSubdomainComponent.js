@@ -10,9 +10,7 @@ import { validateAddress } from '../../../../validations';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
 import UserSuccessComponent from '../../../../components/UserSuccessComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
-
 import ChecksumErrorComponent from '../../../../components/ChecksumErrorComponent';
-// import { ChecksumErrorContainer } from '../../../../containers';
 import { truncateString } from '../../helpers';
 
 const NewSubdomainComponent = ({

@@ -7,8 +7,6 @@ import {
 
 import rskWallet from '../../../assets/rsk_wallet.png';
 
-
-// eslint-disable-next-line react/prop-types
 const ContainerWrapper = ({ children }) => (
   <Container className="page">
     <Row style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -52,7 +50,9 @@ const ErrorTabComponent = ({
     );
   }
   if (!walletUnlocked) {
-    useState(() => { rLoginConnect(); }, []);
+    useState(() => {
+      rLoginConnect();
+    }, []);
     return (
       <ContainerWrapper>
         <img src={rskWallet} alt="rsk_wallet" width="250px" />
@@ -80,6 +80,10 @@ const ErrorTabComponent = ({
     </ContainerWrapper>
   );
 };
+
+ContainerWrapper.propTypes = ({
+  children: propTypes.node.isRequired,
+});
 
 ErrorTabComponent.defaultProps = {
   walletNetwork: '',
