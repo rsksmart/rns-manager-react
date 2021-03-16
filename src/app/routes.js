@@ -15,7 +15,6 @@ import {
   NotificationTab,
   RenewTab,
   ErrorTab,
-  StringResolverTab,
   NewAdminTab,
   FaqTab,
 } from './tabs';
@@ -45,7 +44,6 @@ const Routes = (props) => {
       <Route path="/newAdmin" component={NewAdminTab} />
       <Route path="/publicResolver" component={PublicResolverTab} />
       <Route path="/multiChainResolver" component={MultiChainResolverTab} />
-      <Route path="/stringResolver" component={StringResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
       <Route path="/renew" component={RenewTab} />
