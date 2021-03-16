@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   HomeTab,
   SetUpTab,
-  NoMetamaskTab,
   ResolveTab,
   SearchTab,
   RegistrarTab,
@@ -44,7 +43,6 @@ const Routes = (props) => {
       <Route path="/publicResolver" component={PublicResolverTab} />
       <Route path="/multiChainResolver" component={MultiChainResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
-      <Route path="/wallets" component={NoMetamaskTab} />
       <Route component={NoMatch} />
     </Switch>
   );

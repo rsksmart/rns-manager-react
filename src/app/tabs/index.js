@@ -29,7 +29,6 @@ export { MultiChainResolverTab } from './multiChainResolver';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { RegistrarTab } from './registrar';
-export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { default as ErrorTab } from './error';
 export { default as FaqTab } from './faq';
