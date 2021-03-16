@@ -4,7 +4,6 @@ import multiChainResolver from './multiChainResolver';
 import resolve from './resolve';
 import search from './search';
 import registrar from './registrar';
-import renew from './renew';
 import error from './error';
 import newAdmin from './newAdmin';
 import faqTab from './faq';
@@ -16,7 +15,6 @@ export default {
   search,
   registrar,
   resolve,
-  renew,
   error,
   newAdmin,
   faqTab,
@@ -31,7 +29,6 @@ export { MultiChainResolverTab } from './multiChainResolver';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { RegistrarTab } from './registrar';
-export { RenewTab } from './renew';
 export { default as NoMetamaskTab } from './NoMetamaskTab';
 export { default as SetUpTab } from './SetUpTab';
 export { default as ErrorTab } from './error';

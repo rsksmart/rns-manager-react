@@ -13,7 +13,6 @@ import {
   PublicResolverTab,
   MultiChainResolverTab,
   NotificationTab,
-  RenewTab,
   ErrorTab,
   NewAdminTab,
   FaqTab,
@@ -46,7 +45,6 @@ const Routes = (props) => {
       <Route path="/multiChainResolver" component={MultiChainResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
       <Route path="/wallets" component={NoMetamaskTab} />
-      <Route path="/renew" component={RenewTab} />
       <Route component={NoMatch} />
     </Switch>
   );
