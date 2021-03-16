@@ -5,7 +5,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 
 import { validateAddress } from '../../../../validations';
 import { UserErrorComponent, UserWaitingComponent } from '../../../../components';
-import { ChecksumErrorContainer } from '../../../../containers';
+import ChecksumErrorComponent from '../../../../components/ChecksumErrorComponent';
 import { getChainNameById } from '../operations';
 import { truncateString } from '../../helpers';
 
@@ -152,7 +152,7 @@ const AddNewAddressComponent = ({
 
       {checksumError
         && (
-          <ChecksumErrorContainer
+          <ChecksumErrorComponent
             show={checksumError}
             inputValue={address}
             handleClick={handleChecksumClick}

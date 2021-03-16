@@ -5,7 +5,7 @@ import { toChecksumAddress } from 'rskjs-util';
 
 import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
 import { validateAddress } from '../validations';
-import { ChecksumErrorContainer } from '../containers';
+import ChecksumErrorComponent from './ChecksumErrorComponent';
 import UserErrorComponent from './UserErrorComponent';
 import UserSuccessComponent from './UserSuccessComponent';
 import UserWaitingComponent from './UserWaitingComponent';
@@ -209,7 +209,7 @@ const AddressInputComponent = ({
         )
       }
 
-      <ChecksumErrorContainer
+      <ChecksumErrorComponent
         show={isChecksumError}
         inputValue={editText}
         handleClick={() => handleChecksumClick()}

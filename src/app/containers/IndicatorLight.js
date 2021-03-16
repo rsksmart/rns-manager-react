@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { IndicatorLight } from '../components';
+import IndicatorLight from '../components/IndicatorLight';
 
 const mapStateToProps = state => ({
   networkMatch: state.auth.networkMatch,

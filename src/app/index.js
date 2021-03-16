@@ -1,7 +1,8 @@
 import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import Routes from './routes';
-import { HeaderContainer, FooterContainer } from './containers';
+import FooterContainer from './containers/FooterContainer';
+import HeaderContainer from './containers/HeaderContainer';
 import { ScrollToTopComponent } from './components';
 import { AuthModal } from './auth';
 

@@ -1,4 +1,3 @@
-import * as ugg from '../containers';
 import resolve from './resolve';
 import search from './search';
 import registrar from './registrar';

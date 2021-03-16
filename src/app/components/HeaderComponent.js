@@ -6,7 +6,8 @@ import {
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo.svg';
-import { LanguageSelectContainer, IndicatorLight } from '../containers';
+import LanguageSelectContainer from '../containers/LanguageSelectContainer';
+import IndicatorLight from '../containers/IndicatorLight';
 import { LoginDropdownContainer } from '../auth/containers';
 
 const HeaderComponent = (props) => {
