@@ -4,7 +4,6 @@ import { Switch, Route, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {
   HomeTab,
-  SetUpTab,
   ResolveTab,
   SearchTab,
   RegistrarTab,
@@ -25,7 +24,6 @@ const Routes = (props) => {
         !hasContracts && <Route component={ErrorTab} />
       }
       <Route exact path="/" component={HomeTab} />
-      <Route path="/setup" component={SetUpTab} />
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
       <Route path="/faq" component={FaqTab} />

@@ -20,6 +20,5 @@ export { NotificationTab } from './notifications';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';
 export { RegistrarTab } from './registrar';
-export { default as SetUpTab } from './SetUpTab';
 export { default as ErrorTab } from './error/ErrorTabContainer';
 export { default as FaqTab } from './faq';
