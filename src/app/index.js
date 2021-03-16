@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import Routes from './routes';
-import FooterContainer from './containers/FooterContainer';
+import FooterComponent from './components/FooterComponent';
 import HeaderContainer from './containers/HeaderContainer';
 import { ScrollToTopComponent } from './components';
 import { AuthModal } from './auth';
@@ -15,7 +15,7 @@ const App = ({ history }) => (
       <HeaderContainer />
       <Routes />
       <AuthModal />
-      <FooterContainer />
+      <FooterComponent />
     </React.Fragment>
   </ConnectedRouter>
 );

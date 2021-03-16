@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { isValidName } from '../../../validations';
-import { RegisterProcessContainer } from '../../../containers';
+import RegisterProcessComponent from '../../../components/RegisterProcessComponent';
 
 // eslint-disable-next-line max-len
 function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requestingOwner, requestingCost, rifCost, registerDomain, strings) {
@@ -168,7 +168,7 @@ class DomainStateComponent extends Component {
             <Button variant="primary-rif" className="mt-5" onClick={this.changeShowProcess}>
               {!showProcess ? strings.learn_about_process : strings.hide}
             </Button>
-            {showProcess && <RegisterProcessContainer />}
+            {showProcess && <RegisterProcessComponent />}
           </Col>
         </Row>
       </Container>
