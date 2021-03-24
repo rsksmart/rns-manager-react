@@ -16,7 +16,7 @@ import { rifAbi } from '../../registrar/abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
 
-import { getRenewData } from '../../renew/helpers';
+import { getRenewData } from './helpers';
 import transactionListener from '../../../helpers/transactionListener';
 
 import {

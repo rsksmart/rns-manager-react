@@ -6,15 +6,13 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { networkSelector } from '../selectors';
 
-const IndicatorLight = (props) => {
-  const {
-    networkMatch,
-    network,
-    strings,
-    hasWeb3Provider,
-    walletUnlocked,
-  } = props;
-
+const IndicatorLight = ({
+  networkMatch,
+  network,
+  strings,
+  hasWeb3Provider,
+  walletUnlocked,
+}) => {
   let className = '';
   let popup = strings.connected_successful;
   let networkString = networkSelector(network);
