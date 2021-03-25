@@ -1,6 +1,6 @@
 import { changeLanguage } from 'redux-multilanguage';
 import { connect } from 'react-redux';
-import { LanguageSelectComponent } from '../components';
+import LanguageSelectComponent from '../components/LanguageSelectComponent';
 
 const mapStateToProps = state => ({
   language: state.multilanguage.currentLanguageCode,

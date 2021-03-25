@@ -4,24 +4,14 @@ import { Switch, Route, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {
   HomeTab,
-  SetUpTab,
-  NoMetamaskTab,
   ResolveTab,
   SearchTab,
   RegistrarTab,
-  AdminTab,
-  PublicResolverTab,
-  MultiChainResolverTab,
   NotificationTab,
-  UserTab,
-  RenewTab,
   ErrorTab,
-  StringResolverTab,
   NewAdminTab,
   FaqTab,
 } from './tabs';
-
-const NoMatch = () => <p>404! Page not found :(</p>;
 
 const Routes = (props) => {
   const { networkMatch, walletUnlocked, hasContracts } = props;
@@ -34,7 +24,6 @@ const Routes = (props) => {
         !hasContracts && <Route component={ErrorTab} />
       }
       <Route exact path="/" component={HomeTab} />
-      <Route path="/setup" component={SetUpTab} />
       <Route path="/search" component={SearchTab} />
       <Route path="/resolve" component={ResolveTab} />
       <Route path="/faq" component={FaqTab} />
@@ -42,16 +31,9 @@ const Routes = (props) => {
       {
         notLoggedIn && <Route component={ErrorTab} />
       }
-      <Route path="/user" component={UserTab} />
-      <Route path="/admin" component={AdminTab} />
       <Route path="/newAdmin" component={NewAdminTab} />
-      <Route path="/publicResolver" component={PublicResolverTab} />
-      <Route path="/multiChainResolver" component={MultiChainResolverTab} />
-      <Route path="/stringResolver" component={StringResolverTab} />
       <Route path="/notifications" component={NotificationTab} />
-      <Route path="/wallets" component={NoMetamaskTab} />
-      <Route path="/renew" component={RenewTab} />
-      <Route component={NoMatch} />
+      <Route component={() => <ErrorTab notFound />} />
     </Switch>
   );
 };

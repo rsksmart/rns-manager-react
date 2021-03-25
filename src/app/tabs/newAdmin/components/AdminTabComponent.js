@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Switch, Route } from 'react-router';
 
 import { AuthTabWrapper } from '../../../auth';
-import { ToggleContainer } from '../../../containers';
+import ToggleComponent from '../../../components/ToggleComponent';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 import {
@@ -46,7 +46,7 @@ const AdminComponent = ({
       <div className="admin">
         <Row>
           <Col md={12}>
-            <ToggleContainer
+            <ToggleComponent
               labelLeft={strings.basic}
               labelRight={strings.advanced}
               value={advancedView}
