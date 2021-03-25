@@ -227,7 +227,7 @@ export const disconnectDomain = (domain, isCurrent) => (dispatch) => {
 
 export const start = (callback, callbackError) => (dispatch) => {
   if (!window.rLogin) {
-    return rLogin.connect().then((provider) => {
+    return rLogin.connect().then(response => response.provider).then((provider) => {
       window.rLogin = provider;
 
       provider.on('accountsChanged', () => dispatch(startWithRLogin(callback)));
