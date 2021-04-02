@@ -44,28 +44,41 @@ class RegistrarComponent extends Component {
       committed,
       waiting,
       revealConfirmed,
+      domain,
     } = this.props;
     const activeClass = 'btn-active';
     const defaultClass = 'btn-outline-primary';
 
     return (
-      <ul className="list-inline steps">
-        <li>
-          <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
-            {`1. ${strings.request_domain}`}
+      <>
+        <div className="row">
+          <div className="col-md-12">
+            <h1 className="sub-heading">
+              {strings.registering}
+              {': '}
+              <br />
+              <span className="domain">{`${domain}.rsk`}</span>
+            </h1>
           </div>
-        </li>
-        <li>
-          <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
-            {`2. ${strings.register_domain}`}
-          </div>
-        </li>
-        <li>
-          <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
-            {`3. ${strings.login}`}
-          </div>
-        </li>
-      </ul>
+        </div>
+        <ul className="list-inline steps">
+          <li>
+            <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
+              {`1. ${strings.request_domain}`}
+            </div>
+          </li>
+          <li>
+            <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
+              {`2. ${strings.register_domain}`}
+            </div>
+          </li>
+          <li>
+            <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
+              {`3. ${strings.login}`}
+            </div>
+          </li>
+        </ul>
+      </>
     );
   }
 
@@ -77,15 +90,17 @@ class RegistrarComponent extends Component {
     } = this.props;
     const { invalid } = this.state;
 
-    let elementToRender;
-
     if (invalid) {
-      elementToRender = <h4>{invalid}</h4>;
-    } else if (domainStateLoading || requestingOwner) {
-      elementToRender = <UserWaitingComponent visible />;
-    } else if (owned) {
+      return <h4>{invalid}</h4>;
+    }
+
+    if (domainStateLoading || requestingOwner) {
+      return <UserWaitingComponent visible />;
+    }
+
+    if (owned) {
       const isOwner = walletAddress === owner.toLowerCase();
-      elementToRender = (
+      return (
         <Container className="page">
           <Card>
             <Card.Header>{strings.owned}</Card.Header>
@@ -105,26 +120,16 @@ class RegistrarComponent extends Component {
           </Card>
         </Container>
       );
-    } else if (blocked) {
-      elementToRender = <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
-    } else {
-      const domainDisplay = `${domain}.rsk`;
+    }
+    if (blocked) {
+      return <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
+    }
 
-      elementToRender = (
-        <Container className="register page">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="sub-heading">
-                {strings.registering}
-                {': '}
-                <br />
-                <span className="domain">{domainDisplay}</span>
-              </h1>
-            </div>
-          </div>
-          {this.stepsMenu()}
+    return (
+      <Container className="register page">
+        {this.stepsMenu()}
 
-          {!committed
+        {!committed
             && (
             <div className="requestDomain row">
               <div className="col-md-6 offset-md-3">
@@ -135,52 +140,45 @@ class RegistrarComponent extends Component {
             )
           }
 
-          {waiting && (
-            <>
-              <LoadingContainer />
-              <TextRotationComponent
-                messages={shuffle(keyMessages)}
-                language={language}
-                heading={strings.did_you_know}
-                timer={6000}
-              />
-              <p style={{ marginTop: '50px' }}>
-                <a
-                  href="https://hackmd.io/@ilanolkies/rns-user-guide"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {strings.download_guide}
-                </a>
-              </p>
-            </>
-          )}
+        {waiting && (
+        <>
+          <LoadingContainer />
+          <TextRotationComponent
+            messages={shuffle(keyMessages)}
+            language={language}
+            heading={strings.did_you_know}
+            timer={6000}
+          />
+          <p style={{ marginTop: '50px' }}>
+            <a
+              href="https://hackmd.io/@ilanolkies/rns-user-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {strings.download_guide}
+            </a>
+          </p>
+        </>
+        )}
 
-          {(canReveal && !revealConfirmed)
+        {(canReveal && !revealConfirmed)
             && (
             <RevealContainer />
             )
           }
 
-          {revealConfirmed
+        {revealConfirmed
             && (
               <AutoLoginComponent />
             )
           }
 
-          <UserErrorComponent
-            visible={errorMessage !== ''}
-            message={errorMessage}
-            handleCloseClick={handleCloseClick}
-          />
-        </Container>
-      );
-    }
-
-    return (
-      <div>
-        {elementToRender}
-      </div>
+        <UserErrorComponent
+          visible={errorMessage !== ''}
+          message={errorMessage}
+          handleCloseClick={handleCloseClick}
+        />
+      </Container>
     );
   }
 }

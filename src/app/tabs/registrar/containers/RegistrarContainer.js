@@ -2,7 +2,7 @@ import { parse } from 'query-string';
 import { connect } from 'react-redux';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
-import { checkIfAlreadyRegistered } from '../operations';
+import { checkIfInProgress, checkIfAlreadyRegistered } from '../operations';
 import { closeErrorMessage } from '../actions';
 
 const mapStateToProps = state => ({
@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
-  checkIfAlreadyRegistered: domain => dispatch(checkIfAlreadyRegistered(domain)),
+  checkIfAlreadyRegistered: domain => dispatch(checkIfInProgress(domain)),
   handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 

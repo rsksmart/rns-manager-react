@@ -312,3 +312,39 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
       }
     });
 };
+
+/**
+ * All in one function to check if registration is in progress. If so, check if rLogin exists first!
+ * @param {*} domain Domain to be registered.
+ * @returns 
+ */
+export const checkIfInProgress = domain => (dispatch) => {
+  console.log('checking in progress!');
+  const options = localStorage.getItem(`${domain}-options`);
+
+  if (!options) {
+    console.log(`Options for ${domain} were not found`);
+    return dispatch(optionsNotFound());
+  }
+
+  console.log('options:', options);
+  const callback = () => {
+    console.log('callback');
+    const parsed = JSON.parse(options);
+    console.log('parsed', parsed);
+    if (parsed.registerHash) {
+      console.log('has hash');
+      return dispatch(checkIfAlreadyRegistered(domain, null));
+    }
+    console.log('no hash');
+    return dispatch(checkIfAlreadyCommitted(domain));
+  };
+
+  if (window.rLogin) {
+    callback();
+  } else {
+    dispatch(start(callback));
+  }
+
+  // return window.rLogin ? callback() : dispatch(start(callback));
+};
