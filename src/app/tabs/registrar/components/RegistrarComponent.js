@@ -12,6 +12,7 @@ import TextRotationComponent from '../../../components/TextRotationComponent';
 import keyMessages from '../../../../languages/key_messges.json';
 import { UserWaitingComponent } from '../../../components';
 import OwnedDomain from './OwnedDomain';
+import StepsMenu from './StepsMenu';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -20,8 +21,6 @@ class RegistrarComponent extends Component {
     this.state = {
       invalid: null,
     };
-
-    this.stepsMenu = this.stepsMenu.bind(this);
   }
 
   componentDidMount() {
@@ -35,50 +34,6 @@ class RegistrarComponent extends Component {
     const invalid = isValidName(domain);
     this.setState({ invalid });
     return !invalid;
-  }
-
-  stepsMenu() {
-    const {
-      strings,
-      committed,
-      waiting,
-      revealConfirmed,
-      domain,
-    } = this.props;
-    const activeClass = 'btn-active';
-    const defaultClass = 'btn-outline-primary';
-
-    return (
-      <>
-        <div className="row">
-          <div className="col-md-12">
-            <h1 className="sub-heading">
-              {strings.registering}
-              {': '}
-              <br />
-              <span className="domain">{`${domain}.rsk`}</span>
-            </h1>
-          </div>
-        </div>
-        <ul className="list-inline steps">
-          <li>
-            <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
-              {`1. ${strings.request_domain}`}
-            </div>
-          </li>
-          <li>
-            <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
-              {`2. ${strings.register_domain}`}
-            </div>
-          </li>
-          <li>
-            <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
-              {`3. ${strings.login}`}
-            </div>
-          </li>
-        </ul>
-      </>
-    );
   }
 
   render() {
@@ -102,7 +57,8 @@ class RegistrarComponent extends Component {
         <OwnedDomain
           domain={domain}
           owner={owner}
-          isOwner={walletAddress === owner.toLowerCase()} />
+          isOwner={walletAddress === owner.toLowerCase()}
+        />
       );
     }
     if (blocked) {
@@ -111,7 +67,12 @@ class RegistrarComponent extends Component {
 
     return (
       <Container className="register page">
-        {this.stepsMenu()}
+        <StepsMenu
+          committed={committed}
+          waiting={waiting}
+          revealConfirmed={revealConfirmed}
+          domain={domain}
+        />
 
         {!committed
             && (
