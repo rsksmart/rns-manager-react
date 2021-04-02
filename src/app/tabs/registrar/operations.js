@@ -282,18 +282,9 @@ export const revealCommit = domain => async (dispatch) => {
 };
 
 export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
-  let options = localStorage.getItem(`${domain}-options`);
-  options = JSON.parse(options);
-  if (!options) {
-    return dispatch(optionsNotFound());
-  }
-
-  if (!options.registerHash) {
-    return false;
-  }
+  const options = JSON.parse(localStorage.getItem(`${domain}-options`));
 
   const web3 = new Web3(window.rLogin);
-
   return web3.eth.getTransactionReceipt(options.registerHash)
     .then((result) => {
       let intervalId = intId;
@@ -315,36 +306,31 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
 
 /**
  * All in one function to check if registration is in progress. If so, check if rLogin exists first!
- * @param {*} domain Domain to be registered.
- * @returns 
+ * This function is only continued if the browser was refreshed.
+ * @param {string} domain Domain to be registered
  */
 export const checkIfInProgress = domain => (dispatch) => {
-  console.log('checking in progress!');
   const options = localStorage.getItem(`${domain}-options`);
 
+  // no domain registration is in process
   if (!options) {
-    console.log(`Options for ${domain} were not found`);
     return dispatch(optionsNotFound());
   }
 
-  console.log('options:', options);
   const callback = () => {
-    console.log('callback');
     const parsed = JSON.parse(options);
-    console.log('parsed', parsed);
+
+    // step 2, registering domain:
     if (parsed.registerHash) {
-      console.log('has hash');
-      return dispatch(checkIfAlreadyRegistered(domain, null));
+      dispatch(receiveCommitRegistrar(parsed.registerHash, true));
+      dispatch(receiveCanRevealCommit(true));
+      return dispatch(checkIfAlreadyRegistered(domain));
     }
-    console.log('no hash');
+
+    // Step 1, requesting domain:
     return dispatch(checkIfAlreadyCommitted(domain));
   };
 
-  if (window.rLogin) {
-    callback();
-  } else {
-    dispatch(start(callback));
-  }
-
-  // return window.rLogin ? callback() : dispatch(start(callback));
+  // if rLogin does not exist, start with the modal:
+  return (window.rLogin) ? callback() : dispatch(start(callback));
 };
