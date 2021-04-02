@@ -2,7 +2,7 @@ import { parse } from 'query-string';
 import { connect } from 'react-redux';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
-import { checkIfInProgress, checkIfAlreadyRegistered } from '../operations';
+import { checkIfInProgress } from '../operations';
 import { closeErrorMessage } from '../actions';
 
 const mapStateToProps = state => ({
