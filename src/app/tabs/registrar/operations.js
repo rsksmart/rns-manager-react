@@ -63,10 +63,10 @@ export const getConversionRate = () => async (dispatch) => {
   dispatch(requestConversionRate());
 
   return new Promise((resolve) => {
-    fetch('https://rskgasstation.azurewebsites.net/converter/cmc')
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=rif-token&vs_currencies=usd')
       .then(res => res.json())
       .then(data => resolve(dispatch(
-        recieveConversionRate(parseFloat(data.data[3701].quote.USD.price)),
+        recieveConversionRate(parseFloat(data['rif-token'].usd)),
       )))
       .catch(() => dispatch(errorConversionRate()));
   });
