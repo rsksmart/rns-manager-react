@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Link } from 'react-router-dom';
-import { Container, Card, Spinner } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 import {
   RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
@@ -12,6 +12,7 @@ import UserErrorComponent from '../../../components/UserErrorComponent';
 import { shuffle } from '../helpers';
 import TextRotationComponent from '../../../components/TextRotationComponent';
 import keyMessages from '../../../../languages/key_messges.json';
+import { UserWaitingComponent } from '../../../components';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -80,40 +81,30 @@ class RegistrarComponent extends Component {
 
     if (invalid) {
       elementToRender = <h4>{invalid}</h4>;
-    } else if (domainStateLoading) {
-      elementToRender = <Spinner animation="grow" variant="primary" />;
+    } else if (domainStateLoading || requestingOwner) {
+      elementToRender = <UserWaitingComponent visible />;
     } else if (owned) {
-      if (requestingOwner) {
-        elementToRender = (
-          <Card.Text>
-            {strings.owned}
-            <br />
-            <Spinner animation="grow" variant="primary" />
-          </Card.Text>
-        );
-      } else {
-        const isOwner = walletAddress === owner.toLowerCase();
-        elementToRender = (
-          <Container className="page">
-            <Card>
-              <Card.Header>{strings.owned}</Card.Header>
-              <Card.Body>
-                <p>
-                  <strong>
-                    {strings.owner}
-                    {': '}
-                  </strong>
-                  {owner}
-                </p>
-                <p>
-                  {isOwner && <StartButtonContainer />}
-                  {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
-                </p>
-              </Card.Body>
-            </Card>
-          </Container>
-        );
-      }
+      const isOwner = walletAddress === owner.toLowerCase();
+      elementToRender = (
+        <Container className="page">
+          <Card>
+            <Card.Header>{strings.owned}</Card.Header>
+            <Card.Body>
+              <p>
+                <strong>
+                  {strings.owner}
+                  {': '}
+                </strong>
+                {owner}
+              </p>
+              <p>
+                {isOwner && <StartButtonContainer />}
+                {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
+              </p>
+            </Card.Body>
+          </Card>
+        </Container>
+      );
     } else if (blocked) {
       elementToRender = <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
     } else {
