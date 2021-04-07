@@ -63,10 +63,10 @@ export const getConversionRate = () => async (dispatch) => {
   dispatch(requestConversionRate());
 
   return new Promise((resolve) => {
-    fetch('https://rskgasstation.azurewebsites.net/converter/cmc')
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=rif-token&vs_currencies=usd')
       .then(res => res.json())
       .then(data => resolve(dispatch(
-        recieveConversionRate(parseFloat(data.data[3701].quote.USD.price)),
+        recieveConversionRate(parseFloat(data['rif-token'].usd)),
       )))
       .catch(() => dispatch(errorConversionRate()));
   });
@@ -282,18 +282,9 @@ export const revealCommit = domain => async (dispatch) => {
 };
 
 export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
-  let options = localStorage.getItem(`${domain}-options`);
-  options = JSON.parse(options);
-  if (!options) {
-    return dispatch(optionsNotFound());
-  }
-
-  if (!options.registerHash) {
-    return false;
-  }
+  const options = JSON.parse(localStorage.getItem(`${domain}-options`));
 
   const web3 = new Web3(window.rLogin);
-
   return web3.eth.getTransactionReceipt(options.registerHash)
     .then((result) => {
       let intervalId = intId;
@@ -311,4 +302,35 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
         intervalId = setInterval(checkAgain, 5000);
       }
     });
+};
+
+/**
+ * All in one function to check if registration is in progress. If so, check if rLogin exists first!
+ * This function is only continued if the browser was refreshed.
+ * @param {string} domain Domain to be registered
+ */
+export const checkIfInProgress = domain => (dispatch) => {
+  const options = localStorage.getItem(`${domain}-options`);
+
+  // no domain registration is in process
+  if (!options) {
+    return dispatch(optionsNotFound());
+  }
+
+  const callback = () => {
+    const parsed = JSON.parse(options);
+
+    // step 2, registering domain:
+    if (parsed.registerHash) {
+      dispatch(receiveCommitRegistrar(parsed.registerHash, true));
+      dispatch(receiveCanRevealCommit(true));
+      return dispatch(checkIfAlreadyRegistered(domain));
+    }
+
+    // Step 1, requesting domain:
+    return dispatch(checkIfAlreadyCommitted(domain));
+  };
+
+  // if rLogin does not exist, start with the modal:
+  return (window.rLogin) ? callback() : dispatch(start(callback));
 };

@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Link } from 'react-router-dom';
-import { Container, Card, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import {
   RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
 } from '../containers';
 import { isValidName } from '../../../validations';
-import { StartButtonContainer } from '../../../auth/containers';
 import UserErrorComponent from '../../../components/UserErrorComponent';
 import { shuffle } from '../helpers';
 import TextRotationComponent from '../../../components/TextRotationComponent';
 import keyMessages from '../../../../languages/key_messges.json';
+import { UserWaitingComponent } from '../../../components';
+import OwnedDomain from './OwnedDomain';
+import StepsMenu from './StepsMenu';
 
 class RegistrarComponent extends Component {
   constructor(props) {
@@ -20,8 +21,6 @@ class RegistrarComponent extends Component {
     this.state = {
       invalid: null,
     };
-
-    this.stepsMenu = this.stepsMenu.bind(this);
   }
 
   componentDidMount() {
@@ -37,37 +36,6 @@ class RegistrarComponent extends Component {
     return !invalid;
   }
 
-  stepsMenu() {
-    const {
-      strings,
-      committed,
-      waiting,
-      revealConfirmed,
-    } = this.props;
-    const activeClass = 'btn-active';
-    const defaultClass = 'btn-outline-primary';
-
-    return (
-      <ul className="list-inline steps">
-        <li>
-          <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
-            {`1. ${strings.request_domain}`}
-          </div>
-        </li>
-        <li>
-          <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
-            {`2. ${strings.register_domain}`}
-          </div>
-        </li>
-        <li>
-          <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
-            {`3. ${strings.login}`}
-          </div>
-        </li>
-      </ul>
-    );
-  }
-
   render() {
     const {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
@@ -76,64 +44,37 @@ class RegistrarComponent extends Component {
     } = this.props;
     const { invalid } = this.state;
 
-    let elementToRender;
-
     if (invalid) {
-      elementToRender = <h4>{invalid}</h4>;
-    } else if (domainStateLoading) {
-      elementToRender = <Spinner animation="grow" variant="primary" />;
-    } else if (owned) {
-      if (requestingOwner) {
-        elementToRender = (
-          <Card.Text>
-            {strings.owned}
-            <br />
-            <Spinner animation="grow" variant="primary" />
-          </Card.Text>
-        );
-      } else {
-        const isOwner = walletAddress === owner.toLowerCase();
-        elementToRender = (
-          <Container className="page">
-            <Card>
-              <Card.Header>{strings.owned}</Card.Header>
-              <Card.Body>
-                <p>
-                  <strong>
-                    {strings.owner}
-                    {': '}
-                  </strong>
-                  {owner}
-                </p>
-                <p>
-                  {isOwner && <StartButtonContainer />}
-                  {!isOwner && <Link to={`/resolve?name=${domain}.rsk`} className="btn btn-primary">{strings.resolve}</Link> }
-                </p>
-              </Card.Body>
-            </Card>
-          </Container>
-        );
-      }
-    } else if (blocked) {
-      elementToRender = <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
-    } else {
-      const domainDisplay = `${domain}.rsk`;
+      return <h4>{invalid}</h4>;
+    }
 
-      elementToRender = (
-        <Container className="register page">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="sub-heading">
-                {strings.registering}
-                {': '}
-                <br />
-                <span className="domain">{domainDisplay}</span>
-              </h1>
-            </div>
-          </div>
-          {this.stepsMenu()}
+    if (domainStateLoading || requestingOwner) {
+      return <UserWaitingComponent visible />;
+    }
 
-          {!committed
+    if (owned) {
+      return (
+        <OwnedDomain
+          domain={domain}
+          owner={owner}
+          isOwner={walletAddress === owner.toLowerCase()}
+        />
+      );
+    }
+    if (blocked) {
+      return <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
+    }
+
+    return (
+      <Container className="register page">
+        <StepsMenu
+          committed={committed}
+          waiting={waiting}
+          revealConfirmed={revealConfirmed}
+          domain={domain}
+        />
+
+        {!committed
             && (
             <div className="requestDomain row">
               <div className="col-md-6 offset-md-3">
@@ -144,52 +85,45 @@ class RegistrarComponent extends Component {
             )
           }
 
-          {waiting && (
-            <>
-              <LoadingContainer />
-              <TextRotationComponent
-                messages={shuffle(keyMessages)}
-                language={language}
-                heading={strings.did_you_know}
-                timer={6000}
-              />
-              <p style={{ marginTop: '50px' }}>
-                <a
-                  href="https://hackmd.io/@ilanolkies/rns-user-guide"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {strings.download_guide}
-                </a>
-              </p>
-            </>
-          )}
+        {waiting && (
+        <>
+          <LoadingContainer />
+          <TextRotationComponent
+            messages={shuffle(keyMessages)}
+            language={language}
+            heading={strings.did_you_know}
+            timer={6000}
+          />
+          <p style={{ marginTop: '50px' }}>
+            <a
+              href="https://hackmd.io/@ilanolkies/rns-user-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {strings.download_guide}
+            </a>
+          </p>
+        </>
+        )}
 
-          {(canReveal && !revealConfirmed)
+        {(canReveal && !revealConfirmed)
             && (
             <RevealContainer />
             )
           }
 
-          {revealConfirmed
+        {revealConfirmed
             && (
               <AutoLoginComponent />
             )
           }
 
-          <UserErrorComponent
-            visible={errorMessage !== ''}
-            message={errorMessage}
-            handleCloseClick={handleCloseClick}
-          />
-        </Container>
-      );
-    }
-
-    return (
-      <div>
-        {elementToRender}
-      </div>
+        <UserErrorComponent
+          visible={errorMessage !== ''}
+          message={errorMessage}
+          handleCloseClick={handleCloseClick}
+        />
+      </Container>
     );
   }
 }

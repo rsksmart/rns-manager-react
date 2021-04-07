@@ -18,11 +18,6 @@ class CommitComponent extends Component {
     this.handleCommit = this.handleCommit.bind(this);
   }
 
-  componentDidMount() {
-    const { checkIfAlreadyCommitted } = this.props;
-    checkIfAlreadyCommitted();
-  }
-
   handleCommit() {
     const { checkBalance, doCommitment } = this.props;
     this.setState({ checkingBalance: true, hasBalance: true });
@@ -87,7 +82,6 @@ CommitComponent.propTypes = {
     auto_address_explanation: propTypes.string.isRequired,
   }).isRequired,
   doCommitment: propTypes.func.isRequired,
-  checkIfAlreadyCommitted: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
   checkBalance: propTypes.func.isRequired,
