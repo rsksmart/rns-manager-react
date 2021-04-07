@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
 import { CommitComponent } from '../components';
-import { commit, checkIfAlreadyCommitted, hasEnoughRif } from '../operations';
+import { commit, checkIfInProgress, hasEnoughRif } from '../operations';
 import { toggleSetupAddr } from '../actions';
 
 const mapStateToProps = state => ({
@@ -14,13 +14,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  doCommitment: (domain, duration, rifCost, setupAddr) => dispatch(commit(
-    domain,
-    duration,
-    rifCost,
-    setupAddr,
-  )),
-  checkIfAlreadyCommitted: domain => dispatch(checkIfAlreadyCommitted(domain)),
+  doCommitment: (domain, duration, rifCost, setupAddr) => {
+    if (localStorage.getItem(`${domain}-options`)) {
+      dispatch(checkIfInProgress(domain));
+    } else {
+      dispatch(commit(domain, duration, rifCost, setupAddr));
+    }
+  },
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
   hasEnoughRif: cost => dispatch(hasEnoughRif(cost)),
 });
@@ -34,7 +34,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     stateProps.rifCost,
     stateProps.setupAddr,
   ),
-  checkIfAlreadyCommitted: () => dispatchProps.checkIfAlreadyCommitted(stateProps.domain),
   toggleSetupAddr: () => dispatchProps.toggleSetupAddr(stateProps.setupAddr),
   checkBalance: () => dispatchProps.hasEnoughRif(stateProps.rifCost),
 });
