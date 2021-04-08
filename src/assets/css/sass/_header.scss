@@ -65,7 +65,7 @@
   }
   .btn-primary:hover:not([disabled]) {
     background: none !important;
-    border: none !important;
+    border-color: $blue !important;
     color: #ffffff;
   }
 
