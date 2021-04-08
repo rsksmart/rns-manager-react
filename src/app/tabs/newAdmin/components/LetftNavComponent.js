@@ -35,10 +35,10 @@ const LeftNavComponent = (props) => {
 
           {ListItemLink('addresses', strings.your_addresses)}
           {ListItemLink('subdomains', strings.subdomains)}
+          {ListItemLink('myurl', strings.my_url)}
 
           {advancedView && (
             <>
-              {ListItemLink('myurl', strings.my_url)}
               {ListItemLink('resolver', strings.resolver)}
               {ListItemLink('reverse', strings.reverse)}
             </>
