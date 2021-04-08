@@ -85,7 +85,8 @@ const FooterComponent = (props) => {
           <Row>
             <Col>
               <p style={{ fontSize: '.8em' }}>
-                Copyright © 2020 RSK Labs. All rights reserved.
+                {`Copyright © ${new Date().getFullYear()} `}
+                RSK Labs. All rights reserved.
                 {` ${version}`}
               </p>
             </Col>
