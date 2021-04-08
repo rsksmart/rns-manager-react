@@ -38,6 +38,7 @@
   h1 {
     font-size: 20px;
     color: $blue;
+    margin-top: 20px;
   }
 
   h1:first-letter, h2:first-letter {
@@ -59,6 +60,15 @@
 
 .capitalize {
   text-transform: capitalize;
+}
+
+// mobile styles
+@media (max-width: 767.98px) {
+  .admin {
+    h1 {
+      margin-top: 10px;
+    }
+  }
 }
 
 @import 'transferModal';
