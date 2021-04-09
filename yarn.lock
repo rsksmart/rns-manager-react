@@ -2315,9 +2315,9 @@
     eth-sig-util "^3.0.0"
 
 "@rsksmart/rlogin@^1.0.4":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.3.tgz#fcdf89251c0f2fbed5a3bac2d5768e39c4b9f757"
-  integrity sha512-Y5t54n8VR/SPE6DUZaY6wUka6uflEmZ/sHS4G4sffPIaipB5adU/WjLsyieUdCqRRmg4Nl/SgRT7A3MWSqwZHA==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.4.tgz#44d882f3007ad8930eaedc90ebaf2ebde709d593"
+  integrity sha512-TMoZYpV8th29QimKHuG++5pUGxIw1yH8cAAQPShaKLRIReX06FLLcqd8Gcgc1h1xlVTWQ0DTO+0OtNjbj54s8A==
   dependencies:
     "@rsksmart/ipfs-cpinner-client" "0.1.1-beta.13"
     "@rsksmart/vc-json-schemas-parser" "^1.0.0"
