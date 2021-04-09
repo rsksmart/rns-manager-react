@@ -13,6 +13,7 @@ describe('MyUrlComponent', () => {
     handleSave: jest.fn(),
     url: null,
     receiveContent: true,
+    gettingContent: false,
   };
 
   const generateComponent = (localProps = {}) => {

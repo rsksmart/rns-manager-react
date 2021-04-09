@@ -4,6 +4,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { Alert } from 'react-bootstrap';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import AddressInputComponent from '../../../../components/AddressInputComponent';
+import MigrateToMultiResolverContainer from '../../addresses/containers/MigrateToMultiResolverContainer';
 
 const MyUrlComponent = ({
   strings, url, gettingContent, handleSave,
@@ -20,6 +21,7 @@ const MyUrlComponent = ({
       <>
         <h1>{strings.decentralized_url}</h1>
         <Alert key="decode" variant="warning">Your resolver does not support decentralized URL.</Alert>
+        <MigrateToMultiResolverContainer />
       </>
     );
   }
