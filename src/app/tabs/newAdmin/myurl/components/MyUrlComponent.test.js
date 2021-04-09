@@ -3,9 +3,18 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { mockStoreEnglish } from '../../../../../../tests/config/mockStore';
 import MyUrlComponent from './MyUrlComponent';
-import { contentInititalState } from '../../resolver/reducer';
+import { initialState, contentInititalState } from '../../resolver/reducer';
+import { initialState as addresses } from '../../addresses/reducer';
 
-const store = mockStoreEnglish();
+const store = mockStoreEnglish({
+  auth: {
+    name: 'test.rsk',
+  },
+  newAdmin: {
+    resolver: initialState,
+    addresses,
+  },
+});
 
 describe('MyUrlComponent', () => {
   const initProps = {
