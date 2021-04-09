@@ -36,6 +36,9 @@ const HeaderComponent = (props) => {
                 {strings.search}
               </Link>
             </Nav.Item>
+            <Nav.Item>
+              <Link to="/resolve" className="nav-link" title={strings.resolve}>{strings.resolve}</Link>
+            </Nav.Item>
 
             <Form onSubmit={e => e.preventDefault()} inline>
               <LanguageSelectContainer />
