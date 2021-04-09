@@ -7,7 +7,7 @@ import {
   CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
 } from './types';
 
-const initialState = {
+export const initialState = {
   resolverAddr: '',
   resolverName: '',
   isEditing: false,

@@ -6,6 +6,7 @@ import { toChecksumAddress } from 'rskjs-util';
 
 import ReverseInputContainer from '../containers/ReverseInputContainer';
 import { getReverse } from '../operations';
+import { UserWaitingComponent } from '../../../../components';
 
 const ReverseComponent = ({
   reverseValue, address, strings, isRequesting, isWaiting, isError,
@@ -15,11 +16,12 @@ const ReverseComponent = ({
   useEffect(() => dispatch(getReverse(address)), []);
 
   if (isRequesting) {
-    return (<></>);
+    return (<UserWaitingComponent visible />);
   }
 
   return (
     <div className="reverse">
+      <h1>{strings.reverse}</h1>
       <p>{strings.reverse_explanation}</p>
       <h2>{strings.set_reverse}</h2>
       <ReverseInputContainer
@@ -65,6 +67,7 @@ ReverseComponent.propTypes = {
     wait_transation_confirmed: propTypes.string.isRequired,
     suggestion: propTypes.string.isRequired,
     type_domain: propTypes.string.isRequired,
+    reverse: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
   chainId: propTypes.string.isRequired,

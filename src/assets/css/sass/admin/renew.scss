@@ -5,4 +5,21 @@
     width: 100% !important;
     margin-left: 0 !important;
   }
+
+  .counter {
+    margin-top: 25px;
+  }
+
+  .col-md-5 {
+    margin-top: 50px;
+  }
+}
+
+// mobile styles
+@media (max-width: 767.98px) {
+  .renewDomian {
+    .counter, .col-md-5 {
+      margin-top: 5px;
+    }
+  }
 }

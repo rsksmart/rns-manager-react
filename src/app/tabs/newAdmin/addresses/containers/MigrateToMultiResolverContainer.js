@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { MigrateToMultiResolverComponent } from '../components';
+import MigrateToMultiResolverComponent from '../components/MigrateToMultiResolverComponent';
 import { definitiveResolver } from '../../../../adapters/configAdapter';
 import { setDomainResolver, setDomainResolverAndMigrate } from '../../resolver/operations';
 import { closeMessage, clearMigrateContent } from '../../resolver/actions';

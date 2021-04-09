@@ -23,6 +23,12 @@
       font-size: 36px;
       font-weight: 500 !important;
     }
+
+    p.lead {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   .spacer {
@@ -37,6 +43,17 @@
     * {text-align: center;}
     margin-top: 50px;
     margin-bottom: 50px;
+
+    h2 {
+      color: $blue;
+      font-weight: 700 !important;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin: 10px auto;
+      max-width: 280px;
+    }
 
     .imageWraper {
       min-height: 250px;
@@ -78,6 +95,9 @@
         margin: 0 auto 15px auto;
       }
 
+      img {
+        height: 50px;
+      }
     }
   }
 }
@@ -126,6 +146,10 @@
 
     .white {
       margin: 25px 0;
+
+      p {
+        max-width: 100%;
+      }
 
       .imageWraper {
         min-height: auto !important;
