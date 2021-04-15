@@ -1,0 +1,52 @@
+[
+  {
+     "name":"MyCrypto",
+     "image":"https://rsk.co/img/wallets/1-mycrypto.png",
+     "link":"https://mycrypto.com/account"
+  },
+  {
+     "name":"Cobo",
+     "image":"https://rsk.co/img/wallets/cobo.png",
+     "link":"https://cobo.com/"
+  },
+  {
+     "name":"Edge",
+     "image":"https://rsk.co/img/wallets/9-edge.png",
+     "link":"https://edge.app/"
+  },
+  {
+     "name":"Portis",
+     "image":"https://rsk.co/img/wallets/6-portis.png",
+     "link":"https://www.portis.io/"
+  },
+  {
+     "name":"Defiant Wallet",
+     "image":"https://developers.rsk.co/assets/img/rsk/wallets/defiant-logo.png",
+     "link":"https://www.defiantapp.tech/"
+  },
+  {
+     "name":"Ledger",
+     "image":"https://rsk.co/img/wallets/3-ledger.png",
+     "link":"https://www.ledger.com/"
+  },
+  {
+     "name":"Trezor",
+     "image":"https://rsk.co/img/wallets/7-trezor.png",
+     "link":"https://trezor.io/"
+  },
+  {
+     "name":"D'cent Wallet",
+     "image":"https://rsk.co/img/wallets/5-dcent.png",
+     "link":"https://dcentwallet.com/"
+  },
+  {
+     "name":"Beexo Wallet",
+     "image":"https://developers.rsk.co/assets/img/rsk/wallets/beexo_wallet.png",
+     "link":"https://beexo.com/"
+  },
+  {
+     "name":"Math Wallet",
+     "image":"https://developers.rsk.co/assets/img/rsk/wallets/MathWallet_Logo_Vertical_Black.png",
+     "link":"https://mathwallet.org/en-us/"
+  }
+]

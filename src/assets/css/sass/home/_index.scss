@@ -60,9 +60,70 @@
     }
   }
 
+  .supported-wallets {
+    h2 {
+      text-align: center;
+    }
+
+    .wallet-carousel {
+      padding-bottom: 50px;
+
+      .carousel-control-prev, .carousel-control-next {
+        width: auto;
+        background-image:none;
+      }
+
+      .carousel-control-next-icon:after {
+        content: '>';
+        font-size: 55px;
+        color: #666666;
+      }
+
+      .carousel-control-prev-icon:after {
+        content: '<';
+        font-size: 55px;
+        color: #666666;
+      }
+
+      .carousel-indicators li {
+        background-color: #666666;
+      }
+
+      .carousel-inner {
+        a { 
+          display: block;
+
+          p {
+            text-align: center;
+          }
+
+          .image-container {
+            display: block;
+            margin: 0 auto;
+            width: 140px;
+            height: 200px;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: .5;
+          }
+        }
+
+        a:hover {
+          p {
+            color: $blue;
+          }
+
+          .image-container {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
   .developer {
     h2 {
-      font-weight: 700 !important;
       text-align: center;
     }
     
