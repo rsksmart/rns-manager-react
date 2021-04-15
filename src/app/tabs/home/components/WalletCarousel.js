@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import { Carousel, Row, Col } from 'react-bootstrap';
 
 const WalletCarousel = ({ wallets }) => {
@@ -44,6 +45,14 @@ const WalletCarousel = ({ wallets }) => {
       </Carousel>
     </div>
   );
+};
+
+WalletCarousel.propTypes = {
+  wallets: propTypes.arrayOf(propTypes.shape({
+    name: propTypes.string.isRequired,
+    link: propTypes.string.isRequired,
+    image: propTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default WalletCarousel;
