@@ -412,5 +412,6 @@
   "disconnect_domain": "Desconectarse de este dominio",
   "my_url": "Mi URL",
   "decentralized_url": "URL descentralizada",
-  "decentralized_exp": "Aquí puedes setear URLs de servicios de storage descentralizados como IPFS y Swarm. Puedes dar a conocer tu website descentralizado con la ayuda de RNS"
+  "decentralized_exp": "Aquí puedes setear URLs de servicios de storage descentralizados como IPFS y Swarm. Puedes dar a conocer tu website descentralizado con la ayuda de RNS",
+  "supported_wallets": "Carteras compatibles"
 }

@@ -413,5 +413,6 @@
   "disconnect_domain": "このドメインから切断します",
   "my_url": "私のURL",
   "decentralized_url": "分散型URL",
-  "decentralized_exp": "ここでは、IPFSやSwarmなどの分散ストレージサービスからURLを設定できます。あなたはRNSの助けを借りてあなたの分散型ウェブサイトをホストすることができます"
+  "decentralized_exp": "ここでは、IPFSやSwarmなどの分散ストレージサービスからURLを設定できます。あなたはRNSの助けを借りてあなたの分散型ウェブサイトをホストすることができます",
+  "supported_wallets": "サポートされているウォレット"
 }

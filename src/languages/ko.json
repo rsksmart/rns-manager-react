@@ -413,5 +413,6 @@
   "disconnect_domain": "이 도메인에서 연결 해제",
   "my_url": "내 URL",
   "decentralized_url": "분산 된 URL",
-  "decentralized_exp": "여기에서 IPFS 및 Swarm과 같은 분산 형 스토리지 서비스에서 URL을 설정할 수 있습니다. RNS의 도움으로 분산 된 웹 사이트를 호스팅 할 수 있습니다."
+  "decentralized_exp": "여기에서 IPFS 및 Swarm과 같은 분산 형 스토리지 서비스에서 URL을 설정할 수 있습니다. RNS의 도움으로 분산 된 웹 사이트를 호스팅 할 수 있습니다.",
+  "supported_wallets": "지원되는 지갑"
 }

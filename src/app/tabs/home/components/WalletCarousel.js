@@ -3,7 +3,7 @@ import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import { Carousel, Row, Col } from 'react-bootstrap';
 
-const WalletCarousel = ({ wallets }) => {
+const WalletCarousel = ({ wallets, strings }) => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -34,7 +34,7 @@ const WalletCarousel = ({ wallets }) => {
 
   return (
     <div className="supported-wallets">
-      <h2>Supported Wallets</h2>
+      <h2>{strings.supported_wallets}</h2>
       <Carousel activeIndex={index} onSelect={handleSelect} controls className="wallet-carousel">
         {walletsByThree.map(walletGroup => (
           <Carousel.Item key={walletGroup[0].name}>
@@ -54,6 +54,9 @@ WalletCarousel.propTypes = {
     link: propTypes.string.isRequired,
     image: propTypes.string.isRequired,
   })).isRequired,
+  strings: propTypes.shape({
+    supported_wallets: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default multilanguage(WalletCarousel);
