@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import { Carousel, Row, Col } from 'react-bootstrap';
 
@@ -55,4 +56,4 @@ WalletCarousel.propTypes = {
   })).isRequired,
 };
 
-export default WalletCarousel;
+export default multilanguage(WalletCarousel);
