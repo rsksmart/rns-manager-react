@@ -14,6 +14,7 @@ import github from '../../../../assets/img/home/github.svg';
 import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 import WalletCarousel from './WalletCarousel';
+import wallets from '../wallets.json';
 
 const HomeComponent = ({ strings }) => (
   <div className="home">
@@ -56,7 +57,7 @@ const HomeComponent = ({ strings }) => (
         </Col>
       </Row>
 
-      <WalletCarousel />
+      <WalletCarousel wallets={wallets} />
 
       <Row className="developer break-above">
         <Row>

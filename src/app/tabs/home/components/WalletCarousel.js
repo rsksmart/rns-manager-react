@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Carousel, Row, Col } from 'react-bootstrap';
-import wallets from '../wallets.json';
 
-const WalletCarousel = () => {
+const WalletCarousel = ({ wallets }) => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -23,7 +22,7 @@ const WalletCarousel = () => {
   });
 
   const SingleItem = item => (
-    <Col>
+    <Col key={item.name}>
       <a href={item.link} target="_blank" rel="noopener noreferrer">
         <div className="image-container" style={{ backgroundImage: `url(${item.image})` }} />
         <p>{item.name}</p>
@@ -36,7 +35,7 @@ const WalletCarousel = () => {
       <h2>Supported Wallets</h2>
       <Carousel activeIndex={index} onSelect={handleSelect} controls className="wallet-carousel">
         {walletsByThree.map(walletGroup => (
-          <Carousel.Item>
+          <Carousel.Item key={walletGroup[0].name}>
             <Row>
               {walletGroup.map(wallet => SingleItem(wallet))}
             </Row>
