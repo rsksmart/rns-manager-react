@@ -22,7 +22,7 @@ describe('WalletCarousel', () => {
 
     it('has header', () => {
       const component = mount(generateComponent(wallets2));
-      expect(component.find('h2').text()).toBe('Supported Wallets');
+      expect(component.find('h2').text()).toBe('Wallet and dapp integrations');
     });
   });
 

@@ -414,5 +414,5 @@
   "my_url": "Meu URL",
   "decentralized_url": "URL descentralizado",
   "decentralized_exp": "Aqui você pode definir URLs de serviços de armazenamento descentralizados, como IPFS e Swarm. Você pode hospedar seu site descentralizado com a ajuda de RNS",
-  "supported_wallets": "Carteiras Suportadas"
+  "rns_integrations": "Integrações de carteira e dapp"
 }

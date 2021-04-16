@@ -34,7 +34,7 @@ const WalletCarousel = ({ wallets, strings }) => {
 
   return (
     <div className="supported-wallets">
-      <h2>{strings.supported_wallets}</h2>
+      <h2>{strings.rns_integrations}</h2>
       <Carousel activeIndex={index} onSelect={handleSelect} controls className="wallet-carousel">
         {walletsByThree.map(walletGroup => (
           <Carousel.Item key={walletGroup[0].name}>
@@ -55,7 +55,7 @@ WalletCarousel.propTypes = {
     image: propTypes.string.isRequired,
   })).isRequired,
   strings: propTypes.shape({
-    supported_wallets: propTypes.string.isRequired,
+    rns_integrations: propTypes.string.isRequired,
   }).isRequired,
 };
 
