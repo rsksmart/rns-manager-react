@@ -60,7 +60,6 @@ const YourAddressesComponent = ({
               validation={isHex}
               suggestions={suggestion}
               strings={{
-                value_prefix: strings.value,
                 error_message: errorMessage,
                 cancel: strings.cancel,
                 submit: strings.change,

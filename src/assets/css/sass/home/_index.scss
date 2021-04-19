@@ -23,6 +23,12 @@
       font-size: 36px;
       font-weight: 500 !important;
     }
+
+    p.lead {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   .spacer {
@@ -38,14 +44,86 @@
     margin-top: 50px;
     margin-bottom: 50px;
 
+    h2 {
+      color: $blue;
+      font-weight: 700 !important;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin: 10px auto;
+      max-width: 280px;
+    }
+
     .imageWraper {
       min-height: 250px;
     }
   }
 
+  .supported-wallets {
+    h2 {
+      text-align: center;
+    }
+
+    .wallet-carousel {
+      padding-bottom: 50px;
+
+      .carousel-control-prev, .carousel-control-next {
+        width: auto;
+        background-image:none;
+      }
+
+      .carousel-control-next-icon:after {
+        content: '>';
+        font-size: 55px;
+        color: #666666;
+      }
+
+      .carousel-control-prev-icon:after {
+        content: '<';
+        font-size: 55px;
+        color: #666666;
+      }
+
+      .carousel-indicators li {
+        background-color: #666666;
+      }
+
+      .carousel-inner {
+        a { 
+          display: block;
+
+          p {
+            text-align: center;
+          }
+
+          .image-container {
+            display: block;
+            margin: 0 auto;
+            width: 140px;
+            height: 200px;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: .5;
+          }
+        }
+
+        a:hover {
+          p {
+            color: $blue;
+          }
+
+          .image-container {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
   .developer {
     h2 {
-      font-weight: 700 !important;
       text-align: center;
     }
     
@@ -78,6 +156,9 @@
         margin: 0 auto 15px auto;
       }
 
+      img {
+        height: 50px;
+      }
     }
   }
 }
@@ -126,6 +207,10 @@
 
     .white {
       margin: 25px 0;
+
+      p {
+        max-width: 100%;
+      }
 
       .imageWraper {
         min-height: auto !important;

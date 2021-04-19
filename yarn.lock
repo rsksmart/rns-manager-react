@@ -2314,10 +2314,10 @@
     did-jwt "^4.6.2"
     eth-sig-util "^3.0.0"
 
-"@rsksmart/rlogin@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.2.tgz#77f4ceca65908ff6c7a1224fcebcba35ab90af9b"
-  integrity sha512-NjEcMJyllYJjPLkhYJuotTf1DOf7jL1pzXFfxZ1i1cpgSeEaZcAY2RRxNUgjdSkOSB48sZcKSacjLbI0dpXGfA==
+"@rsksmart/rlogin@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.4.tgz#44d882f3007ad8930eaedc90ebaf2ebde709d593"
+  integrity sha512-TMoZYpV8th29QimKHuG++5pUGxIw1yH8cAAQPShaKLRIReX06FLLcqd8Gcgc1h1xlVTWQ0DTO+0OtNjbj54s8A==
   dependencies:
     "@rsksmart/ipfs-cpinner-client" "0.1.1-beta.13"
     "@rsksmart/vc-json-schemas-parser" "^1.0.0"

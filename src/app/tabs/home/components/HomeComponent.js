@@ -13,6 +13,8 @@ import book from '../../../../assets/img/home/book.svg';
 import github from '../../../../assets/img/home/github.svg';
 import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
+import WalletCarousel from './WalletCarousel';
+import wallets from '../wallets.json';
 
 const HomeComponent = ({ strings }) => (
   <div className="home">
@@ -54,6 +56,8 @@ const HomeComponent = ({ strings }) => (
           <p>{strings.cose_effective_explanation}</p>
         </Col>
       </Row>
+
+      <WalletCarousel wallets={wallets} />
 
       <Row className="developer break-above">
         <Row>

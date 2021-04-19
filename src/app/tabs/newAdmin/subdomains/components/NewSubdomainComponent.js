@@ -81,7 +81,7 @@ const NewSubdomainComponent = ({
     <Form onSubmit={handleOnClick}>
       <Row>
         <Col>
-          <h3 className="blue caps-first">{strings.admin_your_domain_action_3}</h3>
+          <h1>{strings.admin_your_domain_action_3}</h1>
         </Col>
       </Row>
       <Row>

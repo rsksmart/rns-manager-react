@@ -4,9 +4,6 @@
   padding: 16px 0;
 
   .indicator {
-    margin-left: 50px;
-    padding-right: 12px !important;
-    border: 1px solid #fff;
     color: #fff;
     opacity: 1 !important;
     span {
@@ -65,7 +62,7 @@
   }
   .btn-primary:hover:not([disabled]) {
     background: none !important;
-    border: none !important;
+    border-color: $blue !important;
     color: #ffffff;
   }
 

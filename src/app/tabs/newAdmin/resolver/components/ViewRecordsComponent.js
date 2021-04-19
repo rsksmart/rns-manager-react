@@ -41,7 +41,7 @@ const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
 
   return (
     <div className="major-section records">
-      <h2>{strings.records}</h2>
+      <h1>{strings.records}</h1>
       <p>{strings.records_explanation}</p>
       {content.map(item => switchViewType(item))}
     </div>

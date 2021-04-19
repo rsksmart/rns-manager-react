@@ -1,18 +1,25 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import tabReducers from './tabs';
 import authReducer from './auth';
 import notificationReducer from './notifications';
 import browserNotificationsReducer from './browerNotifications';
 import multilanguage from './multilanguageReducer';
 
+import newAdmin from './tabs/newAdmin/reducer';
+import registrar from './tabs/registrar/reducer';
+import resolve from './tabs/resolve/reducer';
+import search from './tabs/search/reducer';
+
 const rootReducer = history => combineReducers({
-  ...tabReducers,
   auth: authReducer,
-  notifications: notificationReducer,
   browserNotifications: browserNotificationsReducer,
-  router: connectRouter(history),
   multilanguage,
+  newAdmin,
+  notifications: notificationReducer,
+  registrar,
+  resolve,
+  router: connectRouter(history),
+  search,
 });
 
 export default rootReducer;

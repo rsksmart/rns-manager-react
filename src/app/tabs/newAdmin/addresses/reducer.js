@@ -4,7 +4,7 @@ import {
   CLEAR_ADDRESSES,
 } from './types';
 
-const initialState = {
+export const initialState = {
   newChainAddress: '',
   newChainSuccess: false,
   chainAddresses: [],
