@@ -18,12 +18,13 @@ const FooterComponent = (props) => {
   };
 
   useEffect(() => {
-    console.log('useTracking hook fired!');
+    const appUrl = process.env.REACT_APP_URL;
+    const domain = appUrl.slice(appUrl.indexOf('//') + 2, -1);
 
     const script = document.createElement('script');
     script.setAttribute('src', 'https://plausible.io/js/plausible.js');
     script.setAttribute('async', 'true');
-    script.setAttribute('data-domain', 'manager.developerjesse.com');
+    script.setAttribute('data-domain', domain);
 
     document.head.appendChild(script);
   }, []);
