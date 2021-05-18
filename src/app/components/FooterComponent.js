@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import {
   Container, Image, Col, Row,
@@ -16,6 +16,17 @@ const FooterComponent = (props) => {
     target: '_blank',
     rel: 'noopener noreferrer',
   };
+
+  useEffect(() => {
+    console.log('useTracking hook fired!');
+
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://plausible.io/js/plausible.js');
+    script.setAttribute('async', 'true');
+    script.setAttribute('data-domain', 'manager.developerjesse.com');
+
+    document.head.appendChild(script);
+  }, []);
 
   return (
     <footer>
