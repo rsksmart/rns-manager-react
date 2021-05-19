@@ -1,0 +1,31 @@
+#analytics {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  background-color: rgba(0, 143, 247, .8);
+
+  p {
+    width: 85%;
+    margin: 3px auto;
+    font-size: 75%;
+    color: #fff;
+  }
+
+  button {
+    border: 1px solid $white;
+    background: none;
+    padding: 5px 10px;
+    margin: 5px 10px 0 10px;
+    color: #fff;
+  }
+
+  button.accept {
+    background-color: $white;
+  }
+
+  button:hover {
+    opacity: .8;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import {
   Container, Image, Col, Row,
@@ -8,6 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo-footer.svg';
 
 import { version } from '../../../package.json';
+import PlausibleAnalytics from './PlausibleAnalytics';
 
 const FooterComponent = (props) => {
   const { strings } = props;
@@ -17,17 +18,8 @@ const FooterComponent = (props) => {
     rel: 'noopener noreferrer',
   };
 
-  useEffect(() => {
-    const appUrl = process.env.REACT_APP_URL;
-    const domain = appUrl.slice(appUrl.indexOf('//') + 2, -1);
-
-    const script = document.createElement('script');
-    script.setAttribute('src', 'https://plausible.io/js/plausible.js');
-    script.setAttribute('async', 'true');
-    script.setAttribute('data-domain', domain);
-
-    document.head.appendChild(script);
-  }, []);
+  const appUrl = process.env.REACT_APP_URL;
+  const domain = appUrl.slice(appUrl.indexOf('//') + 2, -1);
 
   return (
     <footer>
@@ -105,6 +97,7 @@ const FooterComponent = (props) => {
           </Row>
         </Container>
       </div>
+      <PlausibleAnalytics domain={domain} />
     </footer>
   );
 };
