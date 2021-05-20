@@ -8,6 +8,7 @@ import { multilanguage } from 'redux-multilanguage';
 import logo from '../../assets/img/logo-footer.svg';
 
 import { version } from '../../../package.json';
+import PlausibleAnalytics from './PlausibleAnalytics';
 
 const FooterComponent = (props) => {
   const { strings } = props;
@@ -16,6 +17,9 @@ const FooterComponent = (props) => {
     target: '_blank',
     rel: 'noopener noreferrer',
   };
+
+  const appUrl = process.env.REACT_APP_URL;
+  const domain = appUrl.slice(appUrl.indexOf('//') + 2, -1);
 
   return (
     <footer>
@@ -93,6 +97,7 @@ const FooterComponent = (props) => {
           </Row>
         </Container>
       </div>
+      <PlausibleAnalytics domain={domain} />
     </footer>
   );
 };

@@ -415,5 +415,9 @@
   "my_url": "My URL",
   "decentralized_url": "Decentralized URL",
   "decentralized_exp": "Here you can set URLs from decentralized storage services such as IPFS and Swarm. You can host your decentralized website with the help of RNS",
-  "rns_integrations": "Wallet and dapp integrations"
+  "rns_integrations": "Wallet and dapp integrations",
+  "plausible": "In order to improve the user&apos;s experience, this site uses Plausible, an open source and privacy-friendly tool, which does not use cookies and is compliant with GDPR, CCPA and PECR. We analyse your activity and our traffic. We strive to collect only the data that we need. We do not share your information with third parties; we want to better understand your behaviour in order to improve our website. Please take a moment to familiarize yourself these policies:",
+  "plausible2": "If you accept Plausible’s and ours policy, please click Accept. If you do not accept Plausible’s and ours policy, we provide you with the means to disable our tracking system, please click Reject.",
+  "accept": "Accept",
+  "reject": "Reject"
 }
