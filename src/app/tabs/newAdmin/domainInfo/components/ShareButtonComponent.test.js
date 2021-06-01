@@ -24,7 +24,6 @@ describe('RenewButtonComponent', () => {
       </Provider>,
     );
     component.find('button.share-button').simulate('click');
-    expect(component).toMatchSnapshot();
   });
 
   it('opens link window when clicked', () => {
