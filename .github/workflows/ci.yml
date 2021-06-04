@@ -18,4 +18,6 @@ jobs:
       with:
         node-version: 12.x
     - run: yarn
+    - run: npm run ganache &
+    - run: yarn test
     - run: yarn lint
