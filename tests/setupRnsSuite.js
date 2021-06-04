@@ -2,8 +2,8 @@ require('./setEnvVars');
 const RNSSuite = require('@rsksmart/rns-suite');
 const fs = require('fs');
 
-// set the blockchainURL. Use 0.0.0.0:8545 for CircleCi
-const blockchainUrl = process.env.CIRCLECI ? 'http://0.0.0.0:8545' : process.env.REACT_APP_NODE;
+// set the blockchainURL. Use 0.0.0.0:8545 for Github Actions
+const blockchainUrl = process.env.GITHUB_ACTIONS ? 'http://0.0.0.0:8545' : process.env.REACT_APP_NODE;
 
 // eslint-disable-next-line no-console
 console.log(`Setting up RNS suite on ${blockchainUrl}`);
