@@ -2473,10 +2473,10 @@
     did-jwt "^4.6.2"
     eth-sig-util "^3.0.0"
 
-"@rsksmart/rlogin@1.0.7-beta.1":
-  version "1.0.7-beta.1"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.7-beta.1.tgz#bc79ccbcbce961538669980d70e30614f201cc14"
-  integrity sha512-X1YBPwIs5LHIn5nzbnawlt/bJ0YBx2MWvNC74gvXUeDBhRtN33FzYWihIPG0lhyNY01xVPZ8wKQTlwj1UEFXdQ==
+"@rsksmart/rlogin@1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rlogin/-/rlogin-1.0.8.tgz#b5c1761808ff52b7ffbd64696e31641a61cbddb9"
+  integrity sha512-qAHliJzLX0EcbquVeg1SChu0YQYQm9XhFZ8UCU2RHP1onc/Tt7JtMbVEiO36ft9ULRY/uiw4Ud6AGdY6Od5kyQ==
   dependencies:
     "@rsksmart/ipfs-cpinner-client" "0.1.2"
     "@rsksmart/vc-json-schemas-parser" "^1.0.0"
@@ -9197,15 +9197,7 @@ ethereum-cryptography@^0.1.3:
     secp256k1 "^4.0.1"
     setimmediate "^1.0.5"
 
-ethereumjs-abi@^0.6.8:
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz#71bc152db099f70e62f108b7cdfca1b362c6fcae"
-  integrity sha512-Tx0r/iXI6r+lRsdvkFDlut0N08jWMnKRZ6Gkq+Nmw75lZe4e6o3EkSnkaBP5NF6+m5PTGAr9JP43N3LyeoglsA==
-  dependencies:
-    bn.js "^4.11.8"
-    ethereumjs-util "^6.0.0"
-
-"ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
+ethereumjs-abi@^0.6.8, "ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
   version "0.6.8"
   resolved "git+https://github.com/ethereumjs/ethereumjs-abi.git#1a27c59c15ab1e95ee8e5c4ed6ad814c49cc439e"
   dependencies:
