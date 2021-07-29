@@ -2,6 +2,7 @@
 import RLogin from '@rsksmart/rlogin';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
+import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
 
 const rLogin = new RLogin({
   cachedProvider: false,
@@ -23,6 +24,13 @@ const rLogin = new RLogin({
           nodeUrl: 'https://public-node.testnet.rsk.co',
           chainId: 31,
         },
+      },
+    },
+    'custom-ledger': {
+      ...ledgerProviderOptions,
+      options: {
+        rpcUrl: 'https://public-node.testnet.rsk.co',
+        chainId: 31,
       },
     },
   },
