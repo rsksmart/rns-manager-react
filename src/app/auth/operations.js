@@ -177,14 +177,14 @@ const startWithRLogin = callback => (dispatch) => {
 
   window.rLogin.enable()
     .then((accounts) => {
-      window.rLogin.request({ method: 'eth_chainId' })
-        .then(chainId => parseInt(chainId))
-        .then(chainId => dispatch(receiveEnable(
-          accounts[0],
-          chainId,
-          chainId === parseInt(process.env.REACT_APP_ENVIRONMENT_ID),
-          accounts.length !== 0,
-        )));
+      const chainId = parseInt(window.rLogin.chainId);
+
+      dispatch(receiveEnable(
+        accounts[0],
+        chainId,
+        chainId === parseInt(process.env.REACT_APP_ENVIRONMENT_ID),
+        accounts.length !== 0,
+      ));
 
       if (window.location.search.includes('autologin')) {
         dispatch(authenticate(window.location.search.split('=')[1], accounts[0]));
