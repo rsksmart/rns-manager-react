@@ -9,8 +9,7 @@
 </p>
 <p align="middle">
     <a href="https://github.com/rnsdomains/rns-manager-react/actions?query=workflow%3Aci">
-      <img src="https://github.com/rnsdomains/rns-manager-react/workflows/ci/badge.svg" />
-    </a>
+        <img src="https://github.com/rnsdomains/rns-manager-react/workflows/ci/badge.svg" />
     <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/">
         <img src="https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
     </a>
@@ -126,3 +125,4 @@ Testnet:
 docker build -t rns-manager-testnet . -f testnet.Dockerfile
 docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
 ```
+
