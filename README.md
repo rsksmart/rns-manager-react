@@ -8,9 +8,8 @@
     Testnet: https://testnet.manager.rns.rifos.org
 </p>
 <p align="middle">
-    <a href="https://circleci.com/gh/circrnsdomains/rns-manager-react">
-        <img src="https://circleci.com/gh/rnsdomains/rns-manager-react.svg?style=svg" alt="CircleCI" />
-    </a>
+    <a href="https://github.com/rnsdomains/rns-manager-react/actions?query=workflow%3Aci">
+        <img src="https://github.com/rnsdomains/rns-manager-react/workflows/ci/badge.svg" />
     <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/">
         <img src="https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
     </a>
