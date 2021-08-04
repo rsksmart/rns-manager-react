@@ -126,3 +126,4 @@ Testnet:
 docker build -t rns-manager-testnet . -f testnet.Dockerfile
 docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
 ```
+
