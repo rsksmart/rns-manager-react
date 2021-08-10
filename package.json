@@ -3,6 +3,7 @@
   "version": "2.1.5",
   "private": true,
   "license": "MIT",
+  "homepage": ".",
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
