@@ -48,7 +48,6 @@ const PlausibleAnalytics = ({ strings, domain }) => {
         {strings.plausible}
         <a href="https://plausible.io/data-policy" {...linkProps}>Plausible Policies</a>
         <a href="https://www.rsk.co/privacy-policy" {...linkProps}>RSK policies</a>
-.
       </p>
       <p>{strings.plausible2}</p>
       <p>
