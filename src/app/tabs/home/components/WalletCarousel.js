@@ -23,14 +23,17 @@ const WalletCarousel = ({ wallets, strings }) => {
     }
   });
 
-  const SingleItem = item => (
-    <Col key={item.name}>
-      <a href={item.link} target="_blank" rel="noopener noreferrer">
-        <div className="image-container" style={{ backgroundImage: `url(${item.image})` }} />
-        <p>{item.name}</p>
-      </a>
-    </Col>
-  );
+  const SingleItem = (item) => {
+    const { name, link, image } = item;
+    return (
+      <Col key={name}>
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <div className="image-container" style={{ backgroundImage: `url(${image})` }} />
+          <p>{name}</p>
+        </a>
+      </Col>
+    );
+  };
 
   return (
     <div className="supported-wallets">
