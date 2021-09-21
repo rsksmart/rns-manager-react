@@ -2580,10 +2580,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.3.tgz#8b68da1ebd7fc603999cf6ebee34a4899a14b88e"
   integrity sha512-xDu17cEfh7Kid/d95kB6tZsLOmSWKCZKtprnhVepjsSaCij+lM3mItSJDuuHDMbCWTh8Ejmebwb+KONcCJ0eXQ==
 
-"@portis/web3@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@portis/web3/-/web3-4.1.0.tgz#9ee3009c38ca296e5ae82c6b8a286d24aaeabadf"
-  integrity sha512-efGssWqrwpYPzQyOupYPpWmjPU/WwcFGoPXzjLbjQ3Z4Z7Q4qqqwkMeE1mwMbxWudFKlHz/VxdpJrDA42Ufqrg==
+"@portis/web3@^4.0.3":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@portis/web3/-/web3-4.0.5.tgz#7931ac129c2ba7e75a8c451434fc5765bed1a5fe"
+  integrity sha512-H4spuHI4gDILHS/SjznTBn4t0/qE+UgYc7yi6/kX2oSFe8G12F0xiON7orkx7vpU+8tI9rf4VNe/Gt1fyeDgNw==
   dependencies:
     ethereumjs-util "5.2.0"
     penpal "3.0.7"
@@ -21500,9 +21500,9 @@ tmp@~0.2.1:
     rimraf "^3.0.0"
 
 tmpl@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
-  integrity sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
+  integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
 
 to-absolute-glob@^0.1.1:
   version "0.1.1"
