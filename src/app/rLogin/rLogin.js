@@ -2,6 +2,17 @@
 import RLogin from '@rsksmart/rlogin';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
+import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
+// import { dcentProviderOptions } from '@rsksmart/rlogin-dcent-provider';
+import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
+
+const isMainnet = process.env.REACT_APP_ENVIRONMENT_ID === '30';
+
+const rpcUrls = isMainnet ? {
+  30: 'https://public-node.rsk.co',
+} : {
+  31: 'https://public-node.testnet.rsk.co',
+};
 
 const rLogin = new RLogin({
   cachedProvider: false,
@@ -9,24 +20,40 @@ const rLogin = new RLogin({
     walletconnect: {
       package: WalletConnectProvider,
       options: {
-        rpc: {
-          30: 'https://public-node.rsk.co',
-          31: 'https://public-node.testnet.rsk.co',
-        },
+        rpc: rpcUrls,
       },
     },
     portis: {
       package: Portis,
       options: {
         id: '7ea0e47e-ff3c-4fc7-85cb-7b336d0569ed',
-        network: {
+        network: isMainnet === '30' ? {
+          nodeUrl: 'https://public-node.rsk.co',
+          chainId: 30,
+        } : {
           nodeUrl: 'https://public-node.testnet.rsk.co',
           chainId: 31,
         },
       },
     },
+    'custom-ledger': {
+      ...ledgerProviderOptions,
+    },
+    /*
+    'custom-dcent': {
+      ...dcentProviderOptions,
+    },
+    */
+    'custom-trezor': {
+      ...trezorProviderOptions,
+      options: {
+        manifestEmail: 'info@iovlabs.org',
+        manifestAppUrl: process.env.REACT_APP_URL,
+      },
+    },
   },
-  supportedChains: [parseInt(process.env.REACT_APP_ENVIRONMENT_ID)],
+  rpcUrls,
+  supportedChains: Object.keys(rpcUrls).map(Number),
 });
 
 export default rLogin;
