@@ -24,7 +24,7 @@
      </a>
 </p>
 
-## Run locally
+## Run for development
 
 Requisites:
 
@@ -36,6 +36,8 @@ Install dependencies:
 ```
 yarn
 ```
+
+### Run locally
 
 1. Run a local blockhain:
     - Preferred: [RSK node](https://developers.rsk.co/quick-start/step1-install-rsk-local-node/)
@@ -53,9 +55,9 @@ yarn start
 
 > Connect your browser wallet to local environment using 'Custom RPC' option
 
-## Run on public networks
+### Run locally against public networks
 
-For RSK Mainnet 
+For RSK Mainnet
 
 ```
 yarn start:mainnet
@@ -67,7 +69,7 @@ For RSK Testnet
 yarn start:testnet
 ```
 
-## Run tests
+### Run tests
 
 The testing suite will first install the RNS suite on a local blockchain before running. To make sure this works properly, start Ganache, and set the URL and port in `/tests/setEnvVars.js`.
 
@@ -88,11 +90,15 @@ Update snapshots and run watcher:
 yarn test:watch -u
 ```
 
-## Develop
+### Branching model
 
-- `master` points to last productive build
-- `develop` points to last approved pull request
-- Other branches are feature branches, based on develop
+- `main` has latest release. Merge into `main` will deploy to S3. Do merge commits.
+- `develop` has latest approved PR. Do squash & merge.
+
+PRs:
+- Use branches pointing to latest commit in `develop`
+- Need to pass `ci` and LGTM
+- Will deploy to Github Pages
 
 ## Build
 
