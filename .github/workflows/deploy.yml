@@ -1,15 +1,11 @@
 name: RNS build and deploy
 
 on:
-  pull_request:
-    branches:
-      - master
-    types: [closed] 
+  push:
+    branches: [ main ]
 
 jobs:
   testnet_build_and_deploy:
-    
-    if: github.event.pull_request.merged == true 
 
     runs-on: ubuntu-latest
 
@@ -44,8 +40,6 @@ jobs:
         aws cloudfront create-invalidation --distribution-id ${{ secrets.TESTNET_CLOUDFRONT_DISTRIBUTION }} --paths "/*"
 
   mainnet_build_and_deploy:
-    
-    if: github.event.pull_request.merged == true 
 
     runs-on: ubuntu-latest
 
