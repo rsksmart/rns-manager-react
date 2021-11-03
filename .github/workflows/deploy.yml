@@ -2,7 +2,7 @@ name: RNS build and deploy
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   testnet_build_and_deploy:
