@@ -33,10 +33,11 @@
 
   .spacer {
     height: 80px;
-    // background-image: url("/assets/img/home/bottom-background.svg");
+    background-image: url("/assets/img/home/bottom-background.svg");
     background-position: bottom !important;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #008CFF;
   }
 
   .white {
