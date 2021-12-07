@@ -44,7 +44,7 @@ export const getIndexById = chainId => networks.find(net => net.id === chainId).
  * @param {address} address to resolve to
  */
 const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
@@ -85,7 +85,7 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
@@ -146,7 +146,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
   dispatch(requestSetChainAddress(chainName));
 
   const chainIndex = getIndexById(chainId);
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   // encode value if it is not empty:

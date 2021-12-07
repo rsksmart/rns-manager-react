@@ -43,7 +43,7 @@ export const getReverse = address => (dispatch) => {
  * @param {string} value value to be set
  */
 export const setReverse = value => async (dispatch) => {
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   dispatch(requestSetReverseResolver());
