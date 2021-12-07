@@ -92,7 +92,7 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   const durationBN = new web3.utils.BN(duration);
 
   const weiValue = rifCost * (10 ** 18);
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   const data = getRenewData(domain, durationBN);
@@ -223,7 +223,7 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
   }
 
   const label = namehash(domain);
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0].toLowerCase();
 
   const web3 = new Web3(window.rLogin);
@@ -266,7 +266,7 @@ export const reclaimDomain = domain => async (dispatch) => {
   dispatch(requestReclaimDomain(domain));
 
   const label = `0x${sha3(domain.split('.')[0])}`;
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0].toLowerCase();
   const web3 = new Web3(window.rLogin);
   const rskOwner = new web3.eth.Contract(

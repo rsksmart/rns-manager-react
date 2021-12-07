@@ -27,7 +27,7 @@ import { getDomainResolver } from './resolver/operations';
 export const checkIfTokenOwner = domain => async (dispatch) => {
   const label = domain.split('.')[0];
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   dispatch(requestCheckTokenOwner());
@@ -61,7 +61,7 @@ export const checkIfTokenOwner = domain => async (dispatch) => {
  */
 export const checkIfRegistryOwner = domain => async (dispatch) => {
   const label = namehash(domain);
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   const web3 = new Web3(window.rLogin);

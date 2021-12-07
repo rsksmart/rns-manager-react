@@ -163,7 +163,7 @@ export const setSubdomainOwner = (
     return;
   }
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const label = `0x${sha3(subdomain)}`;
   const node = namehash(parentDomain);

@@ -86,7 +86,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
   const strSalt = Array.from(randomBytes).map(byte => byte.toString(16)).join('');
   const salt = `0x${strSalt.padEnd(64, '0')}`;
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   const web3 = new Web3(window.rLogin);
@@ -187,7 +187,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 
   dispatch(requestCheckCommitRegistrar());
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
   const abi = (contract === FIFS_ADDR_REGISTRER) ? fifsAddrRegistrarAbi : fifsRegistrarAbi;
@@ -226,7 +226,7 @@ export const revealCommit = domain => async (dispatch) => {
 
   const web3 = new Web3(window.rLogin);
   const weiValue = rifCost * (10 ** 18);
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const durationBN = new web3.utils.BN(duration);
 
