@@ -45,7 +45,7 @@ export const saveDomainToLocalStorage = async (domain) => {
     storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
   }
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const newDomain = {
     domain,
     owner: accounts[0],
@@ -175,7 +175,7 @@ const startWithRLogin = callback => (dispatch) => {
 
   dispatch(requestEnable());
 
-  window.rLogin.enable()
+  window.rLogin.request({ method: 'eth_accounts' })
     .then((accounts) => {
       window.rLogin.request({ method: 'eth_chainId' })
         .then(chainId => parseInt(chainId))
@@ -244,6 +244,6 @@ export const start = (callback, callbackError) => (dispatch) => {
 };
 
 export const autoLogin = domain => async (dispatch) => {
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   dispatch(authenticate(domain, accounts[0]));
 };

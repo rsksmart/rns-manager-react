@@ -203,7 +203,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
   dispatch(requestSetResolver());
   const lowerResolverAddress = resolverAddress.toLowerCase();
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
@@ -295,7 +295,7 @@ const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => 
     resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
 
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const method = resolver.methods.setContent(namehash(domain), value);
 
@@ -407,7 +407,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // make the multicall
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   return definitiveResolver.methods.multicall(multiCallMethods)
     .send({ from: currentAddress }, (e, result) => {
@@ -461,7 +461,7 @@ export const setDomainResolverAndMigrate = (
   domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
-  const accounts = await window.rLogin.enable();
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const hash = namehash(domain);
 
