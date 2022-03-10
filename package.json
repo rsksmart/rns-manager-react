@@ -7,7 +7,7 @@
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rlogin-essentials": "1.0.1",
+    "@rsksmart/rlogin-essentials": "1.0.3",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
     "bootstrap": "^4.3.1",
