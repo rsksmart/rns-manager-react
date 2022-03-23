@@ -2,11 +2,11 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    "jest/globals": true
+    'jest/globals': true,
   },
   extends: [
     'airbnb',
-    'plugin:cypress/recommended'
+    'plugin:cypress/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -21,9 +21,11 @@ module.exports = {
   },
   plugins: [
     'react',
-    'jest'
+    'jest',
   ],
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/destructuring-assignment': 'warn',
+    'react/require-default-props': 'warn',
   },
 };
