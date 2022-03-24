@@ -92,6 +92,7 @@ const FooterComponent = (props) => {
                 {`Copyright © ${new Date().getFullYear()} `}
                 RSK Labs. All rights reserved.
                 {` ${version}`}
+                ;-)
               </p>
             </Col>
           </Row>
