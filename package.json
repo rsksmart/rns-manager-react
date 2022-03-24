@@ -3,7 +3,7 @@
   "version": "2.1.10",
   "private": true,
   "license": "MIT",
-  "homepage": ".",
+  "homepage": "/",
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
@@ -47,6 +47,7 @@
     "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
     "build:mainnet": "CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
+    "build:ghpages": "PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
     "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "cypress": "cypress open",
