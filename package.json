@@ -3,7 +3,7 @@
   "version": "2.1.11",
   "private": true,
   "license": "MIT",
-  "homepage": "/",
+  "homepage": "/rns-manager-react",
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
