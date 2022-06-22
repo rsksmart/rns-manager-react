@@ -40,6 +40,11 @@
       "name": "ADDR",
       "interfaceId": "0x3b3b57de",
       "notes": "public resolver interfaceId for ADDR"
+    },
+    {
+      "name": "TEXT_RECORD",
+      "interfaceId": "0x59d1d43c",
+      "notes": "lookup of arbitrary key-value text data"
     }
   ]
 }
