@@ -18,6 +18,7 @@ import { ReverseContainer } from '../reverse/containers';
 import { AddressesContainer } from '../addresses/containers';
 import { ResolverContainer } from '../resolver/containers';
 import MyUrlContainer from '../myurl/containers/MyUrlContainer';
+import { TextRecordsContainer } from '../textrecords/containers';
 
 const AdminComponent = ({
   strings,
@@ -69,6 +70,7 @@ const AdminComponent = ({
               <Route path="/newAdmin/myurl" component={MyUrlContainer} />
               <Route path="/newAdmin/addresses" component={AddressesContainer} />
               <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
+              <Route path="/newAdmin/textrecords" component={advancedView ? TextRecordsContainer : DomainInfoContainer} />
               <Route path="/newAdmin/resolver" component={advancedView ? ResolverContainer : DomainInfoContainer} />
             </Switch>
           </Col>
