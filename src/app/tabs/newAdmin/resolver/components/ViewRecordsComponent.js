@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { EditContentContainer, ViewContractAbiContainer } from '../containers';
-import { CONTRACT_ABI } from '../types';
+import { CONTRACT_ABI, TEXT_RECORD } from '../types';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 
 const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
@@ -18,6 +18,10 @@ const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
     switch (item[0]) {
       case CONTRACT_ABI:
         return <ViewContractAbiContainer value={item[1].value} />;
+      case TEXT_RECORD:
+        // resolver extracted in a separate tab simmilar to My Url,
+        // using the resolver operations and actions
+        return <></>;
       default:
         return (
           <EditContentContainer
