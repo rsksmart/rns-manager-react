@@ -29,7 +29,7 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 import {
   MULTICHAIN_RESOLVER, PUBLIC_RESOLVER, STRING_RESOLVER, UNKNOWN_RESOLVER,
   CONTENT_BYTES, CONTENT_BYTES_BLANK, DEFINITIVE_RESOLVER, CONTENT_HASH,
-  MULTICHAIN, MULTICOIN, CONTRACT_ABI, ADDR,
+  MULTICHAIN, MULTICOIN, CONTRACT_ABI, ADDR, TEXT_RECORD,
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
@@ -100,6 +100,40 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
     ))
     .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
+/**
+ * Querys the blockchain for the assosiated text records keys and returns values
+ * @param {address} resolverAddress address of the domain's resolver
+ * @param {domain} domain domain associated with the text record.
+ */
+const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
+  dispatch(requestContent(TEXT_RECORD));
+  const hash = namehash(domain);
+  const web3 = new Web3(window.rLogin);
+  const promiseArray = [];
+
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+  if (value && value.key !== '') {
+    const userInputKey = [value.key];
+    userInputKey.forEach(async (id) => {
+      promiseArray.push(
+        new Promise((resolve) => {
+          definitiveResolver.methods.text(hash, id).call()
+            .then(result => resolve({
+              id,
+              result,
+            }));
+        }),
+      );
+    });
+  }
+
+  Promise.all(promiseArray).then((values) => {
+    const hasValues = values;
+    dispatch(receiveContent(TEXT_RECORD, values, !hasValues));
+  });
+};
 
 /**
  * Querys the blockchain for all four encodings of contract ABI and returns values
@@ -154,6 +188,8 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
       .then((supportsInterface) => {
         if (supportsInterface) {
           switch (i.name) {
+            case TEXT_RECORD:
+              return dispatch(getTextRecord(resolverAddress, domain));
             case CONTENT_BYTES:
               return dispatch(getContentBytes(resolverAddress, domain));
             case CONTENT_HASH:
@@ -434,6 +470,56 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     });
 };
 
+export const setTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
+  dispatch(requestSetContent(TEXT_RECORD));
+  const web3 = new Web3(window.rLogin);
+  const response = [];
+  const multiCallMethods = [];
+  let dataSourceError;
+  const definitiveResolver = new web3.eth.Contract(
+    definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
+  );
+  // prepare multicall method
+  multiCallMethods.push(
+    definitiveResolver.methods['setText(bytes32,string,string)'](
+      namehash(domain), value.key, value.value,
+    ).encodeABI(),
+  );
+
+  if (value.key === '') {
+    dataSourceError = 'Text record Key cannot be empty';
+  }
+
+  if (dataSourceError) {
+    return dispatch(errorSetContent(TEXT_RECORD, dataSourceError));
+  }
+  // make the multicall
+  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
+  const currentAddress = accounts[0];
+  return definitiveResolver.methods.multicall(multiCallMethods)
+    .send({ from: currentAddress }, (e, result) => {
+      if (e) {
+        return dispatch(errorSetContent(TEXT_RECORD, e.message));
+      }
+
+      const transactionConfirmed = listenerParams => (listenerDispatch) => {
+        listenerDispatch(receiveSetContent(
+          TEXT_RECORD, listenerParams.result, listenerParams.response,
+          (listenerParams.value.inputMethod === 'delete'),
+        ));
+        sendBrowserNotification(listenerParams.domain, 'text_record_set');
+      };
+
+      return dispatch(transactionListener(
+        result,
+        transactionConfirmed,
+        { response, value, domain },
+        listenerParams => listenerDispatch => listenerDispatch(
+          errorSetContent(TEXT_RECORD, listenerParams.errorReason),
+        ),
+      ));
+    });
+};
 /**
  * Function to handle content type when setting. This will be expanded as more
  * content types are supported.
@@ -447,10 +533,24 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
     case CONTENT_BYTES: return dispatch(setContentBytes(resolverAddress, domain, value));
     case CONTENT_HASH: return dispatch(setContentHash(domain, value));
     case CONTRACT_ABI: return dispatch(setContractAbi(resolverAddress, domain, value));
+    case TEXT_RECORD: return dispatch(setTextRecord(resolverAddress, domain, value));
     default: return null;
   }
 };
-
+/**
+ * Function to handle content type when setting. This will be expanded as more
+ * content types are supported.
+ * @param {const} contentType
+ * @param {address} resolverAddress address of the resolver
+ * @param {string} domain domain the content is associated with
+ * @param {string} value value of the content
+ */
+export const getContent = (contentType, resolverAddress, domain, value, keysNo) => (dispatch) => {
+  switch (contentType) {
+    case TEXT_RECORD: return dispatch(getTextRecord(resolverAddress, domain, value, keysNo));
+    default: return null;
+  }
+};
 /**
  * Set the resolver to the Definitive Resolver and Migrate Users Addresses
  * @param {string} domain domain to be migrated
@@ -458,7 +558,7 @@ export const setContent = (contentType, resolverAddress, domain, value) => (disp
  * @param {bool} understandWarning bool that the user knows some addresses are invalid
  */
 export const setDomainResolverAndMigrate = (
-  domain, chainAddresses, contentBytes, understandWarning,
+  domain, chainAddresses, contentBytes, understandWarning, textRecord,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
@@ -499,6 +599,15 @@ export const setDomainResolverAndMigrate = (
       ).encodeABI(),
     );
   });
+
+  // add textRecord if not null or empty
+  if (textRecord && textRecord.value !== '') {
+    multiCallMethods.push(
+      definitiveResolver.methods['setText(bytes32,uint256,bytes)'](
+        hash, textRecord.value,
+      ).encodeABI(),
+    );
+  }
 
   // add contentBytes if not null or empty
   if (contentBytes && contentBytes.value !== CONTENT_BYTES_BLANK && contentBytes.value !== '') {
