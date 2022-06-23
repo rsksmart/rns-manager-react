@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { EditContentContainer, ViewContractAbiContainer } from '../containers';
-import { CONTRACT_ABI } from '../types';
+import { DisplayTextRecordContainer } from '../containers';
+import { TEXT_RECORD } from '../../resolver/types';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 
 const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
@@ -16,33 +16,25 @@ const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
     }
 
     switch (item[0]) {
-      case CONTRACT_ABI:
-        return <ViewContractAbiContainer value={item[1].value} />;
-      default:
+      case TEXT_RECORD:
         return (
-          <EditContentContainer
+          <DisplayTextRecordContainer
             key={item[0]}
-            label={strings[item[0].toLowerCase()]}
             value={item[1].value}
-            validation={false}
-            contentType={item[0]}
-            strings={{
-              submit: strings.submit,
-              cancel: strings.cancel,
-              delete: strings.delete,
-              delete_confirm_text: strings.delete_content_confirm,
-              success_message: strings.content_updated,
-              edit_placeholder: '',
-            }}
           />
         );
+        // return <h1>Here will be displayed the
+        // values forthe global keys and local storage ones</h1>;
+      default:
+        return <></>;
     }
   };
 
   return (
     <div className="major-section records">
-      <h1>{strings.records}</h1>
-      <p>{strings.records_explanation}</p>
+      <h1>{strings.text_records}</h1>
+      <p>{strings.text_records_explanation}</p>
+      <p><strong>{strings.text_records_local}</strong></p>
       {content.map(item => switchViewType(item))}
     </div>
   );
@@ -50,9 +42,9 @@ const ViewRecordsComponent = ({ strings, content, gettingContent }) => {
 
 ViewRecordsComponent.propTypes = {
   strings: propTypes.shape({
-    content_bytes: propTypes.string.isRequired,
-    records: propTypes.string.isRequired,
-    records_explanation: propTypes.string.isRequired,
+    text_records: propTypes.string.isRequired,
+    text_records_explanation: propTypes.string.isRequired,
+    text_records_local: propTypes.string.isRequired,
     submit: propTypes.string.isRequired,
     cancel: propTypes.string.isRequired,
     delete: propTypes.string.isRequired,
