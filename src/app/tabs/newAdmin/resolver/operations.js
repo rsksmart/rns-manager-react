@@ -100,6 +100,7 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
     ))
     .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
+
 /**
  * Querys the blockchain for the assosiated text records keys and returns values
  * @param {address} resolverAddress address of the domain's resolver
@@ -107,6 +108,8 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
  */
 const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestContent(TEXT_RECORD));
+  const storedKeys = localStorage.getItem('keys')
+    ? JSON.parse(localStorage.getItem('keys')) : {};
   const hash = namehash(domain);
   const web3 = new Web3(window.rLogin);
   const promiseArray = [];
@@ -114,26 +117,66 @@ const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
   const definitiveResolver = new web3.eth.Contract(
     definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
+  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
   if (value && value.key !== '') {
-    const userInputKey = [value.key];
-    userInputKey.forEach(async (id) => {
-      promiseArray.push(
-        new Promise((resolve) => {
-          definitiveResolver.methods.text(hash, id).call()
-            .then(result => resolve({
-              id,
-              result,
-            }));
-        }),
-      );
-    });
+    const userInputKey = value.key;
+    eipKeys.push(userInputKey);
   }
+  // const sessionStoredKeys = localStorage.getItem('keys');
+  // const textRecordKeys = eipKeys.concat(storedKeys.filter(item => eipKeys.indexOf(item) < 0));
+  console.log(storedKeys);
+  eipKeys.forEach(async (id) => {
+    promiseArray.push(
+      new Promise((resolve) => {
+        definitiveResolver.methods.text(hash, id).call()
+          .then(result => resolve({
+            id,
+            result,
+          }));
+      }),
+    );
+  });
 
   Promise.all(promiseArray).then((values) => {
     const hasValues = values;
     dispatch(receiveContent(TEXT_RECORD, values, !hasValues));
   });
 };
+
+const updateTextRecordToLocalStorage = (domain, key, add = false) => {
+  const storedKeys = localStorage.getItem('keys')
+    ? JSON.parse(localStorage.getItem('keys')) : {};
+  if (!storedKeys[domain]) {
+    storedKeys[domain] = [];
+  }
+
+  if (add) {
+    if (storedKeys[domain].indexOf(key) === -1) {
+      storedKeys[domain].push(key);
+    }
+  } else {
+    storedKeys[domain].pop(key);
+  }
+  localStorage.setItem('keys', JSON.stringify(storedKeys));
+};
+
+/**
+ * Get all subdomains for a domain in local storage and get all the owners.
+ * @param {string} domain to get the subdomain owners of
+export const getTextRecordKeysListFromLocalStorage = domain => (dispatch) => {
+  dispatch(clearTextRecordKeysList());
+
+  const storedKeys = JSON.parse(localStorage.getItem('keys'));
+
+  if (!storedKeys || !storedKeys[domain]) {
+    return;
+  }
+
+  storedKeys[domain].forEach((key) => {
+    dispatch(getTextRecord(domain, key));
+  });
+};
+ */
 
 /**
  * Querys the blockchain for all four encodings of contract ABI and returns values
@@ -507,6 +550,7 @@ export const setTextRecord = (resolverAddress, domain, value) => async (dispatch
           TEXT_RECORD, listenerParams.result, listenerParams.response,
           (listenerParams.value.inputMethod === 'delete'),
         ));
+        updateTextRecordToLocalStorage(listenerParams.domain, value.key, true);
         sendBrowserNotification(listenerParams.domain, 'text_record_set');
       };
 
