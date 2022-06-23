@@ -4,7 +4,7 @@ import {
   RECEIVE_CONTENT, REQUEST_SET_CONTENT, ERROR_SET_CONTENT, CLOSE_SET_CONTENT,
   RECEIVE_SET_CONTENT, REQUEST_SUPPORTED_INTERFACES, ERROR_DECODING_ADDRESS,
   REQUEST_MIGRATE_ADDRESSES, RECEIVE_MIGRATE_ADDRESSES, ERROR_MIGRATE_WITH_ADDRESSES,
-  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
+  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES, ADD_KEY_TO_LIST, CLEAR_KEYS_LIST,
 } from './types';
 
 export const initialState = {
@@ -24,7 +24,15 @@ export const initialState = {
   },
   gettingContent: false,
 };
-
+const keyInitialState = {
+  key: '',
+  isActive: true,
+  editError: '',
+  isEditing: false,
+  isWaiting: false,
+  isSuccess: false,
+  confirmedTx: '',
+};
 export const contentInititalState = {
   value: '',
   isRequesting: false,
@@ -47,6 +55,21 @@ const resolverReducer = (state = initialState, action) => {
       resolverName: action.resolverName,
     };
 
+    case CLEAR_KEYS_LIST: return {
+      ...state,
+      keys: [],
+    };
+
+    case ADD_KEY_TO_LIST: return {
+      ...state,
+      keys: {
+        ...state.keys,
+        [action.key]: {
+          ...keyInitialState,
+          key: action.key,
+        },
+      },
+    };
     case REQUEST_SET_RESOLVER: return {
       ...state,
       isEditing: true,
