@@ -10,7 +10,7 @@ const LeftNavComponent = (props) => {
   } = props;
 
   const isHome = location === '/newAdmin'
-    || (!advancedView && (location === '/newAdmin/resolver' || location === '/newAdmin/reverse'));
+    || (!advancedView && (location === '/newAdmin/resolver' || location === '/newAdmin/reverse' || location === '/newAdmin/textrecords'));
 
   const ListItemLink = (url, text) => (
     <li>
@@ -36,10 +36,11 @@ const LeftNavComponent = (props) => {
           {ListItemLink('addresses', strings.your_addresses)}
           {ListItemLink('subdomains', strings.subdomains)}
           {ListItemLink('myurl', strings.my_url)}
-          {ListItemLink('textrecords', strings.text_records)}
+
 
           {advancedView && (
             <>
+              {ListItemLink('textrecords', strings.text_records)}
               {ListItemLink('resolver', strings.resolver)}
               {ListItemLink('reverse', strings.reverse)}
             </>
