@@ -4,13 +4,21 @@ import {
   RECEIVE_CONTENT, ERROR_CONTENT, REQUEST_SET_CONTENT, RECEIVE_SET_CONTENT,
   ERROR_SET_CONTENT, CLOSE_SET_CONTENT, REQUEST_SUPPORTED_INTERFACES, REQUEST_MIGRATE_ADDRESSES,
   RECEIVE_MIGRATE_ADDRESSES, ERROR_DECODING_ADDRESS, ERROR_MIGRATE_WITH_ADDRESSES,
-  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES,
+  CLEAR_MIGRATE_CONTENT, RECEIVE_SUPPORTED_INTERFACES, CLEAR_KEYS_LIST, ADD_KEY_TO_LIST,
 } from './types';
 
 export const requestResolver = () => ({
   type: REQUEST_RESOLVER,
 });
 
+export const clearTextRecordKeysList = () => ({
+  type: CLEAR_KEYS_LIST,
+});
+
+export const addKeyToList = key => ({
+  type: ADD_KEY_TO_LIST,
+  key,
+});
 export const receiveResolver = (resolverAddr, resolverName) => ({
   type: RECEIVE_RESOLVER,
   resolverAddr,
