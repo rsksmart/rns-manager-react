@@ -122,10 +122,9 @@ const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
     const userInputKey = value.key;
     eipKeys.push(userInputKey);
   }
-  // const sessionStoredKeys = localStorage.getItem('keys');
-  // const textRecordKeys = eipKeys.concat(storedKeys.filter(item => eipKeys.indexOf(item) < 0));
-  console.log(storedKeys);
-  eipKeys.forEach(async (id) => {
+
+  const textRecordKeys = eipKeys.concat(storedKeys[domain]);
+  textRecordKeys.forEach(async (id) => {
     promiseArray.push(
       new Promise((resolve) => {
         definitiveResolver.methods.text(hash, id).call()
