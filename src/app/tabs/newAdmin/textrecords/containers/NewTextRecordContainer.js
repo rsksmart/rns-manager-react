@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { NewRecordComponent } from '../components';
+import { NewTextRecordComponent } from '../components';
 import { setContent } from '../../resolver/operations';
 import { closeSetMessage } from '../../resolver/actions';
 import { TEXT_RECORD } from '../../resolver/types';
@@ -31,4 +31,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(NewRecordComponent);
+)(NewTextRecordComponent);

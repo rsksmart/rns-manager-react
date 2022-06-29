@@ -1,6 +1,7 @@
 export { default as TextRecordsContainer } from './TextRecordsContainer';
-export { default as ViewRecordsContainer } from './ViewRecordsContainer';
-export { default as SearchTextRecordsContainer } from './SearchTextRecordsContainer';
-export { default as NewRecordContainer } from './NewRecordContainer';
-export { default as ViewTextRecordContainer } from './ViewTextRecordContainer';
+export { default as ViewGlobalRecordsContainer } from './ViewGlobalRecordsContainer';
+export { default as ViewCustomRecordsContainer } from './ViewCustomRecordsContainer';
+export { default as SearchTextRecordContainer } from './SearchTextRecordContainer';
+export { default as NewTextRecordContainer } from './NewTextRecordContainer';
 export { default as DisplayTextRecordContainer } from './DisplayTextRecordContainer';
+export { default as TextRecordInputContainer } from './TextRecordInputContainer';

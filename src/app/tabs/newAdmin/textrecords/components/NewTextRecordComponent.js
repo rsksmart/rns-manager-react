@@ -9,7 +9,7 @@ import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import UserErrorComponent from '../../../../components/UserErrorComponent';
 import { TEXT_RECORD } from '../../resolver/types';
 
-const NewRecordComponent = ({
+const NewTextRecordComponent = ({
   strings, content, handleSubmit, handleCloseMessage,
 }) => {
   if (content.length === 0) {
@@ -89,7 +89,7 @@ const NewRecordComponent = ({
   );
 };
 
-NewRecordComponent.propTypes = {
+NewTextRecordComponent.propTypes = {
   strings: propTypes.shape({
     add: propTypes.string.isRequired,
     add_text_records: propTypes.string.isRequired,
@@ -102,4 +102,4 @@ NewRecordComponent.propTypes = {
   handleCloseMessage: propTypes.func.isRequired,
 };
 
-export default multilanguage(NewRecordComponent);
+export default multilanguage(NewTextRecordComponent);

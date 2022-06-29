@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
-import { ViewRecordsComponent } from '../components';
+import { TextRecordInputComponent } from '../components';
 import { getContent } from '../../resolver/operations';
 import { closeSetMessage } from '../../resolver/actions';
 import { TEXT_RECORD } from '../../resolver/types';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
-  resolverAddr: state.newAdmin.resolver.resolverAddr,
-  content: Object.entries(state.newAdmin.resolver.content).filter(c => c[0] === TEXT_RECORD),
-  gettingContent: state.newAdmin.resolver.gettingContent,
+  content: state.newAdmin.resolver.content,
+  resolverAddress: state.newAdmin.resolver.resolverAddr,
 });
-
 const mapDispatchToProps = dispatch => ({
   handleClick: (resolverAddress, domain, data) => {
     dispatch(getContent(TEXT_RECORD, resolverAddress, domain, data));
@@ -31,4 +29,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(ViewRecordsComponent);
+)(TextRecordInputComponent);

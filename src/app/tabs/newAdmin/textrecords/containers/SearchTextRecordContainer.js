@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ViewTextRecordComponent } from '../components';
+import { SearchTextRecordComponent } from '../components';
 import { getContent } from '../../resolver/operations';
 import { closeSetMessage } from '../../resolver/actions';
 import { TEXT_RECORD } from '../../resolver/types';
@@ -29,4 +29,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(ViewTextRecordComponent);
+)(SearchTextRecordComponent);
