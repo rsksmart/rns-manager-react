@@ -101,12 +101,31 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
     .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
 };
 
+const updateTextRecordToLocalStorage = (domain, key, add = false) => {
+  const storedKeys = localStorage.getItem('keys')
+    ? JSON.parse(localStorage.getItem('keys')) : {};
+  if (!storedKeys[domain]) {
+    storedKeys[domain] = [];
+  }
+  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  if (!eipKeys.includes(key)) {
+    if (add) {
+      if (storedKeys[domain].indexOf(key) === -1) {
+        storedKeys[domain].push(key);
+      }
+    } else {
+      storedKeys[domain].pop(key);
+    }
+    localStorage.setItem('keys', JSON.stringify(storedKeys));
+  }
+};
+
 /**
  * Querys the blockchain for the assosiated text records keys and returns values
  * @param {address} resolverAddress address of the domain's resolver
  * @param {domain} domain domain associated with the text record.
  */
-const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
+export const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestContent(TEXT_RECORD));
   const storedKeys = localStorage.getItem('keys')
     ? JSON.parse(localStorage.getItem('keys')) : {};
@@ -120,17 +139,19 @@ const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
   const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
   if (value && value.key !== '') {
     const userInputKey = value.key;
-    eipKeys.push(userInputKey);
+    if (!eipKeys.includes(userInputKey) && !storedKeys[domain].includes(userInputKey)) {
+      eipKeys.push(userInputKey);
+    }
   }
-
-  const textRecordKeys = eipKeys.concat(storedKeys[domain]);
+  const textRecordKeys = (storedKeys[domain]) ? (storedKeys[domain].concat(eipKeys
+    .filter(item => storedKeys[domain].indexOf(item) < 0))) : eipKeys;
   textRecordKeys.forEach(async (id) => {
     promiseArray.push(
       new Promise((resolve) => {
         definitiveResolver.methods.text(hash, id).call()
           .then(result => resolve({
             id,
-            result,
+            result: (result !== '') ? result : 'NOT SET',
           }));
       }),
     );
@@ -138,44 +159,15 @@ const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
 
   Promise.all(promiseArray).then((values) => {
     const hasValues = values;
+    if (value) {
+      const filteredValues = hasValues.filter(c => (c.id === value.key) && (c.result !== 'NOT SET') && (!eipKeys.includes(c.id)));
+      if (filteredValues && filteredValues.length !== 0) {
+        updateTextRecordToLocalStorage(domain, value.key, true);
+      }
+    }
     dispatch(receiveContent(TEXT_RECORD, values, !hasValues));
   });
 };
-
-const updateTextRecordToLocalStorage = (domain, key, add = false) => {
-  const storedKeys = localStorage.getItem('keys')
-    ? JSON.parse(localStorage.getItem('keys')) : {};
-  if (!storedKeys[domain]) {
-    storedKeys[domain] = [];
-  }
-
-  if (add) {
-    if (storedKeys[domain].indexOf(key) === -1) {
-      storedKeys[domain].push(key);
-    }
-  } else {
-    storedKeys[domain].pop(key);
-  }
-  localStorage.setItem('keys', JSON.stringify(storedKeys));
-};
-
-/**
- * Get all subdomains for a domain in local storage and get all the owners.
- * @param {string} domain to get the subdomain owners of
-export const getTextRecordKeysListFromLocalStorage = domain => (dispatch) => {
-  dispatch(clearTextRecordKeysList());
-
-  const storedKeys = JSON.parse(localStorage.getItem('keys'));
-
-  if (!storedKeys || !storedKeys[domain]) {
-    return;
-  }
-
-  storedKeys[domain].forEach((key) => {
-    dispatch(getTextRecord(domain, key));
-  });
-};
- */
 
 /**
  * Querys the blockchain for all four encodings of contract ABI and returns values
@@ -513,7 +505,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
 };
 
 export const setTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
-  dispatch(requestSetContent(TEXT_RECORD));
+  dispatch(requestSetContent(TEXT_RECORD), requestContent(TEXT_RECORD));
   const web3 = new Web3(window.rLogin);
   const response = [];
   const multiCallMethods = [];
@@ -545,11 +537,16 @@ export const setTextRecord = (resolverAddress, domain, value) => async (dispatch
       }
 
       const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetContent(
-          TEXT_RECORD, listenerParams.result, listenerParams.response,
-          (listenerParams.value.inputMethod === 'delete'),
-        ));
-        updateTextRecordToLocalStorage(listenerParams.domain, value.key, true);
+        listenerDispatch(
+          getTextRecord(resolverAddress, domain),
+          receiveSetContent(
+            TEXT_RECORD, listenerParams.result, listenerParams.response,
+            (listenerParams.value.inputMethod === 'delete'),
+          ),
+        );
+        if (value.value !== '') {
+          updateTextRecordToLocalStorage(listenerParams.domain, value.key, true);
+        }
         sendBrowserNotification(listenerParams.domain, 'text_record_set');
       };
 
