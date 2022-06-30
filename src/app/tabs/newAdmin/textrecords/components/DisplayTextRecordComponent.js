@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import TextRecordInputComponent from './TextRecordInputComponent';
 import { TEXT_RECORD } from '../../resolver/types';
+import edit from '../../../../../assets/img/edit.svg';
+import editActive from '../../../../../assets/img/edit-active.svg';
 
 const DisplayTextRecordComponent = ({
-  value, handleSubmit,
+  value, handleSubmit, strings,
 }) => {
   const filteredValues = value.filter(c => c.result !== '');
-  const [isShown, setIsShown] = useState(false);
-  const handleClick = () => {
+  const [selectedRow, setSelectedRow] = useState();
+
+  const [isShown, setIsShown] = useState(true);
+  const handleClick = (row) => {
     setIsShown(current => !current);
+    setSelectedRow(row);
   };
 
   React.useEffect(() => {
@@ -35,15 +40,18 @@ const DisplayTextRecordComponent = ({
               <td>{e.id}</td>
               <td>{e.result}</td>
               <td>
-                <Button
+                <div
+                  aria-hidden="true"
                   md="3"
                   onClick={() => handleClick(e.id)}
+                  onKeyDown={handleClick}
                 >
-                  EDIT
-                </Button>
+                  <img src={(isShown ? editActive : edit)} alt={strings.edit} />
+                </div>
                 {isShown && (
                   <TextRecordInputComponent
                     handleClick={row => handleSubmit(TEXT_RECORD, row)}
+                    value={selectedRow}
                   />
                 )}
                 {!isShown && ''}
@@ -57,6 +65,9 @@ const DisplayTextRecordComponent = ({
 };
 DisplayTextRecordComponent.propTypes = {
   value: propTypes.arrayOf.isRequired,
+  strings: propTypes.shape({
+    edit: propTypes.string.isRequired,
+  }).isRequired,
   handleSubmit: propTypes.arrayOf.isRequired,
 };
 
