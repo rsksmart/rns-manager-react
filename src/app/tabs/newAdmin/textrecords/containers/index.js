@@ -4,4 +4,5 @@ export { default as ViewCustomRecordsContainer } from './ViewCustomRecordsContai
 export { default as SearchTextRecordContainer } from './SearchTextRecordContainer';
 export { default as NewTextRecordContainer } from './NewTextRecordContainer';
 export { default as DisplayTextRecordContainer } from './DisplayTextRecordContainer';
-export { default as TextRecordInputContainer } from './TextRecordInputContainer';
+export { default as EditValueForKeyContainer } from './EditValueForKeyContainer';
+export { default as DeleteValueForKeyContainer } from './DeleteValueForKeyContainer';

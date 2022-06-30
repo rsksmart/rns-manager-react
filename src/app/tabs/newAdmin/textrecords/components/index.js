@@ -4,5 +4,6 @@ export { default as ViewCustomRecordsComponent } from './ViewCustomRecordsCompon
 export { default as NewTextRecordComponent } from './NewTextRecordComponent';
 export { default as TextRecordInputComponent } from './TextRecordInputComponent';
 export { default as SearchTextRecordComponent } from './SearchTextRecordComponent';
-export { default as EditDeleteTextRecordComponent } from './EditDeleteTextRecordComponent';
 export { default as DisplayTextRecordComponent } from './DisplayTextRecordComponent';
+export { default as EditValueForKeyComponent } from './EditValueForKeyComponent';
+export { default as DeleteValueForKeyComponent } from './DeleteValueForKeyComponent';

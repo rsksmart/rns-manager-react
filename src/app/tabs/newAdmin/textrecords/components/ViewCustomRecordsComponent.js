@@ -64,8 +64,6 @@ ViewCustomRecordsComponent.propTypes = {
     content_updated: propTypes.string.isRequired,
   }).isRequired,
   gettingContent: propTypes.bool.isRequired,
-  // domain: propTypes.string.isRequired,
-  // resolverAddr: propTypes.string.isRequired,
   content: propTypes.shape.isRequired,
 };
 
