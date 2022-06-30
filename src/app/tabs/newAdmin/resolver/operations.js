@@ -119,7 +119,23 @@ const updateTextRecordToLocalStorage = (domain, key, add = false) => {
     localStorage.setItem('keys', JSON.stringify(storedKeys));
   }
 };
-
+const removeTextRecordFromLocalStorage = (domain, key, remove = false) => {
+  const storedKeys = localStorage.getItem('keys')
+    ? JSON.parse(localStorage.getItem('keys')) : {};
+  if (!storedKeys[domain]) {
+    storedKeys[domain] = [];
+  }
+  const index = storedKeys[domain].indexOf(key);
+  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  if (!eipKeys.includes(key)) {
+    if (remove) {
+      if (index > -1) {
+        storedKeys[domain].splice(index, 1);
+      }
+    }
+  }
+  localStorage.setItem('keys', JSON.stringify(storedKeys));
+};
 /**
  * Querys the blockchain for the assosiated text records keys and returns values
  * @param {address} resolverAddress address of the domain's resolver
@@ -139,8 +155,8 @@ export const getTextRecord = (resolverAddress, domain, value) => async (dispatch
   const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
   if (value && value.key !== '') {
     const userInputKey = value.key;
-    if (!eipKeys.includes(userInputKey) && !storedKeys[domain].includes(userInputKey)) {
-      eipKeys.push(userInputKey);
+    if (!eipKeys.includes(userInputKey) || !storedKeys[domain].includes(userInputKey)) {
+      storedKeys[domain].push(userInputKey);
     }
   }
   const textRecordKeys = (storedKeys[domain]) ? (storedKeys[domain].concat(eipKeys
@@ -546,6 +562,8 @@ export const setTextRecord = (resolverAddress, domain, value) => async (dispatch
         );
         if (value.value !== '') {
           updateTextRecordToLocalStorage(listenerParams.domain, value.key, true);
+        } else {
+          removeTextRecordFromLocalStorage(listenerParams.domain, value.key, true);
         }
         sendBrowserNotification(listenerParams.domain, 'text_record_set');
       };
