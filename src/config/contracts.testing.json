@@ -1,13 +1,1 @@
-{
-  "rns": "",
-  "registrar": "",
-  "reverseRegistrar": "",
-  "publicResolver": "",
-  "nameResolver": "",
-  "multiChainResolver": "",
-  "rif": "",
-  "fifsRegistrar": "",
-  "fifsAddrRegistrar": "",
-  "rskOwner": "",
-  "renewer": ""
- }
+{"rns":"0x4b357a6c56e73c8fcfb96b92ccc54dd024e4a772","registrar":"0xc69064c2a2b395fe4106b81750d227bde8c6cd87","reverseRegistrar":"0xe9a5b4b6cf26ff54c206812fcf5b8eefe989abe6","publicResolver":"0x9f22b52384aec32774f866ebee5ea6a9e4f838d5","nameResolver":"0xeaf75eb99fec45853cb81e545aed6bfb76ea9dbc","multiChainResolver":"0x82c011e22f4c98ae8d01ada3d703f24f24f609d9","rif":"0x2a91f80ac9e08a22c07e0c5202039c52fec16b8d","fifsRegistrar":"0xd077064bb6e84e0f1983b17dd351318daea36d8e","fifsAddrRegistrar":"0x9d18759581ad3561635c182005e3d743493f7622","rskOwner":"0x7dca2833ebfeae25fa29fe010b6b1d5e1e8a6b22","renewer":"0xfde99b6ebeda5f829b2fe9cc25b6fc06472db19e"}
