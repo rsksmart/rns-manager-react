@@ -28,7 +28,7 @@ describe('LeftNavComponent', () => {
         </HashRouter>
       </Provider>,
     );
-    expect(component.find('li').length).toBe(6);
+    expect(component.find('li').length).toBe(7);
   });
 
   it('sets correct item active when passed', () => {
