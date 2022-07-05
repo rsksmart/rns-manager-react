@@ -156,7 +156,7 @@ export const getTextRecord = (resolverAddress, domain, value) => async (dispatch
   if (value && value.key !== '') {
     const userInputKey = value.key;
     if (!eipKeys.includes(userInputKey) || !storedKeys[domain].includes(userInputKey)) {
-      storedKeys[domain].push(userInputKey);
+      eipKeys.push(userInputKey);
     }
   }
   const textRecordKeys = (storedKeys[domain]) ? (storedKeys[domain].concat(eipKeys
