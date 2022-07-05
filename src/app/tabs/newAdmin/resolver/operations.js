@@ -156,7 +156,7 @@ export const getTextRecord = (resolverAddress, domain, value) => async (dispatch
   if (value && value.key !== '') {
     const userInputKey = value.key;
     if (!eipKeys.includes(userInputKey) || !storedKeys[domain].includes(userInputKey)) {
-      eipKeys.push(userInputKey);
+      eipKeys.unshift(userInputKey);
     }
   }
   const textRecordKeys = (storedKeys[domain]) ? (storedKeys[domain].concat(eipKeys
@@ -176,9 +176,12 @@ export const getTextRecord = (resolverAddress, domain, value) => async (dispatch
   Promise.all(promiseArray).then((values) => {
     const hasValues = values;
     if (value) {
-      const filteredValues = hasValues.filter(c => (c.id === value.key) && (c.result !== 'NOT SET') && (!eipKeys.includes(c.id)));
+      const filteredValues = hasValues.filter(c => (c.id === value.key) && (c.result !== 'NOT SET'));
       if (filteredValues && filteredValues.length !== 0) {
-        updateTextRecordToLocalStorage(domain, value.key, true);
+        eipKeys.shift();
+        if (!eipKeys.includes(value.key)) {
+          updateTextRecordToLocalStorage(domain, value.key, true);
+        }
       }
     }
     dispatch(receiveContent(TEXT_RECORD, values, !hasValues));
