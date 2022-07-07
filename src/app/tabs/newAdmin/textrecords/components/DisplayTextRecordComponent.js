@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
+import { Table } from 'react-bootstrap';
 import EditDeleteTextRecordComponent from './EditDeleteTextRecordComponent';
 
 const DisplayTextRecordComponent = ({
@@ -9,7 +10,7 @@ const DisplayTextRecordComponent = ({
   const filteredValues = value.filter(c => c.result !== '');
   return (
     <div>
-      <table className="table table-bordered">
+      <Table responsive className="table table-bordered">
         <thead>
           <tr>
             <th>Key</th>
@@ -26,7 +27,7 @@ const DisplayTextRecordComponent = ({
             />
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };
