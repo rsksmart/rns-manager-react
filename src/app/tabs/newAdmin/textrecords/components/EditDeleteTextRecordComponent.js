@@ -19,8 +19,6 @@ const EditDeleteTextRecordComponent = ({
     setIsShown(current => !current);
   };
 
-  // React.useEffect(() => {
-  // });
   return (
     <tr
       key={value.id}
@@ -51,7 +49,9 @@ const EditDeleteTextRecordComponent = ({
           onClick={handleDeleteClicked}
           onKeyDown={handleDeleteClicked}
         >
+          {(value.result !== 'NOT SET') && (
           <img src={(isDeletable ? closeRed : closeBlue)} alt={strings.delete} />
+          )}
         </div>
         {isDeletable && (
           <DeleteValueForKeyContainer
