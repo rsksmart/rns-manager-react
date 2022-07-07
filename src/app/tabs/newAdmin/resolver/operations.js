@@ -39,12 +39,22 @@ import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
 
 /**
- * variable outside functions that are using the array,to act as a single source for it.
+ * Returns hardcoded EIP-634 keys
  * @param {keys} keys EIP-634 global, service and legacy keys
  */
 export const getEIPKeys = () => {
   const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
   return eipKeys;
+};
+
+/**
+ * Returns local storage keys
+ * @param {storedKeys} storedKeys local stored key
+ */
+export const getLocalStoredKeys = () => {
+  const storedKeys = localStorage.getItem('keys')
+    ? JSON.parse(localStorage.getItem('keys')) : {};
+  return storedKeys;
 };
 
 /**
@@ -111,8 +121,7 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
 };
 
 const updateTextRecordToLocalStorage = (domain, key, add = false) => {
-  const storedKeys = localStorage.getItem('keys')
-    ? JSON.parse(localStorage.getItem('keys')) : {};
+  const storedKeys = getLocalStoredKeys();
   if (!storedKeys[domain]) {
     storedKeys[domain] = [];
   }
@@ -129,8 +138,7 @@ const updateTextRecordToLocalStorage = (domain, key, add = false) => {
   }
 };
 const removeTextRecordFromLocalStorage = (domain, key, remove = false) => {
-  const storedKeys = localStorage.getItem('keys')
-    ? JSON.parse(localStorage.getItem('keys')) : {};
+  const storedKeys = getLocalStoredKeys();
   if (!storedKeys[domain]) {
     storedKeys[domain] = [];
   }
@@ -152,8 +160,7 @@ const removeTextRecordFromLocalStorage = (domain, key, remove = false) => {
  */
 export const getTextRecord = (resolverAddress, domain, value) => async (dispatch) => {
   dispatch(requestContent(TEXT_RECORD));
-  const storedKeys = localStorage.getItem('keys')
-    ? JSON.parse(localStorage.getItem('keys')) : {};
+  const storedKeys = getLocalStoredKeys();
   const hash = namehash(domain);
   const web3 = new Web3(window.rLogin);
   const promiseArray = [];
