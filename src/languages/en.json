@@ -351,6 +351,7 @@
   "resolve_text_records": "Resolve txt record key if text record has been previously set:",
   "search_keys_text_records": "*Custom kety will be displayed in the custom keys table. Global keys allready displayd in the EIP keys table",
   "add_text_records": "Add Text Records",
+  "definitive_resolver_text_records": "Text Records are a supported on the definitive resolver. In order to use the text records interface, please go on the 'Resolver' tab and activate the 'Multicoin Addresses Resolver'",
   "set_resolver": "Set resolver",
   "set_resolver_explanation": "The resolver is the RNS component that gives the name different functions. We offer a free public resolver that gives the domain basic functionality, but you can choose to use a custom implementation.",
   "resolver_set_success": "Successfully set the resolver",
