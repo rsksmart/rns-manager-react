@@ -19,8 +19,8 @@ const EditDeleteTextRecordComponent = ({
     setIsShown(current => !current);
   };
 
-  React.useEffect(() => {
-  });
+  // React.useEffect(() => {
+  // });
   return (
     <tr
       key={value.id}
