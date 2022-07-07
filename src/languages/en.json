@@ -348,6 +348,8 @@
   "text_records_explanation": "Text records are for any arbitrary data you want to attach to an RNS name. At the moment, we are supporting the keys defined in the original text record EIP by Richard Moore, which include keys for an email address, URL, social media profiles, and other meta data of your choosing. ",
   "text_records_local": "For other meta data of your choosing, only text record keys using stored in local storage. In order to resolve any custom key, please use the search functionality.",
   "search_text_records": "Search for a custom key text record",
+  "resolve_text_records": "Resolve txt record key if text record has been previously set:",
+  "search_keys_text_records": "*Custom kety will be displayed in the custom keys table. Global keys allready displayd in the EIP keys table",
   "add_text_records": "Add Text Records",
   "set_resolver": "Set resolver",
   "set_resolver_explanation": "The resolver is the RNS component that gives the name different functions. We offer a free public resolver that gives the domain basic functionality, but you can choose to use a custom implementation.",

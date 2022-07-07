@@ -18,11 +18,8 @@ const SearchTextRecordComponent = ({
       <div className="row addressInput minor-section contract-abi-view">
         <div className="row textRecordview">
           <Col className="col-md-12 label">
-            <p>Resolve txt record key if text record has been previously set:</p>
-            <p>
-              *Custom kets will be displayed in the custom keys table.
-              Global keys allready displayd in the EIP keys table
-            </p>
+            <p>{strings.resolve_text_records}</p>
+            <p>{strings.search_keys_text_records}</p>
           </Col>
           <Col className="col-md-3 label">
             <Button
@@ -51,6 +48,8 @@ SearchTextRecordComponent.propTypes = {
   handleClick: propTypes.func.isRequired,
   strings: propTypes.shape({
     search_text_records: propTypes.string.isRequired,
+    resolve_text_records: propTypes.string.isRequired,
+    search_keys_text_records: propTypes.string.isRequired,
   }).isRequired,
 };
 
