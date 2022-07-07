@@ -30,8 +30,7 @@ const ViewGlobalRecordsComponent = ({ content, gettingContent }) => {
         return (
           <>
             <p>
-              <strong>EIP-634 GLOBAL, SERVICE AND LEGACY KEYS</strong>
-              {'    '}
+              <strong className="keys">EIP-634 GLOBAL, SERVICE AND LEGACY KEYS</strong>
               <Button onClick={handleClick}>Show/Hide keys</Button>
             </p>
             {isShown && (
@@ -40,7 +39,6 @@ const ViewGlobalRecordsComponent = ({ content, gettingContent }) => {
               value={filteredValuesGlobalKeys}
             />
             )}
-            {!isShown && ''}
           </>
         );
       default:

@@ -31,8 +31,7 @@ const ViewCustomRecordsComponent = ({
         return (
           <>
             <p>
-              <strong>CUSTOM KEYS</strong>
-              {'    '}
+              <strong className="keys">CUSTOM KEYS</strong>
               <Button onClick={handleClick}>Show/Hide keys</Button>
             </p>
             {isShown && (
@@ -41,7 +40,6 @@ const ViewCustomRecordsComponent = ({
               value={customValuesKeys}
             />
             )}
-            {!isShown && ''}
           </>
         );
       default:
