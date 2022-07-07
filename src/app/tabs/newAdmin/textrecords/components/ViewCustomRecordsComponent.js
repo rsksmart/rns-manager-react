@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { DisplayTextRecordContainer } from '../containers';
 import { TEXT_RECORD } from '../../resolver/types';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
+import { getEIPKeys } from '../../resolver/operations';
 
 const ViewCustomRecordsComponent = ({
   content, gettingContent,
@@ -23,7 +24,7 @@ const ViewCustomRecordsComponent = ({
     if (item[1].isEmpty) {
       return <></>;
     }
-    const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+    const eipKeys = getEIPKeys();
     const customValuesKeys = item[1].value.filter(c => !eipKeys.includes(c.id));
     switch (item[0]) {
       case TEXT_RECORD:

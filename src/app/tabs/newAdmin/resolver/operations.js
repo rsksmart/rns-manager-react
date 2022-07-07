@@ -39,6 +39,15 @@ import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
 
 /**
+ * variable outside functions that are using the array,to act as a single source for it.
+ * @param {keys} keys EIP-634 global, service and legacy keys
+ */
+export const getEIPKeys = () => {
+  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  return eipKeys;
+};
+
+/**
  * Returns user friendly name based on address
  * @param {address} address the resolver address
  */
@@ -107,7 +116,7 @@ const updateTextRecordToLocalStorage = (domain, key, add = false) => {
   if (!storedKeys[domain]) {
     storedKeys[domain] = [];
   }
-  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  const eipKeys = getEIPKeys();
   if (!eipKeys.includes(key)) {
     if (add) {
       if (storedKeys[domain].indexOf(key) === -1) {
@@ -126,7 +135,7 @@ const removeTextRecordFromLocalStorage = (domain, key, remove = false) => {
     storedKeys[domain] = [];
   }
   const index = storedKeys[domain].indexOf(key);
-  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  const eipKeys = getEIPKeys();
   if (!eipKeys.includes(key)) {
     if (remove) {
       if (index > -1) {
@@ -152,7 +161,7 @@ export const getTextRecord = (resolverAddress, domain, value) => async (dispatch
   const definitiveResolver = new web3.eth.Contract(
     definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
   );
-  const eipKeys = ['email', 'url', 'avatar', 'description', 'notice', 'keywords', 'com.discord', 'com.github', 'com.reddit', 'com.twitter ', 'org.telegram'];
+  const eipKeys = getEIPKeys();
   if (value && value.key !== '') {
     const userInputKey = value.key;
     if (!eipKeys.includes(userInputKey) || !storedKeys[domain].includes(userInputKey)) {
