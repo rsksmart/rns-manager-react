@@ -6,7 +6,7 @@ import {
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
-  fifsRegistrar as fifsRegistrarAddress,
+  fifsAddrRegistrar as fifsAddrRegistrarAddress,
   registrar as auctionRegistrarAddress,
 } from '../../adapters/configAdapter';
 
@@ -14,7 +14,7 @@ import { notifyError } from '../../notifications';
 import { rskNode } from '../../adapters/nodeAdapter';
 import {
   rskOwnerAbi,
-  fifsRegistrarAbi,
+  fifsAddrRegistrarAbi,
   auctionRegistrarAbi,
   deedRegistrarAbi,
 } from './abis.json';
@@ -30,7 +30,7 @@ export default domain => (dispatch) => {
 
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
 
-  const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
+  const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 

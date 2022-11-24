@@ -32,7 +32,7 @@ import { start } from '../../auth/operations';
  */
 export const getCost = (domain, duration) => async (dispatch) => {
   const web3 = new Web3(rskNode);
-  const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
+  const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
 
   dispatch(requestGetCost(duration));
 
@@ -102,7 +102,6 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
     from: currentAddress,
     gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK)),
   };
-
   return new Promise((resolve) => {
     registrar
       .methods
@@ -229,7 +228,6 @@ export const revealCommit = domain => async (dispatch) => {
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
   const durationBN = new web3.utils.BN(duration);
-
   const data = (contract === FIFS_ADDR_REGISTRER)
     ? getAddrRegisterData(domain, currentAddress, salt, durationBN, currentAddress)
     : getRegisterData(domain, currentAddress, salt, durationBN);
