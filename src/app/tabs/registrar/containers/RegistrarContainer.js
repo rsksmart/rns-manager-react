@@ -2,7 +2,7 @@ import { parse } from 'query-string';
 import { connect } from 'react-redux';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
-import { checkIfInProgress } from '../operations';
+import { checkIfInProgress, checkIfCommitmentIsRequired } from '../operations';
 import { closeErrorMessage } from '../actions';
 
 const mapStateToProps = state => ({
@@ -18,12 +18,15 @@ const mapStateToProps = state => ({
   canReveal: state.registrar.canReveal,
   revealConfirmed: state.registrar.revealConfirmed,
   errorMessage: state.registrar.errorMessage,
+  checkingIfCommitmentIsRequired: state.registrar.checkingIfCommitmentIsRequired,
+  shouldCommit: state.registrar.shouldCommit,
   language: state.multilanguage.currentLanguageCode,
 });
 
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
   checkIfAlreadyRegistered: domain => dispatch(checkIfInProgress(domain)),
+  checkIfCommitmentIsRequired: () => dispatch(checkIfCommitmentIsRequired()),
   handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 

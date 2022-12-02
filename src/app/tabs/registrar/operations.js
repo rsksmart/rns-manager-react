@@ -7,17 +7,21 @@ import {
   errorRevealCommit, optionsNotFound, commitTxMined, revealTxMined,
   requestConversionRate, recieveConversionRate, errorConversionRate,
   requestCheckCommitRegistrar,
+  requestShouldCommit, receiveShouldCommit,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   rif as rifAddress,
+  partnerConfiguration as partnerConfigurationAddress,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import transactionListener from '../../helpers/transactionListener';
 import estimateGas from '../../helpers/estimateGas';
 import { notifyError } from '../../notifications';
-import { fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi } from './abis.json';
+import {
+  fifsRegistrarAbi, fifsAddrRegistrarAbi, rifAbi, partnerConfigurationAbi,
+} from './abis.json';
 import { getRegisterData, getAddrRegisterData } from './helpers';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
 import { sendBrowserNotification } from '../../browerNotifications/operations';
@@ -331,4 +335,26 @@ export const checkIfInProgress = domain => (dispatch) => {
 
   // if rLogin does not exist, start with the modal:
   return (window.rLogin) ? callback() : dispatch(start(callback));
+};
+
+export const checkIfCommitmentIsRequired = () => async (dispatch) => {
+  const web3 = new Web3(rskNode);
+
+
+  const partnerConfiguration = new web3.eth.Contract(
+    partnerConfigurationAbi,
+    partnerConfigurationAddress,
+  );
+
+  dispatch(requestShouldCommit());
+
+  partnerConfiguration.methods
+    .getMinCommitmentAge()
+    .call((error, minCommitmentAge) => {
+      if (error) {
+        return dispatch(notifyError(error.message));
+      }
+
+      return dispatch(receiveShouldCommit(!+minCommitmentAge === 0));
+    });
 };

@@ -1,8 +1,13 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
-  requestDomainState, receiveDomainState, blockedDomain,
-  requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
+  requestDomainState,
+  receiveDomainState,
+  blockedDomain,
+  requestDomainOwner,
+  receiveDomainOwner,
+  requestDomainCost,
+  receiveDomainCost,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -30,11 +35,16 @@ export default domain => (dispatch) => {
 
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
 
-  const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
+  const registrar = new web3.eth.Contract(
+    fifsAddrRegistrarAbi,
+    fifsAddrRegistrarAddress,
+  );
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
-  return rskOwner.methods.available(hash).call()
+  return rskOwner.methods
+    .available(hash)
+    .call()
     .then((available) => {
       if (!available) {
         dispatch(receiveDomainState(false));
@@ -45,16 +55,25 @@ export default domain => (dispatch) => {
           auctionRegistrarAddress,
         );
 
-        return auctionRegistrar.methods.entries(hash).call()
+        return auctionRegistrar.methods
+          .entries(hash)
+          .call()
           .then((results) => {
             if (results[0] === '2') {
-              const deedContract = new web3.eth.Contract(deedRegistrarAbi, results[1]);
-              return deedContract.methods.owner().call()
+              const deedContract = new web3.eth.Contract(
+                deedRegistrarAbi,
+                results[1],
+              );
+              return deedContract.methods
+                .owner()
+                .call()
                 .then(owner => dispatch(receiveDomainOwner(owner)))
                 .catch(error => dispatch(notifyError(error.message)));
             }
 
-            return rskOwner.methods.ownerOf(hash).call()
+            return rskOwner.methods
+              .ownerOf(hash)
+              .call()
               .then(owner => dispatch(receiveDomainOwner(owner)))
               .catch(error => dispatch(notifyError(error.message)));
           })
@@ -66,9 +85,13 @@ export default domain => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-      return registrar.methods.price(domain, 0, 1).call()
+      return registrar.methods
+        .price(domain, 0, 1)
+        .call()
         .then((result) => {
-          const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
+          const rifCost = web3.utils
+            .toBN(result)
+            .div(web3.utils.toBN('1000000000000000000'));
           dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));
           dispatch(receiveDomainState(available));
         })

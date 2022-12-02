@@ -24,8 +24,12 @@ class RegistrarComponent extends Component {
   }
 
   componentDidMount() {
-    const { domain, getState, checkIfAlreadyRegistered } = this.props;
+    const {
+      // eslint-disable-next-line no-unused-vars
+      domain, getState, checkIfAlreadyRegistered, checkIfCommitmentIsRequired,
+    } = this.props;
     if (domain && this.validate() && getState) getState(domain);
+    checkIfCommitmentIsRequired();
     checkIfAlreadyRegistered(domain);
   }
 
@@ -41,6 +45,7 @@ class RegistrarComponent extends Component {
       strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
       committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
       handleCloseClick, language,
+      checkingIfCommitmentIsRequired, shouldCommit,
     } = this.props;
     const { invalid } = this.state;
 
@@ -48,7 +53,7 @@ class RegistrarComponent extends Component {
       return <h4>{invalid}</h4>;
     }
 
-    if (domainStateLoading || requestingOwner) {
+    if (domainStateLoading || requestingOwner || checkingIfCommitmentIsRequired) {
       return <UserWaitingComponent visible />;
     }
 
@@ -72,17 +77,19 @@ class RegistrarComponent extends Component {
           waiting={waiting}
           revealConfirmed={revealConfirmed}
           domain={domain}
+          shouldCommit={shouldCommit}
         />
 
         {!committed
-            && (
-            <div className="requestDomain row">
-              <div className="col-md-6 offset-md-3">
-                <RentalPeriodContainer />
-              </div>
-              <CommitContainer />
-            </div>
-            )
+             && (
+             <div className="requestDomain row">
+               <div className="col-md-6 offset-md-3">
+                 <RentalPeriodContainer />
+               </div>
+               {shouldCommit && (<CommitContainer />)}
+               {!shouldCommit && (<RevealContainer />)}
+             </div>
+             )
           }
 
         {waiting && (
@@ -154,9 +161,12 @@ RegistrarComponent.propTypes = {
   canReveal: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool,
   checkIfAlreadyRegistered: propTypes.func.isRequired,
+  checkIfCommitmentIsRequired: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   language: propTypes.string.isRequired,
+  checkingIfCommitmentIsRequired: propTypes.bool.isRequired,
+  shouldCommit: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

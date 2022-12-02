@@ -8,6 +8,7 @@ const StepsMenu = ({
   waiting,
   revealConfirmed,
   domain,
+  shouldCommit,
 }) => {
   const activeClass = 'btn-active';
   const defaultClass = 'btn-outline-primary';
@@ -27,17 +28,23 @@ const StepsMenu = ({
       <ul className="list-inline steps">
         <li>
           <div className={`btn ${!committed || waiting ? activeClass : defaultClass}`}>
-            {`1. ${strings.request_domain}`}
+            1.
+            {' '}
+            {shouldCommit ? strings.request_domain : strings.register_domain}
           </div>
         </li>
+        {shouldCommit && (
         <li>
           <div className={`btn ${(committed && !waiting && !revealConfirmed) ? activeClass : defaultClass}`}>
             {`2. ${strings.register_domain}`}
           </div>
         </li>
+        )}
         <li>
           <div className={`btn ${revealConfirmed ? activeClass : defaultClass}`}>
-            {`3. ${strings.login}`}
+            {shouldCommit ? '3.' : '2.'}
+            {' '}
+            {strings.login}
           </div>
         </li>
       </ul>
@@ -49,6 +56,7 @@ StepsMenu.propTypes = {
   strings: propTypes.shape().isRequired,
   committed: propTypes.bool.isRequired,
   waiting: propTypes.bool.isRequired,
+  shouldCommit: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool.isRequired,
   domain: propTypes.string.isRequired,
 };

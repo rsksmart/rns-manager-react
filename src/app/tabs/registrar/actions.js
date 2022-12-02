@@ -6,6 +6,7 @@ import {
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
   TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
+  REQUEST_REGISTRAR_SHOULD_COMMIT, RECEIVE_REGISTRAR_SHOULD_COMMIT,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -92,4 +93,13 @@ export const toggleSetupAddr = setupAddr => ({
 
 export const closeErrorMessage = () => ({
   type: CLOSE_REGISTRATION_ERROR,
+});
+
+export const requestShouldCommit = () => ({
+  type: REQUEST_REGISTRAR_SHOULD_COMMIT,
+});
+
+export const receiveShouldCommit = shouldCommit => ({
+  type: RECEIVE_REGISTRAR_SHOULD_COMMIT,
+  shouldCommit,
 });
