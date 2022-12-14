@@ -1,6 +1,11 @@
+@import "config.json";
+
+// $colors: map-get($config, "colors");
 $gray: #919191;
 $light-gray: #f7f7f7;
-$blue: #008CFF;
+// $blue: #008CFF;
+// $blue: #2e9a49;
+$blue: $gray;
 $white: #ffffff;
 $red: #E02F2F;
 $light-red: rgba(232, 99, 99, 0.2);
