@@ -59,6 +59,7 @@ class RegistrarComponent extends Component {
       waiting,
       canReveal,
       revealConfirmed,
+      revealing,
       walletAddress,
       errorMessage,
       handleCloseClick,
@@ -105,7 +106,7 @@ class RegistrarComponent extends Component {
         {!committed
             && (
             <div className="requestDomain row">
-              {!revealConfirmed && (
+              {!revealConfirmed && !revealing && (
               <div className="col-md-6 offset-md-3">
                 <RentalPeriodContainer />
               </div>
@@ -181,6 +182,7 @@ RegistrarComponent.propTypes = {
   handleCloseClick: propTypes.func.isRequired,
   language: propTypes.string.isRequired,
   isCommitmentRequired: propTypes.bool.isRequired,
+  revealing: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {

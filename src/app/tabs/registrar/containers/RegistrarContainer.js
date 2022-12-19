@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   errorMessage: state.registrar.errorMessage,
   language: state.multilanguage.currentLanguageCode,
   isCommitmentRequired: state.registrar.isCommitmentRequired,
+  revealing: state.registrar.revealing,
 });
 
 const mapDispatchToProps = dispatch => ({
