@@ -6,6 +6,7 @@ import {
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
   TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
+  RECEIVE_CHECK_COMMITMENT_REQUIRED, REQUEST_CHECK_COMMITMENT_REQUIRED,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -53,6 +54,15 @@ export const errorRevealCommit = message => ({
 export const receiveCanRevealCommit = canReveal => ({
   type: RECEIVE_CAN_REVEAL_COMMIT,
   canReveal,
+});
+
+export const requestIsCommitmentRequired = () => ({
+  type: REQUEST_CHECK_COMMITMENT_REQUIRED,
+});
+
+export const receiveIsCommitmentRequired = isCommitmentRequired => ({
+  type: RECEIVE_CHECK_COMMITMENT_REQUIRED,
+  isCommitmentRequired,
 });
 
 export const optionsNotFound = () => ({

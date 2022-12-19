@@ -3,7 +3,11 @@ import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Container } from 'react-bootstrap';
 import {
-  RentalPeriodContainer, CommitContainer, RevealContainer, LoadingContainer, AutoLoginComponent,
+  RentalPeriodContainer,
+  CommitContainer,
+  RevealContainer,
+  LoadingContainer,
+  AutoLoginComponent,
 } from '../containers';
 import { isValidName } from '../../../validations';
 import UserErrorComponent from '../../../components/UserErrorComponent';
@@ -24,9 +28,15 @@ class RegistrarComponent extends Component {
   }
 
   componentDidMount() {
-    const { domain, getState, checkIfAlreadyRegistered } = this.props;
+    const {
+      domain,
+      getState,
+      checkIfAlreadyRegistered,
+      checkIfRequiresCommitment,
+    } = this.props;
     if (domain && this.validate() && getState) getState(domain);
     checkIfAlreadyRegistered(domain);
+    checkIfRequiresCommitment(domain);
   }
 
   validate() {
@@ -38,9 +48,22 @@ class RegistrarComponent extends Component {
 
   render() {
     const {
-      strings, domain, owned, blocked, domainStateLoading, owner, requestingOwner,
-      committed, waiting, canReveal, revealConfirmed, walletAddress, errorMessage,
-      handleCloseClick, language,
+      strings,
+      domain,
+      owned,
+      blocked,
+      domainStateLoading,
+      owner,
+      requestingOwner,
+      committed,
+      waiting,
+      canReveal,
+      revealConfirmed,
+      walletAddress,
+      errorMessage,
+      handleCloseClick,
+      language,
+      isCommitmentRequired,
     } = this.props;
     const { invalid } = this.state;
 
@@ -62,7 +85,11 @@ class RegistrarComponent extends Component {
       );
     }
     if (blocked) {
-      return <Container className="page"><h4>{strings.blocked_domain}</h4></Container>;
+      return (
+        <Container className="page">
+          <h4>{strings.blocked_domain}</h4>
+        </Container>
+      );
     }
 
     return (
@@ -72,18 +99,21 @@ class RegistrarComponent extends Component {
           waiting={waiting}
           revealConfirmed={revealConfirmed}
           domain={domain}
+          isCommitmentRequired={isCommitmentRequired}
         />
 
         {!committed
             && (
             <div className="requestDomain row">
+              {!revealConfirmed && (
               <div className="col-md-6 offset-md-3">
                 <RentalPeriodContainer />
               </div>
-              <CommitContainer />
+              )}
+              {isCommitmentRequired
+              && <CommitContainer />}
             </div>
-            )
-          }
+            )}
 
         {waiting && (
           <>
@@ -106,17 +136,9 @@ class RegistrarComponent extends Component {
           </>
         )}
 
-        {(canReveal && !revealConfirmed)
-            && (
-            <RevealContainer />
-            )
-          }
+        {canReveal && !revealConfirmed && <RevealContainer />}
 
-        {revealConfirmed
-            && (
-              <AutoLoginComponent />
-            )
-          }
+        {revealConfirmed && <AutoLoginComponent />}
 
         <UserErrorComponent
           visible={errorMessage !== ''}
@@ -154,9 +176,11 @@ RegistrarComponent.propTypes = {
   canReveal: propTypes.bool.isRequired,
   revealConfirmed: propTypes.bool,
   checkIfAlreadyRegistered: propTypes.func.isRequired,
+  checkIfRequiresCommitment: propTypes.func.isRequired,
   errorMessage: propTypes.string.isRequired,
   handleCloseClick: propTypes.func.isRequired,
   language: propTypes.string.isRequired,
+  isCommitmentRequired: propTypes.bool.isRequired,
 };
 
 RegistrarComponent.defaultProps = {
