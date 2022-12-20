@@ -6,6 +6,8 @@ import {
   REGISTRAR_COMMIT_CONFIRMED, REVEAL_COMMIT_CONFIRMED, RESET_REGISTRAR_STATE,
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, TOGGLE_SETUP_ADDRESS, ERROR_CONVERSION_RATE,
   CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
+  REQUEST_CHECK_COMMITMENT_REQUIRED,
+  RECEIVE_CHECK_COMMITMENT_REQUIRED,
 } from './types';
 
 const initialState = {
@@ -22,11 +24,23 @@ const initialState = {
   gettingConversionRate: false,
   conversionRate: null,
   setupAddr: true,
+  isCommitmentRequired: true,
+  checkingIfCommitmentIsRequired: false,
   errorMessage: '',
   successTx: '',
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
+    case REQUEST_CHECK_COMMITMENT_REQUIRED: return {
+      ...state,
+      checkingIfCommitmentIsRequired: true,
+    };
+    case RECEIVE_CHECK_COMMITMENT_REQUIRED: return {
+      ...state,
+      checkingIfCommitmentIsRequired: false,
+      isCommitmentRequired: action.isCommitmentRequired,
+      canReveal: !action.isCommitmentRequired,
+    };
     case REQUEST_REGISTRAR_GET_COST: return {
       ...state,
       gettingCost: true,
