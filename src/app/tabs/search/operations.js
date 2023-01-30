@@ -8,6 +8,7 @@ import {
   rskOwner as rskOwnerAddress,
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   registrar as auctionRegistrarAddress,
+  partner as partnerAddress,
 } from '../../adapters/configAdapter';
 
 import { notifyError } from '../../notifications';
@@ -66,7 +67,7 @@ export default domain => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-      return registrar.methods.price(domain, 0, 1).call()
+      return registrar.methods.price(domain, 0, 1, partnerAddress).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
           dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));

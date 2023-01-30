@@ -25,6 +25,7 @@ import {
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   rif as rifAddress,
   partnerConfiguration as partnerConfigurationAddress,
+  partner as partnerAddress,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import transactionListener from '../../helpers/transactionListener';
@@ -58,7 +59,7 @@ export const getCost = (domain, duration) => async (dispatch) => {
   dispatch(requestGetCost(duration));
 
   registrar.methods
-    .price(domain, 0, duration)
+    .price(domain, 0, duration, partnerAddress)
     .call((error, cost) => (error
       ? dispatch(notifyError(error.message))
       : dispatch(receiveGetCost(cost / (10 ** 18)))));
@@ -134,7 +135,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
 
   const options = {
     from: currentAddress,
-    gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK)),
+    gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK, partnerAddress)),
   };
   return new Promise((resolve) => {
     registrar.methods
@@ -145,7 +146,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
         }
 
         return registrar.methods
-          .commit(hashCommit)
+          .commit(hashCommit, partnerAddress)
           .send(options, (_error, result) => {
             if (_error) {
               return dispatch(errorRegistrarCommit(_error.message));
@@ -285,6 +286,7 @@ export const revealCommit = domain => async (dispatch) => {
         salt,
         durationBN,
         currentAddress,
+        partnerAddress,
       )
       : getRegisterData(domain, currentAddress, salt, durationBN);
 

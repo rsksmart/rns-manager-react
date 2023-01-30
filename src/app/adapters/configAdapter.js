@@ -34,3 +34,4 @@ export const renewer = returnValue('renewer');
 export const stringResolver = returnValue('stringResolver');
 export const definitiveResolver = returnValue('definitiveResolver');
 export const partnerConfiguration = returnValue('defaultPartnerConfiguration');
+export const partner = returnValue('partner');
