@@ -7,6 +7,7 @@ import {
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
   TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
   RECEIVE_CHECK_COMMITMENT_REQUIRED, REQUEST_CHECK_COMMITMENT_REQUIRED,
+  UPDATE_PARTNER, GET_PARTNER,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -102,4 +103,13 @@ export const toggleSetupAddr = setupAddr => ({
 
 export const closeErrorMessage = () => ({
   type: CLOSE_REGISTRATION_ERROR,
+});
+
+export const updatePartner = partner => ({
+  type: UPDATE_PARTNER,
+  partner,
+});
+
+export const requestPartner = () => ({
+  type: GET_PARTNER,
 });

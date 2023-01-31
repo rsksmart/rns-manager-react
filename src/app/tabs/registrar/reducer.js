@@ -8,6 +8,7 @@ import {
   CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
   REQUEST_CHECK_COMMITMENT_REQUIRED,
   RECEIVE_CHECK_COMMITMENT_REQUIRED,
+  UPDATE_PARTNER, GET_PARTNER,
 } from './types';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   checkingIfCommitmentIsRequired: false,
   errorMessage: '',
   successTx: '',
+  partner: '',
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -135,6 +137,13 @@ const registrar = (state = initialState, action) => {
     };
     case RESET_REGISTRAR_STATE:
       return initialState;
+    case GET_PARTNER: return {
+      ...state,
+    };
+    case UPDATE_PARTNER: return {
+      ...state,
+      partner: action.partner,
+    };
     default: return state;
   }
 };

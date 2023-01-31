@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export { HomeComponent as HomeTab } from './components';
+export { HomeContainer as HomeTab } from './containers';

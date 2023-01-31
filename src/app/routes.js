@@ -23,7 +23,7 @@ const Routes = (props) => {
       {
         !hasContracts && <Route component={ErrorTab} />
       }
-      <Route exact path="/" component={HomeTab} />
+      <Route exact path="/:id" component={HomeTab} />
       {/* the following path is only for GitHub pages */}
       <Route exact path="/rns-manager-react" component={HomeTab} />
       <Route path="/search" component={SearchTab} />

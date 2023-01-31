@@ -19,6 +19,7 @@ import {
   requestCheckCommitRegistrar,
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
+  updatePartner,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
@@ -453,4 +454,8 @@ export const checkIfRequiresCommitment = domain => async (dispatch, getState) =>
   } catch (error) {
     return dispatch(notifyError(error.message));
   }
+};
+
+export const updatePartnerInState = id => async (dispatch) => {
+  dispatch(updatePartner(id));
 };

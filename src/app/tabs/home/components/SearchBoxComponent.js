@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { Form, Row, Button } from 'react-bootstrap';
 import { isValidName } from '../../../validations';
 
+const getCurrentPartner = () => useSelector(state => state.registrar.partner);
+
 const SearchBoxComponent = ({ handleClick, strings }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
+  const currentPartner = getCurrentPartner();
+  console.log(currentPartner, 'CURRENT_PARTNER');
 
   const handleSearchClick = () => {
     setError('');
@@ -26,7 +31,7 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
       return;
     }
 
-    handleClick(search.toLowerCase());
+    handleClick(search.toLowerCase(), currentPartner);
   };
 
   const handleSearchEnter = (e) => {
