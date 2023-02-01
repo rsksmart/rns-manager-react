@@ -19,13 +19,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  revealCommit: (domain, partnerId) => dispatch(revealCommit(domain, partnerId)),
+  revealCommit: domain => dispatch(revealCommit(domain)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  revealCommit: partnerId => dispatchProps.revealCommit(stateProps.domain, partnerId),
+  revealCommit: () => dispatchProps.revealCommit(stateProps.domain),
 });
 
 export default connect(

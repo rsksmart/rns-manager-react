@@ -17,13 +17,19 @@ import ask from '../../../../assets/img/home/ask.svg';
 import WalletCarousel from './WalletCarousel';
 import wallets from '../wallets.json';
 
-const HomeComponent = ({ strings, updatePartner }) => {
+const HomeComponent = ({ strings }) => {
   const { search } = useLocation();
   const values = queryString.parse(search);
   const { partner } = values;
-  console.log('🤖', partner);
-  // update partner id to registrar -> partner state
-  updatePartner(partner);
+  const currentPartner = localStorage.getItem('partner');
+  console.log('🤖', currentPartner, partner);
+  console.log('what the fuck: ', (currentPartner === 'undefined' || currentPartner === null) && partner);
+  if ((currentPartner === 'undefined' || currentPartner === null) && partner) {
+    localStorage.setItem('partner', partner);
+  }
+  // console.log('🤖', partner);
+  // // update partner id to registrar -> partner state
+  // updatePartner(partner);
 
   return (
     <div className="home">
@@ -148,7 +154,6 @@ HomeComponent.propTypes = {
     integrate_rns: propTypes.string.isRequired,
     ask_question: propTypes.string.isRequired,
   }).isRequired,
-  updatePartner: propTypes.func.isRequired,
 };
 
 export default multilanguage(HomeComponent);

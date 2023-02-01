@@ -51,13 +51,13 @@ import { start } from '../../auth/operations';
  * @param {string} domain domain to be registered
  * @param {number} duration number of years
  */
-export const getCost = (domain, duration, partnerId) => async (dispatch) => {
+export const getCost = (domain, duration) => async (dispatch) => {
   const web3 = new Web3(rskNode);
   const registrar = new web3.eth.Contract(
     fifsAddrRegistrarAbi,
     fifsAddrRegistrarAddress,
   );
-
+  const partnerId = localStorage.getItem('partner');
   const partner = await getCurrentPartnerAddresses(partnerId);
   dispatch(requestGetCost(duration));
 
@@ -114,7 +114,7 @@ export const getConversionRate = () => async (dispatch) => {
  * @param {number} rifCost the cost for the duration
  * @param {bool} setupAddr should the domain setup the resolution for RSK
  */
-export const commit = (domain, duration, rifCost, setupAddr, partnerId) => async (dispatch) => {
+export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
@@ -135,7 +135,7 @@ export const commit = (domain, duration, rifCost, setupAddr, partnerId) => async
     from: currentAddress,
     gasPrice: defaultGasPrice,
   });
-
+  const partnerId = localStorage.getItem('partner');
   const currentPartner = await getCurrentPartnerAddresses(partnerId);
   const options = {
     from: currentAddress,
@@ -264,7 +264,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   });
 };
 
-export const revealCommit = (domain, partnerId) => async (dispatch) => {
+export const revealCommit = domain => async (dispatch) => {
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);
     if (!options) {
@@ -277,7 +277,7 @@ export const revealCommit = (domain, partnerId) => async (dispatch) => {
     } = options;
 
     dispatch(requestRevealCommit());
-
+    const partnerId = localStorage.getItem('partner');
     const currentPartner = await getCurrentPartnerAddresses(partnerId);
 
     const web3 = new Web3(window.rLogin);
@@ -415,9 +415,9 @@ export const checkIfInProgress = domain => (dispatch) => {
   return window.rLogin ? callback() : dispatch(start(callback));
 };
 
-export const checkIfRequiresCommitment = (domain, partnerId) => async (dispatch, getState) => {
+export const checkIfRequiresCommitment = domain => async (dispatch, getState) => {
   dispatch(requestIsCommitmentRequired());
-
+  const partnerId = localStorage.getItem('partner');
   const currentPartner = await getCurrentPartnerAddresses(partnerId);
 
   if (!currentPartner.config) {

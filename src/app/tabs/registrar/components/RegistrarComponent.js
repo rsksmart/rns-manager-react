@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import {
   RentalPeriodContainer,
   CommitContainer,
@@ -36,12 +35,10 @@ class RegistrarComponent extends Component {
       checkIfRequiresCommitment,
     } = this.props;
     if (domain && this.validate() && getState) getState(domain);
-    const currentPartner = this.getCurrentPartner();
     checkIfAlreadyRegistered(domain);
-    checkIfRequiresCommitment(domain, currentPartner);
+    checkIfRequiresCommitment(domain);
   }
 
-  getCurrentPartner = () => useSelector(state => state.registrar.partner)
 
   validate() {
     const { domain } = this.props;

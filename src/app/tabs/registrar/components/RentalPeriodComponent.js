@@ -4,8 +4,6 @@ import { multilanguage } from 'redux-multilanguage';
 import {
   InputGroup, FormControl, Button, Row, Spinner,
 } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-
 
 class RentalPeriodComponent extends Component {
   constructor(props) {
@@ -28,13 +26,10 @@ class RentalPeriodComponent extends Component {
     this.handleChangeDuration();
   }
 
-  getCurrentPartner = () => useSelector(state => state.registrar.partner)
-
   handleChangeDuration() {
     const { getCost } = this.props;
     const { duration } = this.state;
-    const currentPartner = this.getCurrentPartner();
-    getCost(duration, currentPartner.account);
+    getCost(duration);
   }
 
   decrement() {

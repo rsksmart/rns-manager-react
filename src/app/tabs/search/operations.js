@@ -20,7 +20,7 @@ import {
   deedRegistrarAbi,
 } from './abis.json';
 
-export default (domain, partnerId) => (dispatch) => {
+export default domain => (dispatch) => {
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
@@ -67,8 +67,9 @@ export default (domain, partnerId) => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-
+      const partnerId = localStorage.getItem('partner');
       const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+      console.log(partnerId, ' partner id');
       console.log(partnerAddresses, 'PARTNER ADDRESSES');
       return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {

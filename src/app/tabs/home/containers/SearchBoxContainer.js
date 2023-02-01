@@ -3,7 +3,7 @@ import { SearchBoxComponent } from '../components';
 import getDomainState from '../../search/operations';
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, partnerId) => dispatch(getDomainState(domain, partnerId)),
+  handleClick: domain => dispatch(getDomainState(domain)),
 });
 
 export default connect(

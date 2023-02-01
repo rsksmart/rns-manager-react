@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
   Row, Button,
 } from 'react-bootstrap';
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
-
-const getCurrentPartner = () => useSelector(state => state.registrar.partner);
 
 const RevealComponent = (props) => {
   const {
@@ -39,7 +36,7 @@ const RevealComponent = (props) => {
           <div className="col-md-4 offset-md-4">
             <Button
               disabled={revealing}
-              onClick={revealCommit(getCurrentPartner())}
+              onClick={revealCommit()}
               className="minor-section"
             >
               {strings.register_domain}

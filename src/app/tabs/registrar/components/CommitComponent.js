@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useSelector } from 'react-redux';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
@@ -19,17 +18,13 @@ class CommitComponent extends Component {
     this.handleCommit = this.handleCommit.bind(this);
   }
 
-  getCurrentPartner = () => useSelector(state => state.registrar.partner)
-
   handleCommit() {
     const { checkBalance, doCommitment } = this.props;
     this.setState({ checkingBalance: true, hasBalance: true });
-    const currentPartner = this.getCurrentPartner();
-
     checkBalance()
       .then((response) => {
         this.setState({ checkingBalance: false });
-        return response ? doCommitment(currentPartner) : this.setState({ hasBalance: false });
+        return response ? doCommitment() : this.setState({ hasBalance: false });
       })
       .catch(() => this.setState({ checkingBalance: false }));
   }
