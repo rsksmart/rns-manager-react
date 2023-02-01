@@ -26,7 +26,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
   checkIfAlreadyRegistered: domain => dispatch(checkIfInProgress(domain)),
-  checkIfRequiresCommitment: domain => dispatch(checkIfRequiresCommitment(domain)),
+  checkIfRequiresCommitment: (domain, partnerId) => dispatch(
+    checkIfRequiresCommitment(domain, partnerId),
+  ),
   handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 

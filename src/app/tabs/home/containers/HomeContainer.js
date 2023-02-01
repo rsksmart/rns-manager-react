@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { HomeComponent } from '../components';
-// import getDomainState from '../../search/operations';
 import { updatePartnerInState } from '../../registrar/operations';
 
 const mapDispatchToProps = dispatch => ({

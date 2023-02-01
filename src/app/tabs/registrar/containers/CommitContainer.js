@@ -14,11 +14,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  doCommitment: (domain, duration, rifCost, setupAddr) => {
+  doCommitment: (domain, duration, rifCost, setupAddr, partnerId) => {
     if (localStorage.getItem(`${domain}-options`)) {
       dispatch(checkIfInProgress(domain));
     } else {
-      dispatch(commit(domain, duration, rifCost, setupAddr));
+      dispatch(commit(domain, duration, rifCost, setupAddr, partnerId));
     }
   },
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
@@ -28,11 +28,12 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  doCommitment: () => dispatchProps.doCommitment(
+  doCommitment: partnerId => dispatchProps.doCommitment(
     stateProps.domain,
     stateProps.duration,
     stateProps.rifCost,
     stateProps.setupAddr,
+    partnerId,
   ),
   toggleSetupAddr: () => dispatchProps.toggleSetupAddr(stateProps.setupAddr),
   checkBalance: () => dispatchProps.hasEnoughRif(stateProps.rifCost),

@@ -25,8 +25,9 @@ import {
   fifsRegistrar as fifsRegistrarAddress,
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   rif as rifAddress,
-  partnerConfiguration as partnerConfigurationAddress,
-  partner as partnerAddress,
+  // partnerConfiguration as partnerConfigurationAddress,
+  // partner as partnerAddress,
+  getCurrentPartnerAddresses,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
 import transactionListener from '../../helpers/transactionListener';
@@ -50,17 +51,18 @@ import { start } from '../../auth/operations';
  * @param {string} domain domain to be registered
  * @param {number} duration number of years
  */
-export const getCost = (domain, duration) => async (dispatch) => {
+export const getCost = (domain, duration, partnerId) => async (dispatch) => {
   const web3 = new Web3(rskNode);
   const registrar = new web3.eth.Contract(
     fifsAddrRegistrarAbi,
     fifsAddrRegistrarAddress,
   );
 
+  const partner = await getCurrentPartnerAddresses(partnerId);
   dispatch(requestGetCost(duration));
 
   registrar.methods
-    .price(domain, 0, duration, partnerAddress)
+    .price(domain, 0, duration, partner.account)
     .call((error, cost) => (error
       ? dispatch(notifyError(error.message))
       : dispatch(receiveGetCost(cost / (10 ** 18)))));
@@ -112,7 +114,7 @@ export const getConversionRate = () => async (dispatch) => {
  * @param {number} rifCost the cost for the duration
  * @param {bool} setupAddr should the domain setup the resolution for RSK
  */
-export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch) => {
+export const commit = (domain, duration, rifCost, setupAddr, partnerId) => async (dispatch) => {
   dispatch(requestCommitRegistrar());
 
   const randomBytes = window.crypto.getRandomValues(new Uint8Array(32));
@@ -134,9 +136,10 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
     gasPrice: defaultGasPrice,
   });
 
+  const currentPartner = await getCurrentPartnerAddresses(partnerId);
   const options = {
     from: currentAddress,
-    gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK, partnerAddress)),
+    gas: await estimateGas(registrar.methods.commit(CONTENT_BYTES_BLANK, currentPartner.account)),
   };
   return new Promise((resolve) => {
     registrar.methods
@@ -147,7 +150,7 @@ export const commit = (domain, duration, rifCost, setupAddr) => async (dispatch)
         }
 
         return registrar.methods
-          .commit(hashCommit, partnerAddress)
+          .commit(hashCommit, currentPartner.account)
           .send(options, (_error, result) => {
             if (_error) {
               return dispatch(errorRegistrarCommit(_error.message));
@@ -261,7 +264,7 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   });
 };
 
-export const revealCommit = domain => async (dispatch) => {
+export const revealCommit = (domain, partnerId) => async (dispatch) => {
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);
     if (!options) {
@@ -275,6 +278,8 @@ export const revealCommit = domain => async (dispatch) => {
 
     dispatch(requestRevealCommit());
 
+    const currentPartner = await getCurrentPartnerAddresses(partnerId);
+
     const web3 = new Web3(window.rLogin);
     const weiValue = rifCost * (10 ** 18);
     const accounts = await window.rLogin.request({ method: 'eth_accounts' });
@@ -287,7 +292,7 @@ export const revealCommit = domain => async (dispatch) => {
         salt,
         durationBN,
         currentAddress,
-        partnerAddress,
+        currentPartner.account,
       )
       : getRegisterData(domain, currentAddress, salt, durationBN);
 
@@ -410,17 +415,19 @@ export const checkIfInProgress = domain => (dispatch) => {
   return window.rLogin ? callback() : dispatch(start(callback));
 };
 
-export const checkIfRequiresCommitment = domain => async (dispatch, getState) => {
+export const checkIfRequiresCommitment = (domain, partnerId) => async (dispatch, getState) => {
   dispatch(requestIsCommitmentRequired());
 
-  if (!partnerConfigurationAddress) {
+  const currentPartner = await getCurrentPartnerAddresses(partnerId);
+
+  if (!currentPartner.config) {
     return dispatch(receiveIsCommitmentRequired(true));
   }
 
   const web3 = new Web3(rskNode);
   const partnerConfiguration = new web3.eth.Contract(
     partnerConfigurationAbi,
-    partnerConfigurationAddress,
+    currentPartner.config,
   );
 
   try {

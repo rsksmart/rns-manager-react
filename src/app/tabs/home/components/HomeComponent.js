@@ -4,7 +4,8 @@ import {
   Container, Row, Col,
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import { SearchBoxContainer, SearchResultsContainer } from '../containers';
 import easeOfUse from '../../../../assets/img/home/ease-of-use.svg';
 import interoperability from '../../../../assets/img/home/interoperability.svg';
@@ -17,10 +18,12 @@ import WalletCarousel from './WalletCarousel';
 import wallets from '../wallets.json';
 
 const HomeComponent = ({ strings, updatePartner }) => {
-  const { id } = useParams();
-  console.log('🤖', id);
+  const { search } = useLocation();
+  const values = queryString.parse(search);
+  const { partner } = values;
+  console.log('🤖', partner);
   // update partner id to registrar -> partner state
-  updatePartner(id);
+  updatePartner(partner);
 
   return (
     <div className="home">

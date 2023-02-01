@@ -36,7 +36,7 @@ export default (domain, partnerId) => (dispatch) => {
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
   return rskOwner.methods.available(hash).call()
-    .then((available) => {
+    .then(async (available) => {
       if (!available) {
         dispatch(receiveDomainState(false));
         dispatch(requestDomainOwner());
@@ -67,7 +67,9 @@ export default (domain, partnerId) => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-      const partnerAddresses = getCurrentPartnerAddresses(partnerId);
+
+      const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+      console.log(partnerAddresses, 'PARTNER ADDRESSES');
       return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));

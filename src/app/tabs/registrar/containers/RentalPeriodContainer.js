@@ -14,14 +14,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCost: (domain, duration) => dispatch(getCost(domain, duration)),
+  getCost: (domain, duration, partner) => dispatch(getCost(domain, duration, partner)),
   getConversionRate: rate => !rate && dispatch(getConversionRate()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  getCost: duration => dispatchProps.getCost(stateProps.domain, duration),
+  getCost: (duration, partner) => dispatchProps.getCost(stateProps.domain, duration, partner),
   getConversionRate: () => dispatchProps.getConversionRate(stateProps.conversionRate),
 });
 
