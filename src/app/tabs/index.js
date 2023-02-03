@@ -15,7 +15,7 @@ export default {
 };
 
 export { NewAdminTab } from './newAdmin';
-export { default as HomeTab } from './home/containers/HomeContainer';
+export { HomeTab } from './home';
 export { NotificationTab } from './notifications';
 export { ResolveTab } from './resolve';
 export { SearchTab } from './search';

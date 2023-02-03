@@ -19,14 +19,11 @@ import {
   requestCheckCommitRegistrar,
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
-  updatePartner,
 } from './actions';
 import {
   fifsRegistrar as fifsRegistrarAddress,
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   rif as rifAddress,
-  // partnerConfiguration as partnerConfigurationAddress,
-  // partner as partnerAddress,
   getCurrentPartnerAddresses,
 } from '../../adapters/configAdapter';
 import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
@@ -457,8 +454,4 @@ export const checkIfRequiresCommitment = (domain, partnerId) => async (dispatch,
   } catch (error) {
     return dispatch(notifyError(error.message));
   }
-};
-
-export const updatePartnerInState = id => async (dispatch) => {
-  dispatch(updatePartner(id));
 };
