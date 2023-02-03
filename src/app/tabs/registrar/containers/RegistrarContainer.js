@@ -24,11 +24,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getState: domain => dispatch(getDomainState(domain)),
+  getState: (domain) => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const currentPartner = searchParams.get('partner') || 'default';
+    dispatch(getDomainState(domain, currentPartner));
+  },
   checkIfAlreadyRegistered: domain => dispatch(checkIfInProgress(domain)),
-  checkIfRequiresCommitment: domain => dispatch(
-    checkIfRequiresCommitment(domain),
-  ),
+  checkIfRequiresCommitment: (domain) => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const currentPartner = searchParams.get('partner') || 'default';
+    dispatch(
+      checkIfRequiresCommitment(domain, currentPartner),
+    );
+  },
   handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 

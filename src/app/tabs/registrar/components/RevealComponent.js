@@ -36,7 +36,7 @@ const RevealComponent = (props) => {
           <div className="col-md-4 offset-md-4">
             <Button
               disabled={revealing}
-              onClick={revealCommit()}
+              onClick={revealCommit}
               className="minor-section"
             >
               {strings.register_domain}

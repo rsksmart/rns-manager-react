@@ -8,7 +8,7 @@ import {
   rif as rifAddress,
   renewer as renewerAddress,
   registrar as tokenRegistrarAddress,
-  getCurrentPartnerAddresses,
+  defaultPartnerAddresses,
 } from '../../../adapters/configAdapter';
 import {
   rskOwnerAbi, tokenRegistrarAbi, deedAbi,
@@ -96,8 +96,8 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
 
-  const partnerId = localStorage.getItem('partner');
-  const { account: partnerAccount } = await getCurrentPartnerAddresses(partnerId);
+
+  const { account: partnerAccount } = await defaultPartnerAddresses();
   const data = getRenewData(domain, durationBN, partnerAccount);
 
   const rif = new web3.eth.Contract(

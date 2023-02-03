@@ -21,10 +21,11 @@ class CommitComponent extends Component {
   handleCommit() {
     const { checkBalance, doCommitment } = this.props;
     this.setState({ checkingBalance: true, hasBalance: true });
+
     checkBalance()
       .then((response) => {
         this.setState({ checkingBalance: false });
-        return response ? doCommitment() : this.setState({ hasBalance: false });
+        return response ? doCommitment : this.setState({ hasBalance: false });
       })
       .catch(() => this.setState({ checkingBalance: false }));
   }

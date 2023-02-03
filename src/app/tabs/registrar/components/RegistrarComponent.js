@@ -39,7 +39,6 @@ class RegistrarComponent extends Component {
     checkIfRequiresCommitment(domain);
   }
 
-
   validate() {
     const { domain } = this.props;
     const invalid = isValidName(domain);
