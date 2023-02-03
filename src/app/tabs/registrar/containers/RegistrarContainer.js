@@ -23,16 +23,20 @@ const mapStateToProps = state => ({
   revealing: state.registrar.revealing,
 });
 
+const getCurrentPartner = () => {
+  const searchParams = new URLSearchParams(document.location.search);
+  const currentPartner = searchParams.get('partner') || 'default';
+  return currentPartner;
+};
+
 const mapDispatchToProps = dispatch => ({
   getState: (domain) => {
-    const searchParams = new URLSearchParams(document.location.search);
-    const currentPartner = searchParams.get('partner') || 'default';
+    const currentPartner = getCurrentPartner();
     dispatch(getDomainState(domain, currentPartner));
   },
   checkIfAlreadyRegistered: domain => dispatch(checkIfInProgress(domain)),
   checkIfRequiresCommitment: (domain) => {
-    const searchParams = new URLSearchParams(document.location.search);
-    const currentPartner = searchParams.get('partner') || 'default';
+    const currentPartner = getCurrentPartner();
     dispatch(
       checkIfRequiresCommitment(domain, currentPartner),
     );
