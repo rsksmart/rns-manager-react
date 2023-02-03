@@ -10,7 +10,7 @@ const { TextEncoder, TextDecoder } = require('util');
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// for rLogin essentials
-jest.mock('@rsksmart/rlogin-dcent-provider', () => ({
-  DCentProvider: () => ({}),
-}));
+// // for rLogin essentials
+// jest.mock('@rsksmart/rlogin-dcent-provider', () => ({
+//   DCentProvider: () => ({}),
+// }));

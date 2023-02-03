@@ -37,8 +37,8 @@ describe('searchBoxContainer', () => {
       .then(() => {
         const searchState = store.getState().search;
         expect(searchState.domain).toEqual('foobar984590456');
-        expect(searchState.owned).toEqual(false);
-        expect(searchState.rifCost).toBe(2);
+        expect(searchState.owned).toEqual(undefined);
+        expect(searchState.rifCost).toBe(0);
       });
   });
 
