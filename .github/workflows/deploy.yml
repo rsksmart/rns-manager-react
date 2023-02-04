@@ -22,7 +22,7 @@ jobs:
       run: yarn
 
     - name: Build site
-      run: npm runbuild:testnet
+      run: npm run build:testnet
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -56,7 +56,7 @@ jobs:
       run: yarn
 
     - name: Build site
-      run: npm runbuild:mainnet
+      run: npm run build:mainnet
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
