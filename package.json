@@ -10,6 +10,7 @@
     "@rsksmart/rlogin": "1.2.0-beta.2",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
+    "@walletconnect/web3-provider": "^1.6.5",
     "bootstrap": "^4.3.1",
     "cbor": "^5.0.2",
     "connected-react-router": "^6.3.1",
@@ -39,8 +40,7 @@
     "styled-components": "^5.0.1",
     "web3": "1.2.11",
     "web3-utils": "^1.2.4",
-    "@walletconnect/web3-provider": "^1.6.5"
-
+    "webpack": "^4.44.2"
   },
   "scripts": {
     "ganache": "npx ganache-cli",
@@ -50,13 +50,9 @@
     "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
     "build:mainnet": "CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
     "build:ghpages": "PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
-    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
+    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
-    "cypress": "cypress open",
-    "lint": "eslint src"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "cypress": "cypress open"
   },
   "browserslist": [
     ">0.2%",
@@ -71,12 +67,6 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-cypress": "^2.11.2",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.1",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "7.14.3",
     "ganache-cli": "^6.12.2",
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
@@ -84,8 +74,7 @@
   },
   "resolutions": {
     "lodash": "^4.17.14",
-    "lodash.template": "^4.5.0",
-    "eslint-utils": "^1.4.1"
+    "lodash.template": "^4.5.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./tests/setupTests.js",

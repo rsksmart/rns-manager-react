@@ -50,7 +50,7 @@ yarn
 > If you are not using `localhost:8545` as your network, change the .env variable in `.env.local`
 
 ```
-yarn start
+npm runstart
 ```
 
 > Connect your browser wallet to local environment using 'Custom RPC' option
@@ -60,13 +60,13 @@ yarn start
 For RSK Mainnet
 
 ```
-yarn start:mainnet
+npm runstart:mainnet
 ```
 
 For RSK Testnet
 
 ```
-yarn start:testnet
+npm runstart:testnet
 ```
 
 ### Run tests
@@ -76,18 +76,18 @@ The testing suite will first install the RNS suite on a local blockchain before 
 Run the linter and unit tests:
 
 ```
-yarn test
+npm runtest
 ```
 
 Run a test watcher:
 
 ```
-yarn test:watch
+npm runtest:watch
 ```
 
 Update snapshots and run watcher:
 ```
-yarn test:watch -u
+npm runtest:watch -u
 ```
 
 ### Branching model
@@ -103,19 +103,19 @@ PRs:
 ## Build
 
 ```
-yarn build
+npm runbuild
 ```
 
 For RSK Mainnet:
 
 ```
-yarn build:mainnet
+npm runbuild:mainnet
 ```
 
 For RSK Testnet:
 
 ```
-yarn build:testnet
+npm runbuild:testnet
 ```
 
 ## Running production builds
