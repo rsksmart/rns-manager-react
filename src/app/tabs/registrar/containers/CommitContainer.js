@@ -18,7 +18,9 @@ const mapDispatchToProps = dispatch => ({
     if (localStorage.getItem(`${domain}-options`)) {
       dispatch(checkIfInProgress(domain));
     } else {
-      dispatch(commit(domain, duration, rifCost, setupAddr));
+      const searchParams = new URLSearchParams(document.location.search);
+      const currentPartner = searchParams.get('partner') || 'default';
+      dispatch(commit(domain, duration, rifCost, setupAddr, currentPartner));
     }
   },
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),

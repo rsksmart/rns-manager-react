@@ -25,7 +25,7 @@ class CommitComponent extends Component {
     checkBalance()
       .then((response) => {
         this.setState({ checkingBalance: false });
-        return response ? doCommitment() : this.setState({ hasBalance: false });
+        return response ? doCommitment : this.setState({ hasBalance: false });
       })
       .catch(() => this.setState({ checkingBalance: false }));
   }

@@ -21,8 +21,10 @@ const mapDispatchToProps = dispatch => ({
   getState: domain => dispatch(getDomainState(domain)),
   search: domain => dispatch(push(`/search?domain=${domain}`)),
   registerDomain: (domain) => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const currentPartner = searchParams.get('partner') || 'default';
     dispatch(resetRegistrarState());
-    dispatch(push(`/registrar?domain=${domain}`));
+    dispatch(push(`/registrar?domain=${domain}&partner=${currentPartner}`));
     dispatch(checkBrowserNotifications());
   },
 });

@@ -5,7 +5,6 @@ import {
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 import { SearchBoxContainer, SearchResultsContainer } from '../containers';
-
 import easeOfUse from '../../../../assets/img/home/ease-of-use.svg';
 import interoperability from '../../../../assets/img/home/interoperability.svg';
 import costEffective from '../../../../assets/img/home/cost-effective.svg';
