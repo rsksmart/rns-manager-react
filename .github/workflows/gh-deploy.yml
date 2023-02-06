@@ -17,14 +17,12 @@ jobs:
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: "14"
+          node-version: '14'
 
-      - name: Install dependencies 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: npm i
-
-      - name: Build site
-        run: npm run build:ghpages
-
+      - name: Install and Build for Testnet 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm i
+          npm run build:ghpages
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
