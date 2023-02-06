@@ -29,11 +29,12 @@
 Requisites:
 
 - [Node v12](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com/)
 
 Install dependencies:
 
 ```
-npm i
+yarn
 ```
 
 ### Run locally
