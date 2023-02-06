@@ -1,1 +1,13 @@
-{"rns":"0x408f924baec71cc3968614cb2c58e155a35e6890","registrar":"0x6b21b3ae41f818fc91e322b53f8d0773d31ecb75","reverseRegistrar":"0xdb012dd3e3345e2f8d23c0f3cbcb2d94f430be8c","publicResolver":"0x773330693cb7d5d233348e25809770a32483a940","nameResolver":"0x532802f2f9e0e3ee9d5ba70c35e1f43c0498772d","multiChainResolver":"0x52173b6ac069619c206b9a0e75609fc92860ab2a","rif":"0xa9d0fb5837f9c42c874e16da96094b14af0e2784","fifsRegistrar":"0x3949c97925e5aa13e34ddb18eabf0b70abb0c7d4","fifsAddrRegistrar":"0x0724f18b2aa7d6413d3fdcf6c0c27458a8170dd9","rskOwner":"0x7036124464a2d2447516309169322c8498ac51e3","renewer":"0x6d712cb50297b97b79de784d10f487c00d7f8c2c"}
+{
+  "rns": "",
+  "registrar": "",
+  "reverseRegistrar": "",
+  "publicResolver": "",
+  "nameResolver": "",
+  "multiChainResolver": "",
+  "rif": "",
+  "fifsRegistrar": "",
+  "fifsAddrRegistrar": "",
+  "rskOwner": "",
+  "renewer": ""
+ }
