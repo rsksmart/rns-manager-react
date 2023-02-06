@@ -14,7 +14,8 @@ function utf8ToHexString(string) {
   return string ? Utils.asciiToHex(string).slice(2) : '';
 }
 
- export const getRenewData = (name, duration, partner) => {
+// eslint-disable-next-line import/prefer-default-export
+export const getRenewData = (name, duration, partner) => {
   // 0x + 8 bytes
   const dataSignature = '0x8d7016ca';
 

@@ -1,1 +1,2 @@
- export { default as DomainStateComponent } from './DomainStateComponent';
+// eslint-disable-next-line import/prefer-default-export
+export { default as DomainStateComponent } from './DomainStateComponent';
