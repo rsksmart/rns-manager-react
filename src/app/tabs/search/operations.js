@@ -68,7 +68,7 @@ export default (domain, partnerId) => (dispatch) => {
 
       dispatch(requestDomainCost());
       const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
-
+      console.log(partnerAddresses, "partnerAddresses");
       return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));

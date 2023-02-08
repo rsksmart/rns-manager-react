@@ -25,6 +25,12 @@ RNSSuite(
     fifsAddrRegistrar: suite.fifsAddrRegistrar.options.address.toLowerCase(),
     rskOwner: suite.rskOwner.options.address.toLowerCase(),
     renewer: suite.renewer.options.address.toLowerCase(),
+    partnerManager: suite.partnerManager.options.address.toLowerCase(),
+    feeManager: suite.feeManager.options.address.toLowerCase(),
+    registrarAccessControl: suite.registrarAccessControl.options.address.toLowerCase(),
+    partners: {
+      default: suite.partners.default.options.address.toLowerCase(),
+    },
   };
 
   // write a contracts to a local file to be called in a bit:
