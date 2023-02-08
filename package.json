@@ -50,7 +50,7 @@
     "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
     "build:mainnet": "CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
     "build:ghpages": "PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
-    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4",
+    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "cypress": "cypress open",
     "lint": "eslint src"
