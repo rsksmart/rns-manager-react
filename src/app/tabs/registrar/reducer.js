@@ -28,7 +28,6 @@ const initialState = {
   checkingIfCommitmentIsRequired: false,
   errorMessage: '',
   successTx: '',
-  partner: '',
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
