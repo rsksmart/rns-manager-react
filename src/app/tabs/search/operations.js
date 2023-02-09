@@ -6,20 +6,21 @@ import {
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
-  fifsRegistrar as fifsRegistrarAddress,
+  fifsAddrRegistrar as fifsAddrRegistrarAddress,
   registrar as auctionRegistrarAddress,
+  getCurrentPartnerAddresses,
 } from '../../adapters/configAdapter';
 
 import { notifyError } from '../../notifications';
 import { rskNode } from '../../adapters/nodeAdapter';
 import {
   rskOwnerAbi,
-  fifsRegistrarAbi,
+  fifsAddrRegistrarAbi,
   auctionRegistrarAbi,
   deedRegistrarAbi,
 } from './abis.json';
 
-export default domain => (dispatch) => {
+export default (domain, partnerId) => (dispatch) => {
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
@@ -30,12 +31,12 @@ export default domain => (dispatch) => {
 
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
 
-  const registrar = new web3.eth.Contract(fifsRegistrarAbi, fifsRegistrarAddress);
+  const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
 
   const hash = `0x${sha3(domain.split('.')[0])}`;
 
   return rskOwner.methods.available(hash).call()
-    .then((available) => {
+    .then(async (available) => {
       if (!available) {
         dispatch(receiveDomainState(false));
         dispatch(requestDomainOwner());
@@ -66,7 +67,9 @@ export default domain => (dispatch) => {
       }
 
       dispatch(requestDomainCost());
-      return registrar.methods.price(domain, 0, 1).call()
+      const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+      console.log(partnerAddresses, 'partnerAddresses');
+      return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
           dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));

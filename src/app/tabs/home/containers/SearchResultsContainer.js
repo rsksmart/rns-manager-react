@@ -14,7 +14,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleClick: (domain) => {
     dispatch(clearDomainState());
-    dispatch(push(`/registrar?domain=${domain}`));
+    const searchParams = new URLSearchParams(document.location.search);
+    const currentPartner = searchParams.get('partner') || 'default';
+    dispatch(push(`/registrar?domain=${domain}&partner=${currentPartner}`));
   },
 });
 

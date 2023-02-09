@@ -5,7 +5,6 @@ import {
   InputGroup, FormControl, Button, Row, Spinner,
 } from 'react-bootstrap';
 
-
 class RentalPeriodComponent extends Component {
   constructor(props) {
     super(props);

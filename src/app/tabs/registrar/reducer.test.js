@@ -24,6 +24,8 @@ describe('register reducer', () => {
     setupAddr: true,
     successTx: '',
     errorMessage: '',
+    checkingIfCommitmentIsRequired: false,
+    isCommitmentRequired: true,
   };
 
   it('should return the initial state', () => {
