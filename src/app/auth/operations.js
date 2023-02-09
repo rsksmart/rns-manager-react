@@ -193,7 +193,7 @@ const startWithRLogin = callback => (dispatch) => {
       }
     })
     .then(() => callback && callback())
-    .catch(e => dispatch(errorEnable(e.message)));
+    .catch(e => dispatch(errorEnable(e.stack)));
 
   window.rLogin.on('accountsChanged', () => dispatch(startWithRLogin()));
 };

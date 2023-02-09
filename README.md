@@ -10,12 +10,6 @@
 <p align="middle">
     <a href="https://github.com/rnsdomains/rns-manager-react/actions?query=workflow%3Aci">
         <img src="https://github.com/rnsdomains/rns-manager-react/workflows/ci/badge.svg" />
-    <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/alerts/">
-        <img src="https://img.shields.io/lgtm/alerts/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
-    </a>
-    <a href="https://lgtm.com/projects/g/rnsdomains/rns-manager-react/context:javascript">
-        <img src="https://img.shields.io/lgtm/grade/javascript/g/rnsdomains/rns-manager-react.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript" />
-    </a>
     <a href="https://sonarcloud.io/dashboard?id=rnsdomains_rns-manager-react">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=rnsdomains_rns-manager-react&metric=alert_status" alt="Quality Gate Status" />
     </a>
@@ -97,7 +91,6 @@ yarn test:watch -u
 
 PRs:
 - Use branches pointing to latest commit in `develop`
-- Need to pass `ci` and LGTM
 - Will deploy to Github Pages
 
 ## Build

@@ -14,14 +14,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCost: (domain, duration) => dispatch(getCost(domain, duration)),
+  getCost: (domain, duration) => {
+    const searchParams = new URLSearchParams(document.location.search);
+    const currentPartner = searchParams.get('partner') || 'default';
+    dispatch(getCost(domain, duration, currentPartner));
+  },
   getConversionRate: rate => !rate && dispatch(getConversionRate()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  getCost: duration => dispatchProps.getCost(stateProps.domain, duration),
+  getCost: (duration) => {
+    dispatchProps.getCost(stateProps.domain, duration);
+  },
   getConversionRate: () => dispatchProps.getConversionRate(stateProps.conversionRate),
 });
 

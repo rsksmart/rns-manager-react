@@ -47,9 +47,9 @@ export const getRegisterData = (name, owner, secret, duration) => {
  * @param {hex} secret of the commit
  * @param {BN} duration to register in years
  */
-export const getAddrRegisterData = (name, owner, secret, duration, addr) => {
+export const getAddrRegisterData = (name, owner, secret, duration, addr, partner) => {
   // 0x + 8 bytes
-  const dataSignature = '0x5f7b99d5';
+  const dataSignature = '0x646c3681';
 
   // 20 bytes
   const dataOwner = owner.toLowerCase().slice(2);
@@ -70,7 +70,10 @@ export const getAddrRegisterData = (name, owner, secret, duration, addr) => {
   // 20 bytes
   const dataAddr = addr.toLowerCase().slice(2);
 
-  return `${dataSignature}${dataOwner}${dataSecret}${dataDuration}${dataAddr}${dataName}`;
+  // 20 bytes
+  const dataPartner = partner.toLowerCase().slice(2);
+
+  return `${dataSignature}${dataOwner}${dataSecret}${dataDuration}${dataAddr}${dataPartner}${dataName}`;
 };
 
 /**

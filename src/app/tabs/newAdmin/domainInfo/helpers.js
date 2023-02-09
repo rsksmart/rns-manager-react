@@ -15,15 +15,18 @@ function utf8ToHexString(string) {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export const getRenewData = (name, duration) => {
+export const getRenewData = (name, duration, partner) => {
   // 0x + 8 bytes
-  const dataSignature = '0x14b1a4fc';
+  const dataSignature = '0x8d7016ca';
 
   // 32 bytes
   const dataDuration = numberToUint32(duration);
 
+  // 20 bytes
+  const dataPartner = partner.toLowerCase().slice(2);
+
   // variable length
   const dataName = utf8ToHexString(name);
 
-  return `${dataSignature}${dataDuration}${dataName}`;
+  return `${dataSignature}${dataDuration}${dataPartner}${dataName}`;
 };

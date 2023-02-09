@@ -7,7 +7,7 @@
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rlogin-essentials": "1.0.3",
+    "@rsksmart/rlogin": "1.2.0-beta.2",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
     "bootstrap": "^4.3.1",
@@ -38,11 +38,13 @@
     "rskjs-util": "^1.0.3",
     "styled-components": "^5.0.1",
     "web3": "1.2.11",
-    "web3-utils": "^1.2.4"
+    "web3-utils": "^1.2.4",
+    "@walletconnect/web3-provider": "^1.6.5"
+
   },
   "scripts": {
     "ganache": "npx ganache-cli",
-    "start": "env-cmd -f .env.local react-scripts start",
+    "start": "DISABLE_ESLINT_PLUGIN=true && env-cmd -f .env.local react-scripts start",
     "start:testnet": "env-cmd -f .env.testnet react-scripts start",
     "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
