@@ -4,7 +4,7 @@ import {
   requestDomainState, receiveDomainState,
   blockedDomain,
   requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
-  validationMessage, setMinMaxDuration,
+  validationMessage, setMinMaxDuration, setMinMaxLength,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -65,10 +65,6 @@ export default (domain, partnerId) => (dispatch) => {
           .catch(error => dispatch(notifyError(error.message)));
       }
 
-      // if (domain.length < 5) {
-      //   return dispatch(blockedDomain());
-      // }
-
       dispatch(requestDomainCost());
       const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
 
@@ -78,15 +74,13 @@ export default (domain, partnerId) => (dispatch) => {
 
       const minDuration = await partnerConfiguration.methods.getMinDuration().call();
       const maxDuration = await partnerConfiguration.methods.getMaxDuration().call();
+      const minLength = await partnerConfiguration.methods.getMinLength().call();
+      const maxLength = await partnerConfiguration.methods.getMaxLength().call();
       dispatch(setMinMaxDuration(minDuration, maxDuration));
+      dispatch(setMinMaxLength(minLength, maxLength));
 
-      try {
-        await partnerConfiguration.methods.validateName(domain, minDuration).call();
-      } catch (error) {
-        console.log(error);
-        // const [setError] = useState('');
-        // setError(error.message);
-        dispatch(validationMessage(error.message));
+      if (domain.length < minLength || domain.length > maxLength) {
+        dispatch(validationMessage(`Domain length must be between ${minLength} and ${maxLength}`));
         return dispatch(blockedDomain());
       }
 
