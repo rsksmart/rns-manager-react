@@ -8,10 +8,10 @@ import {
 class RentalPeriodComponent extends Component {
   constructor(props) {
     super(props);
-    const { duration } = this.props;
+    const { minDuration } = this.props;
 
     this.state = {
-      duration,
+      duration: minDuration,
     };
 
     this.handleChangeDuration = this.handleChangeDuration.bind(this);
@@ -34,7 +34,8 @@ class RentalPeriodComponent extends Component {
 
   decrement() {
     const { duration } = this.state;
-    if (duration <= 1) {
+    const { minDuration } = this.props;
+    if (duration <= minDuration) {
       return;
     }
     this.setState({ duration: duration - 1 }, this.handleChangeDuration);
@@ -42,6 +43,10 @@ class RentalPeriodComponent extends Component {
 
   increment() {
     const { duration } = this.state;
+    const { maxDuration } = this.props;
+    if (duration >= maxDuration) {
+      return;
+    }
     this.setState({ duration: duration + 1 }, this.handleChangeDuration);
   }
 
@@ -127,18 +132,18 @@ RentalPeriodComponent.propTypes = {
   }).isRequired,
   getting: propTypes.bool.isRequired,
   rifCost: propTypes.number,
-  duration: propTypes.number,
   getCost: propTypes.func.isRequired,
   getConversionRate: propTypes.func.isRequired,
   committing: propTypes.bool.isRequired,
   committed: propTypes.bool.isRequired,
   gettingConversionRate: propTypes.bool.isRequired,
   conversionRate: propTypes.number,
+  minDuration: propTypes.number.isRequired,
+  maxDuration: propTypes.number.isRequired,
 };
 
 RentalPeriodComponent.defaultProps = {
   rifCost: 0,
-  duration: 3,
   conversionRate: null,
 };
 
