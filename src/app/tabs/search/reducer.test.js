@@ -9,6 +9,7 @@ describe('search reducer', () => {
     expect(reducer(undefined, {}))
       .toEqual(
         {
+          domain: undefined,
           owned: undefined,
           owner: undefined,
           domainStateLoading: false,
@@ -16,6 +17,11 @@ describe('search reducer', () => {
           requestingOwner: false,
           requestingCost: false,
           rifCost: 0,
+          validationMessage: '',
+          minDuration: 3,
+          maxDuration: 10,
+          minLength: 5,
+          maxLength: 35,
         },
       );
   });
@@ -219,6 +225,7 @@ describe('search reducer', () => {
     }))
       .toEqual(
         {
+          domain: undefined,
           owned: undefined,
           owner: undefined,
           domainStateLoading: false,
@@ -226,6 +233,11 @@ describe('search reducer', () => {
           requestingOwner: false,
           requestingCost: false,
           rifCost: 0,
+          validationMessage: '',
+          minDuration: 3,
+          maxDuration: 10,
+          minLength: 5,
+          maxLength: 35,
         },
       );
   });
