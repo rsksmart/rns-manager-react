@@ -11,6 +11,8 @@ const mapStateToProps = state => ({
   domain: parse(state.router.location.search).domain || state.auth.name,
   gettingConversionRate: state.registrar.gettingConversionRate,
   conversionRate: state.registrar.conversionRate,
+  minDuration: Number(state.search.minDuration),
+  maxDuration: Number(state.search.maxDuration),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import { Form, Row, Button } from 'react-bootstrap';
 import { isValidName } from '../../../validations';
 
-const SearchBoxComponent = ({ handleClick, strings }) => {
+const SearchBoxComponent = ({ handleClick, strings, validationMessage }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
 
@@ -16,10 +16,10 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
       return;
     }
 
-    if (search.length < 5) {
-      setError(strings.blocked_domain);
-      return;
-    }
+    // if (search.length < 5) {
+    //   setError(strings.blocked_domain);
+    //   return;
+    // }
 
     if (isValidName(search.toLowerCase()) !== null) {
       setError(strings.invalid_name);
@@ -54,11 +54,11 @@ const SearchBoxComponent = ({ handleClick, strings }) => {
           </Button>
         </div>
       </Form>
-      {error
+      {(error || validationMessage)
       && (
         <Row className="errorMessage">
           <div className="col-md-8 offset-md-2">
-            <p>{error}</p>
+            <p>{error || validationMessage}</p>
           </div>
         </Row>
       )}
@@ -73,6 +73,7 @@ SearchBoxComponent.propTypes = {
     blocked_domain: propTypes.string.isRequired,
     invalid_name: propTypes.string.isRequired,
   }).isRequired,
+  validationMessage: propTypes.string.isRequired,
   handleClick: propTypes.func.isRequired,
 };
 

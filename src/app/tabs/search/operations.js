@@ -1,8 +1,10 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
-  requestDomainState, receiveDomainState, blockedDomain,
+  requestDomainState, receiveDomainState,
+  blockedDomain,
   requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
+  validationMessage, setMinMaxDuration,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -18,6 +20,7 @@ import {
   fifsAddrRegistrarAbi,
   auctionRegistrarAbi,
   deedRegistrarAbi,
+  partnerConfigurationAbi,
 } from './abis.json';
 
 export default (domain, partnerId) => (dispatch) => {
@@ -62,13 +65,31 @@ export default (domain, partnerId) => (dispatch) => {
           .catch(error => dispatch(notifyError(error.message)));
       }
 
-      if (domain.length < 5) {
-        return dispatch(blockedDomain());
-      }
+      // if (domain.length < 5) {
+      //   return dispatch(blockedDomain());
+      // }
 
       dispatch(requestDomainCost());
       const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
-      console.log(partnerAddresses, 'partnerAddresses');
+
+      const partnerConfiguration = new web3.eth.Contract(
+        partnerConfigurationAbi, partnerAddresses.config,
+      );
+
+      const minDuration = await partnerConfiguration.methods.getMinDuration().call();
+      const maxDuration = await partnerConfiguration.methods.getMaxDuration().call();
+      dispatch(setMinMaxDuration(minDuration, maxDuration));
+
+      try {
+        await partnerConfiguration.methods.validateName(domain, minDuration).call();
+      } catch (error) {
+        console.log(error);
+        // const [setError] = useState('');
+        // setError(error.message);
+        dispatch(validationMessage(error.message));
+        return dispatch(blockedDomain());
+      }
+
       return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
