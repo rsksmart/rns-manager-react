@@ -1,26 +1,30 @@
 {
-  "rns": "0xc34602669eb447f269eef996aede3bb4c297412d",
-  "registrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
-  "reverseRegistrar": "0xb6020c047183c4e20834a96a12028d34598d0375",
-  "publicResolver": "0x9e39101238f6b22b6b0852ff993d24a4a260d64f",
-  "nameResolver": "0x0c4094de846fd317f212ea8b89724a6ef32fd17e",
+  "rns": "0x03e3177307AF9D486B96B2112DFd04F97B05c264",
+  "registrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
+  "reverseRegistrar": "0xa1FB129B5D4D385BDd512e617d7E1845A5a7e685",
+  "publicResolver": "0xcbE6578d5e46DcAA2746E91087d690f3013F8Db9",
+  "nameResolver": "0x3390372dbDC1fB41182EeF758967A541ad2E7243",
   "multiChainResolver": "0x404308f2a2eec2cdc3cb53d7d295af11c903414e",
   "rif": "0x19f64674d8a5b4e652319f5e239efd3bc969a1fe",
-  "fifsRegistrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
-  "fifsAddrRegistrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
-  "rskOwner": "0x8fca413ecdb80770ef1a4c6db0b2b479ac950c3b",
-  "renewer": "0x23e7aaffc0b119700cf30ccf9f03963956e73173",
-  "partnerManager": "0xb38da738c972ee782b79e70b83d58ac7c00cfd43",
-  "feeManager": "0x8da997e28db5e55adf2c29df9b2e7489bdc13d84",
-  "registrarAccessControl": "0xee279bf1417639d8d792822817f3084d1be7fee4",
+  "fifsRegistrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
+  "fifsAddrRegistrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
+  "rskOwner": "0x83E7Aa0FB3A26bCD1eb57479bFE65c123eeA74b4",
+  "renewer": "0x524823Ccf8757845524F74b12E36b09A86170796",
+  "partnerManager": "0xA1723F513A69cdA983a83eE2d7122b496a127fc1",
+  "feeManager": "0x49d0E15cdC9BF83fa92b8044368139dac1cD5676",
+  "registrarAccessControl": "0x61D25Ea8EC2D33F095a3D91859a071Ff39e13aA2",
   "partners": {
     "default": {
-      "account": "0xde74f98bd739bdc0c2adad954d6f24c0c9312204",
-      "config": "0xcebe7f0680281540247aa93f65818a6d535c5b6b"
+      "account": "0xfd343333d318a8329406d5f2D51628DaD5a3f032",
+      "config": "0xF7d1AfBb7334bbE1a9bc0caC7be412F86368442D"
     },
     "buenbit": {
-      "account": "0xde74f98bd739bdc0c2adad954d6f24c0c9312204",
-      "config": "0xcebe7f0680281540247aa93f65818a6d535c5b6b"
+      "account": "0xD425a862f6Cb2C2f3931f832B61B6D01980EC32c",
+      "config": "0xe1d35C889d9D781570915B0adD159953fe44f5F3"
+    },
+    "cheta": {
+      "account": "0xF25c01e4694f75666D721517eFBae1955a38b15b",
+      "config": "0x2A175E48C36DCCAc1F0818FA83dbA161b4841731"
     }
   }
 }
