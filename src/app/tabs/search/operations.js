@@ -72,10 +72,15 @@ export default (domain, partnerId) => (dispatch) => {
         partnerConfigurationAbi, partnerAddresses.config,
       );
 
-      const minDuration = await partnerConfiguration.methods.getMinDuration().call();
-      const maxDuration = await partnerConfiguration.methods.getMaxDuration().call();
-      const minLength = await partnerConfiguration.methods.getMinLength().call();
-      const maxLength = await partnerConfiguration.methods.getMaxLength().call();
+      const fetchMinDuration = partnerConfiguration.methods.getMinDuration().call();
+      const fetchMaxDuration = partnerConfiguration.methods.getMaxDuration().call();
+      const fetchMinLength = partnerConfiguration.methods.getMinLength().call();
+      const fetchMaxLength = partnerConfiguration.methods.getMaxLength().call();
+
+      const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
+        fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
+      ]);
+
       dispatch(setMinMaxDuration(minDuration, maxDuration));
       dispatch(setMinMaxLength(minLength, maxLength));
 
