@@ -85,7 +85,13 @@ export default (domain, partnerId) => (dispatch) => {
       dispatch(setMinMaxLength(minLength, maxLength));
 
       if (domain.length < minLength || domain.length > maxLength) {
-        dispatch(validationMessage(`${partnerId} requires that domain length must be between ${minLength} and ${maxLength}`));
+        let errorMsg;
+        if (partnerId === 'default') {
+          errorMsg = `Domain length must be between ${minLength} and ${maxLength}`;
+        } else {
+          errorMsg = `${partnerId} requires that domain length must be between ${minLength} and ${maxLength}`;
+        }
+        dispatch(validationMessage(errorMsg));
         return dispatch(blockedDomain());
       }
 
