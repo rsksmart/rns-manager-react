@@ -1,15 +1,26 @@
 {
-  "rns": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
-  "registrar": "0x3d1a11c623bd21375f2b69f4eec814f4ceeb1d8d",
-  "reverseRegistrar": "0xc1cb803d5169e0a9894bf0f8dcdf83090999842a",
-  "publicResolver": "0x1e7ae43e3503efb886104ace36051ea72b301cdf",
-  "nameResolver": "0x8587385ad60038bB181aFfDF687c4D1B80C4787e",
+  "rns": "0xc34602669eb447f269eef996aede3bb4c297412d",
+  "registrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
+  "reverseRegistrar": "0xb6020c047183c4e20834a96a12028d34598d0375",
+  "publicResolver": "0x9e39101238f6b22b6b0852ff993d24a4a260d64f",
+  "nameResolver": "0x0c4094de846fd317f212ea8b89724a6ef32fd17e",
   "multiChainResolver": "0x404308f2a2eec2cdc3cb53d7d295af11c903414e",
   "rif": "0x19f64674d8a5b4e652319f5e239efd3bc969a1fe",
-  "fifsRegistrar": "0x36ffda909f941950a552011f2c50569fda14a169",
-  "fifsAddrRegistrar": "0x90734bd6bf96250a7b262e2bc34284b0d47c1e8d",  
-  "rskOwner": "0xca0a477e19bac7e0e172ccfd2e3c28a7200bdb71",
-  "renewer": "0xe48ad1d5fbf61394b5a7d81ab2f36736a046657b",
-  "stringResolver": "0xc980a15304b70a6a00ce8fd376e8ce78e15c5dd8",
-  "definitiveResolver": "0x25c289cccfff700c6a38722f4913924fe504de0e"
+  "fifsRegistrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
+  "fifsAddrRegistrar": "0x8104d97f6d82a7d3afbf45f72118fad51f190c42",
+  "rskOwner": "0x8fca413ecdb80770ef1a4c6db0b2b479ac950c3b",
+  "renewer": "0x23e7aaffc0b119700cf30ccf9f03963956e73173",
+  "partnerManager": "0xb38da738c972ee782b79e70b83d58ac7c00cfd43",
+  "feeManager": "0x8da997e28db5e55adf2c29df9b2e7489bdc13d84",
+  "registrarAccessControl": "0xee279bf1417639d8d792822817f3084d1be7fee4",
+  "partners": {
+    "default": {
+      "account": "0xde74f98bd739bdc0c2adad954d6f24c0c9312204",
+      "config": "0xcebe7f0680281540247aa93f65818a6d535c5b6b"
+    },
+    "buenbit": {
+      "account": "0xde74f98bd739bdc0c2adad954d6f24c0c9312204",
+      "config": "0xcebe7f0680281540247aa93f65818a6d535c5b6b"
+    }
+  }
 }
