@@ -624,11 +624,6 @@
           "type": "uint256"
         },
         {
-          "internalType": "bool",
-          "name": "isUnicodeSupported",
-          "type": "bool"
-        },
-        {
           "internalType": "uint256",
           "name": "minDuration",
           "type": "uint256"
@@ -850,25 +845,6 @@
       "type": "event"
     },
     {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "previousValue",
-          "type": "bool"
-        },
-        {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "newValue",
-          "type": "bool"
-        }
-      ],
-      "name": "UnicodeSupportChanged",
-      "type": "event"
-    },
-    {
       "inputs": [],
       "name": "getDiscount",
       "outputs": [
@@ -989,19 +965,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getUnicodeSupport",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -1088,19 +1051,6 @@
         }
       ],
       "name": "setMinLength",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bool",
-          "name": "flag",
-          "type": "bool"
-        }
-      ],
-      "name": "setUnicodeSupport",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
