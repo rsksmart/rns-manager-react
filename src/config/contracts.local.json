@@ -15,12 +15,16 @@
   "registrarAccessControl": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
   "partners": {
     "default": {
-      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "account": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
       "config": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
     },
     "buenbit": {
       "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      "config": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+      "config": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+    },
+    "thefellowship": {
+      "account": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "config": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
     }
   }
 }

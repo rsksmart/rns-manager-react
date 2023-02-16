@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { SearchBoxComponent } from '../components';
 import getDomainState from '../../search/operations';
-import { validationMessage } from '../../search/actions';
+import { setValidationMessage } from '../../search/actions';
 
 const mapStateToProps = state => ({
   validationMessage: state.search.validationMessage,
@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
     const searchParams = new URLSearchParams(document.location.search);
     const currentPartner = searchParams.get('partner') || 'default';
 
-    dispatch(validationMessage(''));
+    dispatch(setValidationMessage(''));
     dispatch(getDomainState(domain, currentPartner));
   },
 });

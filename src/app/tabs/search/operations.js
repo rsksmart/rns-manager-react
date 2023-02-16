@@ -4,7 +4,7 @@ import {
   requestDomainState, receiveDomainState,
   blockedDomain,
   requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
-  validationMessage, setMinMaxDuration, setMinMaxLength,
+  setValidationMessage, setMinMaxDuration, setMinMaxLength,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -91,7 +91,7 @@ export default (domain, partnerId) => (dispatch) => {
         } else {
           errorMsg = `${partnerId} requires that domain length must be between ${minLength} and ${maxLength}`;
         }
-        dispatch(validationMessage(errorMsg));
+        dispatch(setValidationMessage(errorMsg));
         return dispatch(blockedDomain());
       }
 
