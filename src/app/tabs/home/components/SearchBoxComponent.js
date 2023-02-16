@@ -16,11 +16,6 @@ const SearchBoxComponent = ({ handleClick, strings, validationMessage }) => {
       return;
     }
 
-    // if (search.length < 5) {
-    //   setError(strings.blocked_domain);
-    //   return;
-    // }
-
     if (isValidName(search.toLowerCase()) !== null) {
       setError(strings.invalid_name);
       return;

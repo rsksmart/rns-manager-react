@@ -1,7 +1,7 @@
 import {
   REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE, BLOCKED_DOMAIN, CLEAR_DOMAIN_STATE,
   REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER, RECEIVE_DOMAIN_COST, REQUEST_DOMAIN_COST,
-  VALIDATION_MESSAGE, SET_MIN_MAX_DURATION, SET_MIN_MAX_LENGTH,
+  SET_VALIDATION_MESSAGE, SET_MIN_MAX_DURATION, SET_MIN_MAX_LENGTH,
 } from './types';
 
 // TODO: check initial state
@@ -77,10 +77,10 @@ const searchReducer = (state = initialState, action) => {
         ...initialState,
       };
     }
-    case VALIDATION_MESSAGE: {
+    case SET_VALIDATION_MESSAGE: {
       return {
         ...state,
-        validationMessage: action.validationMessage,
+        validationMessage: action.setValidationMessage,
         domainStateLoading: false,
         requestingCost: false,
         domain: undefined,

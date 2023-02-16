@@ -18,7 +18,7 @@ describe('register reducer', () => {
     waiting: false,
     canReveal: false,
     commitConfirmed: null,
-    revealConfirmed: null,
+    revealConfirmed: false,
     gettingConversionRate: false,
     conversionRate: null,
     setupAddr: true,

@@ -138,7 +138,7 @@ export const commit = (domain, duration, rifCost, setupAddr, partnerId) => async
   };
   return new Promise((resolve) => {
     registrar.methods
-      .makeCommitment(`0x${sha3(domain)}`, currentAddress, salt)
+      .makeCommitment(`0x${sha3(domain)}`, currentAddress, salt, duration, currentAddress)
       .call((error, hashCommit) => {
         if (error) {
           return resolve(dispatch(errorRegistrarCommit(error.message)));
