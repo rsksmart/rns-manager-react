@@ -5,6 +5,8 @@ import { setValidationMessage } from '../../search/actions';
 
 const mapStateToProps = state => ({
   validationMessage: state.search.validationMessage,
+  minLength: Number(state.search.minLength),
+  maxLength: Number(state.search.maxLength),
 });
 
 const mapDispatchToProps = dispatch => ({
