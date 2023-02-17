@@ -2,6 +2,7 @@ import {
   REQUEST_DOMAIN_STATE, RECEIVE_DOMAIN_STATE,
   BLOCKED_DOMAIN, REQUEST_DOMAIN_OWNER, RECEIVE_DOMAIN_OWNER,
   REQUEST_DOMAIN_COST, RECEIVE_DOMAIN_COST, CLEAR_DOMAIN_STATE,
+  SET_VALIDATION_MESSAGE, SET_MIN_MAX_DURATION, SET_MIN_MAX_LENGTH,
 } from './types';
 
 export const requestDomainState = domain => ({
@@ -38,4 +39,21 @@ export const receiveDomainCost = rifCost => ({
 
 export const clearDomainState = () => ({
   type: CLEAR_DOMAIN_STATE,
+});
+
+export const setValidationMessage = message => ({
+  type: SET_VALIDATION_MESSAGE,
+  validationMessage: message,
+});
+
+export const setMinMaxDuration = (min, max) => ({
+  type: SET_MIN_MAX_DURATION,
+  minDuration: min,
+  maxDuration: max,
+});
+
+export const setMinMaxLength = (min, max) => ({
+  type: SET_MIN_MAX_LENGTH,
+  minLength: min,
+  maxLength: max,
 });

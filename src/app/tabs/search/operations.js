@@ -1,8 +1,10 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import {
-  requestDomainState, receiveDomainState, blockedDomain,
+  requestDomainState, receiveDomainState,
+  blockedDomain,
   requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
+  setValidationMessage, setMinMaxDuration, setMinMaxLength,
 } from './actions';
 import {
   rskOwner as rskOwnerAddress,
@@ -18,6 +20,7 @@ import {
   fifsAddrRegistrarAbi,
   auctionRegistrarAbi,
   deedRegistrarAbi,
+  partnerConfigurationAbi,
 } from './abis.json';
 
 export default (domain, partnerId) => (dispatch) => {
@@ -62,13 +65,37 @@ export default (domain, partnerId) => (dispatch) => {
           .catch(error => dispatch(notifyError(error.message)));
       }
 
-      if (domain.length < 5) {
+      dispatch(requestDomainCost());
+      const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+
+      const partnerConfiguration = new web3.eth.Contract(
+        partnerConfigurationAbi, partnerAddresses.config,
+      );
+
+      const fetchMinDuration = partnerConfiguration.methods.getMinDuration().call();
+      const fetchMaxDuration = partnerConfiguration.methods.getMaxDuration().call();
+      const fetchMinLength = partnerConfiguration.methods.getMinLength().call();
+      const fetchMaxLength = partnerConfiguration.methods.getMaxLength().call();
+
+      const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
+        fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
+      ]);
+
+      dispatch(setMinMaxDuration(minDuration, maxDuration));
+      dispatch(setMinMaxLength(minLength, maxLength));
+
+      if (domain.length < minLength || domain.length > maxLength) {
+        let errorMsg;
+        if (partnerId === 'default') {
+          errorMsg = 'default';
+        } else {
+          errorMsg = 'partner';
+        }
+        console.log(errorMsg);
+        dispatch(setValidationMessage(errorMsg));
         return dispatch(blockedDomain());
       }
 
-      dispatch(requestDomainCost());
-      const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
-      console.log(partnerAddresses, 'partnerAddresses');
       return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
         .then((result) => {
           const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
