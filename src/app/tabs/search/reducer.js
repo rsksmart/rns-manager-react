@@ -80,7 +80,7 @@ const searchReducer = (state = initialState, action) => {
     case SET_VALIDATION_MESSAGE: {
       return {
         ...state,
-        validationMessage: action.setValidationMessage,
+        validationMessage: action.validationMessage,
         domainStateLoading: false,
         requestingCost: false,
         domain: undefined,

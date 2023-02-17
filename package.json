@@ -53,7 +53,7 @@
     "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "cypress": "cypress open",
-    "lint": "eslint src"
+    "lint": "eslint src --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
