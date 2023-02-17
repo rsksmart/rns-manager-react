@@ -420,6 +420,6 @@
   "plausible2": "If you accept Plausible’s and ours policy, please click Accept. If you do not accept Plausible’s and ours policy, we provide you with the means to disable our tracking system, please click Reject.",
   "accept": "Accept",
   "reject": "Reject",
-  "domain_length_validation_msg_partner": "Partner requires that domain name must be between: ",
-  "domain_length_validation_msg_default": "The domain name must be between: "
+  "domain_length_validation_msg_partner": "El socio requiere que el nombre de dominio esté entre: ",
+  "domain_length_validation_msg_default": "El nombre de dominio debe estar entre: "
 }
