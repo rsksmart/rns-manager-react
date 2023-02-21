@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
   getCost: (domain, duration) => {
     const searchParams = new URLSearchParams(document.location.search);
     const currentPartner = searchParams.get('partner') || 'default';
+
     dispatch(getCost(domain, duration, currentPartner));
   },
   getConversionRate: rate => !rate && dispatch(getConversionRate()),
