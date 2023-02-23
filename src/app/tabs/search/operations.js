@@ -91,7 +91,6 @@ export default (domain, partnerId) => (dispatch) => {
         } else {
           errorMsg = 'partner';
         }
-        console.log(errorMsg);
         dispatch(setValidationMessage(errorMsg));
         return dispatch(blockedDomain());
       }
