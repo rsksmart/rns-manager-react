@@ -59,9 +59,26 @@ export const getCost = (domain, duration, partnerId) => async (dispatch) => {
 
   registrar.methods
     .price(domain, 0, duration, partner.account)
-    .call((error, cost) => (error
-      ? dispatch(notifyError(error.message))
-      : dispatch(receiveGetCost(cost / (10 ** 18)))));
+    .call((error, cost) => {
+      if (error) {
+        dispatch(notifyError(error.message));
+      } else {
+        dispatch(receiveGetCost(cost / (10 ** 18)));
+
+        let options = localStorage.getItem(`${domain}-options`);
+
+        options = JSON.parse(options);
+
+        localStorage.setItem(
+          `${domain}-options`,
+          JSON.stringify({
+            ...options,
+            duration,
+            rifCost: cost / (10 ** 18),
+          }),
+        );
+      }
+    });
 };
 
 /**
