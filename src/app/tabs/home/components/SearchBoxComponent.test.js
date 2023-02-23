@@ -36,17 +36,13 @@ describe('SearchBoxComponent', () => {
     expect(handleClick).toBeCalledWith('hello');
   });
 
-  it.skip('handles errors with interactions', () => {
+  it('handles errors with interactions', () => {
     const handleClick = jest.fn();
     const component = mount(
       <Provider store={store}>
         <SearchBoxComponent handleClick={handleClick} />
       </Provider>,
     );
-
-    component.find('input').simulate('change', { target: { value: 'foo' } });
-    component.find('button').simulate('click');
-    expect(component.find('.errorMessage').find('p').text()).toBe(en.blocked_domain);
 
     component.find('input').simulate('change', { target: { value: 'foobar!' } });
     component.find('button').simulate('click');

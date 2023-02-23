@@ -57,11 +57,13 @@ const SearchBoxComponent = (
       && (
         <Row className="errorMessage">
           <div className="col-md-8 offset-md-2">
+            {error && (<p>{strings.invalid_name}</p>)}
+            { validationMessage && (
             <p>
-              {
-            error || validationMessage === 'default' ? `${strings.domain_length_validation_msg_default} ${minLength} - ${maxLength}`
-              : `${strings.domain_length_validation_msg_partner} ${minLength} - ${maxLength}`}
+              { validationMessage === 'default' ? `${strings.domain_length_validation_msg_default} ${minLength} - ${maxLength}`
+                : `${strings.domain_length_validation_msg_partner} ${minLength} - ${maxLength}`}
             </p>
+            )}
           </div>
         </Row>
       )}
