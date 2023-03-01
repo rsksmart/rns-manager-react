@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "lib": ["es2020", "esnext"],
+      "target": "es2020",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "outDir": "dist",
+      "declaration": true,
+      "baseUrl": "./",
+      "allowJs": true
+    },
+    "exclude": ["public", "node_modules", "cypress", "src"],
+    "include": [
+      "tests",
+    ],
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "files": ["hardhat.config.js"]
+  }
+  

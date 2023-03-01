@@ -40,6 +40,7 @@ export default (domain, partnerId) => (dispatch) => {
 
   return rskOwner.methods.available(hash).call()
     .then(async (available) => {
+      console.log('available', available);
       if (!available) {
         dispatch(receiveDomainState(false));
         dispatch(requestDomainOwner());

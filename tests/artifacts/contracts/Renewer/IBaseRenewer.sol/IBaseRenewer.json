@@ -1,0 +1,114 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IBaseRenewer",
+  "sourceName": "contracts/Renewer/IBaseRenewer.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "hostContract",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "feeManagerContract",
+          "type": "address"
+        }
+      ],
+      "name": "FeeManagerChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "name": "NameRenewed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        }
+      ],
+      "name": "price",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        }
+      ],
+      "name": "renew",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IFeeManager",
+          "name": "feeManager",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeManager",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

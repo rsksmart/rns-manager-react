@@ -1,0 +1,223 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IBaseRegistrar",
+  "sourceName": "contracts/Registrar/IBaseRegistrar.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "hostContract",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "feeManagerContract",
+          "type": "address"
+        }
+      ],
+      "name": "FeeManagerChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "name": "NameRegistered",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "canReveal",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        }
+      ],
+      "name": "commit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPartnerManager",
+      "outputs": [
+        {
+          "internalType": "contract IPartnerManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "label",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "nameOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "secret",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "makeCommitment",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expires",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        }
+      ],
+      "name": "price",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "nameOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "secret",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "partner",
+          "type": "address"
+        }
+      ],
+      "name": "register",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IFeeManager",
+          "name": "feeManager",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeManager",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

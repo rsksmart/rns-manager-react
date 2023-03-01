@@ -42,14 +42,14 @@
     "web3-utils": "^1.2.4"
   },
   "scripts": {
-    "ganache": "npx ganache-cli",
+    "hardhat": "npx hardhat node",
     "start": "DISABLE_ESLINT_PLUGIN=true && env-cmd -f .env.local react-scripts start",
     "start:testnet": "env-cmd -f .env.testnet react-scripts start",
     "start:mainnet": "env-cmd -f .env.production react-scripts start",
     "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
     "build:mainnet": "CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
     "build:ghpages": "PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
-    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
+    "test": "hardhat run ./tests/testDeploy.ts --network localhost && jest --maxWorkers=4 && eslint src",
     "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
     "cypress": "cypress open",
     "lint": "eslint src --fix"
@@ -66,6 +66,13 @@
   "devDependencies": {
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@rsksmart/rns-sdk": "^1.0.0-beta.6",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.14.2",
     "cypress": "^6.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -76,10 +83,13 @@
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "7.14.3",
-    "ganache-cli": "^6.12.2",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.1",
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
   },
   "resolutions": {
     "lodash": "^4.17.14",

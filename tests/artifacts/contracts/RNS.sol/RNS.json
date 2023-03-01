@@ -1,0 +1,158 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "RNS",
+  "sourceName": "contracts/RNS.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        }
+      ],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        }
+      ],
+      "name": "resolver",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_resolver",
+          "type": "address"
+        }
+      ],
+      "name": "setDefaultResolver",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "ownerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "resolverAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setResolver",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "label",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "ownerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setSubnodeOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint64",
+          "name": "ttlValue",
+          "type": "uint64"
+        }
+      ],
+      "name": "setTTL",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "node",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ttl",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
