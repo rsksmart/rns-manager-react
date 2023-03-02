@@ -19,7 +19,7 @@
   "rns_white_paper": "RNS 백서",
   "search": "검색",
   "resolve": "확인",
-  "invalid_name": "잘못된 이름",
+  "invalid_name": "잘못된 이름. 이름에는 마침표와 공백을 제외한 소문자, 숫자, 특수 문자만 사용할 수 있습니다.",
   "open": "열기",
   "auction": "경매",
   "finalize": "종료",

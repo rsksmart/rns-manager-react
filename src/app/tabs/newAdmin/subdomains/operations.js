@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { hash as namehash } from 'eth-ens-namehash';
+import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import RNS from '@rsksmart/rns';
 
 import { getOptions } from '../../../adapters/RNSLibAdapter';

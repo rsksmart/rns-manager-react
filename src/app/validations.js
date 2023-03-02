@@ -25,8 +25,10 @@ export const isValidName = (name) => {
   //   }
   // }
 
-  if (labels[0].match('[^a-z0-9]')) {
-    return 'Invalid name. Must be lower case characters and/or numbers';
+  // The regex pattern matches English lowercase letters, numbers 0 to 9,
+  // special characters, and Unicode characters except for a full stop.
+  if (labels[0].match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
+    return 'Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.';
   }
 
   return null;

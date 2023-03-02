@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
+import { normalize } from '@ensdomains/eth-ens-namehash';
 import {
   requestDomainState, receiveDomainState,
   blockedDomain,
@@ -27,7 +28,6 @@ export default (domain, partnerId) => (dispatch) => {
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
-
   dispatch(requestDomainState(domain));
 
   const web3 = new Web3(rskNode);
@@ -36,7 +36,7 @@ export default (domain, partnerId) => (dispatch) => {
 
   const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
 
-  const hash = `0x${sha3(domain.split('.')[0])}`;
+  const hash = `0x${sha3(normalize(domain.split('.')[0]))}`;
 
   return rskOwner.methods.available(hash).call()
     .then(async (available) => {

@@ -1,4 +1,7 @@
 import Utils from 'web3-utils';
+import { normalize } from '@ensdomains/eth-ens-namehash';
+import { keccak_256 as sha3 } from 'js-sha3';
+import { utils } from 'ethers';
 
 function numberToUint32(number) {
   const hexDuration = Utils.numberToHex(number);
@@ -10,9 +13,7 @@ function numberToUint32(number) {
   return duration;
 }
 
-function utf8ToHexString(string) {
-  return string ? Utils.asciiToHex(string).slice(2) : '';
-}
+export const utf8ToHexString = string => (string ? Utils.asciiToHex(string).slice(2) : '');
 
 /**
  * registration with rif transferAndCall encoding
@@ -35,7 +36,7 @@ export const getRegisterData = (name, owner, secret, duration) => {
   const dataDuration = numberToUint32(duration);
 
   // variable length
-  const dataName = utf8ToHexString(name);
+  const dataName = sha3(normalize(name));
 
   return `${dataSignature}${dataOwner}${dataSecret}${dataDuration}${dataName}`;
 };
@@ -65,7 +66,8 @@ export const getAddrRegisterData = (name, owner, secret, duration, addr, partner
   const dataDuration = numberToUint32(duration);
 
   // variable length
-  const dataName = utf8ToHexString(name);
+  // const dataName = sha3(normalize(name));
+  const dataName = Buffer.from(utils.toUtf8Bytes(name)).toString('hex');
 
   // 20 bytes
   const dataAddr = addr.toLowerCase().slice(2);
