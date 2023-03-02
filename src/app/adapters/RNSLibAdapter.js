@@ -10,6 +10,10 @@ export const getOptions = () => {
           registry,
         },
       };
-    default: return {};
+    default: return {
+      contractAddresses: {
+        registry,
+      },
+    };
   }
 };
