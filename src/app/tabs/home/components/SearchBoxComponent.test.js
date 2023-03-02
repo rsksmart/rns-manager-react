@@ -44,7 +44,7 @@ describe('SearchBoxComponent', () => {
       </Provider>,
     );
 
-    component.find('input').simulate('change', { target: { value: 'foobar!' } });
+    component.find('input').simulate('change', { target: { value: 'foobar.' } });
     component.find('button').simulate('click');
     expect(component.find('.errorMessage').find('p').text()).toBe(en.invalid_name);
 
