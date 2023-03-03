@@ -1,4 +1,6 @@
 import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
+import { normalize } from '@ensdomains/eth-ens-namehash';
+
 
 /**
  * validates rns names. e.g. wallet.alice.rsk is a valid name
@@ -29,6 +31,12 @@ export const isValidName = (name) => {
   // special characters, and Unicode characters except for a full stop.
   if (labels[0].match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
     return 'Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.';
+  }
+  try {
+    debugger; // eslint-disable-line
+    normalize(labels[0]);
+  } catch (err) {
+    return '👀Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.';
   }
 
   return null;

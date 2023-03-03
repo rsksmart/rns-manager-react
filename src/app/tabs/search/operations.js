@@ -35,8 +35,13 @@ export default (domain, partnerId) => (dispatch) => {
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
 
   const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
-
-  const hash = `0x${sha3(normalize(domain.split('.')[0]))}`;
+  let hash;
+  try {
+    hash = `0x${sha3(normalize(domain.split('.')[0]))}`;
+  } catch {
+    dispatch(setValidationMessage('domain contains illegal character'));
+    return dispatch(receiveDomainState(false));
+  }
 
   return rskOwner.methods.available(hash).call()
     .then(async (available) => {

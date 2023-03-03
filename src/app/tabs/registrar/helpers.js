@@ -66,7 +66,6 @@ export const getAddrRegisterData = (name, owner, secret, duration, addr, partner
   const dataDuration = numberToUint32(duration);
 
   // variable length
-  // const dataName = sha3(normalize(name));
   const dataName = Buffer.from(utils.toUtf8Bytes(name)).toString('hex');
 
   // 20 bytes
