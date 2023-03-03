@@ -14,29 +14,16 @@ export const isValidName = (name) => {
     return 'Search only simple names';
   }
 
-  // if (labels.length > 2) {
-  //   return 'Search only .rsk simple names';
-  // }
-
-  // if (labels.length === 2) {
-  //   if (labels[1] !== 'rsk') {
-  //     return 'Search only .rsk names';
-  //   }
-  //   if (labels[0].length === 0) {
-  //     return 'Search for a name.';
-  //   }
-  // }
-
   // The regex pattern matches English lowercase letters, numbers 0 to 9,
   // special characters, and Unicode characters except for a full stop.
   if (labels[0].match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
-    return 'Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.';
+    return 'Invalid name. Name can contain only lowercase letters, digits, and unicode characters except for full stops and spaces.';
   }
+
   try {
-    debugger; // eslint-disable-line
     normalize(labels[0]);
   } catch (err) {
-    return '👀Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.';
+    return 'Domain contains illegal character(s).';
   }
 
   return null;
