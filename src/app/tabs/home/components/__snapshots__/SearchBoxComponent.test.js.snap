@@ -23,7 +23,7 @@ exports[`SearchBoxComponent renders and matches snapshot 1`] = `
       strings={
         Object {
           "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon",
-          "invalid_name": "Invalid name. Name can contain only lowercase letters, digits, and special characters except for full stops and spaces.",
+          "invalid_name": "Invalid name. Name can contain only lowercase letters, digits, and unicode characters except for full stops and spaces.",
           "search": "search",
           "search_placeholder": "Find your domain",
         }
