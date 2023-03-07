@@ -36,7 +36,7 @@ export const isValidDomain = (name) => {
 
   labels.forEach((label) => {
     if (label.length === 0) isValid = false;
-    if (label.match('[^a-z0-9]')) isValid = false;
+    if (label.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) isValid = false; /* eslint-disable-line */
   });
 
   return isValid;

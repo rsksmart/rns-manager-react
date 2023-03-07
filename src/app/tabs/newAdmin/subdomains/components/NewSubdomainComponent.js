@@ -40,7 +40,7 @@ const NewSubdomainComponent = ({
   const handleOnClick = (e) => {
     e.preventDefault();
 
-    if (subdomain === '' || subdomain.match('[^a-z0-9]')) {
+    if (subdomain === '' || subdomain.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
       return setLocalError(strings.invalid_name);
     }
 
@@ -239,7 +239,7 @@ NewSubdomainComponent.propTypes = {
   newWaiting: propTypes.bool.isRequired,
   initialSubdomain: propTypes.string,
   initialOwner: propTypes.string,
-  chainId: propTypes.string.isRequired,
+  chainId: propTypes.number.isRequired,
   advancedView: propTypes.bool.isRequired,
   isWalletConnect: propTypes.bool.isRequired,
 };

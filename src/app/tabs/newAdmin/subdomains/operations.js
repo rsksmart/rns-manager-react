@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
-import { hash as namehash } from '@ensdomains/eth-ens-namehash';
+import { hash as namehash, normalize } from '@ensdomains/eth-ens-namehash';
 import RNS from '@rsksmart/rns';
 
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -43,7 +43,6 @@ const registerSubdomain = (
   parentDomain, subdomain, newOwner, setupResolution,
 ) => async (dispatch) => {
   dispatch(waitingNewSubdomainConfirm());
-
   const transactionConfirmed = result => () => {
     dispatch(addSubdomainToList(subdomain, newOwner));
     dispatch(receiveNewSubdomain(result));
@@ -99,14 +98,12 @@ export const newSubdomain = (
   if (!newAddress) {
     return null;
   }
-
   const isAvailable = await getRNS().subdomains.available(parentDomain, subdomain);
   if (isAvailable) {
     return dispatch(registerSubdomain(
       parentDomain, subdomain, newAddress, setupResolution,
     ));
   }
-
   if (subdomainList[subdomain]) {
     // already on the list below
     return dispatch(errorNewSubdomain(`${subdomain}.${parentDomain} is already registered.`));
@@ -165,7 +162,7 @@ export const setSubdomainOwner = (
 
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0];
-  const label = `0x${sha3(subdomain)}`;
+  const label = `0x${sha3(normalize(subdomain))}`;
   const node = namehash(parentDomain);
 
   const rns = getRNS();
