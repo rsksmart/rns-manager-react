@@ -1,4 +1,6 @@
 import { isValidAddress, isValidChecksumAddress } from 'rskjs-util';
+import { normalize } from '@ensdomains/eth-ens-namehash';
+
 
 /**
  * validates rns names. e.g. wallet.alice.rsk is a valid name
@@ -12,21 +14,16 @@ export const isValidName = (name) => {
     return 'Search only simple names';
   }
 
-  // if (labels.length > 2) {
-  //   return 'Search only .rsk simple names';
-  // }
+  // The regex pattern matches English lowercase letters, numbers 0 to 9,
+  // special characters, and Unicode characters except for a full stop.
+  if (labels[0].match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
+    return 'Invalid name. Name can contain only lowercase letters, digits, and unicode characters except for full stops and spaces.';
+  }
 
-  // if (labels.length === 2) {
-  //   if (labels[1] !== 'rsk') {
-  //     return 'Search only .rsk names';
-  //   }
-  //   if (labels[0].length === 0) {
-  //     return 'Search for a name.';
-  //   }
-  // }
-
-  if (labels[0].match('[^a-z0-9]')) {
-    return 'Invalid name. Must be lower case characters and/or numbers';
+  try {
+    normalize(labels[0]);
+  } catch (err) {
+    return 'Domain contains illegal character(s).';
   }
 
   return null;
@@ -39,7 +36,7 @@ export const isValidDomain = (name) => {
 
   labels.forEach((label) => {
     if (label.length === 0) isValid = false;
-    if (label.match('[^a-z0-9]')) isValid = false;
+    if (label.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) isValid = false; /* eslint-disable-line */
   });
 
   return isValid;

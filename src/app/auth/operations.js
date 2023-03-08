@@ -1,6 +1,7 @@
 /* eslint-disable radix */
 import Web3 from 'web3';
-import { hash as namehash } from 'eth-ens-namehash';
+import { hash as namehash } from '@ensdomains/eth-ens-namehash';
+import { keccak_256 as sha3 } from 'js-sha3';
 import { push } from 'connected-react-router';
 import {
   rns as registryAddress,
@@ -30,6 +31,7 @@ import {
 import { registryAbi } from './abis.json';
 import rLogin from '../rLogin/rLogin';
 
+// const utf8ToHexString = string => (string ? Utils.asciiToHex(string).slice(2) : '');
 
 /**
  * Save Domain into Local Storage to be used with login popup.
@@ -131,7 +133,7 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
         return dispatch(failedLogin(name));
       }
 
-      const label = web3.utils.sha3(labels[0]);
+      const label = `0x${sha3(labels[0])}`;
 
       return rskOwner.methods.available(label).call()
         .then((available) => {

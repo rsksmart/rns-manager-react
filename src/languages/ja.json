@@ -19,7 +19,7 @@
   "rns_white_paper": "rns ホワイトペーパー",
   "search": "検索する",
   "resolve": "照合する",
-  "invalid_name": "無効な名称",
+  "invalid_name": "無効な名前。名前には、小文字、数字、およびピリオドとスペースを除く特殊文字のみを含めることができます。",
   "open": "オープン",
   "auction": "オークション",
   "finalize": "締結/ 合意する",

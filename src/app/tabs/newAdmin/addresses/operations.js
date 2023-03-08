@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { hash as namehash } from 'eth-ens-namehash';
+import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { formatsByCoinType } from '@ensdomains/address-encoder';
 
 import {

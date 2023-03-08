@@ -19,7 +19,7 @@
   "rns_white_paper": "RNS 白皮书",
   "search": "搜索",
   "resolve": "解析",
-  "invalid_name": "无效名称",
+  "invalid_name": "名稱無效。名稱只能包含小寫字母、數字和特殊字符，句號和空格除外。",
   "open": "打开",
   "auction": "拍卖",
   "finalize": "完成",

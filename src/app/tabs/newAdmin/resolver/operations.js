@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import RNS from '@rsksmart/rns';
-import { hash as namehash } from 'eth-ens-namehash';
+import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { deflateSync } from 'react-zlib-js';
 import cbor from 'cbor';
 import { validateBytes32 } from '../../../validations';
