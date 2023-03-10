@@ -1,4 +1,6 @@
-import { PartnerRegistrar } from '@rsksmart/rns-sdk';
+import {
+  PartnerRegistrar, PartnerConfiguration, RNS, AddrResolver,
+} from '@rsksmart/rns-sdk';
 import { ethers } from 'ethers';
 import { rskNode } from './adapters/nodeAdapter';
 import {
@@ -21,4 +23,18 @@ export const registrar = (
   signer,
 );
 
-export const partnerConfiguration = () => 'awesome';
+export const partnerConfiguration = (
+  partnerAddress,
+  signer = defaultSigner,
+) => new PartnerConfiguration(
+  partnerAddress,
+  signer,
+);
+
+export const rns = (
+  signer = defaultSigner,
+) => new RNS(fifsAddrRegistrarAddress, signer);
+
+export const resolver = (
+  signer = defaultSigner,
+) => new AddrResolver(fifsAddrRegistrarAddress, signer);
