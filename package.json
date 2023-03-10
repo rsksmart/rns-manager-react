@@ -10,6 +10,7 @@
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rlogin": "^1.4.1",
     "@rsksmart/rns": "^1.9.0",
+    "@rsksmart/rns-sdk": "^1.0.0-beta.6",
     "@rsksmart/rns-suite": "^1.1.0",
     "@walletconnect/web3-provider": "^1.6.5",
     "bootstrap": "^4.3.1",
