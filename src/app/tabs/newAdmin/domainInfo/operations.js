@@ -188,9 +188,9 @@ export const transferDomain = (name, address, sender, partnerId) => async (dispa
     const signer = provider.getSigner();
 
     result = await registrar(partnerAddresses.account, signer).transfer(label, addressToTransfer);
-    receiveTransferDomain(true);
+    dispatch(receiveTransferDomain(true));
   } catch (e) {
-    errorTransferDomain(TRANSACTION_RECEIPT_FAILED);
+    dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));
   }
 
   return result;
