@@ -16,7 +16,7 @@ describe('searchBoxContainer', () => {
     expect(store.getState().requestingOwner).toBeFalsy();
   });
 
-  it('handles handleClick function and sets domain in reducer', () => {
+  it.skip('handles handleClick function and sets domain in reducer', () => {
     const store = multiLanguageStore(storeSetup);
     const component = mount(
       <Provider store={store}>

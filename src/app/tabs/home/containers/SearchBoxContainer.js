@@ -11,11 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleClick: (domain) => {
-    const searchParams = new URLSearchParams(document.location.search);
-    const currentPartner = searchParams.get('partner') || 'default';
-
     dispatch(setValidationMessage(''));
-    dispatch(getDomainState(domain, currentPartner));
+    dispatch(getDomainState(domain));
   },
 });
 

@@ -6,39 +6,30 @@ import {
   setValidationMessage, setMinMaxDuration, setMinMaxLength,
   /* receiveDomainOwner */
 } from './actions';
-import {
-  getCurrentPartnerAddresses,
-} from '../../adapters/configAdapter';
 import { notifyError } from '../../notifications';
-import { registrar, partnerConfiguration } from '../../rns-sdk';
+import { registrar, partnerConfiguration, getCurrentPartner } from '../../rns-sdk';
 
-export default (domain, partnerId) => async (dispatch) => {
-  const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
-  const Registrar = registrar(partnerAddresses.account);
-  const PartnerConfiguration = partnerConfiguration(partnerAddresses.config);
+
+export default domain => async (dispatch) => {
+  const Registrar = await registrar();
+  const PartnerConfiguration = await partnerConfiguration();
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
   dispatch(requestDomainState(domain));
 
-  let available = false;
   try {
-    available = await Registrar.available(domain);
-  } catch (error) {
-    dispatch(notifyError(error.message));
-  }
-
-  if (!available) {
-    dispatch(receiveDomainState(false));
-    dispatch(requestDomainOwner());
+    const available = await Registrar.available(domain);
+    if (!available) {
+      dispatch(receiveDomainState(false));
+      dispatch(requestDomainOwner());
 
     // N.B: Previously the Auction registrar and the deed
     // contract are called (investigate more details why)
-  }
+    }
 
-  dispatch(requestDomainCost());
+    dispatch(requestDomainCost());
 
-  try {
     const fetchMinDuration = PartnerConfiguration.getMinDuration();
     const fetchMaxDuration = PartnerConfiguration.getMaxDuration();
     const fetchMinLength = PartnerConfiguration.getMinLength();
@@ -47,9 +38,12 @@ export default (domain, partnerId) => async (dispatch) => {
     const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
       fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
     ]);
+    console.log(`${minDuration}, ${maxDuration}, ${minLength}, ${maxLength}`);
 
-    if (domain.length < minLength || domain.length > maxLength) {
+    if (domain.length < minLength.toNumber() || domain.length > maxLength.toNumber()) {
       let errorMsg;
+      const partnerId = getCurrentPartner();
+      console.log(partnerId);
       if (partnerId === 'default') {
         errorMsg = 'default';
       } else {
@@ -69,5 +63,6 @@ export default (domain, partnerId) => async (dispatch) => {
   } catch (error) {
     dispatch(notifyError(error.message));
   }
-  return available;
+
+  return true;
 };
