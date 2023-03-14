@@ -3,12 +3,13 @@ import { keccak_256 as sha3 } from 'js-sha3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 
+import { ethers } from 'ethers';
 import {
   rskOwner as rskOwnerAddress,
   rif as rifAddress,
   renewer as renewerAddress,
   registrar as tokenRegistrarAddress,
-  defaultPartnerAddresses,
+  defaultPartnerAddresses, getCurrentPartnerAddresses,
 } from '../../../adapters/configAdapter';
 import {
   rskOwnerAbi, tokenRegistrarAbi, deedAbi,
@@ -32,6 +33,8 @@ import {
 import { receiveRegistryOwner } from '../actions';
 import { resolveDomain } from '../../resolve/operations';
 import { NOT_ENOUGH_RIF } from './types';
+import { registrar } from '../../../rns-sdk';
+import { TRANSACTION_RECEIPT_FAILED } from '../../../types';
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   dispatch(requestDomainExpirationTime());
@@ -134,7 +137,9 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   });
 };
 
-export const transferDomain = (name, address, sender) => async (dispatch) => {
+export const transferDomain = (name, address, sender, partnerId) => async (dispatch) => {
+  const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+
   dispatch(requestTransferDomain());
 
   // get address if it ends with .rsk
@@ -147,34 +152,48 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
 
   const label = name.split('.')[0];
 
-  return new Promise((resolve) => {
-    const hash = `0x${sha3(label)}`;
+  // rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
+  //   { from: sender },
+  //   (error, result) => {
+  //     if (error) {
+  //       return resolve(dispatch(errorTransferDomain(error.message)));
+  //     }
+  //
+  //     return dispatch(transactionListener(
+  //       result,
+  //       listenerParams => listenerDispatch => listenerDispatch(
+  //         receiveTransferDomain(listenerParams.resultTx),
+  //       ),
+  //       {},
+  //       listenerParams => listenerDispatch => listenerDispatch(
+  //         errorTransferDomain(listenerParams.errorReason),
+  //       ),
+  //     ));
+  //   },
+  // );
 
-    const web3 = new Web3(window.rLogin);
-    const rskOwner = new web3.eth.Contract(
-      rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
-    );
+  let result;
 
-    rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
-      { from: sender },
-      (error, result) => {
-        if (error) {
-          return resolve(dispatch(errorTransferDomain(error.message)));
-        }
+  try {
+    // A Web3Provider wraps a standard Web3 provider, which is
+    // what MetaMask injects as window.ethereum into each page
+    const provider = new ethers.providers.Web3Provider(window.rLogin);
 
-        return dispatch(transactionListener(
-          result,
-          listenerParams => listenerDispatch => listenerDispatch(
-            receiveTransferDomain(listenerParams.resultTx),
-          ),
-          {},
-          listenerParams => listenerDispatch => listenerDispatch(
-            errorTransferDomain(listenerParams.errorReason),
-          ),
-        ));
-      },
-    );
-  });
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send('eth_requestAccounts', []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
+
+    result = await registrar(partnerAddresses.account, signer).transfer(label, addressToTransfer);
+    receiveTransferDomain();
+  } catch (e) {
+    errorTransferDomain(TRANSACTION_RECEIPT_FAILED);
+  }
+
+  return result;
 };
 
 export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
@@ -213,6 +232,7 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
  * Set RNS Registry owner to a different address, aka "Set Controller"
  * @param {string} domain that should be set
  * @param {address} address new address to set owner to
+ * @param currentValue
  */
 export const setRegistryOwner = (domain, address, currentValue) => async (dispatch) => {
   dispatch(requestSetRegistryOwner(domain));

@@ -20,20 +20,26 @@ const mapStateToProps = (state, ownProps) => ({
   },
 });
 
+const getCurrentPartner = () => {
+  const searchParams = new URLSearchParams(document.location.search);
+  return searchParams.get('partner') || 'default';
+};
+
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (
     domain, addressToTransfer, sender,
-  ) => dispatch(transferDomain(domain, addressToTransfer, sender)),
+  ) => dispatch(transferDomain(domain, addressToTransfer, sender, getCurrentPartner())),
   handleTransferErrorClose: () => dispatch(handleTransferErrorClose()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  handleSubmit: addressToTransfer => dispatchProps.handleSubmit(
+  handleSubmit: (addressToTransfer, partnerId) => dispatchProps.handleSubmit(
     stateProps.label,
     addressToTransfer.toLowerCase(),
     stateProps.currentAddress.toLowerCase(),
+    partnerId,
   ),
   handleErrorClose: () => dispatchProps.handleTransferErrorClose(),
 });
