@@ -15,6 +15,7 @@ const initialState = {
   isRenewOpen: false,
   requestingTransfer: false,
   isTransferSuccess: false,
+  transferSuccessTx: '',
   errorMessage: '',
   isError: false,
   isRenewing: false,
@@ -38,6 +39,7 @@ const renewDomain = (state = initialState, action) => {
       ...state,
       requestingTransfer: false,
       isTransferSuccess: true,
+      transferSuccessTx: action.transferSuccessTx,
     };
     case ERROR_TRANSFER_DOMAIN: return {
       ...state,

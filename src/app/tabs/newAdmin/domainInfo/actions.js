@@ -14,8 +14,9 @@ export const requestTransferDomain = () => ({
   type: REQUEST_TRANSFER_DOMAIN,
 });
 
-export const receiveTransferDomain = () => ({
+export const receiveTransferDomain = transferSuccessTx => ({
   type: RECEIVE_TRANSFER_DOMAIN,
+  transferSuccessTx,
 });
 
 export const errorTransferDomain = message => ({
