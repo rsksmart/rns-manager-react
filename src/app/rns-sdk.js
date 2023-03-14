@@ -8,28 +8,38 @@ import {
   fifsAddrRegistrar as fifsAddrRegistrarAddress,
   renewer,
   rif,
+  getCurrentPartnerAddresses,
 } from './adapters/configAdapter';
 
 const defaultSigner = new ethers.providers.JsonRpcProvider(rskNode).getSigner();
 
-export const registrar = (
-  partnerAddress,
-  signer = defaultSigner,
-) => new PartnerRegistrar(
-  partnerAddress,
-  fifsAddrRegistrarAddress,
-  renewer, rskOwnerAddress,
-  rif,
-  signer,
-);
+export const getCurrentPartner = () => {
+  const searchParams = new URLSearchParams(document.location.search);
+  return searchParams.get('partner') || 'default';
+};
 
-export const partnerConfiguration = (
-  partnerAddress,
+export const registrar = async (
   signer = defaultSigner,
-) => new PartnerConfiguration(
-  partnerAddress,
-  signer,
-);
+) => {
+  const partnerAddresses = await getCurrentPartnerAddresses(getCurrentPartner());
+  return new PartnerRegistrar(
+    partnerAddresses.account,
+    fifsAddrRegistrarAddress,
+    renewer, rskOwnerAddress,
+    rif,
+    signer,
+  );
+};
+
+export const partnerConfiguration = async (
+  signer = defaultSigner,
+) => {
+  const partnerAddresses = await getCurrentPartnerAddresses(getCurrentPartner());
+  return new PartnerConfiguration(
+    partnerAddresses.config,
+    signer,
+  );
+};
 
 export const rns = (
   signer = defaultSigner,
