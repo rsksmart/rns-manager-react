@@ -1,12 +1,10 @@
 /* eslint-disable radix */
 import Web3 from 'web3';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
-import { keccak_256 as sha3 } from 'js-sha3';
 import { push } from 'connected-react-router';
 import {
   rns as registryAddress,
   rskOwner as rskOwnerAddress,
-  registrar as auctionRegistrarAddress,
 } from '../adapters/configAdapter';
 import { rskNode } from '../adapters/nodeAdapter';
 
@@ -25,11 +23,10 @@ import {
 } from './actions';
 import {
   rskOwnerAbi,
-  auctionRegistrarAbi,
-  deedRegistrarAbi,
 } from '../tabs/search/abis.json';
 import { registryAbi } from './abis.json';
 import rLogin from '../rLogin/rLogin';
+import nameToToken from '../helpers/nameToToken';
 
 // const utf8ToHexString = string => (string ? Utils.asciiToHex(string).slice(2) : '');
 
@@ -111,10 +108,6 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
 
   const registry = new web3.eth.Contract(registryAbi, registryAddress);
   const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
-  const auctionRegistrar = new web3.eth.Contract(
-    auctionRegistrarAbi,
-    auctionRegistrarAddress,
-  );
 
   const node = namehash(name);
 
@@ -133,38 +126,26 @@ export const authenticate = (name, address, noRedirect) => (dispatch) => {
         return dispatch(failedLogin(name));
       }
 
-      const label = `0x${sha3(labels[0])}`;
+      const tokenId = nameToToken(labels[0]);
 
-      return rskOwner.methods.available(label).call()
+      return rskOwner.methods.available(tokenId).call()
         .then((available) => {
           if (available) {
             // it has no owner, fail
             return dispatch(failedLogin(name));
           }
 
-          // it is not available, get the owner in the auction registrar or
-          // the token registrar
-          return auctionRegistrar.methods.entries(label).call()
-            .then((entry) => {
-              if (entry[0] === '2') {
-                // owned in the auction registrar
-                const deedContract = new web3.eth.Contract(deedRegistrarAbi, entry[1]);
-                return deedContract.methods.owner().call();
-              }
+          // owned in rsk registrar
+          return rskOwner.methods.ownerOf(tokenId).call();
+        })
+        .then((owner) => {
+          if (owner.toLowerCase() === address.toLowerCase()) {
+            // success
+            return dispatch(successfulLogin(name, noRedirect));
+          }
 
-              // owned in rsk registrar
-              return rskOwner.methods.ownerOf(label).call();
-            })
-            .then((owner) => {
-              if (owner.toLowerCase() === address.toLowerCase()) {
-                // success
-                return dispatch(successfulLogin(name, noRedirect));
-              }
-
-              // fail
-              return dispatch(failedLogin(name));
-            })
-            .catch(error => dispatch(errorLogin(error)));
+          // fail
+          return dispatch(failedLogin(name));
         })
         .catch(error => dispatch(errorLogin(error)));
     })
