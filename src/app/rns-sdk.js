@@ -11,7 +11,8 @@ import {
   getCurrentPartnerAddresses,
 } from './adapters/configAdapter';
 
-const defaultSigner = new ethers.providers.JsonRpcProvider(rskNode).getSigner();
+const provider = new ethers.providers.JsonRpcProvider(rskNode);
+const defaultSigner = new ethers.VoidSigner('', provider);
 
 export const getCurrentPartner = () => {
   const searchParams = new URLSearchParams(document.location.search);
