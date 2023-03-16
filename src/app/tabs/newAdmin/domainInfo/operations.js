@@ -2,18 +2,14 @@ import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
-
-import { ethers } from 'ethers';
 import {
-  rskOwner as rskOwnerAddress,
-  rif as rifAddress,
-  renewer as renewerAddress,
+  defaultPartnerAddresses,
   registrar as tokenRegistrarAddress,
-  defaultPartnerAddresses, getCurrentPartnerAddresses,
+  renewer as renewerAddress,
+  rif as rifAddress,
+  rskOwner as rskOwnerAddress,
 } from '../../../adapters/configAdapter';
-import {
-  rskOwnerAbi, tokenRegistrarAbi, deedAbi,
-} from './abis.json';
+import { deedAbi, rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { rifAbi } from '../../registrar/abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -22,12 +18,24 @@ import { getRenewData } from './helpers';
 import transactionListener from '../../../helpers/transactionListener';
 
 import {
-  requestTransferDomain, receiveTransferDomain, errorTransferDomain,
-  requestDomainExpirationTime, receiveDomainExpirationTime,
-  errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
-  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetRegistryOwner,
-  errorSetRegistryOwner, receiveSetRegistryOwner, requestReclaimDomain, errorReclaimDomain,
+  errorDomainExpirationTime,
+  errorFifsMigration,
+  errorReclaimDomain,
+  errorRenewDomain,
+  errorSetRegistryOwner,
+  errorTransferDomain,
+  receiveDomainExpirationTime,
+  receiveFifsMigration,
   receiveReclaimDomain,
+  receiveRenewDomain,
+  receiveSetRegistryOwner,
+  receiveTransferDomain,
+  requestDomainExpirationTime,
+  requestFifsMigration,
+  requestReclaimDomain,
+  requestRenewDomain,
+  requestSetRegistryOwner,
+  requestTransferDomain,
 } from './actions';
 
 import { receiveRegistryOwner } from '../actions';
@@ -35,6 +43,7 @@ import { resolveDomain } from '../../resolve/operations';
 import { NOT_ENOUGH_RIF } from './types';
 import { registrar } from '../../../rns-sdk';
 import { TRANSACTION_RECEIPT_FAILED } from '../../../types';
+import getSigner from '../../../helpers/getSigner';
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   dispatch(requestDomainExpirationTime());
@@ -137,9 +146,7 @@ export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   });
 };
 
-export const transferDomain = (name, address, sender, partnerId) => async (dispatch) => {
-  const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
-
+export const transferDomain = (name, address, sender) => async (dispatch) => {
   dispatch(requestTransferDomain());
 
   // get address if it ends with .rsk
@@ -152,42 +159,12 @@ export const transferDomain = (name, address, sender, partnerId) => async (dispa
 
   const label = name.split('.')[0];
 
-  // rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
-  //   { from: sender },
-  //   (error, result) => {
-  //     if (error) {
-  //       return resolve(dispatch(errorTransferDomain(error.message)));
-  //     }
-  //
-  //     return dispatch(transactionListener(
-  //       result,
-  //       listenerParams => listenerDispatch => listenerDispatch(
-  //         receiveTransferDomain(listenerParams.resultTx),
-  //       ),
-  //       {},
-  //       listenerParams => listenerDispatch => listenerDispatch(
-  //         errorTransferDomain(listenerParams.errorReason),
-  //       ),
-  //     ));
-  //   },
-  // );
-
   let result;
 
   try {
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what MetaMask injects as window.ethereum into each page
-    const provider = new ethers.providers.Web3Provider(window.rLogin);
+    const signer = await getSigner();
 
-    // MetaMask requires requesting permission to connect users accounts
-    await provider.send('eth_requestAccounts', []);
-
-    // The MetaMask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    const signer = provider.getSigner();
-
-    result = await registrar(partnerAddresses.account, signer).transfer(label, addressToTransfer);
+    result = await registrar(signer).transfer(label, addressToTransfer);
     dispatch(receiveTransferDomain(true));
   } catch (e) {
     dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));

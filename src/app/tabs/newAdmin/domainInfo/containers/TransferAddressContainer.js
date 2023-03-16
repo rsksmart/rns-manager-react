@@ -19,16 +19,10 @@ const mapStateToProps = (state, ownProps) => ({
     error_message: state.newAdmin.domainInfo.errorMessage,
   },
 });
-
-const getCurrentPartner = () => {
-  const searchParams = new URLSearchParams(document.location.search);
-  return searchParams.get('partner') || 'default';
-};
-
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (
     domain, addressToTransfer, sender,
-  ) => dispatch(transferDomain(domain, addressToTransfer, sender, getCurrentPartner())),
+  ) => dispatch(transferDomain(domain, addressToTransfer, sender)),
   handleTransferErrorClose: () => dispatch(handleTransferErrorClose()),
 });
 
