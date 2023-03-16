@@ -36,10 +36,10 @@ export const definitiveResolver = returnValue('definitiveResolver');
 export const partnerConfiguration = returnValue('defaultPartnerConfiguration');
 export const partner = returnValue('partner');
 
-export const getPartnerAddresses = async id => returnValue('partners')[id];
+export const getPartnerAddresses = id => returnValue('partners')[id];
 
 
-export const defaultPartnerAddresses = async () => getPartnerAddresses('default');
+export const defaultPartnerAddresses = () => getPartnerAddresses('default');
 
-export const getCurrentPartnerAddresses = async id => getPartnerAddresses(id)
+export const getCurrentPartnerAddresses = id => getPartnerAddresses(id)
 || defaultPartnerAddresses();

@@ -10,18 +10,14 @@ import {
   rif,
   getCurrentPartnerAddresses,
 } from './adapters/configAdapter';
+import getCurrentPartner from './helpers/getCurrentPartner';
 
 const defaultSigner = new ethers.providers.JsonRpcProvider(rskNode).getSigner();
 
-export const getCurrentPartner = () => {
-  const searchParams = new URLSearchParams(document.location.search);
-  return searchParams.get('partner') || 'default';
-};
-
-export const registrar = async (
+export const registrar = (
   signer = defaultSigner,
 ) => {
-  const partnerAddresses = await getCurrentPartnerAddresses(getCurrentPartner());
+  const partnerAddresses = getCurrentPartnerAddresses(getCurrentPartner());
   return new PartnerRegistrar(
     partnerAddresses.account,
     fifsAddrRegistrarAddress,
