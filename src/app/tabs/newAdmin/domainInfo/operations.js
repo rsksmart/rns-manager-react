@@ -163,8 +163,9 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
 
   try {
     const signer = await getSigner();
+    const r = await registrar(signer);
 
-    result = await registrar(signer).transfer(label, addressToTransfer);
+    result = await r.transfer(label, addressToTransfer);
     dispatch(receiveTransferDomain(true));
   } catch (e) {
     dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));
