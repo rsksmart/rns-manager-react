@@ -1,107 +1,68 @@
-import Web3 from 'web3';
-import { keccak_256 as sha3 } from 'js-sha3';
-import { normalize } from '@ensdomains/eth-ens-namehash';
+import { BigNumber } from 'ethers';
 import {
   requestDomainState, receiveDomainState,
   blockedDomain,
-  requestDomainOwner, receiveDomainOwner, requestDomainCost, receiveDomainCost,
+  requestDomainOwner, requestDomainCost, receiveDomainCost,
   setValidationMessage, setMinMaxDuration, setMinMaxLength,
+  /* receiveDomainOwner */
 } from './actions';
-import {
-  rskOwner as rskOwnerAddress,
-  fifsAddrRegistrar as fifsAddrRegistrarAddress,
-  registrar as auctionRegistrarAddress,
-  getCurrentPartnerAddresses,
-} from '../../adapters/configAdapter';
-
 import { notifyError } from '../../notifications';
-import { rskNode } from '../../adapters/nodeAdapter';
-import {
-  rskOwnerAbi,
-  fifsAddrRegistrarAbi,
-  auctionRegistrarAbi,
-  deedRegistrarAbi,
-  partnerConfigurationAbi,
-} from './abis.json';
+import { registrar, partnerConfiguration, getCurrentPartner } from '../../rns-sdk';
 
-export default (domain, partnerId) => (dispatch) => {
+
+export default domain => async (dispatch) => {
+  const Registrar = await registrar();
+  const PartnerConfiguration = await partnerConfiguration();
   if (!domain) {
     return dispatch(receiveDomainState(''));
   }
   dispatch(requestDomainState(domain));
 
-  const web3 = new Web3(rskNode);
+  try {
+    const available = await Registrar.available(domain);
+    if (!available) {
+      dispatch(receiveDomainState(false));
+      dispatch(requestDomainOwner());
 
-  const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
+    // N.B: Previously the Auction registrar and the deed
+    // contract are called (investigate more details why)
+    }
 
-  const registrar = new web3.eth.Contract(fifsAddrRegistrarAbi, fifsAddrRegistrarAddress);
+    dispatch(requestDomainCost());
 
-  const hash = `0x${sha3(normalize(domain.split('.')[0]))}`;
+    const fetchMinDuration = PartnerConfiguration.getMinDuration();
+    const fetchMaxDuration = PartnerConfiguration.getMaxDuration();
+    const fetchMinLength = PartnerConfiguration.getMinLength();
+    const fetchMaxLength = PartnerConfiguration.getMaxLength();
 
-  return rskOwner.methods.available(hash).call()
-    .then(async (available) => {
-      if (!available) {
-        dispatch(receiveDomainState(false));
-        dispatch(requestDomainOwner());
+    const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
+      fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
+    ]);
+    console.log(`${minDuration}, ${maxDuration}, ${minLength}, ${maxLength}`);
 
-        const auctionRegistrar = new web3.eth.Contract(
-          auctionRegistrarAbi,
-          auctionRegistrarAddress,
-        );
-
-        return auctionRegistrar.methods.entries(hash).call()
-          .then((results) => {
-            if (results[0] === '2') {
-              const deedContract = new web3.eth.Contract(deedRegistrarAbi, results[1]);
-              return deedContract.methods.owner().call()
-                .then(owner => dispatch(receiveDomainOwner(owner)))
-                .catch(error => dispatch(notifyError(error.message)));
-            }
-
-            return rskOwner.methods.ownerOf(hash).call()
-              .then(owner => dispatch(receiveDomainOwner(owner)))
-              .catch(error => dispatch(notifyError(error.message)));
-          })
-          .catch(error => dispatch(notifyError(error.message)));
+    if (domain.length < minLength.toNumber() || domain.length > maxLength.toNumber()) {
+      let errorMsg;
+      const partnerId = getCurrentPartner();
+      console.log(partnerId);
+      if (partnerId === 'default') {
+        errorMsg = 'default';
+      } else {
+        errorMsg = 'partner';
       }
+      dispatch(setValidationMessage(errorMsg));
+      return dispatch(blockedDomain());
+    }
 
-      dispatch(requestDomainCost());
-      const partnerAddresses = await getCurrentPartnerAddresses(partnerId);
+    dispatch(setMinMaxDuration(minDuration.toNumber(), maxDuration.toNumber()));
+    dispatch(setMinMaxLength(minLength.toNumber(), maxLength.toNumber()));
 
-      const partnerConfiguration = new web3.eth.Contract(
-        partnerConfigurationAbi, partnerAddresses.config,
-      );
+    const price = await Registrar.price(domain, minDuration.toNumber());
+    const rifCost = price.div(BigNumber.from(10).pow(18));
+    dispatch(receiveDomainCost(rifCost.toNumber()));
+    dispatch(receiveDomainState(available));
+  } catch (error) {
+    dispatch(notifyError(error.message));
+  }
 
-      const fetchMinDuration = partnerConfiguration.methods.getMinDuration().call();
-      const fetchMaxDuration = partnerConfiguration.methods.getMaxDuration().call();
-      const fetchMinLength = partnerConfiguration.methods.getMinLength().call();
-      const fetchMaxLength = partnerConfiguration.methods.getMaxLength().call();
-
-      const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
-        fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
-      ]);
-
-      dispatch(setMinMaxDuration(minDuration, maxDuration));
-      dispatch(setMinMaxLength(minLength, maxLength));
-
-      if (domain.length < minLength || domain.length > maxLength) {
-        let errorMsg;
-        if (partnerId === 'default') {
-          errorMsg = 'default';
-        } else {
-          errorMsg = 'partner';
-        }
-        dispatch(setValidationMessage(errorMsg));
-        return dispatch(blockedDomain());
-      }
-
-      return registrar.methods.price(domain, 0, 1, partnerAddresses.account).call()
-        .then((result) => {
-          const rifCost = web3.utils.toBN(result).div(web3.utils.toBN('1000000000000000000'));
-          dispatch(receiveDomainCost(web3.utils.toDecimal(rifCost)));
-          dispatch(receiveDomainState(available));
-        })
-        .catch(error => dispatch(notifyError(error.message)));
-    })
-    .catch(error => dispatch(notifyError(error.message)));
+  return true;
 };
