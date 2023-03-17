@@ -19,7 +19,6 @@ const mapStateToProps = (state, ownProps) => ({
     error_message: state.newAdmin.domainInfo.errorMessage,
   },
 });
-
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (
     domain, addressToTransfer, sender,
@@ -30,10 +29,11 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  handleSubmit: addressToTransfer => dispatchProps.handleSubmit(
+  handleSubmit: (addressToTransfer, partnerId) => dispatchProps.handleSubmit(
     stateProps.label,
     addressToTransfer.toLowerCase(),
     stateProps.currentAddress.toLowerCase(),
+    partnerId,
   ),
   handleErrorClose: () => dispatchProps.handleTransferErrorClose(),
 });

@@ -2,17 +2,14 @@ import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import RNS from '@rsksmart/rns';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
-
 import {
-  rskOwner as rskOwnerAddress,
-  rif as rifAddress,
-  renewer as renewerAddress,
-  registrar as tokenRegistrarAddress,
   defaultPartnerAddresses,
+  registrar as tokenRegistrarAddress,
+  renewer as renewerAddress,
+  rif as rifAddress,
+  rskOwner as rskOwnerAddress,
 } from '../../../adapters/configAdapter';
-import {
-  rskOwnerAbi, tokenRegistrarAbi, deedAbi,
-} from './abis.json';
+import { deedAbi, rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { rifAbi } from '../../registrar/abis.json';
 import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
 import { getOptions } from '../../../adapters/RNSLibAdapter';
@@ -21,17 +18,32 @@ import { getRenewData } from './helpers';
 import transactionListener from '../../../helpers/transactionListener';
 
 import {
-  requestTransferDomain, receiveTransferDomain, errorTransferDomain,
-  requestDomainExpirationTime, receiveDomainExpirationTime,
-  errorDomainExpirationTime, requestRenewDomain, receiveRenewDomain, errorRenewDomain,
-  requestFifsMigration, receiveFifsMigration, errorFifsMigration, requestSetRegistryOwner,
-  errorSetRegistryOwner, receiveSetRegistryOwner, requestReclaimDomain, errorReclaimDomain,
+  errorDomainExpirationTime,
+  errorFifsMigration,
+  errorReclaimDomain,
+  errorRenewDomain,
+  errorSetRegistryOwner,
+  errorTransferDomain,
+  receiveDomainExpirationTime,
+  receiveFifsMigration,
   receiveReclaimDomain,
+  receiveRenewDomain,
+  receiveSetRegistryOwner,
+  receiveTransferDomain,
+  requestDomainExpirationTime,
+  requestFifsMigration,
+  requestReclaimDomain,
+  requestRenewDomain,
+  requestSetRegistryOwner,
+  requestTransferDomain,
 } from './actions';
 
 import { receiveRegistryOwner } from '../actions';
 import { resolveDomain } from '../../resolve/operations';
 import { NOT_ENOUGH_RIF } from './types';
+import { registrar } from '../../../rns-sdk';
+import { TRANSACTION_RECEIPT_FAILED } from '../../../types';
+import getSigner from '../../../helpers/getSigner';
 
 export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
   dispatch(requestDomainExpirationTime());
@@ -147,34 +159,19 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
 
   const label = name.split('.')[0];
 
-  return new Promise((resolve) => {
-    const hash = `0x${sha3(label)}`;
+  let result;
 
-    const web3 = new Web3(window.rLogin);
-    const rskOwner = new web3.eth.Contract(
-      rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
-    );
+  try {
+    const signer = await getSigner();
+    const r = await registrar(signer);
 
-    rskOwner.methods.transferFrom(sender, addressToTransfer, hash).send(
-      { from: sender },
-      (error, result) => {
-        if (error) {
-          return resolve(dispatch(errorTransferDomain(error.message)));
-        }
+    result = await r.transfer(label, addressToTransfer);
+    dispatch(receiveTransferDomain(true));
+  } catch (e) {
+    dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));
+  }
 
-        return dispatch(transactionListener(
-          result,
-          listenerParams => listenerDispatch => listenerDispatch(
-            receiveTransferDomain(listenerParams.resultTx),
-          ),
-          {},
-          listenerParams => listenerDispatch => listenerDispatch(
-            errorTransferDomain(listenerParams.errorReason),
-          ),
-        ));
-      },
-    );
-  });
+  return result;
 };
 
 export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
@@ -213,6 +210,7 @@ export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
  * Set RNS Registry owner to a different address, aka "Set Controller"
  * @param {string} domain that should be set
  * @param {address} address new address to set owner to
+ * @param currentValue
  */
 export const setRegistryOwner = (domain, address, currentValue) => async (dispatch) => {
   dispatch(requestSetRegistryOwner(domain));
