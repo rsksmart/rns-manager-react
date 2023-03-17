@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-async function getSigner(addressOrIndex) {
+async function getSigner() {
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
   const provider = new ethers.providers.Web3Provider(window.rLogin);
@@ -11,7 +11,7 @@ async function getSigner(addressOrIndex) {
   // The MetaMask plugin also allows signing transactions to
   // send ether and pay to change state within the blockchain.
   // For this, you need the account signer...
-  return addressOrIndex ? provider.getSigner(addressOrIndex) : provider.getSigner();
+  return provider.getSigner();
 }
 
 export default getSigner;
