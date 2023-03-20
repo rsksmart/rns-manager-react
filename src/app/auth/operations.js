@@ -1,32 +1,23 @@
 /* eslint-disable radix */
-import Web3 from 'web3';
-import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { push } from 'connected-react-router';
 import {
   rns as registryAddress,
-  rskOwner as rskOwnerAddress,
 } from '../adapters/configAdapter';
-import { rskNode } from '../adapters/nodeAdapter';
-
-import {
-  receiveHasWeb3Provider,
-  isWalletConnect,
-  receiveHasContracts,
-  requestEnable,
-  receiveEnable,
-  requestLogin,
-  receiveLogin,
-  errorLogin,
-  errorEnable,
-  logOut,
-  closeModal,
-} from './actions';
-import {
-  rskOwnerAbi,
-} from '../tabs/search/abis.json';
-import { registryAbi } from './abis.json';
+import { registrar, rns } from '../rns-sdk';
 import rLogin from '../rLogin/rLogin';
-import nameToToken from '../helpers/nameToToken';
+import {
+  closeModal,
+  errorEnable,
+  errorLogin,
+  isWalletConnect,
+  logOut,
+  receiveEnable,
+  receiveHasContracts,
+  receiveHasWeb3Provider,
+  receiveLogin,
+  requestEnable,
+  requestLogin,
+} from './actions';
 
 // const utf8ToHexString = string => (string ? Utils.asciiToHex(string).slice(2) : '');
 
@@ -99,57 +90,51 @@ const failedLogin = name => (dispatch) => {
   return dispatch(errorLogin('failed login', name));
 };
 
-export const authenticate = (name, address, noRedirect) => (dispatch) => {
+export const authenticate = (name, address, noRedirect) => async (dispatch) => {
   if (!address) return null;
 
   dispatch(requestLogin());
 
-  const web3 = new Web3(rskNode);
+  const registry = rns();
+  const rskRegistrar = await registrar();
 
-  const registry = new web3.eth.Contract(registryAbi, registryAddress);
-  const rskOwner = new web3.eth.Contract(rskOwnerAbi, rskOwnerAddress);
+  try {
+    // get rns registry owner
+    const registryOwner = await registry.getOwner(name);
 
-  const node = namehash(name);
+    if (address.toLowerCase() === registryOwner.toLowerCase()) {
+      // can perform registry operations, success
+      return dispatch(successfulLogin(name, noRedirect));
+    }
 
-  // get rns registry owner
-  return registry.methods.owner(node).call()
-    .then((registryOwner) => {
-      if (address.toLowerCase() === registryOwner.toLowerCase()) {
-        // can perform registry operations, success
-        return dispatch(successfulLogin(name, noRedirect));
-      }
+    const labels = name.split('.');
 
-      const labels = name.split('.');
+    if (labels.length === 1 || labels[labels.length - 1] !== 'rsk') {
+      // is not a domain or is not a .rsk domain, fail
+      return dispatch(failedLogin(name));
+    }
 
-      if (labels.length === 1 || labels[labels.length - 1] !== 'rsk') {
-        // is not a domain or is not a .rsk domain, fail
-        return dispatch(failedLogin(name));
-      }
+    const label = labels[0];
 
-      const tokenId = nameToToken(labels[0]);
+    const available = await rskRegistrar.available(label);
 
-      return rskOwner.methods.available(tokenId).call()
-        .then((available) => {
-          if (available) {
-            // it has no owner, fail
-            return dispatch(failedLogin(name));
-          }
+    if (available) {
+      // it has no owner, fail
+      return dispatch(failedLogin(name));
+    }
 
-          // owned in rsk registrar
-          return rskOwner.methods.ownerOf(tokenId).call();
-        })
-        .then((owner) => {
-          if (owner.toLowerCase() === address.toLowerCase()) {
-            // success
-            return dispatch(successfulLogin(name, noRedirect));
-          }
+    // owned in rsk registrar
+    const owner = await rskRegistrar.ownerOf(label);
+    if (owner.toLowerCase() === address.toLowerCase()) {
+      // success
+      return dispatch(successfulLogin(name, noRedirect));
+    }
 
-          // fail
-          return dispatch(failedLogin(name));
-        })
-        .catch(error => dispatch(errorLogin(error)));
-    })
-    .catch(error => dispatch(errorLogin(error)));
+    // fail
+    return dispatch(failedLogin(name));
+  } catch (error) {
+    return dispatch(errorLogin(error));
+  }
 };
 
 const startWithRLogin = callback => (dispatch) => {
