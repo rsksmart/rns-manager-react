@@ -9,6 +9,8 @@ import {
   renewer,
   rif,
   getCurrentPartnerAddresses,
+  rns as registryAddress,
+  publicResolver as resolverAddress,
 } from './adapters/configAdapter';
 
 const provider = new ethers.providers.JsonRpcProvider(rskNode);
@@ -44,8 +46,8 @@ export const partnerConfiguration = async (
 
 export const rns = (
   signer = defaultSigner,
-) => new RNS(fifsAddrRegistrarAddress, signer);
+) => new RNS(registryAddress, signer);
 
 export const resolver = (
   signer = defaultSigner,
-) => new AddrResolver(fifsAddrRegistrarAddress, signer);
+) => new AddrResolver(resolverAddress, signer);
