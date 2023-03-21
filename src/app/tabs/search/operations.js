@@ -38,12 +38,10 @@ export default domain => async (dispatch) => {
     const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
       fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
     ]);
-    console.log(`${minDuration}, ${maxDuration}, ${minLength}, ${maxLength}`);
 
     if (domain.length < minLength.toNumber() || domain.length > maxLength.toNumber()) {
       let errorMsg;
       const partnerId = getCurrentPartner();
-      console.log(partnerId);
       if (partnerId === 'default') {
         errorMsg = 'default';
       } else {
