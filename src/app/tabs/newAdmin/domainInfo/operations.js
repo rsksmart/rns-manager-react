@@ -266,32 +266,19 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
 export const reclaimDomain = domain => async (dispatch) => {
   dispatch(requestReclaimDomain(domain));
 
-  const label = `0x${sha3(domain.split('.')[0])}`;
+  const name = domain.split('.')[0];
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
   const currentAddress = accounts[0].toLowerCase();
-  const web3 = new Web3(window.rLogin);
-  const rskOwner = new web3.eth.Contract(
-    rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
-  );
 
-  rskOwner.methods.reclaim(label, currentAddress)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorReclaimDomain(error.message));
-      }
+  try {
+    const signer = await getSigner();
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveRegistryOwner(listenerParams.currentAddress, true));
-        listenerDispatch(receiveReclaimDomain(listenerParams.resultTx));
-      };
+    const r = await registrar(signer);
 
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { currentAddress },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorReclaimDomain(listenerParams.errorReason),
-        ),
-      ));
-    });
+    await r.reclaim(name);
+    dispatch(receiveRegistryOwner(currentAddress, true));
+    return dispatch(receiveReclaimDomain(true));
+  } catch (error) {
+    return dispatch(errorReclaimDomain(error.message));
+  }
 };
