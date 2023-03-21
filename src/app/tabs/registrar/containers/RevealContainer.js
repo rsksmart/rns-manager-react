@@ -20,16 +20,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   revealCommit: (domain) => {
-    const searchParams = new URLSearchParams(document.location.search);
-    const currentPartner = searchParams.get('partner') || 'default';
-    dispatch(revealCommit(domain, currentPartner));
+    dispatch(revealCommit(domain));
   },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
-  revealCommit: currentPartner => dispatchProps.revealCommit(stateProps.domain, currentPartner),
+  revealCommit: () => dispatchProps.revealCommit(stateProps.domain),
 });
 
 export default connect(
