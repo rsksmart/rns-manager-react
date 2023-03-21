@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rns-manager-react/static/css/main.f81943f6.chunk.css",
-    "main.js": "/rns-manager-react/static/js/main.432605b6.chunk.js",
-    "main.js.map": "/rns-manager-react/static/js/main.432605b6.chunk.js.map",
+    "main.js": "/rns-manager-react/static/js/main.c727c90f.chunk.js",
+    "main.js.map": "/rns-manager-react/static/js/main.c727c90f.chunk.js.map",
     "runtime-main.js": "/rns-manager-react/static/js/runtime-main.5f10a518.js",
     "runtime-main.js.map": "/rns-manager-react/static/js/runtime-main.5f10a518.js.map",
-    "static/js/2.92e802e0.chunk.js": "/rns-manager-react/static/js/2.92e802e0.chunk.js",
-    "static/js/2.92e802e0.chunk.js.map": "/rns-manager-react/static/js/2.92e802e0.chunk.js.map",
+    "static/js/2.90bc4d88.chunk.js": "/rns-manager-react/static/js/2.90bc4d88.chunk.js",
+    "static/js/2.90bc4d88.chunk.js.map": "/rns-manager-react/static/js/2.90bc4d88.chunk.js.map",
     "index.html": "/rns-manager-react/index.html",
     "static/css/main.f81943f6.chunk.css.map": "/rns-manager-react/static/css/main.f81943f6.chunk.css.map",
-    "static/js/2.92e802e0.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.92e802e0.chunk.js.LICENSE.txt",
+    "static/js/2.90bc4d88.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.90bc4d88.chunk.js.LICENSE.txt",
     "static/media/ask.0cddd85d.svg": "/rns-manager-react/static/media/ask.0cddd85d.svg",
     "static/media/book.c4992e61.svg": "/rns-manager-react/static/media/book.c4992e61.svg",
     "static/media/_index.scss": "/rns-manager-react/static/media/gray-arch.5783bda9.svg",
@@ -36,8 +36,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.5f10a518.js",
-    "static/js/2.92e802e0.chunk.js",
+    "static/js/2.90bc4d88.chunk.js",
     "static/css/main.f81943f6.chunk.css",
-    "static/js/main.432605b6.chunk.js"
+    "static/js/main.c727c90f.chunk.js"
   ]
 }
