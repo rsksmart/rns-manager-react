@@ -2571,10 +2571,10 @@
     "@rsksmart/rns-registry" "^1.0.0"
     "@rsksmart/rns-resolver" "^2.0.0"
 
-"@rsksmart/rns-sdk@^1.0.0-beta.7":
-  version "1.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@rsksmart/rns-sdk/-/rns-sdk-1.0.0-beta.7.tgz#4264e4d808af5a7c1e56dc372e0256a7f7972437"
-  integrity sha512-VDkU0PfC3+JSjPF13suoyODnZA0UJhCVnKP46unZzmG9kgS4lIFa3AbXBRYNQVdCBwkEKjWat5K4AcfR2ZFdaw==
+"@rsksmart/rns-sdk@^1.0.0-beta.8":
+  version "1.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@rsksmart/rns-sdk/-/rns-sdk-1.0.0-beta.8.tgz#73d988e68c8260b340c56cafa882d91e75d3a9ac"
+  integrity sha512-GuzDURitjgpGDM9shU89FaF+NzRugFrBi2jJsONFs7q3Lhy81UUbQgU/vk+C9Saq6HbSDellH1bEWB/c22Memg==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     ethers "^5.5.1"

@@ -15,12 +15,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   doCommitment: (domain, duration, rifCost, setupAddr) => {
-    if (localStorage.getItem(`${domain}-options`)) {
+    let options = localStorage.getItem(`${domain}-options`);
+    options = JSON.parse(options);
+    const { salt } = options;
+    if (salt) {
       dispatch(checkIfInProgress(domain));
     } else {
-      const searchParams = new URLSearchParams(document.location.search);
-      const currentPartner = searchParams.get('partner') || 'default';
-      dispatch(commit(domain, duration, rifCost, setupAddr, currentPartner));
+      dispatch(commit(domain, duration, rifCost, setupAddr));
     }
   },
   toggleSetupAddr: setupAddr => dispatch(toggleSetupAddr(setupAddr)),
