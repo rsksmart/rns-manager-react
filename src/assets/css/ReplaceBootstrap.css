@@ -2,7 +2,7 @@
 
 /*  TEXT    */
 h1, h2, h3, h4, h5 {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
 }
 
@@ -16,7 +16,7 @@ h1 strong, h2 strong, h3 strong {
 }
 
 p {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     color: black;
 }
 
@@ -41,7 +41,7 @@ ol li ul li {
 
 /*  ALERT  */
 .alert {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 500;
 }
 .alert-primary-rif {
@@ -103,7 +103,7 @@ ol li ul li {
 /*  BUTTON  */
 .btn {
     border-radius: 40px;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-size:14px;
     padding: 3px 15px;
 }
@@ -239,7 +239,7 @@ ol li ul li {
 .modal-header-rif {
     background-color: #008CFF;
     color: #FFFFFF;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
 }
 .modal-title-rif{font-weight:700;}
 
@@ -267,12 +267,12 @@ ol li ul li {
 /*  TOAST   */
 .toast-header-rif {
     color: black;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 700;
 }
 
 .toast-body-rif {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
 }
 
@@ -286,13 +286,13 @@ ol li ul li {
 
 .popover-header-rif {
     background-color: white;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 500;
 }
 
 .popover-body-rif {
     background-color: white;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
 }
 

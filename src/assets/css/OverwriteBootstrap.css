@@ -22,7 +22,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
 }
 
@@ -80,7 +80,7 @@ h6 {
 }
 
 p {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     color: black;
     font-size: 16px;
 }
@@ -136,7 +136,7 @@ a:hover {
 /*  ALERT  */
 
 .alert {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 400;
     font-size: 14px;
     word-break: break-all;
@@ -210,7 +210,7 @@ a:hover {
 
 .btn {
     border-radius: 40px;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-size: 14px;
     padding: 3px 15px!important;
 }
@@ -351,7 +351,7 @@ a:hover {
 .modal-header {
     background-color: #008CFF;
     color: #FFFFFF;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     padding: 0.50rem 30px;
 }
 
@@ -388,12 +388,12 @@ a:hover {
 
 .toast-header {
     color: black;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 700;
 }
 
 .toast-body {
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
     text-align: left;
 }
@@ -407,13 +407,13 @@ a:hover {
 
 .popover-header {
     background-color: white;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 500;
 }
 
 .popover-body {
     background-color: white;
-    font-family: 'Rubik', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
 }
 

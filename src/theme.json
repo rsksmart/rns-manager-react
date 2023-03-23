@@ -1,7 +1,8 @@
 {
   "logo": "",
   "font": {
-    "family": "'Rubik', sans-serif"
+    "family": "",
+    "src": ""
   },
   "colors": {
     "primary": "#008CFF",
