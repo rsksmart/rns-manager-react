@@ -1,16 +1,11 @@
-import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
-import RNS from '@rsksmart/rns';
-import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 
+import { ethers } from 'ethers';
 import {
   rskOwner as rskOwnerAddress,
   registrar as tokenRegistrarAddress,
 } from '../../adapters/configAdapter';
 import { rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
-import { gasPrice as defaultGasPrice } from '../../adapters/gasPriceAdapter';
-import { getOptions } from '../../adapters/RNSLibAdapter';
-
 import {
   toggleBasicAdvanced, checkIfSubdomain, requestCheckTokenOwner, receiveCheckTokenOwner,
   errorCheckTokenOwner, requestFifsMigrationStatus, receiveFifsMigrationStatus,
@@ -19,6 +14,8 @@ import {
 
 import { checkIfSubdomainAndGetExpirationRemaining } from './domainInfo/operations';
 import { getDomainResolver } from './resolver/operations';
+import getSigner from '../../helpers/getSigner';
+import { rns } from '../../rns-sdk';
 
 /**
  * Checks if the wallet's account is the RSK Token owner
@@ -27,32 +24,28 @@ import { getDomainResolver } from './resolver/operations';
 export const checkIfTokenOwner = domain => async (dispatch) => {
   const label = domain.split('.')[0];
 
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
+  const signer = await getSigner();
+  const currentAddress = await signer.getAddress();
 
   dispatch(requestCheckTokenOwner());
 
   const hash = `0x${sha3(label)}`;
 
-  const web3 = new Web3(window.rLogin);
-
-  const rskOwner = new web3.eth.Contract(
-    rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
+  const rskOwner = new ethers.Contract(
+    rskOwnerAddress,
+    rskOwnerAbi,
+    signer,
   );
 
-  rskOwner.methods.ownerOf(hash).call((error, result) => {
-    if (error) {
-      dispatch(errorCheckTokenOwner());
-      return;
-    }
-
-    const domainOwner = result;
-
-    dispatch(receiveCheckTokenOwner(
+  try {
+    const domainOwner = await rskOwner.ownerOf(hash);
+    return dispatch(receiveCheckTokenOwner(
       domainOwner.toLowerCase() === currentAddress.toLowerCase(),
       domainOwner,
     ));
-  });
+  } catch (error) {
+    return dispatch(errorCheckTokenOwner());
+  }
 };
 
 /**
@@ -60,24 +53,19 @@ export const checkIfTokenOwner = domain => async (dispatch) => {
  * @param {string} domain to check
  */
 export const checkIfRegistryOwner = domain => async (dispatch) => {
-  const label = namehash(domain);
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
+  try {
+    const signer = await getSigner();
+    const currentAddress = await signer.getAddress();
 
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-
-  dispatch(requestRegistryOwner());
-  await rns.compose();
-  await rns.contracts.registry.methods.owner(label)
-    .call((error, result) => {
-      if (error) {
-        return dispatch(errorRegistryOwner(error.message));
-      }
-      return dispatch(receiveRegistryOwner(
-        result, result.toLowerCase() === currentAddress.toLowerCase(),
-      ));
-    });
+    const RNS = await rns(signer);
+    dispatch(requestRegistryOwner());
+    const owner = await RNS.getOwner(domain);
+    return dispatch(receiveRegistryOwner(
+      owner, owner.toLowerCase() === currentAddress.toLowerCase(),
+    ));
+  } catch (error) {
+    return dispatch(errorRegistryOwner(error.message));
+  }
 };
 
 /**
@@ -85,26 +73,27 @@ export const checkIfRegistryOwner = domain => async (dispatch) => {
  * @param {string} domain to check
  */
 export const checkIfFIFSRegistrar = domain => async (dispatch) => {
-  dispatch(requestFifsMigrationStatus());
+  try {
+    dispatch(requestFifsMigrationStatus());
 
-  return new Promise((resolve) => {
     const label = `0x${sha3(domain.split('.')[0])}`;
-    const web3 = new Web3(window.rLogin);
 
-    const tokenRegistrar = new web3.eth.Contract(
-      tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
+    const signer = await getSigner();
+
+    const tokenRegistrar = new ethers.Contract(
+      tokenRegistrarAddress,
+      tokenRegistrarAbi,
+      signer,
     );
 
-    tokenRegistrar.methods.entries(label).call((error, result) => {
-      if (error) {
-        return dispatch(errorFifsMigrationStatus());
-      }
+    const result = await tokenRegistrar.entries(label);
 
-      const mode = result[0];
+    const mode = result[0];
 
-      return resolve(dispatch(receiveFifsMigrationStatus(mode !== '2')));
-    });
-  });
+    return dispatch(receiveFifsMigrationStatus(mode !== '2'));
+  } catch (error) {
+    return dispatch(errorFifsMigrationStatus());
+  }
 };
 
 /**
