@@ -1,34 +1,31 @@
-import Web3 from 'web3';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { formatsByCoinType } from '@ensdomains/address-encoder';
 
+import { ethers } from 'ethers';
 import {
   multiChainResolver as multiChainResolverAddress,
   publicResolver as publicResolverAddress,
   definitiveResolver as definitiveResolverAddress,
 } from '../../../adapters/configAdapter';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-
 import {
   requestSetChainAddress, errorSetChainAddress, waitingSetChainAddress,
   requestChainAddress, receiveChainAddress, receiveSetChainAddress,
   errorChainAddress, clearAddresses, closeSetChainAddress,
 } from './actions';
 import { clearMigrateContent } from '../resolver/actions';
-
 import { publicResolverAbi, multichainResolverAbi } from './abis.json';
 import { definitiveResolverAbi } from '../resolver/definitiveAbis.json';
-
-import transactionListener from '../../../helpers/transactionListener';
 import networks from './networks.json';
 import { PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, DEFINITIVE_RESOLVER } from '../resolver/types';
 import { ADDRESS_ENCODING_ERROR } from './types';
 import { EMPTY_ADDRESS } from '../types';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
+import getSigner from '../../../helpers/getSigner';
+import getProvider from '../../../helpers/getProvider';
 
 /**
  * Helper Function to get the chain name with the ID
- * @param {chaindId} chaindId the chainId to be looked up
+ * @param {chainId} chainId the chainId to be looked up
  */
 export const getChainNameById = chainId => networks.find(net => net.id === chainId).name;
 
@@ -41,37 +38,26 @@ export const getIndexById = chainId => networks.find(net => net.id === chainId).
 /**
  * Sets the RSK resolution when using the public resolver
  * @param {string} domain to set the address for
- * @param {address} address to resolve to
+ * @param {string} address to resolve to
  */
 const setPublicAddress = (domain, address, isNew) => async (dispatch) => {
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  const web3 = new Web3(window.rLogin);
-  const publicResolver = new web3.eth.Contract(
-    publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
+  const publicResolver = new ethers.Contract(
+    publicResolverAddress, publicResolverAbi, await getSigner(),
   );
 
-  publicResolver.methods.setAddr(hash, address).send(
-    { from: currentAddress }, (error, result) => {
-      dispatch(waitingSetChainAddress('RSK'));
-      if (error) {
-        return dispatch(errorSetChainAddress('RSK', error.message));
-      }
+  try {
+    dispatch(waitingSetChainAddress('RSK'));
 
-      return dispatch(transactionListener(
-        result,
-        listenerParams => listenerDispatch => listenerDispatch(receiveSetChainAddress(
-          '0x80000089', 'RSK', listenerParams.address, listenerParams.resultTx, listenerParams.isNew,
-        )),
-        { address, isNew },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetChainAddress('RSK', listenerParams.errorReason),
-        ),
-      ));
-    },
-  );
+    const result = await publicResolver.setAddr(hash, address);
+
+    return dispatch(receiveSetChainAddress(
+      '0x80000089', 'RSK', address, result.transactionHash, isNew,
+    ));
+  } catch (error) {
+    return dispatch(errorSetChainAddress('RSK', error.message));
+  }
 };
 
 /**
@@ -85,53 +71,38 @@ const setMultiChainAddress = (domain, chainId, address, isNew) => async (dispatc
   const chainName = getChainNameById(chainId);
   dispatch(requestSetChainAddress(chainName));
 
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  const web3 = new Web3(window.rLogin);
-  const multichainResolver = new web3.eth.Contract(
-    multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+  const signer = await getSigner();
+
+  const multiChainResolver = new ethers.Contract(
+    multiChainResolverAddress,
+    multichainResolverAbi,
+    signer,
   );
 
-  multichainResolver.methods.setChainAddr(hash, chainId, address).send(
-    { from: currentAddress }, (error, result) => {
-      dispatch(waitingSetChainAddress(chainName));
-      if (error) {
-        return dispatch(errorSetChainAddress(chainName, error.message));
-      }
+  try {
+    dispatch(waitingSetChainAddress(chainName));
+    const tx = await (await multiChainResolver.setChainAddr(hash, chainId, address)).wait();
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetChainAddress(
-          listenerParams.chainId,
-          getChainNameById(listenerParams.chainId),
-          listenerParams.address,
-          listenerParams.resultTx,
-          listenerParams.isNew,
-        ));
+    dispatch(receiveSetChainAddress(
+      chainId,
+      getChainNameById(chainId),
+      address,
+      tx.transactionHash,
+      isNew,
+    ));
 
-        // if deleting, close the error message programatically
-        if (listenerDispatch.address === '' || listenerDispatch.address === EMPTY_ADDRESS) {
-          listenerDispatch(closeSetChainAddress(listenerParams.chainName));
-          sendBrowserNotification(listenerParams.domain, 'chain_address_removed');
-        } else {
-          sendBrowserNotification(listenerParams.domain, 'chain_address_updated');
-        }
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        {
-          chainId, chainName, address, isNew, domain,
-        },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetChainAddress(listenerParams.chainName, listenerParams.errorReason),
-        ),
-        { chainName },
-      ));
-    },
-  );
+    // if deleting, close the error message programatically
+    if (address === '' || address === EMPTY_ADDRESS) {
+      dispatch(closeSetChainAddress(chainName));
+      sendBrowserNotification(domain, 'chain_address_removed');
+    } else {
+      sendBrowserNotification(domain, 'chain_address_updated');
+    }
+  } catch (error) {
+    dispatch(errorSetChainAddress(chainName, error.message));
+  }
 };
 
 /**
@@ -146,8 +117,6 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
   dispatch(requestSetChainAddress(chainName));
 
   const chainIndex = getIndexById(chainId);
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
 
   // encode value if it is not empty:
   let encodeValue = address;
@@ -158,50 +127,46 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
       return dispatch(errorSetChainAddress(chainName, ADDRESS_ENCODING_ERROR, address));
     }
   }
-  const web3 = new Web3(window.rLogin);
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+
+  const signer = await getSigner();
+
+  const definitiveResolver = new ethers.Contract(
+    definitiveResolverAddress,
+    definitiveResolverAbi,
+    signer,
   );
 
-  return definitiveResolver.methods.setAddr(namehash(domain), chainIndex, encodeValue)
-    .send({ from: currentAddress }, (error, result) => {
-      dispatch(waitingSetChainAddress(chainName));
-      if (error) {
-        return dispatch(errorSetChainAddress(chainName, error.message));
-      }
+  try {
+    dispatch(waitingSetChainAddress(chainName));
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetChainAddress(
-          listenerParams.chainId,
-          listenerParams.chainName,
-          listenerParams.address,
-          listenerParams.resultTx,
-          listenerParams.isNew,
-        ));
-        // if deleting, close the error message programatically
-        if (listenerParams.address === '' || listenerParams.address === EMPTY_ADDRESS) {
-          listenerDispatch(closeSetChainAddress(listenerParams.chainName));
-          sendBrowserNotification(listenerParams.domain, 'coin_address_removed');
-        } else {
-          sendBrowserNotification(
-            listenerParams.domain,
-            listenerParams.isNew ? 'coin_address_added' : 'coin_address_updated',
-          );
-        }
-      };
+    const result = await (await definitiveResolver.setAddr(
+      namehash(domain),
+      chainIndex,
+      encodeValue,
+    )).wait();
 
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        {
-          chainId, chainName, address, isNew, domain,
-        },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetChainAddress(listenerParams.chainName, listenerParams.errorReason),
-        ),
-        { chainName },
-      ));
-    });
+    dispatch(receiveSetChainAddress(
+      chainId,
+      chainName,
+      address,
+      result.transactionHash,
+      isNew,
+    ));
+    // if deleting, close the error message programatically
+    if (address === '' || address === EMPTY_ADDRESS) {
+      dispatch(closeSetChainAddress(chainName));
+      sendBrowserNotification(domain, 'coin_address_removed');
+    } else {
+      sendBrowserNotification(
+        domain,
+        isNew ? 'coin_address_added' : 'coin_address_updated',
+      );
+    }
+
+    return result;
+  } catch (error) {
+    return dispatch(errorSetChainAddress(chainName, error.message));
+  }
 };
 
 /**
@@ -233,16 +198,15 @@ export const setChainAddress = (
  * Get the RSK resolved address using the Public Resolver
  * @param {string} domain the domain the address is for
  */
-export const getPublicChainAddresses = domain => async (dispatch) => {
+export const getPublicChainAddresses = domain => (dispatch) => {
   dispatch(requestChainAddress());
   const hash = namehash(domain);
 
-  const web3 = new Web3(window.rLogin);
-  const publicResolver = new web3.eth.Contract(
-    publicResolverAbi, publicResolverAddress, { gasPrice: defaultGasPrice },
+  const publicResolver = new ethers.Contract(
+    publicResolverAddress, publicResolverAbi, getProvider(),
   );
 
-  return publicResolver.methods.addr(hash).call()
+  return publicResolver.addr(hash)
     .then(addr => dispatch(receiveChainAddress('0x80000089', 'RSK', addr)))
     .catch(error => dispatch(errorChainAddress('RSK', error.message)));
 };
@@ -255,21 +219,20 @@ export const getPublicChainAddresses = domain => async (dispatch) => {
 export const getMultiChainAddresses = (domain, chainId) => async (dispatch) => {
   dispatch(requestChainAddress());
 
-  const web3 = new Web3(window.rLogin);
-  const multichainResolver = new web3.eth.Contract(
-    multichainResolverAbi, multiChainResolverAddress, { gasPrice: defaultGasPrice },
+  const multiChainResolver = new ethers.Contract(
+    multiChainResolverAddress, multichainResolverAbi, getProvider(),
   );
 
   const hash = namehash(domain);
   const chainName = getChainNameById(chainId);
 
   if (chainId === '0x80000089') {
-    return multichainResolver.methods.addr(hash).call()
+    return multiChainResolver.addr(hash)
       .then(addr => dispatch(receiveChainAddress('0x80000089', 'RSK', addr)))
       .catch(error => dispatch(errorChainAddress('RSK', error.message)));
   }
 
-  return multichainResolver.methods.chainAddr(hash, chainId).call()
+  return multiChainResolver.chainAddr(hash, chainId)
     .then(addr => dispatch(receiveChainAddress(chainId, chainName, addr)))
     .catch(error => dispatch(errorChainAddress(chainName, error.message)));
 };
@@ -286,12 +249,11 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
   const chainName = getChainNameById(chainId);
   const chainIndex = getIndexById(chainId);
 
-  const web3 = new Web3(window.rLogin);
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  const definitiveResolver = new ethers.Contract(
+    definitiveResolverAddress, definitiveResolverAbi, getProvider(),
   );
 
-  return definitiveResolver.methods.addr(hash, chainIndex).call()
+  return definitiveResolver.addr(hash, chainIndex)
     .then((addr) => {
       if (!addr || addr === EMPTY_ADDRESS) {
         return dispatch(receiveChainAddress(chainId, chainName, ''));
