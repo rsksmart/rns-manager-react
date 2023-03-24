@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
 import { BigNumber, ethers } from 'ethers';
 import {
@@ -32,7 +31,9 @@ import {
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
 import { sendBrowserNotification } from '../../browerNotifications/operations';
 import { start } from '../../auth/operations';
-import { registrar, partnerConfiguration, getCurrentPartner } from '../../rns-sdk';
+import {
+  registrar, partnerConfiguration, getCurrentPartner, provider,
+} from '../../rns-sdk';
 import getSigner from '../../helpers/getSigner';
 
 const makeCommitment = (domain, owner, secret, duration, addr) => {
@@ -266,11 +267,11 @@ export const revealCommit = domain => async (dispatch) => {
 export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
   const options = JSON.parse(localStorage.getItem(`${domain}-options`));
 
-  const web3 = new Web3(window.rLogin);
-  return web3.eth.getTransactionReceipt(options.registerHash).then((result) => {
+  try {
+    const txnResult = await provider.getTransactionReceipt(options.registerHash);
     let intervalId = intId;
-    if (result && result.status) {
-      clearInterval(intervalId);
+    if (txnResult && txnResult.status) {
+      clearInterval(intId);
       dispatch(revealTxMined());
       sendBrowserNotification(
         `${domain}.rsk`,
@@ -279,13 +280,14 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
       localStorage.setItem('name', `${domain}.rsk`);
       localStorage.removeItem(`${domain}-options`);
     }
-
-    dispatch(requestRevealCommit());
     if (!intervalId) {
       const checkAgain = () => dispatch(checkIfAlreadyRegistered(domain, intervalId));
       intervalId = setInterval(checkAgain, 5000);
     }
-  });
+    return dispatch(requestRevealCommit());
+  } catch (error) {
+    return dispatch(notifyError(error.message));
+  }
 };
 
 /**
