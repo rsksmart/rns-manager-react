@@ -26,6 +26,7 @@ const CopyButtonComponent = ({ strings, text }) => {
         <Image
           src={copy}
           alt={strings.copy_text}
+          className="filter-primary"
         />
       </button>
       {showResponse && <span className="response">{strings.copied}</span>}

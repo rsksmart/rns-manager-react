@@ -41,7 +41,7 @@
 
     button, button:hover {
       border: none !important;
-      background: var(--secondary-color-light);
+      background: white;
       margin: 0 !important;
       padding: 1px 6px !important;
     }
@@ -75,7 +75,7 @@
 
     button.cancel {
       border:1px solid var(--secondary-color);
-      background: var(--secondary-color-light);
+      background: white;
       color: var(--secondary-color);
       font-weight: 300 !important;
     }
