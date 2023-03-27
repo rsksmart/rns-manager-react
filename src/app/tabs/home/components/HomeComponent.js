@@ -78,7 +78,7 @@ const HomeComponent = ({ strings }) => (
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={book} alt={strings.read_documentation} />
+              <img src={book} alt={strings.read_documentation} className="filter-primary" />
               <span>{strings.read_documentation}</span>
             </a>
           </div>
@@ -89,7 +89,7 @@ const HomeComponent = ({ strings }) => (
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={github} alt={strings.collaborate_github} />
+              <img src={github} alt={strings.collaborate_github} className="filter-primary" />
               <span>{strings.collaborate_github}</span>
             </a>
           </div>
@@ -100,7 +100,7 @@ const HomeComponent = ({ strings }) => (
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={integrate} alt={strings.integrate_rns} />
+              <img src={integrate} alt={strings.integrate_rns} className="filter-primary" />
               <span>{strings.integrate_rns}</span>
             </a>
           </div>
@@ -111,7 +111,7 @@ const HomeComponent = ({ strings }) => (
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={ask} alt={strings.ask_question} />
+              <img src={ask} alt={strings.ask_question} className="filter-primary" />
               <span>{strings.ask_question}</span>
             </a>
           </div>

@@ -11,7 +11,7 @@ button:focus, input:focus {
   border-top: none;
   border-right: none;
   border-left: none;
-  border-bottom: 1px solid $gray;
+  border-bottom: 1px solid var(--secondary-color);
   padding: 5px 10px;
   margin: 10px 0;
 }
@@ -20,8 +20,8 @@ button:focus, input:focus {
   display:block;
   width: 100%;
   padding: 10px;
-  background: $blue;
-  color: $white;
+  background: var(--primary-color);
+  color: var(--secondary-color-light);
   border-radius: 15px;
   border:none;
 }

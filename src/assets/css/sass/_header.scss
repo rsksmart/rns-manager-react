@@ -1,10 +1,10 @@
 .navbar-expand-md {
-  background-color: #008FF7;
+  background-color: var(--primary-color);
   // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   padding: 16px 0;
 
   .indicator {
-    color: #fff;
+    color: var(--primary-color-light);
     opacity: 1 !important;
     span {
       position: relative;
@@ -21,23 +21,23 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #40d512;
+      background: $green;
     }
   }
 
   .indicator.network-error {
     span::before {
-      background-color:#dc3545;
+      background-color: $red;
     }
   }
 
   .navbar-nav .nav-link {
-    color: #ffffff;
+    color: var(--primary-color-light);
   }
 
   .navbar-nav .nav-link:hover {
     font-weight: normal;
-    color: #fff;
+    color: var(--primary-color-light);
   }
 
   .nav-link.btn {
@@ -49,7 +49,7 @@
   }
 
   .nav-link.btn:hover, .nav-link.btn:active {
-    color: #000000 !important;
+    color: $black !important;
     background: none !important;
     border:none;
     box-shadow: none;
@@ -62,13 +62,13 @@
   }
   .btn-primary:hover:not([disabled]) {
     background: none !important;
-    border-color: $blue !important;
-    color: #ffffff;
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color-light);
   }
 
   // start/login button
   .btn-primary:not([disabled]).start, .btn-primary.start:hover:not([disabled])  {
-    border: 1px solid #ffffff !important;
+    border: 1px solid var(--primary-color-light) !important;
   }
 }
 

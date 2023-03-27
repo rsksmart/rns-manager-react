@@ -8,14 +8,14 @@
   .search.container {
     max-width: 100%;
     text-align: center;
-    background-color: $blue;
+    background-color: var(--primary-color);
 
     .row {
       padding-top: 50px;
     }
 
     h1, p {
-      color: #ffffff;
+      color: var(--secondary-color-light);
       text-align: center;
     }
 
@@ -49,7 +49,7 @@
     margin-bottom: 50px;
 
     h2 {
-      color: $blue;
+      color: var(--primary-color);
       font-weight: 700 !important;
       margin-bottom: 15px;
     }
@@ -80,21 +80,21 @@
       .carousel-control-next-icon:after {
         content: '>';
         font-size: 55px;
-        color: #666666;
+        color: var(--secondary-color-dark);
       }
 
       .carousel-control-prev-icon:after {
         content: '<';
         font-size: 55px;
-        color: #666666;
+        color: var(--secondary-color-dark);
       }
 
       .carousel-indicators li {
-        background-color: #666666;
+        background-color: var(--secondary-color-dark);
       }
 
       .carousel-inner {
-        a { 
+        a {
           display: block;
 
           p {
@@ -115,7 +115,7 @@
 
         a:hover {
           p {
-            color: $blue;
+            color: var(--primary-color);
           }
 
           .image-container {
@@ -130,7 +130,7 @@
     h2 {
       text-align: center;
     }
-    
+
     p.lead {
       text-align: center;
     }
@@ -151,8 +151,8 @@
       }
 
       a:hover {
-        background-color: $light-gray;
-        color: $blue;
+        background-color: var(--secondary-color-light);
+        color: var(--primary-color);
       }
 
       img, span {

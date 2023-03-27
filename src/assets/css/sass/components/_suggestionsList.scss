@@ -6,7 +6,7 @@ ul.suggestions {
   font-size: .9em;
 
   li.title {
-    color: $gray;
+    color: var(--secondary-color);
   }
 
   li {
@@ -15,7 +15,7 @@ ul.suggestions {
     button {
       background: none !important;
       border: none !important;
-      color: $blue !important;
+      color: var(--primary-color) !important;
       cursor: pointer !important;
       width: auto !important;
     }
@@ -23,7 +23,7 @@ ul.suggestions {
     button:hover {
       border: none !important;
       font-weight: 400 !important;
-      color: $gray;
+      color: var(--secondary-color);
     }
   }
 }

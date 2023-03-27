@@ -26,13 +26,13 @@
       }
 
       a:hover, button:hover {
-        color: $blue;
+        color: var(--primary-color);
         font-weight: 400 !important;
       }
 
       a.active {
         font-weight: 500 !important;
-        border-bottom:2px solid $blue;
+        border-bottom:2px solid var(--primary-color);
       }
     }
 
@@ -40,7 +40,7 @@
       text-transform: capitalize;
       border: none;
       background: none;
-      color: $blue;
+      color: var(--primary-color);
       font-weight: 300 !important;
     }
   }
@@ -52,8 +52,8 @@
     .navbar-expand-md {
       padding: 8px 15px;
       margin: 0 -15px 8px -15px;
-      border: 1px solid $gray;
-      background-color: $light-gray !important;
+      border: 1px solid var(--secondary-color);
+      background-color: var(--secondary-color-light) !important;
 
       .navbar-brand {
         display: block !important;

@@ -7,7 +7,7 @@
 
     .domain {
       font-size: 24px;
-      color: $blue;
+      color: var(--primary-color);
       font-weight: 700 !important;
     }
   }
@@ -23,12 +23,12 @@
       padding: 1em 3em !important;
       border-radius: 5px;
       width: 100%;
-      background-color: #fff !important;
-      color: $blue;
+      background-color: var(--secondary-color-light) !important;
+      color: var(--primary-color);
     }
     div.btn.btn-active {
-      background-color: $gray !important;
-      color: #ffffff;
+      background-color: var(--secondary-color) !important;
+      color: var(--secondary-color-light);
     }
   }
 
@@ -36,7 +36,7 @@
     max-width: 200px;
     margin: 0 auto;
     padding: 1em;
-    border: 1px solid $blue;
+    border: 1px solid var(--primary-color);
     border-radius: 8px;
     p {
       margin: .5em 0 0 0 ;
@@ -47,9 +47,9 @@
     padding: .5em 2em !important;
     border-radius: 8px;
   }
-  
+
   .btn:hover {
-    border-color: $gray !important;
+    border-color: var(--secondary-color) !important;
     box-shadow: none !important;
   }
 

@@ -10,19 +10,19 @@
 
   button:hover {
     box-shadow: none !important;
-    border: 1px solid $gray !important;
-    color: $gray;
+    border: 1px solid var(--secondary-color) !important;
+    color: var(--secondary-color);
   }
 
   .view {
-    border: 1px solid $gray;
+    border: 1px solid var(--secondary-color);
     padding: 10px 0px;
     width: 100%;
     font-size: .9em;
     margin: 0 15px !important;
 
     .label {
-      color: $blue;
+      color: var(--primary-color);
       text-align: center;
       overflow: hidden;
     }
@@ -41,7 +41,7 @@
 
     button, button:hover {
       border: none !important;
-      background: $white;
+      background: var(--secondary-color-light);
       margin: 0 !important;
       padding: 1px 6px !important;
     }
@@ -60,10 +60,10 @@
 
     input, input:focus {
       width: 100%;
-      border: 1px solid $gray !important;
+      border: 1px solid var(--secondary-color) !important;
       padding:10px 20px;
       border-radius: 12px;
-      color: $gray;
+      color: var(--secondary-color);
     }
 
     button {
@@ -72,18 +72,18 @@
       border-radius: 15px;
       width: 47%
     }
-    
+
     button.cancel {
-      border:1px solid $gray;
-      background: $white;
-      color: $gray;
+      border:1px solid var(--secondary-color);
+      background: var(--secondary-color-light);
+      color: var(--secondary-color);
       font-weight: 300 !important;
     }
   }
 
   div.settingsMenu>div {
-    background: #FFFFFF;
-    border: 1px solid #E5E5E5;
+    background: var(--secondary-color-light);
+    border: 1px solid var(--secondary-color);
     box-sizing: border-box;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
@@ -97,8 +97,8 @@
     }
 
     button:hover {
-      color: $blue;
-      background-color: $white;
+      color: var(--primary-color);
+      background-color: var(--secondary-color-light);
     }
   }
 }

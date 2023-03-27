@@ -14,7 +14,7 @@ const SearchResultsComponent = ({
 
   if (isSearching || (rifCost === 0 && available)) {
     return (
-      <Loader color="#008FF7" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
+      <Loader color="var(--primary-color)" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
     );
   }
 

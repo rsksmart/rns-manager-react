@@ -19,7 +19,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      border: 1px solid $gray;
+      border: 1px solid var(--secondary-color);
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 34px;
@@ -32,7 +32,7 @@
       width: 18px;
       left: 4px;
       bottom: 3px;
-      background-color: $blue;
+      background-color: var(--primary-color);
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 50%;
@@ -46,13 +46,13 @@
   }
 
   button {
-    color: $gray;
+    color: var(--secondary-color);
     font-size: .95em;
     border: none;
-    background-color: $white;
+    background-color: var(--secondary-color-light);
   }
 
   button.active {
-    color: $blue;
-  }  
+    color: var(--primary-color);
+  }
 }

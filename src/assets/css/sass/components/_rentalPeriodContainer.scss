@@ -4,13 +4,13 @@
       .btn {
         background: none;
         border: none;
-        color: $gray;
+        color: var(--secondary-color);
         font-size: 1.25em;
         padding: 10px 20px !important;
       }
       .btn:hover {
         box-shadow: none;
-        color: $blue;
+        color: var(--primary-color);
       }
     }
     .form-control {
@@ -19,23 +19,23 @@
       border-radius: 8px !important;
       text-align: center;
       font-size: 1.5em;
-      color: $blue;
+      color: var(--primary-color);
       font-weight: 500 !important;
     }
   }
 
   .price {
     h3 {
-      color: $blue;
+      color: var(--primary-color);
       margin-bottom: 0;
     }
     .box {
       max-width: 125px;
       margin: 1em auto;
       padding: .25 0;
-      border: 1px solid $blue;
+      border: 1px solid var(--primary-color);
       border-radius: 5px;
-      background-color: $light-gray;
+      background-color: var(--secondary-color-light);
     }
     p.rifPrice {
       font-size: 2em;

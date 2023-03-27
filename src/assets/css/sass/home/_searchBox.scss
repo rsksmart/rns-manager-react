@@ -2,7 +2,7 @@
   .searchInput {
     padding: 6px 25px;
     border-radius: 12px;
-    background-color: #fff !important;
+    background-color: white !important;
 
     input {
       display: inline-block;
@@ -14,7 +14,7 @@
     }
 
     input::placeholder {
-      color: $gray;
+      color: var(--secondary-color);
       font-size: 20px;
       text-align: center;
     }
@@ -34,9 +34,9 @@
     display: block;
     width: 100%;
     padding: 10px 25px !important;
-    border: 1px solid #ffffff !important;
+    border: 1px solid white !important;
     border-radius: 15px;
-    color: #ffffff;
+    color: white;
     font-size: 24px;
     font-weight: 300 !important;
     text-transform: capitalize;

@@ -5,8 +5,18 @@
     "src": ""
   },
   "colors": {
-    "primary": "#008CFF",
-    "secondary": ""
+    "primary": {
+      "main": "#6200EE",
+      "light": "#a186ff",
+      "dark": "#2b08a7",
+      "transparent": "rgba(98, 0, 238, .8)"
+    },
+    "secondary": {
+      "main": "#03DAC6",
+      "light": "#c0fffd",
+      "dark": "#029994",
+      "transparent": "rgba(145, 145, 145, .8)"
+    }
   },
   "images": {
     "homeSpacer": ""

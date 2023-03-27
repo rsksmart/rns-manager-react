@@ -1,10 +1,10 @@
 .setup {
   ul, ol {
     li {
-      color: $gray;
+      color: var(--secondary-color);
 
       span {
-        color: $blue;
+        color: var(--primary-color);
       }
     }
   }
