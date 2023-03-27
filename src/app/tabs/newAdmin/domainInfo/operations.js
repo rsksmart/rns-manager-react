@@ -1,7 +1,5 @@
-import Web3 from 'web3';
 import { keccak_256 as sha3 } from 'js-sha3';
-import RNS from '@rsksmart/rns';
-import { hash as namehash } from '@ensdomains/eth-ens-namehash';
+import { BigNumber, ethers } from 'ethers';
 import {
   defaultPartnerAddresses,
   registrar as tokenRegistrarAddress,
@@ -11,11 +9,8 @@ import {
 } from '../../../adapters/configAdapter';
 import { deedAbi, rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { rifAbi } from '../../registrar/abis.json';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-import { getOptions } from '../../../adapters/RNSLibAdapter';
 
 import { getRenewData } from './helpers';
-import transactionListener from '../../../helpers/transactionListener';
 
 import {
   errorDomainExpirationTime,
@@ -41,109 +36,90 @@ import {
 import { receiveRegistryOwner } from '../actions';
 import { resolveDomain } from '../../resolve/operations';
 import { NOT_ENOUGH_RIF } from './types';
-import { registrar } from '../../../rns-sdk';
+import { registrar, rns } from '../../../rns-sdk';
 import { TRANSACTION_RECEIPT_FAILED } from '../../../types';
 import getSigner from '../../../helpers/getSigner';
+import getProvider from '../../../helpers/getProvider';
 
-export const checkIfSubdomainAndGetExpirationRemaining = name => (dispatch) => {
+export const checkIfSubdomainAndGetExpirationRemaining = name => async (dispatch) => {
   dispatch(requestDomainExpirationTime());
 
   const label = name.split('.')[0];
   const hash = `0x${sha3(label)}`;
 
-  const web3 = new Web3(window.rLogin);
-  const rskOwner = new web3.eth.Contract(
-    rskOwnerAbi, rskOwnerAddress, { gasPrice: defaultGasPrice },
+  const provider = getProvider();
+
+  const rskOwner = new ethers.Contract(
+    rskOwnerAddress, rskOwnerAbi, provider,
   );
 
-  rskOwner.methods.expirationTime(hash).call((error, result) => {
-    if (error) {
-      dispatch(errorDomainExpirationTime());
-      return;
+  try {
+    const expirationTime = await rskOwner.expirationTime(hash);
+
+    const currentBlock = await provider.getBlock('latest');
+
+    // the difference is in seconds, so it is divided by the amount of seconds per day
+    const getRemainingDays = exp => Math.floor((exp - currentBlock.timestamp) / (60 * 60 * 24));
+
+    const remainingDays = getRemainingDays(expirationTime);
+
+    if (remainingDays > 0) {
+      return dispatch(receiveDomainExpirationTime(remainingDays));
     }
 
-    const expirationTime = result;
+    // this means he logged in but the expiration time was not found
+    // in the rsk owner => it is in the auction regisrar
+    const auctionRegistrar = new ethers.Contract(
+      tokenRegistrarAddress,
+      tokenRegistrarAbi,
+      provider,
+    );
 
-    web3.eth.getBlock('latest').then((currentBlock, timeError) => {
-      if (timeError) {
-        return dispatch(errorDomainExpirationTime());
-      }
+    const entries = await auctionRegistrar.entries(hash);
 
-      // the difference is in seconds, so it is divided by the amount of seconds per day
-      const getRemainingDays = exp => Math.floor((exp - currentBlock.timestamp) / (60 * 60 * 24));
+    const deed = new ethers.Contract(entries[1], deedAbi, provider);
+    const deedExpirationTime = await deed.expirationDate();
 
-      const remainingDays = getRemainingDays(expirationTime);
-
-      if (remainingDays > 0) {
-        return dispatch(receiveDomainExpirationTime(remainingDays));
-      }
-
-      // this means he logged in but the expiration time was not found
-      // in the rsk owner => it is in the auction regisrar
-      const auctionRegistrar = new web3.eth.Contract(
-        tokenRegistrarAbi,
-        tokenRegistrarAddress,
-      );
-
-      return auctionRegistrar.methods.entries(hash).call()
-        .then((entries) => {
-          const deed = new web3.eth.Contract(deedAbi, entries[1]);
-          return deed.methods.expirationDate().call();
-        })
-        .then((deedExpirationTime) => {
-          const remaining = getRemainingDays(deedExpirationTime);
-          dispatch(receiveDomainExpirationTime(remaining));
-        });
-    });
-  });
+    const remaining = getRemainingDays(deedExpirationTime);
+    return dispatch(receiveDomainExpirationTime(remaining));
+  } catch (e) {
+    return dispatch(errorDomainExpirationTime());
+  }
 };
 
 export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
   dispatch(requestRenewDomain());
 
-  const web3 = new Web3(window.rLogin);
-  const durationBN = new web3.utils.BN(duration);
+  const durationBN = BigNumber.from(duration);
 
   const weiValue = rifCost * (10 ** 18);
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
 
+  const signer = await getSigner();
 
   const { account: partnerAccount } = await defaultPartnerAddresses();
   const data = getRenewData(domain, durationBN, partnerAccount);
 
-  const rif = new web3.eth.Contract(
-    rifAbi, rifAddress, { from: currentAddress, gasPrice: defaultGasPrice },
+  const rif = new ethers.Contract(
+    rifAddress, rifAbi, signer,
   );
 
-  rif.methods.balanceOf(accounts[0]).call((balanceError, balance) => {
+  try {
+    const balance = await rif.balanceOf(signer.address);
+
     if (balance / (10 ** 18) < rifCost) {
       return dispatch(errorRenewDomain(NOT_ENOUGH_RIF));
     }
 
-    return rif
-      .methods
-      .transferAndCall(renewerAddress, weiValue.toString(), data)
-      .send((error, result) => {
-        if (error) {
-          return dispatch(errorRenewDomain(error.message));
-        }
+    const result = await (await rif
+      .transferAndCall(renewerAddress, weiValue.toString(), data)).wait();
 
-        const transactionConfirmed = listenerParams => (listenerDispatch) => {
-          listenerDispatch(receiveRenewDomain(listenerParams.resultTx));
-          listenerDispatch(checkIfSubdomainAndGetExpirationRemaining(`${listenerParams.domain}.rsk`));
-        };
+    dispatch(receiveRenewDomain(result.transactionHash));
+    dispatch(checkIfSubdomainAndGetExpirationRemaining(`${domain}.rsk`));
 
-        return dispatch(transactionListener(
-          result,
-          transactionConfirmed,
-          { domain },
-          listenerParams => listenerDispatch => listenerDispatch(
-            errorRenewDomain(listenerParams.errorReason),
-          ),
-        ));
-      });
-  });
+    return result;
+  } catch (e) {
+    return dispatch(errorRenewDomain(e.message));
+  }
 };
 
 export const transferDomain = (name, address, sender) => async (dispatch) => {
@@ -159,51 +135,32 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
 
   const label = name.split('.')[0];
 
-  let result;
-
   try {
     const signer = await getSigner();
     const r = await registrar(signer);
 
-    result = await r.transfer(label, addressToTransfer);
-    dispatch(receiveTransferDomain(true));
+    const result = await r.transfer(label, addressToTransfer);
+    return dispatch(receiveTransferDomain(result));
   } catch (e) {
-    dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));
+    return dispatch(errorTransferDomain(TRANSACTION_RECEIPT_FAILED));
   }
-
-  return result;
 };
 
-export const migrateToFifsRegistrar = (domain, address) => (dispatch) => {
+export const migrateToFifsRegistrar = domain => async (dispatch) => {
   dispatch(requestFifsMigration());
 
-  return new Promise((resolve) => {
-    const label = `0x${sha3(domain.split('.')[0])}`;
-    const web3 = new Web3(window.rLogin);
+  const label = `0x${sha3(domain.split('.')[0])}`;
 
-    const tokenRegistrar = new web3.eth.Contract(
-      tokenRegistrarAbi, tokenRegistrarAddress, { gasPrice: defaultGasPrice },
-    );
+  const tokenRegistrar = new ethers.Contract(
+    tokenRegistrarAbi, tokenRegistrarAddress, await getSigner(),
+  );
 
-    tokenRegistrar.methods.transferRegistrars(label).send(
-      { from: address },
-      (error, result) => {
-        if (error) {
-          return dispatch(errorFifsMigration());
-        }
-
-        return dispatch(transactionListener(
-          result,
-          // eslint-disable-next-line no-unused-vars
-          _listenerParams => listenerDispatch => listenerDispatch(resolve(receiveFifsMigration())),
-          {},
-          listenerParams => listenerDispatch => listenerDispatch(
-            errorFifsMigration(listenerParams.errorReason),
-          ),
-        ));
-      },
-    );
-  });
+  try {
+    await (await tokenRegistrar.transferRegistrars(label)).wait();
+    return dispatch(receiveFifsMigration());
+  } catch (e) {
+    return dispatch(errorFifsMigration(e.message));
+  }
 };
 
 /**
@@ -223,40 +180,24 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
     return false;
   }
 
-  const label = namehash(domain);
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0].toLowerCase();
+  const signer = await getSigner();
 
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-  await rns.compose();
-  return rns.contracts.registry.methods.setOwner(label, newAddress)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetRegistryOwner(error.message));
-      }
+  const r = rns(signer);
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        const listenerAddress = listenerParams.newAddress;
-        listenerDispatch(receiveRegistryOwner(
-          listenerAddress,
-          listenerAddress.toLowerCase() === listenerParams.currentAddress.toLowerCase(),
-        ));
+  try {
+    const result = await (await r.setOwner(domain, newAddress)).wait();
+    dispatch(receiveRegistryOwner(
+      newAddress,
+      newAddress.toLowerCase() === signer.address.toLowerCase(),
+    ));
 
-        listenerDispatch(receiveSetRegistryOwner(newAddress, listenerParams.resultTx));
-        listenerDispatch(receiveRegistryOwner(newAddress, false));
-      };
+    dispatch(receiveSetRegistryOwner(newAddress, result.transactionHash));
+    dispatch(receiveRegistryOwner(newAddress, false));
 
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { newAddress, currentAddress },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetRegistryOwner(listenerParams.errorReason),
-        ),
-        {},
-      ));
-    });
+    return result;
+  } catch (e) {
+    return dispatch(errorSetRegistryOwner(e.message));
+  }
 };
 
 /**
@@ -278,7 +219,7 @@ export const reclaimDomain = domain => async (dispatch) => {
     await r.reclaim(name);
     dispatch(receiveRegistryOwner(currentAddress, true));
     return dispatch(receiveReclaimDomain(true));
-  } catch (error) {
-    return dispatch(errorReclaimDomain(error.message));
+  } catch (e) {
+    return dispatch(errorReclaimDomain(e.message));
   }
 };
