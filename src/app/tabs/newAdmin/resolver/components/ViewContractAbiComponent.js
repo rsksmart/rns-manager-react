@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
-import Web3 from 'web3';
 import { Button } from 'react-bootstrap';
 
+import { utils } from 'ethers';
 import {
   UserWaitingComponent, UserErrorComponent, UserSuccessComponent, UserDeleteComponent,
 } from '../../../../components';
@@ -22,7 +22,7 @@ const ViewContractAbiComponent = ({
   const uri = value.filter(i => i.id === 8)[0].result;
 
   const prettyUri = (uri && parseInt(uri, 16) !== 0)
-    ? Web3.utils.toAscii(uri) : null;
+    ? utils.toUtf8String(uri) : null;
 
   if (successTx && isEditing) {
     setIsEditing(false);
