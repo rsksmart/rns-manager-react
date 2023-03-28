@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { isValidAddress } from 'rskjs-util';
-// import RNS from '@rsksmart/rns';
+import RNS from '@rsksmart/rns';
 import { formatsByCoinType } from '@ensdomains/address-encoder';
 import { ethers } from 'ethers';
 import * as actions from './actions';
@@ -14,7 +14,7 @@ import { getOptions } from '../../adapters/RNSLibAdapter';
 import { ERROR_RESOLVE_NAME } from './types';
 import { ERROR_SAME_VALUE, EMPTY_ADDRESS } from '../newAdmin/types';
 import getSigner from '../../helpers/getSigner';
-import { rns } from '../../rns-sdk'
+import { rns } from '../../rns-sdk';
 
 /**
  * Resolves a domain name using the js library
@@ -24,17 +24,15 @@ import { rns } from '../../rns-sdk'
  * @param {string} value the value to check the resolution against to see if they match
  */
 export const resolveDomain = (
-  domain, chainId = null, errorFunction = null, value = null,
+  domain, errorFunction = null, value = null,
 ) => async (dispatch) => {
-  // const web3 = new Web3(rskNode);
-  // const rns = new RNS(web3, getOptions());
   const signer = await getSigner();
-  const RNS = rns(signer);
+  const rnsSdk = rns(signer);
 
   dispatch(actions.requestAddr());
 
   try {
-    const response = await RNS.getResolver(domain);
+    const response = await rnsSdk.getResolver(domain);
 
     if (value && (response.toLowerCase() === value.toLowerCase())) {
       dispatch(errorFunction(ERROR_SAME_VALUE));
@@ -45,8 +43,8 @@ export const resolveDomain = (
     return response.toLowerCase();
   } catch (error) {
     dispatch(actions.errorResolve(error));
-      dispatch(errorFunction(ERROR_RESOLVE_NAME));
-      return false;
+    dispatch(errorFunction(ERROR_RESOLVE_NAME));
+    return false;
   }
 };
 
@@ -62,11 +60,11 @@ export const identifyInterfaces = domain => async (dispatch) => {
   // const web3 = new Web3(rskNode);
   const signer = await getSigner();
 
-  const rns = new ethers.Contract(rnsAddress, rnsAbi, signer);
+  const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
   const abstractResolver = new ethers.Contract(abstractResolverAbi, abstractResolverAbi, signer);
 
   try {
-    const resolverAddress = await rns.resolver(hash);
+    const resolverAddress = await rnsContract.resolver(hash);
 
     if (resolverAddress === '0x0000000000000000000000000000000000000000') {
       return dispatch(actions.errorResolve('this name is not registered'));
@@ -146,7 +144,6 @@ export const multicoin = (resolverAddress, domain, chainId) => async (dispatch) 
   const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, signer);
 
   try {
-    
     const resolution = await resolver.addr(hash, chainId);
 
     if (!resolution || resolution === EMPTY_ADDRESS) {
@@ -182,16 +179,16 @@ export const name = (resolverAddress, address) => async (dispatch) => {
 
     return dispatch(actions.receiveName(nameResolution));
   } catch (error) {
-    return dispatch(actions.receiveName(nameResolution));
+    return dispatch(actions.errorName(error.message));
   }
 };
 
 export const contentHash = domain => (dispatch) => {
   dispatch(actions.requestContent('CONTENT_HASH'));
   const web3 = new Web3(rskNode);
-  const rns = new RNS(web3, getOptions());
+  const rnsjs = new RNS(web3, getOptions());
 
-  rns.contenthash(domain)
+  rnsjs.contenthash(domain)
     .then(result => dispatch(actions.receiveContent('CONTENT_HASH', result)))
     .catch(error => dispatch(actions.errorContent('CONTENT_HASH', error.message)));
 };

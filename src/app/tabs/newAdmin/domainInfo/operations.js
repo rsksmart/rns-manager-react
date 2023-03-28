@@ -127,7 +127,7 @@ export const transferDomain = (name, address, sender) => async (dispatch) => {
 
   // get address if it ends with .rsk
   const addressToTransfer = await address.endsWith('.rsk')
-    ? await dispatch(resolveDomain(address, null, errorTransferDomain, sender)) : address;
+    ? await dispatch(resolveDomain(address, errorTransferDomain, sender)) : address;
 
   if (!addressToTransfer) {
     return false;
@@ -174,7 +174,7 @@ export const setRegistryOwner = (domain, address, currentValue) => async (dispat
 
   // get address if it ends with .rsk
   const newAddress = await address.endsWith('.rsk')
-    ? await dispatch(resolveDomain(address, null, errorSetRegistryOwner, currentValue)) : address;
+    ? await dispatch(resolveDomain(address, errorSetRegistryOwner, currentValue)) : address;
 
   if (!newAddress) {
     return false;

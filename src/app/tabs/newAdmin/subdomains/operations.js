@@ -104,9 +104,8 @@ export const newSubdomain = (
   dispatch(requestNewSubdomain());
 
   // get address if it ends with .rsk
-  const newAddress = (await newOwner.endsWith('.rsk'))
-    ? await dispatch(resolveDomain(newOwner, null, errorNewSubdomain, null))
-    : newOwner;
+  const newAddress = await newOwner.endsWith('.rsk')
+    ? await dispatch(resolveDomain(newOwner, errorNewSubdomain, null)) : newOwner;
 
   if (!newAddress) {
     return null;
@@ -175,16 +174,12 @@ export const setSubdomainOwner = (
   dispatch(waitingSetSubdomainOwner(subdomain));
 
   // get address if it ends with .rsk
-  const newAddress = (await newOwner.endsWith('.rsk'))
-    ? await dispatch(
-      resolveDomain(
-        newOwner,
-        null,
-        response => errorSetSubdomainOwner(subdomain, response),
-        currentOwner,
-      ),
-    )
-    : newOwner;
+  const newAddress = await newOwner.endsWith('.rsk')
+    ? await dispatch(resolveDomain(
+      newOwner,
+      response => errorSetSubdomainOwner(subdomain, response),
+      currentOwner,
+    )) : newOwner;
 
   if (!newAddress) {
     return;
