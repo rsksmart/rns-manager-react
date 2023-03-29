@@ -1,9 +1,9 @@
+import { ethers } from 'ethers';
 import {
   reverseRegistrar as reverseRegistryAddress,
 } from '../../../adapters/configAdapter';
 import { reverseAbi } from './abis.json';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
-import { ethers } from 'ethers';
 
 import {
   requestResolver, receiveResolver, requestSetReverseResolver, waitingSetReverseResolver,

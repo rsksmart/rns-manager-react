@@ -5,6 +5,7 @@ import {
   AddrResolver,
 } from '@rsksmart/rns-sdk';
 import { ethers } from 'ethers';
+import { namehash } from 'ethers/lib/utils';
 import { rskNode } from './adapters/nodeAdapter';
 import {
   rskOwner as rskOwnerAddress,
@@ -14,7 +15,6 @@ import {
   getCurrentPartnerAddresses,
   rns as registryAddress,
 } from './adapters/configAdapter';
-import { namehash } from 'ethers/lib/utils';
 
 export const provider = new ethers.providers.JsonRpcProvider(rskNode);
 const defaultSigner = new ethers.VoidSigner('', provider);
@@ -55,7 +55,7 @@ export const reverse = async (address, signer) => {
 
   const node = namehash(`${convertedAddress}.addr.reverse`);
 
-  const resolver = resolver(signer);
+  const resolva = resolver(signer);
 
-  return await resolver.name(node);
-}
+  return resolva.name(node);
+};

@@ -17,6 +17,7 @@ import {
   publicResolver as publicResolverAddress,
   stringResolver as stringResolverAddress,
   definitiveResolver as definitiveResolverAddress,
+  rns as rnsAddress,
 } from '../../../adapters/configAdapter';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
@@ -27,6 +28,7 @@ import {
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
+import { rnsAbi } from '../../resolve/abis.json';
 import { definitiveResolverAbi } from './definitiveAbis.json';
 import { interfaces } from './supportedInterfaces.json';
 import { EMPTY_ADDRESS } from '../types';
@@ -371,7 +373,7 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
     ));
     return sendBrowserNotification(domain, 'contract_abi_set');
   } catch (error) {
-    return dispatch(errorSetContent(CONTRACT_ABI, e.message));
+    return dispatch(errorSetContent(CONTRACT_ABI, error.message));
   }
 };
 
@@ -403,9 +405,8 @@ export const setDomainResolverAndMigrate = (
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
   const hash = namehash(domain);
-
-
   const signer = await getSigner();
+  const rnsSdk = rns(signer);
   const definitiveResolver = new ethers.Contract(
     definitiveResolverAddress,
     definitiveResolverAbi,
@@ -460,22 +461,22 @@ export const setDomainResolverAndMigrate = (
       rnsSdk.setResolver(domain, definitiveResolverAddress)
         .then((result) => {
           result.wait();
-          resolve(result.transactionHash)
+          resolve(result.transactionHash);
         })
         .catch((error) => {
           reject(error);
-        })
+        });
     }),
 
     new Promise((resolve, reject) => {
       definitiveResolver.multicall(multiCallMethods)
         .then((result) => {
           result.wait();
-          resolve(result.transactionHash)
+          resolve(result.transactionHash);
         })
         .catch((error) => {
           reject(error);
-        })
+        });
     }),
   ];
 

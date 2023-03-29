@@ -11,7 +11,7 @@ import { ERROR_RESOLVE_NAME } from './types';
 import { ERROR_SAME_VALUE, EMPTY_ADDRESS } from '../newAdmin/types';
 import getSigner from '../../helpers/getSigner';
 import { rns } from '../../rns-sdk';
-import { contentHash as CH} from '../../helpers/contentHash';
+import { contentHash as CH } from '../../helpers/contentHash';
 
 /**
  * Resolves a domain name using the js library
