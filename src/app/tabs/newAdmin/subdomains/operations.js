@@ -1,11 +1,3 @@
-import Web3 from 'web3';
-import { keccak_256 as sha3 } from 'js-sha3';
-import { hash as namehash, normalize } from '@ensdomains/eth-ens-namehash';
-import RNS from '@rsksmart/rns';
-
-import { getOptions } from '../../../adapters/RNSLibAdapter';
-
-import transactionListener from '../../../helpers/transactionListener';
 import {
   requestNewSubdomain,
   receiveNewSubdomain,
@@ -26,11 +18,6 @@ import { sendBrowserNotification } from '../../../browerNotifications/operations
 import { resolver, rns } from '../../../rns-sdk';
 import getSigner from '../../../helpers/getSigner';
 import { publicResolver } from '../../../adapters/configAdapter';
-
-const getRNS = () => {
-  const web3 = new Web3(window.rLogin);
-  return new RNS(web3, getOptions());
-};
 
 const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
@@ -89,17 +76,13 @@ const registerSubdomain = (
 };
 
 const getSubdomainOwner = (domain, subdomain) => async (dispatch) => {
-  const hash = namehash(`${subdomain}.${domain}`);
+  const name = (`${subdomain}.${domain}`);
 
-  const r = getRNS();
-  await r.compose();
-  await r.contracts.registry.methods.owner(hash).call((error, result) => {
-    if (!error) {
-      if (result !== EMPTY_ADDRESS) {
-        dispatch(addSubdomainToList(subdomain, result));
-      }
-    }
-  });
+  const r = rns();
+  const owner = await r.getOwner(name);
+  if (owner !== EMPTY_ADDRESS) {
+    dispatch(addSubdomainToList(subdomain, owner));
+  }
 };
 
 /**
@@ -207,61 +190,37 @@ export const setSubdomainOwner = (
     return;
   }
 
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
-  const label = `0x${sha3(normalize(subdomain))}`;
-  const node = namehash(parentDomain);
+  const r = rns(await getSigner());
 
-  const r = getRNS();
-  await r.compose();
-  r.contracts.registry.methods
-    .setSubnodeOwner(node, label, newAddress)
-    .send({ from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetSubdomainOwner(subdomain, error.message));
-      }
+  try {
+    const result = await (await r.setSubdomainOwner(parentDomain, subdomain, newAddress)).wait();
 
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(
-          receiveSetSubdomainOwner(
-            listenerParams.resultTx,
-            listenerParams.subdomain,
-            listenerParams.newAddress,
-          ),
-        );
+    dispatch(
+      receiveSetSubdomainOwner(
+        result.transactionHash,
+        subdomain,
+        newAddress,
+      ),
+    );
 
-        if (listenerParams.newAddress === EMPTY_ADDRESS) {
-          sendBrowserNotification(
-            `${listenerParams.subdomain}.${listenerParams.parentDomain}`,
-            'remove_subdomain',
-          );
-          updateSubdomainToLocalStorage(
-            listenerParams.parentDomain,
-            listenerParams.subdomain,
-            false,
-          );
-          listenerDispatch(removeSubdomainFromList(listenerParams.subdomain));
-        } else {
-          sendBrowserNotification(
-            `${listenerParams.subdomain}.${listenerParams.parentDomain}`,
-            'update_subdomain',
-          );
-        }
-      };
-
-      return dispatch(
-        transactionListener(
-          result,
-          transactionConfirmed,
-          { subdomain, newAddress, parentDomain },
-          listenerParams => listenerDispatch => listenerDispatch(
-            errorSetSubdomainOwner(
-              listenerParams.subdomain,
-              listenerParams.errorReason,
-            ),
-          ),
-          { subdomain },
-        ),
+    if (newAddress === EMPTY_ADDRESS) {
+      sendBrowserNotification(
+        `${subdomain}.${parentDomain}`,
+        'remove_subdomain',
       );
-    });
+      updateSubdomainToLocalStorage(
+        parentDomain,
+        subdomain,
+        false,
+      );
+      dispatch(removeSubdomainFromList(subdomain));
+    } else {
+      sendBrowserNotification(
+        `${subdomain}.${parentDomain}`,
+        'update_subdomain',
+      );
+    }
+  } catch (error) {
+    dispatch(errorSetSubdomainOwner(subdomain, error.message));
+  }
 };
