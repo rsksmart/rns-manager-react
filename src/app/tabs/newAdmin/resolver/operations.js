@@ -1,5 +1,3 @@
-import Web3 from 'web3';
-import RNS from '@rsksmart/rns';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { deflateSync } from 'react-zlib-js';
 import cbor from 'cbor';
@@ -20,10 +18,6 @@ import {
   stringResolver as stringResolverAddress,
   definitiveResolver as definitiveResolverAddress,
 } from '../../../adapters/configAdapter';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-
-import transactionListener from '../../../helpers/transactionListener';
-import { getOptions } from '../../../adapters/RNSLibAdapter';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 import {
@@ -39,6 +33,7 @@ import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
 import getSigner from '../../../helpers/getSigner';
 import { rns } from '../../../rns-sdk';
+import { contentHash as CH, setContentHash as setCH } from '../../../helpers/contentHash';
 
 /**
  * Returns user friendly name based on address
@@ -59,20 +54,25 @@ export const getResolverNameByAddress = (resolverAddr) => {
   }
 };
 
-export const getContentHash = domain => (dispatch) => {
+export const getContentHash = domain => async (dispatch) => {
   dispatch(requestContent(CONTENT_HASH));
-  const web3 = new Web3(window.rLogin);
-  const rnsjs = new RNS(web3, getOptions());
 
-  rnsjs.contenthash(domain)
-    .then((result) => {
-      dispatch(receiveContent(
+  try {
+    const signer = await getSigner();
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
+    const hash = namehash(domain);
+    const resolverAddress = await rnsContract.resolver(hash);
+    const result = await CH(resolverAddress, domain, definitiveResolverAbi);
+    return dispatch(
+      receiveContent(
         CONTENT_HASH,
         `${result.protocolType}://${result.decoded}`,
         false,
-      ));
-    })
-    .catch(() => dispatch(receiveContent(CONTENT_HASH, null, true)));
+      ),
+    );
+  } catch (error) {
+    return dispatch(errorContent(CONTENT_HASH, null, true));
+  }
 };
 
 /**
@@ -231,28 +231,16 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  */
 export const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
-  const web3 = new Web3(window.rLogin);
-  const rnsjs = new RNS(web3, getOptions());
-
-  rnsjs.setContenthash(domain, input)
-    .then((result) => {
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetContent(
-          CONTENT_HASH, listenerParams.resultTx, listenerParams.input, listenerParams.input === '',
-        ));
-        sendBrowserNotification(listenerParams.domain, 'record_set');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { input, domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetContent(CONTENT_HASH, listenerParams.errorReason),
-        ),
-      ));
-    })
-    .catch(error => dispatch(errorSetContent(CONTENT_HASH, error.message)));
+  try {
+    const signer = await getSigner();
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
+    const resolverAddress = await rnsContract.resolver(namehash(domain));
+    const result = await setCH(domain, input, resolverAddress, definitiveResolverAbi);
+    dispatch(receiveSetContent(CONTENT_HASH, result, input, input === ''));
+    return sendBrowserNotification(domain, 'record_set');
+  } catch (error) {
+    return dispatch(errorSetContent(CONTENT_HASH, error.message));
+  }
 };
 
 
@@ -414,16 +402,16 @@ export const setDomainResolverAndMigrate = (
   domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
   const hash = namehash(domain);
 
-  const web3 = new Web3(window.rLogin);
-  const rnsjs = new RNS(web3, getOptions());
 
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  const signer = await getSigner();
+  const definitiveResolver = new ethers.Contract(
+    definitiveResolverAddress,
+    definitiveResolverAbi,
+    signer,
   );
+
 
   // loop through addresses and skip empties, then get decoded version of the address,
   // if valid, create the contract method and add it to the multiCallMethods array.
@@ -447,7 +435,7 @@ export const setDomainResolverAndMigrate = (
 
     // valid address to be added to the multiCallMethods array:
     return multiCallMethods.push(
-      definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
+      definitiveResolver['setAddr(bytes32,uint256,bytes)'](
         hash, getIndexById(item[1].chainId), decodedAddress,
       ).encodeABI(),
     );
@@ -456,7 +444,7 @@ export const setDomainResolverAndMigrate = (
   // add contentBytes if not null or empty
   if (contentBytes && contentBytes.value !== CONTENT_BYTES_BLANK && contentBytes.value !== '') {
     multiCallMethods.push(
-      definitiveResolver.methods['setContenthash(bytes32,bytes)'](
+      definitiveResolver['setContenthash(bytes32,bytes)'](
         hash, contentBytes.value,
       ).encodeABI(),
     );
@@ -467,27 +455,27 @@ export const setDomainResolverAndMigrate = (
     return dispatch(errorMigrateWithAddresses(''));
   }
 
-  await rnsjs.compose();
   const migratePromise = [
     new Promise((resolve, reject) => {
-      rnsjs.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
-        .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(
-            result,
-            params => () => resolve(params.resultTx),
-            {},
-            params => () => reject(params.errorReason),
-          ))));
+      rnsSdk.setResolver(domain, definitiveResolverAddress)
+        .then((result) => {
+          result.wait();
+          resolve(result.transactionHash)
+        })
+        .catch((error) => {
+          reject(error);
+        })
     }),
+
     new Promise((resolve, reject) => {
-      definitiveResolver.methods.multicall(multiCallMethods)
-        .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(
-            result,
-            params => () => resolve(params.resultTx),
-            {},
-            params => () => reject(params.errorReason),
-          ))));
+      definitiveResolver.multicall(multiCallMethods)
+        .then((result) => {
+          result.wait();
+          resolve(result.transactionHash)
+        })
+        .catch((error) => {
+          reject(error);
+        })
     }),
   ];
 

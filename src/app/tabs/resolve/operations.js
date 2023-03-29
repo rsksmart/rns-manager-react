@@ -1,20 +1,17 @@
-import Web3 from 'web3';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { isValidAddress } from 'rskjs-util';
-import RNS from '@rsksmart/rns';
 import { formatsByCoinType } from '@ensdomains/address-encoder';
 import { ethers } from 'ethers';
 import * as actions from './actions';
-import { rskNode } from '../../adapters/nodeAdapter';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
 import { definitiveResolverAbi } from '../newAdmin/resolver/definitiveAbis.json';
 import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
-import { getOptions } from '../../adapters/RNSLibAdapter';
 import { ERROR_RESOLVE_NAME } from './types';
 import { ERROR_SAME_VALUE, EMPTY_ADDRESS } from '../newAdmin/types';
 import getSigner from '../../helpers/getSigner';
 import { rns } from '../../rns-sdk';
+import { contentHash as CH} from '../../helpers/contentHash';
 
 /**
  * Resolves a domain name using the js library
@@ -57,7 +54,6 @@ export const identifyInterfaces = domain => async (dispatch) => {
 
   const hash = namehash(domain);
 
-  // const web3 = new Web3(rskNode);
   const signer = await getSigner();
 
   const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
@@ -183,14 +179,19 @@ export const name = (resolverAddress, address) => async (dispatch) => {
   }
 };
 
-export const contentHash = domain => (dispatch) => {
+export const contentHash = domain => async (dispatch) => {
   dispatch(actions.requestContent('CONTENT_HASH'));
-  const web3 = new Web3(rskNode);
-  const rnsjs = new RNS(web3, getOptions());
 
-  rnsjs.contenthash(domain)
-    .then(result => dispatch(actions.receiveContent('CONTENT_HASH', result)))
-    .catch(error => dispatch(actions.errorContent('CONTENT_HASH', error.message)));
+  try {
+    const signer = await getSigner();
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
+    const hash = namehash(domain);
+    const resolverAddress = await rnsContract.resolver(hash);
+    const result = await CH(resolverAddress, domain, definitiveResolverAbi);
+    return dispatch(actions.receiveContent('CONTENT_HASH', result));
+  } catch (error) {
+    return dispatch(actions.errorContent('CONTENT_HASH', error.message));
+  }
 };
 
 export const searchAddressOrDomain = input => (dispatch) => {

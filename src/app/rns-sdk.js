@@ -14,6 +14,7 @@ import {
   getCurrentPartnerAddresses,
   rns as registryAddress,
 } from './adapters/configAdapter';
+import { namehash } from 'ethers/lib/utils';
 
 export const provider = new ethers.providers.JsonRpcProvider(rskNode);
 const defaultSigner = new ethers.VoidSigner('', provider);
@@ -48,3 +49,13 @@ export const rns = (signer = defaultSigner) => new RNS(registryAddress, signer);
 
 // the library gets the resolver for a name from the registry
 export const resolver = (signer = defaultSigner) => new AddrResolver(registryAddress, signer);
+
+export const reverse = async (address, signer) => {
+  const convertedAddress = address.substring(2).toLowerCase(); // remove '0x'
+
+  const node = namehash(`${convertedAddress}.addr.reverse`);
+
+  const resolver = resolver(signer);
+
+  return await resolver.name(node);
+}
