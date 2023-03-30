@@ -47,6 +47,7 @@ export const setupCssTheme = () => {
         document.fonts.add(loadedFF);
       })
       .catch(() => {
+        // eslint-disable-next-line no-console
         console.warn('THEME: Failed to load custom font.');
       });
   }

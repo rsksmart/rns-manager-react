@@ -14,7 +14,6 @@ import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 import WalletCarousel from './WalletCarousel';
 import wallets from '../wallets.json';
-import theme from '../../../helpers/theme';
 
 const HomeComponent = ({ strings }) => (
   <div className="home">
