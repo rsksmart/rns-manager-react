@@ -57,7 +57,7 @@ export const identifyInterfaces = domain => async (dispatch) => {
   const signer = await getSigner();
 
   const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
-  const abstractResolver = new ethers.Contract(abstractResolverAbi, abstractResolverAbi, signer);
+
 
   try {
     const resolverAddress = await rnsContract.resolver(hash);
@@ -65,6 +65,8 @@ export const identifyInterfaces = domain => async (dispatch) => {
     if (resolverAddress === '0x0000000000000000000000000000000000000000') {
       return dispatch(actions.errorResolve('this name is not registered'));
     }
+
+    const abstractResolver = new ethers.Contract(resolverAddress, abstractResolverAbi, signer);
 
     dispatch(actions.receiveResolverAddress(resolverAddress));
 

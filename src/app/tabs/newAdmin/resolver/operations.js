@@ -122,7 +122,7 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   [1, 2, 4, 8].forEach(async (id) => {
     promiseArray.push(
       new Promise((resolve) => {
-        resolver.ABI(hash, id).call()
+        resolver.ABI(hash, id)
           .then(result => resolve({
             id,
             result: (result[1] !== '0x00' && result[1]) ? result[1] : null,
@@ -155,7 +155,7 @@ export const supportedInterfaces = (resolverAddress, domain) => async (dispatch)
   // multicoin data is not needed on this page.
   interfaces.forEach((i) => {
     abstractResolver
-      .supportsInterface(i.interfaceId).call()
+      .supportsInterface(i.interfaceId)
       .then((supportsInterface) => {
         if (supportsInterface) {
           switch (i.name) {
@@ -217,7 +217,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
     resultTx.wait();
     dispatch(waitingSetResolver());
     const resolverName = getResolverNameByAddress(lowerResolverAddress);
-    dispatch(receiveSetResolver(resultTx, lowerResolverAddress, resolverName));
+    dispatch(receiveSetResolver(resultTx.hash, lowerResolverAddress, resolverName));
     dispatch(getAllChainAddresses(domain, resolverName));
     dispatch(supportedInterfaces(lowerResolverAddress, domain));
     return sendBrowserNotification(domain, 'resolver_set_success');
