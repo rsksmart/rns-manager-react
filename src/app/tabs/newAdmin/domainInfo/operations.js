@@ -1,5 +1,6 @@
 import { keccak_256 as sha3 } from 'js-sha3';
 import { BigNumber, ethers } from 'ethers';
+import { toWei } from 'web3-utils';
 import {
   defaultPartnerAddresses,
   registrar as tokenRegistrarAddress,
@@ -88,32 +89,28 @@ export const checkIfSubdomainAndGetExpirationRemaining = name => async (dispatch
 };
 
 export const renewDomain = (domain, rifCost, duration) => async (dispatch) => {
-  dispatch(requestRenewDomain());
-
-  const durationBN = BigNumber.from(duration);
-
-  const weiValue = rifCost * (10 ** 18);
-
-  const signer = await getSigner();
-
-  const { account: partnerAccount } = await defaultPartnerAddresses();
-  const data = getRenewData(domain, durationBN, partnerAccount);
-
-  const rif = new ethers.Contract(
-    rifAddress, rifAbi, signer,
-  );
-
   try {
-    const balance = await rif.balanceOf(signer.address);
+    dispatch(requestRenewDomain());
+
+    const durationBN = BigNumber.from(duration);
+    const cost = BigNumber.from(toWei(rifCost.toString(), 'ether'));
+
+    const signer = await getSigner();
+    const r = await registrar(signer);
+
+    const rif = new ethers.Contract(
+      rifAddress, rifAbi, signer,
+    );
+
+    const balance = await rif.balanceOf(await signer.getAddress());
 
     if (balance / (10 ** 18) < rifCost) {
       return dispatch(errorRenewDomain(NOT_ENOUGH_RIF));
     }
 
-    const result = await (await rif
-      .transferAndCall(renewerAddress, weiValue.toString(), data)).wait();
+    const result = await r.renew(domain, durationBN, cost);
 
-    dispatch(receiveRenewDomain(result.transactionHash));
+    dispatch(receiveRenewDomain(result));
     dispatch(checkIfSubdomainAndGetExpirationRemaining(`${domain}.rsk`));
 
     return result;
