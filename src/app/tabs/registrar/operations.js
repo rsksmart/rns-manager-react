@@ -59,8 +59,10 @@ export const getCost = (domain, duration) => async (dispatch) => {
   const Registrar = await registrar();
   dispatch(requestGetCost(duration));
 
+  const label = domain.split('.')[0];
+
   try {
-    const cost = await Registrar.price(domain, duration);
+    const cost = await Registrar.price(label, duration);
     dispatch(receiveGetCost(cost / (10 ** 18)));
     let options = localStorage.getItem(`${domain}-options`);
 
