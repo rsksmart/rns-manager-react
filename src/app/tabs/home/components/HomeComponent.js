@@ -14,6 +14,7 @@ import integrate from '../../../../assets/img/home/integrate.svg';
 import ask from '../../../../assets/img/home/ask.svg';
 import WalletCarousel from './WalletCarousel';
 import wallets from '../wallets.json';
+import theme from '../../../helpers/theme';
 
 const HomeComponent = ({ strings }) => (
   <div className="home">
@@ -32,90 +33,94 @@ const HomeComponent = ({ strings }) => (
 
     <Container>
       <SearchResultsContainer />
-      <Row className="white break-below">
-        <Col md={4}>
-          <div className="imageWraper">
-            <img src={easeOfUse} alt={strings.ease_of_use} />
-          </div>
-          <h2>{strings.ease_of_use}</h2>
-          <p>{strings.ease_of_use_explanation}</p>
-        </Col>
-        <Col md={4}>
-          <div className="imageWraper">
-            <img src={interoperability} alt={strings.interoperability} />
-          </div>
-          <h2>{strings.interoperability}</h2>
-          <p>{strings.interoperability_explanation}</p>
-        </Col>
-        <Col md={4}>
-          <div className="imageWraper">
-            <img src={costEffective} alt={strings.cost_effective} />
-          </div>
-          <h2>{strings.cost_effective}</h2>
-          <p>{strings.cose_effective_explanation}</p>
-        </Col>
-      </Row>
+      {theme.hideHomeContent && (
+        <>
+          <Row className="white break-below">
+            <Col md={4}>
+              <div className="imageWraper">
+                <img src={easeOfUse} alt={strings.ease_of_use} />
+              </div>
+              <h2>{strings.ease_of_use}</h2>
+              <p>{strings.ease_of_use_explanation}</p>
+            </Col>
+            <Col md={4}>
+              <div className="imageWraper">
+                <img src={interoperability} alt={strings.interoperability} />
+              </div>
+              <h2>{strings.interoperability}</h2>
+              <p>{strings.interoperability_explanation}</p>
+            </Col>
+            <Col md={4}>
+              <div className="imageWraper">
+                <img src={costEffective} alt={strings.cost_effective} />
+              </div>
+              <h2>{strings.cost_effective}</h2>
+              <p>{strings.cose_effective_explanation}</p>
+            </Col>
+          </Row>
 
-      <WalletCarousel wallets={wallets} />
+          <WalletCarousel wallets={wallets} />
 
-      <Row className="developer break-above">
-        <Row>
-          <div className="col-md-8 offset-md-2">
-            <h2 className="break-below">
-              {strings.are_you_developer}
-            </h2>
-            <p className="lead blue">
-              {strings.are_you_developer_explanation}
-            </p>
-          </div>
-        </Row>
-        <Row className="major-section cta">
-          <div className="col-md-3 col-lg-2 offset-lg-2">
-            <a
-              className="btn btn-outline-primary"
-              href="https://developers.rsk.co/rif/rns"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={book} alt={strings.read_documentation} className="filter-primary" />
-              <span>{strings.read_documentation}</span>
-            </a>
-          </div>
-          <div className="col-md-3 col-lg-2 ">
-            <a
-              className="btn btn-outline-primary"
-              href="https://github.com/rnsdomains"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={github} alt={strings.collaborate_github} className="filter-primary" />
-              <span>{strings.collaborate_github}</span>
-            </a>
-          </div>
-          <div className="col-md-3 col-lg-2 ">
-            <a
-              className="btn btn-outline-primary"
-              href="https://developers.rsk.co/rif/rns/integrate"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={integrate} alt={strings.integrate_rns} className="filter-primary" />
-              <span>{strings.integrate_rns}</span>
-            </a>
-          </div>
-          <div className="col-md-3 col-lg-2">
-            <a
-              className="btn btn-outline-primary"
-              href="https://gitter.im/rsksmart/rif-name-service"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={ask} alt={strings.ask_question} className="filter-primary" />
-              <span>{strings.ask_question}</span>
-            </a>
-          </div>
-        </Row>
-      </Row>
+          <Row className="developer break-above">
+            <Row>
+              <div className="col-md-8 offset-md-2">
+                <h2 className="break-below">
+                  {strings.are_you_developer}
+                </h2>
+                <p className="lead blue">
+                  {strings.are_you_developer_explanation}
+                </p>
+              </div>
+            </Row>
+            <Row className="major-section cta">
+              <div className="col-md-3 col-lg-2 offset-lg-2">
+                <a
+                  className="btn btn-outline-primary"
+                  href="https://developers.rsk.co/rif/rns"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={book} alt={strings.read_documentation} className="filter-primary" />
+                  <span>{strings.read_documentation}</span>
+                </a>
+              </div>
+              <div className="col-md-3 col-lg-2 ">
+                <a
+                  className="btn btn-outline-primary"
+                  href="https://github.com/rnsdomains"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={github} alt={strings.collaborate_github} className="filter-primary" />
+                  <span>{strings.collaborate_github}</span>
+                </a>
+              </div>
+              <div className="col-md-3 col-lg-2 ">
+                <a
+                  className="btn btn-outline-primary"
+                  href="https://developers.rsk.co/rif/rns/integrate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={integrate} alt={strings.integrate_rns} className="filter-primary" />
+                  <span>{strings.integrate_rns}</span>
+                </a>
+              </div>
+              <div className="col-md-3 col-lg-2">
+                <a
+                  className="btn btn-outline-primary"
+                  href="https://gitter.im/rsksmart/rif-name-service"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={ask} alt={strings.ask_question} className="filter-primary" />
+                  <span>{strings.ask_question}</span>
+                </a>
+              </div>
+            </Row>
+          </Row>
+        </>
+      )}
     </Container>
   </div>
 );

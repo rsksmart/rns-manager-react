@@ -20,5 +20,6 @@
   },
   "images": {
     "homeSpacer": ""
-  }
+  },
+  "hideHomeContent": false
 }

@@ -7,6 +7,7 @@ import defaultSpacer from '../../assets/img/home/bottom-background.svg';
 const defaultFont = "'Rubik', sans-serif";
 
 function valueOrDefault(prop, defaultProp) {
+  if (typeof prop === 'boolean') return prop;
   if (prop && prop.trim() !== '') return prop;
   return defaultProp;
 }
@@ -33,6 +34,7 @@ const theme = {
       light: valueOrDefault(themeConfig.colors.secondary.light, '#E5E5E5'),
     },
   },
+  hideHomeContent: valueOrDefault(themeConfig.hideHomeContent, false),
 };
 
 export const setupCssTheme = () => {
