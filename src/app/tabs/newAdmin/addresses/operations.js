@@ -253,21 +253,23 @@ export const getMultiCoinAddresses = (domain, chainId) => async (dispatch) => {
     definitiveResolverAddress, definitiveResolverAbi, getProvider(),
   );
 
-  return definitiveResolver.addr(hash, chainIndex)
-    .then((addr) => {
-      if (!addr || addr === EMPTY_ADDRESS) {
-        return dispatch(receiveChainAddress(chainId, chainName, ''));
-      }
+  try {
+    const addr = await definitiveResolver['addr(bytes32,uint256)'](hash, chainIndex);
 
-      // eslint-disable-next-line new-cap
-      const dataBuffer = new Buffer.from(addr.replace('0x', ''), 'hex');
-      return dispatch(receiveChainAddress(
-        chainId,
-        chainName,
-        formatsByCoinType[chainIndex].encoder(dataBuffer),
-      ));
-    })
-    .catch(error => dispatch(errorChainAddress(chainName, error.message)));
+    if (!addr || addr === EMPTY_ADDRESS) {
+      return dispatch(receiveChainAddress(chainId, chainName, ''));
+    }
+
+    // eslint-disable-next-line new-cap
+    const dataBuffer = new Buffer.from(addr.replace('0x', ''), 'hex');
+    return dispatch(receiveChainAddress(
+      chainId,
+      chainName,
+      formatsByCoinType[chainIndex].encoder(dataBuffer),
+    ));
+  } catch (error) {
+    return dispatch(errorChainAddress(chainName, error.message));
+  }
 };
 
 /**
