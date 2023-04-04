@@ -6,16 +6,16 @@
   },
   "colors": {
     "primary": {
-      "main": "#6200ee",
-      "light": "#a186ff",
-      "dark": "#2b08a7",
-      "transparent": "rgba(98, 0, 238, .8)"
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
     },
     "secondary": {
-      "main": "#03DAC6",
-      "light": "#c0fffd",
-      "dark": "#029994",
-      "transparent": "rgba(145, 145, 145, .8)"
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
     }
   },
   "images": {
