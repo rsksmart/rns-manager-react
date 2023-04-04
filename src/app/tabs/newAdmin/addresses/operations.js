@@ -139,7 +139,7 @@ const setDefinitiveAddress = (domain, chainId, address, isNew) => async (dispatc
   try {
     dispatch(waitingSetChainAddress(chainName));
 
-    const result = await (await definitiveResolver.setAddr(
+    const result = await (await definitiveResolver['setAddr(bytes32,uint256,bytes)'](
       namehash(domain),
       chainIndex,
       encodeValue,
