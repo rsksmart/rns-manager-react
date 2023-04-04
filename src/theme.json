@@ -6,7 +6,7 @@
   },
   "colors": {
     "primary": {
-      "main": "#6200EE",
+      "main": "#6200ee",
       "light": "#a186ff",
       "dark": "#2b08a7",
       "transparent": "rgba(98, 0, 238, .8)"
