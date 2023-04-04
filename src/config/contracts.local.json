@@ -1,32 +1,32 @@
 {
-  "rns": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  "registrar": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
-  "reverseRegistrar": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
-  "publicResolver": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-  "nameResolver": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
-  "multiChainResolver": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-  "definitiveResolver": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-  "stringResolver": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-  "rif": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
-  "fifsRegistrar": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
-  "fifsAddrRegistrar": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
-  "rskOwner": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-  "renewer": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
-  "partnerManager": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
-  "feeManager": "0x9A676e781A523b5d0C0e43731313A708CB607508",
-  "registrarAccessControl": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+  "rns": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "registrar": "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
+  "reverseRegistrar": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+  "publicResolver": "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+  "nameResolver": "0x0165878a594ca255338adfa4d48449f69242eb8f",
+  "multiChainResolver": "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
+  "definitiveResolver": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+  "stringResolver": "0x0000000000000000000000000000000000000000",
+  "rif": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+  "fifsRegistrar": "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
+  "fifsAddrRegistrar": "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
+  "rskOwner": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+  "renewer": "0x0dcd1bf9a1b36ce34237eeafef220932846bcd82",
+  "partnerManager": "0xb7f8bc63bbcad18155201308c8f3540b07f84f5e",
+  "feeManager": "0x9a676e781a523b5d0c0e43731313a708cb607508",
+  "registrarAccessControl": "0x610178da211fef7d417bc0e6fed39f05609ad788",
   "partners": {
     "default": {
-      "account": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-      "config": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+      "account": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "config": "0x9a9f2ccfde556a7e9ff0848998aa4a0cfd8863ae"
     },
     "buenbit": {
-      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      "config": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
+      "account": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "config": "0x68b1d87f95878fe05b998f19b66f4baba5de1aed"
     },
     "thefellowship": {
-      "account": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
-      "config": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
+      "account": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
+      "config": "0x3aa5ebb10dc797cac828524e59a333d0a371443c"
     }
   }
 }
