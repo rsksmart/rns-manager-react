@@ -1,16 +1,16 @@
-$gray: #919191;
-$light-gray: #f7f7f7;
-$blue: #008CFF;
-$white: #ffffff;
 $red: #E02F2F;
 $light-red: rgba(232, 99, 99, 0.2);
+
+$green: #40d512;
+
+$white: #fff;
+$black: #000;
 
 @import 'layout';
 @import 'header';
 @import 'footer';
 @import 'containers';
 @import 'columns';
-@import 'extends';
 @import 'errorMessages';
 @import 'typography';
 @import 'rlogin';

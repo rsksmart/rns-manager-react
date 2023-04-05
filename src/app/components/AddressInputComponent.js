@@ -127,7 +127,7 @@ const AddressInputComponent = ({
     <div className="row addressInput">
       <div className="row view">
         <div className="col-md-3 label">
-          {labelIcon && <img src={labelIcon} alt={labelDisplay || label} />}
+          {labelIcon && <img src={labelIcon} alt={labelDisplay || label} className="filter-primary" />}
           {labelDisplay || label}
         </div>
         <div className={`${allowDelete ? 'col-md-7' : 'col-md-8'} value`}>
@@ -139,16 +139,16 @@ const AddressInputComponent = ({
         <div className={`${allowDelete || settingsMenu ? 'col-md-2' : 'col-md-1'} options`}>
           {settingsMenu && (
             <button {...buttonProps} type="button" className="settings">
-              <img src={settings} alt={strings.settings} />
+              <img src={settings} alt={strings.settings} className="filter-primary" />
             </button>
           )}
           <button {...buttonProps} type="button" className="edit">
-            <img src={(!isEditing ? edit : editActive)} alt={strings.edit} />
+            <img src={(!isEditing ? edit : editActive)} alt={strings.edit} className="filter-primary" />
           </button>
           {allowDelete
             && (
             <button {...buttonProps} type="button" className="delete">
-              <img src={closeBlue} alt={strings.delete} />
+              <img src={closeBlue} alt={strings.delete} className="filter-primary" />
             </button>
             )
           }

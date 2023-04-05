@@ -6,7 +6,7 @@
   }
 
   .searchResults {
-    border: 1px solid $gray;
+    border: 1px solid var(--secondary-color);
     border-radius: 12px;
     padding: 25px 0 20px 0;
     margin-bottom: 50px;
@@ -16,7 +16,7 @@
       margin: 10px 0 0 15px;
       padding: 0;
     }
-    
+
     p {
       font-size: 20px;
       margin-bottom: 0;
@@ -48,18 +48,18 @@
     button {
       display: inline-block;
       margin-top: 0;
-      background-color: $blue;
-      color: $white;
+      background-color: var(--primary-color);
+      color: var(--secondary-color-light);
       border-radius: 15px;
       padding: 10px 20px !important;
-      border: 1px solid $blue;
+      border: 1px solid var(--primary-color);
     }
 
 
     button:hover {
-      color: $blue;
-      background-color: $white;
-      border: 1px solid $blue !important;
+      color: var(--primary-color);
+      background-color: var(--secondary-color-light);
+      border: 1px solid var(--primary-color) !important;
     }
   }
 

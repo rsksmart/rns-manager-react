@@ -5,11 +5,11 @@ div.success {
   padding: 1em;
   text-align: center;
   position: relative;
-  border: 1px solid $blue;
+  border: 1px solid var(--primary-color);
   border-radius: 12px;
 
   strong {
     font-weight: 500 !important;
-    color: $blue;
+    color: var(--primary-color);
   }
 }

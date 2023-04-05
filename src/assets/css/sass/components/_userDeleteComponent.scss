@@ -1,5 +1,5 @@
 div.delete {
-  background-color: $light-gray;
+  background-color: var(--secondary-color-light);
   padding: 1em 2em;
   margin: 1em auto;
 
@@ -8,24 +8,24 @@ div.delete {
     margin-left: 2% !important;
     border-radius: 15px !important;
     width: 45% !important;
-    border: 1px solid $gray !important;
+    border: 1px solid var(--secondary-color) !important;
   }
-  
+
   button.btn-primary.cancel {
-    background: $white;
-    color: $gray;
+    background: var(--secondary-color-light);
+    color: var(--secondary-color);
     font-weight: 300 !important;
   }
 
   button.btn-primary.submit {
-    background-color: $blue !important;
-    color: $white !important;
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color-light) !important;
   }
 
   button.btn-primary:hover {
-    background: $white;
+    background: var(--secondary-color-light);
     padding:10px 20px !important;
-    border:1px solid $gray !important;
+    border:1px solid var(--secondary-color) !important;
     margin-left: 2% !important;
   }
 }

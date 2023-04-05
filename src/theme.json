@@ -1,0 +1,26 @@
+{
+  "logo": "",
+  "font": {
+    "family": "",
+    "src": ""
+  },
+  "colors": {
+    "primary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    },
+    "secondary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    }
+  },
+  "images": {
+    "homeSpacer": "",
+    "footerArch": ""
+  },
+  "hideHomeContent": false
+}

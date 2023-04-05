@@ -1,10 +1,10 @@
 h1.sub-heading {
   font-size: 24px;
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 h2 {
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 h2.small {
@@ -18,19 +18,19 @@ h2.normal-size {
 }
 
 h3 {
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 h1.blue, h2.blue, h3.blue, h4.blue, p.blue, span.blue {
-  color: $blue;
+  color: var(--primary-color);
 }
 
 h2.gray, h3.gray, h4.gray {
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 p {
-  color: $gray;
+  color: var(--secondary-color);
   font-weight: 400 !important;
 }
 
@@ -39,12 +39,12 @@ p.lead {
 }
 
 label {
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 p.explanation {
   font-size: .8em !important;
-  color: $gray;
+  color: var(--secondary-color);
 }
 
 .caps-first:first-letter {
@@ -53,6 +53,6 @@ p.explanation {
 
 input::-webkit-input-placeholder {
   text-align: center;
-  color: #E5E5E5;
+  color: var(--secondary-color);
   font-size: .9em;
 }

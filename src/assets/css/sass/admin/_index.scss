@@ -7,11 +7,11 @@
   @import 'resolver';
 
   margin-top: 75px;
-  
+
   .btn-primary:not(:disabled):not(.disabled).active {
-    background-color: $light-gray;
-    border-color: $gray;
-    color: $gray;
+    background-color: var(--secondary-color-light);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
   }
 
   .toggleSwitch {
@@ -28,7 +28,7 @@
     }
   }
 
-  color: $gray;
+  color: var(--secondary-color);
   text-align: left;
 
   p {
@@ -37,7 +37,7 @@
 
   h1 {
     font-size: 20px;
-    color: $blue;
+    color: var(--primary-color);
     margin-top: 20px;
   }
 
@@ -47,7 +47,7 @@
 
   h2 {
     font-size: 20px;
-    color:$blue;
+    color:var(--primary-color);
   }
 
   .reclaim {

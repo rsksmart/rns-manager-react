@@ -82,7 +82,7 @@ const ShareButtonComponent = ({ strings, domain }) => {
         )}
       >
         <Button className="share-button" variant="link">
-          <img src={shareImg} alt="Share" />
+          <img src={shareImg} alt="Share" className="filter-primary" />
         </Button>
       </OverlayTrigger>
     </>
