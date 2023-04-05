@@ -33,7 +33,7 @@ const HomeComponent = ({ strings }) => (
 
     <Container>
       <SearchResultsContainer />
-      {theme.hideHomeContent && (
+      {!theme.hideHomeContent && (
         <>
           <Row className="white break-below">
             <Col md={4}>
