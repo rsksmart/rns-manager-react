@@ -19,7 +19,8 @@
     }
   },
   "images": {
-    "homeSpacer": ""
+    "homeSpacer": "",
+    "footerArch": ""
   },
   "hideHomeContent": false
 }

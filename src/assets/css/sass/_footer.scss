@@ -40,7 +40,7 @@ footer::before {
   content: '';
   width: 100%;
   height: 200px;
-  background: url("/assets/img/secondary-arch.svg");
+  background: var(--background-footer-arch);
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;

@@ -3,6 +3,7 @@ import themeConfig from '../../theme.json';
 
 import defaultLogo from '../../assets/img/logo.svg';
 import defaultSpacer from '../../assets/img/home/bottom-background.svg';
+import defaultFooterArch from '../../assets/img/secondary-arch.svg';
 
 const defaultFont = "'Rubik', sans-serif";
 
@@ -16,6 +17,7 @@ const theme = {
   logo: valueOrDefault(themeConfig.logo, defaultLogo),
   images: {
     homeSpacer: valueOrDefault(themeConfig.images.homeSpacer, defaultSpacer),
+    footerArch: valueOrDefault(themeConfig.images.footerArch, defaultFooterArch),
   },
   font: {
     family: valueOrDefault(themeConfig.font.family, defaultFont),
@@ -39,7 +41,8 @@ const theme = {
 
 export const setupCssTheme = () => {
   document.documentElement.style.setProperty('--primary-font', theme.font.family);
-  document.documentElement.style.setProperty('--background-home-spacer', `url("${theme.images.homeSpacer}")`);
+  document.documentElement.style.setProperty('--background-home-spacer', `url(${theme.images.homeSpacer})`);
+  document.documentElement.style.setProperty('--background-footer-arch', `url(${theme.images.footerArch})`);
 
   // Load font
   if (theme.font.src !== '') {
