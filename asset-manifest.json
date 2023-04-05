@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/rns-manager-react/static/css/main.3df7a9b2.chunk.css",
-    "main.js": "/rns-manager-react/static/js/main.3748a2ad.chunk.js",
-    "main.js.map": "/rns-manager-react/static/js/main.3748a2ad.chunk.js.map",
+    "main.css": "/rns-manager-react/static/css/main.f364ec9d.chunk.css",
+    "main.js": "/rns-manager-react/static/js/main.d6091cde.chunk.js",
+    "main.js.map": "/rns-manager-react/static/js/main.d6091cde.chunk.js.map",
     "runtime-main.js": "/rns-manager-react/static/js/runtime-main.5f10a518.js",
     "runtime-main.js.map": "/rns-manager-react/static/js/runtime-main.5f10a518.js.map",
-    "static/js/2.166ff48f.chunk.js": "/rns-manager-react/static/js/2.166ff48f.chunk.js",
-    "static/js/2.166ff48f.chunk.js.map": "/rns-manager-react/static/js/2.166ff48f.chunk.js.map",
+    "static/js/2.524a9a2a.chunk.js": "/rns-manager-react/static/js/2.524a9a2a.chunk.js",
+    "static/js/2.524a9a2a.chunk.js.map": "/rns-manager-react/static/js/2.524a9a2a.chunk.js.map",
     "index.html": "/rns-manager-react/index.html",
-    "static/css/main.3df7a9b2.chunk.css.map": "/rns-manager-react/static/css/main.3df7a9b2.chunk.css.map",
-    "static/js/2.166ff48f.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.166ff48f.chunk.js.LICENSE.txt",
+    "static/css/main.f364ec9d.chunk.css.map": "/rns-manager-react/static/css/main.f364ec9d.chunk.css.map",
+    "static/js/2.524a9a2a.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.524a9a2a.chunk.js.LICENSE.txt",
     "static/media/ask.61e775e3.svg": "/rns-manager-react/static/media/ask.61e775e3.svg",
     "static/media/book.57e9f7cc.svg": "/rns-manager-react/static/media/book.57e9f7cc.svg",
     "static/media/bottom-background.e71b516c.svg": "/rns-manager-react/static/media/bottom-background.e71b516c.svg",
-    "static/media/_index.scss": "/rns-manager-react/static/media/secondary-arch.5783bda9.svg",
+    "static/media/_index.scss": "/rns-manager-react/static/media/caret-down.a70ab897.svg",
     "static/media/check-blue.e62abd49.svg": "/rns-manager-react/static/media/check-blue.e62abd49.svg",
     "static/media/close-blue.svg": "/rns-manager-react/static/media/close-blue.8c18a9f7.svg",
     "static/media/close-red.552e389d.svg": "/rns-manager-react/static/media/close-red.552e389d.svg",
@@ -31,14 +31,15 @@
     "static/media/logo-footer.ca151cde.svg": "/rns-manager-react/static/media/logo-footer.ca151cde.svg",
     "static/media/logo.321cdb1c.svg": "/rns-manager-react/static/media/logo.321cdb1c.svg",
     "static/media/rsk_wallet.4a79606f.png": "/rns-manager-react/static/media/rsk_wallet.4a79606f.png",
+    "static/media/secondary-arch.5783bda9.svg": "/rns-manager-react/static/media/secondary-arch.5783bda9.svg",
     "static/media/settings.1479a200.svg": "/rns-manager-react/static/media/settings.1479a200.svg",
     "static/media/share-button.b810d126.svg": "/rns-manager-react/static/media/share-button.b810d126.svg",
     "static/media/whatsapp.3c6b3aa3.svg": "/rns-manager-react/static/media/whatsapp.3c6b3aa3.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.5f10a518.js",
-    "static/js/2.166ff48f.chunk.js",
-    "static/css/main.3df7a9b2.chunk.css",
-    "static/js/main.3748a2ad.chunk.js"
+    "static/js/2.524a9a2a.chunk.js",
+    "static/css/main.f364ec9d.chunk.css",
+    "static/js/main.d6091cde.chunk.js"
   ]
 }
