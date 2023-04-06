@@ -348,12 +348,9 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   );
   // prepare multicall methods array
   response.forEach((call) => {
-    let iface = new ethers.utils.Interface(definitiveResolverAbi);
-    
+    const iface = new ethers.utils.Interface(definitiveResolverAbi);
+
     multiCallMethods.push(
-      // definitiveResolver['setABI(bytes32,uint256,bytes)'](
-      //   namehash(domain), call.id, call.result,
-      // ).encodeABI(),
       iface.encodeFunctionData('setABI', [namehash(domain), call.id, call.result]),
     );
   });
