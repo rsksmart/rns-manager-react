@@ -13,6 +13,7 @@
     "@rsksmart/rns-suite": "^1.1.0",
     "@walletconnect/web3-provider": "^1.6.5",
     "bootstrap": "^4.3.1",
+    "bs58": "^5.0.0",
     "cbor": "^5.0.2",
     "connected-react-router": "^6.3.1",
     "content-hash": "^2.5.2",

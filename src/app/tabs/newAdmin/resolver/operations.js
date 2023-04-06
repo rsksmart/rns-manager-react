@@ -73,7 +73,7 @@ export const getContentHash = domain => async (dispatch) => {
       ),
     );
   } catch (error) {
-    return dispatch(errorContent(CONTENT_HASH, null, true));
+    return dispatch(receiveContent(CONTENT_HASH, null, true));
   }
 };
 

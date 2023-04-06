@@ -2,16 +2,12 @@ import { keccak_256 as sha3 } from 'js-sha3';
 import { BigNumber, ethers } from 'ethers';
 import { toWei } from 'web3-utils';
 import {
-  defaultPartnerAddresses,
   registrar as tokenRegistrarAddress,
-  renewer as renewerAddress,
   rif as rifAddress,
   rskOwner as rskOwnerAddress,
 } from '../../../adapters/configAdapter';
 import { deedAbi, rskOwnerAbi, tokenRegistrarAbi } from './abis.json';
 import { rifAbi } from '../../registrar/abis.json';
-
-import { getRenewData } from './helpers';
 
 import {
   errorDomainExpirationTime,
