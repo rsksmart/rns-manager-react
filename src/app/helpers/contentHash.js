@@ -2,15 +2,15 @@ import {ethers} from 'ethers';
 import {namehash} from 'ethers/lib/utils';
 import getSigner from './getSigner';
 import getProvider from './getProvider';
-import contentHash from 'content-hash';
+import _contentHash from 'content-hash';
 
 const decodeContenthash = (encoded) => {
   let decoded = '';
   let protocolType = '';
 
   try {
-    decoded = contentHash.decode(encoded);
-    const codec = contentHash.getCodec(encoded);
+    decoded = _contentHash.decode(encoded);
+    const codec = _contentHash.getCodec(encoded);
     if (codec === 'ipfs-ns') {
       protocolType = 'ipfs';
     } else if (codec === 'ipns-ns') {
