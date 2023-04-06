@@ -41,7 +41,7 @@ export const setContentHash = async (domain, content, resolverAddress, definitiv
     const tx = await resolver.setContenthash(hash, content);
     return tx.wait();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
