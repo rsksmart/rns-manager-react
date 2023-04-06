@@ -49,7 +49,6 @@ export const setReverse = value => async (dispatch) => {
     sendBrowserNotification('RSK Manager', 'reverse_success');
     return dispatch(receieveSetReverseResolver(value, result.transactionHash));
   } catch (error) {
-    console.error(error);
     return dispatch(errorSetReverseResolver(error.message));
   }
 };
