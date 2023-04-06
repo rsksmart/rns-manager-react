@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { namehash } from 'ethers/lib/utils';
 import getSigner from './getSigner';
+import getProvider from './getProvider';
 
 export const setContentHash = async (domain, content, resolverAddress, definitiveResolverAbi) => {
   const signer = await getSigner();
@@ -15,8 +16,7 @@ export const setContentHash = async (domain, content, resolverAddress, definitiv
 };
 
 export const contentHash = async (resolverAddress, domain, definitiveResolverAbi) => {
-  const signer = await getSigner();
-  const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, signer);
+  const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, getProvider());
   const hash = namehash(domain);
   try {
     const result = await resolver.contenthash(hash);

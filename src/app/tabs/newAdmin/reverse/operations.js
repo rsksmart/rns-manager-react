@@ -11,6 +11,7 @@ import {
 } from './actions';
 import getSigner from '../../../helpers/getSigner';
 import { reverse } from '../../../rns-sdk';
+import getProvider from '../../../helpers/getProvider';
 
 /**
  * Get reverse value when given an address
@@ -19,14 +20,13 @@ import { reverse } from '../../../rns-sdk';
 export const getReverse = address => async (dispatch) => {
   dispatch(requestResolver());
 
-  const signer = await getSigner();
   try {
-    const response = await reverse(signer).reverse(address.toLowerCase());
+    const response = await reverse(address, getProvider());
+
     dispatch(receiveResolver(response));
     return response;
   } catch (error) {
-    dispatch(errorResolver(error.message));
-    return null;
+    return dispatch(errorResolver(error.message));
   }
 };
 
@@ -44,11 +44,12 @@ export const setReverse = value => async (dispatch) => {
   );
 
   try {
-    const result = await reverseRegistry.setName(value);
+    const result = await (await reverseRegistry['setName(string)'](value)).wait();
     dispatch(waitingSetReverseResolver());
     sendBrowserNotification('RSK Manager', 'reverse_success');
-    return dispatch(receieveSetReverseResolver(value, result));
+    return dispatch(receieveSetReverseResolver(value, result.transactionHash));
   } catch (error) {
+    console.error(error);
     return dispatch(errorSetReverseResolver(error.message));
   }
 };

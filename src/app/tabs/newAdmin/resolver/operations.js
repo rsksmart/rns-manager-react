@@ -36,6 +36,7 @@ import { addressDecoder } from '../helpers';
 import getSigner from '../../../helpers/getSigner';
 import { rns } from '../../../rns-sdk';
 import { contentHash as CH, setContentHash as setCH } from '../../../helpers/contentHash';
+import getProvider from '../../../helpers/getProvider';
 
 /**
  * Returns user friendly name based on address
@@ -60,8 +61,7 @@ export const getContentHash = domain => async (dispatch) => {
   dispatch(requestContent(CONTENT_HASH));
 
   try {
-    const signer = await getSigner();
-    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, getProvider());
     const hash = namehash(domain);
     const resolverAddress = await rnsContract.resolver(hash);
     const result = await CH(resolverAddress, domain, definitiveResolverAbi);
@@ -85,10 +85,8 @@ export const getContentHash = domain => async (dispatch) => {
  */
 export const getContentBytes = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestContent(CONTENT_BYTES));
-  // const web3 = new Web3(window.rLogin);
-  const signer = await getSigner();
 
-  const resolver = new ethers.Contract(resolverAddress, resolverAbi, signer);
+  const resolver = new ethers.Contract(resolverAddress, resolverAbi, getProvider());
 
   const hash = namehash(domain);
 
@@ -115,8 +113,7 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestContent(CONTRACT_ABI));
   const hash = namehash(domain);
 
-  const signer = await getSigner();
-  const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, signer);
+  const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, getProvider());
 
   const promiseArray = [];
   [1, 2, 4, 8].forEach(async (id) => {

@@ -5,7 +5,6 @@ import {
   AddrResolver,
 } from '@rsksmart/rns-sdk';
 import { ethers } from 'ethers';
-import { namehash } from 'ethers/lib/utils';
 import { rskNode } from './adapters/nodeAdapter';
 import {
   rskOwner as rskOwnerAddress,
@@ -50,12 +49,12 @@ export const rns = (signer = defaultSigner) => new RNS(registryAddress, signer);
 // the library gets the resolver for a name from the registry
 export const resolver = (signer = defaultSigner) => new AddrResolver(registryAddress, signer);
 
-export const reverse = async (address, signer) => {
+export const reverse = async (address, nodeProvider = provider) => {
   const convertedAddress = address.substring(2).toLowerCase(); // remove '0x'
 
-  const node = namehash(`${convertedAddress}.addr.reverse`);
+  const name = `${convertedAddress}.addr.reverse`;
 
-  const resolva = resolver(signer);
+  const addrResolver = resolver(nodeProvider);
 
-  return resolva.name(node);
+  return addrResolver.addr(name);
 };
