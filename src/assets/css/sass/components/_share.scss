@@ -10,26 +10,26 @@ button.share-button:hover {
   }
 
   .popover-body {
-    background-color: $light-gray;
+    background-color: var(--secondary-color-light);
     border-radius: 12px;
     text-align: center;
 
     h2 {
       font-size: 16px !important;
     }
-    
+
     .row {
       min-width: 250px;
 
       .btn-link:hover {
-        border-color: $light-gray !important;
+        border-color: var(--secondary-color-light) !important;
         text-decoration: none !important;
         font-weight: 400 !important;
-        color: $blue !important;
+        color: var(--primary-color) !important;
       }
 
       .btn-link {
-        color: $gray !important;
+        color: var(--secondary-color) !important;
 
         img {
           display: block;
@@ -39,7 +39,7 @@ button.share-button:hover {
       }
 
       .btn-link.active {
-        color: $light-gray;
+        color: var(--secondary-color-light);
       }
     }
 

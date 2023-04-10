@@ -34,7 +34,7 @@ class LoadingComponent extends Component {
       <div className="waiting">
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
-            <Loader color="#008FF7" size="80px" className="loader-center" />
+            <Loader color="var(--primary-color)" size="80px" className="loader-center" />
             <p className="major-section">
               {strings.registration_waiting}
             </p>

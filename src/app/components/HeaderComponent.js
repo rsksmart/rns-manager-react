@@ -5,10 +5,10 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/img/logo.svg';
 import LanguageSelectContainer from '../containers/LanguageSelectContainer';
 import IndicatorLight from '../containers/IndicatorLight';
 import { LoginDropdownContainer } from '../auth/containers';
+import theme from '../helpers/theme';
 
 const HeaderComponent = (props) => {
   const {
@@ -23,7 +23,7 @@ const HeaderComponent = (props) => {
       <Container>
         <Link to="/" className="navbar-brand">
           <Image
-            src={logo}
+            src={theme.logo}
             className="logo"
             alt="RSK Logo"
           />

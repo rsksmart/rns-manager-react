@@ -6,18 +6,18 @@
     }
 
     button.add {
-      background: $blue;
+      background: var(--primary-color);
       padding: 10px !important;
-      color: $white;
+      color: var(--secondary-color-light);
       border-radius: 15px;
     }
 
     select {
       -webkit-appearance:none;
       text-align: left;
-      color: $gray;
+      color: var(--secondary-color);
       padding: 10px 10px;
-      border: 1px solid $gray;
+      border: 1px solid var(--secondary-color);
       border-radius: 5px;
       background-image: url("/assets/img/caret-down.svg");
       background-position: right 15px center;
@@ -26,14 +26,14 @@
     }
 
     input {
-      border: 1px solid $gray;
+      border: 1px solid var(--secondary-color);
       border-radius: 12px;
       padding: 10px;
     }
 
     input::-webkit-input-placeholder {
       text-align: center;
-      color: #E5E5E5;
+      color: var(--secondary-color);
       font-size: .9em;
     }
   }

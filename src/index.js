@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore, { history } from './configureStore';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
+import { setupCssTheme } from './app/helpers/theme';
 
 import './assets/css/main.css';
 import './assets/css/theming.css';
@@ -12,6 +13,7 @@ import './assets/css/OverwriteBootstrap.css';
 import './assets/css/sass/_index.scss';
 
 const store = configureStore();
+setupCssTheme();
 
 render(
   <Provider store={store}>

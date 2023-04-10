@@ -13,7 +13,7 @@
     input {
       display: block;
       width: 100%;
-      border: 1px solid $gray;
+      border: 1px solid var(--secondary-color);
       border-radius: 12px;
       padding: 10px;
     }
@@ -30,9 +30,9 @@
       width: 100%;
       padding: 10px 20px !important;
       margin: .25em 0;
-      border: 1px solid $white;
-      background: $blue;
-      color: $white;
+      border: 1px solid var(--secondary-color-light);
+      background: var(--primary-color);
+      color: var(--secondary-color-light);
     }
   }
 
@@ -45,6 +45,6 @@
 
   // copy button:
   .btn.btn-secondary.btn-sm {
-    border:1px solid $blue !important;
+    border:1px solid var(--primary-color) !important;
   }
 }

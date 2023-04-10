@@ -3,10 +3,10 @@
     -webkit-appearance:none;
     display: block;
     width: 100%;
-    color: $gray;
+    color: var(--secondary-color);
     padding: 12px 10px;
     border-radius: 5px;
-    border: 1px solid $gray;
+    border: 1px solid var(--secondary-color);
     background-image: url("/assets/img/caret-down.svg");
     background-position: right 15px center;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@
   input {
     display: block;
     width: 100%;
-    border: 1px solid $gray;
+    border: 1px solid var(--secondary-color);
     border-radius: 12px;
     padding: 10px;
   }
@@ -24,9 +24,9 @@
     button.add {
       display: block;
       width: 100%;
-      background: $blue;
+      background: var(--primary-color);
       padding: 10px !important;
-      color: $white;
+      color: var(--secondary-color-light);
       border-radius: 15px;
     }
   }
@@ -53,8 +53,8 @@
       }
 
       pre.contractAbi {
-        border: 1px solid $gray;
-        background-color: $light-gray;
+        border: 1px solid var(--secondary-color);
+        background-color: var(--secondary-color-light);
         padding: 5px;
         max-height: 250px;
         width: 100%;
@@ -62,19 +62,19 @@
       }
 
       div.uri {
-        border: 1px solid $gray;
-        background-color: $light-gray;
+        border: 1px solid var(--secondary-color);
+        background-color: var(--secondary-color-light);
         padding: 5px;
       }
 
       ul, ul li {
-        color: $gray !important;
+        color: var(--secondary-color) !important;
       }
     }
   }
 
   .contractAbiInput {
-    border: 1px solid $gray;
+    border: 1px solid var(--secondary-color);
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 10px;
@@ -97,7 +97,7 @@
     }
 
     button.save {
-      background-color: $blue !important;
+      background-color: var(--primary-color) !important;
       padding: 10px 20px !important;
     }
   }
