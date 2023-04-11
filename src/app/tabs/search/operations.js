@@ -42,6 +42,7 @@ export default domain => async (dispatch) => {
     if (domain.length < minLength.toNumber() || domain.length > maxLength.toNumber()) {
       let errorMsg;
       const partnerId = getCurrentPartner();
+
       if (partnerId === 'default') {
         errorMsg = 'default';
       } else {

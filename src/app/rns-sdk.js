@@ -1,5 +1,8 @@
 import {
-  PartnerRegistrar, PartnerConfiguration, RNS, AddrResolver,
+  PartnerRegistrar,
+  PartnerConfiguration,
+  RNS,
+  AddrResolver,
 } from '@rsksmart/rns-sdk';
 import { ethers } from 'ethers';
 import { rskNode } from './adapters/nodeAdapter';
@@ -10,7 +13,6 @@ import {
   rif,
   getCurrentPartnerAddresses,
   rns as registryAddress,
-  publicResolver as resolverAddress,
 } from './adapters/configAdapter';
 
 const provider = new ethers.providers.JsonRpcProvider(rskNode);
@@ -21,33 +23,28 @@ export const getCurrentPartner = () => {
   return searchParams.get('partner') || 'default';
 };
 
-export const registrar = async (
-  signer = defaultSigner,
-) => {
-  const partnerAddresses = await getCurrentPartnerAddresses(getCurrentPartner());
+export const registrar = async (signer = defaultSigner) => {
+  const partnerAddresses = await getCurrentPartnerAddresses(
+    getCurrentPartner(),
+  );
   return new PartnerRegistrar(
     partnerAddresses.account,
     fifsAddrRegistrarAddress,
-    renewer, rskOwnerAddress,
+    renewer,
+    rskOwnerAddress,
     rif,
     signer,
   );
 };
 
-export const partnerConfiguration = async (
-  signer = defaultSigner,
-) => {
-  const partnerAddresses = await getCurrentPartnerAddresses(getCurrentPartner());
-  return new PartnerConfiguration(
-    partnerAddresses.config,
-    signer,
+export const partnerConfiguration = async (signer = defaultSigner) => {
+  const partnerAddresses = await getCurrentPartnerAddresses(
+    getCurrentPartner(),
   );
+  return new PartnerConfiguration(partnerAddresses.config, signer);
 };
 
-export const rns = (
-  signer = defaultSigner,
-) => new RNS(registryAddress, signer);
+export const rns = (signer = defaultSigner) => new RNS(registryAddress, signer);
 
-export const resolver = (
-  signer = defaultSigner,
-) => new AddrResolver(resolverAddress, signer);
+// the library gets the resolver for a name from the registry
+export const resolver = (signer = defaultSigner) => new AddrResolver(registryAddress, signer);
