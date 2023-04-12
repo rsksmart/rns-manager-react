@@ -1,19 +1,20 @@
 {
   "logo": "",
+  "footerLogo": "",
   "font": {
-    "family": "",
-    "src": ""
+    "family": "Sora",
+    "src": "https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-NKQJDA8i1P4w.woff2"
   },
   "colors": {
     "primary": {
-      "main": "",
+      "main": "#4B5CF0",
       "light": "",
       "dark": "",
       "transparent": ""
     },
     "secondary": {
       "main": "",
-      "light": "",
+      "light": "#E6DED6",
       "dark": "",
       "transparent": ""
     }
