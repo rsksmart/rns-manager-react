@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/rns-manager-react/static/css/main.f364ec9d.chunk.css",
-    "main.js": "/rns-manager-react/static/js/main.ec5a0deb.chunk.js",
-    "main.js.map": "/rns-manager-react/static/js/main.ec5a0deb.chunk.js.map",
+    "main.js": "/rns-manager-react/static/js/main.572e917f.chunk.js",
+    "main.js.map": "/rns-manager-react/static/js/main.572e917f.chunk.js.map",
     "runtime-main.js": "/rns-manager-react/static/js/runtime-main.5f10a518.js",
     "runtime-main.js.map": "/rns-manager-react/static/js/runtime-main.5f10a518.js.map",
-    "static/js/2.86686bc9.chunk.js": "/rns-manager-react/static/js/2.86686bc9.chunk.js",
-    "static/js/2.86686bc9.chunk.js.map": "/rns-manager-react/static/js/2.86686bc9.chunk.js.map",
+    "static/js/2.942190d0.chunk.js": "/rns-manager-react/static/js/2.942190d0.chunk.js",
+    "static/js/2.942190d0.chunk.js.map": "/rns-manager-react/static/js/2.942190d0.chunk.js.map",
     "index.html": "/rns-manager-react/index.html",
     "static/css/main.f364ec9d.chunk.css.map": "/rns-manager-react/static/css/main.f364ec9d.chunk.css.map",
-    "static/js/2.86686bc9.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.86686bc9.chunk.js.LICENSE.txt",
+    "static/js/2.942190d0.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.942190d0.chunk.js.LICENSE.txt",
     "static/media/ask.61e775e3.svg": "/rns-manager-react/static/media/ask.61e775e3.svg",
     "static/media/book.57e9f7cc.svg": "/rns-manager-react/static/media/book.57e9f7cc.svg",
-    "static/media/bottom-background.e71b516c.svg": "/rns-manager-react/static/media/bottom-background.e71b516c.svg",
+    "static/media/bottom-separator.4f6a56e5.svg": "/rns-manager-react/static/media/bottom-separator.4f6a56e5.svg",
     "static/media/_index.scss": "/rns-manager-react/static/media/caret-down.a70ab897.svg",
     "static/media/check-blue.e62abd49.svg": "/rns-manager-react/static/media/check-blue.e62abd49.svg",
     "static/media/close-blue.svg": "/rns-manager-react/static/media/close-blue.8c18a9f7.svg",
@@ -28,18 +28,18 @@
     "static/media/interoperability.715376fd.svg": "/rns-manager-react/static/media/interoperability.715376fd.svg",
     "static/media/link-active.920d0e95.svg": "/rns-manager-react/static/media/link-active.920d0e95.svg",
     "static/media/link.ec4d86cd.svg": "/rns-manager-react/static/media/link.ec4d86cd.svg",
-    "static/media/logo-footer.ca151cde.svg": "/rns-manager-react/static/media/logo-footer.ca151cde.svg",
-    "static/media/logo.321cdb1c.svg": "/rns-manager-react/static/media/logo.321cdb1c.svg",
+    "static/media/logo-rb-footer.3d6a1cfa.svg": "/rns-manager-react/static/media/logo-rb-footer.3d6a1cfa.svg",
+    "static/media/rif-logo.33e7574c.svg": "/rns-manager-react/static/media/rif-logo.33e7574c.svg",
     "static/media/rsk_wallet.4a79606f.png": "/rns-manager-react/static/media/rsk_wallet.4a79606f.png",
-    "static/media/secondary-arch.5783bda9.svg": "/rns-manager-react/static/media/secondary-arch.5783bda9.svg",
+    "static/media/separator.69dc5f91.svg": "/rns-manager-react/static/media/separator.69dc5f91.svg",
     "static/media/settings.1479a200.svg": "/rns-manager-react/static/media/settings.1479a200.svg",
     "static/media/share-button.b810d126.svg": "/rns-manager-react/static/media/share-button.b810d126.svg",
     "static/media/whatsapp.3c6b3aa3.svg": "/rns-manager-react/static/media/whatsapp.3c6b3aa3.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.5f10a518.js",
-    "static/js/2.86686bc9.chunk.js",
+    "static/js/2.942190d0.chunk.js",
     "static/css/main.f364ec9d.chunk.css",
-    "static/js/main.ec5a0deb.chunk.js"
+    "static/js/main.572e917f.chunk.js"
   ]
 }
