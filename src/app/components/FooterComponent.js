@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import theme from '../helpers/theme.js';
+import theme from '../helpers/theme';
 
 import { version } from '../../../package.json';
 import PlausibleAnalytics from './PlausibleAnalytics';
