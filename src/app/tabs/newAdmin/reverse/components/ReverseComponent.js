@@ -70,7 +70,7 @@ ReverseComponent.propTypes = {
     reverse: propTypes.string.isRequired,
   }).isRequired,
   address: propTypes.string.isRequired,
-  chainId: propTypes.string.isRequired,
+  chainId: propTypes.number.isRequired,
   reverseValue: propTypes.string.isRequired,
   isRequesting: propTypes.bool.isRequired,
   isError: propTypes.bool.isRequired,

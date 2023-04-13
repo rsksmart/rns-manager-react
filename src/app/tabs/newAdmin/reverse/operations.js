@@ -1,8 +1,10 @@
 import { ethers } from 'ethers';
+import { namehash } from 'ethers/lib/utils';
 import {
   reverseRegistrar as reverseRegistryAddress,
+  nameResolver as nameResolverAddress,
 } from '../../../adapters/configAdapter';
-import { reverseAbi } from './abis.json';
+import { reverseAbi, nameResolverAbi } from './abis.json';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 import {
@@ -10,7 +12,6 @@ import {
   receieveSetReverseResolver, errorSetReverseResolver, errorResolver,
 } from './actions';
 import getSigner from '../../../helpers/getSigner';
-import { reverse } from '../../../rns-sdk';
 import getProvider from '../../../helpers/getProvider';
 
 /**
@@ -19,18 +20,24 @@ import getProvider from '../../../helpers/getProvider';
  */
 export const getReverse = address => (dispatch) => {
   (async () => {
-  dispatch(requestResolver());
-  try {
-    // debugger;
-    const response = await reverse(address, getProvider());
+    dispatch(requestResolver());
+    try {
+      const convertedAddress = address.substring(2).toLowerCase(); // remove '0x'
 
-    dispatch(receiveResolver(response));
-    return response;
-  } catch (error) {
-    // console.log('This error', error);
-    return dispatch(errorResolver(error.message));
-  }
-})();
+      const name = namehash(`${convertedAddress}.addr.reverse`);
+
+      const resolver = new ethers.Contract(
+        nameResolverAddress, nameResolverAbi, getProvider(),
+      );
+
+      const response = await resolver.name(name);
+
+      dispatch(receiveResolver(response));
+      return response;
+    } catch (error) {
+      return dispatch(errorResolver(error.message));
+    }
+  })();
 };
 
 /**

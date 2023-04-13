@@ -48,21 +48,3 @@ export const rns = (signer = defaultSigner) => new RNS(registryAddress, signer);
 
 // the library gets the resolver for a name from the registry
 export const resolver = (signer = defaultSigner) => new AddrResolver(registryAddress, signer);
-
-export const reverse = async (address, nodeProvider = provider) => {
-  const convertedAddress = address.substring(2).toLowerCase(); // remove '0x'
-
-  const name = `${convertedAddress}.addr.reverse`;
-
-  const addrResolver = resolver(nodeProvider);
-
-  const addr = await addrResolver.addr(name);
-
-  console.log('addr', addr);
-
-  if (addr === '0x0000000000000000000000000000000000000000') {
-    throw new Error('No reverse record found');
-  }
-
-  return addr;
-};
