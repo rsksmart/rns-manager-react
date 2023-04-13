@@ -56,5 +56,13 @@ export const reverse = async (address, nodeProvider = provider) => {
 
   const addrResolver = resolver(nodeProvider);
 
-  return addrResolver.addr(name);
+  const addr = await addrResolver.addr(name);
+
+  console.log('addr', addr);
+
+  if (addr === '0x0000000000000000000000000000000000000000') {
+    throw new Error('No reverse record found');
+  }
+
+  return addr;
 };

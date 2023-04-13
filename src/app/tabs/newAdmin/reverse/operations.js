@@ -17,17 +17,20 @@ import getProvider from '../../../helpers/getProvider';
  * Get reverse value when given an address
  * @param {address} address the address to lookup
  */
-export const getReverse = address => async (dispatch) => {
+export const getReverse = address => (dispatch) => {
+  (async () => {
   dispatch(requestResolver());
-
   try {
+    // debugger;
     const response = await reverse(address, getProvider());
 
     dispatch(receiveResolver(response));
     return response;
   } catch (error) {
+    // console.log('This error', error);
     return dispatch(errorResolver(error.message));
   }
+})();
 };
 
 /**
