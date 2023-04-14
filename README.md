@@ -126,8 +126,8 @@ docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
 ```
 
 ## Custom theme 
-<details>
-<summary>To change the default RIF theme edit the `theme.json` file containing the following properties:</summary>
+To change the default RIF theme edit the `theme.json` file containing the following properties:
+
 ```
 {
   "logo": "",
@@ -157,6 +157,7 @@ docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
   "hideHomeContent": false
 }
 ```
+
 ### Options:
 -`logo`: _String_ URL of the header logo.
 -`footerLogo`: _String_ URL of the footer logo.
@@ -178,4 +179,4 @@ docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
     -`homeSpacer`: _String_ URL of the separator image on the homepage, SVG recommended.
     -`footerArch`: _String_ URL of the footer separator image, SVG recommended.
 -`hideHomeContent`: _Boolean_ Hide informational content in the homepage.
-</details>
+
