@@ -124,3 +124,91 @@ Testnet:
 docker build -t rns-manager-testnet . -f testnet.Dockerfile
 docker run -d --name rns-manager-testnet -p 5001:5001 rns-manager-testnet
 ```
+
+## Custom theme 
+To change the default RIF theme edit the `theme.json` file containing the following properties:
+
+```
+{
+  "logo": "",
+  "footerLogo": "",
+  "font": {
+    "family": "",
+    "src": ""
+  },
+  "colors": {
+    "primary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    },
+    "secondary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    }
+  },
+  "images": {
+    "homeSpacer": "",
+    "footerArch": ""
+  },
+  "hideHomeContent": false
+}
+```
+
+## Custom theme 
+To change the default RIF theme edit the `theme.json` file containing the following properties:
+
+```
+{
+  "logo": "",
+  "footerLogo": "",
+  "font": {
+    "family": "",
+    "src": ""
+  },
+  "colors": {
+    "primary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    },
+    "secondary": {
+      "main": "",
+      "light": "",
+      "dark": "",
+      "transparent": ""
+    }
+  },
+  "images": {
+    "homeSpacer": "",
+    "footerArch": ""
+  },
+  "hideHomeContent": false
+}
+```
+
+### Options:
+- `logo`: _String_ URL of the header logo.
+- `footerLogo`: _String_ URL of the footer logo.
+- `font`:
+    - `family`: _String_ Name of the font
+    - `url`: _String_ URL of the font file, leave empty if the font family is a system font.
+- `colors`:
+    - `primary`: 
+        - `main`: _String_ Color for main areas, hero sections and buttons.
+        - `light`: _String_ Text colors, borders and alerts.
+        - `dark`: _String_ Text colors, borders and alerts on hover.
+        - `transparent`: _String_ On button focus events text color.
+    - `secondary`:
+        - `main`: _String_ Secondary buttons text color.
+        - `light`: _String_ Secondary buttons background color and borders.
+        - `dark`: _String_ Secondary buttons background color and borders on hover.
+        - `transparent`: _String_ On secondary button focus events text color.
+- `images`:
+    - `homeSpacer`: _String_ URL of the separator image on the homepage, SVG recommended.
+    - `footerArch`: _String_ URL of the footer separator image, SVG recommended.
+- `hideHomeContent`: _Boolean_ Hide informational content in the homepage.

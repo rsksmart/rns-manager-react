@@ -1,9 +1,10 @@
 import { hexToCSSFilter } from 'hex-to-css-filter';
 import themeConfig from '../../theme.json';
 
-import defaultLogo from '../../assets/img/logo.svg';
-import defaultSpacer from '../../assets/img/home/bottom-background.svg';
-import defaultFooterArch from '../../assets/img/secondary-arch.svg';
+import defaultLogo from '../../assets/img/rif-logo.svg';
+import defaultFooterLogo from '../../assets/img/logo-rb-footer.svg';
+import defaultSpacer from '../../assets/img/home/separator.svg';
+import defaultFooterArch from '../../assets/img/home/bottom-separator.svg';
 
 const defaultFont = "'Rubik', sans-serif";
 
@@ -15,6 +16,7 @@ function valueOrDefault(prop, defaultProp) {
 
 const theme = {
   logo: valueOrDefault(themeConfig.logo, defaultLogo),
+  footerLogo: valueOrDefault(themeConfig.footerLogo, defaultFooterLogo),
   images: {
     homeSpacer: valueOrDefault(themeConfig.images.homeSpacer, defaultSpacer),
     footerArch: valueOrDefault(themeConfig.images.footerArch, defaultFooterArch),
