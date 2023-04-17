@@ -80,11 +80,8 @@ export const identifyInterfaces = (domain) => async (dispatch) => {
       }
     }
 
-    dispatch(addr(resolverAddress, domain));
-
     if (resolutions.length) {
-      dispatch(actions.receiveResolve(resolutions));
-      return resolutions;
+      return Promise.all(resolutions).then(() => dispatch(actions.receiveResolve()));
     }
 
     return dispatch(actions.errorResolve("no resolution found"));
