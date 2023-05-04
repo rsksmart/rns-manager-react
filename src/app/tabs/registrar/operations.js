@@ -308,9 +308,11 @@ export const checkIfInProgress = domain => (dispatch) => {
   }
 
   const callback = () => {
+    const parsedOptions = JSON.parse(options);
+
     // step 2, registering domain:
-    if (parsed.registerHash) {
-      dispatch(receiveCommitRegistrar(parsed.registerHash, true));
+    if (parsedOptions.registerHash) {
+      dispatch(receiveCommitRegistrar(parsedOptions.registerHash, true));
       dispatch(receiveCanRevealCommit(true));
       return dispatch(checkIfAlreadyRegistered(domain));
     }
