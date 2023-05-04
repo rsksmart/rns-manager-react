@@ -308,8 +308,6 @@ export const checkIfInProgress = domain => (dispatch) => {
   }
 
   const callback = () => {
-    const parsed = JSON.parse(options);
-
     // step 2, registering domain:
     if (parsed.registerHash) {
       dispatch(receiveCommitRegistrar(parsed.registerHash, true));
