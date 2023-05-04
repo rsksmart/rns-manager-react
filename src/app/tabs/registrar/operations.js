@@ -74,6 +74,7 @@ export const getCost = (domain, duration) => async (dispatch) => {
         ...options,
         duration,
         rifCost: cost / (10 ** 18),
+        setAtGetCost: true
       }),
     );
   } catch (error) {
@@ -299,9 +300,10 @@ export const checkIfAlreadyRegistered = (domain, intId) => async (dispatch) => {
  */
 export const checkIfInProgress = domain => (dispatch) => {
   const options = localStorage.getItem(`${domain}-options`);
+  const parsed = JSON.parse(options);
 
   // no domain registration is in process
-  if (!options) {
+  if (!options || parsed.setAtGetCost) {
     return dispatch(optionsNotFound());
   }
 
