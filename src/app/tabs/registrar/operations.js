@@ -74,7 +74,7 @@ export const getCost = (domain, duration) => async (dispatch) => {
         ...options,
         duration,
         rifCost: cost / (10 ** 18),
-        setAtGetCost: true
+        setAtGetCost: true,
       }),
     );
   } catch (error) {
