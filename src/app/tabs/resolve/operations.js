@@ -1,18 +1,16 @@
-import Web3 from 'web3';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { isValidAddress } from 'rskjs-util';
-import RNS from '@rsksmart/rns';
 import { formatsByCoinType } from '@ensdomains/address-encoder';
+import { ethers } from 'ethers';
 import * as actions from './actions';
-import { rskNode } from '../../adapters/nodeAdapter';
 import { rnsAbi, abstractResolverAbi } from './abis.json';
 import { definitiveResolverAbi } from '../newAdmin/resolver/definitiveAbis.json';
 import { rns as rnsAddress } from '../../adapters/configAdapter';
 import resolverInterfaces from './resolverInterfaces.json';
-import { getOptions } from '../../adapters/RNSLibAdapter';
 import { ERROR_RESOLVE_NAME } from './types';
 import { ERROR_SAME_VALUE, EMPTY_ADDRESS } from '../newAdmin/types';
-import { getIndexById } from '../newAdmin/addresses/operations';
+import { rns, defaultSigner } from '../../rns-sdk';
+import { contentHash as CH } from '../../helpers/contentHash';
 
 /**
  * Resolves a domain name using the js library
@@ -21,33 +19,29 @@ import { getIndexById } from '../newAdmin/addresses/operations';
  * @param {function} errorFunction the function to dispatch if there is an error
  * @param {string} value the value to check the resolution against to see if they match
  */
-export const resolveDomain = (
-  domain, chainId = null, errorFunction = null, value = null,
-) => async (dispatch) => {
-  const web3 = new Web3(rskNode);
-  const rns = new RNS(web3, getOptions());
+export const resolveDomain = (domain, errorFunction = null, value = null) => async (dispatch) => {
+  const rnsSdk = rns();
 
   dispatch(actions.requestAddr());
 
-  return rns.addr(domain, chainId)
-    .then((response) => {
-      // if the value is the same as the resolved domain
-      if (value && (response.toLowerCase() === value.toLowerCase())) {
-        dispatch(errorFunction(ERROR_SAME_VALUE));
-        return false;
-      }
+  try {
+    const response = await rnsSdk.getResolver(domain);
 
-      dispatch(actions.receiveAddr(response));
-      return response.toLowerCase();
-    })
-    .catch((error) => {
-      dispatch(actions.errorResolve(error));
-      dispatch(errorFunction(ERROR_RESOLVE_NAME));
+    if (value && response.toLowerCase() === value.toLowerCase()) {
+      dispatch(errorFunction(ERROR_SAME_VALUE));
       return false;
-    });
+    }
+
+    dispatch(actions.receiveAddr(response));
+    return response.toLowerCase();
+  } catch (error) {
+    dispatch(actions.errorResolve(error));
+    dispatch(errorFunction(ERROR_RESOLVE_NAME));
+    return false;
+  }
 };
 
-export const identifyInterfaces = domain => (dispatch) => {
+export const identifyInterfaces = domain => async (dispatch) => {
   if (!domain) {
     return dispatch(actions.receiveResolve(''));
   }
@@ -56,140 +50,177 @@ export const identifyInterfaces = domain => (dispatch) => {
 
   const hash = namehash(domain);
 
-  const web3 = new Web3(rskNode);
+  const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, defaultSigner);
 
-  const rns = new web3.eth.Contract(rnsAbi, rnsAddress);
+  try {
+    const resolverAddress = await rnsContract.resolver(hash);
+    if (resolverAddress === '0x0000000000000000000000000000000000000000') {
+      return dispatch(actions.errorResolve('this name is not registered'));
+    }
+    const abstractResolver = new ethers.Contract(
+      resolverAddress,
+      abstractResolverAbi,
+      defaultSigner,
+    );
+    dispatch(actions.receiveResolverAddress(resolverAddress));
 
-  return rns.methods.resolver(hash).call()
-    .then((resolverAddress) => {
-      if (resolverAddress === '0x0000000000000000000000000000000000000000') {
-        return dispatch(actions.errorResolve('this name is not registered'));
+    const resolutions = [];
+
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < resolverInterfaces.length; i += 1) {
+      const resolverInterface = resolverInterfaces[i];
+      const supportsInterface = await abstractResolver.supportsInterface(
+        resolverInterface.signature,
+      );
+      if (supportsInterface) {
+        resolutions.push(resolverInterface);
+        dispatch(actions.receiveSupportedInterface(resolverInterface.name));
       }
+    }
 
-      dispatch(actions.receiveResolverAddress(resolverAddress));
+    if (resolutions.length) {
+      return Promise.all(resolutions).then(() => dispatch(actions.receiveResolve()));
+    }
 
-      const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
-
-      const resolutions = [];
-
-      for (let i = 0; i < resolverInterfaces.length; i += 1) {
-        const resolverInterface = resolverInterfaces[i];
-        const resolution = abstractResolver.methods
-          .supportsInterface(resolverInterface.signature).call().then((supportsInterface) => {
-            if (supportsInterface) {
-              return dispatch(actions.receiveSupportedInterface(resolverInterface.name));
-            }
-
-            return null;
-          });
-
-        resolutions.push(resolution);
-      }
-
-      if (resolutions.length) {
-        return Promise.all(resolutions).then(() => dispatch(actions.receiveResolve()));
-      }
-
-      return dispatch(actions.errorResolve('no resolution found'));
-    })
-    .catch(error => dispatch(actions.errorResolve(error.message)));
+    return dispatch(actions.errorResolve('no resolution found'));
+  } catch (error) {
+    return dispatch(actions.errorResolve(error.message));
+  }
 };
 
-export const addr = (resolverAddress, name) => (dispatch) => {
+export const addr = (resolverAddress, name) => async (dispatch) => {
   dispatch(actions.requestAddr());
 
-  const web3 = new Web3(rskNode);
-
-  const addrResolver = new web3.eth.Contract(resolverInterfaces[0].abi, resolverAddress);
+  const addrResolver = new ethers.Contract(
+    resolverAddress,
+    resolverInterfaces[0].abi,
+    defaultSigner,
+  );
 
   const hash = namehash(name);
 
-  return addrResolver.methods.addr(hash).call().then((addrResolution) => {
-    dispatch(actions.receiveAddr(addrResolution));
-  }).catch(error => dispatch(actions.errorAddr(error.message)));
+  try {
+    const addrResolution = await addrResolver.addr(hash);
+
+    return dispatch(actions.receiveAddr(addrResolution));
+  } catch (error) {
+    return dispatch(actions.errorAddr(error.message));
+  }
 };
 
-export const chainAddr = (resolverAddress, name, chainId) => (dispatch) => {
+export const chainAddr = (resolverAddress, name, chainId) => async (dispatch) => {
   dispatch(actions.requestChainAddr());
 
-  const web3 = new Web3(rskNode);
-
-  const addrResolver = new web3.eth.Contract(resolverInterfaces[1].abi, resolverAddress);
+  const addrResolver = new ethers.Contract(
+    resolverAddress,
+    resolverInterfaces[1].abi,
+    defaultSigner,
+  );
 
   const hash = namehash(name);
 
-  return addrResolver.methods.chainAddr(hash, chainId).call().then((chainAddrResolution) => {
-    dispatch(actions.receiveChainAddr(chainAddrResolution));
-  }).catch(error => dispatch(actions.errorChainAddr(error.message)));
+  try {
+    const chainAddrResolution = await addrResolver.chainAddr(hash, chainId);
+
+    return dispatch(actions.receiveChainAddr(chainAddrResolution));
+  } catch (error) {
+    return dispatch(actions.errorChainAddr(error.message));
+  }
 };
 
-export const multicoin = (resolverAddress, domain, chainId) => (dispatch) => {
+export const multicoin = (resolverAddress, domain, chainId) => async (dispatch) => {
   dispatch(actions.requestChainAddr());
 
   const hash = namehash(domain);
-  const web3 = new Web3(rskNode);
-  const resolver = new web3.eth.Contract(definitiveResolverAbi, resolverAddress);
-  const chainIndex = getIndexById(chainId);
 
-  return resolver.methods.addr(hash, chainIndex).call()
-    .then((resolution) => {
-      if (!resolution || resolution === EMPTY_ADDRESS) {
-        return dispatch(actions.receiveChainAddr(''));
-      }
+  const resolver = new ethers.Contract(
+    resolverAddress,
+    definitiveResolverAbi,
+    defaultSigner,
+  );
 
-      // eslint-disable-next-line new-cap
-      const dataBuffer = new Buffer.from(resolution.replace('0x', ''), 'hex');
-      const result = formatsByCoinType[chainIndex].encoder(dataBuffer);
+  try {
+    const resolution = await resolver.addr(hash, chainId);
 
-      if (chainId === '0x80000089') {
-        dispatch(actions.receiveAddr(result));
-      }
-      return dispatch(actions.receiveChainAddr(result));
-    })
-    .catch((error) => {
-      dispatch(actions.errorChainAddr(error.message));
-    });
+    if (!resolution || resolution === EMPTY_ADDRESS) {
+      return dispatch(actions.receiveChainAddr(''));
+    }
+
+    // eslint-disable-next-line new-cap
+    const dataBuffer = new Buffer.from(resolution.replace('0x', ''), 'hex');
+    const result = formatsByCoinType[chainId].encoder(dataBuffer);
+
+    if (chainId === '0x80000089') {
+      dispatch(actions.receiveAddr(result));
+    }
+
+    return dispatch(actions.receiveChainAddr(result));
+  } catch (error) {
+    return dispatch(actions.errorChainAddr(error.message));
+  }
 };
 
-export const name = (resolverAddress, address) => (dispatch) => {
+export const name = (resolverAddress, address) => async (dispatch) => {
   dispatch(actions.requestName());
-  const web3 = new Web3(rskNode);
 
-  const nameResolver = new web3.eth.Contract(resolverInterfaces[2].abi, resolverAddress);
+  const nameResolver = new ethers.Contract(
+    resolverAddress,
+    resolverInterfaces[2].abi,
+    defaultSigner,
+  );
 
-  const value = isValidAddress(address) ? `${address.replace('0x', '')}.addr.reverse` : address;
+  const value = isValidAddress(address)
+    ? `${address.replace('0x', '')}.addr.reverse`
+    : address;
   const hash = namehash(value);
 
-  return nameResolver.methods.name(hash).call().then((nameResolution) => {
-    dispatch(actions.receiveName(nameResolution));
-  }).catch(error => dispatch(actions.errorName(error.message)));
+  try {
+    const nameResolution = await nameResolver.name(hash);
+
+    return dispatch(actions.receiveName(nameResolution));
+  } catch (error) {
+    return dispatch(actions.errorName(error.message));
+  }
 };
 
-export const contentHash = domain => (dispatch) => {
+export const contentHash = domain => async (dispatch) => {
   dispatch(actions.requestContent('CONTENT_HASH'));
-  const web3 = new Web3(rskNode);
-  const rns = new RNS(web3, getOptions());
 
-  rns.contenthash(domain)
-    .then(result => dispatch(actions.receiveContent('CONTENT_HASH', result)))
-    .catch(error => dispatch(actions.errorContent('CONTENT_HASH', error.message)));
+  try {
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, defaultSigner);
+    const hash = namehash(domain);
+    const resolverAddress = await rnsContract.resolver(hash);
+    const result = await CH(resolverAddress, domain, definitiveResolverAbi);
+    return dispatch(actions.receiveContent('CONTENT_HASH', result));
+  } catch (error) {
+    return dispatch(actions.errorContent('CONTENT_HASH', error.message));
+  }
 };
 
 export const searchAddressOrDomain = input => (dispatch) => {
-  const value = isValidAddress(input) ? `${input.replace('0x', '')}.addr.reverse` : input;
+  const value = isValidAddress(input)
+    ? `${input.replace('0x', '')}.addr.reverse`
+    : input;
   return dispatch(identifyInterfaces(value));
 };
 
-export const getAddress = (
-  resolverAddress, supportedInterfaces, domain, chainId,
-) => (dispatch) => {
+export const getAddress = (resolverAddress, supportedInterfaces, domain, chainId) => (dispatch) => {
   supportedInterfaces.forEach((interfaceId) => {
     switch (interfaceId) {
-      case 'multicoin': return dispatch(multicoin(resolverAddress, domain, (chainId || '0x80000089')));
-      case 'chainAddr': return dispatch(chainAddr(resolverAddress, domain, (chainId || '0x80000089')));
-      case 'addr': return dispatch(addr(resolverAddress, domain));
-      case 'contenthash': return dispatch(contentHash(domain));
-      default: return false;
+      case 'multicoin':
+        return dispatch(
+          multicoin(resolverAddress, domain, chainId || '0x80000089'),
+        );
+      case 'chainAddr':
+        return dispatch(
+          chainAddr(resolverAddress, domain, chainId || '0x80000089'),
+        );
+      case 'addr':
+        return dispatch(addr(resolverAddress, domain));
+      case 'contenthash':
+        return dispatch(contentHash(domain));
+      default:
+        return false;
     }
   });
 };

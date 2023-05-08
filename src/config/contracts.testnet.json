@@ -1,30 +1,24 @@
 {
-  "rns": "0x03e3177307AF9D486B96B2112DFd04F97B05c264",
-  "registrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
-  "reverseRegistrar": "0xa1FB129B5D4D385BDd512e617d7E1845A5a7e685",
-  "publicResolver": "0xcbE6578d5e46DcAA2746E91087d690f3013F8Db9",
-  "nameResolver": "0x3390372dbDC1fB41182EeF758967A541ad2E7243",
-  "multiChainResolver": "0x404308f2a2eec2cdc3cb53d7d295af11c903414e",
+  "rns": "0x36a1b9036b6d821182eed556811e38fecbd3fc58",
+  "registrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
+  "reverseRegistrar": "0xd447ab4cd54dc3adb8f093f6d419de915f64ea07",
+  "publicResolver": "0x3dce1c992de74e74b3becb8ffb5ad725fc764bbd",
+  "nameResolver": "0x96553532bc8712b09bbbd9754309c084b6d53b17",
+  "multiChainResolver": "0x9fee8dadf7682fc7d0b381a98078c6666156018d",
+  "definitiveResolver": "0x962b3cf4015f96e0fbb9d49e52dc923e230e0433",
+  "stringResolver": "0x0000000000000000000000000000000000000000",
   "rif": "0x19f64674d8a5b4e652319f5e239efd3bc969a1fe",
-  "fifsRegistrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
-  "fifsAddrRegistrar": "0x0ed7F8979A1Bd858b8A712763FD547D56a5e8A36",
-  "rskOwner": "0x83E7Aa0FB3A26bCD1eb57479bFE65c123eeA74b4",
-  "renewer": "0x524823Ccf8757845524F74b12E36b09A86170796",
-  "partnerManager": "0xA1723F513A69cdA983a83eE2d7122b496a127fc1",
-  "feeManager": "0x49d0E15cdC9BF83fa92b8044368139dac1cD5676",
-  "registrarAccessControl": "0x61D25Ea8EC2D33F095a3D91859a071Ff39e13aA2",
+  "fifsRegistrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
+  "fifsAddrRegistrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
+  "rskOwner": "0x00f0ba394ca375ab39c3b9ada2194e82c796dd81",
+  "renewer": "0x0911e3a3727cc6b2e62b9c073a68e0edb9df770d",
+  "partnerManager": "0x015799ae6e5b287dc6b91a4f8f89648ee6017af4",
+  "feeManager": "0x5a3afd79b0aad6bdd171426aea62574294b44cf7",
+  "registrarAccessControl": "0x806be3326052c305386f661793f786ef3e876d3f",
   "partners": {
     "default": {
-      "account": "0xfd343333d318a8329406d5f2D51628DaD5a3f032",
-      "config": "0xF7d1AfBb7334bbE1a9bc0caC7be412F86368442D"
-    },
-    "buenbit": {
-      "account": "0xD425a862f6Cb2C2f3931f832B61B6D01980EC32c",
-      "config": "0xe1d35C889d9D781570915B0adD159953fe44f5F3"
-    },
-    "cheta": {
-      "account": "0xF25c01e4694f75666D721517eFBae1955a38b15b",
-      "config": "0x2A175E48C36DCCAc1F0818FA83dbA161b4841731"
+      "account": "0xfd343333d318a8329406d5f2d51628dad5a3f032",
+      "config": "0xc694ef83977be3a81b553b0fc5f505b76818bcee"
     }
   }
 }

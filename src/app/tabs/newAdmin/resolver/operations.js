@@ -1,10 +1,8 @@
-import Web3 from 'web3';
-import RNS from '@rsksmart/rns';
 import { hash as namehash } from '@ensdomains/eth-ens-namehash';
 import { deflateSync } from 'react-zlib-js';
 import cbor from 'cbor';
+import { ethers } from 'ethers';
 import { validateBytes32 } from '../../../validations';
-
 import {
   requestResolver, receiveResolver, requestSetResolver, receiveSetResolver, errorSetResolver,
   waitingSetResolver, requestContent, receiveContent, errorContent, requestSetContent,
@@ -19,11 +17,8 @@ import {
   publicResolver as publicResolverAddress,
   stringResolver as stringResolverAddress,
   definitiveResolver as definitiveResolverAddress,
+  rns as rnsAddress,
 } from '../../../adapters/configAdapter';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-
-import transactionListener from '../../../helpers/transactionListener';
-import { getOptions } from '../../../adapters/RNSLibAdapter';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 import {
@@ -33,10 +28,15 @@ import {
 } from './types';
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
+import { rnsAbi } from '../../resolve/abis.json';
 import { definitiveResolverAbi } from './definitiveAbis.json';
 import { interfaces } from './supportedInterfaces.json';
 import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
+import getSigner from '../../../helpers/getSigner';
+import { rns } from '../../../rns-sdk';
+import { contentHash as CH, setContentHash as setCH } from '../../../helpers/contentHash';
+import getProvider from '../../../helpers/getProvider';
 
 /**
  * Returns user friendly name based on address
@@ -57,20 +57,24 @@ export const getResolverNameByAddress = (resolverAddr) => {
   }
 };
 
-export const getContentHash = domain => (dispatch) => {
+export const getContentHash = domain => async (dispatch) => {
   dispatch(requestContent(CONTENT_HASH));
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
 
-  rns.contenthash(domain)
-    .then((result) => {
-      dispatch(receiveContent(
+  try {
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, getProvider());
+    const hash = namehash(domain);
+    const resolverAddress = await rnsContract.resolver(hash);
+    const result = await CH(resolverAddress, domain, definitiveResolverAbi);
+    return dispatch(
+      receiveContent(
         CONTENT_HASH,
         `${result.protocolType}://${result.decoded}`,
         false,
-      ));
-    })
-    .catch(() => dispatch(receiveContent(CONTENT_HASH, null, true)));
+      ),
+    );
+  } catch (error) {
+    return dispatch(receiveContent(CONTENT_HASH, null, true));
+  }
 };
 
 /**
@@ -79,26 +83,25 @@ export const getContentHash = domain => (dispatch) => {
  * @param {string} domain
  * @param {const} type either CONTENT_BYTES or CONTENT_HASH
  */
-export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
+export const getContentBytes = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestContent(CONTENT_BYTES));
-  const web3 = new Web3(window.rLogin);
 
-  const resolver = new web3.eth.Contract(
-    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
-  );
+  const resolver = new ethers.Contract(resolverAddress, resolverAbi, getProvider());
 
   const hash = namehash(domain);
-  const method = resolver.methods.content(hash);
 
-  method.call()
-    .then(value => dispatch(
+  try {
+    const value = await resolver.content(hash);
+    return dispatch(
       receiveContent(
         CONTENT_BYTES,
         (value === CONTENT_BYTES_BLANK || !value) ? '' : value,
         (value === CONTENT_BYTES_BLANK || !value),
       ),
-    ))
-    .catch(error => dispatch(errorContent(CONTENT_BYTES, error)));
+    );
+  } catch (error) {
+    return dispatch(errorContent(CONTENT_BYTES, error));
+  }
 };
 
 /**
@@ -109,17 +112,14 @@ export const getContentBytes = (resolverAddress, domain) => (dispatch) => {
 const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestContent(CONTRACT_ABI));
   const hash = namehash(domain);
-  const web3 = new Web3(window.rLogin);
 
-  const resolver = new web3.eth.Contract(
-    definitiveResolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
-  );
+  const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, getProvider());
 
   const promiseArray = [];
   [1, 2, 4, 8].forEach(async (id) => {
     promiseArray.push(
       new Promise((resolve) => {
-        resolver.methods.ABI(hash, id).call()
+        resolver.ABI(hash, id)
           .then(result => resolve({
             id,
             result: (result[1] !== '0x00' && result[1]) ? result[1] : null,
@@ -140,17 +140,19 @@ const getContractAbi = (resolverAddress, domain) => async (dispatch) => {
  * @param {address} resolverAddress
  * @param {string} domain
  */
-export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
+export const supportedInterfaces = (resolverAddress, domain) => async (dispatch) => {
   dispatch(requestSupportedInterfaces());
-  const web3 = new Web3(window.rLogin);
-  const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
+  // const web3 = new Web3(window.rLogin);
+  // const abstractResolver = new web3.eth.Contract(abstractResolverAbi, resolverAddress);
+  const signer = await getSigner();
+  const abstractResolver = new ethers.Contract(resolverAddress, abstractResolverAbi, signer);
 
   // loop throgh supported interfaces and if found, call 'get' function.
   // only calls MULTICHAIN on the resolver page for the migration component
   // multicoin data is not needed on this page.
   interfaces.forEach((i) => {
-    abstractResolver.methods
-      .supportsInterface(i.interfaceId).call()
+    abstractResolver
+      .supportsInterface(i.interfaceId)
       .then((supportsInterface) => {
         if (supportsInterface) {
           switch (i.name) {
@@ -181,17 +183,18 @@ export const supportedInterfaces = (resolverAddress, domain) => (dispatch) => {
  */
 export const getDomainResolver = domain => async (dispatch) => {
   dispatch(requestResolver());
-  const hash = namehash(domain);
 
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
+  const signer = await getSigner();
 
-  await rns.compose();
-  await rns.contracts.registry.methods.resolver(hash)
-    .call((error, result) => {
-      dispatch(receiveResolver(result, getResolverNameByAddress(result)));
-      dispatch(supportedInterfaces(result, domain));
-    });
+  const rnsSdk = rns(signer);
+
+  try {
+    const result = await rnsSdk.getResolver(domain);
+    dispatch(receiveResolver(result, getResolverNameByAddress(result)));
+    return dispatch(supportedInterfaces(result, domain));
+  } catch (error) {
+    return error;
+  }
 };
 
 /**
@@ -203,42 +206,21 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
   dispatch(requestSetResolver());
   const lowerResolverAddress = resolverAddress.toLowerCase();
 
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
-  const hash = namehash(domain);
+  const signer = await getSigner();
+  const rnsSdk = rns(signer);
 
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-
-  await rns.compose();
-  await rns.contracts.registry.methods.setResolver(hash, lowerResolverAddress)
-    .send({ from: currentAddress }, (error, result) => {
-      dispatch(waitingSetResolver());
-      if (error) {
-        return dispatch(errorSetResolver(error.message));
-      }
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        const resolverName = getResolverNameByAddress(listenerParams.lowerResolverAddress);
-        listenerDispatch(receiveSetResolver(
-          listenerParams.resultTx, listenerParams.lowerResolverAddress, resolverName,
-        ));
-        listenerDispatch(getAllChainAddresses(listenerParams.domain, resolverName));
-        listenerDispatch(supportedInterfaces(
-          listenerParams.lowerResolverAddress, listenerParams.domain,
-        ));
-        sendBrowserNotification(listenerParams.domain, 'resolver_set_success');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { lowerResolverAddress, domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetResolver(listenerParams.errorReason),
-        ),
-      ));
-    });
+  try {
+    const resultTx = await rnsSdk.setResolver(domain, lowerResolverAddress);
+    resultTx.wait();
+    dispatch(waitingSetResolver());
+    const resolverName = getResolverNameByAddress(lowerResolverAddress);
+    dispatch(receiveSetResolver(resultTx.hash, lowerResolverAddress, resolverName));
+    dispatch(getAllChainAddresses(domain, resolverName));
+    dispatch(supportedInterfaces(lowerResolverAddress, domain));
+    return sendBrowserNotification(domain, 'resolver_set_success');
+  } catch (error) {
+    return dispatch(errorSetResolver(error.message));
+  }
 };
 
 /**
@@ -248,28 +230,16 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
  */
 export const setContentHash = (domain, input) => async (dispatch) => {
   dispatch(requestSetContent(CONTENT_HASH));
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-
-  rns.setContenthash(domain, input)
-    .then((result) => {
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetContent(
-          CONTENT_HASH, listenerParams.resultTx, listenerParams.input, listenerParams.input === '',
-        ));
-        sendBrowserNotification(listenerParams.domain, 'record_set');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { input, domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetContent(CONTENT_HASH, listenerParams.errorReason),
-        ),
-      ));
-    })
-    .catch(error => dispatch(errorSetContent(CONTENT_HASH, error.message)));
+  try {
+    const signer = await getSigner();
+    const rnsContract = new ethers.Contract(rnsAddress, rnsAbi, signer);
+    const resolverAddress = await rnsContract.resolver(namehash(domain));
+    const result = await setCH(domain, input, resolverAddress, definitiveResolverAbi);
+    dispatch(receiveSetContent(CONTENT_HASH, result, input, input === ''));
+    return sendBrowserNotification(domain, 'record_set');
+  } catch (error) {
+    return dispatch(errorSetContent(CONTENT_HASH, error.message));
+  }
 };
 
 
@@ -289,41 +259,22 @@ const setContentBytes = (resolverAddress, domain, input) => async (dispatch) => 
   if (validateBytes32(input)) {
     return dispatch(errorSetContent(CONTENT_BYTES, validateBytes32(value)));
   }
-  const web3 = new Web3(window.rLogin);
+  const signer = await getSigner();
 
-  const resolver = new web3.eth.Contract(
-    resolverAbi, resolverAddress, { gasPrice: defaultGasPrice },
-  );
+  const resolver = new ethers.Contract(resolverAddress, resolverAbi, signer);
 
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
-  const method = resolver.methods.setContent(namehash(domain), value);
-
-  return method.send(
-    { from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetContent(CONTENT_BYTES, error.message));
-      }
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetContent(
-          CONTENT_BYTES,
-          listenerParams.resultTx,
-          (listenerParams.value === CONTENT_BYTES_BLANK) ? '' : listenerParams.value,
-        ));
-        sendBrowserNotification(listenerParams.domain, 'record_set');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { value, domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetContent(CONTENT_BYTES, listenerParams.errorReason),
-        ),
-      ));
-    },
-  );
+  try {
+    const result = await resolver.setContent(namehash(domain), value);
+    result.wait();
+    dispatch(receiveSetContent(
+      CONTENT_BYTES,
+      result,
+      (value === CONTENT_BYTES_BLANK) ? '' : value,
+    ));
+    return sendBrowserNotification(domain, 'record_set');
+  } catch (error) {
+    return dispatch(errorSetContent(CONTENT_BYTES, error.message));
+  }
 };
 
 const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
@@ -360,45 +311,47 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   const multiCallMethods = [];
-  const web3 = new Web3(window.rLogin);
+  const signer = await getSigner();
 
   // type 1: uncompressed Json
   if (value.encodings.json && parsedJson !== '') {
-    response.push({ id: 1, result: web3.utils.toHex(parsedJson) });
+    response.push({ id: 1, result: ethers.utils.hexlify(ethers.utils.toUtf8Bytes(parsedJson)) });
   } else if (value.isEditing && !value.encodings.json) {
     response.push({ id: 1, result: 0 });
   }
 
   // type 2: zlib compression
   if (value.encodings.zlib && parsedJson !== '') {
-    response.push({ id: 2, result: web3.utils.toHex(deflateSync(Buffer.from(parsedJson))) });
+    response.push({ id: 2, result: ethers.utils.hexlify(deflateSync(Buffer.from(parsedJson))) });
   } else if (value.isEditing && !value.encodings.zlib) {
     response.push({ id: 2, result: 0 });
   }
 
   // type 4: cbor compression
   if (value.encodings.cbor && parsedJson !== '') {
-    response.push({ id: 4, result: web3.utils.toHex(cbor.encode(parsedJson)) });
+    response.push({ id: 4, result: ethers.utils.hexlify(cbor.encode(parsedJson)) });
   } else if (value.isEditing && !value.encodings.cbor) {
     response.push({ id: 4, result: 0 });
   }
 
   // type 8: the URI straight
   if (value.encodings.uri) {
-    response.push({ id: 8, result: web3.utils.toHex(value.uri) });
+    response.push({ id: 8, result: ethers.utils.hexlify(value.uri) });
   } else if (value.isEditing && !value.encodings.uri) {
     response.push({ id: 8, result: 0 });
   }
 
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  const definitiveResolver = new ethers.Contract(
+    definitiveResolverAddress,
+    definitiveResolverAbi,
+    signer,
   );
   // prepare multicall methods array
   response.forEach((call) => {
+    const iface = new ethers.utils.Interface(definitiveResolverAbi);
+
     multiCallMethods.push(
-      definitiveResolver.methods['setABI(bytes32,uint256,bytes)'](
-        namehash(domain), call.id, call.result,
-      ).encodeABI(),
+      iface.encodeFunctionData('setABI', [namehash(domain), call.id, call.result]),
     );
   });
 
@@ -407,31 +360,18 @@ const setContractAbi = (resolverAddress, domain, value) => async (dispatch) => {
   }
 
   // make the multicall
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
-  return definitiveResolver.methods.multicall(multiCallMethods)
-    .send({ from: currentAddress }, (e, result) => {
-      if (e) {
-        return dispatch(errorSetContent(CONTRACT_ABI, e.message));
-      }
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        listenerDispatch(receiveSetContent(
-          CONTRACT_ABI, listenerParams.result, listenerParams.response,
-          (listenerParams.value.inputMethod === 'delete'),
-        ));
-        sendBrowserNotification(listenerParams.domain, 'contract_abi_set');
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { response, value, domain },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetContent(CONTRACT_ABI, listenerParams.errorReason),
-        ),
-      ));
-    });
+  try {
+    const result = await definitiveResolver.multicall(multiCallMethods);
+    result.wait();
+    dispatch(receiveSetContent(
+      CONTRACT_ABI,
+      result,
+      (value.inputMethod === 'delete'),
+    ));
+    return sendBrowserNotification(domain, 'contract_abi_set');
+  } catch (error) {
+    return dispatch(errorSetContent(CONTRACT_ABI, error.message));
+  }
 };
 
 /**
@@ -461,16 +401,15 @@ export const setDomainResolverAndMigrate = (
   domain, chainAddresses, contentBytes, understandWarning,
 ) => async (dispatch) => {
   dispatch(requestMigrateAddresses());
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
   const hash = namehash(domain);
-
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
-
-  const definitiveResolver = new web3.eth.Contract(
-    definitiveResolverAbi, definitiveResolverAddress, { gasPrice: defaultGasPrice },
+  const signer = await getSigner();
+  const rnsSdk = rns(signer);
+  const definitiveResolver = new ethers.Contract(
+    definitiveResolverAddress,
+    definitiveResolverAbi,
+    signer,
   );
+
 
   // loop through addresses and skip empties, then get decoded version of the address,
   // if valid, create the contract method and add it to the multiCallMethods array.
@@ -494,7 +433,7 @@ export const setDomainResolverAndMigrate = (
 
     // valid address to be added to the multiCallMethods array:
     return multiCallMethods.push(
-      definitiveResolver.methods['setAddr(bytes32,uint256,bytes)'](
+      definitiveResolver['setAddr(bytes32,uint256,bytes)'](
         hash, getIndexById(item[1].chainId), decodedAddress,
       ).encodeABI(),
     );
@@ -503,7 +442,7 @@ export const setDomainResolverAndMigrate = (
   // add contentBytes if not null or empty
   if (contentBytes && contentBytes.value !== CONTENT_BYTES_BLANK && contentBytes.value !== '') {
     multiCallMethods.push(
-      definitiveResolver.methods['setContenthash(bytes32,bytes)'](
+      definitiveResolver['setContenthash(bytes32,bytes)'](
         hash, contentBytes.value,
       ).encodeABI(),
     );
@@ -514,27 +453,27 @@ export const setDomainResolverAndMigrate = (
     return dispatch(errorMigrateWithAddresses(''));
   }
 
-  await rns.compose();
   const migratePromise = [
     new Promise((resolve, reject) => {
-      rns.contracts.registry.methods.setResolver(hash, definitiveResolverAddress)
-        .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(
-            result,
-            params => () => resolve(params.resultTx),
-            {},
-            params => () => reject(params.errorReason),
-          ))));
+      rnsSdk.setResolver(domain, definitiveResolverAddress)
+        .then((result) => {
+          result.wait();
+          resolve(result.transactionHash);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     }),
+
     new Promise((resolve, reject) => {
-      definitiveResolver.methods.multicall(multiCallMethods)
-        .send({ from: currentAddress }, (error, result) => (error
-          ? reject() : dispatch(transactionListener(
-            result,
-            params => () => resolve(params.resultTx),
-            {},
-            params => () => reject(params.errorReason),
-          ))));
+      definitiveResolver.multicall(multiCallMethods)
+        .then((result) => {
+          result.wait();
+          resolve(result.transactionHash);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     }),
   ];
 

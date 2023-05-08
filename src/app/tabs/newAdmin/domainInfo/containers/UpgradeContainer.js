@@ -10,14 +10,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: (domain, sender) => dispatch(migrateToFifsRegistrar(domain, sender)),
+  handleClick: domain => dispatch(migrateToFifsRegistrar(domain)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  handleClick: () => dispatchProps.handleClick(stateProps.domain, stateProps.address),
+  handleClick: () => dispatchProps.handleClick(stateProps.domain),
 });
 
 export default connect(

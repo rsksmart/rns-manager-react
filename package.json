@@ -9,13 +9,14 @@
     "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rlogin": "^1.4.1",
-    "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-sdk": "^1.0.0-beta.8",
     "@rsksmart/rns-suite": "^1.1.0",
     "@walletconnect/web3-provider": "^1.6.5",
     "bootstrap": "^4.3.1",
+    "bs58": "^5.0.0",
     "cbor": "^5.0.2",
     "connected-react-router": "^6.3.1",
+    "content-hash": "^2.5.2",
     "env-cmd": "^10.0.1",
     "ethers": "5.7.2",
     "hex-to-css-filter": "^5.4.0",
@@ -41,7 +42,6 @@
     "rimble-ui": "^0.14.0",
     "rskjs-util": "^1.0.3",
     "styled-components": "^5.0.1",
-    "web3": "1.2.11",
     "web3-utils": "^1.2.4"
   },
   "scripts": {

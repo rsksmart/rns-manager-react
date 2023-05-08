@@ -15,8 +15,8 @@ import {
   rns as registryAddress,
 } from './adapters/configAdapter';
 
-const provider = new ethers.providers.JsonRpcProvider(rskNode);
-const defaultSigner = new ethers.VoidSigner('', provider);
+export const provider = new ethers.providers.JsonRpcProvider(rskNode);
+export const defaultSigner = new ethers.VoidSigner('', provider);
 
 export const getCurrentPartner = () => {
   const searchParams = new URLSearchParams(document.location.search);

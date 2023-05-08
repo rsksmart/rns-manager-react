@@ -314,7 +314,7 @@ AddressInputComponent.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   handleDelete: propTypes.func,
   value: propTypes.string.isRequired,
-  validationChainId: propTypes.string,
+  validationChainId: propTypes.number,
   strings: propTypes.shape(),
   suggestions: propTypes.arrayOf(propTypes.shape({
     name: propTypes.string,

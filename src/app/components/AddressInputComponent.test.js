@@ -91,11 +91,11 @@ describe('AddressInputComponent', () => {
     const localProps = {
       ...initProps,
       label: 'rsk',
-      labelIcon: '/assets/icons/icon_rsk.png',
+      labelIcon: '/assets/icons/icon_rsk.svg',
     };
     const component = shallow(<AddressInputComponent {...localProps} />);
     const image = component.find('div.label').find('img');
-    expect(image.props().src).toEqual('/assets/icons/icon_rsk.png');
+    expect(image.props().src).toEqual('/assets/icons/icon_rsk.svg');
     expect(image.props().alt).toEqual('rsk');
   });
 

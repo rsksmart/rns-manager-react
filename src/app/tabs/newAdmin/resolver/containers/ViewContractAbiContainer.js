@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-import Web3 from 'web3';
 import cbor from 'cbor';
 import { inflateSync } from 'react-zlib-js';
-
+import { utils } from 'ethers';
 import { ViewContractAbiComponent } from '../components';
 import { setContent } from '../operations';
 import { closeSetMessage } from '../actions';
@@ -17,7 +16,7 @@ const getPrettyJSON = (value) => {
   const uncompressed = value.filter(i => i.id === 1)[0];
   if (uncompressed && uncompressed.result) {
     try {
-      return JSON.stringify(JSON.parse(Web3.utils.toAscii(uncompressed.result)), null, 2);
+      return JSON.stringify(JSON.parse(utils.toUtf8String(uncompressed.result)), null, 2);
     } catch (e) {
       return '';
     }
@@ -28,7 +27,7 @@ const getPrettyJSON = (value) => {
   if (zlibValue && zlibValue.result) {
     try {
       const uncompressedZlib = inflateSync(Buffer.from(zlibValue.result.slice(2), 'hex'));
-      const currentAbi = JSON.parse(Web3.utils.toAscii(`0x${uncompressedZlib.toString('hex')}`));
+      const currentAbi = JSON.parse(utils.toUtf8String(`0x${uncompressedZlib.toString('hex')}`));
       return JSON.stringify(currentAbi, null, 2);
     } catch (e) {
       return '';

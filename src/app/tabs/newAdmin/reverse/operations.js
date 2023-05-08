@@ -1,41 +1,43 @@
-import Web3 from 'web3';
-import RNS from '@rsksmart/rns';
-
-import { getOptions } from '../../../adapters/RNSLibAdapter';
-
+import { ethers } from 'ethers';
+import { namehash } from 'ethers/lib/utils';
 import {
   reverseRegistrar as reverseRegistryAddress,
+  nameResolver as nameResolverAddress,
 } from '../../../adapters/configAdapter';
-import { gasPrice as defaultGasPrice } from '../../../adapters/gasPriceAdapter';
-import { reverseAbi } from './abis.json';
-
-import transactionListener from '../../../helpers/transactionListener';
+import { reverseAbi, nameResolverAbi } from './abis.json';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 
 import {
   requestResolver, receiveResolver, requestSetReverseResolver, waitingSetReverseResolver,
   receieveSetReverseResolver, errorSetReverseResolver, errorResolver,
 } from './actions';
+import getSigner from '../../../helpers/getSigner';
+import getProvider from '../../../helpers/getProvider';
 
 /**
  * Get reverse value when given an address
  * @param {address} address the address to lookup
  */
 export const getReverse = address => (dispatch) => {
-  dispatch(requestResolver());
+  (async () => {
+    dispatch(requestResolver());
+    try {
+      const convertedAddress = address.substring(2).toLowerCase(); // remove '0x'
 
-  const web3 = new Web3(window.rLogin);
-  const rns = new RNS(web3, getOptions());
+      const name = namehash(`${convertedAddress}.addr.reverse`);
 
-  rns.reverse(address.toLowerCase())
-    .then((response) => {
+      const resolver = new ethers.Contract(
+        nameResolverAddress, nameResolverAbi, getProvider(),
+      );
+
+      const response = await resolver.name(name);
+
       dispatch(receiveResolver(response));
       return response;
-    })
-    .catch((error) => {
-      dispatch(errorResolver(error.message));
-      return null;
-    });
+    } catch (error) {
+      return dispatch(errorResolver(error.message));
+    }
+  })();
 };
 
 /**
@@ -43,37 +45,20 @@ export const getReverse = address => (dispatch) => {
  * @param {string} value value to be set
  */
 export const setReverse = value => async (dispatch) => {
-  const accounts = await window.rLogin.request({ method: 'eth_accounts' });
-  const currentAddress = accounts[0];
+  const signer = await getSigner();
 
   dispatch(requestSetReverseResolver());
 
-  const web3 = new Web3(window.rLogin);
-  const reverseRegistry = new web3.eth.Contract(
-    reverseAbi, reverseRegistryAddress, { gasPrice: defaultGasPrice },
+  const reverseRegistry = new ethers.Contract(
+    reverseRegistryAddress, reverseAbi, signer,
   );
 
-  reverseRegistry.methods.setName(value).send(
-    { from: currentAddress }, (error, result) => {
-      if (error) {
-        return dispatch(errorSetReverseResolver(error.message));
-      }
-
-      dispatch(waitingSetReverseResolver());
-
-      const transactionConfirmed = listenerParams => (listenerDispatch) => {
-        sendBrowserNotification('RSK Manager', 'reverse_success');
-        listenerDispatch(receieveSetReverseResolver(listenerParams.value, listenerParams.resultTx));
-      };
-
-      return dispatch(transactionListener(
-        result,
-        transactionConfirmed,
-        { value },
-        listenerParams => listenerDispatch => listenerDispatch(
-          errorSetReverseResolver(listenerParams.errorReason),
-        ),
-      ));
-    },
-  );
+  try {
+    const result = await (await reverseRegistry['setName(string)'](value)).wait();
+    dispatch(waitingSetReverseResolver());
+    sendBrowserNotification('RSK Manager', 'reverse_success');
+    return dispatch(receieveSetReverseResolver(value, result.transactionHash));
+  } catch (error) {
+    return dispatch(errorSetReverseResolver(error.message));
+  }
 };
