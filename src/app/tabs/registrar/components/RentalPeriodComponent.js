@@ -100,7 +100,6 @@ class RentalPeriodComponent extends Component {
             {(!gettingConversionRate && conversionRate) && <>{`$${usdAmount} USD`}</> }
           </p>
         </div>
-        <p className="blue">{strings.discount}</p>
       </div>
     );
 
