@@ -1,24 +1,24 @@
 {
-  "rns": "0x36a1b9036b6d821182eed556811e38fecbd3fc58",
-  "registrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
-  "reverseRegistrar": "0xd447ab4cd54dc3adb8f093f6d419de915f64ea07",
-  "publicResolver": "0x3dce1c992de74e74b3becb8ffb5ad725fc764bbd",
-  "nameResolver": "0x96553532bc8712b09bbbd9754309c084b6d53b17",
-  "multiChainResolver": "0x9fee8dadf7682fc7d0b381a98078c6666156018d",
-  "definitiveResolver": "0x962b3cf4015f96e0fbb9d49e52dc923e230e0433",
+  "rns": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
+  "registrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
+  "reverseRegistrar": "0xc1cb803d5169e0a9894bf0f8dcdf83090999842a",
+  "publicResolver": "0x1e7ae43e3503efb886104ace36051ea72b301cdf",
+  "nameResolver": "0x8587385ad60038bB181aFfDF687c4D1B80C4787e",
+  "multiChainResolver": "0x404308f2a2eec2cdc3cb53d7d295af11c903414e",
+  "definitiveResolver": "0x25C289ccCFFf700c6a38722F4913924fE504De0e",
   "stringResolver": "0x0000000000000000000000000000000000000000",
   "rif": "0x19f64674d8a5b4e652319f5e239efd3bc969a1fe",
-  "fifsRegistrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
-  "fifsAddrRegistrar": "0x6f57747a31b7ea152f6c4033460f8e52d1cfeb70",
-  "rskOwner": "0x00f0ba394ca375ab39c3b9ada2194e82c796dd81",
+  "fifsRegistrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
+  "fifsAddrRegistrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
+  "rskOwner": "0xca0a477e19bac7e0e172ccfd2e3c28a7200bdb71",
   "renewer": "0x0911e3a3727cc6b2e62b9c073a68e0edb9df770d",
   "partnerManager": "0x015799ae6e5b287dc6b91a4f8f89648ee6017af4",
   "feeManager": "0x5a3afd79b0aad6bdd171426aea62574294b44cf7",
   "registrarAccessControl": "0x806be3326052c305386f661793f786ef3e876d3f",
   "partners": {
     "default": {
-      "account": "0xfd343333d318a8329406d5f2d51628dad5a3f032",
-      "config": "0xc694ef83977be3a81b553b0fc5f505b76818bcee"
+      "account": "0xcd32d5b7c2e1790029d3106d9f8347f42a3dfd60",
+      "config": "0x12404D52F0c9C0098687092Ff377b2AF8183149F"
     }
   }
 }
