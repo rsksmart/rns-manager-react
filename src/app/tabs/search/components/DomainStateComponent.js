@@ -47,11 +47,6 @@ function getDisplayState(domain, domainStateLoading, owned, blocked, owner, requ
           {strings.register_your_domain}
         </Button>
       </p>
-      <p>
-        {`${rifCost} ${strings.rif_per_year}`}
-        <br />
-        <em>{strings.discount}</em>
-      </p>
     </>
   );
 }
@@ -189,7 +184,6 @@ DomainStateComponent.propTypes = {
     home_title: propTypes.string.isRequired,
     home_subtitle: propTypes.string.isRequired,
     rif_per_year: propTypes.string.isRequired,
-    discount: propTypes.string.isRequired,
   }).isRequired,
   domain: propTypes.string.isRequired,
   owned: propTypes.bool,
