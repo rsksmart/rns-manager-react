@@ -32,13 +32,59 @@ const decodeContenthash = (encoded) => {
 
   return { decoded, protocolType };
 };
+export const encodeContenthash = async (text) => {
+  let content = '';
+  let contentType = '';
+  if (text) {
+    const matched = text.match(/^(ipfs|ipns|bzz|onion|onion3):\/\/(.*)/)
+      || text.match(/\/(ipfs)\/(.*)/);
+    if (matched) {
+      ([, contentType, content] = matched);
+    }
+
+    try {
+      if (contentType === 'ipfs') {
+        if (content.length >= 4) {
+          return `0x${_contentHash.encode('ipfs-ns', content)}`;
+        }
+      } else if (contentType === 'ipns') {
+        const bs58content = bs58.encode(
+          Buffer.concat([
+            Buffer.from([0, content.length]),
+            Buffer.from(content),
+          ]),
+        );
+        return `0x${_contentHash.encode('ipns-ns', bs58content)}`;
+      } else if (contentType === 'bzz') {
+        if (content.length >= 4) {
+          return `0x${_contentHash.fromSwarm(content)}`;
+        }
+      } else if (contentType === 'onion') {
+        if (content.length === 16) {
+          return `0x${_contentHash.encode('onion', content)}`;
+        }
+      } else if (contentType === 'onion3') {
+        if (content.length === 56) {
+          return `0x${_contentHash.encode('onion3', content)}`;
+        }
+      } else {
+        throw new Error('UNSUPPORTED_CONTENTHASH_PROTOCOL');
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  return '0x';
+};
 
 export const setContentHash = async (domain, content, resolverAddress, definitiveResolverAbi) => {
   const signer = await getSigner();
   const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, signer);
   const hash = namehash(domain);
   try {
-    const tx = await resolver.setContenthash(hash, content);
+    const encodedContentHash = await encodeContenthash(content);
+    const tx = await resolver.setContenthash(hash, encodedContentHash);
     return tx.wait();
   } catch (error) {
     throw error;
@@ -48,14 +94,14 @@ export const setContentHash = async (domain, content, resolverAddress, definitiv
 export const contentHash = async (resolverAddress, domain, definitiveResolverAbi) => {
   const CONTENTHASH_INTERFACE = '0xbc1c58d1';
   const resolver = new ethers.Contract(resolverAddress, definitiveResolverAbi, getProvider());
-  const hash = namehash(domain);
+  const domainHash = namehash(domain);
   try {
     const supportsInterface = await resolver.supportsInterface(CONTENTHASH_INTERFACE);
 
     if (!supportsInterface) {
       throw new Error('NO_CONTENTHASH_INTERFACE');
     }
-    const resultEncoded = await resolver.contenthash(hash);
+    const resultEncoded = await resolver.contenthash(domainHash);
 
     if (!resultEncoded || resultEncoded === '0x') {
       throw new Error('NO_CONTENTHASH_SET');
