@@ -29,7 +29,7 @@ import {
 
 import { resolverAbi, abstractResolverAbi } from './abis.json';
 import { rnsAbi } from '../../resolve/abis.json';
-import { definitiveResolverAbi } from './definitiveAbis.json';
+import dRA from './definitiveAbis.json';
 import { interfaces } from './supportedInterfaces.json';
 import { EMPTY_ADDRESS } from '../types';
 import { addressDecoder } from '../helpers';
@@ -37,6 +37,8 @@ import getSigner from '../../../helpers/getSigner';
 import { rns } from '../../../rns-sdk';
 import { contentHash as CH, setContentHash as setCH } from '../../../helpers/contentHash';
 import getProvider from '../../../helpers/getProvider';
+
+const definitiveResolverAbi = dRA.definitiveResolverAbi;
 
 /**
  * Returns user friendly name based on address
