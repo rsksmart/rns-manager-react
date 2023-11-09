@@ -8,14 +8,14 @@ import { normalize } from '@ensdomains/eth-ens-namehash';
  * @returns {bool} if the name is valid
  */
 export const isValidName = (name) => {
-  if (name.includes(".")) {
-    return "Name contains invalid characters.";
+  if (name.includes('.')) {
+    return 'Name contains invalid characters.';
   }
 
   try {
     normalize(name);
   } catch (err) {
-    return "Name contains invalid characters.";
+    return 'Name contains invalid characters.';
   }
 
   return null;
