@@ -387,7 +387,7 @@
   "coin_address_updated": "Endereço de moeda atualizado",
   "coin_address_removed": "Endereço de moeda removido",
   "could_not_encode_address": "Não foi possível codificar o endereço da rede.",
-  "multi_coin_addresses": "Multicoin Addresses Resolver",
+  "multi_coin_addresses": "Multichain Addresses Resolver",
   "migrate_to_definitive_resolver": "O último resolver oferece compatibilidade de domínio com diferentes blockchains. Essa será a última vez em que você será solicitado a migrar resolvers.",
   "resolver_migration_complete": "Migração concluída!",
   "migrate_addresses_during": "Migrar meus endereços e bytes de conteúdo (se necessário) durante a ativação. Isso exigirá uma segunda transação",
