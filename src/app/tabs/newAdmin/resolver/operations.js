@@ -38,7 +38,7 @@ import { rns } from '../../../rns-sdk';
 import { contentHash as CH, setContentHash as setCH } from '../../../helpers/contentHash';
 import getProvider from '../../../helpers/getProvider';
 
-const definitiveResolverAbi = dRA.definitiveResolverAbi;
+const { definitiveResolverAbi } = dRA;
 
 /**
  * Returns user friendly name based on address
