@@ -117,5 +117,5 @@ export const encodeContenthash = async (text) => {
       }
     }
 
-    return '';
+    return '0x';
   }
