@@ -19,7 +19,7 @@
   "rns_white_paper": "white paper do rns",
   "search": "procurar",
   "resolve": "resolver",
-  "invalid_name": "Nome inválido. O nome pode conter apenas letras minúsculas, dígitos e caracteres especiais, exceto pontos e espaços.",
+  "invalid_name": "Nome contém caracteres inválidos.",
   "open": "abrir",
   "auction": "leilão",
   "finalize": "encerrar",

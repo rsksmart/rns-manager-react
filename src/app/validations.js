@@ -8,22 +8,14 @@ import { normalize } from '@ensdomains/eth-ens-namehash';
  * @returns {bool} if the name is valid
  */
 export const isValidName = (name) => {
-  const labels = name.split('.');
-
-  if (labels.length > 1) {
-    return 'Search only simple names';
-  }
-
-  // The regex pattern matches English lowercase letters, numbers 0 to 9,
-  // special characters, and Unicode characters except for a full stop.
-  if (labels[0].match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
-    return 'Invalid name. Name can contain only lowercase letters, digits, and unicode characters except for full stops and spaces.';
+  if (name.includes(".")) {
+    return "Name contains invalid characters.";
   }
 
   try {
-    normalize(labels[0]);
+    normalize(name);
   } catch (err) {
-    return 'Domain contains illegal character(s).';
+    return "Name contains invalid characters.";
   }
 
   return null;
