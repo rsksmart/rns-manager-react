@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     domain, migrateAddresses, chainAddresses, contentBytes, understandWarning,
   ) => {
     // debugger;
-    if (!migrateAddresses) {      
+    if (!migrateAddresses) {
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
       dispatch(setDomainResolverAndMigrate(
