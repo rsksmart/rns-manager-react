@@ -34,12 +34,9 @@ const mapDispatchToProps = dispatch => ({
     domain, migrateAddresses, chainAddresses, contentBytes, understandWarning,
   ) => {
     // debugger;
-    if (!migrateAddresses) {
-      console.log("here no migrate", `domain: ${domain}, mia: ${migrateAddresses}`);
-      
+    if (!migrateAddresses) {      
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
-      console.log("migrate mi here");
       dispatch(setDomainResolverAndMigrate(
         domain, chainAddresses, contentBytes, understandWarning,
       ));
