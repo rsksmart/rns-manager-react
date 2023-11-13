@@ -211,7 +211,7 @@ export const setDomainResolver = (domain, resolverAddress) => async (dispatch) =
 
   try {
     const resultTx = await rnsSdk.setResolver(domain, lowerResolverAddress);
-    resultTx.wait();
+    await resultTx.wait();
     dispatch(waitingSetResolver());
     const resolverName = getResolverNameByAddress(lowerResolverAddress);
     dispatch(receiveSetResolver(resultTx.hash, lowerResolverAddress, resolverName));

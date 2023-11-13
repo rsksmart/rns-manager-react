@@ -20,6 +20,9 @@ const MigrateToMultiResolverComponent = ({
     isMultiChainResolver && !isWalletConnect,
   );
   const [understandWarning, setUnderstandWarning] = useState(isDecodingErrors);
+  console.log('decodingErrors', decodingErrors);
+  console.log(`isDecodingErrors: ${isDecodingErrors}`);
+  console.log(`understandWarning: ${understandWarning}, setUnderstandWarning: ${setUnderstandWarning}`);
 
   const handleMigrateAddressSwitch = () => {
     setMigrateAddresses(!migrateAddresses);
