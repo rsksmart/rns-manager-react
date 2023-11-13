@@ -19,7 +19,7 @@
   "rns_white_paper": "rns white paper",
   "search": "search",
   "resolve": "resolve",
-  "invalid_name": "Invalid name. Name can contain only lowercase letters, digits, and unicode characters except for full stops and spaces.",
+  "invalid_name": "Name contains invalid characters.",
   "open": "open",
   "auction": "auction",
   "finalize": "finalize",

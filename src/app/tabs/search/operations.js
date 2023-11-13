@@ -48,6 +48,7 @@ export default domain => async (dispatch) => {
       } else {
         errorMsg = 'partner';
       }
+      dispatch(setMinMaxLength(minLength.toNumber(), maxLength.toNumber()));
       dispatch(setValidationMessage(errorMsg));
       return dispatch(blockedDomain());
     }

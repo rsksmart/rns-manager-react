@@ -41,6 +41,7 @@ export const partnerConfiguration = async (signer = defaultSigner) => {
   const partnerAddresses = await getCurrentPartnerAddresses(
     getCurrentPartner(),
   );
+
   return new PartnerConfiguration(partnerAddresses.config, signer);
 };
 
