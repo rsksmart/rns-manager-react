@@ -12,7 +12,7 @@
   "fifsAddrRegistrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
   "rskOwner": "0xca0a477e19bac7e0e172ccfd2e3c28a7200bdb71",
   "renewer": "0x5aC6EB1be30710255b45fBDca696Fa956Ef12116",
-  "partnerManager": "0x015799ae6e5b287dc6b91a4f8f89648ee6017af4",
+  "partnerManager": "0x3410fef01d3b99ed06db20ce0ff07484db9cc998",
   "feeManager": "0x5a3afd79b0aad6bdd171426aea62574294b44cf7",
   "registrarAccessControl": "0x806be3326052c305386f661793f786ef3e876d3f",
   "partners": {
@@ -22,7 +22,7 @@
     },
     "thefellowship": {
       "account": "0x7a8f9c15dd417840902f80d7145ca6107592f47f",
-      "config": "0x893d3235f21197f6d5aAEE08161a3A015aCF1035"
+      "config": "0x11dF35765ef9411C3cCeA785B5bED57346700F05"
     }
   }
 }
