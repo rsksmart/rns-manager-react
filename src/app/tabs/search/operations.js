@@ -20,6 +20,7 @@ export default domain => async (dispatch) => {
 
   try {
     const available = await Registrar.available(domain);
+    console.log("available", available);
     if (!available) {
       dispatch(receiveDomainState(false));
       dispatch(requestDomainOwner());
@@ -38,6 +39,9 @@ export default domain => async (dispatch) => {
     const [minDuration, maxDuration, minLength, maxLength] = await Promise.all([
       fetchMinDuration, fetchMaxDuration, fetchMinLength, fetchMaxLength,
     ]);
+    console.log(`
+    ${minDuration}, ${maxDuration}, ${minLength}, ${maxLength}
+    `);
 
     if (domain.length < minLength.toNumber() || domain.length > maxLength.toNumber()) {
       let errorMsg;
@@ -55,12 +59,15 @@ export default domain => async (dispatch) => {
 
     dispatch(setMinMaxDuration(minDuration.toNumber(), maxDuration.toNumber()));
     dispatch(setMinMaxLength(minLength.toNumber(), maxLength.toNumber()));
+    console.log("dispatchesx done");
 
     const price = await Registrar.price(domain, minDuration.toNumber());
+    console.log("price", price);
     const rifCost = price.div(BigNumber.from(10).pow(18));
     dispatch(receiveDomainCost(rifCost.toNumber()));
     dispatch(receiveDomainState(available));
   } catch (error) {
+    console.log("error", error);
     dispatch(notifyError(error.message));
   }
 

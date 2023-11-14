@@ -19,6 +19,10 @@
     "default": {
       "account": "0xcd32d5b7c2e1790029d3106d9f8347f42a3dfd60",
       "config": "0x12404D52F0c9C0098687092Ff377b2AF8183149F"
+    },
+    "thefellowship": {
+      "account": "0x7a8f9c15dd417840902f80d7145ca6107592f47f",
+      "config": "0x893d3235f21197f6d5aAEE08161a3A015aCF1035"
     }
   }
 }
