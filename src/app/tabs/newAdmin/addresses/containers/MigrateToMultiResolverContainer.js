@@ -33,7 +33,6 @@ const mapDispatchToProps = dispatch => ({
   handleClick: (
     domain, migrateAddresses, chainAddresses, contentBytes, understandWarning,
   ) => {
-    // debugger;
     if (!migrateAddresses) {
       dispatch(setDomainResolver(domain, definitiveResolver));
     } else {
