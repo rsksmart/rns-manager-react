@@ -17,7 +17,6 @@ import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 import { resolver, rns } from '../../../rns-sdk';
 import getSigner from '../../../helpers/getSigner';
-import { publicResolver } from '../../../adapters/configAdapter';
 
 const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
