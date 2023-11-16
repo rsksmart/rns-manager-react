@@ -1,24 +1,28 @@
 {
   "rns": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
-  "registrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
+  "registrar": "0x1421fddd1c9aed09c4b3625b4daa0e51ad900db9",
   "reverseRegistrar": "0xc1cb803d5169e0a9894bf0f8dcdf83090999842a",
   "publicResolver": "0x1e7ae43e3503efb886104ace36051ea72b301cdf",
-  "nameResolver": "0x8587385ad60038bB181aFfDF687c4D1B80C4787e",
+  "nameResolver": "0x8587385ad60038bb181affdf687c4d1b80c4787e",
   "multiChainResolver": "0x404308f2a2eec2cdc3cb53d7d295af11c903414e",
-  "definitiveResolver": "0x25C289ccCFFf700c6a38722F4913924fE504De0e",
+  "definitiveResolver": "0x25c289cccfff700c6a38722f4913924fe504de0e",
   "stringResolver": "0x0000000000000000000000000000000000000000",
   "rif": "0x19f64674d8a5b4e652319f5e239efd3bc969a1fe",
-  "fifsRegistrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
-  "fifsAddrRegistrar": "0x191C582229e574F59Bfa30002ed43F7F9145A9b2",
+  "fifsRegistrar": "0x1421fddd1c9aed09c4b3625b4daa0e51ad900db9",
+  "fifsAddrRegistrar": "0x1421fddd1c9aed09c4b3625b4daa0e51ad900db9",
   "rskOwner": "0xca0a477e19bac7e0e172ccfd2e3c28a7200bdb71",
-  "renewer": "0x5aC6EB1be30710255b45fBDca696Fa956Ef12116",
-  "partnerManager": "0x015799ae6e5b287dc6b91a4f8f89648ee6017af4",
-  "feeManager": "0x5a3afd79b0aad6bdd171426aea62574294b44cf7",
-  "registrarAccessControl": "0x806be3326052c305386f661793f786ef3e876d3f",
+  "renewer": "0x05405d4a18b3d62b99e0cf4c656079a915e04f2f",
+  "partnerManager": "0x4922955fd7f7018739d7f6fde5b340daf76b2c94",
+  "feeManager": "0x751c79631edab0d6774568b337cd66b223f116b6",
+  "registrarAccessControl": "0x43ea4ae6d45324959973304c036161e53d089891",
   "partners": {
     "default": {
-      "account": "0xcd32d5b7c2e1790029d3106d9f8347f42a3dfd60",
-      "config": "0x12404D52F0c9C0098687092Ff377b2AF8183149F"
+      "account": "0xd43c3383dc43725b5a2d3e079cb55c7c6109cc69",
+      "config": "0xa0a623a29f3e8617d88b9894b5493f33254260e5"
+    },
+    "thefellowship": {
+      "account": "0xfd343333d318a8329406d5f2d51628dad5a3f032",
+      "config": "0x68c5cc909e03c976b6c276e4c25dd4e5fb362097"
     }
   }
 }
