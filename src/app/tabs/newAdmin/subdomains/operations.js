@@ -50,16 +50,17 @@ const registerSubdomain = (
 
   try {
     const result = await (
-      await r.setSubdomainOwner(parentDomain, subdomain, newOwner)
+      await r.setSubdomainOwner(parentDomain, subdomain, await signer.getAddress())
     ).wait();
 
     if (setupResolution) {
-      await (
-        await r.setResolver(`${subdomain}.${parentDomain}`, publicResolver)
-      ).wait();
       const addrResolver = resolver(signer);
       await (
         await addrResolver.setAddr(`${subdomain}.${parentDomain}`, newOwner)
+      ).wait();
+
+      await (
+        await r.setOwner(`${subdomain}.${parentDomain}`, newOwner)
       ).wait();
     }
 
