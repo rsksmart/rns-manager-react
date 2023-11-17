@@ -175,7 +175,8 @@ export const supportedInterfaces = (resolverAddress, domain) => async (dispatch)
         }
         return null;
       })
-      .then(() => dispatch(receiveSupportedInterfaces()));
+      .then(() => dispatch(receiveSupportedInterfaces()))
+      .catch(() => dispatch(receiveSupportedInterfaces()));
   });
 };
 

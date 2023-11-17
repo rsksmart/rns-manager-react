@@ -17,7 +17,6 @@ import { resolveDomain } from '../../resolve/operations';
 import { sendBrowserNotification } from '../../../browerNotifications/operations';
 import { resolver, rns } from '../../../rns-sdk';
 import getSigner from '../../../helpers/getSigner';
-import { publicResolver } from '../../../adapters/configAdapter';
 
 const updateSubdomainToLocalStorage = (domain, subdomain, add = true) => {
   const storedSubdomains = localStorage.getItem('subdomains')
@@ -50,16 +49,17 @@ const registerSubdomain = (
 
   try {
     const result = await (
-      await r.setSubdomainOwner(parentDomain, subdomain, newOwner)
+      await r.setSubdomainOwner(parentDomain, subdomain, await signer.getAddress())
     ).wait();
 
     if (setupResolution) {
-      await (
-        await r.setResolver(`${subdomain}.${parentDomain}`, publicResolver)
-      ).wait();
       const addrResolver = resolver(signer);
       await (
         await addrResolver.setAddr(`${subdomain}.${parentDomain}`, newOwner)
+      ).wait();
+
+      await (
+        await r.setOwner(`${subdomain}.${parentDomain}`, newOwner)
       ).wait();
     }
 

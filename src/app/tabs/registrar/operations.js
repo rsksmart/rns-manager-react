@@ -233,7 +233,7 @@ export const revealCommit = domain => async (dispatch) => {
 
     const Registrar = await registrar(signer);
     const durationBN = BigNumber.from(duration);
-    const rifCostBN = BigNumber.from(rifCost).mul(BigNumber.from(10).pow(18));
+    const rifCostBN = ethers.utils.parseEther(rifCost.toString());
 
     try {
       const txHash = await Registrar.register(
