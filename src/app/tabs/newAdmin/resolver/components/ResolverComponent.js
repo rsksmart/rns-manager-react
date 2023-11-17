@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 
+import { Alert } from 'react-bootstrap';
 import { UserWaitingComponent } from '../../../../components';
 import {
   PUBLIC_RESOLVER, MULTICHAIN_RESOLVER, STRING_RESOLVER, DEFINITIVE_RESOLVER,
@@ -52,6 +53,15 @@ const ResolverComponent = ({
           }}
         />
       </div>
+      <Alert key="decode" variant="warning">
+        Warning: Do not modify Resolver address if you do not have a valid
+        <a
+          target="non opener"
+          href="https://dev.rootstock.io/rif/rns/architecture/definitive-resolver/"
+        >
+          &nbsp;Resolver
+        </a>
+      </Alert>
       <MigrateToMultiResolverContainer />
     </div>
   );
