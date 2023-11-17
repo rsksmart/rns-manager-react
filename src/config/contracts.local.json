@@ -1,34 +1,4 @@
 {
-<<<<<<< HEAD
-  "rns": "0xfd471836031dc5108809d173a067e8486b9047a3",
-  "registrar": "0x2e2ed0cfd3ad2f1d34481277b3204d807ca2f8c2",
-  "reverseRegistrar": "0x1fa02b2d6a771842690194cf62d91bdd92bfe28d",
-  "publicResolver": "0x162a433068f51e18b7d13932f27e66a3f99e6890",
-  "nameResolver": "0x5081a39b8a5f0e35a8d959395a630b68b74dd30f",
-  "multiChainResolver": "0x922d6956c99e12dfeb3224dea977d0939758a1fe",
-  "definitiveResolver": "0x1429859428c0abc9c2c47c8ee9fbaf82cfa0f20f",
-  "stringResolver": "0x0000000000000000000000000000000000000000",
-  "rif": "0x04c89607413713ec9775e14b954286519d836fef",
-  "fifsRegistrar": "0x2e2ed0cfd3ad2f1d34481277b3204d807ca2f8c2",
-  "fifsAddrRegistrar": "0x2e2ed0cfd3ad2f1d34481277b3204d807ca2f8c2",
-  "rskOwner": "0xcbeaf3bde82155f56486fb5a1072cb8baaf547cc",
-  "renewer": "0xd8a5a9b31c3c0232e196d518e89fd8bf83acad43",
-  "partnerManager": "0x21df544947ba3e8b3c32561399e88b52dc8b2823",
-  "feeManager": "0xdc11f7e700a4c898ae5caddb1082cffa76512add",
-  "registrarAccessControl": "0x4c4a2f8c81640e47606d3fd77b353e87ba015584",
-  "partners": {
-    "default": {
-      "account": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
-      "config": "0x8198f5d8f8cffe8f9c413d98a0a55aeb8ab9fbb7"
-    },
-    "buenbit": {
-      "account": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-      "config": "0x0355b7b8cb128fa5692729ab3aaa199c1753f726"
-    },
-    "thefellowship": {
-      "account": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
-      "config": "0x202cce504e04bed6fc0521238ddf04bc9e8e15ab"
-=======
   "rns": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
   "registrar": "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
   "reverseRegistrar": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
@@ -57,7 +27,6 @@
     "thefellowship": {
       "account": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
       "config": "0x3aa5ebb10dc797cac828524e59a333d0a371443c"
->>>>>>> develop
     }
   }
 }
