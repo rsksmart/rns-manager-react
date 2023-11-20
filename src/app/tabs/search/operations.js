@@ -1,4 +1,4 @@
-import { BigNumber } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import {
   requestDomainState, receiveDomainState,
   blockedDomain,
@@ -57,8 +57,8 @@ export default domain => async (dispatch) => {
     dispatch(setMinMaxLength(minLength.toNumber(), maxLength.toNumber()));
 
     const price = await Registrar.price(domain, minDuration.toNumber());
-    const rifCost = price.div(BigNumber.from(10).pow(18));
-    dispatch(receiveDomainCost(rifCost.toNumber()));
+    const rifCost = ethers.utils.formatUnits(price, 18);
+    dispatch(receiveDomainCost(rifCost));
     dispatch(receiveDomainState(available));
   } catch (error) {
     dispatch(notifyError(error.message));
