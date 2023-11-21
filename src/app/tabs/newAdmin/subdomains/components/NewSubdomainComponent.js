@@ -39,8 +39,7 @@ const NewSubdomainComponent = ({
 
   const handleOnClick = (e) => {
     e.preventDefault();
-   const domainOwner = !setupRsk ? address : owner
-   console.log("value", domainOwner);
+   const domainOwner = !setupRsk ? address : owner;
 
     if (subdomain === '' || subdomain.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
       return setLocalError(strings.invalid_name);
