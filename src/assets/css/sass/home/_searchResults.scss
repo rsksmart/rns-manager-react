@@ -16,7 +16,7 @@
       margin: 10px 0 0 15px;
       padding: 0;
     }
-    
+
     p {
       font-size: 20px;
       margin-bottom: 0;
@@ -48,18 +48,18 @@
     button {
       display: inline-block;
       margin-top: 0;
-      background-color: $blue;
+      background-color: #4B5CF0;
       color: $white;
       border-radius: 15px;
       padding: 10px 20px !important;
-      border: 1px solid $blue;
+      border: 1px solid #4B5CF0;
     }
 
 
     button:hover {
-      color: $blue;
+      color: #4B5CF0;
       background-color: $white;
-      border: 1px solid $blue !important;
+      border: 1px solid #4B5CF0 !important;
     }
   }
 

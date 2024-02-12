@@ -22,7 +22,7 @@
     margin: 0 15px !important;
 
     .label {
-      color: $blue;
+      color: #4B5CF0;
       text-align: center;
       overflow: hidden;
     }
@@ -72,7 +72,7 @@
       border-radius: 15px;
       width: 47%
     }
-    
+
     button.cancel {
       border:1px solid $gray;
       background: $white;
@@ -97,7 +97,7 @@
     }
 
     button:hover {
-      color: $blue;
+      color: #4B5CF0;
       background-color: $white;
     }
   }

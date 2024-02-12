@@ -8,7 +8,7 @@
   .search.container {
     max-width: 100%;
     text-align: center;
-    background-color: $blue;
+    background-color: #4B5CF0;
 
     .row {
       padding-top: 50px;
@@ -49,7 +49,7 @@
     margin-bottom: 50px;
 
     h2 {
-      color: $blue;
+      color: #4B5CF0;
       font-weight: 700 !important;
       margin-bottom: 15px;
     }
@@ -94,7 +94,7 @@
       }
 
       .carousel-inner {
-        a { 
+        a {
           display: block;
 
           p {
@@ -115,7 +115,7 @@
 
         a:hover {
           p {
-            color: $blue;
+            color: #4B5CF0;
           }
 
           .image-container {
@@ -130,7 +130,7 @@
     h2 {
       text-align: center;
     }
-    
+
     p.lead {
       text-align: center;
     }
@@ -152,7 +152,7 @@
 
       a:hover {
         background-color: $light-gray;
-        color: $blue;
+        color: #4B5CF0;
       }
 
       img, span {

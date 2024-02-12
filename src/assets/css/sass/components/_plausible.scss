@@ -4,13 +4,19 @@
   width: 100%;
   padding: 15px 0;
   text-align: center;
-  background-color: rgba(0, 143, 247, .8);
+  background-color: rgba(75, 92, 240, 0.8);
 
   p {
     width: 85%;
     margin: 3px auto;
     font-size: 75%;
     color: #fff;
+  }
+
+  a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: underline;
   }
 
   button {

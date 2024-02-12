@@ -6,7 +6,7 @@
 /* BODY */
 
 body {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Sora', sans-serif;
     color: #000000;
     font-weight: 300;
     font-size: 16px;
@@ -17,7 +17,7 @@ body {
 }
 
 .text-primary {
-    color: #008CFF !important;
+    color: #4B5CF0 !important;
 }
 
 
@@ -51,7 +51,7 @@ body {
 .alert-title,
 .alert a:not(.btn) {
     font-size: 14px;
-    color: #008CFF;
+    color: #4B5CF0;
     text-decoration: none;
 }
 
@@ -88,7 +88,7 @@ body {
 }
 
 .icon-btn:hover .stroke-transparent {
-    -webkit-text-stroke: 1px #008CFF;
+    -webkit-text-stroke: 1px #4B5CF0;
 }
 
 .fa-file-alt {
@@ -118,16 +118,16 @@ body {
 }
 
 .select2-container--default .select2-selection--single {
-    border: 1px solid #008CFF;
+    border: 1px solid #4B5CF0;
 }
 
 .select2-dropdown {
     background-color: white;
-    border: 1px solid #008CFF;
+    border: 1px solid #4B5CF0;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #008CFF;
+    background-color: #4B5CF0;
     color: white;
 }
 
@@ -148,11 +148,11 @@ body {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: #008CFF transparent transparent transparent;
+    border-color: #4B5CF0 transparent transparent transparent;
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-    border-color: transparent transparent #008CFF transparent;
+    border-color: transparent transparent #4B5CF0 transparent;
 }
 
 
@@ -168,7 +168,7 @@ body {
 }
 
 .toast-header .fa-square:before {
-    color: #008CFF;
+    color: #4B5CF0;
 }
 
 
@@ -189,7 +189,7 @@ body {
 
 .number {
     font-weight: 700;
-    color: #008CFF;
+    color: #4B5CF0;
     font-size: 90px;
 }
 
@@ -225,7 +225,7 @@ body {
   content: counter(step-counter);
   margin-right: 5px;
   font-size: 80%;
-  color: #008CFF;
+  color: #4B5CF0;
   font-weight: bold;
   padding: 3px 8px;
   border-radius: 3px;

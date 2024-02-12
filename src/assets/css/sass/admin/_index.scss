@@ -7,7 +7,7 @@
   @import 'resolver';
 
   margin-top: 75px;
-  
+
   .btn-primary:not(:disabled):not(.disabled).active {
     background-color: $light-gray;
     border-color: $gray;
@@ -37,7 +37,7 @@
 
   h1 {
     font-size: 20px;
-    color: $blue;
+    color: #4B5CF0;
     margin-top: 20px;
   }
 
@@ -47,7 +47,7 @@
 
   h2 {
     font-size: 20px;
-    color:$blue;
+    color:#4B5CF0;
   }
 
   .reclaim {

@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/img/logo.svg';
+import logo from '../../assets/img/rif.svg';
 import LanguageSelectContainer from '../containers/LanguageSelectContainer';
 import IndicatorLight from '../containers/IndicatorLight';
 import { LoginDropdownContainer } from '../auth/containers';
