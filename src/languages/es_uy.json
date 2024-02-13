@@ -414,5 +414,6 @@
   "decentralized_exp": "Aquí puedes setear URLs de servicios de storage descentralizados como IPFS y Swarm. Puedes dar a conocer tu website descentralizado con la ayuda de RNS",
   "rns_integrations": "Integraciones de billetera y dapp",
   "domain_length_validation_msg_partner": "El socio requiere que el nombre de dominio esté entre: ",
-  "domain_length_validation_msg_default": "El nombre de dominio debe estar entre: "
+  "domain_length_validation_msg_default": "El nombre de dominio debe estar entre: ",
+  "user_rejected_transaction": "El usuario rechazó la transacción en la wallet"
 }
