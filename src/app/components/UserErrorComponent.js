@@ -5,7 +5,10 @@ import { multilanguage } from 'redux-multilanguage';
 import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
 import { ERROR_RESOLVE_NAME } from '../tabs/resolve/types';
 import { ADDRESS_ENCODING_ERROR } from '../tabs/newAdmin/addresses/types';
-import { TRANSACTION_RECEIPT_FAILED } from '../types';
+import {
+  TRANSACTION_RECEIPT_FAILED,
+  USER_REJECTED_TRANSACTION,
+} from '../types';
 
 import closeRed from '../../assets/img/close-red.svg';
 
@@ -21,7 +24,7 @@ const UserErrorComponent = ({
   }
 
   const formatMessage = () => {
-    if (message.toLowerCase().startsWith('user rejected transaction')) {
+    if (message.toLowerCase().startsWith(USER_REJECTED_TRANSACTION)) {
       return strings.user_rejected_transaction;
     }
     switch (message) {
