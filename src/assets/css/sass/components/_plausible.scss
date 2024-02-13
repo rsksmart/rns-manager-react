@@ -4,31 +4,31 @@
   width: 100%;
   padding: 15px 0;
   text-align: center;
-  background-color: rgba(75, 92, 240, 0.8);
+  background-color: rgba(0, 143, 247, .8);
 
   p {
     width: 85%;
     margin: 3px auto;
     font-size: 75%;
-    color: #fff;
+    color: #E6DED6;
   }
 
   a {
-    color: #fff;
+    color: #BFEEFF;
     font-weight: bold;
     text-decoration: underline;
   }
 
   button {
-    border: 1px solid $white;
+    border: 1px solid #E6DED6;
     background: none;
     padding: 5px 10px;
     margin: 5px 10px 0 10px;
-    color: #fff;
+    color: #E6DED6;
   }
 
   button.accept {
-    background-color: $white;
+    background-color: #E6DED6;
   }
 
   button:hover {
