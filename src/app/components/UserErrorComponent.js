@@ -24,7 +24,7 @@ const UserErrorComponent = ({
   }
 
   const formatMessage = () => {
-    if (message.toLowerCase().startsWith(USER_REJECTED_TRANSACTION)) {
+    if (message && message.toLowerCase().startsWith(USER_REJECTED_TRANSACTION)) {
       return strings.user_rejected_transaction;
     }
     switch (message) {
