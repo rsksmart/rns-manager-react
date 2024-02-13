@@ -16,7 +16,7 @@ const LoginFormComponent = ({
       return;
     }
 
-    if (domainInput.match('^[a-z0-9!@#$%^&*()-_+={}[\]\|;:\'",<>?/`~\p{L}\p{N}]*$') !== null) { /* eslint-disable-line */
+    if (domainInput.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$') !== null || domainInput.includes('.')) { /* eslint-disable-line */
       setLocalError(strings.invalid_name);
       return;
     }
