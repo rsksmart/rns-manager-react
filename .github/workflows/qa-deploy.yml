@@ -2,7 +2,7 @@ name: RNS QA build and deploy
 
 on:
   push:
-    branches: [ qa ]
+    branches: [ disposable-main ]
 
 jobs:
   qa_build_and_deploy:
