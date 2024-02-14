@@ -420,6 +420,5 @@
   "accept": "Accept",
   "reject": "Reject",
   "domain_length_validation_msg_partner": "Partner requires that domain name must be between: ",
-  "domain_length_validation_msg_default": "The domain name must be between: ",
-  "user_rejected_transaction": "The user rejected the transaction on the wallet"
+  "domain_length_validation_msg_default": "The domain name must be between: "
 }

@@ -26,7 +26,6 @@ exports[`UserErrorComponent renders and matches snapshot 1`] = `
           "resolve_not_set": "Could not resolve domain",
           "same_value": "Input is the same as the value",
           "transaction_receipt_failed": "Transaction failed because it did not complete. This is usually caused by not enough gas being sent.",
-          "user_rejected_transaction": "The user rejected the transaction on the wallet",
         }
       }
       title="Error"

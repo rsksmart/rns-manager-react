@@ -12,7 +12,6 @@ const store = mockStore({
   resolve_not_set: en.resolve_not_set,
   could_not_encode_address: en.could_not_encode_address,
   transaction_receipt_failed: en.transaction_receipt_failed,
-  user_rejected_transaction: en.user_rejected_transaction,
 });
 
 describe('UserErrorComponent', () => {
@@ -65,10 +64,10 @@ describe('UserErrorComponent', () => {
   it('Returns user friendly message when the transaction is rejected', () => {
     const component = mount(
       <Provider store={store}>
-        <UserErrorComponent message="user rejected transaction bla bla bla" visible />
+        <UserErrorComponent message="user rejected transaction(bla bla bla)" visible />
       </Provider>,
     );
 
-    expect(component.find('p').at(1).text()).toEqual(en.user_rejected_transaction);
+    expect(component.find('p').at(1).text()).toEqual('user rejected transaction');
   });
 });
