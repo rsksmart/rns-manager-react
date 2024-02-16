@@ -24,7 +24,7 @@
     button.add {
       display: block;
       width: 100%;
-      background: #4B5CF0;
+      background: $blue;
       padding: 10px !important;
       color: $white;
       border-radius: 15px;
@@ -97,7 +97,7 @@
     }
 
     button.save {
-      background-color: #4B5CF0 !important;
+      background-color: $blue !important;
       padding: 10px 20px !important;
     }
   }

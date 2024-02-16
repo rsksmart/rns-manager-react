@@ -41,7 +41,7 @@
 
     li.current {
       button {
-        color: #4B5CF0;
+        color: $blue;
       }
     }
 
@@ -69,7 +69,7 @@
       padding: 10px 15px;
 
       button.active {
-        color: #4B5CF0;
+        color: $blue;
       }
 
       h3 {
@@ -90,7 +90,7 @@
         }
 
         span {
-          color: #4B5CF0;
+          color: $blue;
         }
       }
 
@@ -103,8 +103,8 @@
       }
 
       .btn.btn-primary:hover {
-        background-color: #4B5CF0 !important;
-        border-color: #4B5CF0;
+        background-color: $blue !important;
+        border-color: $blue;
       }
 
       p.error {

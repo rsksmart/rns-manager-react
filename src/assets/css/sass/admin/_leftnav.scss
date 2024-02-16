@@ -26,13 +26,13 @@
       }
 
       a:hover, button:hover {
-        color: #4B5CF0;
+        color: $blue;
         font-weight: 400 !important;
       }
 
       a.active {
         font-weight: 500 !important;
-        border-bottom:2px solid #4B5CF0;
+        border-bottom:2px solid $blue;
       }
     }
 
@@ -40,7 +40,7 @@
       text-transform: capitalize;
       border: none;
       background: none;
-      color: #4B5CF0;
+      color: $blue;
       font-weight: 300 !important;
     }
   }

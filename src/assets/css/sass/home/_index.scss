@@ -8,7 +8,7 @@
   .search.container {
     max-width: 100%;
     text-align: center;
-    background-color: #4B5CF0;
+    background-color: $blue;
 
     .row {
       padding-top: 50px;
@@ -35,7 +35,7 @@
     content: '';
     width: 100%;
     height: 80px;
-    background: #4B5CF0;
+    background: $blue;
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
@@ -49,7 +49,7 @@
     margin-bottom: 50px;
 
     h2 {
-      color: #4B5CF0;
+      color: $blue;
       font-weight: 700 !important;
       margin-bottom: 15px;
     }
@@ -115,7 +115,7 @@
 
         a:hover {
           p {
-            color: #4B5CF0;
+            color: $blue;
           }
 
           .image-container {
@@ -152,7 +152,7 @@
 
       a:hover {
         background-color: $light-gray;
-        color: #4B5CF0;
+        color: $blue;
       }
 
       img, span {

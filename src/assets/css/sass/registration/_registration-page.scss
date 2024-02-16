@@ -7,7 +7,7 @@
 
     .domain {
       font-size: 24px;
-      color: #4B5CF0;
+      color: $blue;
       font-weight: 700 !important;
     }
   }
@@ -24,7 +24,7 @@
       border-radius: 5px;
       width: 100%;
       background-color: #fff !important;
-      color: #4B5CF0;
+      color: $blue;
     }
     div.btn.btn-active {
       background-color: $gray !important;
@@ -36,7 +36,7 @@
     max-width: 200px;
     margin: 0 auto;
     padding: 1em;
-    border: 1px solid #4B5CF0;
+    border: 1px solid $blue;
     border-radius: 8px;
     p {
       margin: .5em 0 0 0 ;

@@ -10,7 +10,7 @@
       }
       .btn:hover {
         box-shadow: none;
-        color: #4B5CF0;
+        color: $blue;
       }
     }
     .form-control {
@@ -19,21 +19,21 @@
       border-radius: 8px !important;
       text-align: center;
       font-size: 1.5em;
-      color: #4B5CF0;
+      color: $blue;
       font-weight: 500 !important;
     }
   }
 
   .price {
     h3 {
-      color: #4B5CF0;
+      color: $blue;
       margin-bottom: 0;
     }
     .box {
       max-width: 125px;
       margin: 1em auto;
       padding: .25 0;
-      border: 1px solid #4B5CF0;
+      border: 1px solid $blue;
       border-radius: 5px;
       background-color: $light-gray;
     }

@@ -48,18 +48,18 @@
     button {
       display: inline-block;
       margin-top: 0;
-      background-color: #4B5CF0;
+      background-color: $blue;
       color: $white;
       border-radius: 15px;
       padding: 10px 20px !important;
-      border: 1px solid #4B5CF0;
+      border: 1px solid $blue;
     }
 
 
     button:hover {
-      color: #4B5CF0;
+      color: $blue;
       background-color: $white;
-      border: 1px solid #4B5CF0 !important;
+      border: 1px solid $blue !important;
     }
   }
 

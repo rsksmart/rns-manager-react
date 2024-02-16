@@ -32,7 +32,7 @@
       width: 18px;
       left: 4px;
       bottom: 3px;
-      background-color: #4B5CF0;
+      background-color: $blue;
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 50%;
@@ -53,6 +53,6 @@
   }
 
   button.active {
-    color: #4B5CF0;
+    color: $blue;
   }
 }
