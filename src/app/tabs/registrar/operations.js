@@ -19,6 +19,9 @@ import {
   requestCheckCommitRegistrar,
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
+  requestHasEnoughRif,
+  receiveHasEnoughRif,
+  errorHasEnoughRIF,
 } from './actions';
 import {
   rif as rifAddress,
@@ -88,11 +91,25 @@ export const getCost = (domain, duration) => async (dispatch) => {
  */
 export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) => {
   const checkBalance = async () => {
+    dispatch(requestHasEnoughRif());
     const signer = await getSigner();
     const currentUserAccount = await signer.getAddress();
     const rif = new ethers.Contract(rifAddress, rifAbi, signer);
-    const balance = await rif.balanceOf(currentUserAccount);
-    return resolve((balance / (10 ** 18)) >= cost);
+    console.log('💀 RIF ADDRESS', rifAddress);
+    rif.balanceOf(currentUserAccount)
+      .then((balance) => {
+        console.log('RIF BALANCE', (balance / (10 ** 18)));
+        console.log('currentUserAccount', currentUserAccount);
+        if (balance / (10 ** 18) < cost) {
+          console.log('💀 INSUFFICIENT RIF BALANCE');
+          dispatch(errorHasEnoughRIF());
+          return resolve(false);
+        }
+        console.log('✅ RIF BALANCE');
+        dispatch(receiveHasEnoughRif(balance / (10 ** 18)) >= cost);
+        return resolve((balance / (10 ** 18)) >= cost);
+      })
+      .catch(error => dispatch(errorHasEnoughRIF(error.message)));
   };
 
   // eslint-disable-next-line no-unused-expressions
@@ -214,7 +231,18 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   }
 };
 
-export const revealCommit = domain => async (dispatch) => {
+export const revealCommit = domain => async (dispatch, getState) => {
+  const { rifCost: cost, hasEnoughRIF } = getState().registrar;
+  try {
+    console.log('>>>>> HAS ENOUGH RIF');
+    dispatch(hasEnoughRif(cost));
+  } catch (error) {
+    dispatch(errorHasEnoughRIF(error.message));
+    console.log('💀 ERROR', error.message);
+    return false;
+  }
+
+  // eslint-disable-next-line consistent-return
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);
     if (!options) {
@@ -226,16 +254,17 @@ export const revealCommit = domain => async (dispatch) => {
       salt, duration, rifCost,
     } = options;
 
-    dispatch(requestRevealCommit());
-
-    const signer = await getSigner();
-    const currentUserAccount = await signer.getAddress();
-
-    const Registrar = await registrar(signer);
-    const durationBN = BigNumber.from(duration);
-    const rifCostBN = ethers.utils.parseEther(rifCost.toString());
-
     try {
+      console.log('✅ REVEAL COMMIT');
+      if (hasRif) dispatch(requestRevealCommit());
+
+      const signer = await getSigner();
+      const currentUserAccount = await signer.getAddress();
+
+      const Registrar = await registrar(signer);
+      const durationBN = BigNumber.from(duration);
+      const rifCostBN = ethers.utils.parseEther(rifCost.toString());
+
       const txHash = await Registrar.register(
         domain, currentUserAccount, salt, durationBN, rifCostBN,
       );

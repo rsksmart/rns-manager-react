@@ -5,6 +5,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { ERROR_SAME_VALUE } from '../tabs/newAdmin/types';
 import { ERROR_RESOLVE_NAME } from '../tabs/resolve/types';
 import { ADDRESS_ENCODING_ERROR } from '../tabs/newAdmin/addresses/types';
+import { ERROR_NOT_ENOUGH_RIF } from '../tabs/registrar/types';
 import { TRANSACTION_RECEIPT_FAILED } from '../types';
 
 import closeRed from '../../assets/img/close-red.svg';
@@ -43,6 +44,8 @@ const UserErrorComponent = ({
         return strings.could_not_encode_address;
       case TRANSACTION_RECEIPT_FAILED:
         return strings.transaction_receipt_failed;
+      case ERROR_NOT_ENOUGH_RIF:
+        return strings.not_enough_rif_balance;
       default:
         return truncateErrorMessage(message);
     }
@@ -75,6 +78,7 @@ UserErrorComponent.propTypes = {
     resolve_not_set: propTypes.string.isRequired,
     could_not_encode_address: propTypes.string.isRequired,
     transaction_receipt_failed: propTypes.string.isRequired,
+    not_enough_rif_balance: propTypes.string.isRequired,
   }).isRequired,
   title: propTypes.string,
   message: propTypes.string,
