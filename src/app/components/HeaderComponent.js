@@ -25,7 +25,7 @@ const HeaderComponent = (props) => {
           <Image
             src={logo}
             className="logo"
-            alt="RSK Logo"
+            alt="RIF Logo"
           />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -27,7 +27,7 @@ const FooterComponent = (props) => {
         <Container>
           <Row>
             <Col lg="3">
-              <Image style={{ height: '45px' }} src={logo} alt="RSK Logo" />
+              <Image style={{ height: '45px' }} src={logo} alt="RIF Logo" />
             </Col>
             <Col lg="2">
               <h2>RIF</h2>
