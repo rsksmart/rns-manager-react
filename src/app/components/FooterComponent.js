@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {
   Container, Image, Col, Row,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
 import theme from '../helpers/theme';
 
