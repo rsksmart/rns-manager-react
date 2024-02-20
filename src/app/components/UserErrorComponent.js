@@ -10,32 +10,52 @@ import { TRANSACTION_RECEIPT_FAILED } from '../types';
 import closeRed from '../../assets/img/close-red.svg';
 
 const UserErrorComponent = ({
-  title, message, handleCloseClick, strings, visible,
+  title,
+  message,
+  handleCloseClick,
+  strings,
+  visible,
 }) => {
   if (!visible) {
-    return (<></>);
+    return <></>;
   }
+
+  const truncateErrorMessage = (errorMessage) => {
+    if (!errorMessage) {
+      return errorMessage;
+    }
+
+    const index = errorMessage.indexOf('(');
+    if (index !== -1) {
+      return errorMessage.substring(0, index);
+    }
+    // Return the original string if no parenthesis is found
+    return errorMessage;
+  };
 
   const formatMessage = () => {
     switch (message) {
-      case ERROR_SAME_VALUE: return strings.same_value;
-      case ERROR_RESOLVE_NAME: return strings.resolve_not_set;
-      case ADDRESS_ENCODING_ERROR: return strings.could_not_encode_address;
-      case TRANSACTION_RECEIPT_FAILED: return strings.transaction_receipt_failed;
-      default: return message;
+      case ERROR_SAME_VALUE:
+        return strings.same_value;
+      case ERROR_RESOLVE_NAME:
+        return strings.resolve_not_set;
+      case ADDRESS_ENCODING_ERROR:
+        return strings.could_not_encode_address;
+      case TRANSACTION_RECEIPT_FAILED:
+        return strings.transaction_receipt_failed;
+      default:
+        return truncateErrorMessage(message);
     }
   };
 
   return (
     <div className="error">
-      <button
-        type="button"
-        className="close"
-        onClick={handleCloseClick}
-      >
+      <button type="button" className="close" onClick={handleCloseClick}>
         <img src={closeRed} alt={strings.close} />
       </button>
-      <p><strong>{title}</strong></p>
+      <p>
+        <strong>{title}</strong>
+      </p>
       <p>{formatMessage()}</p>
     </div>
   );

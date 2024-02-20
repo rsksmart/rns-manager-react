@@ -60,4 +60,14 @@ describe('UserErrorComponent', () => {
 
     expect(component.find('p').at(1).text()).toEqual(en.same_value);
   });
+
+  it('Returns user friendly message when the transaction is rejected', () => {
+    const component = mount(
+      <Provider store={store}>
+        <UserErrorComponent message="user rejected transaction(bla bla bla)" visible />
+      </Provider>,
+    );
+
+    expect(component.find('p').at(1).text()).toEqual('user rejected transaction');
+  });
 });
