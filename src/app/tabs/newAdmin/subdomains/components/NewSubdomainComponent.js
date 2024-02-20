@@ -11,7 +11,6 @@ import UserErrorComponent from '../../../../components/UserErrorComponent';
 import UserSuccessComponent from '../../../../components/UserSuccessComponent';
 import UserWaitingComponent from '../../../../components/UserWaitingComponent';
 import ChecksumErrorComponent from '../../../../components/ChecksumErrorComponent';
-import { truncateString } from '../../helpers';
 
 const NewSubdomainComponent = ({
   strings,
@@ -39,22 +38,23 @@ const NewSubdomainComponent = ({
 
   const handleOnClick = (e) => {
     e.preventDefault();
+    const domainOwner = !setupRsk ? address : owner;
 
     if (subdomain === '' || subdomain.match('^[a-z0-9!@#$%^&*()-_+={}[\]\\|;:\'",<>?/`~\\p{L}\\p{N}]*$')) { /* eslint-disable-line */
       return setLocalError(strings.invalid_name);
     }
 
-    if (owner.endsWith('.rsk')) {
-      return handleClick(subdomain, owner.toLowerCase(), setupRsk);
+    if (domainOwner.endsWith('.rsk')) {
+      return handleClick(subdomain, domainOwner.toLowerCase(), setupRsk);
     }
 
-    switch (validateAddress(owner, chainId)) {
+    switch (validateAddress(domainOwner, chainId)) {
       case 'Invalid address':
         return setLocalError('Invalid address');
       case 'Invalid checksum':
         return setChecksumError(true);
       default:
-        return handleClick(subdomain, owner.toLowerCase(), setupRsk);
+        return handleClick(subdomain, domainOwner.toLowerCase(), setupRsk);
     }
   };
 
@@ -114,10 +114,10 @@ const NewSubdomainComponent = ({
         </Col>
         <Col md={8}>
           <input
-            value={owner}
+            value={!setupRsk ? address : owner}
             onChange={evt => setOwner(evt.target.value)}
             className="owner"
-            disabled={disabled}
+            disabled={!setupRsk}
             placeholder={strings.address_placeholder}
           />
         </Col>
@@ -130,26 +130,6 @@ const NewSubdomainComponent = ({
             {strings.create}
           </button>
         </Col>
-      </Row>
-
-      <Row>
-        <div className="col-md-8 offset-md-2">
-          <ul className="suggestions">
-            <li className="title">
-              {strings.suggestion}
-              :
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => setOwner(address)}
-                className="capitalize"
-              >
-                {`${strings.your_address} (${truncateString(address)})`}
-              </button>
-            </li>
-          </ul>
-        </div>
       </Row>
 
       {advancedView && (
