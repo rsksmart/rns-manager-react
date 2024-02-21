@@ -1,6 +1,6 @@
 footer {
   .footer-top {
-    background-color: #e5e5e5;
+    background-color: $custom-gray;
     padding: 50px 0;
 
     text-align: center;
@@ -40,7 +40,7 @@ footer::before {
   content: '';
   width: 100%;
   height: 200px;
-  background: url("/assets/img/gray-arch.svg");
+  background: $custom-gray;
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;

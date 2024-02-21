@@ -10,7 +10,7 @@ const UserWaitingComponent = ({ message, visible }) => {
   return (
     <div className="row waiting">
       <div className="col-md-6 offset-md-3">
-        <Loader color="#008FF7" size="80px" className="loader-center" />
+        <Loader color="#4B5CF0" size="80px" className="loader-center" />
         <p>{message}</p>
       </div>
     </div>

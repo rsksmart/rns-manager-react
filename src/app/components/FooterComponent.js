@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { multilanguage } from 'redux-multilanguage';
-import logo from '../../assets/img/logo-footer.svg';
+import logo from '../../assets/img/rif_black.svg';
 
 import { version } from '../../../package.json';
 import PlausibleAnalytics from './PlausibleAnalytics';
@@ -27,7 +27,7 @@ const FooterComponent = (props) => {
         <Container>
           <Row>
             <Col lg="3">
-              <Image src={logo} alt="RSK Logo" />
+              <Image style={{ height: '45px' }} src={logo} alt="RIF Logo" />
             </Col>
             <Col lg="2">
               <h2>RIF</h2>
