@@ -398,7 +398,7 @@
   "content_hash": "콘텐츠_해시",
   "contract_abi": "컨트랙트_ABI",
   "contract_abi_set": "컨트랙트 ABI가 설정 완료되었습니다.",
-  "domain_expired": "도메인이 만료되었습니다",
+  "domain_expired": "도메인이 만료되어 더 이상 갱신할 수 없습니다. 새 도메인으로 등록할 수 있습니다.",
   "search_for_domain": "다시 등록하십시오",
   "set_subdomain_rsk_other": "RSK 주소를 다른 소유자로 설정하십시오. 이로 인해 세 번의 거래가 발생합니다.",
   "set_subdomain_rsk": "RSK 주소를 다른 소유자로 설정하십시오. 소유자가 본인 인 경우 두 가지 거래에 서명해야합니다. 소유자가 다른 주소 인 경우 세 번의 거래에 서명해야합니다.",
