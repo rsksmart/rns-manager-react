@@ -8,7 +8,7 @@ import {
   CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
   REQUEST_CHECK_COMMITMENT_REQUIRED,
   RECEIVE_CHECK_COMMITMENT_REQUIRED,
-  REQUEST_HAS_ENOUGH_RIF, RECEIVE_HAS_ENOUGH_RIF, ERROR_NOT_ENOUGH_RIF,
+  REQUEST_HAS_ENOUGH_RIF, ERROR_NOT_ENOUGH_RIF,
 } from './types';
 
 const initialState = {
@@ -30,7 +30,6 @@ const initialState = {
   errorMessage: '',
   successTx: '',
   hasEnoughRIF: false,
-  gettingHasEnoughRIF: false,
 };
 const registrar = (state = initialState, action) => {
   switch (action.type) {
@@ -138,16 +137,10 @@ const registrar = (state = initialState, action) => {
     };
     case REQUEST_HAS_ENOUGH_RIF: return {
       ...state,
-      gettingHasEnoughRIF: true,
-    };
-    case RECEIVE_HAS_ENOUGH_RIF: return {
-      ...state,
-      hasEnoughRIF: action.hasEnoughRIF,
-      gettingHasEnoughRIF: false,
     };
     case ERROR_NOT_ENOUGH_RIF: return {
       ...state,
-      errorMessage: 'Insufficient RIF balance',
+      errorMessage: action.message,
     };
     case RESET_REGISTRAR_STATE:
       return initialState;

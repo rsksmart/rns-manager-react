@@ -7,7 +7,7 @@ import {
   REQUEST_CONVERSION_RATE, RECEIVE_CONVERSION_RATE, ERROR_CONVERSION_RATE,
   TOGGLE_SETUP_ADDRESS, CLOSE_REGISTRATION_ERROR, REQUEST_CHECK_COMMIT_REGISTRAR,
   RECEIVE_CHECK_COMMITMENT_REQUIRED, REQUEST_CHECK_COMMITMENT_REQUIRED,
-  REQUEST_HAS_ENOUGH_RIF, RECEIVE_HAS_ENOUGH_RIF, ERROR_NOT_ENOUGH_RIF,
+  REQUEST_HAS_ENOUGH_RIF, ERROR_NOT_ENOUGH_RIF,
 } from './types';
 
 export const requestGetCost = duration => ({
@@ -107,11 +107,6 @@ export const closeErrorMessage = () => ({
 
 export const requestHasEnoughRif = () => ({
   type: REQUEST_HAS_ENOUGH_RIF,
-});
-
-export const receiveHasEnoughRif = hasEnoughRif => ({
-  type: RECEIVE_HAS_ENOUGH_RIF,
-  hasEnoughRif,
 });
 
 export const errorHasEnoughRIF = message => ({

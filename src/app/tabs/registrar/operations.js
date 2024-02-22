@@ -20,7 +20,6 @@ import {
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
   requestHasEnoughRif,
-  receiveHasEnoughRif,
   errorHasEnoughRIF,
 } from './actions';
 import {
@@ -32,7 +31,7 @@ import {
   rifAbi,
 } from './abis.json';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
-import { sendBrowserNotification } from '../../browerNotifications/operations';
+import { getLanguageString, sendBrowserNotification } from '../../browerNotifications/operations';
 import { start } from '../../auth/operations';
 import {
   registrar, partnerConfiguration, getCurrentPartner, provider,
@@ -95,16 +94,8 @@ export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) =>
     const signer = await getSigner();
     const currentUserAccount = await signer.getAddress();
     const rif = new ethers.Contract(rifAddress, rifAbi, signer);
-    rif.balanceOf(currentUserAccount)
-      .then((balance) => {
-        if (balance / (10 ** 18) < cost) {
-          dispatch(errorHasEnoughRIF());
-          return resolve(false);
-        }
-        dispatch(receiveHasEnoughRif((balance / (10 ** 18)) >= cost));
-        return resolve((balance / (10 ** 18)) >= cost);
-      })
-      .catch(error => dispatch(errorHasEnoughRIF(error.message)));
+    const balance = await rif.balanceOf(currentUserAccount);
+    return resolve((balance / (10 ** 18)) >= cost);
   };
 
   // eslint-disable-next-line no-unused-expressions
@@ -229,10 +220,10 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 export const revealCommit = domain => async (dispatch, getState) => {
   const { rifCost: cost } = getState().registrar;
 
+  const errorMessage = getLanguageString('not_enough_rif_balance');
   const hasEnough = await dispatch(hasEnoughRif(cost));
-  if (!hasEnough) return dispatch(errorHasEnoughRIF('Insufficient RIF balance'));
+  if (!hasEnough) return dispatch(errorHasEnoughRIF(errorMessage));
 
-  // eslint-disable-next-line consistent-return
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);
     if (!options) {
@@ -241,19 +232,19 @@ export const revealCommit = domain => async (dispatch, getState) => {
 
     options = JSON.parse(options);
     const {
-      salt, duration, rifCost, hasEnoughRIF,
+      salt, duration, rifCost,
     } = options;
 
+    dispatch(requestRevealCommit());
+
+    const signer = await getSigner();
+    const currentUserAccount = await signer.getAddress();
+
+    const Registrar = await registrar(signer);
+    const durationBN = BigNumber.from(duration);
+    const rifCostBN = ethers.utils.parseEther(rifCost.toString());
+
     try {
-      if (hasEnoughRIF) dispatch(requestRevealCommit());
-
-      const signer = await getSigner();
-      const currentUserAccount = await signer.getAddress();
-
-      const Registrar = await registrar(signer);
-      const durationBN = BigNumber.from(duration);
-      const rifCostBN = ethers.utils.parseEther(rifCost.toString());
-
       const txHash = await Registrar.register(
         domain, currentUserAccount, salt, durationBN, rifCostBN,
       );
