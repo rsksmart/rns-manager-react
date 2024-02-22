@@ -95,18 +95,13 @@ export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) =>
     const signer = await getSigner();
     const currentUserAccount = await signer.getAddress();
     const rif = new ethers.Contract(rifAddress, rifAbi, signer);
-    console.log('💀 RIF ADDRESS', rifAddress);
     rif.balanceOf(currentUserAccount)
       .then((balance) => {
-        console.log('RIF BALANCE', (balance / (10 ** 18)));
-        console.log('currentUserAccount', currentUserAccount);
         if (balance / (10 ** 18) < cost) {
-          console.log('💀 INSUFFICIENT RIF BALANCE');
           dispatch(errorHasEnoughRIF());
           return resolve(false);
         }
-        console.log('✅ RIF BALANCE');
-        dispatch(receiveHasEnoughRif(balance / (10 ** 18)) >= cost);
+        dispatch(receiveHasEnoughRif((balance / (10 ** 18)) >= cost));
         return resolve((balance / (10 ** 18)) >= cost);
       })
       .catch(error => dispatch(errorHasEnoughRIF(error.message)));
@@ -232,15 +227,10 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 };
 
 export const revealCommit = domain => async (dispatch, getState) => {
-  const { rifCost: cost, hasEnoughRIF } = getState().registrar;
-  try {
-    console.log('>>>>> HAS ENOUGH RIF');
-    dispatch(hasEnoughRif(cost));
-  } catch (error) {
-    dispatch(errorHasEnoughRIF(error.message));
-    console.log('💀 ERROR', error.message);
-    return false;
-  }
+  const { rifCost: cost } = getState().registrar;
+
+  const hasEnough = await dispatch(hasEnoughRif(cost));
+  if (!hasEnough) return dispatch(errorHasEnoughRIF('Insufficient RIF balance'));
 
   // eslint-disable-next-line consistent-return
   const callback = async () => {
@@ -251,12 +241,11 @@ export const revealCommit = domain => async (dispatch, getState) => {
 
     options = JSON.parse(options);
     const {
-      salt, duration, rifCost,
+      salt, duration, rifCost, hasEnoughRIF,
     } = options;
 
     try {
-      console.log('✅ REVEAL COMMIT');
-      if (hasRif) dispatch(requestRevealCommit());
+      if (hasEnoughRIF) dispatch(requestRevealCommit());
 
       const signer = await getSigner();
       const currentUserAccount = await signer.getAddress();

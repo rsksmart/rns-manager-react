@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   domain: state.auth.name.replace('.rsk', ''),
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,
+  hasEnoughRif: state.registrar.hasEnoughRif,
   renewError: state.newAdmin.domainInfo.renewError,
   renewSuccess: state.newAdmin.domainInfo.renewSuccess,
   renewSuccessTx: state.newAdmin.domainInfo.renewSuccessTx,
