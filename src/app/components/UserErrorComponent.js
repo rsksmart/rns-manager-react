@@ -36,18 +36,12 @@ const UserErrorComponent = ({
 
   const formatMessage = () => {
     switch (message) {
-      case ERROR_SAME_VALUE:
-        return strings.same_value;
-      case ERROR_RESOLVE_NAME:
-        return strings.resolve_not_set;
-      case ADDRESS_ENCODING_ERROR:
-        return strings.could_not_encode_address;
-      case TRANSACTION_RECEIPT_FAILED:
-        return strings.transaction_receipt_failed;
-      case ERROR_NOT_ENOUGH_RIF:
-        return strings.not_enough_rif_balance;
-      default:
-        return truncateErrorMessage(message);
+      case ERROR_SAME_VALUE: return strings.same_value;
+      case ERROR_RESOLVE_NAME: return strings.resolve_not_set;
+      case ADDRESS_ENCODING_ERROR: return strings.could_not_encode_address;
+      case TRANSACTION_RECEIPT_FAILED: return strings.transaction_receipt_failed;
+      case ERROR_NOT_ENOUGH_RIF: return strings.not_enough_rif_balance;
+      default: return truncateErrorMessage(message);
     }
   };
 
