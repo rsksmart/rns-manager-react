@@ -20,7 +20,7 @@ import {
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
   requestHasEnoughRif,
-  errorHasEnoughRIF,
+  errorNotEnoughRIF,
 } from './actions';
 import {
   rif as rifAddress,
@@ -222,7 +222,7 @@ export const revealCommit = domain => async (dispatch, getState) => {
 
   const errorMessage = getLanguageString('not_enough_rif_balance');
   const hasEnough = await dispatch(hasEnoughRif(cost));
-  if (!hasEnough) return dispatch(errorHasEnoughRIF(errorMessage));
+  if (!hasEnough) return dispatch(errorNotEnoughRIF(errorMessage));
 
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);

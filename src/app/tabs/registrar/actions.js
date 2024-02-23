@@ -109,7 +109,7 @@ export const requestHasEnoughRif = () => ({
   type: REQUEST_HAS_ENOUGH_RIF,
 });
 
-export const errorHasEnoughRIF = message => ({
+export const errorNotEnoughRIF = message => ({
   type: ERROR_NOT_ENOUGH_RIF,
   message,
 });
