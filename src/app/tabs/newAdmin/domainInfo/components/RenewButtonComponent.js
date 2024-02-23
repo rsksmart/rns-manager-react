@@ -18,9 +18,11 @@ const RenewButtonComponent = (props) => {
     <p>
       {disable ? strings.domain_expired : `${strings.expires_on} ${formatDate(dayMath(expires))}`}
 
-      <Button onClick={handleClick} className={isRenewOpen ? 'active caps-first' : 'caps-first'} disabled={disable}>
-        {strings.renew}
-      </Button>
+      {!disable && (
+        <Button onClick={handleClick} className={isRenewOpen ? 'active caps-first' : 'caps-first'} disabled={disable}>
+          {strings.renew}
+        </Button>
+      )}
     </p>
   );
 };

@@ -397,7 +397,7 @@
   "content_hash": "Contenido hash",
   "contract_abi": "Contrato ABI",
   "contract_abi_set": "El contrato ABI ha sido configurado.",
-  "domain_expired": "Su dominio ha expirado",
+  "domain_expired": "Su dominio ha caducado y ya no se puede renovar. Puedes registrarlo como un nuevo dominio.",
   "search_for_domain": "Regístralo nuevamente",
   "set_subdomain_rsk_other": "Establezca la dirección RSK a un propietario diferente. Esto dará como resultado tres transacciones.",
   "set_subdomain_rsk": "Establezca la dirección RSK a un propietario diferente. Si el propietario es usted mismo, deberá firmar dos transacciones. Si el propietario es una dirección diferente, deberá firmar tres transacciones.",

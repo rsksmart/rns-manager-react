@@ -399,7 +399,7 @@
   "contract_abi": "Contract ABI",
   "contract_abi_set": "Contract ABI has been set.",
   "contracts_not_set": "Contracts Not Set",
-  "domain_expired": "Your domain has expired",
+  "domain_expired": "Your domain has expired and can no longer be renewed. You can register it as a new domain.",
   "search_for_domain": "Register it again",
   "set_subdomain_rsk_other": "Set the RSK address to a different owner. This will result in three transactions.",
   "set_subdomain_rsk": "Set the RSK address to a different owner. If the owner is yourself, you will need to sign two transactions. If the owner is a different address, you will need to sign three transactions.",
