@@ -126,10 +126,10 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                         </div>
                       </Col>
                       <Col
-                        md={4}
+                        md={3}
                       >
                         <div
-                          className="col-md-4"
+                          className="col-md-3"
                         >
                           <p
                             className="cost"
@@ -150,10 +150,10 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                         </div>
                       </Col>
                       <Col
-                        md={2}
+                        md={3}
                       >
                         <div
-                          className="col-md-2"
+                          className="col-md-3"
                         >
                           <Button
                             active={false}
