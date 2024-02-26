@@ -61,7 +61,7 @@ const SearchResultsComponent = ({
             <Col md={2}>
               <p className="status blue">{strings.available}</p>
             </Col>
-            <Col md={4}>
+            <Col md={3}>
               <p className="cost">
                 <span className="rifPrice">
                   {rifCost}
@@ -73,7 +73,7 @@ const SearchResultsComponent = ({
                 </span>
               </p>
             </Col>
-            <Col md={2}>
+            <Col md={3}>
               <Button
                 className="register"
                 onClick={handleClick}
