@@ -68,7 +68,7 @@ const SearchResultsComponent = ({
                   {' rif'}
                 </span>
                 <span className="year">
-                  {' / '}
+                  {'/'}
                   {strings.year}
                 </span>
               </p>
