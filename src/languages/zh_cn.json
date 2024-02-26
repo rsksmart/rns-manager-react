@@ -398,7 +398,7 @@
   "content_hash": "内容散列",
   "contract_abi": "合约 ABI",
   "contract_abi_set": "合约 ABI 已设置。",
-  "domain_expired": "您的网域已过期",
+  "domain_expired": "您的域名已过期，无法再续订。您可以将其注册为新域。",
   "search_for_domain": "重新注册",
   "set_subdomain_rsk_other": "将RSK地址设置为其他所有者。这将导致三笔交易。",
   "set_subdomain_rsk": "将RSK地址设置为其他所有者。如果所有者是您自己，则需要签署两项交易。如果所有者是其他地址，则需要签署三笔交易。",

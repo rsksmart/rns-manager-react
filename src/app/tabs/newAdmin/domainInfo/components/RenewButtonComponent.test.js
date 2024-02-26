@@ -46,16 +46,16 @@ describe('RenewButtonComponent', () => {
     expect(component.find('button').hasClass('active')).toBeTruthy();
   });
 
-  it('expect nothing when expires is 0', () => {
+  it('expect button to not be visible when disabled is true', () => {
     const localProps = {
       ...initProps,
-      expires: 0,
+      checkingExpirationTime: true,
     };
     const component = mount(
       <Provider store={store}>
         <RenewButtonComponent {...localProps} />
       </Provider>,
     );
-    expect(component.find('button').prop('disabled')).toBeTruthy();
+    expect(component.find('button').exists()).toBeFalsy();
   });
 });
