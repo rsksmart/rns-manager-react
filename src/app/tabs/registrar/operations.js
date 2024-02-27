@@ -31,13 +31,12 @@ import {
   rifAbi,
 } from './abis.json';
 import { FIFS_REGISTRER, FIFS_ADDR_REGISTRER } from './types';
-import { getLanguageString, sendBrowserNotification } from '../../browerNotifications/operations';
+import { sendBrowserNotification } from '../../browerNotifications/operations';
 import { start } from '../../auth/operations';
 import {
   registrar, partnerConfiguration, getCurrentPartner, provider,
 } from '../../rns-sdk';
 import getSigner from '../../helpers/getSigner';
-import configureStore from "../../../configureStore";
 
 const makeCommitment = (domain, owner, secret, duration, addr) => {
   const hashLabel = `0x${sha3(domain)}`;
