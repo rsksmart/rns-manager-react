@@ -37,6 +37,7 @@ import {
   registrar, partnerConfiguration, getCurrentPartner, provider,
 } from '../../rns-sdk';
 import getSigner from '../../helpers/getSigner';
+import configureStore from "../../../configureStore";
 
 const makeCommitment = (domain, owner, secret, duration, addr) => {
   const hashLabel = `0x${sha3(domain)}`;
@@ -220,9 +221,8 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
 export const revealCommit = domain => async (dispatch, getState) => {
   const { rifCost: cost } = getState().registrar;
 
-  const errorMessage = getLanguageString('not_enough_rif_balance');
   const hasEnough = await dispatch(hasEnoughRif(cost));
-  if (!hasEnough) return dispatch(errorNotEnoughRIF(errorMessage));
+  if (!hasEnough) return dispatch(errorNotEnoughRIF());
 
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);

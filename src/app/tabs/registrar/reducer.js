@@ -140,7 +140,7 @@ const registrar = (state = initialState, action) => {
     };
     case ERROR_NOT_ENOUGH_RIF: return {
       ...state,
-      errorMessage: action.message,
+      errorMessage: ERROR_NOT_ENOUGH_RIF,
     };
     case RESET_REGISTRAR_STATE:
       return initialState;
