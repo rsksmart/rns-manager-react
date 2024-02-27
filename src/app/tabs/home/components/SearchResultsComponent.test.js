@@ -39,7 +39,7 @@ describe('SearchResultsComponent', () => {
 
     expect(component.find('h3').text()).toBe('foobar.rsk');
     expect(component.find('.status').text()).toBe('available');
-    expect(component.find('p.cost').text()).toBe('6 rif / year');
+    expect(component.find('p.cost').text()).toBe('6 rif/year');
   });
 
   it('renders and matches snapshot when not available', () => {
