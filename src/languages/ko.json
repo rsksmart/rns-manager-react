@@ -416,5 +416,6 @@
   "rns_integrations": "지갑과 dapp 통합",
   "domain_length_validation_msg_partner": "파트너는 도메인 이름이: ",
   "domain_length_validation_msg_default": "도메인 이름은 다음 사이여야 합니다: ",
-  "not_enough_rif_balance": "이 작업을 수행하기에는 RIF 잔액이 충분하지 않습니다."
+  "not_enough_rif_balance": "이 작업을 수행하기에는 RIF 잔액이 충분하지 않습니다.",
+  "user_rejected_tx": "사용자가 거래를 거부했습니다."
 }

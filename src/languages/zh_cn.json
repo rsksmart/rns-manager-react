@@ -416,5 +416,6 @@
   "rns_integrations": "钱包和dapp集成",
   "domain_length_validation_msg_partner": "夥伴要求域名必須介於: ",
   "domain_length_validation_msg_default": "域名必須介於: ",
-  "not_enough_rif_balance": "您没有足够的 RIF 余额来执行此操作."
+  "not_enough_rif_balance": "您没有足够的 RIF 余额来执行此操作.",
+  "user_rejected_tx": "用户拒绝了交易"
 }

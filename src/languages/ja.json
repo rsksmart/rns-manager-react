@@ -416,5 +416,6 @@
   "rns_integrations": "ウォレットとdappの統合",
   "domain_length_validation_msg_partner": "パートナーは、ドメイン名が: ",
   "domain_length_validation_msg_default": "ドメイン名は: ",
-  "not_enough_rif_balance": "このアクションを実行するには十分な RIF 残高がありません"
+  "not_enough_rif_balance": "このアクションを実行するには十分な RIF 残高がありません",
+  "user_rejected_tx": "ユーザーがトランザクションを拒否しました"
 }

@@ -416,5 +416,6 @@
   "rns_integrations": "Integrações de carteira e dapp",
   "domain_length_validation_msg_partner": "O parceiro exige que o nome de domínio esteja entre: ",
   "domain_length_validation_msg_default": "O nome de domínio deve estar entre: ",
-  "not_enough_rif_balance": "Você não tem saldo RIF suficiente para realizar esta ação"
+  "not_enough_rif_balance": "Você não tem saldo RIF suficiente para realizar esta ação",
+  "user_rejected_tx": "O usuário rejeitou a transação"
 }
