@@ -415,5 +415,6 @@
   "decentralized_exp": "ここでは、IPFSやSwarmなどの分散ストレージサービスからURLを設定できます。あなたはRNSの助けを借りてあなたの分散型ウェブサイトをホストすることができます",
   "rns_integrations": "ウォレットとdappの統合",
   "domain_length_validation_msg_partner": "パートナーは、ドメイン名が: ",
-  "domain_length_validation_msg_default": "ドメイン名は: "
+  "domain_length_validation_msg_default": "ドメイン名は: ",
+  "not_enough_rif_balance": "このアクションを実行するには十分な RIF 残高がありません"
 }

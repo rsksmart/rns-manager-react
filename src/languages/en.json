@@ -420,5 +420,6 @@
   "accept": "Accept",
   "reject": "Reject",
   "domain_length_validation_msg_partner": "Partner requires that domain name must be between: ",
-  "domain_length_validation_msg_default": "The domain name must be between: "
+  "domain_length_validation_msg_default": "The domain name must be between: ",
+  "not_enough_rif_balance": "You don't have enough RIF balance to perform this action"
 }

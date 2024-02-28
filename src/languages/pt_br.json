@@ -415,5 +415,6 @@
   "decentralized_exp": "Aqui você pode definir URLs de serviços de armazenamento descentralizados, como IPFS e Swarm. Você pode hospedar seu site descentralizado com a ajuda de RNS",
   "rns_integrations": "Integrações de carteira e dapp",
   "domain_length_validation_msg_partner": "O parceiro exige que o nome de domínio esteja entre: ",
-  "domain_length_validation_msg_default": "O nome de domínio deve estar entre: "
+  "domain_length_validation_msg_default": "O nome de domínio deve estar entre: ",
+  "not_enough_rif_balance": "Você não tem saldo RIF suficiente para realizar esta ação"
 }

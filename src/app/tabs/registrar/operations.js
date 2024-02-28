@@ -19,6 +19,8 @@ import {
   requestCheckCommitRegistrar,
   requestIsCommitmentRequired,
   receiveIsCommitmentRequired,
+  requestHasEnoughRif,
+  errorNotEnoughRIF,
 } from './actions';
 import {
   rif as rifAddress,
@@ -88,6 +90,7 @@ export const getCost = (domain, duration) => async (dispatch) => {
  */
 export const hasEnoughRif = cost => dispatch => new Promise((resolve, reject) => {
   const checkBalance = async () => {
+    dispatch(requestHasEnoughRif());
     const signer = await getSigner();
     const currentUserAccount = await signer.getAddress();
     const rif = new ethers.Contract(rifAddress, rifAbi, signer);
@@ -214,7 +217,12 @@ export const checkIfAlreadyCommitted = domain => async (dispatch) => {
   }
 };
 
-export const revealCommit = domain => async (dispatch) => {
+export const revealCommit = domain => async (dispatch, getState) => {
+  const { rifCost: cost } = getState().registrar;
+
+  const hasEnough = await dispatch(hasEnoughRif(cost));
+  if (!hasEnough) return dispatch(errorNotEnoughRIF());
+
   const callback = async () => {
     let options = localStorage.getItem(`${domain}-options`);
     if (!options) {

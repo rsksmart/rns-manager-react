@@ -415,5 +415,6 @@
   "decentralized_exp": "여기에서 IPFS 및 Swarm과 같은 분산 형 스토리지 서비스에서 URL을 설정할 수 있습니다. RNS의 도움으로 분산 된 웹 사이트를 호스팅 할 수 있습니다.",
   "rns_integrations": "지갑과 dapp 통합",
   "domain_length_validation_msg_partner": "파트너는 도메인 이름이: ",
-  "domain_length_validation_msg_default": "도메인 이름은 다음 사이여야 합니다: "
+  "domain_length_validation_msg_default": "도메인 이름은 다음 사이여야 합니다: ",
+  "not_enough_rif_balance": "이 작업을 수행하기에는 RIF 잔액이 충분하지 않습니다."
 }

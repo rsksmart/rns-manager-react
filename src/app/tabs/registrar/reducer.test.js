@@ -26,6 +26,7 @@ describe('register reducer', () => {
     errorMessage: '',
     checkingIfCommitmentIsRequired: false,
     isCommitmentRequired: true,
+    hasEnoughRIF: false,
   };
 
   it('should return the initial state', () => {
