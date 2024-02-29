@@ -28,7 +28,9 @@ const UserErrorComponent = ({
 
     const index = errorMessage.indexOf('(');
     if (index !== -1) {
-      return errorMessage.substring(0, index);
+      const truncateMessage = errorMessage.substring(0, index);
+      return truncateMessage === 'user rejected transaction '
+        ? strings.user_rejected_tx : truncateMessage;
     }
     // Return the original string if no parenthesis is found
     return errorMessage;
@@ -72,6 +74,7 @@ UserErrorComponent.propTypes = {
     could_not_encode_address: propTypes.string.isRequired,
     transaction_receipt_failed: propTypes.string.isRequired,
     not_enough_rif_balance: propTypes.string.isRequired,
+    user_rejected_tx: propTypes.string.isRequired,
   }).isRequired,
   title: propTypes.string,
   message: propTypes.string,

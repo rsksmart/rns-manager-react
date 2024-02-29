@@ -415,5 +415,6 @@
   "rns_integrations": "Integraciones de billetera y dapp",
   "domain_length_validation_msg_partner": "El socio requiere que el nombre de dominio esté entre: ",
   "domain_length_validation_msg_default": "El nombre de dominio debe estar entre: ",
-  "not_enough_rif_balance": "No tienes suficiente saldo de RIF para realizar esta acción"
+  "not_enough_rif_balance": "No tienes suficiente saldo de RIF para realizar esta acción",
+  "user_rejected_tx": "El usuario rechazó la transacción"
 }
