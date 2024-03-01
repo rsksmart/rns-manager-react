@@ -35,7 +35,7 @@ const FooterComponent = (props) => {
                   <a href="https://developers.rsk.co/rif/" {...linkProps}>{strings.services}</a>
                 </li>
                 <li>
-                  <a href="https://rif.technology/static/add903ce229a6f45a606cd78b028cf9e/RIF-whitepaper-V2.pdf" {...linkProps}>
+                  <a href="git che" {...linkProps}>
                     {strings.whitepaper}
                   </a>
                 </li>
@@ -56,11 +56,6 @@ const FooterComponent = (props) => {
             <Col lg="2">
               <h2>{strings.developers}</h2>
               <ul>
-                <li>
-                  <a href="https://www.rifos.org/nameservice/assets/rns-specs/rif-directory-protocol-en.pdf" {...linkProps}>
-                    {strings.whitepaper}
-                  </a>
-                </li>
                 <li><a href="https://developers.rsk.co/rif/rns" {...linkProps}>{strings.docs}</a></li>
                 <li>
                   <a href="https://github.com/rnsdomains/" {...linkProps}>Github</a>
