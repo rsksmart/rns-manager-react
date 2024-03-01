@@ -56,11 +56,6 @@ const FooterComponent = (props) => {
             <Col lg="2">
               <h2>{strings.developers}</h2>
               <ul>
-                <li>
-                  <a href="https://www.rifos.org/nameservice/assets/rns-specs/rif-directory-protocol-en.pdf" {...linkProps}>
-                    {strings.whitepaper}
-                  </a>
-                </li>
                 <li><a href="https://developers.rsk.co/rif/rns" {...linkProps}>{strings.docs}</a></li>
                 <li>
                   <a href="https://github.com/rnsdomains/" {...linkProps}>Github</a>
