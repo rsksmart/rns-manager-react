@@ -35,7 +35,7 @@ const FooterComponent = (props) => {
                   <a href="https://developers.rsk.co/rif/" {...linkProps}>{strings.services}</a>
                 </li>
                 <li>
-                  <a href="git che" {...linkProps}>
+                  <a href="https://rif.technology/static/add903ce229a6f45a606cd78b028cf9e/RIF-whitepaper-V2.pdf" {...linkProps}>
                     {strings.whitepaper}
                   </a>
                 </li>
