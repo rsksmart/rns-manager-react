@@ -40,7 +40,7 @@ const FooterComponent = (props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://rif.technology/rif/token/" {...linkProps}>{strings.rif_token}</a>
+                  <a href="https://rif.technology/rif-token/" {...linkProps}>{strings.rif_token}</a>
                 </li>
               </ul>
             </Col>
