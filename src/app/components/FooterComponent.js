@@ -85,7 +85,7 @@ const FooterComponent = (props) => {
             <Col>
               <p style={{ fontSize: '.8em' }}>
                 {`Copyright © ${new Date().getFullYear()} `}
-                RSK Labs. All rights reserved.
+                RootstockLabs. All rights reserved.
                 {` ${version}`}
               </p>
             </Col>
