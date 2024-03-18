@@ -12,10 +12,10 @@ import {
 import UserWaitingComponent from '../../../components/UserWaitingComponent';
 
 const renderResolutions = (supportedInterfaces) => {
-  const hasAddr = supportedInterfaces.indexOf('addr') > -1;
-  const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
-  const hasMulticoin = supportedInterfaces.indexOf('multicoin') > -1;
-  const hasName = supportedInterfaces.indexOf('name') > -1;
+  const hasAddr = supportedInterfaces.includes('addr');
+  const hasChainAddr = supportedInterfaces.includes('chainAddr');
+  const hasMulticoin = supportedInterfaces.includes('multicoin');
+  const hasName = supportedInterfaces.includes('name');
 
   return (
     <Container className="page">
