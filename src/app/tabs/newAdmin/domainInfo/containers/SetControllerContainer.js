@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps.strings,
     error_message: state.newAdmin.domainInfo.registryOwnerError,
   },
-  validationChainId: state.auth.network,
+  validationChainId: state.auth.network.toString(),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
   currentAddress: state.auth.address,
   value: state.auth.address,
   validate: true,
-  validationChainId: state.auth.network,
+  validationChainId: state.auth.network.toString(),
   strings: {
     ...ownProps.strings,
     error_message: state.newAdmin.domainInfo.errorMessage,
