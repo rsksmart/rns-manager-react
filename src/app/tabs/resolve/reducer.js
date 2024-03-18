@@ -20,7 +20,7 @@ const initialState = {
     value: null,
     error: null,
   },
-  content: [],
+  content: {},
 };
 
 const reducer = (state = initialState, action) => {

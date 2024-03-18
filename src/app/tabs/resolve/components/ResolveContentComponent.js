@@ -22,7 +22,7 @@ const ResolveContentComponent = ({ strings, content }) => {
   );
 
   return Object.entries(content).map((item) => {
-    if (item[1].loading || item[1].content === '') {
+    if (item[1].loading || item[1].content === '' || item[1].value === null) {
       return (<></>);
     }
     switch (item[0]) {
