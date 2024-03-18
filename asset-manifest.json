@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/rns-manager-react/static/css/main.03e86a11.chunk.css",
-    "main.js": "/rns-manager-react/static/js/main.86923b85.chunk.js",
-    "main.js.map": "/rns-manager-react/static/js/main.86923b85.chunk.js.map",
+    "main.css": "/rns-manager-react/static/css/main.d975fdc9.chunk.css",
+    "main.js": "/rns-manager-react/static/js/main.2d92a53b.chunk.js",
+    "main.js.map": "/rns-manager-react/static/js/main.2d92a53b.chunk.js.map",
     "runtime-main.js": "/rns-manager-react/static/js/runtime-main.5f10a518.js",
     "runtime-main.js.map": "/rns-manager-react/static/js/runtime-main.5f10a518.js.map",
     "static/js/2.40529b6a.chunk.js": "/rns-manager-react/static/js/2.40529b6a.chunk.js",
     "static/js/2.40529b6a.chunk.js.map": "/rns-manager-react/static/js/2.40529b6a.chunk.js.map",
     "index.html": "/rns-manager-react/index.html",
-    "static/css/main.03e86a11.chunk.css.map": "/rns-manager-react/static/css/main.03e86a11.chunk.css.map",
+    "static/css/main.d975fdc9.chunk.css.map": "/rns-manager-react/static/css/main.d975fdc9.chunk.css.map",
     "static/js/2.40529b6a.chunk.js.LICENSE.txt": "/rns-manager-react/static/js/2.40529b6a.chunk.js.LICENSE.txt",
     "static/media/ask.61e775e3.svg": "/rns-manager-react/static/media/ask.61e775e3.svg",
     "static/media/book.57e9f7cc.svg": "/rns-manager-react/static/media/book.57e9f7cc.svg",
@@ -39,7 +39,7 @@
   "entrypoints": [
     "static/js/runtime-main.5f10a518.js",
     "static/js/2.40529b6a.chunk.js",
-    "static/css/main.03e86a11.chunk.css",
-    "static/js/main.86923b85.chunk.js"
+    "static/css/main.d975fdc9.chunk.css",
+    "static/js/main.2d92a53b.chunk.js"
   ]
 }
