@@ -14,7 +14,7 @@ import UserWaitingComponent from '../../../components/UserWaitingComponent';
 const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
   const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
-  const hasMulticoin = supportedInterfaces.indexOf('multicoin') > -1;
+  const hasMulticoin = false;
   const hasName = supportedInterfaces.indexOf('name') > -1;
 
   return (
