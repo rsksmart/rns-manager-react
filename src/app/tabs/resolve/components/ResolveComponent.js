@@ -143,7 +143,7 @@ class ResolveComponent extends Component {
                   type="text"
                   value={value}
                   onChange={this.resolveValueChange}
-                  className={!isValid && 'is-invalid'}
+                  className={isValid ? undefined : 'is-invalid'}
                   placeholder={strings.resolve_placeholder}
                 />
                 <div className="invalid-feedback">
