@@ -3,7 +3,7 @@
     "name": "RSK",
     "id": "0x80000089",
     "validation": "HEX",
-    "icon": "icon_rsk.png",
+    "icon": "icon_rsk.svg",
     "index": 137,
     "multi": true
   },

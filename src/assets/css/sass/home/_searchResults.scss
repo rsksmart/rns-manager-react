@@ -16,7 +16,7 @@
       margin: 10px 0 0 15px;
       padding: 0;
     }
-    
+
     p {
       font-size: 20px;
       margin-bottom: 0;
@@ -36,7 +36,7 @@
     p.cost {
       margin-top: -6px;
       span.rifPrice {
-        font-size: 36px;
+        font-size: 32px;
         font-weight: 500 !important;
       }
 
@@ -78,6 +78,7 @@
 @media (max-width: 767.98px) {
   .results h2 {
     text-align: center;
+    margin-top: 15%;
   }
 
   .searchResults {

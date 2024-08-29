@@ -161,7 +161,7 @@ AuthModalComponent.propTypes = {
   managerNetwork: propTypes.string.isRequired,
   networkMatch: propTypes.bool.isRequired,
   authenticate: propTypes.func.isRequired,
-  authError: propTypes.string,
+  authError: propTypes.bool,
   name: propTypes.string,
   isOwner: propTypes.bool.isRequired,
   openWallets: propTypes.func.isRequired,

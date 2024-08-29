@@ -1,5 +1,5 @@
 {
-  "home_title": "rif name service",
+  "home_title": "RIF name service",
   "home_subtitle": "obtenga su dominio, olvide su dirección",
   "register_your_domain": "registre su dominio",
   "what_is_rns_title": "¿qué es rns?",
@@ -160,7 +160,7 @@
   "notifications_new_subdomain_owner": "nuevo propietario de subdominio",
   "notifications_new_addr": "nueva dir",
   "notifications_new_content": "nuevo contenido",
-  "rsk_address": "dirección de rks",
+  "rsk_address": "dirección de rsk",
   "chain_address": "dirección de la cadena",
   "bitcoin": "bitcoin (BTC)",
   "ethereum": "ethereum (ETH)",

@@ -14,7 +14,7 @@ const SearchResultsComponent = ({
 
   if (isSearching || (rifCost === 0 && available)) {
     return (
-      <Loader color="#008FF7" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
+      <Loader color="#4B5CF0" size="80px" className="loader-center" style={{ margin: '15px auto' }} />
     );
   }
 
@@ -61,19 +61,19 @@ const SearchResultsComponent = ({
             <Col md={2}>
               <p className="status blue">{strings.available}</p>
             </Col>
-            <Col md={4}>
+            <Col md={3}>
               <p className="cost">
                 <span className="rifPrice">
                   {rifCost}
                   {' rif'}
                 </span>
                 <span className="year">
-                  {' / '}
+                  {'/'}
                   {strings.year}
                 </span>
               </p>
             </Col>
-            <Col md={2}>
+            <Col md={3}>
               <Button
                 className="register"
                 onClick={handleClick}

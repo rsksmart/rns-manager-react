@@ -14,7 +14,7 @@ import UserWaitingComponent from '../../../components/UserWaitingComponent';
 const renderResolutions = (supportedInterfaces) => {
   const hasAddr = supportedInterfaces.indexOf('addr') > -1;
   const hasChainAddr = supportedInterfaces.indexOf('chainAddr') > -1;
-  const hasMulticoin = supportedInterfaces.indexOf('multicoin') > -1;
+  const hasMulticoin = false;
   const hasName = supportedInterfaces.indexOf('name') > -1;
 
   return (
@@ -143,7 +143,7 @@ class ResolveComponent extends Component {
                   type="text"
                   value={value}
                   onChange={this.resolveValueChange}
-                  className={!isValid && 'is-invalid'}
+                  className={isValid ? undefined : 'is-invalid'}
                   placeholder={strings.resolve_placeholder}
                 />
                 <div className="invalid-feedback">

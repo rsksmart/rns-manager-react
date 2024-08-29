@@ -1,10 +1,10 @@
 .navbar-expand-md {
-  background-color: #008FF7;
+  background-color: #4B5CF0;
   // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   padding: 16px 0;
 
   .indicator {
-    color: #fff;
+    color: #BFEEFF;
     opacity: 1 !important;
     span {
       position: relative;
@@ -32,12 +32,12 @@
   }
 
   .navbar-nav .nav-link {
-    color: #ffffff;
+    color: #BFEEFF;
   }
 
   .navbar-nav .nav-link:hover {
     font-weight: normal;
-    color: #fff;
+    color: #BFEEFF;
   }
 
   .nav-link.btn {
@@ -63,12 +63,12 @@
   .btn-primary:hover:not([disabled]) {
     background: none !important;
     border-color: $blue !important;
-    color: #ffffff;
+    color: #BFEEFF;
   }
 
   // start/login button
   .btn-primary:not([disabled]).start, .btn-primary.start:hover:not([disabled])  {
-    border: 1px solid #ffffff !important;
+    border: 1px solid #BFEEFF !important;
   }
 }
 

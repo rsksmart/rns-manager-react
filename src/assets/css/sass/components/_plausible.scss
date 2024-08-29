@@ -10,19 +10,25 @@
     width: 85%;
     margin: 3px auto;
     font-size: 75%;
-    color: #fff;
+    color: $custom-gray;
+  }
+
+  a {
+    color: #BFEEFF;
+    font-weight: bold;
+    text-decoration: underline;
   }
 
   button {
-    border: 1px solid $white;
+    border: 1px solid $custom-gray;
     background: none;
     padding: 5px 10px;
     margin: 5px 10px 0 10px;
-    color: #fff;
+    color: $custom-gray;
   }
 
   button.accept {
-    background-color: $white;
+    background-color: $custom-gray;
   }
 
   button:hover {
