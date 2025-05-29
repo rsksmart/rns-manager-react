@@ -85,7 +85,8 @@
     "eslint-utils": "^1.4.1",
     "sqlite3": "^5.1.6",
     "node-sass": "npm:sass@^1.32.0",
-    "cheerio": "1.0.0-rc.5"
+    "cheerio": "1.0.0-rc.5",
+    "@babel/core": "^7.27.3"
   },
   "jest": {
     "setupFilesAfterEnv": [

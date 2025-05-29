@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 20.x
-    - run: yarn install
-    - run: yarn run ganache &
+    - run: yarn
+    - run: npm run ganache &
     - run: yarn test
     - run: yarn lint
