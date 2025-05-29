@@ -18,6 +18,6 @@ jobs:
       with:
         node-version: 20.x
     - run: yarn install
-    - run: npm run ganache &
+    - run: yarn run ganache &
     - run: yarn test
     - run: yarn lint
