@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 20.x
-    - run: yarn
+    - run: yarn install --frozen-lockfile=false
     - run: npm run ganache &
     - run: yarn test
     - run: yarn lint
