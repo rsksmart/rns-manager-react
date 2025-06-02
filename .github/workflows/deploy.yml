@@ -13,10 +13,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Node 12
+    - name: Setup Node 20
       uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '20'
 
     - name: Install dependencies
       run: yarn
@@ -47,10 +47,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Node 12
+    - name: Setup Node 20
       uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '20'
 
     - name: Install dependencies
       run: yarn

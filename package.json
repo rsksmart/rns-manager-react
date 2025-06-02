@@ -7,7 +7,7 @@
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rlogin-essentials": "1.0.3",
+    "@rsksmart/rlogin-essentials": "1.0.5",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
     "bootstrap": "^4.3.1",
@@ -17,7 +17,6 @@
     "eth-ens-namehash": "^2.0.8",
     "history": "^4.7.2",
     "js-sha3": "^0.8.0",
-    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
     "react": "^16.8.3",
@@ -36,20 +35,21 @@
     "redux-thunk": "^2.3.0",
     "rimble-ui": "^0.14.0",
     "rskjs-util": "^1.0.3",
+    "sass": "^1.32.0",
     "styled-components": "^5.0.1",
     "web3": "1.2.11",
     "web3-utils": "^1.2.4"
   },
   "scripts": {
     "ganache": "npx ganache-cli",
-    "start": "env-cmd -f .env.local react-scripts start",
-    "start:testnet": "env-cmd -f .env.testnet react-scripts start",
-    "start:mainnet": "env-cmd -f .env.production react-scripts start",
-    "build:testnet": "CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
-    "build:mainnet": "CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
-    "build:ghpages": "PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
-    "test": "node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
-    "test:watch": "node ./tests/setupRnsSuite.js && jest --watch",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' env-cmd -f .env.local react-scripts start",
+    "start:testnet": "NODE_OPTIONS='--openssl-legacy-provider' env-cmd -f .env.testnet react-scripts start",
+    "start:mainnet": "NODE_OPTIONS='--openssl-legacy-provider' env-cmd -f .env.production react-scripts start",
+    "build:testnet": "NODE_OPTIONS='--openssl-legacy-provider' CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
+    "build:mainnet": "NODE_OPTIONS='--openssl-legacy-provider' CI=false env-cmd -f .env.production react-scripts --max_old_space_size=8192 build",
+    "build:ghpages": "NODE_OPTIONS='--openssl-legacy-provider' PUBLIC_URL=/rns-manager-react CI=false env-cmd -f .env.testnet react-scripts --max_old_space_size=8192 build",
+    "test": "NODE_OPTIONS='--openssl-legacy-provider' node ./tests/setupRnsSuite.js && jest --maxWorkers=4 && eslint src",
+    "test:watch": "NODE_OPTIONS='--openssl-legacy-provider' node ./tests/setupRnsSuite.js && jest --watch",
     "cypress": "cypress open",
     "lint": "eslint src"
   },
@@ -74,23 +74,28 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "7.14.3",
     "ganache-cli": "^6.12.2",
-    "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "web-streams-polyfill": "^4.1.0"
   },
   "resolutions": {
     "lodash": "^4.17.14",
     "lodash.template": "^4.5.0",
-    "eslint-utils": "^1.4.1"
+    "eslint-utils": "^1.4.1",
+    "sqlite3": "^5.1.6",
+    "node-sass": "npm:sass@^1.32.0",
+    "cheerio": "1.0.0-rc.5",
+    "@babel/core": "^7.27.3"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./tests/setupTests.js",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.js"
+    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "testEnvironment": "enzyme",
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
@@ -99,6 +104,7 @@
     },
     "verbose": false,
     "setupFiles": [
+      "<rootDir>/tests/polyfills.js",
       "<rootDir>/tests/setEnvVars.js"
     ]
   }

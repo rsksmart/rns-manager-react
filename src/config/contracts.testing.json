@@ -1,13 +1,1 @@
-{
-  "rns": "",
-  "registrar": "",
-  "reverseRegistrar": "",
-  "publicResolver": "",
-  "nameResolver": "",
-  "multiChainResolver": "",
-  "rif": "",
-  "fifsRegistrar": "",
-  "fifsAddrRegistrar": "",
-  "rskOwner": "",
-  "renewer": ""
- }
+{"rns":"0x3f35d4af7dd2080db91458367c46bffd441ef5de","registrar":"0x1571f6fb8418c0ef167000d274ec77b775aeccd9","reverseRegistrar":"0x74a67903869138f25faffefe7cefd5023826b0da","publicResolver":"0x81a6e1f1b5a3702380baf1a8b0712f8bbd48ee66","nameResolver":"0x638cbe3c9993c7a73ee397e02202453cca1e79dd","multiChainResolver":"0x81ddf31ba161b2d9f046fe4cc43f2f97ad4b3379","rif":"0x76b7fdefd5a3fe0fbdcd42bcd9d634dfc9956e94","fifsRegistrar":"0x0dbfb58f147681d1e2e92f0ca6913f807773dd04","fifsAddrRegistrar":"0xdde683738ea6015e4604eb3a8babc8800979e886","rskOwner":"0xf2108a50ccbe4c1b4001c4054c15c4202f01b39a","renewer":"0xeb4b7f4a61a1cd31253406d7e5343ba02af53250"}
