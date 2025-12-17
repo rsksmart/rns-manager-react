@@ -8,8 +8,6 @@
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
     "@rsksmart/rlogin": "^1.6.1",
-    "@rsksmart/rlogin-ledger-provider": "^1.0.5-alpha",
-    "@rsksmart/rlogin-trezor-provider": "^1.0.6",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
     "@walletconnect/web3-provider": "^1.8.0",
