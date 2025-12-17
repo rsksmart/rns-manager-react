@@ -7,7 +7,7 @@
   "dependencies": {
     "@ensdomains/address-encoder": "^0.1.8",
     "@githubprimer/octicons-react": "^8.5.0",
-    "@rsksmart/rlogin-essentials": "1.0.5",
+    "@rsksmart/rlogin": "^1.6.1",
     "@rsksmart/rns": "^1.9.0",
     "@rsksmart/rns-suite": "^1.1.0",
     "bootstrap": "^4.3.1",
@@ -86,7 +86,8 @@
     "sqlite3": "^5.1.6",
     "node-sass": "npm:sass@^1.32.0",
     "cheerio": "1.0.0-rc.5",
-    "@babel/core": "^7.27.3"
+    "@babel/core": "^7.27.3",
+    "web3modal": "1.9.12"
   },
   "jest": {
     "setupFilesAfterEnv": [
