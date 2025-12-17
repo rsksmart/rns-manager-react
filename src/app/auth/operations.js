@@ -4,7 +4,8 @@ import {
   rns as registryAddress,
 } from '../adapters/configAdapter';
 import { registrar, rns } from '../rns-sdk';
-import rLogin from '../rLogin/rLogin';
+import { appKit } from '../appkit/appkitConfig';
+import rLogin from '../rLogin/appkitAdapter';
 import {
   closeModal,
   errorEnable,
@@ -173,6 +174,11 @@ const startWithRLogin = callback => (dispatch) => {
 export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('name');
   localStorage.removeItem('walletconnect');
+  try {
+    appKit.adapter?.connectionControllerClient?.disconnect?.();
+  } catch (e) {
+    // ignore disconnection errors
+  }
   window.rLogin = null;
   dispatch(logOut());
   dispatch(push(`/${redirect}`));
