@@ -12,6 +12,7 @@ jobs:
     environment:
       name: github-pages
       url: https://rsksmart.github.io/rns-manager-react/
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -25,8 +26,9 @@ jobs:
 
       - name: Install and Build for Testnet 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
-          yarn
+          yarn install --network-timeout 100000 || yarn install --network-timeout 100000 || yarn install --network-timeout 100000
           yarn build:ghpages
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
