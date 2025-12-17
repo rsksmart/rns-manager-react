@@ -1,5 +1,5 @@
 import RLogin from '@rsksmart/rlogin';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+// import WalletConnectProvider from '@walletconnect/web3-provider';
 // import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
 // import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
 
