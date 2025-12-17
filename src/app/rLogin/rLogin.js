@@ -34,7 +34,6 @@ const createRLogin = () => {
 
   return new RLogin({
     cacheProvider: false,
-    providerOptions: undefined,
     rpcUrls,
     supportedChains,
   });
