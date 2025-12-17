@@ -86,7 +86,8 @@
     "sqlite3": "^5.1.6",
     "node-sass": "npm:sass@^1.32.0",
     "cheerio": "1.0.0-rc.5",
-    "@babel/core": "^7.27.3"
+    "@babel/core": "^7.27.3",
+    "web3modal": "1.9.12"
   },
   "jest": {
     "setupFilesAfterEnv": [
