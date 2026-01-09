@@ -80,6 +80,7 @@ const FooterComponent = (props) => {
                 {`Copyright © ${new Date().getFullYear()} `}
                 RootstockLabs. All rights reserved.
                 {` ${version}`}
+                {process.env.REACT_APP_GIT_HASH && ` (${process.env.REACT_APP_GIT_HASH.slice(0, 7)})`}
               </p>
             </Col>
           </Row>
