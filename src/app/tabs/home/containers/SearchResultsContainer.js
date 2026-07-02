@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import SearchResultsComponent from '../components/SearchResultsComponent';
 import { clearDomainState } from '../../search/actions';
+import { history } from '../../../../configureStore';
 
 const mapStateToProps = state => ({
   domain: state.search.domain,
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleClick: (domain) => {
     dispatch(clearDomainState());
-    dispatch(push(`/registrar?domain=${domain}`));
+    history.push(`/registrar?domain=${domain}`);
   },
 });
 

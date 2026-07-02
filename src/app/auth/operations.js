@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 import Web3 from 'web3';
 import { hash as namehash } from 'eth-ens-namehash';
-import { push } from 'connected-react-router';
+import { history } from '../../configureStore';
 import {
   rns as registryAddress,
   rskOwner as rskOwnerAddress,
@@ -84,7 +84,7 @@ export const removeDomainToLocalStorage = (domain) => {
 
 const successfulLogin = (name, noRedirect) => (dispatch) => {
   if (!noRedirect) {
-    dispatch(push('/newAdmin'));
+    history.push('/newAdmin');
   }
 
   localStorage.setItem('name', name);
@@ -96,7 +96,7 @@ const successfulLogin = (name, noRedirect) => (dispatch) => {
 
 const failedLogin = name => (dispatch) => {
   localStorage.removeItem('name');
-  dispatch(push('/'));
+  history.push('/');
   return dispatch(errorLogin('failed login', name));
 };
 
@@ -207,7 +207,7 @@ export const logoutManager = (redirect = '') => (dispatch) => {
   localStorage.removeItem('walletconnect');
   window.rLogin = null;
   dispatch(logOut());
-  dispatch(push(`/${redirect}`));
+  history.push(`/${redirect}`);
 };
 
 /**
@@ -221,7 +221,7 @@ export const disconnectDomain = (domain, isCurrent) => (dispatch) => {
   if (isCurrent) {
     dispatch(logOut());
     localStorage.removeItem('name');
-    dispatch(push('/'));
+    history.push('/');
   }
 };
 

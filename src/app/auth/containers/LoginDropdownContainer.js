@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { history } from '../../../configureStore';
 
 import LoginDropdownComponent from '../components/LoginDropdownComponent';
 
@@ -34,13 +34,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleLogin: (domain, address) => {
-    dispatch(push('/newAdmin'));
+    history.push('/newAdmin');
     dispatch(logOut());
     dispatch(authenticate(domain, address, true));
   },
   redirectAdmin: () => {
     dispatch(togglePopUp(false));
-    dispatch(push('/newAdmin'));
+    history.push('/newAdmin');
   },
   disconnectDomain: (domain, isCurrent) => dispatch(disconnectDomain(domain, isCurrent)),
   disconnectWallet: () => dispatch(logoutManager()),

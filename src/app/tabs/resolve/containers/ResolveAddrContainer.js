@@ -1,10 +1,12 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { ResolveQRComponent } from '../components';
 import { getSearch, getResolverAddress, getAddr } from '../selectors';
 import { getAddress } from '../operations';
 
-const mapStateToProps = state => ({
-  name: getSearch(state),
+const mapStateToProps = (state, ownProps) => ({
+  name: getSearch(ownProps.location),
   resolverAddress: getResolverAddress(state),
   addr: getAddr(state),
   supportedInterfaces: state.resolve.supportedInterfaces,
@@ -24,8 +26,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ),
 });
 
-export default connect(
+const ConnectedResolveQRComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(ResolveQRComponent);
+
+const ResolveAddrContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedResolveQRComponent {...props} location={location} />;
+};
+
+export default ResolveAddrContainer;

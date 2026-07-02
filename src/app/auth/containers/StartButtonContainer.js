@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { StartButtonComponent } from '../components';
 import { showModal } from '../actions';
 import { start } from '../operations';
+import { history } from '../../../configureStore';
 
 const mapStateToProps = state => ({
   address: state.auth.address,
@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(showModal());
     dispatch(start());
   },
-  user: () => dispatch(push('/newAdmin')),
+  user: () => history.push('/newAdmin'),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

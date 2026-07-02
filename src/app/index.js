@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConnectedRouter } from 'connected-react-router';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import Routes from './routes';
 import FooterComponent from './components/FooterComponent';
 import HeaderContainer from './containers/HeaderContainer';
@@ -9,7 +9,7 @@ import { AuthModal } from './auth';
 
 // eslint-disable-next-line react/prop-types
 const App = ({ history }) => (
-  <ConnectedRouter history={history}>
+  <HistoryRouter history={history}>
     <React.Fragment>
       <ScrollToTopComponent />
       <HeaderContainer />
@@ -17,7 +17,7 @@ const App = ({ history }) => (
       <AuthModal />
       <FooterComponent />
     </React.Fragment>
-  </ConnectedRouter>
+  </HistoryRouter>
 );
 
 export default App;

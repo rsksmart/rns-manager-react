@@ -1,9 +1,11 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { parse } from 'query-string';
 import { RevealComponent } from '../components';
 import { revealCommit } from '../operations';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   waiting: state.registrar.waiting,
   commitConfirmed: state.registrar.commitConfirmed,
   revealConfirmed: state.registrar.revealConfirmed,
@@ -11,7 +13,7 @@ const mapStateToProps = state => ({
   revealing: state.registrar.revealing,
   revealed: state.registrar.revealed,
   committed: state.registrar.committed,
-  domain: parse(state.router.location.search).domain,
+  domain: parse(ownProps.location.search).domain,
   hash: state.registrar.hash,
   rifCost: state.registrar.rifCost,
   duration: state.registrar.duration,
@@ -28,8 +30,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   revealCommit: () => dispatchProps.revealCommit(stateProps.domain),
 });
 
-export default connect(
+const ConnectedRevealComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(RevealComponent);
+
+const RevealContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedRevealComponent {...props} location={location} />;
+};
+
+export default RevealContainer;

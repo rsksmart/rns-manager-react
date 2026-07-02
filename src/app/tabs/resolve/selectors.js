@@ -1,6 +1,6 @@
 import { parse } from 'query-string';
 
-export const getSearch = state => parse(state.router.location.search).name || '';
+export const getSearch = location => parse(location.search).name || '';
 
 export const getResolve = state => ({
   loading: state.resolve.loading,

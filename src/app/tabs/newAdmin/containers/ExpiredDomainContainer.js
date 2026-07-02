@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { ExpiredDomainComponent } from '../components';
 import getDomainState from '../../search/operations';
+import { history } from '../../../../configureStore';
 
 const mapStateToProps = state => ({
   domain: state.auth.name,
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleClick: (domain) => {
     dispatch(getDomainState(domain.replace('.rsk', '')));
-    dispatch(push('/'));
+    history.push('/');
   },
 });
 
