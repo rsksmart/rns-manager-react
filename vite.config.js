@@ -26,7 +26,7 @@ export default defineConfig({
   },
   esbuild: {
     loader: 'jsx',
-    include: /src\/.*\.jsx?$/,
+    include: /(src|tests)\/.*\.jsx?$/,
     exclude: [],
   },
   optimizeDeps: {
@@ -44,6 +44,5 @@ export default defineConfig({
       './tests/polyfills.js',
       './tests/setupTests.js',
     ],
-    snapshotSerializers: ['enzyme-to-json/serializer'],
   },
 });

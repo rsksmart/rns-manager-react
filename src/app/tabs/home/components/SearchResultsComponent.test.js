@@ -1,9 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { HashRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import mockStore from '../../../../../tests/config/mockStore';
 import en from '../../../../languages/en.json';
+import { renderWithProviders } from '../../../../../tests/testUtils';
 
 import SearchResultsComponent from './SearchResultsComponent';
 
@@ -20,65 +18,56 @@ const handleClick = jest.fn();
 
 describe('SearchResultsComponent', () => {
   it('renders and matches snapshot when available', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <SearchResultsComponent
-            domain="foobar"
-            available
-            isSearching={false}
-            blocked={false}
-            rifCost={6}
-            handleClick={handleClick}
-          />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <SearchResultsComponent
+        domain="foobar"
+        available
+        isSearching={false}
+        blocked={false}
+        rifCost={6}
+        handleClick={handleClick}
+      />,
+      { store, withRouter: true },
     );
 
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
 
-    expect(component.find('h3').text()).toBe('foobar.rsk');
-    expect(component.find('.status').text()).toBe('available');
-    expect(component.find('p.cost').text()).toBe('6 rif/year');
+    expect(container.querySelector('h3').textContent).toBe('foobar.rsk');
+    expect(container.querySelector('.status').textContent).toBe('available');
+    expect(container.querySelector('p.cost').textContent).toBe('6 rif/year');
   });
 
   it('renders and matches snapshot when not available', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <SearchResultsComponent
-            domain="foobar"
-            available={false}
-            blocked={false}
-            isSearching={false}
-            rifCost={2}
-            handleClick={handleClick}
-          />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <SearchResultsComponent
+        domain="foobar"
+        available={false}
+        blocked={false}
+        isSearching={false}
+        rifCost={2}
+        handleClick={handleClick}
+      />,
+      { store, withRouter: true },
     );
 
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
 
-    expect(component.find('h3').text()).toBe('foobar.rsk');
-    expect(component.find('.status').text()).toBe('not available');
+    expect(container.querySelector('h3').textContent).toBe('foobar.rsk');
+    expect(container.querySelector('.status').textContent).toBe('not available');
   });
 
   it('displays nothing when no domain is provided', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <SearchResultsComponent
-            available={false}
-            blocked={false}
-            isSearching={false}
-            rifCost={2}
-            handleClick={handleClick}
-          />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <SearchResultsComponent
+        available={false}
+        blocked={false}
+        isSearching={false}
+        rifCost={2}
+        handleClick={handleClick}
+      />,
+      { store, withRouter: true },
     );
 
-    expect(component.html()).toBeFalsy();
+    expect(container.firstChild).toBeFalsy();
   });
 });

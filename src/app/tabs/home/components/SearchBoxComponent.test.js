@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 import mockStore from '../../../../../tests/config/mockStore';
 import en from '../../../../languages/en.json';
 
@@ -15,56 +15,56 @@ const store = mockStore({
 
 describe('SearchBoxComponent', () => {
   it('renders and matches snapshot', () => {
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <SearchBoxComponent handleClick={jest.fn()} />
       </Provider>,
     );
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('handles successful interaction', () => {
     const handleClick = jest.fn();
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <SearchBoxComponent handleClick={handleClick} />
       </Provider>,
     );
-    component.find('input').simulate('change', { target: { value: 'hello' } });
-    component.find('button').simulate('click');
+    fireEvent.change(container.querySelector('input'), { target: { value: 'hello' } });
+    fireEvent.click(container.querySelector('button'));
 
     expect(handleClick).toBeCalledWith('hello');
   });
 
   it('handles errors with interactions', () => {
     const handleClick = jest.fn();
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <SearchBoxComponent handleClick={handleClick} />
       </Provider>,
     );
 
-    component.find('input').simulate('change', { target: { value: 'foo' } });
-    component.find('button').simulate('click');
-    expect(component.find('.errorMessage').find('p').text()).toBe(en.blocked_domain);
+    fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
+    fireEvent.click(container.querySelector('button'));
+    expect(container.querySelector('.errorMessage p').textContent).toBe(en.blocked_domain);
 
-    component.find('input').simulate('change', { target: { value: 'foobar!' } });
-    component.find('button').simulate('click');
-    expect(component.find('.errorMessage').find('p').text()).toBe(en.invalid_name);
+    fireEvent.change(container.querySelector('input'), { target: { value: 'foobar!' } });
+    fireEvent.click(container.querySelector('button'));
+    expect(container.querySelector('.errorMessage p').textContent).toBe(en.invalid_name);
 
     expect(handleClick).toBeCalledTimes(0);
   });
 
   it('converts uppercase to lower when searching', () => {
     const handleClick = jest.fn();
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <SearchBoxComponent handleClick={handleClick} />
       </Provider>,
     );
 
-    component.find('input').simulate('change', { target: { value: 'UPPERCASEDOMAIN' } });
-    component.find('button').simulate('click');
+    fireEvent.change(container.querySelector('input'), { target: { value: 'UPPERCASEDOMAIN' } });
+    fireEvent.click(container.querySelector('button'));
 
     expect(handleClick).toBeCalledWith('uppercasedomain');
   });

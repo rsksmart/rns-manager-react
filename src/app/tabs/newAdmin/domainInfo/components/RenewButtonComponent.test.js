@@ -1,7 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
 import mockStore from '../../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../../tests/testUtils';
 import en from '../../../../../languages/en.json';
 
 import RenewButtonComponent from './RenewButtonComponent';
@@ -25,12 +24,8 @@ const initProps = {
 
 describe('RenewButtonComponent', () => {
   it('renders without crashing', () => {
-    const component = mount(
-      <Provider store={store}>
-        <RenewButtonComponent {...initProps} />
-      </Provider>,
-    );
-    expect(component).toBeTruthy();
+    const { container } = renderWithProviders(<RenewButtonComponent {...initProps} />, { store });
+    expect(container).toBeTruthy();
   });
 
   it('expect renew section to be open', () => {
@@ -38,12 +33,8 @@ describe('RenewButtonComponent', () => {
       ...initProps,
       isRenewOpen: true,
     };
-    const component = mount(
-      <Provider store={store}>
-        <RenewButtonComponent {...localProps} />
-      </Provider>,
-    );
-    expect(component.find('button').hasClass('active')).toBeTruthy();
+    const { container } = renderWithProviders(<RenewButtonComponent {...localProps} />, { store });
+    expect(container.querySelector('button')).toHaveClass('active');
   });
 
   it('expect nothing when expires is 0', () => {
@@ -51,11 +42,7 @@ describe('RenewButtonComponent', () => {
       ...initProps,
       expires: 0,
     };
-    const component = mount(
-      <Provider store={store}>
-        <RenewButtonComponent {...localProps} />
-      </Provider>,
-    );
-    expect(component.find('button').prop('disabled')).toBeTruthy();
+    const { container } = renderWithProviders(<RenewButtonComponent {...localProps} />, { store });
+    expect(container.querySelector('button')).toBeDisabled();
   });
 });

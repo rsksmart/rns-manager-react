@@ -1,64 +1,64 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent } from '@testing-library/react';
 import ToggleComponent from './ToggleComponent';
 
 
 describe('toggleComponent', () => {
   const handleChange = jest.fn();
   it('defaults matches snapshot', () => {
-    const component = mount(<ToggleComponent onChange={handleChange} />);
-    expect(component.find('input[type="checkbox"]').props().value).toBeFalsy();
+    const { container } = render(<ToggleComponent onChange={handleChange} />);
+    expect(container.querySelector('input[type="checkbox"]').checked).toBe(false);
 
-    const activeButton = component.find('button.active');
-    expect(activeButton.text()).toEqual('leftLabel');
+    const activeButton = container.querySelector('button.active');
+    expect(activeButton.textContent).toEqual('leftLabel');
 
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('toggleSwitch active matches snapshot', () => {
-    const component = mount(<ToggleComponent onChange={handleChange} value />);
-    expect(component.find('input[type="checkbox"]').props().value).toBeFalsy();
+    const { container } = render(<ToggleComponent onChange={handleChange} value />);
+    expect(container.querySelector('input[type="checkbox"]').checked).toBe(true);
 
-    const activeButton = component.find('button.active');
-    expect(activeButton.text()).toEqual('rightLabel');
+    const activeButton = container.querySelector('button.active');
+    expect(activeButton.textContent).toEqual('rightLabel');
 
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('sets the text from the parent', () => {
-    const component = mount(
+    const { container } = render(
       <ToggleComponent labelLeft="LEFT" labelRight="RIGHT" onChange={handleChange} />,
     );
 
-    expect(component.find('button.left').text()).toEqual('LEFT');
-    expect(component.find('button.right').text()).toEqual('RIGHT');
+    expect(container.querySelector('button.left').textContent).toEqual('LEFT');
+    expect(container.querySelector('button.right').textContent).toEqual('RIGHT');
   });
 
   it('calls the function when switched or clicked', () => {
-    const component = mount(
+    const { container } = render(
       <ToggleComponent labelLeft="LEFT" labelRight="RIGHT" onChange={handleChange} />,
     );
 
     expect(handleChange).toBeCalledTimes(0);
-    component.find('#toggleSwitch').simulate('change', { target: { checked: true } });
+    fireEvent.click(container.querySelector('#toggleSwitch'));
     expect(handleChange).toBeCalledTimes(1);
 
-    component.find('button.left').simulate('click');
+    fireEvent.click(container.querySelector('button.left'));
     expect(handleChange).toBeCalledTimes(2);
 
-    component.find('button.right').simulate('click');
+    fireEvent.click(container.querySelector('button.right'));
     expect(handleChange).toBeCalledTimes(3);
   });
 
   it('returns correct value when buttons are clicked', () => {
-    const component = mount(
+    const { container } = render(
       <ToggleComponent onChange={handleChange} />,
     );
 
-    component.find('button.right').simulate('click');
+    fireEvent.click(container.querySelector('button.right'));
     expect(handleChange).toBeCalledWith(true);
 
-    component.find('button.left').simulate('click');
+    fireEvent.click(container.querySelector('button.left'));
     expect(handleChange).toBeCalledWith(false);
   });
 });

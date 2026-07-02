@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import mockStore from '../../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../../tests/testUtils';
 import en from '../../../../../languages/en.json';
 
 import NewRecordComponent from './NewRecordComponent';
@@ -35,14 +35,10 @@ const initProps = {
 
 describe('NewRecordComponent', () => {
   it('renders and matches snapshot', () => {
-    const component = mount(
-      <Provider store={store}>
-        <NewRecordComponent {...initProps} />
-      </Provider>,
-    );
-    expect(component).toMatchSnapshot();
+    const { container } = renderWithProviders(<NewRecordComponent {...initProps} />, { store });
+    expect(container).toMatchSnapshot();
 
-    expect(component.find('option').props().value).toBe('CONTENT_BYTES');
+    expect(container.querySelector('option').value).toBe('CONTENT_BYTES');
   });
 
   it('handles interaction', () => {
@@ -52,14 +48,10 @@ describe('NewRecordComponent', () => {
       handleSubmit,
     };
 
-    const component = mount(
-      <Provider store={store}>
-        <NewRecordComponent {...localProps} />
-      </Provider>,
-    );
+    const { container } = renderWithProviders(<NewRecordComponent {...localProps} />, { store });
 
-    component.find('input').simulate('change', { target: { value: 'foo' } });
-    component.find('button').at(0).simulate('click');
+    fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
+    fireEvent.click(container.querySelectorAll('button')[0]);
     expect(handleSubmit).toHaveBeenCalledWith('CONTENT_BYTES', 'foo');
   });
 
@@ -80,14 +72,10 @@ describe('NewRecordComponent', () => {
       handleCloseMessage,
     };
 
-    const component = mount(
-      <Provider store={store}>
-        <NewRecordComponent {...localProps} />
-      </Provider>,
-    );
+    const { container } = renderWithProviders(<NewRecordComponent {...localProps} />, { store });
 
-    expect(component.find('div.error p').at(1).text()).toBe('There was an error');
-    component.find('button.close').simulate('click');
+    expect(container.querySelectorAll('div.error p')[1].textContent).toBe('There was an error');
+    fireEvent.click(container.querySelector('button.close'));
     expect(handleCloseMessage).toBeCalled();
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import mockStore from '../../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../../tests/testUtils';
 import en from '../../../../../languages/en.json';
 
 import ShareButtonComponent from './ShareButtonComponent';
@@ -18,25 +18,19 @@ const store = mockStore({
 
 describe('RenewButtonComponent', () => {
   it('renders without crashing', () => {
-    const component = mount(
-      <Provider store={store}>
-        <ShareButtonComponent domain="foobar.rsk" />
-      </Provider>,
-    );
-    component.find('button.share-button').simulate('click');
+    const { container } = renderWithProviders(<ShareButtonComponent domain="foobar.rsk" />, { store });
+    fireEvent.click(container.querySelector('button.share-button'));
   });
 
   it('opens link window when clicked', () => {
-    const component = mount(
-      <Provider store={store}>
-        <ShareButtonComponent domain="foobar.rsk" />
-      </Provider>,
-    );
+    const { container } = renderWithProviders(<ShareButtonComponent domain="foobar.rsk" />, { store });
 
-    component.find('button.share-button').at(0).simulate('click');
-    component.find('.link.btn-link').simulate('click');
+    // The share-button trigger is inside `container`, but react-bootstrap's
+    // OverlayTrigger/Popover content it reveals is portaled to document.body.
+    fireEvent.click(container.querySelector('button.share-button'));
+    fireEvent.click(document.querySelector('.link.btn-link'));
 
-    expect(component.find('.row.share-link input').at(0).props().defaultValue)
+    expect(document.querySelectorAll('.row.share-link input')[0].value)
       .toBe('/resolve?name=foobar.rsk');
   });
 });

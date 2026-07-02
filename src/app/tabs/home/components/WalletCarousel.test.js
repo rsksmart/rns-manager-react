@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 import { mockStoreEnglish } from '../../../../../tests/config/mockStore';
 import WalletCarousel from './WalletCarousel';
 
@@ -16,43 +16,43 @@ describe('WalletCarousel', () => {
 
   describe('basic', () => {
     it('renders', () => {
-      const component = mount(generateComponent(wallets2));
-      expect(component).toBeDefined();
+      const { container } = render(generateComponent(wallets2));
+      expect(container).toBeDefined();
     });
 
     it('has header', () => {
-      const component = mount(generateComponent(wallets2));
-      expect(component.find('h2').text()).toBe('Wallet and dapp integrations');
+      const { container } = render(generateComponent(wallets2));
+      expect(container.querySelector('h2').textContent).toBe('Wallet and dapp integrations');
     });
   });
 
   describe('content', () => {
     it('displays the correct content for first item', () => {
-      const component = mount(generateComponent(wallets2));
+      const { container } = render(generateComponent(wallets2));
 
-      const first = component.find('.carousel-item').find('.col').at(0);
+      const first = container.querySelectorAll('.carousel-item')[0].querySelectorAll('.col')[0];
 
-      expect(first.find('p').text()).toBe('name1');
-      expect(first.find('a').props().href).toBe('url1');
-      expect(first.find('.image-container').props().style).toMatchObject({ backgroundImage: 'url(image1.jpg)' });
+      expect(first.querySelector('p').textContent).toBe('name1');
+      expect(first.querySelector('a').getAttribute('href')).toBe('url1');
+      expect(first.querySelector('.image-container').style.backgroundImage).toBe('url("image1.jpg")');
     });
 
     it('displays name of sixth item', () => {
-      const component = mount(generateComponent(wallets7));
-      const column = component.find('.carousel-item').at(1).find('.col').at(2);
-      expect(column.find('p').text()).toBe('name6');
+      const { container } = render(generateComponent(wallets7));
+      const column = container.querySelectorAll('.carousel-item')[1].querySelectorAll('.col')[2];
+      expect(column.querySelector('p').textContent).toBe('name6');
     });
   });
 
   describe('number of items', () => {
     it('creates 3 pages', () => {
-      const component = mount(generateComponent(wallets7));
-      expect(component.find('.carousel-item')).toHaveLength(3);
+      const { container } = render(generateComponent(wallets7));
+      expect(container.querySelectorAll('.carousel-item')).toHaveLength(3);
     });
 
     it('creates 1 page', () => {
-      const component = mount(generateComponent(wallets2));
-      expect(component.find('.carousel-item')).toHaveLength(1);
+      const { container } = render(generateComponent(wallets2));
+      expect(container.querySelectorAll('.carousel-item')).toHaveLength(1);
     });
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import { mockStoreEnglish } from '../../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../../tests/testUtils';
 import MyUrlComponent from './MyUrlComponent';
 import { initialState, contentInititalState } from '../../resolver/reducer';
 import { initialState as addresses } from '../../addresses/reducer';
@@ -27,35 +27,44 @@ describe('MyUrlComponent', () => {
 
   const generateComponent = (localProps = {}) => {
     const combinedProps = { ...initProps, ...localProps };
-    return <Provider store={store}><MyUrlComponent {...combinedProps} /></Provider>;
+    return <MyUrlComponent {...combinedProps} />;
   };
 
   it('it renders and is defined', () => {
-    const wrapper = shallow(generateComponent());
+    const wrapper = renderWithProviders(generateComponent(), { store });
     expect(wrapper).toBeDefined();
   });
 
   it('shows loading wheel when supportedInterfaces has not returned', () => {
-    const wrapper = mount(generateComponent({ receiveContent: false }));
-    expect(wrapper.find('.row.waiting')).toBeDefined();
+    const { container } = renderWithProviders(
+      generateComponent({ receiveContent: false }),
+      { store },
+    );
+    expect(container.querySelector('.row.waiting')).toBeDefined();
   });
 
   it('shows an error message if url is null', () => {
-    const wrapper = mount(generateComponent({ url: null }));
-    expect(wrapper.find('.alert').text()).toBe('Your resolver does not support decentralized URL.');
+    const { container } = renderWithProviders(generateComponent({ url: null }), { store });
+    expect(container.querySelector('.alert').textContent).toBe('Your resolver does not support decentralized URL.');
   });
 
   describe('new record', () => {
     it('shows editable when there is no url', () => {
-      const wrapper = mount(generateComponent({ url: contentInititalState }));
-      expect(wrapper.find('p').text().substr(0, 12)).toBe('Here you can');
+      const { container } = renderWithProviders(
+        generateComponent({ url: contentInititalState }),
+        { store },
+      );
+      expect(container.querySelector('p').textContent.substr(0, 12)).toBe('Here you can');
     });
 
     it('handles clicking', () => {
       const handleSave = jest.fn();
-      const wrapper = mount(generateComponent({ url: contentInititalState, handleSave }));
-      wrapper.find('input.rsk-input').simulate('change', { target: { value: 'foo' } });
-      wrapper.find('button.rsk-button').simulate('click');
+      const { container } = renderWithProviders(
+        generateComponent({ url: contentInititalState, handleSave }),
+        { store },
+      );
+      fireEvent.change(container.querySelector('input.rsk-input'), { target: { value: 'foo' } });
+      fireEvent.click(container.querySelector('button.rsk-button'));
 
       expect(handleSave).toBeCalledWith('foo');
     });
@@ -65,8 +74,8 @@ describe('MyUrlComponent', () => {
         ...contentInititalState,
         errorMessage: 'an error',
       };
-      const wrapper = mount(generateComponent({ url }));
-      expect(wrapper.find('.error').text()).toBe('an error');
+      const { container } = renderWithProviders(generateComponent({ url }), { store });
+      expect(container.querySelector('.error').textContent).toBe('an error');
     });
 
     it('shows loading when new content is saving', () => {
@@ -74,8 +83,8 @@ describe('MyUrlComponent', () => {
         ...contentInititalState,
         isWaiting: true,
       };
-      const wrapper = mount(generateComponent({ url }));
-      expect(wrapper.find('.new').find('.waiting').length).toBe(1);
+      const { container } = renderWithProviders(generateComponent({ url }), { store });
+      expect(container.querySelectorAll('.new .waiting').length).toBe(1);
     });
   });
 
@@ -86,9 +95,9 @@ describe('MyUrlComponent', () => {
         value: 'ipfs://QmQ',
         isEmpty: false,
       };
-      const wrapper = mount(generateComponent({ url }));
+      const { container } = renderWithProviders(generateComponent({ url }), { store });
 
-      expect(wrapper.find('.addressInput .value').text()).toBe('ipfs://QmQ');
+      expect(container.querySelector('.addressInput .value').textContent).toBe('ipfs://QmQ');
     });
   });
 });

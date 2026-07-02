@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import TextRotationComponent from './TextRotationComponent';
 import KeyMessages from '../../languages/key_messges.json';
 
@@ -21,16 +21,16 @@ describe('TextRotationComponent', () => {
   };
 
   it('renders, places correct content with bold and matches snapshot', () => {
-    const component = mount(<TextRotationComponent {...initProps} />);
+    const { container } = render(<TextRotationComponent {...initProps} />);
 
-    expect(component.find('h3').text()).toBe('the heading...');
+    expect(container.querySelector('h3').textContent).toBe('the heading...');
     // test just the <strong> part, ignore the anchor
-    expect(component.find('p').at(0).html().substr(0, 32)).toBe('<p>hello <strong>world</strong>.');
+    expect(container.querySelector('p').outerHTML.substr(0, 32)).toBe('<p>hello <strong>world</strong>.');
     // now test the anchor
-    expect(component.find('a').text()).toBe('click');
-    expect(component.find('a').props().href).toBe('https://developers.rsk.co/');
+    expect(container.querySelector('a').textContent).toBe('click');
+    expect(container.querySelector('a').getAttribute('href')).toBe('https://developers.rsk.co/');
 
-    expect(component).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('renders different strong text', () => {
@@ -49,8 +49,8 @@ describe('TextRotationComponent', () => {
       ],
     };
 
-    const component = mount(<TextRotationComponent {...localProps} />);
-    expect(component.find('p').at(0).html().substr(0, 50)).toBe('<p>hello, <strong> this is a giant</strong> world.');
+    const { container } = render(<TextRotationComponent {...localProps} />);
+    expect(container.querySelector('p').outerHTML.substr(0, 50)).toBe('<p>hello, <strong> this is a giant</strong> world.');
   });
 
   it('renders full text and does not show link', () => {
@@ -69,8 +69,8 @@ describe('TextRotationComponent', () => {
       ],
     };
 
-    const component = mount(<TextRotationComponent {...localProps} />);
-    expect(component.find('p').html()).toBe('<p>text with no link or bold</p>');
-    expect(component.find('a').length).toBe(0);
+    const { container } = render(<TextRotationComponent {...localProps} />);
+    expect(container.querySelector('p').outerHTML).toBe('<p>text with no link or bold</p>');
+    expect(container.querySelectorAll('a').length).toBe(0);
   });
 });

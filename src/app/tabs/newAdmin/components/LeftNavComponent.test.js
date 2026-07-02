@@ -1,8 +1,6 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
 import { mockStoreEnglish } from '../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../tests/testUtils';
 
 import LeftNavComponent from './LetftNavComponent';
 
@@ -10,49 +8,37 @@ const store = mockStoreEnglish();
 
 describe('LeftNavComponent', () => {
   it('matches snapshot', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <LeftNavComponent location="/newAdmin" advancedView={false} domain="foobar.rsk" />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <LeftNavComponent location="/newAdmin" advancedView={false} domain="foobar.rsk" />,
+      { store, withRouter: true },
     );
-    expect(component).toBeDefined();
+    expect(container).toBeDefined();
   });
 
   it('shows all items when advancedView is true', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView domain="foobar.rsk" />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <LeftNavComponent location="/newAdmin/subdomains" advancedView domain="foobar.rsk" />,
+      { store, withRouter: true },
     );
-    expect(component.find('li').length).toBe(6);
+    expect(container.querySelectorAll('li').length).toBe(6);
   });
 
   it('sets correct item active when passed', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} domain="foobar.rsk" />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <LeftNavComponent location="/newAdmin/subdomains" advancedView={false} domain="foobar.rsk" />,
+      { store, withRouter: true },
     );
 
-    expect(component.find('a.active').text()).toEqual('subdomains');
-    expect(component.find('li').length).toBe(4);
+    expect(container.querySelector('a.active').textContent).toEqual('subdomains');
+    expect(container.querySelectorAll('li').length).toBe(4);
   });
 
   it('sets home as active when resolver is passed, but advancedView is false.', () => {
-    const component = mount(
-      <Provider store={store}>
-        <HashRouter>
-          <LeftNavComponent location="/newAdmin/resolver" advancedView={false} domain="foobar.rsk" />
-        </HashRouter>
-      </Provider>,
+    const { container } = renderWithProviders(
+      <LeftNavComponent location="/newAdmin/resolver" advancedView={false} domain="foobar.rsk" />,
+      { store, withRouter: true },
     );
 
-    expect(component.find('a.active').text()).toEqual('Domain info');
+    expect(container.querySelector('a.active').textContent).toEqual('Domain info');
   });
 });

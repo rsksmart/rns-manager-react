@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 
 import SingleDomainComponent from './SingleDomainComponent';
 import { mockStoreEnglish } from '../../../../tests/config/mockStore';
@@ -20,28 +20,27 @@ describe('SingleDomainComponent', () => {
   };
 
   it('displays the text and default className', () => {
-    const wrapper = mount(generateComponent());
-    expect(wrapper).toBeDefined();
+    const { container } = render(generateComponent());
 
-    expect(wrapper.find('.domain').text()).toBe(domain);
-    expect(wrapper.find('li').props().className).toBe('row previous');
+    expect(container.querySelector('.domain').textContent).toBe(domain);
+    expect(container.querySelector('li').className).toBe('row previous');
   });
 
   it('handles click events', () => {
     const handleTextClick = jest.fn();
     const handleDisconnectClick = jest.fn();
 
-    const wrapper = mount(generateComponent({ handleTextClick, handleDisconnectClick }));
+    const { container } = render(generateComponent({ handleTextClick, handleDisconnectClick }));
 
-    wrapper.find('.domain button').simulate('click');
+    fireEvent.click(container.querySelector('.domain button'));
     expect(handleTextClick).toBeCalledWith(domain);
 
-    wrapper.find('.options button').simulate('click');
+    fireEvent.click(container.querySelector('.options button'));
     expect(handleDisconnectClick).toBeCalledWith(domain);
   });
 
   it('is the current row', () => {
-    const wrapper = mount(generateComponent({ isCurrent: true }));
-    expect(wrapper.find('li').props().className).toBe('row current');
+    const { container } = render(generateComponent({ isCurrent: true }));
+    expect(container.querySelector('li').className).toBe('row current');
   });
 });

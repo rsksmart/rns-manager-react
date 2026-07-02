@@ -1,101 +1,42 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`UpgradeComponent > renders and matches snapshop 1`] = `
-<Provider
-  store={
-    {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-    }
-  }
->
-  <Connect(UpgradeComponent)
-    handleClick={[MockFunction spy]}
-    isFifsMigrated={false}
-    isMigrating={false}
+<div>
+  <div
+    class="upgrade major-section"
   >
-    <UpgradeComponent
-      currentLanguageCode="en"
-      dispatch={[Function]}
-      handleClick={[MockFunction spy]}
-      isFifsMigrated={false}
-      isMigrating={false}
-      strings={
-        {
-          "upgrade": "upgrade",
-          "upgrade_domain": "Upgrade domain",
-          "upgrade_domain_explanation": "The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically.",
-        }
-      }
+    <div
+      class="row"
     >
       <div
-        className="upgrade major-section"
+        class="col"
       >
-        <Row
-          noGutters={false}
-        >
-          <div
-            className="row"
-          >
-            <Col>
-              <div
-                className="col"
-              >
-                <h2>
-                  Upgrade domain
-                </h2>
-              </div>
-            </Col>
-          </div>
-        </Row>
-        <Row
-          noGutters={false}
-        >
-          <div
-            className="row"
-          >
-            <Col
-              md={10}
-            >
-              <div
-                className="col-md-10"
-              >
-                <p>
-                  The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically.
-                </p>
-              </div>
-            </Col>
-            <Col
-              md={2}
-            >
-              <div
-                className="col-md-2"
-              >
-                <Button
-                  active={false}
-                  disabled={false}
-                  onClick={[MockFunction spy]}
-                  variant="primary"
-                >
-                  <button
-                    className="btn btn-primary"
-                    disabled={false}
-                    onClick={[MockFunction spy]}
-                    type="button"
-                  >
-                    upgrade
-                  </button>
-                </Button>
-              </div>
-            </Col>
-          </div>
-        </Row>
+        <h2>
+          Upgrade domain
+        </h2>
       </div>
-    </UpgradeComponent>
-  </Connect(UpgradeComponent)>
-</Provider>
+    </div>
+    <div
+      class="row"
+    >
+      <div
+        class="col-md-10"
+      >
+        <p>
+          The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically.
+        </p>
+      </div>
+      <div
+        class="col-md-2"
+      >
+        <button
+          class="btn btn-primary"
+          type="button"
+        >
+          upgrade
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 `;

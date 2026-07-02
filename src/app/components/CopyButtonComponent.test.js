@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
 import CopyButtonComponent from './CopyButtonComponent';
 import mockStore from '../../../tests/config/mockStore';
@@ -11,14 +11,18 @@ const store = mockStore({
   copied: en.copied,
 });
 
-const component = mount(<Provider store={store}><CopyButtonComponent text="hello" /></Provider>);
-
 describe('CopyButtonComponent', () => {
   it('matches snapshot', () => {
-    expect(component).toMatchSnapshot();
+    const { container } = render(
+      <Provider store={store}><CopyButtonComponent text="hello" /></Provider>,
+    );
+    expect(container).toMatchSnapshot();
   });
 
   it('matches the correct text', () => {
-    expect(component.find('.copyText').props().defaultValue).toEqual('hello');
+    const { container } = render(
+      <Provider store={store}><CopyButtonComponent text="hello" /></Provider>,
+    );
+    expect(container.querySelector('.copyText').value).toEqual('hello');
   });
 });
