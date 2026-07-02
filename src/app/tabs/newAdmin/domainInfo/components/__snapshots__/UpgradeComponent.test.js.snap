@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`UpgradeComponent renders and matches snapshop 1`] = `
+exports[`UpgradeComponent > renders and matches snapshop 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -14,18 +14,18 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
   }
 >
   <Connect(UpgradeComponent)
-    handleClick={[MockFunction]}
+    handleClick={[MockFunction spy]}
     isFifsMigrated={false}
     isMigrating={false}
   >
     <UpgradeComponent
       currentLanguageCode="en"
       dispatch={[Function]}
-      handleClick={[MockFunction]}
+      handleClick={[MockFunction spy]}
       isFifsMigrated={false}
       isMigrating={false}
       strings={
-        Object {
+        {
           "upgrade": "upgrade",
           "upgrade_domain": "Upgrade domain",
           "upgrade_domain_explanation": "The domain upgrade offers new functionalities and dynamic renovation. The upgrade requires a single transaction with your wallet, then your domain will be upgraded automatically.",
@@ -78,13 +78,13 @@ exports[`UpgradeComponent renders and matches snapshop 1`] = `
                 <Button
                   active={false}
                   disabled={false}
-                  onClick={[MockFunction]}
+                  onClick={[MockFunction spy]}
                   variant="primary"
                 >
                   <button
                     className="btn btn-primary"
                     disabled={false}
-                    onClick={[MockFunction]}
+                    onClick={[MockFunction spy]}
                     type="button"
                   >
                     upgrade

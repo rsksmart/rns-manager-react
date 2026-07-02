@@ -45,7 +45,7 @@ const AddNewAddressComponent = ({
     const networkInfo = allNetworks.filter(net => net.id === selectedNetwork)[0];
 
     if (networkInfo.validation && networkInfo.validation === 'HEX') {
-      const validationChainId = networkInfo.name === 'RSK' ? process.env.REACT_APP_ENVIRONMENT_ID : null;
+      const validationChainId = networkInfo.name === 'RSK' ? import.meta.env.VITE_ENVIRONMENT_ID : null;
 
       switch (validateAddress(address, validationChainId)) {
         case 'Invalid address':

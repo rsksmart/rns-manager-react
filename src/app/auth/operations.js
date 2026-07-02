@@ -41,8 +41,8 @@ export const saveDomainToLocalStorage = async (domain) => {
     ? JSON.parse(localStorage.getItem('storedDomains')) : {};
 
   // environment:
-  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
-    storedDomains[process.env.REACT_APP_ENVIRONMENT] = [];
+  if (!storedDomains[import.meta.env.VITE_ENVIRONMENT]) {
+    storedDomains[import.meta.env.VITE_ENVIRONMENT] = [];
   }
 
   const accounts = await window.rLogin.request({ method: 'eth_accounts' });
@@ -52,10 +52,10 @@ export const saveDomainToLocalStorage = async (domain) => {
   };
 
   if (
-    storedDomains[process.env.REACT_APP_ENVIRONMENT].length === 0
-    || storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain === domain).length < 1
+    storedDomains[import.meta.env.VITE_ENVIRONMENT].length === 0
+    || storedDomains[import.meta.env.VITE_ENVIRONMENT].filter(d => d.domain === domain).length < 1
   ) {
-    storedDomains[process.env.REACT_APP_ENVIRONMENT].push(newDomain);
+    storedDomains[import.meta.env.VITE_ENVIRONMENT].push(newDomain);
     localStorage.setItem('storedDomains', JSON.stringify(storedDomains));
   }
 };
@@ -69,14 +69,14 @@ export const removeDomainToLocalStorage = (domain) => {
     ? JSON.parse(localStorage.getItem('storedDomains')) : {};
 
   // does the environment exist? this should not happen:
-  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+  if (!storedDomains[import.meta.env.VITE_ENVIRONMENT]) {
     return;
   }
 
-  const newEnv = storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(d => d.domain !== domain);
+  const newEnv = storedDomains[import.meta.env.VITE_ENVIRONMENT].filter(d => d.domain !== domain);
   const newStoredDomains = {
     ...storedDomains,
-    [process.env.REACT_APP_ENVIRONMENT]: newEnv,
+    [import.meta.env.VITE_ENVIRONMENT]: newEnv,
   };
 
   localStorage.setItem('storedDomains', JSON.stringify(newStoredDomains));
@@ -182,7 +182,7 @@ const startWithRLogin = callback => (dispatch) => {
         .then(chainId => dispatch(receiveEnable(
           accounts[0],
           chainId,
-          chainId === parseInt(process.env.REACT_APP_ENVIRONMENT_ID),
+          chainId === parseInt(import.meta.env.VITE_ENVIRONMENT_ID),
           accounts.length !== 0,
         )));
 

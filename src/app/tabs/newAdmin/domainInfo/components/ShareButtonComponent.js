@@ -15,7 +15,7 @@ import linkActiveImg from '../../../../../assets/img/link-active.svg';
 
 const ShareButtonComponent = ({ strings, domain }) => {
   const [showLink, setShowLink] = useState(false);
-  const shareLink = `${process.env.REACT_APP_URL}resolve?name=${domain}`;
+  const shareLink = `${import.meta.env.VITE_URL}resolve?name=${domain}`;
   const myRskDomainText = strings.my_rsk_domain.replace(/ /g, '%20');
   return (
     <>

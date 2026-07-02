@@ -35,7 +35,7 @@ const YourAddressesComponent = ({
 
         const network = networks.filter(net => net.name === chainName)[0];
         const isHex = network.validation === 'HEX';
-        const networkChainId = chainName === 'RSK' ? process.env.REACT_APP_ENVIRONMENT_ID : null;
+        const networkChainId = chainName === 'RSK' ? import.meta.env.VITE_ENVIRONMENT_ID : null;
 
         const suggestion = chainName === 'RSK' ? [{
           name: `${strings.your_address} (${truncateString(address)})`,
@@ -47,7 +47,7 @@ const YourAddressesComponent = ({
             <ChainAddressEditContainer
               key={chainName}
               label={chainName}
-              labelIcon={`${process.env.PUBLIC_URL}/assets/icons/${network.icon}`}
+              labelIcon={`${import.meta.env.BASE_URL}assets/icons/${network.icon}`}
               networkId={chainId}
               value={address}
               isError={isError}

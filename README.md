@@ -28,7 +28,7 @@
 
 Requisites:
 
-- [Node v12](https://nodejs.org/en/)
+- [Node v20](https://nodejs.org/en/) (see `.nvmrc`)
 - [yarn](https://yarnpkg.com/)
 
 Install dependencies:

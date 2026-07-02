@@ -9,7 +9,7 @@ export const history = createBrowserHistory();
 
 const middleware = [thunk, routerMiddleware(history)];
 
-if (process.env.NODE_ENV !== 'production') {
+if (import.meta.env.DEV) {
   middleware.push(createLogger());
 }
 

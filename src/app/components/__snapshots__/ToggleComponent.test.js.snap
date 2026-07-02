@@ -1,10 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`toggleComponent defaults matches snapshot 1`] = `
+exports[`toggleComponent > defaults matches snapshot 1`] = `
 <ToggleComponent
   labelLeft="leftLabel"
   labelRight="rightLabel"
-  onChange={[MockFunction]}
+  onChange={[MockFunction spy]}
   value={false}
 >
   <div
@@ -42,11 +42,11 @@ exports[`toggleComponent defaults matches snapshot 1`] = `
 </ToggleComponent>
 `;
 
-exports[`toggleComponent toggleSwitch active matches snapshot 1`] = `
+exports[`toggleComponent > toggleSwitch active matches snapshot 1`] = `
 <ToggleComponent
   labelLeft="leftLabel"
   labelRight="rightLabel"
-  onChange={[MockFunction]}
+  onChange={[MockFunction spy]}
   value={true}
 >
   <div

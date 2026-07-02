@@ -30,7 +30,7 @@ const UserSuccessComponent = ({
       {address && (
         <p className="explorer">
           <a
-            href={`${process.env.REACT_APP_BLOCK_EXPLORER}/tx/${address}`}
+            href={`${import.meta.env.VITE_BLOCK_EXPLORER}/tx/${address}`}
             target="_blank"
             rel="noopener noreferrer"
           >

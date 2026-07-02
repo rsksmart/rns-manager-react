@@ -2,10 +2,10 @@ import { createRLogin } from '@rsksmart/rlogin-essentials';
 
 const trezorOptions = {
   manifestEmail: 'info@iovlabs.org',
-  manifestAppUrl: process.env.REACT_APP_URL,
+  manifestAppUrl: import.meta.env.VITE_URL,
 };
 
-const isMainnet = process.env.REACT_APP_ENVIRONMENT_ID === '30';
+const isMainnet = import.meta.env.VITE_ENVIRONMENT_ID === '30';
 
 const rpcUrls = isMainnet ? {
   30: 'https://public-node.rsk.co',

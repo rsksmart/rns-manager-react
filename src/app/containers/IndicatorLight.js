@@ -5,7 +5,7 @@ const mapStateToProps = state => ({
   networkMatch: state.auth.networkMatch,
   hasWeb3Provider: state.auth.hasWeb3Provider,
   walletUnlocked: state.auth.walletUnlocked,
-  network: process.env.REACT_APP_ENVIRONMENT_ID,
+  network: import.meta.env.VITE_ENVIRONMENT_ID,
 });
 
 export default connect(mapStateToProps)(IndicatorLight);

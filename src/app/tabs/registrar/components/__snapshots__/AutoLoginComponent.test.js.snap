@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AutoLoginComponent should matches snapshot 1`] = `
+exports[`AutoLoginComponent > should matches snapshot 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -14,17 +14,17 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
   }
 >
   <Connect(AutoLoginComponent)
-    handleManageClick={[MockFunction]}
-    handleRegisterNewClick={[MockFunction]}
+    handleManageClick={[MockFunction spy]}
+    handleRegisterNewClick={[MockFunction spy]}
     successTx="0x123456879..."
   >
     <AutoLoginComponent
       currentLanguageCode="en"
       dispatch={[Function]}
-      handleManageClick={[MockFunction]}
-      handleRegisterNewClick={[MockFunction]}
+      handleManageClick={[MockFunction spy]}
+      handleRegisterNewClick={[MockFunction spy]}
       strings={
-        Object {
+        {
           "admin_domain": "Admin my domain",
           "close": "Close",
           "log_in": "log in",
@@ -47,7 +47,7 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
           handleCloseClick={[Function]}
           message=""
           strings={
-            Object {
+            {
               "admin_domain": "Admin my domain",
               "close": "Close",
               "log_in": "log in",
@@ -69,13 +69,13 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
             >
               <img
                 alt="Close"
-                src="mock-image"
+                src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3csvg%20width='13'%20height='13'%20viewBox='0%200%2013%2013'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cline%20x1='12'%20y1='0.707107'%20x2='0.707108'%20y2='12'%20stroke='%234B5CF0'%20stroke-linecap='round'/%3e%3cline%20x1='0.707107'%20y1='1'%20x2='12'%20y2='12.2929'%20stroke='%234B5CF0'%20stroke-linecap='round'/%3e%3c/svg%3e"
               />
             </button>
             <p>
               <img
                 alt=""
-                src="mock-image"
+                src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3csvg%20width='37'%20height='23'%20viewBox='0%200%2037%2023'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1%2010.5L12.5%2021L36%201'%20stroke='%234B5CF0'%20stroke-width='2'/%3e%3c/svg%3e"
               />
             </p>
             <p>
@@ -112,13 +112,13 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
               active={false}
               block={true}
               disabled={false}
-              onClick={[MockFunction]}
+              onClick={[MockFunction spy]}
               variant="primary"
             >
               <button
                 className="btn btn-primary btn-block"
                 disabled={false}
-                onClick={[MockFunction]}
+                onClick={[MockFunction spy]}
                 type="button"
               >
                 Admin my domain
@@ -132,13 +132,13 @@ exports[`AutoLoginComponent should matches snapshot 1`] = `
               active={false}
               block={true}
               disabled={false}
-              onClick={[MockFunction]}
+              onClick={[MockFunction spy]}
               variant="primary"
             >
               <button
                 className="btn btn-primary btn-block"
                 disabled={false}
-                onClick={[MockFunction]}
+                onClick={[MockFunction spy]}
                 type="button"
               >
                 Register another domain

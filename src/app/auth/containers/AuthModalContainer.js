@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   enabling: state.auth.enabling,
   enableError: state.auth.enableError,
   address: state.auth.address,
-  managerNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
+  managerNetwork: networkSelector(import.meta.env.VITE_ENVIRONMENT_ID),
   networkMatch: state.auth.networkMatch,
   authError: state.auth.authError,
   name: state.auth.name,

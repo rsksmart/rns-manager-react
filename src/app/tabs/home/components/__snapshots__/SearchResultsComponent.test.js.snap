@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SearchResultsComponent renders and matches snapshot when available 1`] = `
+exports[`SearchResultsComponent > renders and matches snapshot when available 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -16,7 +16,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
   <HashRouter>
     <Router
       history={
-        Object {
+        {
           "action": "POP",
           "block": [Function],
           "createHref": [Function],
@@ -25,7 +25,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
           "goForward": [Function],
           "length": 1,
           "listen": [Function],
-          "location": Object {
+          "location": {
             "hash": "",
             "pathname": "/",
             "search": "",
@@ -40,7 +40,7 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
         available={true}
         blocked={false}
         domain="foobar"
-        handleClick={[MockFunction]}
+        handleClick={[MockFunction spy]}
         isSearching={false}
         rifCost={6}
       >
@@ -50,11 +50,11 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
           currentLanguageCode="en"
           dispatch={[Function]}
           domain="foobar"
-          handleClick={[MockFunction]}
+          handleClick={[MockFunction spy]}
           isSearching={false}
           rifCost={6}
           strings={
-            Object {
+            {
               "available": "available",
               "domain_not_available": "not available",
               "register": "register",
@@ -159,13 +159,13 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
                             active={false}
                             className="register"
                             disabled={false}
-                            onClick={[MockFunction]}
+                            onClick={[MockFunction spy]}
                             variant="primary"
                           >
                             <button
                               className="register btn btn-primary"
                               disabled={false}
-                              onClick={[MockFunction]}
+                              onClick={[MockFunction spy]}
                               type="button"
                             >
                               register
@@ -186,10 +186,10 @@ exports[`SearchResultsComponent renders and matches snapshot when available 1`] 
 </Provider>
 `;
 
-exports[`SearchResultsComponent renders and matches snapshot when not available 1`] = `
+exports[`SearchResultsComponent > renders and matches snapshot when not available 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -202,7 +202,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
   <HashRouter>
     <Router
       history={
-        Object {
+        {
           "action": "POP",
           "block": [Function],
           "createHref": [Function],
@@ -211,7 +211,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
           "goForward": [Function],
           "length": 1,
           "listen": [Function],
-          "location": Object {
+          "location": {
             "hash": "",
             "pathname": "/",
             "search": "",
@@ -226,7 +226,7 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
         available={false}
         blocked={false}
         domain="foobar"
-        handleClick={[MockFunction]}
+        handleClick={[MockFunction spy]}
         isSearching={false}
         rifCost={2}
       >
@@ -236,11 +236,11 @@ exports[`SearchResultsComponent renders and matches snapshot when not available 
           currentLanguageCode="en"
           dispatch={[Function]}
           domain="foobar"
-          handleClick={[MockFunction]}
+          handleClick={[MockFunction spy]}
           isSearching={false}
           rifCost={2}
           strings={
-            Object {
+            {
               "available": "available",
               "domain_not_available": "not available",
               "register": "register",

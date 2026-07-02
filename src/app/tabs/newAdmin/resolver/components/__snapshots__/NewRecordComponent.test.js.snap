@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NewRecordComponent renders and matches snapshot 1`] = `
+exports[`NewRecordComponent > renders and matches snapshot 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -15,10 +15,10 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
 >
   <Connect(NewRecordComponent)
     content={
-      Array [
-        Array [
+      [
+        [
           "CONTENT_BYTES",
-          Object {
+          {
             "errorMessage": "",
             "isRequesting": false,
             "isWaiting": false,
@@ -28,15 +28,15 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
         ],
       ]
     }
-    handleCloseMessage={[MockFunction]}
-    handleSubmit={[MockFunction]}
+    handleCloseMessage={[MockFunction spy]}
+    handleSubmit={[MockFunction spy]}
   >
     <NewRecordComponent
       content={
-        Array [
-          Array [
+        [
+          [
             "CONTENT_BYTES",
-            Object {
+            {
               "errorMessage": "",
               "isRequesting": false,
               "isWaiting": false,
@@ -48,10 +48,10 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
       }
       currentLanguageCode="en"
       dispatch={[Function]}
-      handleCloseMessage={[MockFunction]}
-      handleSubmit={[MockFunction]}
+      handleCloseMessage={[MockFunction spy]}
+      handleSubmit={[MockFunction spy]}
       strings={
-        Object {
+        {
           "add": "Add",
           "add_records": "Add records",
           "close": "Close",
@@ -135,7 +135,7 @@ exports[`NewRecordComponent renders and matches snapshot 1`] = `
             handleCloseClick={[Function]}
             message=""
             strings={
-              Object {
+              {
                 "add": "Add",
                 "add_records": "Add records",
                 "close": "Close",

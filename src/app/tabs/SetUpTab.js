@@ -9,7 +9,7 @@ import { rif as rifAddress } from '../adapters/configAdapter';
 import { networkSelector } from '../selectors';
 
 const SetUpTab = multilanguage(({ strings }) => {
-  const networkId = process.env.REACT_APP_ENVIRONMENT_ID;
+  const networkId = import.meta.env.VITE_ENVIRONMENT_ID;
   const networkName = networkSelector(networkId);
 
   return (

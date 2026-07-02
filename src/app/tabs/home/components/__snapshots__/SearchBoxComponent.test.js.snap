@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SearchBoxComponent renders and matches snapshot 1`] = `
+exports[`SearchBoxComponent > renders and matches snapshot 1`] = `
 <Provider
   store={
-    Object {
+    {
       "clearActions": [Function],
       "dispatch": [Function],
       "getActions": [Function],
@@ -14,14 +14,14 @@ exports[`SearchBoxComponent renders and matches snapshot 1`] = `
   }
 >
   <Connect(SearchBoxComponent)
-    handleClick={[MockFunction]}
+    handleClick={[MockFunction spy]}
   >
     <SearchBoxComponent
       currentLanguageCode="en"
       dispatch={[Function]}
-      handleClick={[MockFunction]}
+      handleClick={[MockFunction spy]}
       strings={
-        Object {
+        {
           "blocked_domain": "domains with less than 5 characters are blocked. stay tuned, we are going to release them soon",
           "invalid_name": "Invalid name. Must be lower case characters and/or numbers",
           "search": "search",

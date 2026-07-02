@@ -14,11 +14,11 @@ const getStoredDomains = (address, current) => {
   }
 
   const storedDomains = JSON.parse(localStorage.getItem('storedDomains'));
-  if (!storedDomains[process.env.REACT_APP_ENVIRONMENT]) {
+  if (!storedDomains[import.meta.env.VITE_ENVIRONMENT]) {
     return [];
   }
 
-  return storedDomains[process.env.REACT_APP_ENVIRONMENT].filter(
+  return storedDomains[import.meta.env.VITE_ENVIRONMENT].filter(
     d => (d.owner === address && d.domain !== current),
   );
 };
