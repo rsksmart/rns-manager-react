@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {
   FormGroup, FormControl, InputGroup, Button,
 } from 'react-bootstrap';
-import Octicon, { getIconByName } from '@githubprimer/octicons-react';
+import Octicon, { getIconByName } from '@primer/octicons-react';
 
 const copy = (value) => {
   const el = document.createElement('textarea');
