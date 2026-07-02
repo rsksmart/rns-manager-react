@@ -13,9 +13,7 @@ import {
   FaqTab,
 } from './tabs';
 
-const Routes = (props) => {
-  const { networkMatch, walletUnlocked, hasContracts } = props;
-
+const Routes = ({ networkMatch = false, walletUnlocked = false, hasContracts }) => {
   const notLoggedIn = !window.rLogin || !networkMatch || !walletUnlocked;
 
   return (
@@ -38,11 +36,6 @@ const Routes = (props) => {
       <Route component={() => <ErrorTab notFound />} />
     </Switch>
   );
-};
-
-Routes.defaultProps = {
-  networkMatch: false,
-  walletUnlocked: false,
 };
 
 Routes.propTypes = {

@@ -76,10 +76,9 @@ class DomainStateComponent extends Component {
     if (domain && getState) getState(domain);
   }
 
-  componentWillReceiveProps(newProps) {
-    const { getState } = newProps;
-    const { domain } = this.props;
-    if (domain !== newProps.domain) getState(newProps.domain);
+  componentDidUpdate(prevProps) {
+    const { getState, domain } = this.props;
+    if (domain !== prevProps.domain) getState(domain);
   }
 
   onSearch(event) {

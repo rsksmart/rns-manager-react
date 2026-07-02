@@ -2,14 +2,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const ToggleComponent = (props) => {
-  const {
-    labelLeft,
-    labelRight,
-    onChange,
-    value,
-  } = props;
-
+const ToggleComponent = ({
+  labelLeft = 'leftLabel',
+  labelRight = 'rightLabel',
+  onChange,
+  value = false,
+}) => {
   const handleChange = (changeTo) => {
     onChange(changeTo);
   };
@@ -41,12 +39,6 @@ const ToggleComponent = (props) => {
       </button>
     </div>
   );
-};
-
-ToggleComponent.defaultProps = {
-  labelLeft: 'leftLabel',
-  labelRight: 'rightLabel',
-  value: false,
 };
 
 ToggleComponent.propTypes = {

@@ -24,8 +24,8 @@ const NewSubdomainComponent = ({
   confirmedTx,
   newRequesting,
   newWaiting,
-  initialSubdomain,
-  initialOwner,
+  initialSubdomain = '',
+  initialOwner = '',
   chainId,
   advancedView,
   isWalletConnect,
@@ -199,11 +199,6 @@ const NewSubdomainComponent = ({
       />
     </Form>
   );
-};
-
-NewSubdomainComponent.defaultProps = {
-  initialSubdomain: '',
-  initialOwner: '',
 };
 
 NewSubdomainComponent.propTypes = {

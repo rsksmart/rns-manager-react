@@ -7,7 +7,7 @@ import { UserWaitingComponent, UserErrorComponent } from '../../../components';
 
 const ReclaimComponent = ({
   strings, reclaimDomain, isError, errorMessage, handleCloseClick, isSettingRegistryOwner,
-  isDomainInfo, domain, registryOwner,
+  isDomainInfo = false, domain, registryOwner,
 }) => (
   <div className="reclaim major-section">
 
@@ -59,10 +59,6 @@ const ReclaimComponent = ({
     <UserWaitingComponent visible={isSettingRegistryOwner} />
   </div>
 );
-
-ReclaimComponent.defaultProps = {
-  isDomainInfo: false,
-};
 
 ReclaimComponent.propTypes = {
   strings: propTypes.shape({

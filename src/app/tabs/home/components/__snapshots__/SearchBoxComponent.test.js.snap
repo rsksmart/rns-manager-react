@@ -30,6 +30,5 @@ exports[`SearchBoxComponent > renders and matches snapshot 1`] = `
       </button>
     </div>
   </form>
-  
 </div>
 `;

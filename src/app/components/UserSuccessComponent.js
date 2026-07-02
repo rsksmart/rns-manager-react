@@ -6,8 +6,12 @@ import closeBlue from '../../assets/img/close-blue.svg';
 import blueCheck from '../../assets/img/check-blue.svg';
 
 const UserSuccessComponent = ({
-  strings, title, message, handleCloseClick, address,
-  visible,
+  strings,
+  title = 'Success',
+  message = 'Success Message',
+  handleCloseClick = () => {},
+  address = '',
+  visible = true,
 }) => {
   if (!visible) {
     return (<></>);
@@ -40,14 +44,6 @@ const UserSuccessComponent = ({
       )}
     </div>
   );
-};
-
-UserSuccessComponent.defaultProps = {
-  title: 'Success',
-  message: 'Success Message',
-  handleCloseClick: () => {},
-  address: '',
-  visible: true,
 };
 
 UserSuccessComponent.propTypes = {

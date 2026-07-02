@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { multilanguage } from 'redux-multilanguage';
 import propTypes from 'prop-types';
 import {
@@ -16,9 +16,15 @@ const ContainerWrapper = ({ children }) => (
 );
 
 const ErrorTabComponent = ({
-  hasWeb3Provider, hasContracts, walletNetwork, envNetwork,
-  walletUnlocked, rLoginConnect, strings, notFound,
+  hasWeb3Provider, hasContracts, walletNetwork = '', envNetwork,
+  walletUnlocked, rLoginConnect, strings, notFound = false,
 }) => {
+  useEffect(() => {
+    if (!notFound && hasContracts && hasWeb3Provider && !walletUnlocked) {
+      rLoginConnect();
+    }
+  }, []);
+
   if (notFound) {
     return (
       <ContainerWrapper>
@@ -50,9 +56,6 @@ const ErrorTabComponent = ({
     );
   }
   if (!walletUnlocked) {
-    useState(() => {
-      rLoginConnect();
-    }, []);
     return (
       <ContainerWrapper>
         <img src={rskWallet} alt="rsk_wallet" width="250px" />
@@ -84,11 +87,6 @@ const ErrorTabComponent = ({
 ContainerWrapper.propTypes = ({
   children: propTypes.node.isRequired,
 });
-
-ErrorTabComponent.defaultProps = {
-  walletNetwork: '',
-  notFound: false,
-};
 
 ErrorTabComponent.propTypes = {
   hasWeb3Provider: propTypes.bool.isRequired,

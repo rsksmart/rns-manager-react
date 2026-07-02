@@ -28,7 +28,6 @@ exports[`UserSuccessComponent > renders and matches snapshot 1`] = `
     <p>
       Success Message
     </p>
-    
   </div>
 </div>
 `;

@@ -6,7 +6,7 @@ import ResolutionComponent from './ResolutionComponent';
 import networks from '../../newAdmin/addresses/networks.json';
 
 const ResolveChainAddr = ({
-  strings, loading, error, value, getChainAddr, hasMulticoin,
+  strings, loading, error = null, value = null, getChainAddr, hasMulticoin,
 }) => {
   const [selectedChain, setSelectedChain] = useState('');
   const handleChange = (e) => {
@@ -66,11 +66,6 @@ ResolveChainAddr.propTypes = {
   value: propTypes.string,
   getChainAddr: propTypes.func.isRequired,
   hasMulticoin: propTypes.bool.isRequired,
-};
-
-ResolveChainAddr.defaultProps = {
-  error: null,
-  value: null,
 };
 
 export default multilanguage(ResolveChainAddr);

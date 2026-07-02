@@ -23,18 +23,18 @@ const AdminComponent = ({
   strings,
   toggleAdvancedBasic,
   advancedView,
-  domain,
+  domain = '',
   isRegistryOwner,
   enabling,
   start,
-  isExpired,
+  isExpired = false,
 }) => {
+  useEffect(() => {
+    if (domain) start();
+  }, []);
+
   if (enabling) {
     return <UserWaitingComponent />;
-  }
-
-  if (domain) {
-    useEffect(() => start(), []);
   }
 
   if (isExpired) {
@@ -76,11 +76,6 @@ const AdminComponent = ({
       </div>
     </AuthTabWrapper>
   );
-};
-
-AdminComponent.defaultProps = {
-  domain: '',
-  isExpired: false,
 };
 
 AdminComponent.propTypes = {

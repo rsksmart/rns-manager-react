@@ -76,14 +76,15 @@ class ResolveComponent extends Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    const { name, error } = this.props;
+  componentDidUpdate(prevProps) {
+    const { name, error, resolve } = this.props;
 
-    if (name !== newProps.name) {
-      newProps.resolve();
+    if (name !== prevProps.name) {
+      resolve();
     }
 
-    if (error !== newProps.error) {
+    if (error !== prevProps.error) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ showError: true });
     }
   }

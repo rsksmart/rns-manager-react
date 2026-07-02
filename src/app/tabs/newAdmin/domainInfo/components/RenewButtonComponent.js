@@ -6,12 +6,10 @@ import { Button } from 'react-bootstrap';
 
 import { dayMath, formatDate } from '../../helpers';
 
-const RenewButtonComponent = (props) => {
-  const {
-    expires, handleClick, checkingExpirationTime, isRenewOpen,
-    strings, isFifsMigrated,
-  } = props;
-
+const RenewButtonComponent = ({
+  expires = 0, handleClick, checkingExpirationTime, isRenewOpen,
+  strings, isFifsMigrated,
+}) => {
   const disable = (checkingExpirationTime || expires <= 0 || !isFifsMigrated);
 
   return (
@@ -23,10 +21,6 @@ const RenewButtonComponent = (props) => {
       </Button>
     </p>
   );
-};
-
-RenewButtonComponent.defaultProps = {
-  expires: 0,
 };
 
 RenewButtonComponent.propTypes = {

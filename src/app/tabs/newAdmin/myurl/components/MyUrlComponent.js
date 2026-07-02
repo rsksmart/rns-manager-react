@@ -7,7 +7,7 @@ import AddressInputComponent from '../../../../components/AddressInputComponent'
 import MigrateToMultiResolverContainer from '../../addresses/containers/MigrateToMultiResolverContainer';
 
 const MyUrlComponent = ({
-  strings, url, gettingContent, handleSave,
+  strings, url = null, gettingContent, handleSave,
 }) => {
   const [newInput, setNewInput] = useState('');
   const contentHashPlaceholder = 'ipfs://..., ipns://..., bzz://..., onion://..., onion3://...';
@@ -75,10 +75,6 @@ const MyUrlComponent = ({
       )}
     </div>
   );
-};
-
-MyUrlComponent.defaultProps = {
-  url: null,
 };
 
 MyUrlComponent.propTypes = {

@@ -9,7 +9,7 @@ import {
 } from '../../../components';
 
 const ResolutionComponent = ({
-  error, loading, value, strings,
+  error = null, loading, value = null, strings,
 }) => {
   if (error) {
     return <UserErrorComponent message={error} />;
@@ -46,11 +46,6 @@ ResolutionComponent.propTypes = {
   strings: propTypes.shape({
     no_resolution: propTypes.string.isRequired,
   }).isRequired,
-};
-
-ResolutionComponent.defaultProps = {
-  error: null,
-  value: null,
 };
 
 export default multilanguage(ResolutionComponent);

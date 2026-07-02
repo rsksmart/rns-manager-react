@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Loader } from 'rimble-ui';
 
-const UserWaitingComponent = ({ message, visible }) => {
+const UserWaitingComponent = ({ message = '', visible = true }) => {
   if (!visible) {
     return (<></>);
   }
@@ -15,11 +15,6 @@ const UserWaitingComponent = ({ message, visible }) => {
       </div>
     </div>
   );
-};
-
-UserWaitingComponent.defaultProps = {
-  message: '',
-  visible: true,
 };
 
 UserWaitingComponent.propTypes = {
