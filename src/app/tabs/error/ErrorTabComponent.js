@@ -23,7 +23,7 @@ const ErrorTabComponent = ({
     if (!notFound && hasContracts && hasWeb3Provider && !walletUnlocked) {
       rLoginConnect();
     }
-  }, []);
+  }, [notFound, hasContracts, hasWeb3Provider, walletUnlocked, rLoginConnect]);
 
   if (notFound) {
     return (

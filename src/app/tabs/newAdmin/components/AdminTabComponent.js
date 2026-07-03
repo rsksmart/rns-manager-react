@@ -31,7 +31,7 @@ const AdminComponent = ({
 }) => {
   useEffect(() => {
     if (domain) start();
-  }, []);
+  }, [domain, start]);
 
   if (enabling) {
     return <UserWaitingComponent />;

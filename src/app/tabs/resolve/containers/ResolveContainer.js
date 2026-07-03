@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  search: name => history.push(`resolve?name=${name}`),
+  search: name => history.push(`/resolve?name=${name}`),
   resolve: name => dispatch(searchAddressOrDomain(name.toLowerCase())),
   reset: () => dispatch(resetResolve()),
 });
