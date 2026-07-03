@@ -1,0 +1,46 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+          # Wait at least 10 days after a new version is released before opening a PR
+    cooldown:
+      default-days: 5
+    # one PR per week that groups BOTH minor + patch updates
+    groups:
+      actions-updates:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
+  # Maintain dependencies for npm and yarn
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Wait at least 10 days after a new version is released before opening a PR
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    # one PR per week that groups BOTH minor + patch updates
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      development-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
