@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { multilanguage } from 'redux-multilanguage';
 import { Row, Col } from 'react-bootstrap';
-import { Switch, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 
 import { AuthTabWrapper } from '../../../auth';
 import ToggleComponent from '../../../components/ToggleComponent';
@@ -23,18 +23,18 @@ const AdminComponent = ({
   strings,
   toggleAdvancedBasic,
   advancedView,
-  domain,
+  domain = '',
   isRegistryOwner,
   enabling,
   start,
-  isExpired,
+  isExpired = false,
 }) => {
+  useEffect(() => {
+    if (domain) start();
+  }, [domain, start]);
+
   if (enabling) {
     return <UserWaitingComponent />;
-  }
-
-  if (domain) {
-    useEffect(() => start(), []);
   }
 
   if (isExpired) {
@@ -59,28 +59,25 @@ const AdminComponent = ({
             <LeftNavContainer />
           </Col>
           <Col md={9}>
-            <Switch>
-              <Route exact path="/newAdmin" component={DomainInfoContainer} />
-              <Route path="/newAdmin/reverse" component={advancedView ? ReverseContainer : DomainInfoContainer} />
-
-              {
-                !isRegistryOwner && <Route component={ReclaimContainer} />
-              }
-              <Route path="/newAdmin/myurl" component={MyUrlContainer} />
-              <Route path="/newAdmin/addresses" component={AddressesContainer} />
-              <Route path="/newAdmin/subdomains" component={SubdomainsContainer} />
-              <Route path="/newAdmin/resolver" component={advancedView ? ResolverContainer : DomainInfoContainer} />
-            </Switch>
+            <Routes>
+              <Route index element={<DomainInfoContainer />} />
+              <Route path="reverse" element={advancedView ? <ReverseContainer /> : <DomainInfoContainer />} />
+              {!isRegistryOwner ? (
+                <Route path="*" element={<ReclaimContainer />} />
+              ) : (
+                <>
+                  <Route path="myurl" element={<MyUrlContainer />} />
+                  <Route path="addresses" element={<AddressesContainer />} />
+                  <Route path="subdomains" element={<SubdomainsContainer />} />
+                  <Route path="resolver" element={advancedView ? <ResolverContainer /> : <DomainInfoContainer />} />
+                </>
+              )}
+            </Routes>
           </Col>
         </Row>
       </div>
     </AuthTabWrapper>
   );
-};
-
-AdminComponent.defaultProps = {
-  domain: '',
-  isExpired: false,
 };
 
 AdminComponent.propTypes = {

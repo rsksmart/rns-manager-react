@@ -14,20 +14,18 @@ import {
   SetControllerViewContainer,
 } from '../containers';
 
-const DomainInfoComponent = (props) => {
-  const {
-    strings,
-    domain,
-    isSubdomain,
-    isTransferSuccess,
-    isTokenOwner,
-    checkingRegistryOwner,
-    checkingOwnership,
-    isRegistryOwner,
-    isFifsMigrated,
-    isWalletConnect,
-  } = props;
-
+const DomainInfoComponent = ({
+  strings,
+  domain,
+  isSubdomain,
+  isTransferSuccess,
+  isTokenOwner = false,
+  checkingRegistryOwner,
+  checkingOwnership,
+  isRegistryOwner,
+  isFifsMigrated,
+  isWalletConnect,
+}) => {
   if (isTransferSuccess) {
     return (
       <TransferSuccessModalContainer />
@@ -84,10 +82,6 @@ const DomainInfoComponent = (props) => {
       {(!isRegistryOwner && !isSubdomain) && <ReclaimContainer isDomainInfo />}
     </div>
   );
-};
-
-DomainInfoComponent.defaultProps = {
-  isTokenOwner: false,
 };
 
 DomainInfoComponent.propTypes = {

@@ -10,7 +10,7 @@ export const networkSelector = (network) => {
   switch (network) {
     case '30': return 'RSK MainNet';
     case '31': return 'RSK TestNet';
-    case process.env.REACT_APP_ENVIRONMENT_ID: return 'Local';
+    case import.meta.env.VITE_ENVIRONMENT_ID: return 'Local';
     default: return 'invalid';
   }
 };

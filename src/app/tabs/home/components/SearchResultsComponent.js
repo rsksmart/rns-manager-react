@@ -6,7 +6,7 @@ import { Loader } from 'rimble-ui';
 import { Button, Row, Col } from 'react-bootstrap';
 
 const SearchResultsComponent = ({
-  strings, domain, available, blocked, isSearching, rifCost, handleClick,
+  strings, domain = undefined, available, blocked = undefined, isSearching, rifCost, handleClick,
 }) => {
   if (!domain) {
     return <></>;
@@ -86,11 +86,6 @@ const SearchResultsComponent = ({
       </Row>
     </div>
   );
-};
-
-SearchResultsComponent.defaultProps = {
-  domain: undefined,
-  blocked: undefined,
 };
 
 SearchResultsComponent.propTypes = {

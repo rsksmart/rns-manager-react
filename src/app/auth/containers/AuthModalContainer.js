@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { AuthModalComponent } from '../components';
 import { closeModal } from '../actions';
 import { authenticate } from '../operations';
 import { networkSelector } from '../../selectors';
+import { history } from '../../../configureStore';
 
 const mapStateToProps = state => ({
   show: state.auth.showModal,
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   enabling: state.auth.enabling,
   enableError: state.auth.enableError,
   address: state.auth.address,
-  managerNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
+  managerNetwork: networkSelector(import.meta.env.VITE_ENVIRONMENT_ID),
   networkMatch: state.auth.networkMatch,
   authError: state.auth.authError,
   name: state.auth.name,
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
   close: () => dispatch(closeModal()),
   authenticate: (name, address) => dispatch(authenticate(name, address)),
   openWallets: () => {
-    dispatch(push('/setup'));
+    history.push('/setup');
     dispatch(closeModal());
   },
 });

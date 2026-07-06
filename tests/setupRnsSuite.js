@@ -3,7 +3,7 @@ const RNSSuite = require('@rsksmart/rns-suite');
 const fs = require('fs');
 
 // set the blockchainURL. Use 0.0.0.0:8545 for Github Actions
-const blockchainUrl = process.env.GITHUB_ACTIONS ? 'http://0.0.0.0:8545' : process.env.REACT_APP_NODE;
+const blockchainUrl = process.env.GITHUB_ACTIONS ? 'http://0.0.0.0:8545' : process.env.VITE_NODE;
 
 // eslint-disable-next-line no-console
 console.log(`Setting up RNS suite on ${blockchainUrl}`);

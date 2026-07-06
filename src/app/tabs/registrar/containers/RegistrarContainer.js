@@ -1,12 +1,14 @@
+import React from 'react';
 import { parse } from 'query-string';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { RegistrarComponent } from '../components';
 import getDomainState from '../../search/operations';
 import { checkIfInProgress } from '../operations';
 import { closeErrorMessage } from '../actions';
 
-const mapStateToProps = state => ({
-  domain: parse(state.router.location.search).domain,
+const mapStateToProps = (state, ownProps) => ({
+  domain: parse(ownProps.location.search).domain,
   domainStateLoading: state.search.domainStateLoading,
   owned: state.search.owned,
   owner: state.search.owner,
@@ -27,7 +29,14 @@ const mapDispatchToProps = dispatch => ({
   handleCloseClick: () => dispatch(closeErrorMessage()),
 });
 
-export default connect(
+const ConnectedRegistrarComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RegistrarComponent);
+
+const RegistrarContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedRegistrarComponent {...props} location={location} />;
+};
+
+export default RegistrarContainer;

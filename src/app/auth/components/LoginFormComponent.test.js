@@ -1,13 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 
-import LoginDropdownComponent from './LoginFormComponent';
+import LoginFormComponent from './LoginFormComponent';
 import { mockStoreEnglish } from '../../../../tests/config/mockStore';
 
 const store = mockStoreEnglish();
 
-describe('LoginDropdownComponent', () => {
+describe('LoginFormComponent', () => {
   const initProps = {
     authError: false,
     showLoginInitState: false,
@@ -17,45 +17,47 @@ describe('LoginDropdownComponent', () => {
 
   const generateComponent = (localProps = {}) => {
     const combinedProps = { ...initProps, ...localProps };
-    return mount(
+    return render(
       <Provider store={store}>
-        <LoginDropdownComponent {...combinedProps} />
+        <LoginFormComponent {...combinedProps} />
       </Provider>,
     );
   };
 
   it('renders and matches snapshot when closed', () => {
-    const wrapper = generateComponent();
-    expect(wrapper.find('button').text()).toBe('+ Add account');
+    const { container } = generateComponent();
+    expect(container.querySelector('button').textContent).toBe('+ Add account');
   });
 
   it('loads the initial state of the input box', () => {
-    const wrapper = generateComponent({ showLoginInitState: true, domainInputInitialState: 'foobar' });
-    expect(wrapper.find('input').props().value).toBe('foobar');
+    const { container } = generateComponent({ showLoginInitState: true, domainInputInitialState: 'foobar' });
+    expect(container.querySelector('input').value).toBe('foobar');
   });
 
   it('shows error when there is one', () => {
-    const wrapper = generateComponent({ showLoginInitState: true, authError: true });
-    expect(wrapper.find('.error').text()).toBe("You are not the domains's owner.");
+    const { container } = generateComponent({ showLoginInitState: true, authError: true });
+    expect(container.querySelector('.error').textContent).toBe("You are not the domains's owner.");
   });
 
   describe('login events', () => {
     it('sends the domain when form is submitted', () => {
       const handleLogin = jest.fn();
-      const wrapper = generateComponent({ showLoginInitState: true, handleLogin });
-      wrapper.find('input').simulate('change', { target: { value: 'hello' } });
-      wrapper.find('button.btn').simulate('click');
+      const { container } = generateComponent({ showLoginInitState: true, handleLogin });
+      fireEvent.change(container.querySelector('input'), { target: { value: 'hello' } });
+      fireEvent.click(container.querySelector('button.btn'));
 
       expect(handleLogin).toBeCalledWith('hello.rsk');
     });
 
     it('shows an error when domain is invalid', () => {
       const handleLogin = jest.fn();
-      const wrapper = generateComponent({ showLoginInitState: true, domainInputInitialState: 'foobar!!', handleLogin });
+      const { container } = generateComponent({
+        showLoginInitState: true, domainInputInitialState: 'foobar!!', handleLogin,
+      });
 
-      wrapper.find('button.btn').simulate('click');
+      fireEvent.click(container.querySelector('button.btn'));
 
-      expect(wrapper.find('.error').text()).toBe('Invalid name. Must be lower case characters and/or numbers');
+      expect(container.querySelector('.error').textContent).toBe('Invalid name. Must be lower case characters and/or numbers');
       expect(handleLogin).toBeCalledTimes(0);
     });
   });

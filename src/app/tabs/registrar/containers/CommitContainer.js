@@ -1,13 +1,15 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { parse } from 'query-string';
 import { CommitComponent } from '../components';
 import { commit, checkIfInProgress, hasEnoughRif } from '../operations';
 import { toggleSetupAddr } from '../actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   committing: state.registrar.committing,
   committed: state.registrar.committed,
-  domain: parse(state.router.location.search).domain,
+  domain: parse(ownProps.location.search).domain,
   setupAddr: state.registrar.setupAddr,
   duration: state.registrar.duration,
   rifCost: state.registrar.rifCost,
@@ -38,8 +40,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   checkBalance: () => dispatchProps.hasEnoughRif(stateProps.rifCost),
 });
 
-export default connect(
+const ConnectedCommitComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(CommitComponent);
+
+const CommitContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedCommitComponent {...props} location={location} />;
+};
+
+export default CommitContainer;

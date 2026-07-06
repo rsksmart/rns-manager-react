@@ -7,7 +7,7 @@ import LoginFormContainer from '../containers/LoginFormContainer';
 import SingleDomainComponent from './SingleDomainComponent';
 
 const LoginDropDownComponent = ({
-  strings, name, handleLogin, authError, getPreviousDomains, isLoggedIn, isWalletConnected,
+  strings, name = null, handleLogin, authError, getPreviousDomains, isLoggedIn, isWalletConnected,
   showPopUp, toggleShowPopUp, disconnectDomain, disconnectWallet, redirectAdmin,
 }) => {
   const [previousDomains, setPreviousDomains] = useState([]);
@@ -70,10 +70,6 @@ const LoginDropDownComponent = ({
       )}
     </div>
   );
-};
-
-LoginDropDownComponent.defaultProps = {
-  name: null,
 };
 
 LoginDropDownComponent.propTypes = {

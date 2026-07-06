@@ -16,7 +16,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   plugins: [
@@ -26,7 +26,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/destructuring-assignment': 'warn',
-    'react/require-default-props': 'warn',
+    'react/require-default-props': ['warn', { functions: 'defaultArguments' }],
     'import/no-cycle': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
   },

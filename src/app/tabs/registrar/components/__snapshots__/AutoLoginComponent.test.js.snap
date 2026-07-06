@@ -1,153 +1,66 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AutoLoginComponent should matches snapshot 1`] = `
-<Provider
-  store={
-    Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-    }
-  }
->
-  <Connect(AutoLoginComponent)
-    handleManageClick={[MockFunction]}
-    handleRegisterNewClick={[MockFunction]}
-    successTx="0x123456879..."
+exports[`AutoLoginComponent > should matches snapshot 1`] = `
+<div>
+  <div
+    class="success"
   >
-    <AutoLoginComponent
-      currentLanguageCode="en"
-      dispatch={[Function]}
-      handleManageClick={[MockFunction]}
-      handleRegisterNewClick={[MockFunction]}
-      strings={
-        Object {
-          "admin_domain": "Admin my domain",
-          "close": "Close",
-          "log_in": "log in",
-          "register_another_domain": "Register another domain",
-          "view_explorer": "View it on the explorer",
-          "your_domain_has_been_registered": "Your domain has been registered",
-        }
-      }
-      successTx="0x123456879..."
+    <button
+      class="close"
+      type="button"
     >
-      <Connect(UserSuccessComponent)
-        address="0x123456879..."
-        message=""
-        title="Your domain has been registered"
+      <img
+        alt="Close"
+        src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3csvg%20width='13'%20height='13'%20viewBox='0%200%2013%2013'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cline%20x1='12'%20y1='0.707107'%20x2='0.707108'%20y2='12'%20stroke='%234B5CF0'%20stroke-linecap='round'/%3e%3cline%20x1='0.707107'%20y1='1'%20x2='12'%20y2='12.2929'%20stroke='%234B5CF0'%20stroke-linecap='round'/%3e%3c/svg%3e"
+      />
+    </button>
+    <p>
+      <img
+        alt=""
+        src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3csvg%20width='37'%20height='23'%20viewBox='0%200%2037%2023'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1%2010.5L12.5%2021L36%201'%20stroke='%234B5CF0'%20stroke-width='2'/%3e%3c/svg%3e"
+      />
+    </p>
+    <p>
+      <strong>
+        Your domain has been registered
+      </strong>
+    </p>
+    <p />
+    <p
+      class="explorer"
+    >
+      <a
+        href="https://explorer.testnet.rsk.co/tx/0x123456879..."
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <UserSuccessComponent
-          address="0x123456879..."
-          currentLanguageCode="en"
-          dispatch={[Function]}
-          handleCloseClick={[Function]}
-          message=""
-          strings={
-            Object {
-              "admin_domain": "Admin my domain",
-              "close": "Close",
-              "log_in": "log in",
-              "register_another_domain": "Register another domain",
-              "view_explorer": "View it on the explorer",
-              "your_domain_has_been_registered": "Your domain has been registered",
-            }
-          }
-          title="Your domain has been registered"
-          visible={true}
-        >
-          <div
-            className="success"
-          >
-            <button
-              className="close"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Close"
-                src="mock-image"
-              />
-            </button>
-            <p>
-              <img
-                alt=""
-                src="mock-image"
-              />
-            </p>
-            <p>
-              <strong>
-                Your domain has been registered
-              </strong>
-            </p>
-            <p />
-            <p
-              className="explorer"
-            >
-              <a
-                href="https://explorer.testnet.rsk.co/tx/0x123456879..."
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                View it on the explorer
-              </a>
-            </p>
-          </div>
-        </UserSuccessComponent>
-      </Connect(UserSuccessComponent)>
-      <Row
-        className="major-section next-steps"
-        noGutters={false}
+        View it on the explorer
+      </a>
+    </p>
+  </div>
+  <div
+    class="major-section next-steps row"
+  >
+    <div
+      class="col-md-4 offset-md-2 col-lg-3 offset-lg-3"
+    >
+      <button
+        class="btn btn-primary btn-block"
+        type="button"
       >
-        <div
-          className="major-section next-steps row"
-        >
-          <div
-            className="col-md-4 offset-md-2 col-lg-3 offset-lg-3"
-          >
-            <Button
-              active={false}
-              block={true}
-              disabled={false}
-              onClick={[MockFunction]}
-              variant="primary"
-            >
-              <button
-                className="btn btn-primary btn-block"
-                disabled={false}
-                onClick={[MockFunction]}
-                type="button"
-              >
-                Admin my domain
-              </button>
-            </Button>
-          </div>
-          <div
-            className="col-md-4 col-lg-3"
-          >
-            <Button
-              active={false}
-              block={true}
-              disabled={false}
-              onClick={[MockFunction]}
-              variant="primary"
-            >
-              <button
-                className="btn btn-primary btn-block"
-                disabled={false}
-                onClick={[MockFunction]}
-                type="button"
-              >
-                Register another domain
-              </button>
-            </Button>
-          </div>
-        </div>
-      </Row>
-    </AutoLoginComponent>
-  </Connect(AutoLoginComponent)>
-</Provider>
+        Admin my domain
+      </button>
+    </div>
+    <div
+      class="col-md-4 col-lg-3"
+    >
+      <button
+        class="btn btn-primary btn-block"
+        type="button"
+      >
+        Register another domain
+      </button>
+    </div>
+  </div>
+</div>
 `;

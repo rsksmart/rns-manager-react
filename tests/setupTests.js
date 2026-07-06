@@ -1,8 +1,10 @@
-/* eslint-disable no-var */
-var enzyme = require('enzyme');
-var Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
+import { afterEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest';
 
-enzyme.configure({ adapter: new Adapter() });
+afterEach(() => {
+  cleanup();
+});
 
 // for rLogin essentials
 jest.mock('@rsksmart/rlogin-dcent-provider', () => ({

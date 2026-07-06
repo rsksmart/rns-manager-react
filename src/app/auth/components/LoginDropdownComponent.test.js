@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 
 import LoginDropdownComponent from './LoginDropdownComponent';
 import { mockStoreEnglish } from '../../../../tests/config/mockStore';
@@ -28,25 +28,27 @@ describe('LoginDropdownComponent', () => {
   };
 
   it('renders and is defined', () => {
-    const wrapper = mount(generateComponent());
-    expect(wrapper).toBeDefined();
+    const { container } = render(generateComponent());
+    expect(container).toBeDefined();
   });
 
   describe('current domain', () => {
     it('hides current domain when false', () => {
-      const wrapper = mount(generateComponent());
-      expect(wrapper.find('.row.current')).toHaveLength(0);
+      const { container } = render(generateComponent());
+      expect(container.querySelectorAll('.row.current')).toHaveLength(0);
     });
 
     it('shows current domain when true', () => {
-      const wrapper = mount(generateComponent({ name: 'foobar.rsk', isLoggedIn: true }));
-      expect(wrapper.find('.row.current')).toHaveLength(1);
+      const { container } = render(generateComponent({ name: 'foobar.rsk', isLoggedIn: true }));
+      expect(container.querySelectorAll('.row.current')).toHaveLength(1);
     });
 
     it('handles redirectAdmin click', () => {
       const redirectAdmin = jest.fn();
-      const wrapper = mount(generateComponent({ name: 'foobar.rsk', isLoggedIn: true, redirectAdmin }));
-      wrapper.find('.current').find('.domain').find('button').simulate('click');
+      const { container } = render(
+        generateComponent({ name: 'foobar.rsk', isLoggedIn: true, redirectAdmin }),
+      );
+      fireEvent.click(container.querySelector('.current .domain button'));
       expect(redirectAdmin).toHaveBeenCalledTimes(1);
     });
   });
@@ -58,29 +60,29 @@ describe('LoginDropdownComponent', () => {
       { domain: 'bar.foobar', owner },
     ]);
 
-    const previousList = wrapper => wrapper.find('li.previous');
+    const previousList = container => container.querySelectorAll('li.previous');
 
     it('shows the previous domains', () => {
-      const wrapper = mount(generateComponent({ getPreviousDomains }));
-      expect(previousList(wrapper).at(0).text()).toBe('foobar-');
-      expect(previousList(wrapper).at(1).text()).toBe('bar.foobar-');
+      const { container } = render(generateComponent({ getPreviousDomains }));
+      expect(previousList(container)[0].textContent).toBe('foobar-');
+      expect(previousList(container)[1].textContent).toBe('bar.foobar-');
     });
 
     it('handles login and disconnect click', () => {
       const disconnectDomain = jest.fn();
       const handleLogin = jest.fn();
-      const wrapper = mount(
+      const { container } = render(
         generateComponent({ getPreviousDomains, handleLogin, disconnectDomain }),
       );
 
-      expect(wrapper.find('li.previous')).toHaveLength(2);
-      previousList(wrapper).at(0).find('.domain button').simulate('click');
+      expect(container.querySelectorAll('li.previous')).toHaveLength(2);
+      fireEvent.click(previousList(container)[0].querySelector('.domain button'));
       expect(handleLogin).toBeCalledWith('foobar');
 
       // remove the item
-      wrapper.find('li.previous').at(0).find('.options button').simulate('click');
+      fireEvent.click(container.querySelectorAll('li.previous')[0].querySelector('.options button'));
       expect(disconnectDomain).toBeCalledWith('foobar');
-      expect(wrapper.find('li.previous')).toHaveLength(1);
+      expect(container.querySelectorAll('li.previous')).toHaveLength(1);
     });
   });
 });

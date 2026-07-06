@@ -1,5 +1,5 @@
 describe('setEnvVars', () => {
   it('gets correct environment varialbe', () => {
-    expect(process.env.REACT_APP_ENVIRONMENT).toEqual('testing');
+    expect(import.meta.env.VITE_ENVIRONMENT).toEqual('testing');
   });
 });

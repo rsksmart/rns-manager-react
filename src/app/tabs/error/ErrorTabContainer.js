@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
   networkMatch: state.auth.networkMatch,
   walletUnlocked: state.auth.walletUnlocked,
   walletNetwork: networkSelector(state.auth.network),
-  envNetwork: networkSelector(process.env.REACT_APP_ENVIRONMENT_ID),
+  envNetwork: networkSelector(import.meta.env.VITE_ENVIRONMENT_ID),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,13 +1,22 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { LeftNavComponent } from '../components';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   advancedView: state.newAdmin.view.advancedView,
-  location: state.router.location.pathname,
+  location: ownProps.location.pathname,
   domain: state.auth.name,
 });
 
-export default connect(
+const ConnectedLeftNavComponent = connect(
   mapStateToProps,
   null,
 )(LeftNavComponent);
+
+const LeftNavContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedLeftNavComponent {...props} location={location} />;
+};
+
+export default LeftNavContainer;

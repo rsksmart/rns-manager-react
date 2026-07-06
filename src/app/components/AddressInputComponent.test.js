@@ -1,7 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 
 import AddressInputComponent from './AddressInputComponent';
+import { mockStoreEnglish } from '../../../tests/config/mockStore';
+
+const store = mockStoreEnglish();
+
+const renderComponent = props => render(
+  <Provider store={store}><AddressInputComponent {...props} /></Provider>,
+);
 
 describe('AddressInputComponent', () => {
   const initProps = {
@@ -41,14 +49,14 @@ describe('AddressInputComponent', () => {
   };
 
   it('renders without crashing', () => {
-    const component = shallow(<AddressInputComponent {...initProps} />);
-    expect(component).toBeDefined();
+    const { container } = renderComponent(initProps);
+    expect(container.querySelector('div.addressInput')).toBeInTheDocument();
   });
 
   it('shows confirmation window when delete is clicked', () => {
-    const component = shallow(<AddressInputComponent {...initProps} />);
-    component.find('button.delete').simulate('click', { currentTarget: { className: 'delete' } });
-    expect(component.find('div.delete').length).toBe(1);
+    const { container } = renderComponent(initProps);
+    fireEvent.click(container.querySelector('button.delete'));
+    expect(container.querySelectorAll('div.delete').length).toBe(1);
   });
 
   it('delete is not shown when allowDelete is false', () => {
@@ -56,8 +64,8 @@ describe('AddressInputComponent', () => {
       ...initProps,
       allowDelete: false,
     };
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('button.delete').length).toBe(0);
+    const { container } = renderComponent(localProps);
+    expect(container.querySelectorAll('button.delete').length).toBe(0);
   });
 
   it('start, edit, and delete allow custom text ', () => {
@@ -74,16 +82,16 @@ describe('AddressInputComponent', () => {
         value_prefix: 'custom value prefix',
       },
     };
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.value').text()).toEqual('custom value prefix: Value');
+    const { container } = renderComponent(localProps);
+    expect(container.querySelector('div.value').textContent).toEqual('custom value prefix: Value');
 
     // edit screen
-    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
-    expect(component.find('div.editLabel').text()).toEqual('custom edit prompt text');
+    fireEvent.click(container.querySelector('button.edit'));
+    expect(container.querySelector('div.editLabel').textContent).toEqual('custom edit prompt text');
 
     // delete screen
-    component.find('button.delete').simulate('click', { currentTarget: { className: 'delete' } });
-    expect(component.find('div.delete').find('p').first().text())
+    fireEvent.click(container.querySelector('button.delete'));
+    expect(container.querySelector('div.delete p').textContent)
       .toEqual('custom delete confirm text');
   });
 
@@ -93,10 +101,10 @@ describe('AddressInputComponent', () => {
       label: 'rsk',
       labelIcon: '/assets/icons/icon_rsk.png',
     };
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    const image = component.find('div.label').find('img');
-    expect(image.props().src).toEqual('/assets/icons/icon_rsk.png');
-    expect(image.props().alt).toEqual('rsk');
+    const { container } = renderComponent(localProps);
+    const image = container.querySelector('div.label img');
+    expect(image.getAttribute('src')).toEqual('/assets/icons/icon_rsk.png');
+    expect(image.getAttribute('alt')).toEqual('rsk');
   });
 
   it('displays correct checksum for ethereum', () => {
@@ -107,8 +115,8 @@ describe('AddressInputComponent', () => {
       value: '0xee3d5f22ea0ff393aeef5cf88a81e7d44979633b',
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.value').text()).toBe(ethereumChecksum);
+    const { container } = renderComponent(localProps);
+    expect(container.querySelector('div.value').textContent).toBe(ethereumChecksum);
   });
 
   it('displays correct checksum for RSK testnet', () => {
@@ -120,8 +128,8 @@ describe('AddressInputComponent', () => {
       validationChainId: '31',
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.value').text()).toBe(rskTestnetChecksum);
+    const { container } = renderComponent(localProps);
+    expect(container.querySelector('div.value').textContent).toBe(rskTestnetChecksum);
   });
 
   it('displays correct checksum for RSK mainnet', () => {
@@ -133,8 +141,8 @@ describe('AddressInputComponent', () => {
       validationChainId: '30',
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.value').text()).toBe(rskMainnetChecksum);
+    const { container } = renderComponent(localProps);
+    expect(container.querySelector('div.value').textContent).toBe(rskMainnetChecksum);
   });
 
   it('renders when validation but no value', () => {
@@ -144,8 +152,8 @@ describe('AddressInputComponent', () => {
       validationChainId: '30',
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    expect(component.find('div.value').text()).toBe('');
+    const { container } = renderComponent(localProps);
+    expect(container.querySelector('div.value').textContent).toBe('');
   });
 
   it('does not show suggested row when there are no suggestions', () => {
@@ -154,10 +162,10 @@ describe('AddressInputComponent', () => {
       value: '',
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
+    const { container } = renderComponent(localProps);
+    fireEvent.click(container.querySelector('button.edit'));
 
-    expect(component.find('ul.suggestions').length).toBe(0);
+    expect(container.querySelectorAll('ul.suggestions').length).toBe(0);
   });
 
   it('displays suggested items', () => {
@@ -177,14 +185,14 @@ describe('AddressInputComponent', () => {
       ],
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
+    const { container } = renderComponent(localProps);
+    fireEvent.click(container.querySelector('button.edit'));
 
-    const ul = component.find('ul.suggestions');
-    expect(ul.children().length).toBe(3);
-    expect(ul.find('li.title').text()).toBe('suggestion:');
-    expect(ul.find('li').at(1).text()).toBe('suggested item');
-    expect(ul.find('li').at(2).text()).toBe('suggested item 2');
+    const ul = container.querySelector('ul.suggestions');
+    expect(ul.children.length).toBe(3);
+    expect(ul.querySelector('li.title').textContent).toBe('suggestion:');
+    expect(ul.querySelectorAll('li')[1].textContent).toBe('suggested item');
+    expect(ul.querySelectorAll('li')[2].textContent).toBe('suggested item 2');
   });
 
   it('does not display suggested items when item is the value', () => {
@@ -203,13 +211,13 @@ describe('AddressInputComponent', () => {
       ],
     };
 
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.edit').simulate('click', { currentTarget: { className: 'edit' } });
+    const { container } = renderComponent(localProps);
+    fireEvent.click(container.querySelector('button.edit'));
 
-    const ul = component.find('ul.suggestions');
-    expect(ul.children().length).toBe(2);
-    expect(ul.find('li.title').text()).toBe('suggestion:');
-    expect(ul.find('li').at(1).text()).toBe('suggested item 2');
+    const ul = container.querySelector('ul.suggestions');
+    expect(ul.children.length).toBe(2);
+    expect(ul.querySelector('li.title').textContent).toBe('suggestion:');
+    expect(ul.querySelectorAll('li')[1].textContent).toBe('suggested item 2');
   });
 
   it('hids and shows the settings menu', () => {
@@ -217,8 +225,8 @@ describe('AddressInputComponent', () => {
       ...initProps,
       settingsMenu: <div>settings</div>,
     };
-    const component = shallow(<AddressInputComponent {...localProps} />);
-    component.find('button.settings').simulate('click', { currentTarget: { className: 'settings' } });
-    expect(component.find('.settingsMenu')).toBeDefined();
+    const { container } = renderComponent(localProps);
+    fireEvent.click(container.querySelector('button.settings'));
+    expect(container.querySelector('.settingsMenu')).toBeInTheDocument();
   });
 });

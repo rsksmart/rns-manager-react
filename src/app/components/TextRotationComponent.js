@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 
 const TextRotationComponent = ({
-  heading, language, messages, timer,
+  heading, language, messages, timer = 1000,
 }) => {
   const [counter, setCounter] = useState(0);
   const updateCounter = () => {
@@ -50,10 +50,6 @@ const TextRotationComponent = ({
       </p>
     </div>
   );
-};
-
-TextRotationComponent.defaultProps = {
-  timer: 1000,
 };
 
 TextRotationComponent.propTypes = {

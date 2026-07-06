@@ -4,7 +4,7 @@ import { multilanguage } from 'redux-multilanguage';
 import { Button } from 'react-bootstrap';
 
 const LoginFormComponent = ({
-  strings, authError, handleLogin, showLoginInitState, domainInputInitialState,
+  strings, authError, handleLogin, showLoginInitState, domainInputInitialState = '',
 }) => {
   const [domainInput, setDomainInput] = useState(domainInputInitialState);
   const [localError, setLocalError] = useState('');
@@ -58,10 +58,6 @@ const LoginFormComponent = ({
       {localError && <p className="error">{localError}</p>}
     </li>
   );
-};
-
-LoginFormComponent.defaultProps = {
-  domainInputInitialState: '',
 };
 
 LoginFormComponent.propTypes = {

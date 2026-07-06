@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import configureStore, { history } from './configureStore';
 import App from './app';
@@ -13,11 +13,13 @@ import './assets/css/sass/_index.scss';
 
 const store = configureStore();
 
-render(
-  <Provider store={store}>
-    <App history={history} />
-  </Provider>,
-  document.getElementById('root'),
+const root = createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App history={history} />
+    </Provider>
+  </React.StrictMode>,
 );
 
 serviceWorker.unregister();

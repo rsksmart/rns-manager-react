@@ -1,14 +1,16 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { parse } from 'query-string';
 import { RentalPeriodComponent } from '../components';
 import { getCost, getConversionRate } from '../operations';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   rifCost: state.registrar.rifCost,
   getting: state.registrar.gettingCost,
   committing: state.registrar.committing,
   committed: state.registrar.committed,
-  domain: parse(state.router.location.search).domain || state.auth.name,
+  domain: parse(ownProps.location.search).domain || state.auth.name,
   gettingConversionRate: state.registrar.gettingConversionRate,
   conversionRate: state.registrar.conversionRate,
 });
@@ -25,8 +27,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   getConversionRate: () => dispatchProps.getConversionRate(stateProps.conversionRate),
 });
 
-export default connect(
+const ConnectedRentalPeriodComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(RentalPeriodComponent);
+
+const RentalPeriodContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedRentalPeriodComponent {...props} location={location} />;
+};
+
+export default RentalPeriodContainer;

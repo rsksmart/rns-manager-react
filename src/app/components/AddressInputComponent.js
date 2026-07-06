@@ -16,25 +16,40 @@ import closeBlue from '../../assets/img/close-blue.svg';
 import settings from '../../assets/img/settings.svg';
 
 const AddressInputComponent = ({
-  allowDelete,
-  allowRsk,
+  allowDelete = true,
+  allowRsk = false,
   label,
-  labelDisplay,
-  labelIcon,
+  labelDisplay = null,
+  labelIcon = null,
   value,
-  isWaiting,
-  isError,
-  handleErrorClose,
-  handleSuccessClose,
+  isWaiting = false,
+  isError = false,
+  handleErrorClose = () => {},
+  handleSuccessClose = () => {},
   handleSubmit,
-  handleDelete,
-  isSuccess,
-  strings,
-  successTx,
-  validationChainId,
-  validation,
-  suggestions,
-  settingsMenu,
+  handleDelete = () => {},
+  isSuccess = false,
+  strings = {
+    cancel: 'Cancel',
+    delete: 'Delete',
+    delete_confirm_text: 'Are you sure you want to delete?',
+    edit: 'Edit',
+    edit_placeholder: 'enter address',
+    edit_propmt: 'Change ownership',
+    error_title: 'Error Title',
+    error_message: 'Error Message',
+    submit: 'Submit',
+    success_title: 'Success Title',
+    success_message: 'Success Message',
+    value_prefix: 'Owner',
+    waiting: 'Waiting text',
+    suggestion: '',
+  },
+  successTx = '',
+  validationChainId = null,
+  validation = true,
+  suggestions = [],
+  settingsMenu = null,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -262,40 +277,6 @@ const AddressInputComponent = ({
       />
     </div>
   );
-};
-
-AddressInputComponent.defaultProps = {
-  allowDelete: true,
-  allowRsk: false,
-  isError: false,
-  isWaiting: false,
-  isSuccess: false,
-  successTx: '',
-  validation: true,
-  validationChainId: null,
-  strings: {
-    cancel: 'Cancel',
-    delete: 'Delete',
-    delete_confirm_text: 'Are you sure you want to delete?',
-    edit: 'Edit',
-    edit_placeholder: 'enter address',
-    edit_propmt: 'Change ownership',
-    error_title: 'Error Title',
-    error_message: 'Error Message',
-    submit: 'Submit',
-    success_title: 'Success Title',
-    success_message: 'Success Message',
-    value_prefix: 'Owner',
-    waiting: 'Waiting text',
-    suggestion: '',
-  },
-  handleDelete: () => {},
-  handleErrorClose: () => {},
-  handleSuccessClose: () => {},
-  labelDisplay: null,
-  labelIcon: null,
-  suggestions: [],
-  settingsMenu: null,
 };
 
 AddressInputComponent.propTypes = {

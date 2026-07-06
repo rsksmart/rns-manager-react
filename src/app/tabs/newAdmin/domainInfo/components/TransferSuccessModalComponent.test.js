@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import mockStore from '../../../../../../tests/config/mockStore';
+import { renderWithProviders } from '../../../../../../tests/testUtils';
 import en from '../../../../../languages/en.json';
 
 import TransferSuccessModalComponent from './TransferSuccessModalComponent';
@@ -12,22 +12,19 @@ const store = mockStore({
   login_another_domain: en.login_another_domain,
 });
 
-const handleClick = jest.fn();
-
-const component = mount(
-  <Provider store={store}>
-    <TransferSuccessModalComponent
-      domain="jesse.rsk"
-      handleClick={handleClick}
-    />
-  </Provider>,
-);
-
 describe('TransferSuccessModalComponent', () => {
   it('calls function with value when clicked', () => {
-    component.find('button').at(0).simulate('click');
+    const handleClick = jest.fn();
+    renderWithProviders(
+      <TransferSuccessModalComponent domain="jesse.rsk" handleClick={handleClick} />,
+      { store },
+    );
+
+    // react-bootstrap's Modal renders into a portal on document.body, not inside `container`.
+    const buttons = document.querySelectorAll('button');
+    fireEvent.click(buttons[0]);
     expect(handleClick).toBeCalledWith('newAdmin');
-    component.find('button').at(1).simulate('click');
+    fireEvent.click(buttons[1]);
     expect(handleClick).toBeCalledWith('search');
 
     expect(handleClick).toHaveBeenCalledTimes(2);

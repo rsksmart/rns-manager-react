@@ -1,14 +1,16 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { parse } from 'query-string';
 import { LoadingComponent } from '../components';
 import { checkCanReveal } from '../operations';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   waiting: state.registrar.waiting,
   hash: state.registrar.hash,
   setupAddr: state.registrar.setupAddr,
   commitConfirmed: state.registrar.commitConfirmed,
-  domain: parse(state.router.location.search).domain,
+  domain: parse(ownProps.location.search).domain,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,8 +23,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   checkCanReveal: () => dispatchProps.checkCanReveal(stateProps.hash, stateProps.domain),
 });
 
-export default connect(
+const ConnectedLoadingComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(LoadingComponent);
+
+const LoadingContainer = (props) => {
+  const location = useLocation();
+  return <ConnectedLoadingComponent {...props} location={location} />;
+};
+
+export default LoadingContainer;

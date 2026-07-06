@@ -6,8 +6,12 @@ import closeBlue from '../../assets/img/close-blue.svg';
 import blueCheck from '../../assets/img/check-blue.svg';
 
 const UserSuccessComponent = ({
-  strings, title, message, handleCloseClick, address,
-  visible,
+  strings,
+  title = 'Success',
+  message = 'Success Message',
+  handleCloseClick = () => {},
+  address = '',
+  visible = true,
 }) => {
   if (!visible) {
     return (<></>);
@@ -30,7 +34,7 @@ const UserSuccessComponent = ({
       {address && (
         <p className="explorer">
           <a
-            href={`${process.env.REACT_APP_BLOCK_EXPLORER}/tx/${address}`}
+            href={`${import.meta.env.VITE_BLOCK_EXPLORER}/tx/${address}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -40,14 +44,6 @@ const UserSuccessComponent = ({
       )}
     </div>
   );
-};
-
-UserSuccessComponent.defaultProps = {
-  title: 'Success',
-  message: 'Success Message',
-  handleCloseClick: () => {},
-  address: '',
-  visible: true,
 };
 
 UserSuccessComponent.propTypes = {

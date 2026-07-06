@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Switch, Route, withRouter } from 'react-router';
+import { Routes as RouterRoutes, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   HomeTab,
@@ -13,36 +13,33 @@ import {
   FaqTab,
 } from './tabs';
 
-const Routes = (props) => {
-  const { networkMatch, walletUnlocked, hasContracts } = props;
-
+const Routes = ({ networkMatch = false, walletUnlocked = false, hasContracts }) => {
   const notLoggedIn = !window.rLogin || !networkMatch || !walletUnlocked;
 
-  return (
-    <Switch>
-      {
-        !hasContracts && <Route component={ErrorTab} />
-      }
-      <Route exact path="/" component={HomeTab} />
-      {/* the following path is only for GitHub pages */}
-      <Route exact path="/rns-manager-react" component={HomeTab} />
-      <Route path="/search" component={SearchTab} />
-      <Route path="/resolve" component={ResolveTab} />
-      <Route path="/faq" component={FaqTab} />
-      <Route path="/registrar" component={RegistrarTab} />
-      {
-        notLoggedIn && <Route component={ErrorTab} />
-      }
-      <Route path="/newAdmin" component={NewAdminTab} />
-      <Route path="/notifications" component={NotificationTab} />
-      <Route component={() => <ErrorTab notFound />} />
-    </Switch>
-  );
-};
+  if (!hasContracts) {
+    return <ErrorTab />;
+  }
 
-Routes.defaultProps = {
-  networkMatch: false,
-  walletUnlocked: false,
+  return (
+    <RouterRoutes>
+      <Route path="/" element={<HomeTab />} />
+      {/* the following path is only for GitHub pages */}
+      <Route path="/rns-manager-react" element={<HomeTab />} />
+      <Route path="/search" element={<SearchTab />} />
+      <Route path="/resolve" element={<ResolveTab />} />
+      <Route path="/faq" element={<FaqTab />} />
+      <Route path="/registrar" element={<RegistrarTab />} />
+      {notLoggedIn ? (
+        <Route path="*" element={<ErrorTab />} />
+      ) : (
+        <>
+          <Route path="/newAdmin/*" element={<NewAdminTab />} />
+          <Route path="/notifications" element={<NotificationTab />} />
+          <Route path="*" element={<ErrorTab notFound />} />
+        </>
+      )}
+    </RouterRoutes>
+  );
 };
 
 Routes.propTypes = {
@@ -57,4 +54,4 @@ const mapStateToProps = state => ({
   hasContracts: state.auth.hasContracts,
 });
 
-export default withRouter(connect(mapStateToProps)(Routes));
+export default connect(mapStateToProps)(Routes);

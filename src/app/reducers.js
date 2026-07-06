@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
 import authReducer from './auth';
 import notificationReducer from './notifications';
 import browserNotificationsReducer from './browerNotifications';
@@ -10,7 +9,7 @@ import registrar from './tabs/registrar/reducer';
 import resolve from './tabs/resolve/reducer';
 import search from './tabs/search/reducer';
 
-const rootReducer = history => combineReducers({
+const rootReducer = () => combineReducers({
   auth: authReducer,
   browserNotifications: browserNotificationsReducer,
   multilanguage,
@@ -18,7 +17,6 @@ const rootReducer = history => combineReducers({
   notifications: notificationReducer,
   registrar,
   resolve,
-  router: connectRouter(history),
   search,
 });
 

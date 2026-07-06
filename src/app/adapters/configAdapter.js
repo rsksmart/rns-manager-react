@@ -3,8 +3,8 @@ import Testnet from '../../config/contracts.testnet.json';
 import Local from '../../config/contracts.local.json';
 import Testing from '../../config/contracts.testing.json';
 
-const env = process.env.REACT_APP_ENVIRONMENT
-  ? process.env.REACT_APP_ENVIRONMENT : 'production';
+const env = import.meta.env.VITE_ENVIRONMENT
+  ? import.meta.env.VITE_ENVIRONMENT : 'production';
 
 const returnValue = (name) => {
   switch (env) {

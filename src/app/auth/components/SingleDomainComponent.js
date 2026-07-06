@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const SingleDomainComponent = ({
-  strings, domain, handleTextClick, handleDisconnectClick, isCurrent,
+  strings, domain, handleTextClick, handleDisconnectClick, isCurrent = false,
 }) => (
   <li className={isCurrent ? 'row current' : 'row previous'}>
     <div className="col-sm-10 domain">
@@ -25,10 +25,6 @@ const SingleDomainComponent = ({
     </div>
   </li>
 );
-
-SingleDomainComponent.defaultProps = {
-  isCurrent: false,
-};
 
 SingleDomainComponent.propTypes = {
   domain: propTypes.string.isRequired,

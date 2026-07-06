@@ -13,7 +13,7 @@ import editActive from '../../../../../assets/img/edit-active.svg';
 import closeBlue from '../../../../../assets/img/close-blue.svg';
 
 const ViewContractAbiComponent = ({
-  strings, value, handleClick, isWaiting, errorMessage, handleCloseClick, successTx,
+  strings, value, handleClick, isWaiting, errorMessage = null, handleCloseClick, successTx = null,
   prettyJson,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -134,11 +134,6 @@ const ViewContractAbiComponent = ({
       </div>
     </div>
   );
-};
-
-ViewContractAbiComponent.defaultProps = {
-  errorMessage: null,
-  successTx: null,
 };
 
 ViewContractAbiComponent.propTypes = {

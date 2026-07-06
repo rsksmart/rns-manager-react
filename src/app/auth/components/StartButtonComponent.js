@@ -5,11 +5,9 @@ import {
 } from 'react-bootstrap';
 import { multilanguage } from 'redux-multilanguage';
 
-const StartButtonComponent = (props) => {
-  const {
-    strings, open, user, isOwner, domain, address,
-  } = props;
-
+const StartButtonComponent = ({
+  strings, open, user, isOwner, domain = null, address = null,
+}) => {
   const className = 'start my-2 my-sm-0';
 
   if (!address) {
@@ -52,11 +50,6 @@ StartButtonComponent.propTypes = {
   isOwner: propTypes.bool.isRequired,
   domain: propTypes.string,
   address: propTypes.string,
-};
-
-StartButtonComponent.defaultProps = {
-  domain: null,
-  address: null,
 };
 
 export default multilanguage(StartButtonComponent);

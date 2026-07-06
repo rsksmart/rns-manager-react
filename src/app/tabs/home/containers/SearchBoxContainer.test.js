@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 
 import searchReducer from '../../search/reducer';
 import SearchBoxContainer from './SearchBoxContainer';
 
 import multiLanguageStore from '../../../../../tests/config/multiLanguageStore';
+import { renderWithProviders } from '../../../../../tests/testUtils';
 
 describe('searchBoxContainer', () => {
   const storeSetup = { search: searchReducer };
@@ -18,16 +18,12 @@ describe('searchBoxContainer', () => {
 
   it('handles handleClick function and sets domain in reducer', () => {
     const store = multiLanguageStore(storeSetup);
-    const component = mount(
-      <Provider store={store}>
-        <SearchBoxContainer />
-      </Provider>,
-    );
+    const { container } = renderWithProviders(<SearchBoxContainer />, { store });
 
-    component.find('input').simulate('change', { target: { value: 'foobar' } });
-    expect(component.find('input').props().value).toBe('foobar');
+    fireEvent.change(container.querySelector('input'), { target: { value: 'foobar' } });
+    expect(container.querySelector('input').value).toBe('foobar');
 
-    component.find('button').simulate('click');
+    fireEvent.click(container.querySelector('button'));
     expect(store.getState().search.domain).toEqual('foobar');
   });
 });

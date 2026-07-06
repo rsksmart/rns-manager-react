@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render, fireEvent } from '@testing-library/react';
 import mockStore from '../../../../../tests/config/mockStore';
 import en from '../../../../languages/en.json';
 
@@ -15,13 +15,10 @@ const store = mockStore({
   close: en.close,
 });
 
-const handleAdminClick = jest.fn();
-const handleRegisterNewClick = jest.fn();
-
-const component = mount(
+const renderComponent = (handleManageClick, handleRegisterNewClick) => render(
   <Provider store={store}>
     <AutoLoginComponent
-      handleManageClick={handleAdminClick}
+      handleManageClick={handleManageClick}
       handleRegisterNewClick={handleRegisterNewClick}
       successTx="0x123456879..."
     />
@@ -30,19 +27,22 @@ const component = mount(
 
 describe('AutoLoginComponent', () => {
   it('should matches snapshot', () => {
-    expect(component).toMatchSnapshot();
+    const { container } = renderComponent(jest.fn(), jest.fn());
+    expect(container).toMatchSnapshot();
   });
 
-
   it('should call functions when buttons are clicked', () => {
-    const buttons = component.find('.btn-primary');
+    const handleAdminClick = jest.fn();
+    const handleRegisterNewClick = jest.fn();
+    const { container } = renderComponent(handleAdminClick, handleRegisterNewClick);
+    const buttons = container.querySelectorAll('.btn-primary');
 
-    expect(buttons.at(0).text()).toBe(en.admin_domain);
-    buttons.at(0).simulate('click');
+    expect(buttons[0].textContent).toBe(en.admin_domain);
+    fireEvent.click(buttons[0]);
     expect(handleAdminClick).toHaveBeenCalledTimes(1);
 
-    expect(buttons.at(1).text()).toBe(en.register_another_domain);
-    buttons.at(1).simulate('click');
+    expect(buttons[1].textContent).toBe(en.register_another_domain);
+    fireEvent.click(buttons[1]);
     expect(handleRegisterNewClick).toHaveBeenCalledTimes(1);
   });
 });

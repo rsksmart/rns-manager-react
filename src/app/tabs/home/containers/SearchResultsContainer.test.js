@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 
 import searchReducer, { initialState } from '../../search/reducer';
 import SearchResultsContainer from './SearchResultsContainer';
 
 import multiLanguageStore from '../../../../../tests/config/multiLanguageStore';
 import { requestDomainState, receiveDomainState, receiveDomainCost } from '../../search/actions';
+import { renderWithProviders } from '../../../../../tests/testUtils';
 
 describe('searchResultsContainer', () => {
   let store;
@@ -21,17 +21,13 @@ describe('searchResultsContainer', () => {
     store.dispatch(receiveDomainCost(4));
 
     // create container
-    const wrapper = mount(
-      <Provider store={store}>
-        <SearchResultsContainer />
-      </Provider>,
-    );
+    const { container } = renderWithProviders(<SearchResultsContainer />, { store });
 
-    expect(wrapper.find('h3').text()).toBe('foobar.rsk');
-    expect(wrapper.find('span.rifPrice').text()).toBe('4 rif');
-    expect(wrapper.find('p.status').text()).toBe('available');
+    expect(container.querySelector('h3').textContent).toBe('foobar.rsk');
+    expect(container.querySelector('span.rifPrice').textContent).toBe('4 rif');
+    expect(container.querySelector('p.status').textContent).toBe('available');
 
-    wrapper.find('button').simulate('click');
+    fireEvent.click(container.querySelector('button'));
 
     expect(store.getState().search).toEqual(initialState);
   });

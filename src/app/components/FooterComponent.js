@@ -17,7 +17,7 @@ const FooterComponent = (props) => {
     rel: 'noopener noreferrer',
   };
 
-  const appUrl = process.env.REACT_APP_URL;
+  const appUrl = import.meta.env.VITE_URL;
   const domain = appUrl.slice(appUrl.indexOf('//') + 2, -1);
 
   return (
@@ -80,7 +80,7 @@ const FooterComponent = (props) => {
                 {`Copyright © ${new Date().getFullYear()} `}
                 RootstockLabs. All rights reserved.
                 {` ${version}`}
-                {process.env.REACT_APP_GIT_HASH && ` (${process.env.REACT_APP_GIT_HASH.slice(0, 7)})`}
+                {import.meta.env.VITE_GIT_HASH && ` (${import.meta.env.VITE_GIT_HASH.slice(0, 7)})`}
               </p>
             </Col>
           </Row>

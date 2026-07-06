@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
 import UserErrorComponent from './UserErrorComponent';
 import mockStore from '../../../tests/config/mockStore';
@@ -16,48 +16,50 @@ const store = mockStore({
 
 describe('UserErrorComponent', () => {
   it('renders and matches snapshot', () => {
-    const component = mount(<Provider store={store}><UserErrorComponent /></Provider>);
-    expect(component).toMatchSnapshot();
+    const { container } = render(
+      <Provider store={store}><UserErrorComponent /></Provider>,
+    );
+    expect(container).toMatchSnapshot();
   });
 
   it('renders correct title and message text', () => {
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <UserErrorComponent title="Test Title" message="Test Message!" />
       </Provider>,
     );
 
-    expect(component.find('strong').text()).toEqual('Test Title');
-    expect(component.find('p').at(1).text()).toEqual('Test Message!');
+    expect(container.querySelector('strong').textContent).toEqual('Test Title');
+    expect(container.querySelectorAll('p')[1].textContent).toEqual('Test Message!');
   });
 
   it('returns blank when visible is false', () => {
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <UserErrorComponent title="Test Title" message="Test Message!" visible={false} />
       </Provider>,
     );
 
-    expect(component.html()).toEqual('');
+    expect(container.firstChild).toBeNull();
   });
 
   it('returns standard message when sent a constant for no resolver name', () => {
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <UserErrorComponent message="ERROR_RESOLVE_NAME" visible />
       </Provider>,
     );
 
-    expect(component.find('p').at(1).text()).toEqual(en.resolve_not_set);
+    expect(container.querySelectorAll('p')[1].textContent).toEqual(en.resolve_not_set);
   });
 
   it('returns standard message when sent a constant for same value', () => {
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <UserErrorComponent message="ERROR_SAME_VALUE" visible />
       </Provider>,
     );
 
-    expect(component.find('p').at(1).text()).toEqual(en.same_value);
+    expect(container.querySelectorAll('p')[1].textContent).toEqual(en.same_value);
   });
 });
